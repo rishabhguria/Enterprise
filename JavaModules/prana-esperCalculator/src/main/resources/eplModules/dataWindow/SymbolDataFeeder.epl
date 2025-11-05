@@ -1,0 +1,493 @@
+module eplModules.dataWindow.SymbolDataFeeder;
+
+uses eplModules.dataWindow.AuecFeeder;
+uses eplModules.dataWindow.BetaForSymbolFeeder;
+uses eplModules.dataWindow.AvgVolumeCustomDaysFeeder;
+uses eplModules.dataWindow.CustomSymbolDataFeeder;
+
+@Name('SymbolDataWindow')
+@Description('This store latest data of livefeed for each symbols, based on selected feed price change.')
+create window SymbolDataWindow.std:unique(symbol)
+(	
+	symbol string,
+	underlyingSymbol string,
+	askPrice double,
+	bidPrice double,
+	lowPrice double,
+	highPrice double,
+	openPrice double,
+	closePrice double,
+	lastPrice double,
+	selectedFeedPrice double,
+	conversionMethod string,
+	markPrice double,	
+	delta double,
+	beta5YearMonthly double,
+	assetId int,
+	openInterest double,
+	avgVolume20Days double,
+	avgVolume double,
+	sharesOutstanding BigDecimal,
+	pricingStatus int,
+	parentWindowStream string
+);
+
+@Name('SymbolDataWithBeta')
+@Description('This inserts data from SymbolData,CustomSymbolDataWindow,BetaWindow,AvgVolumeCustomDaysWindow on the basis of symbol.')
+insert into SymbolDataWithBeta
+select 
+	coalesce(c.symbol, s.symbol) as symbol,
+	coalesce(c.underlyingSymbol, coalesce(s.underlyingSymbol, c.symbol)) as underlyingSymbol,
+	coalesce(c.askPrice, coalesce(s.askPrice, 0.0)) as askPrice,
+	coalesce(c.bidPrice, coalesce(s.bidPrice, 0.0)) as bidPrice,
+	coalesce(c.lowPrice, coalesce(s.lowPrice, 0.0)) as lowPrice,
+	coalesce(c.highPrice, coalesce(s.highPrice, 0.0)) as highPrice,
+	coalesce(c.openPrice, coalesce(s.openPrice, 0.0)) as openPrice,
+	coalesce(c.closePrice, coalesce(s.closePrice, 0.0)) as closePrice,
+	coalesce(c.lastPrice, coalesce(s.lastPrice, 0.0)) as lastPrice,
+	coalesce(c.selectedFeedPrice, coalesce(s.selectedFeedPrice, 0.0)) as selectedFeedPrice,
+	coalesce(c.conversionMethod, coalesce(s.conversionMethod, 'M')) as conversionMethod,
+	coalesce(c.markPrice, coalesce(s.markPrice, 0.0)) as markPrice,
+	coalesce(c.delta, coalesce(s.delta,1)) as delta,	
+	case 
+		when (c.beta5YearMonthly is not null)
+			then c.beta5YearMonthly
+		when (b is not null and b.beta5YearMonthly <> 0) 
+			then b.beta5YearMonthly
+		when s.beta5YearMonthly<>0 and GetBetaFromLiveFeed
+			then s.beta5YearMonthly
+		else 1
+	end as beta5YearMonthly,
+	coalesce(c.assetId , coalesce(s.assetId, 1)) as assetId,
+	coalesce(c.openInterest , coalesce(s.openInterest, 0.0)) as openInterest,
+	coalesce(c.avgVolume20Days , coalesce(s.avgVolume20Days, 0.0)) as avgVolume20Days,
+	coalesce(a.avgVolume, 0) as avgVolume,
+	coalesce(c.sharesOutstanding, coalesce(s.sharesOutstanding, BigDecimal.ZERO)) as sharesOutstanding,
+	coalesce(s.pricingStatus, 0) as pricingStatus, /*We are not considerng Interceptor Flow for Pricing Status*/
+	"SymbolData,CustomSymbolDataWindow,BetaWindow,AvgVolumeCustomDaysWindow" as parentWindowStream
+from 
+	SymbolData.std:unique(symbol) as s full outer join
+	CustomSymbolDataWindow as c on c.symbol = s.symbol left outer join
+	BetaWindow as b on s.symbol = b.symbol left outer join
+	AvgVolumeCustomDaysWindow as a on a.symbol = s.symbol;
+/* where s.selectedFeedPrice is not 0.0 or s.askPrice is not 0.0 or s.bidPrice is not 0.0; */
+
+@Name('SymbolDataWindowInsert')
+@Description('This updates the SymbolDataWindow every time new SymbolDataWithBeta event occurs.')
+on SymbolDataWithBeta(symbol not in ('')) as s
+merge SymbolDataWindow sw where sw.symbol = s.symbol
+when not matched
+		then insert select			
+			s.symbol as symbol,
+		   	s.underlyingSymbol as underlyingSymbol,
+			s.askPrice as askPrice,
+			s.bidPrice as bidPrice,
+			s.lowPrice as lowPrice,
+			s.highPrice as highPrice,
+			s.openPrice as openPrice,
+			s.closePrice as closePrice,
+			s.lastPrice as lastPrice,
+			s.selectedFeedPrice as selectedFeedPrice,
+			s.conversionMethod as conversionMethod,
+			s.markPrice as markPrice,
+	 		coalesce(s.delta,1) as delta,
+	 		s.beta5YearMonthly as beta5YearMonthly,
+	 		s.assetId as assetId,
+	 		s.openInterest as openInterest,
+	 		s.avgVolume20Days as avgVolume20Days,
+	 		s.avgVolume as avgVolume,
+	 		s.sharesOutstanding as sharesOutstanding,
+	 		s.pricingStatus as pricingStatus,
+		    "SymbolDataWithBeta-Insert1" as parentWindowStream
+	 		
+ 		then insert into SymbolDataWindowUpdated select
+			s.symbol as modificationId,
+			s.selectedFeedPrice as selectedFeedPrice,
+			s.symbol as symbol,
+		    "SymbolDataWithBeta-Insert1" as parentWindowStream,
+		    setSymbolDataChangedValue(true)
+		    
+when matched and s.assetId is null or s.assetId not in (12) and
+	(
+		s.underlyingSymbol <> sw.underlyingSymbol or
+		s.selectedFeedPrice <> sw.selectedFeedPrice or
+		s.askPrice <> sw.askPrice or
+		s.bidPrice <> sw.bidPrice or
+		s.lowPrice <> sw.lowPrice or
+		s.highPrice <> sw.highPrice or
+		s.openPrice <> sw.openPrice or
+		s.closePrice <> sw.closePrice or
+		s.markPrice <> sw.markPrice or
+		s.lastPrice <> sw.lastPrice or				
+		s.delta <> sw.delta or
+		s.beta5YearMonthly <> sw.beta5YearMonthly or
+		s.assetId <> sw.assetId or
+		s.openInterest <> sw.openInterest or
+		s.avgVolume20Days <> sw.avgVolume20Days or
+		s.avgVolume <> sw.avgVolume or
+		s.sharesOutstanding <> sw.sharesOutstanding or 
+		s.pricingStatus <> sw.pricingStatus 
+	)	
+		then 
+			update 
+				set
+					 sw.underlyingSymbol = s.underlyingSymbol,
+					 sw.selectedFeedPrice = s.selectedFeedPrice,
+					 sw.askPrice = s.askPrice,
+					 sw.bidPrice = s.bidPrice,
+					 sw.lowPrice = s.lowPrice,
+					 sw.highPrice = s.highPrice,
+					 sw.openPrice = s.openPrice,
+					 sw.closePrice = s.closePrice,
+					 sw.lastPrice = s.lastPrice,
+					 sw.conversionMethod =s.conversionMethod,
+					 sw.markPrice = s.markPrice,
+					 sw.delta = s.delta,
+					 sw.beta5YearMonthly=s.beta5YearMonthly,
+					 sw.assetId=s.assetId,
+					 sw.openInterest = s.openInterest,
+					 sw.avgVolume20Days = s.avgVolume20Days,
+					 sw.avgVolume = s.avgVolume,
+					 sw.sharesOutstanding = s.sharesOutstanding,
+					 sw.pricingStatus  = s.pricingStatus,
+					 sw.parentWindowStream = "SymbolDataWithBeta-Update1"
+					 
+				then insert into SymbolDataWindowUpdated select
+					s.symbol as modificationId,
+					s.selectedFeedPrice as selectedFeedPrice,
+					s.symbol as symbol,
+		   			"SymbolDataWithBeta-Update1" as parentWindowStream,
+		   			setSymbolDataChangedValue(true)
+					
+when matched and s.assetId in (12) and sw.conversionMethod <> s.conversionMethod and
+	(
+		s.underlyingSymbol <> sw.underlyingSymbol or
+		s.selectedFeedPrice <> sw.selectedFeedPrice or
+		s.askPrice <> sw.askPrice or
+		s.bidPrice <> sw.bidPrice or
+		s.lowPrice <> sw.lowPrice or
+		s.highPrice <> sw.highPrice or
+		s.openPrice <> sw.openPrice or
+		s.closePrice <> sw.closePrice or
+		s.lastPrice <> sw.lastPrice or				
+		s.delta <> sw.delta or
+		s.beta5YearMonthly <> sw.beta5YearMonthly or
+		s.assetId <> sw.assetId or
+		s.openInterest <> sw.openInterest or
+		s.avgVolume20Days <> sw.avgVolume20Days or
+		s.avgVolume <> sw.avgVolume or
+		s.sharesOutstanding <> sw.sharesOutstanding or
+		s.pricingStatus <> sw.pricingStatus 
+	)	
+		then update set 	
+		 sw.underlyingSymbol = s.underlyingSymbol,
+		 sw.selectedFeedPrice = s.selectedFeedPrice,
+		 sw.askPrice = s.askPrice,
+		 sw.bidPrice = s.bidPrice,
+		 sw.lowPrice = s.lowPrice,
+		 sw.highPrice = s.highPrice,
+		 sw.openPrice = s.openPrice,
+		 sw.closePrice = s.closePrice,
+		 sw.lastPrice = s.lastPrice,		 
+		 sw.conversionMethod =s.conversionMethod,
+		 sw.markPrice = coalesce(1/sw.markPrice,0),
+		 sw.delta = s.delta,
+		 sw.beta5YearMonthly=s.beta5YearMonthly,
+		 sw.assetId=s.assetId,
+		 sw.openInterest = s.openInterest,
+		 sw.avgVolume20Days = s.avgVolume20Days,
+		 sw.avgVolume = s.avgVolume,
+		 sw.sharesOutstanding = s.sharesOutstanding,
+		 sw.pricingStatus = s.pricingStatus,
+		 sw.parentWindowStream = "SymbolDataWithBeta-Update2"
+			 
+		then insert into SymbolDataWindowUpdated select
+		 s.symbol as modificationId,
+		 s.selectedFeedPrice as selectedFeedPrice,
+		 s.symbol as symbol,
+		 "SymbolDataWithBeta-Update2" as parentWindowStream,
+		 setSymbolDataChangedValue(true)
+
+when matched and s.assetId in (12) and sw.conversionMethod = s.conversionMethod and
+	(
+		s.underlyingSymbol <> sw.underlyingSymbol or
+		s.selectedFeedPrice <> sw.selectedFeedPrice or
+		s.askPrice <> sw.askPrice or
+		s.bidPrice <> sw.bidPrice or
+		s.lowPrice <> sw.lowPrice or
+		s.highPrice <> sw.highPrice or
+		s.openPrice <> sw.openPrice or
+		s.closePrice <> sw.closePrice or
+		s.lastPrice <> sw.lastPrice or				
+		s.delta <> sw.delta or
+		s.beta5YearMonthly <> sw.beta5YearMonthly or
+		s.assetId <> sw.assetId or
+		s.openInterest <> sw.openInterest or
+		s.avgVolume20Days <> sw.avgVolume20Days or
+		s.avgVolume <> sw.avgVolume or
+		s.sharesOutstanding <> sw.sharesOutstanding or 
+		s.pricingStatus <> sw.pricingStatus
+	)	
+		then update set 	
+		 sw.underlyingSymbol = s.underlyingSymbol,
+		 sw.selectedFeedPrice = s.selectedFeedPrice,
+		 sw.askPrice = s.askPrice,
+		 sw.bidPrice = s.bidPrice,
+		 sw.lowPrice = s.lowPrice,
+		 sw.highPrice = s.highPrice,
+		 sw.openPrice = s.openPrice,
+		 sw.closePrice = s.closePrice,
+		 sw.lastPrice = s.lastPrice,		 
+		 sw.delta = s.delta,
+		 sw.beta5YearMonthly=s.beta5YearMonthly,
+		 sw.assetId=s.assetId,
+		 sw.openInterest=s.openInterest,
+		 sw.avgVolume20Days = s.avgVolume20Days,
+		 sw.avgVolume = s.avgVolume,
+		 sw.sharesOutstanding = s.sharesOutstanding,
+		 sw.pricingStatus = s.pricingStatus,
+		 sw.parentWindowStream = "SymbolDataWithBeta-Update3"
+			 
+		then insert into SymbolDataWindowUpdated select
+		 s.symbol as modificationId,
+		 s.selectedFeedPrice as selectedFeedPrice,
+		 s.symbol as symbol,
+		 "SymbolDataWithBeta-Update3" as parentWindowStream,
+		 setSymbolDataChangedValue(true);
+
+
+
+@Name('SymbolDataWindowInsertReverseFx')
+@Description('This updates the SymbolDataWindow every time new SymbolDataWithBeta event occurs and on the basis of reverseCurrencyPair symbol.')
+on SymbolDataWithBeta(symbol not in ('')) as s
+merge SymbolDataWindow sw where sw.symbol = reverseCurrencyPair(s.symbol) 
+when matched and s.assetId in (12) and sw.conversionMethod = s.conversionMethod  and 
+(
+			 sw.underlyingSymbol <> s.underlyingSymbol or
+			 sw.selectedFeedPrice <> s.selectedFeedPrice or
+			 sw.askPrice <> s.askPrice or
+			 sw.bidPrice <> s.bidPrice or
+			 sw.lowPrice <> s.lowPrice or
+			 sw.highPrice <> s.highPrice or
+			 sw.openPrice <> s.openPrice or
+			 sw.closePrice <> s.closePrice or
+			 sw.lastPrice <> s.lastPrice or			 
+			 sw.delta <> s.delta or
+			 sw.beta5YearMonthly<>s.beta5YearMonthly 
+)
+	then update
+		set  
+		 	sw.underlyingSymbol = s.underlyingSymbol,
+			 conversionMethod = 
+			 	case 
+		    	when s.conversionMethod = 'D' then 'M'
+		    	when s.conversionMethod = 'M' then 'D' end,
+			 sw.selectedFeedPrice = s.selectedFeedPrice,
+			 sw.askPrice = s.askPrice,
+			 sw.bidPrice = s.bidPrice,
+			 sw.lowPrice = s.lowPrice,
+			 sw.highPrice = s.highPrice,
+			 sw.openPrice = s.openPrice,
+			 sw.closePrice = s.closePrice,
+			 sw.lastPrice = s.lastPrice,			 
+			 sw.markPrice = 1/sw.markPrice,
+			 sw.delta = s.delta,
+			 sw.beta5YearMonthly=s.beta5YearMonthly,
+			 sw.assetId=s.assetId,
+			 sw.openInterest = s.openInterest,
+			 sw.avgVolume20Days =s.avgVolume20Days,
+			 sw.avgVolume = s.avgVolume,
+			 sw.sharesOutstanding = s.sharesOutstanding,
+			 sw.pricingStatus = s.pricingStatus,
+			 sw.parentWindowStream = "SymbolDataWithBeta-Update4"
+			 then insert into SymbolDataWindowUpdated select
+					s.symbol as modificationId,
+					s.selectedFeedPrice as selectedFeedPrice,
+					reverseCurrencyPair(s.symbol) as symbol,
+		   			"SymbolDataWithBeta-Update4" as parentWindowStream,
+		   			setSymbolDataChangedValue(true)
+		
+when matched and s.assetId in (12) and sw.conversionMethod <> s.conversionMethod  and
+(
+			 sw.underlyingSymbol <> s.underlyingSymbol or			 
+			 sw.selectedFeedPrice <> s.selectedFeedPrice or
+			 sw.askPrice <> s.askPrice or
+			 sw.bidPrice <> s.bidPrice or
+			 sw.lowPrice <> s.lowPrice or
+			 sw.highPrice <> s.highPrice or
+			 sw.openPrice <> s.openPrice or
+			 sw.closePrice <> s.closePrice or
+			 sw.lastPrice <> s.lastPrice or			 
+			 sw.delta <> s.delta or
+			 sw.beta5YearMonthly<>s.beta5YearMonthly or
+			 sw.openInterest <> s.openInterest or
+			 sw.avgVolume20Days <> s.avgVolume20Days or
+			 sw.avgVolume <> s.avgVolume or
+			 sw.sharesOutstanding <> s.sharesOutstanding or
+			 sw.pricingStatus <> s.pricingStatus 
+)
+	then update
+		set  		
+		     sw.underlyingSymbol = s.underlyingSymbol,
+			 sw.selectedFeedPrice = s.selectedFeedPrice,
+			 sw.askPrice = s.askPrice,
+			 sw.bidPrice = s.bidPrice,
+			 sw.lowPrice = s.lowPrice,
+			 sw.highPrice = s.highPrice,
+			 sw.openPrice = s.openPrice,
+			 sw.closePrice = s.closePrice,
+			 sw.lastPrice = s.lastPrice,			 
+			 sw.delta = s.delta,
+			 sw.beta5YearMonthly=s.beta5YearMonthly,
+			 sw.assetId=s.assetId,
+			 sw.openInterest = s.openInterest,
+			 sw.avgVolume20Days = s.avgVolume20Days,
+			 sw.avgVolume = s.avgVolume,
+			 sw.sharesOutstanding =s.sharesOutstanding,
+			 sw.pricingStatus = s.pricingStatus,
+			 sw.parentWindowStream = "SymbolDataWithBeta-Update5"
+			 
+			 then insert into SymbolDataWindowUpdated select
+					s.symbol as modificationId,
+					s.selectedFeedPrice as selectedFeedPrice,
+					reverseCurrencyPair(s.symbol) as symbol,
+		   			"SymbolDataWithBeta-Update5" as parentWindowStream,
+		   			setSymbolDataChangedValue(true)
+		
+when not matched and s.assetId in (12)
+	then insert		
+		select    	
+			reverseCurrencyPair(s.symbol) as symbol,
+		   	s.underlyingSymbol as underlyingSymbol,
+			s.askPrice as askPrice,
+			s.bidPrice as bidPrice,
+			s.lowPrice as lowPrice,
+			s.highPrice as highPrice,
+			s.openPrice as openPrice,
+			s.closePrice as closePrice,
+			s.lastPrice as lastPrice,
+			s.selectedFeedPrice as selectedFeedPrice,
+			case 
+		    	when s.conversionMethod = 'D' then 'M'
+		    	when s.conversionMethod = 'M' then 'D'
+		    end as conversionMethod,
+			s.markPrice as markPrice,
+	 		coalesce(s.delta,1) as delta,
+	 		s.beta5YearMonthly as beta5YearMonthly,
+	 		s.assetId as assetId,
+	 		s.openInterest as openInterest,
+	 		s.avgVolume20Days as avgVolume20Days,
+	 		s.avgVolume as avgVolume,
+	 		s.sharesOutstanding as sharesOutstanding,
+	 		s.pricingStatus as pricingStatus,
+		   	"SymbolDataWithBeta-Insert2" as parentWindowStream
+	 		
+	 		then insert into SymbolDataWindowUpdated select
+					s.symbol as modificationId,
+					s.selectedFeedPrice as selectedFeedPrice,
+					reverseCurrencyPair(s.symbol) as symbol,
+		   			"SymbolDataWithBeta-Insert2" as parentWindowStream,
+		   			setSymbolDataChangedValue(true);
+					
+
+@Name('YesterdayFxRatesWindowInsert')
+@Description('This updates the SymbolDataWindow every time new YesterdayFxRates event occurs and on the basis of symbol.')
+on YesterdayFxRates as y
+merge SymbolDataWindow as s where y.currencySymbol = s.symbol
+	when matched and  s.conversionMethod = y.conversionMethodOperator and y.conversionRate <> s.markPrice
+			then update set s.markPrice = y.conversionRate ,
+							s.selectedFeedPrice = y.conversionRate
+	when matched and  s.conversionMethod <> y.conversionMethodOperator and y.conversionRate <> 1/s.markPrice
+			then update set s.markPrice = 1/y.conversionRate,
+							s.selectedFeedPrice = 1/y.conversionRate
+	when not matched
+			then insert
+				select	
+					y.currencySymbol as symbol,
+				   	y.currencySymbol as underlyingSymbol,
+					0.0 as askPrice,
+					0.0 as bidPrice,
+					0.0 as lowPrice,
+					0.0 as highPrice,
+					0.0 as openPrice,
+					0.0 as closePrice,
+					0.0 as lastPrice,
+					y.conversionRate as selectedFeedPrice,
+					y.conversionMethodOperator as conversionMethod,
+					y.conversionRate as markPrice,
+			 		1.0 as delta,
+			 		0.0 as beta5YearMonthly,
+			 		12 as assetId,
+			 		0.0 as openInterest,
+			 		0.0 as avgVolume20Days,
+			 		0.0 as avgVolume,
+			 		BigDecimal.ZERO as sharesOutstanding,
+			 		0 as pricingStatus,
+		   			"YesterdayFxRatesWindowInsert" as parentWindowStream;
+		
+ 
+@Name('YesterdayFxRatesWindowInsertReverse') 
+@Description('This merges the SymbolDataWindow to YesterdayFxRates on the basis of reverseCurrencyPair symbol.')
+on YesterdayFxRates as y
+merge SymbolDataWindow as s where reverseCurrencyPair(y.currencySymbol) = s.symbol
+	when matched and  s.conversionMethod = y.conversionMethodOperator and y.conversionRate <> 1/s.markPrice
+			then update set s.markPrice = 1/y.conversionRate
+	when matched and  s.conversionMethod <> y.conversionMethodOperator and y.conversionRate <> s.markPrice
+			then update set s.markPrice = y.conversionRate
+	when not matched
+			then insert
+				select	
+					reverseCurrencyPair(y.currencySymbol) as symbol,
+				   	reverseCurrencyPair(y.currencySymbol) as underlyingSymbol,
+					0.0 as askPrice,
+					0.0 as bidPrice,
+					0.0 as lowPrice,
+					0.0 as highPrice,
+					0.0 as openPrice,
+					0.0 as closePrice,
+					0.0 as lastPrice,
+					y.conversionRate as selectedFeedPrice,
+					case 
+				    	when y.conversionMethodOperator = 'D' then 'M'
+				    	when y.conversionMethodOperator = 'M' then 'D'
+		    		end as conversionMethod,
+					y.conversionRate as markPrice,
+			 		1.0 as delta,
+			 		0.0 as beta5YearMonthly,
+			 		12 as assetId,
+			 		0.0 as openInterest,
+			 		0.0 as avgVolume20Days,
+			 		0.0 as avgVolume,
+			 		BigDecimal.ZERO as sharesOutstanding,
+			 		0 as pricingStatus,
+		   			"YesterdayFxRatesWindowInsertReverse" as parentWindowStream;
+
+@Name('MarkPriceWindowInsert')
+@Description('This updates the SymbolDataWindow every time new MarkPrice event occurs.')
+on MarkPrice as y
+merge SymbolDataWindow as s where y.symbol = s.symbol
+	when matched then update set s.markPrice = y.markPrice
+	when not matched
+			then insert
+				select	
+					y.symbol as symbol,
+				   	y.symbol as underlyingSymbol,
+					0.0 as askPrice,
+					0.0 as bidPrice,
+					0.0 as lowPrice,
+					0.0 as highPrice,
+					0.0 as openPrice,
+					0.0 as closePrice,
+					0.0 as lastPrice,
+					y.markPrice as selectedFeedPrice,
+					'M' as conversionMethod,
+					y.markPrice as markPrice,
+			 		1.0 as delta,
+			 		0.0 as beta5YearMonthly,
+			 		y.assetId as assetId,
+			 		0.0 as openInterest,
+			 		0.0 as avgVolume20Days,
+			 		0.0 as avgVolume,
+			 		BigDecimal.ZERO as sharesOutstanding,
+			 		0 as pricingStatus,
+		   			"MarkPrice" as parentWindowStream; 

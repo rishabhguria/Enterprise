@@ -1,0 +1,83 @@
+module eplModules.postAggregation.global.AggregationGlobalIntermediate;
+
+
+uses eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolUpsert;
+uses  eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolWindowWithNav;
+
+uses eplModules.postAggregation.global.AggregationGlobalWindow;
+
+
+@Name('GlobalWithNavIntermediate')
+@Description('Insert data into GlobalWithNavIntermediate from UnderlyingSymbolWithNav whenever UnderlyingSymbolUpdated event occurs.')
+on pattern [every (T = UnderlyingSymbolUpdated)]
+insert into GlobalWithNavIntermediate
+select distinct
+
+	T.modifiedBy as modifiedBy,
+	
+	'Post' as taxlotType,
+	'Global' as compressionLevel,
+	
+
+	sum(coalesce(F.equityHaircutBase,0)) as equityHaircutBase,
+	sum(coalesce(F.indexHaircutBase,0)) as indexHaircutBase,
+	
+	sum(coalesce(F.liquidationPnlBase,0)) as liquidationPnlBase,
+	
+	
+	
+	sum(F.notionalBase) as notionalBase,
+	sum(F.cashImpactBase) as cashImpactBase,
+	sum(F.cashInflowBase) as cashInflowBase,
+	sum(F.cashOutflowBase) as cashOutflowBase,
+	sum(F.netMarketValueBase) as netMarketValueBase,
+	sum(F.yesterdayMarketValueBase) as yesterdayMarketValueBase,
+	F.grossMarketValueBaseGlobal as grossMarketValueBase,
+	sum(F.costBasisPnLBase) as costBasisPnLBase,
+	sum(F.dayPnLBase) as dayPnLBase,
+	F.netExposureBaseGlobal as netExposureBase,
+	F.grossExposureBaseGlobal as grossExposureBase,
+	sum(F.grossExposureUnderlying) as grossExposureUnderlying,
+	sum(F.betaAdjustedExposureBase) as betaAdjustedExposureBase,
+	sum(F.underlyingValueForOptionsBase) as underlyingValueForOptionsBase,
+	
+	
+	sum(F.longNotionalBase) as longNotionalBase,
+	sum(F.shortNotionalBase) as shortNotionalBase,
+	sum(F.shortMarketValueBase) as shortMarketValueBase,
+	sum(F.longMarketValueBase) as longMarketValueBase,
+	sum(F.shortExposureBase) as shortExposureBase,
+	sum(F.longExposureBase) as longExposureBase,
+	
+	sum(F.dayInterestBase) as dayInterestBase,
+	sum(F.totalInterestBase) as totalInterestBase,
+	
+	
+	sum(F.shortExposureUnderlying) as shortExposureUnderlying,
+	sum(F.longExposureUnderlying) as longExposureUnderlying,
+	
+	F.globalNav as globalNav,
+	F.startOfDayNavGlobal as startOfDayNavGlobal,
+	F.currentCash as currentCash,
+	F.accrual as accrual,
+	
+	sum(coalesce(F.todayAbsTradeQuantity,0)) as todayAbsTradeQuantity,
+	sum(coalesce(F.todayLongTradeQuantity,0)) as todayLongTradeQuantity,
+	sum(coalesce(F.todayShortTradeQuantity,0)) as todayShortTradeQuantity,
+	sum(coalesce(F.todayNetNotionalBase,0)) as todayNetNotionalBase,
+	sum(coalesce(F.todayLongNotionalBase,0)) as todayLongNotionalBase,
+	sum(coalesce(F.todayShortNotionalBase,0)) as todayShortNotionalBase,
+	
+	//F.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	//F.netExposureBaseGlobal as netExposureBaseGlobal,
+	//F.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	
+	sum(coalesce(F.betaAdjustedGrossExposureUnderlyingBase,0)) as betaAdjustedGrossExposureUnderlyingBase,
+	sum(coalesce(F.betaAdjustedLongExposureUnderlyingBase,0)) as betaAdjustedLongExposureUnderlyingBase,
+	sum(coalesce(F.betaAdjustedShortExposureUnderlyingBase,0)) as betaAdjustedShortExposureUnderlyingBase,
+	"UnderlyingSymbolUpdated,UnderlyingSymbolWithNav" as parentWindowStream
+	
+
+from 
+UnderlyingSymbolWithNav as F;
+

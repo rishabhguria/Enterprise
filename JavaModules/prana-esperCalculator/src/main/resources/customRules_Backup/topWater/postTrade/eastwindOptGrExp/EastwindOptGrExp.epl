@@ -1,0 +1,72 @@
+module customRules.postTrade.eastwindOptGrExp.EastwindOptGrExp;
+
+
+/* Constant Variable region starts here*/
+
+create constant variable double EASTWIND_MAX_GROSS_EXPOSURE_COEFFICIENT = 1.5;
+create constant variable double EASTWIND_OPT_GRS_EXPOSURE_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationOptionAccountAssetPostEastwind')
+@Description('Calculates gross exposure for options EastWind')
+insert into AggregationOptionAccountAssetPostEastwind
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(asset in ('EquityOption')) as T 
+
+where T.accountShortName='Eastwind'
+// T.asset in 
+//('EquityOption')// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('OptionExopsurePostEastwind')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationOptionAccountAssetPostEastwind]
+insert into OptionExopsurePostEastwind
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(EASTWIND_OPT_GRS_EXPOSURE_COEFFICIENT * coalesce(NF.accountNav,1) * EASTWIND_MAX_GROSS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationOptionAccountAssetPostEastwind" as parentWindowStream
+from 
+AccountWithNav as NF
+where NF.accountId=T.accountId;
+
+@Name('RuleName15FinalPostEastwind')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName15FinalPostEastwind
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '22.5'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'If options make up 22.5% or more of Eastwind, please advise' as summary,
+	R.accountShortName as dimension,
+	"OptionExopsurePostEastwind" as parentWindowStream
+from
+OptionExopsurePostEastwind as R
+where R.percentageExposure > 22.5;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

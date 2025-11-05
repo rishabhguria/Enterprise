@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[TEMPABC] (
+    [AUECIDABC] INT NULL
+);
+

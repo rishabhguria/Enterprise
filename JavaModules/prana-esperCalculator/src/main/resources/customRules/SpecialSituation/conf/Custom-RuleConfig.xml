@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ruleConfig>
+     <rules name="SpecialSituation">
+         <rule id="custom-rule-SpecialSituations1">
+               <name>Account-Issuer Exposure</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/accountIssuerExposure/</eplPath>
+               <description>Restriction on having no more than X%(Y%) of total assets in any issuer for the given Account (Other Accounts)</description>
+               <compressionLevel>Account-Issuer</compressionLevel>
+               <validationCompletedEventName>PreTradeAccountIssuerExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeAccountIssuerExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeAccountIssuerExposureCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) name" name="Account_Name" type="String" value="PE MS"/>
+					<constantValue displayName="Threshold for given account(s)" name="Exposure_Percentage" type="double" value="10"/>
+					<constantValue displayName="Threshold for other account(s)" name="Exposure_Percentage_Others" type="double" value="15"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable1" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+          <!-- <rule id="custom-rule-SpecialSituations2">
+               <name>Exposure to any 5 issuers in 'PE MS' Account</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/anyFiveIssuerExposureInPE/</eplPath>
+               <description>Restriction on having no more than X% of total assets in the securities any five issuers</description>
+               <compressionLevel>Account-Issuer</compressionLevel>
+               <validationCompletedEventName>PreTradeAnyFiveIssuerExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeAnyFiveIssuerExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeAnyFiveIssuerExposureCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) to be monitored" name="Account_Name_To_Check" type="String" value="PE MS"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage_To_Check" type="double" value="25"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+		  -->
+          <rule id="custom-rule-SpecialSituations3">
+               <name>Foreign Issuers Exposure for all Accounts</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/foreignIssuerExposureInPE/</eplPath>
+               <description>Restriction on having no more than X% of total assets in the securities of foreign issuers</description>
+               <compressionLevel>Account</compressionLevel>
+               <validationCompletedEventName>PreTradeForeignIssuerExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeForeignIssuerExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeForeignIssuerExposureCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) to be monitored" name="Account_Name_To_Monitor" type="String" value="Cayman MS, LS MS, PE MS, SSFQP MS, Tech MS, Tech2 MS"/>
+					<constantValue displayName="Country of Risk (Domestic)" name="Self_Currency" type="String" value="USD"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage_To_Monitor" type="double" value="20"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable2" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+        <rule id="custom-rule-SpecialSituations4-a">
+               <name>Account-Issuer Exposure for PE MS account</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/accountIssuerExposure/</eplPath>
+               <description>Restriction on having no more than X% of total assets in any issuer for the given Account</description>
+               <compressionLevel>Account-Issuer</compressionLevel>
+               <validationCompletedEventName>PostTradeAccountIssuerExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeAccountIssuerExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeAccountIssuerExposureCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) name" name="Account_Name1" type="String" value="PE MS"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage1" type="double" value="15"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable3" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+          <rule id="custom-rule-SpecialSituations4-b">
+               <name>Account-Issuer Exposure for TECH Accounts</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/accountIssuerExposureOther/</eplPath>
+               <description>Restriction on having no more than X% of total assets in any issuer for the given Account</description>
+               <compressionLevel>Account-Issuer</compressionLevel>
+               <validationCompletedEventName>PostTradeAccountIssuerExposureCheckOther</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeAccountIssuerExposureCheckOther"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeAccountIssuerExposureCheckOther"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) name" name="Account_Name2" type="String" value="Tech2 MS,Tech MS"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage2" type="double" value="15"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable6" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+          <rule id="custom-rule-SpecialSituations5">
+               <name>Exposure to any 5 issuers in PE MS Account</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/anyFiveIssuerExposureInPE/</eplPath>
+               <description>Restriction on having no more than X% of total assets in the securities any five issuers</description>
+               <compressionLevel>Account-Issuer</compressionLevel>
+               <validationCompletedEventName>PostTradeAnyFiveIssuerExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeAnyFiveIssuerExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeAnyFiveIssuerExposureCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) to be monitored" name="Account_Name_To_Check1" type="String" value="PE MS"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage_To_Check1" type="double" value="25"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable4" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+          <rule id="custom-rule-SpecialSituations6">
+               <name>Foreign Issuers Exposure in PE MS Account</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/foreignIssuerExposureInPE/</eplPath>
+               <description>Restriction on having no more than X% of total assets in the securities of foreign issuers</description>
+               <compressionLevel>Account</compressionLevel>
+               <validationCompletedEventName>PostTradeForeignIssuerExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeForeignIssuerExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeForeignIssuerExposureCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) to be monitored" name="Account_Name_To_Monitor1" type="String" value="PE MS"/>
+					<constantValue displayName="Country of Risk (Domestic)" name="Self_Currency1" type="String" value="USD"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage_To_Monitor1" type="double" value="20"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable5" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+		  
+		   <rule id="custom-rule-SpecialSituation7">
+               <name>Single Industry Exposure Limit in an Account</name>
+               <enabled>true</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/singleIndustryExposureCheck/</eplPath>
+               <description>
+                    No single industry can be > 25% of NAV
+               </description>
+               <compressionLevel>Account-Industry</compressionLevel>
+               <validationCompletedEventName>PreTradeSingleIndustryExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeSingleIndustryExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeSingleIndustryExposureCheck"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+                    <constantValue displayName="Industry code(s):" name="IndustryCodesSingle" type="String" value="Biotechnology"/>                    
+                    <constantValue displayName="Threshold %:" name="Percentage_SingleIndustryExposure" type="double" value="25"/>
+                    <constantValue displayName="Account(s):" name="Account_SingleIndustryExposure" type="string" value="Cayman MS, LS MS, PE MS, SSFQP MS, Tech MS, Tech2 MS"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable8" type="String" value="Net Exposure"/>
+               </constantList>
+          </rule>
+		  
+		      <rule id="custom-rule-SpecialSituation8">
+               <name>Single Industry Exposure Limit in an Account</name>
+               <enabled>true</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/singleIndustryExposureCheck/</eplPath>
+               <description>
+                    No single industry can be > 25% of NAV
+               </description>
+               <compressionLevel>Account-Industry</compressionLevel>
+               <validationCompletedEventName>PostTradeSingleIndustryExposureCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeSingleIndustryExposureCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeSingleIndustryExposureCheck"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+                    <constantValue displayName="Industry code(s):" name="IndustryCodesSingle_Post" type="String" value="Biotechnology"/>                    
+                    <constantValue displayName="Threshold %:" name="Percentage_SingleIndustryExposure_Post" type="double" value="25"/>
+                    <constantValue displayName="Account(s):" name="Account_SingleIndustryExposure_Post" type="string" value="Cayman MS, LS MS, PE MS, SSFQP MS, Tech MS, Tech2 MS"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable7" type="String" value="Net Market Value"/>
+               </constantList>
+          </rule>
+		  
+		   <rule id="custom-rule-SpecialSituations9">
+               <name>Foreign Issuers Exposure-Other Accounts</name>
+               <enabled>true</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/foreignIssuerExposureOther/</eplPath>
+               <description>Restriction on having no more than X% of total assets in the securities of foreign issuers</description>
+               <compressionLevel>Account</compressionLevel>
+               <validationCompletedEventName>PostTradeForeignIssuerExposureCheckOtherAccount</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeForeignIssuerExposureCheckOtherAccount"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeForeignIssuerExposureCheckOtherAccount"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) to be monitored" name="Account_Name_To_Monitor_Other" type="String" value="PE MS"/>
+					<constantValue displayName="Country of Risk (Domestic)" name="Self_Currency1_Other" type="String" value="USD"/>
+					<constantValue displayName="Threshold" name="Exposure_Percentage_To_Monitor1_Other" type="double" value="20"/>
+					<constantValue displayName="Variable (Net Market Value or Net Exposure)" name="Variable5_Other" type="String" value="Net Market Value"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+     </rules>
+</ruleConfig>

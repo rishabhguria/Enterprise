@@ -1,0 +1,1477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DS_Reports">
+      <rd:DataSourceID>9a6fa202-4f05-4751-9627-b4ba1e1a0187</rd:DataSourceID>
+      <DataSourceReference>DS_Reports</DataSourceReference>
+    </DataSource>
+    <DataSource Name="DS_SMReports">
+      <rd:DataSourceID>15124fa2-78cd-4d73-9c04-de5a9caa8807</rd:DataSourceID>
+      <DataSourceReference>DS_SMReports</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="EndDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>PreviousBusinessDay</DataSetName>
+          <ValueField>LastBusinessDay</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramUserID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>17</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_3</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFundID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramMasterFundID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFunds">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramMasterFunds</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+          <LabelField>MasterFundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="fund">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>FundName</DataSetName>
+          <ValueField>FundName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Fund</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>FundName</DataSetName>
+          <ValueField>FundName</ValueField>
+          <LabelField>FundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="BlackScholeModel">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BlackScholeModel</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>BlackScholes</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Black76</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramAssetFilter">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetAssets</DataSetName>
+          <ValueField>AssetName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Assets</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetAssets</DataSetName>
+          <ValueField>AssetName</ValueField>
+          <LabelField>AssetName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="BreakdownChooser">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>MarketValue</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BreakdownChooser</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>MarketValue</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Exposure</Value>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramUDASectors">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DtatSetUDASector</DataSetName>
+          <ValueField>SectorName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Sectors</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DtatSetUDASector</DataSetName>
+          <ValueField>SectorName</ValueField>
+          <LabelField>SectorName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramUDASubSector">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetUDASubSector</DataSetName>
+          <ValueField>SubSectorName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>SubSectors</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetUDASubSector</DataSetName>
+          <ValueField>SubSectorName</ValueField>
+          <LabelField>SubSectorName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ITD">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>12/31/2012</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ITD</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramShowCompanyName">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>False</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramShowCompanyName</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramShowMasterFund">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>False</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramShowMasterFund</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramPxShock">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0.1</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>PxShock</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>-0.3</Value>
+            <Label>-30%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>-0.2</Value>
+            <Label>-20%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>-0.1</Value>
+            <Label>-10%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0.1</Value>
+            <Label>10%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0.2</Value>
+            <Label>20%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0.3</Value>
+            <Label>30%</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramVolShock">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0.3</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>VolShock</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>-0.3</Value>
+            <Label>-30%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>-0.1</Value>
+            <Label>-10%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0.1</Value>
+            <Label>10%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0.3</Value>
+            <Label>30%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>0.5</Value>
+            <Label>50%</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>100%</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="StressMVOrExp">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>MV</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>StressMVOrExp</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>MV</Value>
+            <Label>MarketValueChange</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Exp</Value>
+            <Label>Exposure</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ResultFormat">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ResultFormat</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>% of NaV</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Value</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ISBlack76">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>true</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ISBlack76</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>True</Value>
+            <Label>true</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>False</Value>
+            <Label>false</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="IsPMNav">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>true</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>IsPMNav</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>True</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>false</Value>
+            <Label>False</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="companyID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyID</DataSetName>
+          <ValueField>CompanyID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>companyID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ErrorMessage">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ErrorMessage</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ErrorNumber">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ErrorNumber</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramReportID">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>PSR_MW</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramIndexes">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>DJI,COMP,IUX,SPX</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Indexes</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>12.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>0.04in</RightMargin>
+  <LeftMargin>0.05in</LeftMargin>
+  <BottomMargin>0.05in</BottomMargin>
+  <rd:ReportID>d21ed575-b201-4cef-9ef1-950ba22b7944</rd:ReportID>
+  <PageWidth>11in</PageWidth>
+  <DataSets>
+    <DataSet Name="FundName">
+      <Fields>
+        <Field Name="CompanyUserFundID">
+          <DataField>CompanyUserFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CompanyFundID">
+          <DataField>CompanyFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FundName">
+          <DataField>FundName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetCompanyFundsForUser_Updated</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@FundID">
+            <Value>=Parameters!paramMasterFunds.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@paramUserID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="PreviousBusinessDay">
+      <Fields>
+        <Field Name="LastBusinessDay">
+          <DataField>LastBusinessDay</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_getLastBusinessDay</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetMasterFunds">
+      <Fields>
+        <Field Name="MasterFundID">
+          <DataField>MasterFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="MasterFundName">
+          <DataField>MasterFundName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MasterFundLogo">
+          <DataField>MasterFundLogo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetMasterFundByID</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@FundID">
+            <Value>=Parameters!paramMasterFundID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetPranaLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetPranaLogo</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyName">
+      <Fields>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select Name from T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetCompanyLogo</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@companyID">
+            <Value>=Parameters!companyID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@userID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorMessage">
+            <Value>=Parameters!ErrorMessage.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorNumber">
+            <Value>=Parameters!ErrorNumber.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyID">
+      <Fields>
+        <Field Name="CompanyID">
+          <DataField>CompanyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select top 1 CompanyID from T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetAssets">
+      <Fields>
+        <Field Name="AssetID">
+          <DataField>AssetID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AssetName">
+          <DataField>AssetName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Comment">
+          <DataField>Comment</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetAllAssets</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DtatSetUDASector">
+      <Fields>
+        <Field Name="SectorName">
+          <DataField>SectorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SectorID">
+          <DataField>SectorID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllSectors</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUDASubSector">
+      <Fields>
+        <Field Name="SubSectorName">
+          <DataField>SubSectorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SubSectorID">
+          <DataField>SubSectorID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllSubSector</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="GreekReport">
+      <Fields>
+        <Field Name="Sector">
+          <DataField>Sector</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SubSector">
+          <DataField>SubSector</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Symbol">
+          <DataField>Symbol</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MonthCode">
+          <DataField>MonthCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="datatype">
+          <DataField>datatype</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Value">
+          <DataField>Value</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Flag">
+          <DataField>Flag</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="OrderNo">
+          <DataField>OrderNo</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Space">
+          <DataField>Space</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_MW_GreeksReport</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@EndDate">
+            <Value>=Parameters!EndDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@fund">
+            <Value>=Join(Parameters!fund.Value,",")</Value>
+          </QueryParameter>
+          <QueryParameter Name="@BlackScholeModel">
+            <Value>=Parameters!BlackScholeModel.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="VegaAnalysis">
+      <Fields>
+        <Field Name="MonthCode">
+          <DataField>MonthCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="udasubsector">
+          <DataField>udasubsector</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="VEGA">
+          <DataField>VEGA</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select 
+case udasubsector
+	when 'Gold'
+	then rtrim(ltrim(substring(symbol,CharIndex(' ',Symbol),3))) 
+	else rtrim(ltrim(reverse(substring(symbol,CharIndex(' ',Symbol),3)))) 
+End 
+as 'MonthCode'
+,udasubsector
+,sum(isnull(Vega,0)*sidemultiplier*multiplier*beginningquantity) as VEGA
+from t_mw_genericpnl 
+where 
+	rundate= @EndDate and 
+	open_closetag='O' and 
+	asset&lt;&gt;'Cash'  and 
+	fund in (select * from dbo.split(@fund,','))
+group by substring(symbol,CharIndex(' ',Symbol),3), udasubsector
+having sum(isnull(Vega,0)*sidemultiplier*multiplier*beginningquantity)&lt;&gt;0</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@EndDate">
+            <Value>=Parameters!EndDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@fund">
+            <Value>=Join(Parameters!fund.Value,",")</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>6.25001in</Width>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox4">
+        <Top>3.375in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>11</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>="VEGA"</Value>
+      </Textbox>
+      <Matrix Name="matrix4">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>10</ZIndex>
+        <DataSetName>VegaAnalysis</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix4_MonthCode">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!MonthCode.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Subtotal>
+                <ReportItems>
+                  <Textbox Name="textbox10">
+                    <rd:DefaultName>textbox10</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Left>Solid</Left>
+                        <Right>Solid</Right>
+                        <Top>Solid</Top>
+                        <Bottom>Solid</Bottom>
+                      </BorderStyle>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <FontWeight>700</FontWeight>
+                      <TextAlign>Center</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Total</Value>
+                  </Textbox>
+                </ReportItems>
+              </Subtotal>
+              <ReportItems>
+                <Textbox Name="MonthCode_1">
+                  <rd:DefaultName>MonthCode_1</rd:DefaultName>
+                  <Style>
+                    <BorderStyle>
+                      <Left>Solid</Left>
+                      <Right>Solid</Right>
+                      <Top>Solid</Top>
+                      <Bottom>Solid</Bottom>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!MonthCode.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Top>3.625in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.25in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix4_udasubsector">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!udasubsector.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Subtotal>
+                <ReportItems>
+                  <Textbox Name="textbox11">
+                    <rd:DefaultName>textbox11</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Left>Solid</Left>
+                        <Right>Solid</Right>
+                        <Top>Solid</Top>
+                        <Bottom>Solid</Bottom>
+                      </BorderStyle>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <FontWeight>700</FontWeight>
+                      <TextAlign>Center</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <ZIndex>3</ZIndex>
+                    <CanGrow>true</CanGrow>
+                    <Value>Total</Value>
+                  </Textbox>
+                </ReportItems>
+              </Subtotal>
+              <ReportItems>
+                <Textbox Name="udasubsector">
+                  <rd:DefaultName>udasubsector</rd:DefaultName>
+                  <Style>
+                    <BorderStyle>
+                      <Left>Solid</Left>
+                      <Right>Solid</Right>
+                      <Top>Solid</Top>
+                      <Bottom>Solid</Bottom>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>4</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!udasubsector.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>3in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox9">
+              <rd:DefaultName>textbox9</rd:DefaultName>
+              <Style>
+                <BorderStyle>
+                  <Left>Solid</Left>
+                  <Right>Solid</Right>
+                  <Top>Solid</Top>
+                  <Bottom>Solid</Bottom>
+                </BorderStyle>
+                <FontFamily>Verdana</FontFamily>
+                <FontSize>7pt</FontSize>
+                <FontWeight>700</FontWeight>
+                <TextAlign>Center</TextAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>5</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value>Month</Value>
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.25in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="VEGA">
+                    <rd:DefaultName>VEGA</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Left>Solid</Left>
+                        <Right>Solid</Right>
+                        <Top>Solid</Top>
+                        <Bottom>Solid</Bottom>
+                      </BorderStyle>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <Format>n</Format>
+                      <TextAlign>Center</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <ZIndex>1</ZIndex>
+                    <CanGrow>true</CanGrow>
+                    <Value>=Sum(Fields!VEGA.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+        <Height>0.75in</Height>
+      </Matrix>
+      <Matrix Name="matrix3">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>9</ZIndex>
+        <DataSetName>GreekReport</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix3_Sector">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Sector.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="Sector">
+                  <rd:DefaultName>Sector</rd:DefaultName>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                      <Left>Solid</Left>
+                      <Right>Solid</Right>
+                      <Top>Solid</Top>
+                      <Bottom>Solid</Bottom>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <Format>n</Format>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Sector.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+          <RowGrouping>
+            <Width>1in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix3_datatype">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!datatype.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="datatype_1">
+                  <rd:DefaultName>datatype_1</rd:DefaultName>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                      <Left>Solid</Left>
+                      <Right>Solid</Right>
+                      <Top>Solid</Top>
+                      <Bottom>Solid</Bottom>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <Format>n</Format>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>1</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!datatype.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Filters>
+          <Filter>
+            <FilterExpression>=Fields!Flag.Value</FilterExpression>
+            <Operator>Equal</Operator>
+            <FilterValues>
+              <FilterValue>=0</FilterValue>
+            </FilterValues>
+          </Filter>
+          <Filter>
+            <FilterExpression>=Fields!datatype.Value</FilterExpression>
+            <Operator>In</Operator>
+            <FilterValues>
+              <FilterValue>VEGA</FilterValue>
+              <FilterValue>THETA</FilterValue>
+            </FilterValues>
+          </Filter>
+          <Filter>
+            <FilterExpression>=Fields!Sector.Value</FilterExpression>
+            <Operator>NotEqual</Operator>
+            <FilterValues>
+              <FilterValue>AUD Future</FilterValue>
+            </FilterValues>
+          </Filter>
+        </Filters>
+        <Top>2.625in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.25in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix3_ColumnGroup1">
+                <GroupExpressions>
+                  <GroupExpression />
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="textbox7">
+                  <rd:DefaultName>textbox7</rd:DefaultName>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>3</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value />
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>3in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox6">
+              <rd:DefaultName>textbox6</rd:DefaultName>
+              <Style>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>4</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.25in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="Value_2">
+                    <rd:DefaultName>Value_2</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                        <Left>Solid</Left>
+                        <Right>Solid</Right>
+                        <Top>Solid</Top>
+                        <Bottom>Solid</Bottom>
+                      </BorderStyle>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <FontWeight>700</FontWeight>
+                      <Format>n</Format>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=Sum(Fields!Value.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+        <Height>0.5in</Height>
+      </Matrix>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>8</ZIndex>
+        <DataSetName>GreekReport</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix1_SubSector">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!SubSector.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Sorting>
+                <SortBy>
+                  <SortExpression>=iif(Fields!SubSector.Value="Copper","1",iif(Fields!SubSector.Value="Aluminium","2",iif(Fields!SubSector.Value="Nasaac","3",iif(Fields!SubSector.Value="Nickel","4", IIF(Fields!SubSector.Value="Zinc","5",Fields!SubSector.Value)))))</SortExpression>
+                  <Direction>Ascending</Direction>
+                </SortBy>
+              </Sorting>
+              <ReportItems>
+                <Textbox Name="SubSector">
+                  <rd:DefaultName>SubSector</rd:DefaultName>
+                  <Style>
+                    <Color>White</Color>
+                    <BackgroundColor>SteelBlue</BackgroundColor>
+                    <BorderStyle>
+                      <Top>Solid</Top>
+                      <Bottom>Solid</Bottom>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!SubSector.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+            <FixedHeader>true</FixedHeader>
+          </RowGrouping>
+          <RowGrouping>
+            <Width>1in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix1_datatype">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!datatype.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="datatype">
+                  <rd:DefaultName>datatype</rd:DefaultName>
+                  <Style>
+                    <BackgroundColor>=iif(Fields!datatype.Value="Space","White","SkyBlue")</BackgroundColor>
+                    <BorderStyle>
+                      <Right>=iif(Fields!datatype.Value="Space", "None","Solid")</Right>
+                      <Top>=IIF(Fields!datatype.Value="P&amp;L" or Fields!datatype.Value="VEGA" or Fields!datatype.Value="3-mo Contract" or Fields!datatype.Value="Space","Solid","None")</Top>
+                      <Bottom>=IIF(Fields!datatype.Value="" or Fields!datatype.Value="P&amp;L","Solid","None")</Bottom>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>1</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=iif(Fields!datatype.Value="3-mo Contract" or Fields!datatype.Value="Space","",Fields!datatype.Value)</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Filters>
+          <Filter>
+            <FilterExpression>=Fields!SubSector.Value</FilterExpression>
+            <Operator>NotEqual</Operator>
+            <FilterValues>
+              <FilterValue>AUD Future</FilterValue>
+            </FilterValues>
+          </Filter>
+        </Filters>
+        <Top>1.75in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.25in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix1_Flag">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Flag.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="Flag">
+                  <rd:DefaultName>Flag</rd:DefaultName>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
+                  <Style>
+                    <BorderStyle>
+                      <Right>None</Right>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>4</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <UserSort>
+                    <SortExpression>=Fields!Flag.Value</SortExpression>
+                  </UserSort>
+                  <Value>=Fields!Flag.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+          <ColumnGrouping>
+            <Height>0.25in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix1_ColumnGroup2">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Space.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="textbox3">
+                  <rd:DefaultName>textbox3</rd:DefaultName>
+                  <Style>
+                    <BorderStyle>
+                      <Right>None</Right>
+                    </BorderStyle>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <TextAlign>Center</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>3</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Space.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>3in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox2">
+              <rd:DefaultName>textbox2</rd:DefaultName>
+              <Style>
+                <FontFamily>Verdana</FontFamily>
+                <FontSize>7pt</FontSize>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>5</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.25in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="Value">
+                    <rd:DefaultName>Value</rd:DefaultName>
+                    <Style>
+                      <Color>="Black"</Color>
+                      <BackgroundColor>=IIF(Fields!datatype.Value="","LightBlue",iif(Fields!datatype.Value="3-mo Contract","Orange","Transparent"))</BackgroundColor>
+                      <BorderStyle>
+                        <Left>=IIF(Fields!Flag.Value=0 and Fields!datatype.Value&lt;&gt;"Space","Solid","None")</Left>
+                        <Right>=IIF(Fields!Flag.Value=7 or (Fields!Flag.Value=0 and Fields!datatype.Value&lt;&gt;"Space"),"Solid","None")</Right>
+                        <Top>=IIF(Fields!datatype.Value="" or Fields!datatype.Value="P&amp;L" or Fields!datatype.Value="VEGA" or Fields!datatype.Value="3-mo Contract" or Fields!datatype.Value="Space","Solid","None")</Top>
+                        <Bottom>=IIF(Fields!datatype.Value="" or Fields!datatype.Value="P&amp;L","Solid","None")</Bottom>
+                      </BorderStyle>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <FontWeight>=IIF(Fields!datatype.Value="" or Fields!datatype.Value="3-mo Contract","Bold","Normal")</FontWeight>
+                      <Format>n</Format>
+                      <TextAlign>Center</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=IIF(Fields!datatype.Value="",Fields!Value.Value,Sum(Fields!Value.Value))</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+        <Height>0.75in</Height>
+      </Matrix>
+      <Image Name="image3">
+        <Sizing>AutoSize</Sizing>
+        <Visibility>
+          <Hidden>true</Hidden>
+        </Visibility>
+        <Top>0.25in</Top>
+        <MIMEType>image/jpeg</MIMEType>
+        <Source>Database</Source>
+        <Style />
+        <ZIndex>7</ZIndex>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!MasterFundLogo.Value, "DataSetMasterFunds")</Value>
+      </Image>
+      <Image Name="image2">
+        <Sizing>AutoSize</Sizing>
+        <Top>0.125in</Top>
+        <MIMEType>image/jpeg</MIMEType>
+        <Source>Database</Source>
+        <Style />
+        <ZIndex>6</ZIndex>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!Logo.Value, "DataSetPranaLogo")</Value>
+      </Image>
+      <Image Name="image1">
+        <Sizing>AutoSize</Sizing>
+        <MIMEType>image/jpeg</MIMEType>
+        <Source>Database</Source>
+        <Style />
+        <ZIndex>5</ZIndex>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!Logo.Value, "DataSetCompanyLogo")</Value>
+      </Image>
+      <Textbox Name="textbox42">
+        <Visibility>
+          <Hidden>=IIF(Parameters!paramShowCompanyName.Value,False,True)</Hidden>
+        </Visibility>
+        <Top>0.375in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=First(Fields!Name.Value, "DataSetCompanyName")</Value>
+      </Textbox>
+      <Textbox Name="textbox19">
+        <Top>1.125in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>="Run Date: " &amp; Today()  &amp; "      Report Date: " &amp; Parameters!EndDate.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox14">
+        <Top>0.875in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontSize>11pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>="Greeks Report as of "  &amp;   Parameters!EndDate.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <Visibility>
+          <Hidden>=IIF(Parameters!paramShowMasterFund.Value, False, True)</Hidden>
+        </Visibility>
+        <Top>0.625in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>=IIF(First(Fields!MasterFundName.Value, "DataSetMasterFunds").Equals("-Select-"),"",Join(Parameters!paramMasterFunds.Label,","))</Value>
+      </Textbox>
+      <Line Name="line2">
+        <Top>1.5in</Top>
+        <Style>
+          <BorderStyle>
+            <Default>Solid</Default>
+          </BorderStyle>
+        </Style>
+        <Height>0in</Height>
+      </Line>
+    </ReportItems>
+    <Height>6.68in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>0.05in</TopMargin>
+</Report>

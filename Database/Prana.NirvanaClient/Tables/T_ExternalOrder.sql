@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[T_ExternalOrder] (
+    [GroupRefID]                 BIGINT        IDENTITY (1, 1) NOT NULL,
+    [ExternalOrderID]            VARCHAR (50)  NOT NULL,
+    [OrderSideTagValue]          CHAR (1)      NULL,
+    [Symbol]                     VARCHAR (100) NULL,
+    [CounterPartyID]             INT           NULL,
+    [VenueID]                    INT           NULL,
+    [TradingAccountID]           INT           NULL,
+    [AUECID]                     INT           NULL,
+    [Quantity]                   FLOAT (53)    NULL,
+    [AvgPrice]                   FLOAT (53)    NULL,
+    [UserID]                     INT           NULL,
+    [PranaMsgType]               INT           NULL,
+    [AUECLocalDate]              DATETIME      NULL,
+    [SettlementDate]             DATETIME      NULL,
+    [ExpirationDate]             DATETIME      NULL,
+    [AssetID]                    INT           NULL,
+    [UnderLyingID]               INT           NULL,
+    [ExchangeID]                 INT           NULL,
+    [CurrencyID]                 INT           NULL,
+    [Description]                VARCHAR (MAX) NULL,
+    [PutOrCall]                  INT           NULL,
+    [StrikePrice]                FLOAT (53)    NULL,
+    [FXRate]                     FLOAT (53)    NULL,
+    [FXConversionMethodOperator] CHAR (5)      NULL
+);
+

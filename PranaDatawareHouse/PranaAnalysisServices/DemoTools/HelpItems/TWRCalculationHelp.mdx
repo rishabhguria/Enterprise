@@ -1,0 +1,249 @@
+with 
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3468].Lag(10):
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3468]
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+set [MonthStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3468].Parent.FirstChild.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3468].Parent.FirstChild
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+
+set [MPMonthStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3468].Parent.FirstChild.PrevMember.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3468].Parent.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+
+member [LastNonEmptyMarkPrice] as
+(
+sum(
+Tail(
+Filter(
+{([Dim Time].[Calender].Currentmember.lag(5)):
+([Dim Time].[Calender].Currentmember)}
+,
+Not isEmpty([Measures].[Final Mark Price]))
+,1),
+[Measures].[Final Mark Price]
+)
+)
+
+member [MonthBeginningMktValue] as
+(
+([Measures].[Cash Value],[Dim Time].[Calender].CurrentMember.PrevMember.LastChild)+
+sum(
+([Dim Time].[Calender].CurrentMember.PrevMember.LastChild)*
+[PM Open Position Snap Shots].[Symbol].children,
+[Measures].[SymbolQuantity]
+*([LastNonEmptyMarkPrice])
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+)
+)
+
+
+member ThisMonthAvgCostBasis as 
+(
+sum(
+
+([Dim Time].[Calender].Currentmember.FirstChild:
+[Dim Time].[Calender].Currentmember.LastChild)
+*[Dim Sub Accounts].[Type ID].&[4]
+,
+(
+	(
+	   [Dim Time].[Calender].Currentmember.Parent.LastChild.Properties("Key",Typed)-
+	   [Dim Time].[Calender].CurrentMember.Properties("Key",Typed)+1
+	)
+*[Measures].[Cash Value]
+)/
+   ([Dim Time].[Calender].Currentmember.Parent.LastChild.Properties("Key",Typed)-
+   [Dim Time].[Calender].Currentmember.Parent.FirstChild.Properties("Key",Typed))
+)
+)
+
+
+member MarketpriceAtPrevMonthLastDate as
+(
+([Dim Time].[Calender].CurrentMember.Parent.PrevMember.LastChild,[LastNonEmptyMarkPrice])
+)
+member MarketpriceAtMonthEndDate as
+(
+([Dim Time].[Calender].CurrentMember,[LastNonEmptyMarkPrice])
+)
+
+MEMBER [ThisMonthCashValue] AS
+(
+
+sum(
+([Dim Time].[Calender].CurrentMember.FirstChild:
+[Dim Time].[Calender].Currentmember.LastChild)
+*[Dim Sub Accounts].[Type ID].&[1]
+,
+[Measures].[Cash Value])
+)
+member DateName as 
+(
+[Dim Time].[Calender].Currentmember.LastChild.UniqueName
+)
+member DateName1 as 
+(
+[Dim Time].[Calender].CurrentMember.PrevMember.LastChild.UniqueName
+)
+
+member UnRealisedPnl as
+(
+sum(
+(
+
+[Dim Time].[Calender].Currentmember.LastChild)*
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+                  
+,
+ iif([Measures].[TaxlotTradeDate]>=[Dim Time].[Calender].CurrentMember.Parent.NextMember.FirstChild.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarketpriceAtMonthEndDate-[Measures].[AvgPrice])
+)
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarketpriceAtMonthEndDate-MarketpriceAtPrevMonthLastDate)
+)
+)
+)
+
+
+member RealisedPnl as
+(
+sum(
+Filter(
+crossjoin(([Dim Time].[Calender].CurrentMember.FirstChild:
+[Dim Time].[Calender].Currentmember.LastChild),
+      [Positional Taxlot].[TaxLotID].children),not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[Opening Trade Date Key]>=[Dim Time].[Calender].CurrentMember.FirstChild.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+-[Measures].[Opening Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarketpriceAtPrevMonthLastDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+set [QuarterlyMonthSet] as 
+{
+(EndDate.item(0).Parent.Parent.FirstChild)
+:
+(EndDate.item(0).Parent.PrevMember)
+}
+
+set [YearlyMonthSet] as 
+{
+(EndDate.item(0).Parent.Parent.Parent.FirstChild.FirstChild)
+:
+(EndDate.item(0).Parent.PrevMember)
+}
+
+
+member YearlyTWR as 
+(
+
+
+2.718281828^
+sum(
+     [YearlyMonthSet],
+     VBA![Log](iif( isempty([MonthBeginningMktValue]),1, 
+     (1+ ([UnRealisedPnl]+[RealisedPnl]+[ThisMonthCashValue])/
+     ([MonthBeginningMktValue]+[ThisMonthAvgCostBasis]))))
+    )
+-1
+)
+
+member QuarterlyTWR as 
+(
+
+
+2.718281828^
+sum(
+     [QuarterlyMonthSet],
+     VBA![Log](iif( isempty([MonthBeginningMktValue]),1, 
+     (1+ ([UnRealisedPnl]+[RealisedPnl]+[ThisMonthCashValue])/
+     ([MonthBeginningMktValue]+[ThisMonthAvgCostBasis]))))
+    )
+-1
+)
+
+
+
+
+
+
+SELECT  {
+MonthBeginningMktValue,
+UnRealisedPnl,
+RealisedPnl,
+DateName,
+DateName1
+
+ --QuarterlyTWR,
+--YearlyTWR
+} ON COLUMNS,
+
+
+
+  {
+
+YearlyMonthSet
+
+}on rows 
+from [Nirvana Client DW]

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A6B366D0-2376-48CE-A7C7-DBFFFCCEA694}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.ReconciliationNew</RootNamespace>
+    <AssemblyName>Prana.ReconciliationNew</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.DocumentExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Csla">
+      <HintPath>..\..\..\Application\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\DataEnritcher.cs" />
+    <Compile Include="BLL\FilteringHelper.cs" />
+    <Compile Include="BLL\GroupingComponent.cs" />
+    <Compile Include="BLL\DataReconciler.cs" />
+    <Compile Include="Classes\Cache Classes\CachedDataRecon.cs" />
+    <Compile Include="Classes\Cache Classes\CachedDataManagerRecon.cs" />
+    <Compile Include="Classes\ReconDashboardLayout.cs" />
+    <Compile Include="Classes\SecMasterHelper.cs" />
+    <Compile Include="Classes\Utilities\UltraGridBaseSorter.cs" />
+    <Compile Include="Classes\Utilities\UltraGridGroupHelper.cs" />
+    <Compile Include="Classes\ReconConstants.cs" />
+    <Compile Include="Classes\Enums.cs" />
+    <Compile Include="Classes\ReconManager.cs" />
+    <Compile Include="Classes\ReconPrefManager.cs" />
+    <Compile Include="Classes\ReconUtilities.cs" />
+    <Compile Include="DAL\DatabaseManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.BLL\Prana.PM.BLL.csproj">
+      <Project>{f3eb40af-d2b7-44c9-a7ed-fd54f4d95a3d}</Project>
+      <Name>Prana.PM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.TaskManagement.Definition\Prana.TaskManagement.Definition.csproj">
+      <Project>{5fb30912-0851-40ee-a312-9fb67d33af3f}</Project>
+      <Name>Prana.TaskManagement.Definition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.TaskManagement.Execution\Prana.TaskManagement.Execution.csproj">
+      <Project>{4a035762-7313-4316-b3d3-d4ca11e303f5}</Project>
+      <Name>Prana.TaskManagement.Execution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{a28ae507-104b-45c5-bcb1-ce51394e3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PL\Controls\" />
+    <Folder Include="PL\Forms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.ReconciliationNew.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.ReconciliationNew.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

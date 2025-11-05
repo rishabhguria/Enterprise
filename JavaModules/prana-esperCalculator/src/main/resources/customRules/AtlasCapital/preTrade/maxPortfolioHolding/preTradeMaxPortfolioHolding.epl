@@ -1,0 +1,60 @@
+module customRules.AtlasCapital.preTrade.maxPortfolioHolding.preTradeMaxPortfolioHolding;
+
+@Name('PositionCheckInAccount')
+@Description('Checks if trade done in set account and asset class or not.')
+on BasketEOM as B
+insert into PositionCheckInAccount
+select distinct
+    B.basketId as basketId,
+	B.userId as userId,
+	R.accountId as accountId,
+	R.accountShortName as accountShortName,
+	(case (valueExistsInCSV(R.accountShortName, Account_Position) is true and 
+	valueExistsInCSV(R.udaAsset, SecurityClass_Position) is false) 
+    when true then true 
+    else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfAccountPositionCheck')
+@Description('Stores calculated data about number of positions.')
+on PositionCheckInAccount as B
+insert into WhatIfAccountPositionCheck
+select distinct
+    B.basketId as basketId,
+    B.userId as userId,
+    B.accountId as accountId,
+    B.accountShortName as accountName,
+    B.validation as finalValidation,
+    sum(case (valueExistsInCSV(W.accountShortName, Account_Position) is true and 
+	valueExistsInCSV(W.udaAsset, SecurityClass_Position) is false) 
+    when true then 1 
+    else 0 end) as TotalPosition,
+    "WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId
+group by W.accountId ;
+
+@Name('PreTradeMaxPortfolioHolding')
+@Description('Final stream to check if condition is breached')
+insert into PreTradeMaxPortfolioHolding
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+    Account_Position || ValueSeparator || doubleFormat(Threshold_Position) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(A.TotalPosition) as actualResult,
+    'Account' || ValueSeparator || 'Total Positions' as constraintField,
+    (case A.finalValidation is true
+    when true then (case MinOrMax='MAXIMUM' when true then (A.TotalPosition>Threshold_Position)
+    else (A.TotalPosition<Threshold_Position) end)
+    else false end) as isViolated,
+	'Account: ' || A.accountName
+	|| ', Total Positions:' || doubleFormat(A.TotalPosition) as parameters,
+	current_timestamp as validationTime,
+	MinOrMax || ' portfolio holding ex cash of '|| doubleFormat(Threshold_Position) as summary,
+	A.accountName as dimension
+  from  WhatIfAccountPositionCheck as A
+  where A.userId is not null;

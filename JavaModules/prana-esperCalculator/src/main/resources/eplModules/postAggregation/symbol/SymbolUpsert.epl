@@ -1,0 +1,727 @@
+module eplModules.postAggregation.symbol.SymbolUpsert;
+
+
+uses eplModules.postAggregation.symbol.SymbolIntermediate;
+
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+
+uses eplModules.expressions.BaseExpression;
+uses eplModules.postAggregation.symbol.SymbolWindowWithNav;
+
+
+@Name('SymbolWithNav')
+@Description('Insert data into SymbolWithNavEvent from SymbolIntermediate and GlobalDivisorWindow.')
+insert into SymbolWithNavEvent
+select 
+
+	F.modifiedBy as modifiedBy,
+	
+	'Post' as taxlotType,
+	'Symbol' as compressionLevel,
+		
+	F.symbol as symbol,
+	
+	F.underlyingSymbol as underlyingSymbol,
+	F.exchange as exchange,
+	F.currency as currency,	
+	F.sector as sector,
+	F.subSector as subSector,
+	F.udaAsset as udaAsset,
+	F.udaSecurityType as udaSecurityType,
+	//F.udaSymbol as udaSymbol,
+	F.udaCountry as udaCountry,
+	F.underlyingCountry as underlyingCountry,
+	F.assetId as assetId,
+	F.asset as asset,
+	F.underlyingAsset as underlyingAsset,
+	F.putOrCall as putOrCall,
+	coalesce(F.strikePrice,0) as strikePrice,
+	
+	F.riskCurrency as riskCurrency,
+	F.issuer as issuer,
+	F.countryOfRisk as countryOfRisk,
+	F.region as region,
+	F.analyst as analyst,
+	F.ucitsEligibleTag as ucitsEligibleTag,
+	F.liquidTag as liquidTag,
+	F.marketCap as marketCap,
+	F.customUDA1 as customUDA1,
+	F.customUDA2 as customUDA2,
+	F.customUDA3 as customUDA3,
+	F.customUDA4 as customUDA4,
+	F.customUDA5 as customUDA5,
+	F.customUDA6 as customUDA6,
+	F.customUDA7 as customUDA7,
+	
+	coalesce(F.todayAbsTradeQuantity,0) as todayAbsTradeQuantity,
+	coalesce(F.todayLongTradeQuantity,0) as todayLongTradeQuantity,
+	coalesce(F.todayShortTradeQuantity,0) as todayShortTradeQuantity,
+	coalesce(F.todayNetNotionalBase,0) as todayNetNotionalBase,
+	coalesce(F.todayLongNotionalBase,0) as todayLongNotionalBase,
+	coalesce(F.todayShortNotionalBase,0) as todayShortNotionalBase,	
+		
+	coalesce(F.quantity,0) as quantity,
+	coalesce(F.netMarketValueLocal,0) as netMarketValueLocal,
+		
+	coalesce(F.yesterdayMarketValueLocal,0) as yesterdayMarketValueLocal,	
+	coalesce(F.grossMarketValueLocal,0) as grossMarketValueLocal,	
+	coalesce(F.notionalLocal,0) as notionalLocal,	
+	coalesce(F.equityHaircutLocal,0) as equityHaircutLocal,
+	coalesce(F.indexHaircutLocal,0) as indexHaircutLocal,
+	coalesce(F.equityHaircutBase,0) as equityHaircutBase,
+	coalesce(F.indexHaircutBase,0) as indexHaircutBase,
+	
+	coalesce(F.cashImpactLocal,0) as cashImpactLocal,
+	coalesce(F.cashInflowLocal,0) as cashInflowLocal,
+	coalesce(F.cashOutflowLocal,0) as cashOutflowLocal,
+	coalesce(F.costBasisPnLLocal,0) as costBasisPnLLocal,
+	coalesce(F.dayPnLLocal,0) as dayPnLLocal,
+	coalesce(F.netExposureLocal,0) as netExposureLocal,
+	coalesce(F.grossExposureLocal,0) as grossExposureLocal,
+	coalesce(F.betaAdjustedExposureLocal,0) as betaAdjustedExposureLocal,
+
+	coalesce(F.deltaAdjPosition,0) as deltaAdjPosition,
+	coalesce(F.liquidationPnlLocal,0) as liquidationPnlLocal,
+	coalesce(F.liquidationPnlBase,0) as liquidationPnlBase,
+	
+	coalesce(F.underlyingValueForOptionsLocal,0) as underlyingValueForOptionsLocal,
+	
+	
+	coalesce(F.notionalBase,0) as notionalBase,
+	coalesce(F.cashImpactBase,0) as cashImpactBase,
+	coalesce(F.cashInflowBase,0) as cashInflowBase,
+	coalesce(F.cashOutflowBase,0) as cashOutflowBase,
+	coalesce(F.netMarketValueBase,0) as netMarketValueBase,
+	coalesce(F.yesterdayMarketValueBase,0) as yesterdayMarketValueBase,
+	coalesce(F.grossMarketValueBase,0) as grossMarketValueBase,
+	coalesce(F.costBasisPnLBase,0) as costBasisPnLBase,
+	coalesce(F.dayPnLBase,0) as dayPnLBase,
+	coalesce(F.netExposureBase,0) as netExposureBase,
+	coalesce(F.grossExposureBase,0) as grossExposureBase,
+	coalesce(F.betaAdjustedExposureBase,0) as betaAdjustedExposureBase,
+
+	coalesce(F.underlyingValueForOptionsBase,0) as underlyingValueForOptionsBase,
+	
+	F.defaultPositionSide as defaultPositionSide,
+	F.exposurePositionSide as exposurePositionSide,
+		
+	coalesce(F.currentFxRate,0) as currentFxRate,
+	coalesce(F.yesterdayFxRate,0) as yesterdayFxRate,
+	F.fxConversionMethod as fxConversionMethod,
+	coalesce(F.askPrice,0) as askPrice,
+	coalesce(F.bidPrice,0) as bidPrice,
+	coalesce(F.lowPrice,0) as lowPrice,
+	coalesce(F.highPrice,0) as highPrice,
+	coalesce(F.openPrice,0) as openPrice,
+	coalesce(F.closePrice,0) as closePrice,
+	coalesce(F.lastPrice,0) as lastPrice,
+	coalesce(F.markPrice,0) as markPrice,	
+	coalesce(F.delta,0) as delta,
+	coalesce(F.leveragedFactor,0) as leveragedFactor,
+	coalesce(F.beta5YearMonthly,0) as beta5YearMonthly,
+	coalesce(F.selectedFeedPrice,0) as selectedFeedPrice,
+	coalesce(F.openInterest,0) as openInterest,
+	coalesce(F.underlyingPrice,0) as underlyingPrice,
+	coalesce(F.avgVolume20Days,0) as avgVolume20Days,
+	coalesce(F.percentAvgVolume,0) as percentAvgVolume,
+	coalesce(F.sharesOutstanding,0) as sharesOutstanding,
+	F.expirationDate as expirationDate,
+	coalesce(F.underlyingSharesOutstanding,0) as underlyingSharesOutstanding,
+	coalesce(F.marketCapitalization,0) as marketCapitalization,
+	coalesce(F.underlyingMarketCapitalization,0) as underlyingMarketCapitalization,
+	coalesce(F.avgVolume,0) as avgVolume,
+	
+	F.businessDaysToExpire as businessDaysToExpire,
+	F.actualDaysToExpire as actualDaysToExpire,
+	
+	exprEquivalent(F) as equivalent,
+	F.multiplier as multiplier,
+	
+	coalesce(F.longNotionalBase,0) as longNotionalBase,
+	coalesce(F.shortNotionalBase,0) as shortNotionalBase,
+	coalesce(F.shortMarketValueBase,0) as shortMarketValueBase,
+	coalesce(F.longMarketValueBase,0) as longMarketValueBase,
+	coalesce(F.shortExposureBase,0) as shortExposureBase,
+	coalesce(F.longExposureBase,0) as longExposureBase,
+	
+	coalesce(F.dayInterestLocal,0) as dayInterestLocal,
+	coalesce(F.totalInterestLocal,0) as totalInterestLocal,
+	coalesce(F.dayInterestBase,0) as dayInterestBase,
+	coalesce(F.totalInterestBase,0) as totalInterestBase,
+		
+	coalesce(G.shadowNavG,0) as globalNav,
+	coalesce(G.startOfDayNavG,0) as startOfDayNavGlobal,
+	coalesce(G.grossMarketValueBaseG,0) as grossMarketValueBaseGlobal,
+	coalesce(G.grossExposureBaseG,0) as grossExposureBaseGlobal,
+	coalesce(G.netExposureBaseG,0) as netExposureBaseGlobal,
+	coalesce(G.currentCash,0) as currentCash,
+	coalesce(G.accrual,0) as accrual,
+		
+	percent(coalesce(F.netExposureBase,0), coalesce(G.shadowNavG,0)) as percentNetExposureGlobal,
+	percent(coalesce(F.betaAdjustedExposureBase,0), coalesce(G.shadowNavG,0)) as percentBetaAdjustedExposureGlobal,
+	percent(coalesce(F.grossExposureBase,0), coalesce(G.shadowNavG,0)) as percentGrossExposureGlobal,
+	percent(coalesce(F.netMarketValueBase,0), coalesce(G.shadowNavG,0)) as percentNetMarketValueGlobal,
+	percent(coalesce(F.grossMarketValueBase,0), coalesce(G.shadowNavG,0)) as percentGrossMarketValueGlobal,
+	percent(coalesce(F.notionalBase,0), coalesce(G.shadowNavG,0)) as percentNetNotionalGlobal,
+	percent(coalesce(F.dayPnLBase,0), coalesce(G.shadowNavG,0)) as pnlContributionGlobal,
+	
+	percent(coalesce(F.longNotionalBase,0), coalesce(G.shadowNavG,0)) as percentLongNotionalGlobal,
+	percent(coalesce(F.shortNotionalBase,0), coalesce(G.shadowNavG,0)) as percentShortNotionalGlobal,
+	percent(coalesce(F.shortMarketValueBase,0), coalesce(G.shadowNavG,0)) as percentShortMarketValueGlobal,
+	percent(coalesce(F.longMarketValueBase,0), coalesce(G.shadowNavG,0)) as percentLongMarketValueGlobal,
+	percent(coalesce(F.shortExposureBase,0), coalesce(G.shadowNavG,0)) as percentShortExposureGlobal,
+	percent(coalesce(F.longExposureBase,0), coalesce(G.shadowNavG,0)) as percentLongExposureGlobal,
+	percent(coalesce(F.costBasisPnLBase,0), coalesce(G.shadowNavG,0)) as percentCostBasisPnlGlobal,
+	percent(coalesce(F.dayPnLBase,0), coalesce(G.startOfDayNavG,0)) as dayReturnGlobal,
+	"SymbolIntermediate,GlobalDivisorWindow" as parentWindowStream,
+	
+	F.customUDA8 as customUDA8,
+	F.customUDA9 as customUDA9,
+	F.customUDA10 as customUDA10,
+	F.customUDA11 as customUDA11,
+	F.customUDA12 as customUDA12
+
+from SymbolIntermediate as F unidirectional left outer join
+GlobalDivisorWindow as G;
+
+@Name('SymbolWindowUpsert')
+@Description('Update SymbolWithNav whenever SymbolWithNavEvent event occurs.')
+on SymbolWithNavEvent as s
+merge SymbolWithNav sw where sw.symbol = s.symbol and sw.assetId = s.assetId
+when matched /*and s.modifiedBy<>'TaxlotDeleted'*/
+	then update set
+
+	sw.taxlotType='Post',
+	sw.compressionLevel='Symbol',
+		
+	sw.symbol = s.symbol,
+	
+	sw.underlyingSymbol = s.underlyingSymbol,
+	sw.exchange = s.exchange,
+	sw.currency = s.currency,	
+	sw.sector = s.sector,
+	sw.subSector = s.subSector,
+	sw.udaAsset = s.udaAsset,
+	sw.udaSecurityType = s.udaSecurityType,
+	//sw.udaSymbol = s.udaSymbol,
+	sw.udaCountry = s.udaCountry,
+	sw.underlyingCountry = s.underlyingCountry,
+	sw.assetId = s.assetId,
+	sw.asset = s.asset,
+	sw.underlyingAsset = s.underlyingAsset,
+	sw.putOrCall = s.putOrCall,
+	sw.strikePrice = s.strikePrice,
+	
+	sw.riskCurrency = s.riskCurrency,
+	sw.issuer = s.issuer,
+	sw.countryOfRisk = s.countryOfRisk,
+	sw.region = s.region,
+	sw.analyst = s.analyst,
+	sw.ucitsEligibleTag = s.ucitsEligibleTag,
+	sw.liquidTag = s.liquidTag,
+	sw.marketCap = s.marketCap,
+	sw.customUDA1 = s.customUDA1,
+	sw.customUDA2 = s.customUDA2,
+	sw.customUDA3 = s.customUDA3,
+	sw.customUDA4 = s.customUDA4,
+	sw.customUDA5 = s.customUDA5,
+	sw.customUDA6 = s.customUDA6,
+	sw.customUDA7 = s.customUDA7,
+	
+	sw.todayAbsTradeQuantity = s.todayAbsTradeQuantity,
+	sw.todayLongTradeQuantity = s.todayLongTradeQuantity,
+	sw.todayShortTradeQuantity = s.todayShortTradeQuantity,
+	sw.todayNetNotionalBase = s.todayNetNotionalBase,
+	sw.todayLongNotionalBase = s.todayLongNotionalBase,
+	sw.todayShortNotionalBase = s.todayShortNotionalBase,	
+		
+	sw.quantity = s.quantity,
+	sw.netMarketValueLocal = s.netMarketValueLocal,
+		
+	sw.yesterdayMarketValueLocal = s.yesterdayMarketValueLocal,	
+	sw.grossMarketValueLocal = s.grossMarketValueLocal,	
+	sw.notionalLocal = s.notionalLocal,	
+	sw.equityHaircutLocal = s.equityHaircutLocal,
+	sw.indexHaircutLocal = s.indexHaircutLocal,
+	sw.equityHaircutBase = s.equityHaircutBase,
+	sw.indexHaircutBase = s.indexHaircutBase,
+	
+	sw.cashImpactLocal = s.cashImpactLocal,
+	sw.cashInflowLocal = s.cashInflowLocal,
+	sw.cashOutflowLocal = s.cashOutflowLocal,
+	sw.costBasisPnLLocal = s.costBasisPnLLocal,
+	sw.dayPnLLocal = s.dayPnLLocal,
+	sw.netExposureLocal = s.netExposureLocal,
+	sw.grossExposureLocal = s.grossExposureLocal,
+	sw.betaAdjustedExposureLocal = s.betaAdjustedExposureLocal,
+
+	sw.deltaAdjPosition = s.deltaAdjPosition,
+	sw.liquidationPnlLocal = s.liquidationPnlLocal,
+	sw.liquidationPnlBase = s.liquidationPnlBase,
+	
+	sw.underlyingValueForOptionsLocal = s.underlyingValueForOptionsLocal,
+	
+	
+	sw.notionalBase = s.notionalBase,
+	sw.cashImpactBase = s.cashImpactBase,
+	sw.cashInflowBase = s.cashInflowBase,
+	sw.cashOutflowBase = s.cashOutflowBase,
+	sw.netMarketValueBase = s.netMarketValueBase,
+	sw.yesterdayMarketValueBase = s.yesterdayMarketValueBase,
+	sw.grossMarketValueBase = s.grossMarketValueBase,
+	sw.costBasisPnLBase = s.costBasisPnLBase,
+	sw.dayPnLBase = s.dayPnLBase,
+	sw.netExposureBase = s.netExposureBase,
+	sw.grossExposureBase = s.grossExposureBase,
+	sw.betaAdjustedExposureBase = s.betaAdjustedExposureBase,
+
+	sw.underlyingValueForOptionsBase = s.underlyingValueForOptionsBase,
+	
+	sw.defaultPositionSide = s.defaultPositionSide,
+	sw.exposurePositionSide = s.exposurePositionSide,
+		
+	sw.currentFxRate = s.currentFxRate,
+	sw.yesterdayFxRate = s.yesterdayFxRate,
+	sw.fxConversionMethod = s.fxConversionMethod,
+	sw.askPrice = s.askPrice,
+	sw.bidPrice = s.bidPrice,
+	sw.lowPrice = s.lowPrice,
+	sw.highPrice = s.highPrice,
+	sw.openPrice = s.openPrice,
+	sw.closePrice = s.closePrice,
+	sw.lastPrice = s.lastPrice,
+	sw.markPrice = s.markPrice,	
+	sw.delta = s.delta,
+	sw.leveragedFactor = s.leveragedFactor,
+	sw.beta5YearMonthly = s.beta5YearMonthly,
+	sw.selectedFeedPrice = s.selectedFeedPrice,
+	sw.openInterest = s.openInterest,
+	sw.underlyingPrice = s.underlyingPrice,
+	sw.avgVolume20Days = s.avgVolume20Days,
+	sw.percentAvgVolume = s.percentAvgVolume,
+	sw.sharesOutstanding = s.sharesOutstanding,
+	sw.expirationDate = s.expirationDate,
+	sw.underlyingSharesOutstanding = s.underlyingSharesOutstanding,
+	sw.marketCapitalization = s.marketCapitalization,
+	sw.underlyingMarketCapitalization = s.underlyingMarketCapitalization,
+	sw.avgVolume = s.avgVolume,
+	
+	sw.businessDaysToExpire = s.businessDaysToExpire,
+	sw.actualDaysToExpire = s.actualDaysToExpire,
+	
+	sw.equivalent = s.equivalent,
+	sw.multiplier = s.multiplier,
+	
+	sw.longNotionalBase = s.longNotionalBase,
+	sw.shortNotionalBase = s.shortNotionalBase,
+	sw.shortMarketValueBase = s.shortMarketValueBase,
+	sw.longMarketValueBase = s.longMarketValueBase,
+	sw.shortExposureBase = s.shortExposureBase,
+	sw.longExposureBase = s.longExposureBase,
+	
+	sw.dayInterestLocal = s.dayInterestLocal,
+	sw.totalInterestLocal = s.totalInterestLocal,
+	sw.dayInterestBase = s.dayInterestBase,
+	sw.totalInterestBase = s.totalInterestBase,
+		
+	sw.globalNav = s.globalNav,
+	sw.startOfDayNavGlobal = s.startOfDayNavGlobal,
+	sw.grossExposureBaseGlobal = s.grossExposureBaseGlobal,
+	sw.netExposureBaseGlobal = s.netExposureBaseGlobal,
+	sw.grossMarketValueBaseGlobal = s.grossMarketValueBaseGlobal,
+    sw.currentCash = s.currentCash,
+    sw.accrual = s.accrual,
+		
+	sw.percentNetExposureGlobal = s.percentNetExposureGlobal,
+	sw.percentBetaAdjustedExposureGlobal = s.percentBetaAdjustedExposureGlobal,
+	sw.percentGrossExposureGlobal = s.percentGrossExposureGlobal,
+	sw.percentNetMarketValueGlobal = s.percentNetMarketValueGlobal,
+	sw.percentGrossMarketValueGlobal = s.percentGrossMarketValueGlobal,
+	sw.percentNetNotionalGlobal = s.percentNetNotionalGlobal,
+	sw.pnlContributionGlobal = s.pnlContributionGlobal,
+	
+	sw.percentLongNotionalGlobal = s.percentLongNotionalGlobal,
+	sw.percentShortNotionalGlobal = s.percentShortNotionalGlobal,
+	sw.percentShortMarketValueGlobal = s.percentShortMarketValueGlobal,
+	sw.percentLongMarketValueGlobal = s.percentLongMarketValueGlobal,
+	sw.percentShortExposureGlobal = s.percentShortExposureGlobal,
+	sw.percentLongExposureGlobal = s.percentLongExposureGlobal,
+	sw.percentCostBasisPnlGlobal = s.percentCostBasisPnlGlobal,
+	sw.dayReturnGlobal = s.dayReturnGlobal,
+	sw.parentWindowStream = "SymbolWithNavEvent",
+	
+	sw.customUDA8 = s.customUDA8,
+	sw.customUDA9 = s.customUDA9,
+	sw.customUDA10 = s.customUDA10,
+	sw.customUDA11 = s.customUDA11,
+	sw.customUDA12 = s.customUDA12
+	
+then insert into SymbolWithNavUpdated select
+		s.symbol as symbol,
+		s.assetId as assetId,
+		s.sector as sector,
+		s.subSector as subSector,
+		s.modifiedBy as modifiedBy,
+		s.underlyingSymbol as underlyingSymbol,
+		"SymbolWithNavEvent" as parentWindowStream
+/*when matched and s.modifiedBy='TaxlotDeleted'
+	then delete
+	then insert into SymbolWithNavUpdated select 
+		s.symbol as symbol,
+		s.assetId as assetId,
+		s.sector as sector,
+		s.subSector as subSector,
+		s.modifiedBy as modifiedBy,
+		s.underlyingSymbol as underlyingSymbol */
+when not matched
+then insert select 
+
+	s.taxlotType as taxlotType,
+	s.compressionLevel as compressionLevel,
+		
+	s.symbol as symbol,
+	
+	s.underlyingSymbol as underlyingSymbol,
+	s.exchange as exchange,
+	s.currency as currency,	
+	s.sector as sector,
+	s.subSector as subSector,
+	s.udaAsset as udaAsset,
+	s.udaSecurityType as udaSecurityType,
+	//s.udaSymbol as udaSymbol,
+	s.udaCountry as udaCountry,
+	s.underlyingCountry as underlyingCountry,
+	s.assetId as assetId,
+	s.asset as asset,
+	s.underlyingAsset as underlyingAsset,
+	s.putOrCall as putOrCall,
+	s.strikePrice as strikePrice,
+	
+	s.riskCurrency as riskCurrency,
+	s.issuer as issuer,
+	s.countryOfRisk as countryOfRisk,
+	s.region as region,
+	s.analyst as analyst,
+	s.ucitsEligibleTag as ucitsEligibleTag,
+	s.liquidTag as liquidTag,
+	s.marketCap as marketCap,
+	s.customUDA1 as customUDA1,
+	s.customUDA2 as customUDA2,
+	s.customUDA3 as customUDA3,
+	s.customUDA4 as customUDA4,
+	s.customUDA5 as customUDA5,
+	s.customUDA6 as customUDA6,
+	s.customUDA7 as customUDA7,
+	
+	s.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	s.todayLongTradeQuantity as todayLongTradeQuantity,
+	s.todayShortTradeQuantity as todayShortTradeQuantity,
+	s.todayNetNotionalBase as todayNetNotionalBase,
+	s.todayLongNotionalBase as todayLongNotionalBase,
+	s.todayShortNotionalBase as todayShortNotionalBase,	
+		
+	s.quantity as quantity,
+	s.netMarketValueLocal as netMarketValueLocal,
+		
+	s.yesterdayMarketValueLocal as yesterdayMarketValueLocal,	
+	s.grossMarketValueLocal as grossMarketValueLocal,	
+	s.notionalLocal as notionalLocal,	
+	s.equityHaircutLocal as equityHaircutLocal,
+	s.indexHaircutLocal as indexHaircutLocal,
+	s.equityHaircutBase as equityHaircutBase,
+	s.indexHaircutBase as indexHaircutBase,
+	
+	s.cashImpactLocal as cashImpactLocal,
+	s.cashInflowLocal as cashInflowLocal,
+	s.cashOutflowLocal as cashOutflowLocal,
+	s.costBasisPnLLocal as costBasisPnLLocal,
+	s.dayPnLLocal as dayPnLLocal,
+	s.netExposureLocal as netExposureLocal,
+	s.grossExposureLocal as grossExposureLocal,
+	s.betaAdjustedExposureLocal as betaAdjustedExposureLocal,
+
+	s.deltaAdjPosition as deltaAdjPosition,
+	s.liquidationPnlLocal as liquidationPnlLocal,
+	s.liquidationPnlBase as liquidationPnlBase,
+	
+	s.underlyingValueForOptionsLocal as underlyingValueForOptionsLocal,
+	
+	
+	s.notionalBase as notionalBase,
+	s.cashImpactBase as cashImpactBase,
+	s.cashInflowBase as cashInflowBase,
+	s.cashOutflowBase as cashOutflowBase,
+	s.netMarketValueBase as netMarketValueBase,
+	s.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	s.grossMarketValueBase as grossMarketValueBase,
+	s.costBasisPnLBase as costBasisPnLBase,
+	s.dayPnLBase as dayPnLBase,
+	s.netExposureBase as netExposureBase,
+	s.grossExposureBase as grossExposureBase,
+	s.betaAdjustedExposureBase as betaAdjustedExposureBase,
+
+	s.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	s.defaultPositionSide as defaultPositionSide,
+	s.exposurePositionSide as exposurePositionSide,
+		
+	s.currentFxRate as currentFxRate,
+	s.yesterdayFxRate as yesterdayFxRate,
+	s.fxConversionMethod as fxConversionMethod,
+	s.askPrice as askPrice,
+	s.bidPrice as bidPrice,
+	s.lowPrice as lowPrice,
+	s.highPrice as highPrice,
+	s.openPrice as openPrice,
+	s.closePrice as closePrice,
+	s.lastPrice as lastPrice,
+	s.markPrice as markPrice,	
+	s.delta as delta,
+	s.leveragedFactor as leveragedFactor,
+	s.beta5YearMonthly as beta5YearMonthly,
+	s.selectedFeedPrice as selectedFeedPrice,
+	s.openInterest as openInterest,
+	s.underlyingPrice as underlyingPrice,
+	s.avgVolume20Days as avgVolume20Days,
+	s.percentAvgVolume as percentAvgVolume,
+	s.sharesOutstanding as sharesOutstanding,
+	s.expirationDate as expirationDate,
+	s.underlyingSharesOutstanding as underlyingSharesOutstanding,
+	s.marketCapitalization as marketCapitalization,
+	s.underlyingMarketCapitalization as underlyingMarketCapitalization,
+	s.avgVolume as avgVolume,
+	
+	s.businessDaysToExpire as businessDaysToExpire,
+	s.actualDaysToExpire as actualDaysToExpire,
+	
+	s.equivalent as equivalent,
+	s.multiplier as multiplier,
+	
+	s.longNotionalBase as longNotionalBase,
+	s.shortNotionalBase as shortNotionalBase,
+	s.shortMarketValueBase as shortMarketValueBase,
+	s.longMarketValueBase as longMarketValueBase,
+	s.shortExposureBase as shortExposureBase,
+	s.longExposureBase as longExposureBase,
+	
+	s.dayInterestLocal as dayInterestLocal,
+	s.totalInterestLocal as totalInterestLocal,
+	s.dayInterestBase as dayInterestBase,
+	s.totalInterestBase as totalInterestBase,
+	
+	s.globalNav as globalNav,
+	s.startOfDayNavGlobal as startOfDayNavGlobal,
+	s.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	s.netExposureBaseGlobal as netExposureBaseGlobal,
+	s.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	s.currentCash as currentCash,
+	s.accrual as accrual,
+		
+	s.percentNetExposureGlobal as percentNetExposureGlobal,
+	s.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	s.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	s.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	s.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	s.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	s.pnlContributionGlobal as pnlContributionGlobal,
+	
+	s.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	s.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	s.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	s.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	s.percentShortExposureGlobal as percentShortExposureGlobal,
+	s.percentLongExposureGlobal as percentLongExposureGlobal,
+	s.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	s.dayReturnGlobal as dayReturnGlobal,
+	"SymbolWithNavEvent" as parentWindowStream,
+	
+	s.customUDA8 as customUDA8,
+	s.customUDA9 as customUDA9,
+	s.customUDA10 as customUDA10,
+	s.customUDA11 as customUDA11,
+	s.customUDA12 as customUDA12
+	
+	then insert into SymbolWithNavUpdated select
+		s.symbol as symbol,
+		s.assetId as assetId,
+		s.sector as sector,
+		s.subSector as subSector,
+		s.modifiedBy as modifiedBy,
+		s.underlyingSymbol as underlyingSymbol,
+		"SymbolWithNavEvent" as parentWindowStream;
+		
+		
+		
+@Name('SymbolWindowInitial')
+@Description('Insert data into SymbolWindowInitial from SymbolWithNav whenever DivisorEndMessage or InitComplete event occurs.')
+on pattern[every (InitComplete(initComplete=true,action='Validation') or DivisorEndMessage)]
+insert into SymbolWindowInitial
+select 
+	s.taxlotType as taxlotType,
+	s.compressionLevel as compressionLevel,
+		
+	s.symbol as symbol,
+	
+	s.underlyingSymbol as underlyingSymbol,
+	s.exchange as exchange,
+	s.currency as currency,	
+	s.sector as sector,
+	s.subSector as subSector,
+	s.udaAsset as udaAsset,
+	s.udaSecurityType as udaSecurityType,
+	//s.udaSymbol as udaSymbol,
+	s.udaCountry as udaCountry,
+	s.underlyingCountry as underlyingCountry,
+	s.assetId as assetId,
+	s.asset as asset,
+	s.underlyingAsset as underlyingAsset,
+	s.putOrCall as putOrCall,
+	s.strikePrice as strikePrice,
+	
+	s.riskCurrency as riskCurrency,
+	s.issuer as issuer,
+	s.countryOfRisk as countryOfRisk,
+	s.region as region,
+	s.analyst as analyst,
+	s.ucitsEligibleTag as ucitsEligibleTag,
+	s.liquidTag as liquidTag,
+	s.marketCap as marketCap,
+	s.customUDA1 as customUDA1,
+	s.customUDA2 as customUDA2,
+	s.customUDA3 as customUDA3,
+	s.customUDA4 as customUDA4,
+	s.customUDA5 as customUDA5,
+	s.customUDA6 as customUDA6,
+	s.customUDA7 as customUDA7,
+	
+	s.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	s.todayLongTradeQuantity as todayLongTradeQuantity,
+	s.todayShortTradeQuantity as todayShortTradeQuantity,
+	s.todayNetNotionalBase as todayNetNotionalBase,
+	s.todayLongNotionalBase as todayLongNotionalBase,
+	s.todayShortNotionalBase as todayShortNotionalBase,	
+		
+	s.quantity as quantity,
+	s.netMarketValueLocal as netMarketValueLocal,
+		
+	s.yesterdayMarketValueLocal as yesterdayMarketValueLocal,	
+	s.grossMarketValueLocal as grossMarketValueLocal,	
+	s.notionalLocal as notionalLocal,	
+	s.equityHaircutLocal as equityHaircutLocal,
+	s.indexHaircutLocal as indexHaircutLocal,
+	s.equityHaircutBase as equityHaircutBase,
+	s.indexHaircutBase as indexHaircutBase,
+	
+	s.cashImpactLocal as cashImpactLocal,
+	s.cashInflowLocal as cashInflowLocal,
+	s.cashOutflowLocal as cashOutflowLocal,
+	s.costBasisPnLLocal as costBasisPnLLocal,
+	s.dayPnLLocal as dayPnLLocal,
+	s.netExposureLocal as netExposureLocal,
+	s.grossExposureLocal as grossExposureLocal,
+	s.betaAdjustedExposureLocal as betaAdjustedExposureLocal,
+
+	s.deltaAdjPosition as deltaAdjPosition,
+	s.liquidationPnlLocal as liquidationPnlLocal,
+	s.liquidationPnlBase as liquidationPnlBase,
+	
+	s.underlyingValueForOptionsLocal as underlyingValueForOptionsLocal,
+	
+	
+	s.notionalBase as notionalBase,
+	s.cashImpactBase as cashImpactBase,
+	s.cashInflowBase as cashInflowBase,
+	s.cashOutflowBase as cashOutflowBase,
+	s.netMarketValueBase as netMarketValueBase,
+	s.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	s.grossMarketValueBase as grossMarketValueBase,
+	s.costBasisPnLBase as costBasisPnLBase,
+	s.dayPnLBase as dayPnLBase,
+	s.netExposureBase as netExposureBase,
+	s.grossExposureBase as grossExposureBase,
+	s.betaAdjustedExposureBase as betaAdjustedExposureBase,
+
+	s.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	s.defaultPositionSide as defaultPositionSide,
+	s.exposurePositionSide as exposurePositionSide,
+		
+	s.currentFxRate as currentFxRate,
+	s.yesterdayFxRate as yesterdayFxRate,
+	s.fxConversionMethod as fxConversionMethod,
+	s.askPrice as askPrice,
+	s.bidPrice as bidPrice,
+	s.lowPrice as lowPrice,
+	s.highPrice as highPrice,
+	s.openPrice as openPrice,
+	s.closePrice as closePrice,
+	s.lastPrice as lastPrice,
+	s.markPrice as markPrice,	
+	s.delta as delta,
+	s.leveragedFactor as leveragedFactor,
+	s.beta5YearMonthly as beta5YearMonthly,
+	s.selectedFeedPrice as selectedFeedPrice,
+	s.openInterest as openInterest,
+	s.underlyingPrice as underlyingPrice,
+	s.avgVolume20Days as avgVolume20Days,
+	s.percentAvgVolume as percentAvgVolume,
+	s.sharesOutstanding as sharesOutstanding,
+	s.expirationDate as expirationDate,
+	s.underlyingSharesOutstanding as underlyingSharesOutstanding,
+	s.marketCapitalization as marketCapitalization,
+	s.underlyingMarketCapitalization as underlyingMarketCapitalization,
+	s.avgVolume as avgVolume,
+	
+	s.businessDaysToExpire as businessDaysToExpire,
+	s.actualDaysToExpire as actualDaysToExpire,
+	
+	s.equivalent as equivalent,
+	s.multiplier as multiplier,
+	
+	s.longNotionalBase as longNotionalBase,
+	s.shortNotionalBase as shortNotionalBase,
+	s.shortMarketValueBase as shortMarketValueBase,
+	s.longMarketValueBase as longMarketValueBase,
+	s.shortExposureBase as shortExposureBase,
+	s.longExposureBase as longExposureBase,
+	
+	s.dayInterestLocal as dayInterestLocal,
+	s.totalInterestLocal as totalInterestLocal,
+	s.dayInterestBase as dayInterestBase,
+	s.totalInterestBase as totalInterestBase,
+
+	s.globalNav as globalNav,
+	s.startOfDayNavGlobal as startOfDayNavGlobal,
+	s.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	s.netExposureBaseGlobal as netExposureBaseGlobal,
+	s.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	s.currentCash as currentCash,
+	s.accrual as accrual,
+		
+	s.percentNetExposureGlobal as percentNetExposureGlobal,
+	s.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	s.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	s.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	s.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	s.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	s.pnlContributionGlobal as pnlContributionGlobal,
+	
+	s.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	s.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	s.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	s.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	s.percentShortExposureGlobal as percentShortExposureGlobal,
+	s.percentLongExposureGlobal as percentLongExposureGlobal,
+	s.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	s.dayReturnGlobal as dayReturnGlobal,
+	"SymbolWithNav" as parentWindowStream,
+	
+	s.customUDA8 as customUDA8,
+	s.customUDA9 as customUDA9,
+	s.customUDA10 as customUDA10,
+	s.customUDA11 as customUDA11,
+	s.customUDA12 as customUDA12
+	
+from SymbolWithNav as s;
+//where DataLoaded=true;
+

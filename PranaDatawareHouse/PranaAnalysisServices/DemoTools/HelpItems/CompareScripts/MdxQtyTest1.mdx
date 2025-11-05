@@ -1,0 +1,14 @@
+with member [SymbolLastQuantity1] as
+(
+Sum(Tail(
+Filter(
+
+{(null):([Dim Time].[Date].&[3430])}*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+
+select {SymbolLastQuantity1} on columns,
+{[PM Open Position Snap Shots].[Symbol].members} on rows from [Nirvana Client DW]

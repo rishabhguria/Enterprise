@@ -1,0 +1,65 @@
+module customRules.NZSCapital.preTrade.depositAndInvestment.preTradeDepositAndInvestment;
+
+@Name('AccountCheckInDepositAndInvestment')
+@Description('Checks if trade done in set account and asset or not')
+on BasketEOM  as W 
+insert into AccountCheckInDepositAndInvestment
+select distinct
+  W.basketId as basketId,
+  W.userId as userId,
+  R.accountId as accountId,
+  R.accountShortName as accountShortName,
+ (case(valueExistsInCSV(R.accountShortName, Account_depositAndInvestment) is true and valueExistsInCSV(R.customUDA5, emptyUltimateList) is false  and 
+   valueExistsInCSV(R.udaAsset, Asset_depositAndInvestment) is false) 
+  when true then true else false end ) as validation,
+   "RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where W.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfDepositAndInvestment')
+@Description('The values of Empty ultimate list and account nav')
+on AccountCheckInDepositAndInvestment as B
+insert into WhatIfDepositAndInvestment
+select distinct
+	B.basketId as basketId,
+    B.validation as finalValidation,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+    sum(case when (valueExistsInCSV(W.customUDA5, emptyUltimateList) is false  and 
+    valueExistsInCSV(W.udaAsset, Asset_depositAndInvestment) is false and
+    valueExistsInCSV(W.accountShortName, Account_depositAndInvestment) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalNetMarketValueBase,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId
+group by W.accountId;
+
+@Name('PreTradeDepositAndInvestment')
+@Description('Final stream to check condition is breached')
+insert into PreTradeDepositAndInvestment
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+  	Account_depositAndInvestment || ValueSeparator ||doubleFormat(Percentage_depositAndInvestment) as threshold,
+	A.accountShortName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0))) as actualResult,
+    'Account '|| ValueSeparator || '% Total Nav'  as constraintField,
+	(case A.finalValidation is true
+	when true then 
+		(Math.abs(coalesce(A.totalNetMarketValueBase/A.accountNav ,0)) > (Percentage_depositAndInvestment / 100)) 
+	else 
+		false end) as isViolated,
+   'Account: ' || A.accountShortName 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0)))
+		|| ', Net Market Value: '  || doubleFormat(A.totalNetMarketValueBase) as parameters,
+    current_timestamp as validationTime,
+	'Max '||doubleFormat(Percentage_depositAndInvestment)|| '% deposit & investment same body exceeded' as summary,
+	A.accountShortName as dimension
+from WhatIfDepositAndInvestment as A
+where A.userId is not null;
+
+

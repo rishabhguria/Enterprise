@@ -1,0 +1,35 @@
+module target.resources.monitoringEpl.WhatIfEndMessageLog;
+
+uses eplModules.whatIfAggregation.whatIfCommon.WhatIfEndMessage;
+
+@Priority(10)
+@Name('WhatIfFinalEndMessageLog')
+@Description('This statement Sends message when all required streams has been triggered')
+Insert into WhatIfFinalEndMessageLog
+ select distinct
+	'EomPreTrade' as compressionLevel,
+    WC.basketId as basketIdCustom,
+    WE.basketId as basketId
+from pattern
+[every
+	(WE = WhatIfEndMessage -> WC = WhatIfCustomRuleEndMessage(WC.basketId = WE.basketId))	
+]
+where IsLoggingEnabled = true;
+    
+ 
+ 
+@Priority(10)
+@Name('WhatIfFinalEndMessageInvertLog')
+@Description('This statement Sends message when all required streams has been triggered')
+Insert into WhatIfFinalEndMessageLog
+ select distinct
+	'EomPreTrade' as compressionLevel,
+    WC.basketId as basketId,
+    WE.basketId as basketIdCustom
+from pattern
+[every
+	(WE = WhatIfCustomRuleEndMessage -> WC = WhatIfEndMessage(WC.basketId = WE.basketId))	
+]
+where IsLoggingEnabled = true;
+     
+  

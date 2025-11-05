@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0C0E7E36-5ABB-4D29-B872-272DB9B72399}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Allocation.Common</RootNamespace>
+    <AssemblyName>Prana.Allocation.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\AllocationLoggingConstants.cs" />
+    <Compile Include="Definitions\AccountPercent.cs" />
+    <Compile Include="Definitions\AllocationFilterFields.cs" />
+    <Compile Include="Definitions\AllocationOutput.cs" />
+    <Compile Include="Definitions\AllocationOutputResult.cs" />
+    <Compile Include="Definitions\AutoGroupingRules.cs" />
+    <Compile Include="Definitions\AllocationOperationPreferenceComparer.cs" />
+    <Compile Include="Definitions\AllocationState.cs" />
+    <Compile Include="Definitions\MasterFundAllocationOutput.cs" />
+    <Compile Include="Definitions\MasterFundAllocationOutputResult.cs" />
+    <Compile Include="Enums\AllocationLevel.cs" />
+    <Compile Include="Helper\AllocationGroupingHelper.cs" />
+    <Compile Include="Helper\AllocationIDGenerator.cs" />
+    <Compile Include="Helper\AllocationLoggingHelper.cs" />
+    <Compile Include="Helper\CommonHelper.cs" />
+    <Compile Include="Interfaces\IAllocationGenerator.cs" />
+    <Compile Include="Interfaces\IAllocationGeneratorFactory.cs" />
+    <Compile Include="Interfaces\IMasterFundAllocationGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{db822308-7562-4404-8d85-e1de6f5a317d}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XMLSchemas\SqlTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)XMLSchemas\*.xsd" "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceHost\$(OutDir)" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

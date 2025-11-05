@@ -1,0 +1,44 @@
+module customRules.ContrastCapital.postTrade.pNotesIssuer.postTradePNotesIssuer;
+
+@Name('AccountPNotesIssuerCheckPost')
+@Description('Stores calculated value of net market value for current trade.')
+on DivisorEndMessage as B
+insert into AccountPNotesIssuerCheckPost
+select distinct
+    0 as userId,
+    '' as taxlotId,
+    W.accountId as accountId,
+    W.accountShortName as accountName,
+    sum(case(valueExistsInCSV(W.accountShortName, Post_Account_Issuer) 
+    and valueExistsInCSV(W.countryOfRisk,Post_CountryIssue_Issuer) 
+    and valueExistsInCSV(W.udaAsset,Post_SecurityClass_Issuer))
+	when true then coalesce(W.netMarketValueBase,0) else 0 end) as totalMarketValueBase,
+    W.accountNav as accountNav,
+    W.countryOfRisk as countryOfRisk,
+    W.udaAsset as udaAsset,
+    (case(valueExistsInCSV(W.accountShortName, Post_Account_Issuer) 
+    and valueExistsInCSV(W.countryOfRisk,Post_CountryIssue_Issuer) 
+    and valueExistsInCSV(W.udaAsset,Post_SecurityClass_Issuer))
+	when true then true else false end) as validation,
+    "AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W 
+group by W.accountId, W.udaAsset,  W.countryOfRisk;
+  
+ @Name('postTradePNotesIssuerCheck')
+@Description('Check if condition is breached')
+insert into postTradePNotesIssuerCheck
+select distinct 
+    A.userId as userId,
+    A.taxlotId as taxlotId,
+    'Account ' || ValueSeparator || 'Security class ' || ValueSeparator || 'Country of issue ' || ValueSeparator || ' % Account Nav' as constraintField,
+    Post_Account_Issuer || ValueSeparator ||  Post_SecurityClass_Issuer || ValueSeparator || Post_CountryIssue_Issuer || ValueSeparator || doubleFormat(PostNavPercentage_Issuer) as threshold,
+    A.accountName || ValueSeparator || A.udaAsset || ValueSeparator || A.countryOfRisk || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0))) as actualResult,
+    (case validation is true
+    when true then (Math.abs(coalesce(A.totalMarketValueBase/ A.accountNav, 0)) > (PostNavPercentage_Issuer/100))
+    else false end) as isViolated,
+	'Account : ' || A.accountName || ', Net Market Value : ' || doubleFormat(A.totalMarketValueBase) || ', Country of Issue : ' || A.countryOfRisk || ', Security Class : ' || A.udaAsset || ', % Total Nav : ' || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0))) as parameters,
+	current_timestamp as validationTime,
+	'Sum of MarketValue of all the ' || SecurityClass || ' securities where Country of Issue is' || A.countryOfRisk || ', should not be greater than' || doubleFormat(PostNavPercentage_Issuer) || '% of account NAV' as summary,
+	A.accountName || ValueSeparator || A.udaAsset || ValueSeparator || A.countryOfRisk as dimension
+  from  AccountPNotesIssuerCheckPost as A
+  where A.userId is not null;

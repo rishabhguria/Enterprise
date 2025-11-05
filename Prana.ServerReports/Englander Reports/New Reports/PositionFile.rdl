@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DS_Reports">
+      <rd:DataSourceID>633a07f3-25e0-4fd3-8556-9aec3cb1107b</rd:DataSourceID>
+      <DataSourceReference>DS_Reports</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="Date">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetLastBusinessDay</DataSetName>
+          <ValueField>LastBusinessDay</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramUserID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>17</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramUserID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFundID">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>35</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramMasterFundID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFunds">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramMasterFunds</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+          <LabelField>MasterFundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFundGrouping">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>False</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Master Fund Grouping</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramFundFilter">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyFund</DataSetName>
+          <ValueField>FundName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Funds</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyFund</DataSetName>
+          <ValueField>FundName</ValueField>
+          <LabelField>FundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>1in</RightMargin>
+  <LeftMargin>1in</LeftMargin>
+  <BottomMargin>1in</BottomMargin>
+  <rd:ReportID>87920d1c-f068-4070-accd-5cafbdc63c4b</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DatasetPodistionReport">
+      <Fields>
+        <Field Name="AccountNumber">
+          <DataField>AccountNumber</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AccountNumberOld">
+          <DataField>AccountNumberOld</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Symbol">
+          <DataField>Symbol</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UnitCost">
+          <DataField>UnitCost</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ClosingMarkPrice">
+          <DataField>ClosingMarkPrice</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>GetPositionForADate_Customized</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@date">
+            <Value>=Parameters!Date.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetLastBusinessDay">
+      <Fields>
+        <Field Name="LastBusinessDay">
+          <DataField>LastBusinessDay</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetLastBusinessDay</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetMasterFunds">
+      <Fields>
+        <Field Name="MasterFundID">
+          <DataField>MasterFundID</DataField>
+        </Field>
+        <Field Name="MasterFundName">
+          <DataField>MasterFundName</DataField>
+        </Field>
+        <Field Name="MasterFundLogo">
+          <DataField>MasterFundLogo</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetMasterFundByID</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@FundID">
+            <Value>=Parameters!paramMasterFundID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyFund">
+      <Fields>
+        <Field Name="CompanyUserFundID">
+          <DataField>CompanyUserFundID</DataField>
+        </Field>
+        <Field Name="CompanyFundID">
+          <DataField>CompanyFundID</DataField>
+        </Field>
+        <Field Name="FundName">
+          <DataField>FundName</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetCompanyFundsForUser_Updated</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@paramUserID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@FundID">
+            <Value>=Parameters!paramMasterFunds.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Width>5.5in</Width>
+  <Body>
+    <ReportItems>
+      <Table Name="table1">
+        <NoRows>No data</NoRows>
+        <DataSetName>DatasetPodistionReport</DataSetName>
+        <Filters>
+          <Filter>
+            <FilterExpression>=Fields!AccountNumberOld.Value</FilterExpression>
+            <Operator>In</Operator>
+            <FilterValues>
+              <FilterValue>=Parameters!paramFundFilter.Label</FilterValue>
+            </FilterValues>
+          </Filter>
+        </Filters>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="FundName">
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>3</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!AccountNumber.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Quantity">
+                      <rd:DefaultName>Quantity</rd:DefaultName>
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>2</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Quantity.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Symbol">
+                      <rd:DefaultName>Symbol</rd:DefaultName>
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>1</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Symbol.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="MarkPrice">
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!ClosingMarkPrice.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.15in</Height>
+            </TableRow>
+          </TableRows>
+          <Sorting>
+            <SortBy>
+              <SortExpression>=Fields!AccountNumber.Value</SortExpression>
+              <Direction>Ascending</Direction>
+            </SortBy>
+            <SortBy>
+              <SortExpression>=Fields!Symbol.Value</SortExpression>
+              <Direction>Ascending</Direction>
+            </SortBy>
+          </Sorting>
+        </Details>
+        <TableColumns>
+          <TableColumn>
+            <Width>1.25in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.25in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.625in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.375in</Width>
+          </TableColumn>
+        </TableColumns>
+      </Table>
+    </ReportItems>
+    <Height>0.15in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

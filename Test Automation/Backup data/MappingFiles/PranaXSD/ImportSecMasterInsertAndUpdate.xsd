@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PositionMaster">
+          <xs:complexType>
+            <xs:all>
+	<xs:element name="TickerSymbol" type="xs:string" minOccurs="1" />
+	<xs:element name="AssetID" type="xs:integer" minOccurs="0" /> 
+	<xs:element name="UnderLyingID" type="xs:integer" minOccurs="0" />
+	<xs:element name="ExchangeID" type="xs:integer" minOccurs="0" />
+	<xs:element name="CurrencyID" type="xs:integer" minOccurs="0" />
+	<xs:element name="AUECID" type="xs:integer" minOccurs="0" />
+	<xs:element name="LongName" type="xs:string" minOccurs="0" />
+	<xs:element name="PBSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="AssetCategory" type="xs:string" minOccurs="0" />
+	<xs:element name="Symbol_PK" type="xs:integer" minOccurs="0" /> 
+	<xs:element name="CusipSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="SedolSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="ISINSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="ReutersSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="BloombergSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="OSIOptionSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="IDCOOptionSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="OPRAOptionSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="Sector" type="xs:string" minOccurs="0" />  
+	<xs:element name="UnderLyingSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="PutOrCall" type="xs:integer" minOccurs="0" />
+	<xs:element name="StrikePrice" type="xs:decimal" minOccurs="0" />
+	<xs:element name="Multiplier" type="xs:decimal" minOccurs="0" />
+	<xs:element name="ExpirationDate" type="xs:string" minOccurs="0" />  
+	<xs:element name="SettleMentDate" type="xs:string" minOccurs="0" />
+	<xs:element name="SymbolType" type="xs:string" minOccurs="0" />
+	<xs:element name="Delta" type="xs:decimal" minOccurs="0" />
+	<xs:element name="LeadCurrencyID" type="xs:integer" minOccurs="0" />
+	<xs:element name="VsCurrencyID" type="xs:integer" minOccurs="0" />
+	<xs:element name="RequestedSymbology" type="xs:integer" minOccurs="0" />
+	<xs:element name="RequestedSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="DividendYield" type="xs:decimal" minOccurs="0" />
+	<xs:element name="Dividend" type="xs:decimal" minOccurs="0" />              		
+	<xs:element name="DividendAmtRate" type="xs:decimal" minOccurs="0" />      		 
+	<xs:element name="DivDistributionDate" type="xs:string" minOccurs="0" />
+	<xs:element name="ExistingUnderlyingSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="ExistingLongName" type="xs:string" minOccurs="0" />     		 
+	<xs:element name="ExistingMultiplier" type="xs:decimal" minOccurs="0" /> 
+	<xs:element name="Coupon" type="xs:decimal" minOccurs="0" />  
+	<xs:element name="Freq" type="xs:string" minOccurs="0" />
+
+	<xs:element name="MaturityDate" type="xs:string" minOccurs="0" /> 
+	<xs:element name="IssueDate" type="xs:string" minOccurs="0" /> 
+	<xs:element name="SecurityTypeID" type="xs:integer" minOccurs="0" />                     
+	<xs:element name="AccrualBasisID" type="xs:integer" minOccurs="0" />                     
+	<xs:element name="CouponFrequencyID" type="xs:integer" minOccurs="0" />                     
+	<xs:element name="IsZero" type="xs:string" minOccurs="0" /> 
+	<xs:element name="FirstCouponDate" type="xs:string" minOccurs="0" />   
+	<xs:element name="DaysToSettlement" type="xs:integer" minOccurs="0" />        
+
+	<xs:element name="ExpirationOrSettlementDate" type="xs:string" minOccurs="0" />            
+    	 	 
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

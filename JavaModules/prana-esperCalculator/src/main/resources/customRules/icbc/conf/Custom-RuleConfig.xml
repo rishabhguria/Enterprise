@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="ICBC">
+		<rule id="custom-ruleICBC1">
+			<name>Account Sector Concentration</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/accountSectorConcentration/</eplPath>
+			<description>
+				Alert when account sector concentration goes above 80%.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName>AccountSectorConcentrationICBC</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="AccountSectorConcentrationICBC" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="AccountSectorConcentrationICBC" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+		</rule>
+	</rules>
+</ruleConfig>

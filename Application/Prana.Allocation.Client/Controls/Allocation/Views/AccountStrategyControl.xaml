@@ -1,0 +1,104 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:Prana.Allocation.Client.Controls.Allocation.Views" 
+             x:Class="Prana.Allocation.Client.Controls.Allocation.Views.AccountStrategyControl"
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Allocation.ViewModels" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             xmlns:igComboEditor="http://schemas.infragistics.com/xaml"
+             mc:Ignorable="d"
+             md:DialogServiceViews.IsRegistered="True"
+             DataContext="{DynamicResource AccountStrategyControlViewModel}" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <viewModels:AccountStrategyControlViewModel x:Key="AccountStrategyControlViewModel"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid  IsEnabled="{Binding Path=EnableControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Content="Preference Type:" Grid.Row="0" Margin="10,5,10,5"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <RadioButton Grid.Column="0" Width="Auto" GroupName="AllocationMethod" Name="CalculatedRadioButton" Content="Calculated" Margin="10,5,5,5" IsChecked="{Binding Path=IsCalculatedAllocationSelected}"/>
+            <RadioButton Grid.Column="1" Width="Auto" GroupName="AllocationMethod" Name="FixedRadioButton" Content="Fixed" Margin="15,5,5,5"  IsChecked="{Binding Path=IsFixedAllocationSelected}" />
+            <CheckBox Grid.Column="2" Width="Auto" Name="ChkBoxCustomAllocation" Content="Custom" Margin="15,5,5,5" IsChecked="{Binding Path=IsCustomCheckBoxChecked}"/>
+            <igComboEditor:XamComboEditor x:Name="FixedAllocationPreferencesCombo" Grid.Column="3" MinWidth="100" Width="Auto" Margin="15,2,5,5" ItemsSource="{Binding Path=FixedAllocationPreferences}" SelectedItem="{Binding Path=SelectedfixedAllocationPreference}" DisplayMemberPath="Value" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" Visibility="{Binding IsChecked, ElementName=FixedRadioButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <igComboEditor:XamComboEditor.ItemFilters>
+                    <igComboEditor:ComboItemFilter FieldName="Value" LogicalOperator="Or">
+                        <igComboEditor:ComboItemFilter.Conditions>
+                            <igComboEditor:ComparisonCondition Operator="StartsWith"/>
+                            <igComboEditor:ComparisonCondition Operator="Contains"/>
+                        </igComboEditor:ComboItemFilter.Conditions>
+                    </igComboEditor:ComboItemFilter>
+                </igComboEditor:XamComboEditor.ItemFilters>
+            </igComboEditor:XamComboEditor>
+            <igComboEditor:XamComboEditor x:Name="AllocationPreferenceCollectionCombo" Grid.Column="3" MinWidth="100" Width="Auto" Margin="15,2,5,5" ItemsSource="{Binding Path=AllocationPreferenceCollection}" SelectedItem="{Binding Path=SelectedAllocationPreferences}" DisplayMemberPath="Value" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsEnabled="{Binding Path=IsControlOnUnallocatedGrid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding IsChecked, ElementName=CalculatedRadioButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <igComboEditor:XamComboEditor.ItemFilters>
+                    <igComboEditor:ComboItemFilter FieldName="Value" LogicalOperator="Or">
+                        <igComboEditor:ComboItemFilter.Conditions>
+                            <igComboEditor:ComparisonCondition Operator="StartsWith"/>
+                            <igComboEditor:ComparisonCondition Operator="Contains"/>
+                        </igComboEditor:ComboItemFilter.Conditions>
+                    </igComboEditor:ComboItemFilter>
+                </igComboEditor:XamComboEditor.ItemFilters>
+            </igComboEditor:XamComboEditor>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnEditPreferences" Grid.Column="0" Content="Edit Preferences" Margin="10,5,10,5" IsEnabled="{Binding Path=IsEditPreferencesButtonEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding Path=LoadEditPrefUI}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+        <StatusBarItem Grid.Row="3">
+            <TextBlock Text="{Binding Path=SelectedGroup}">
+            </TextBlock>
+        </StatusBarItem>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <CheckBox x:Name="IsForceAllocationSelected" Grid.Column="1" Content="Force Allocation" Margin="10,5,10,5" IsThreeState="True" IsChecked="{Binding Path=IsForceAllocationSelected}" IsEnabled="{Binding Path=IsForceAllocationEnabled}"/>
+            <Button x:Name="btnAllocate" Grid.Column="2" Content="Allocate" Margin="10,5,10,5" Width="75" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding Path=AccountStrategyGridCommand}" CommandParameter="btnAllocate"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button x:Name="btnClear" Grid.Column="3" Content="Clear" Margin="10,5,10,5" Width="75" Template="{DynamicResource RedButtonSkinTemplate}" Foreground="{DynamicResource ButtonForeground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding Path=AccountStrategyGridCommand}" CommandParameter="btnClick"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+        <Views:AccountAndStartegyGridControl Grid.Row="4"  DataContext="{Binding Path= AccountAndStrategyGridControlViewModel}"/>
+    </Grid>
+</UserControl>

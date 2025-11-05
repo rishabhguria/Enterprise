@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PositionMaster">
+          <xs:complexType>
+            <xs:all>
+	<xs:element name="TickerSymbol" type="xs:string" minOccurs="1" />
+	<xs:element name="AssetID" type="xs:integer" minOccurs="0" /> 
+	<xs:element name="UnderLyingID" type="xs:integer" minOccurs="0" />
+	<xs:element name="ExchangeID" type="xs:integer" minOccurs="0" />
+	<xs:element name="CurrencyID" type="xs:integer" minOccurs="0" />
+	<xs:element name="AUECID" type="xs:integer" minOccurs="0" />
+	<xs:element name="LongName" type="xs:string" minOccurs="0" />
+	<xs:element name="CusipSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="SedolSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="ISINSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="ReutersSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="BloombergSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="OSIOptionSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="IDCOOptionSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="OPRAOptionSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="Sector" type="xs:string" minOccurs="0" />  
+	<xs:element name="UnderLyingSymbol" type="xs:string" minOccurs="0" />
+	<xs:element name="PutOrCall" type="xs:integer" minOccurs="0" />
+	<xs:element name="StrikePrice" type="xs:decimal" minOccurs="0" />
+	<xs:element name="Multiplier" type="xs:decimal" minOccurs="0" />
+	<xs:element name="ExpirationDate" type="xs:string" minOccurs="0" />  
+	<xs:element name="SettleMentDate" type="xs:string" minOccurs="0" />
+	<xs:element name="SymbolType" type="xs:string" minOccurs="0" />
+	<xs:element name="Delta" type="xs:decimal" minOccurs="0" />
+	<xs:element name="LeadCurrencyID" type="xs:integer" minOccurs="0" />
+	<xs:element name="VsCurrencyID" type="xs:integer" minOccurs="0" />
+	<xs:element name="Coupon" type="xs:decimal" minOccurs="0" />  
+	<xs:element name="Freq" type="xs:string" minOccurs="0" />
+
+	<xs:element name="MaturityDate" type="xs:string" minOccurs="0" /> 
+	<xs:element name="IssueDate" type="xs:string" minOccurs="0" />                     
+	<xs:element name="AccrualBasisID" type="xs:integer" minOccurs="0" />                     
+	<xs:element name="CouponFrequencyID" type="xs:integer" minOccurs="0" />                     
+	<xs:element name="IsZero" type="xs:string" minOccurs="0" /> 
+	<xs:element name="FirstCouponDate" type="xs:string" minOccurs="0" />   
+	<xs:element name="DaysToSettlement" type="xs:integer" minOccurs="0" />        
+
+	<xs:element name="FixingDate" type="xs:string" minOccurs="0" />	
+	<xs:element name="IsNDF" type="xs:string" minOccurs="0" />
+	<xs:element name="SecurityTypeID" type="xs:integer" minOccurs="0" />
+	<xs:element name="StrikePriceMultiplier" type="xs:decimal" minOccurs="0" />
+	<xs:element name="BloombergOptionRoot" type="xs:string" minOccurs="0" />
+	<xs:element name="UDAAssetClass" type="xs:string" minOccurs="0" />
+	<xs:element name="UDASector" type="xs:string" minOccurs="0" />
+	<xs:element name="UDASubSector" type="xs:string" minOccurs="0" />
+	<xs:element name="UDASecurityType" type="xs:string" minOccurs="0" />
+	<xs:element name="UDACountry" type="xs:string" minOccurs="0" />
+	<xs:element name="EsignalOptionRoot" type="xs:string" minOccurs="0" />
+	
+	<xs:element name="RiskCurrency" type="xs:string" minOccurs="0" />
+	<xs:element name="Issuer" type="xs:string" minOccurs="0" />
+	<xs:element name="CountryOfRisk" type="xs:string" minOccurs="0" />
+	<xs:element name="Region" type="xs:string" minOccurs="0" />
+	<xs:element name="Analyst" type="xs:string" minOccurs="0" />
+	<xs:element name="UCITSEligibleTag" type="xs:string" minOccurs="0" />
+	<xs:element name="LiquidTag" type="xs:string" minOccurs="0" />
+	<xs:element name="MarketCap" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA1" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA2" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA3" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA4" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA5" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA6" type="xs:string" minOccurs="0" />
+	<xs:element name="CustomUDA7" type="xs:string" minOccurs="0" />
+	
+    	 	 
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

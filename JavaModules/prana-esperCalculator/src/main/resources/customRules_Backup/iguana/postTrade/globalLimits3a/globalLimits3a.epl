@@ -1,0 +1,36 @@
+module customRules.iguana.postTrade.globalLimits3a.globalLimits3a;
+
+@Name('AggregationGrossExposureAccountEUStatesEquity')
+@Description('Calculates and stores equity grossExposureBase for Whitney Capital-JPM accounts in EU member states.')
+on pattern[every R=AccountSymbolWithNavUpdated]
+insert into AggregationGrossExposureAccountEUStatesEquity
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId
+from
+AccountSymbolWithNav as T
+where T.accountShortName='Whitney Capital-JPM' and T.asset in ('Equity')
+and T.udaCountry in ('Europe', 'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom')
+group by T.accountShortName;
+
+@Name('GlobalLimits3a')
+@Description('Aggregates data whenever the Gross exposure exceedes 20 percent of gross market value.')
+on pattern[every T=AggregationGrossExposureAccountEUStatesEquity]
+insert into GlobalLimits3a
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'20' || ValueSeparator || T.accountShortName  as threshold,
+	doubleFormat(0.2*R.grossMarketValueBase) || ValueSeparator || T.accountShortName as actualResult,
+	'Gross exposure %' || ValueSeparator || 'Account' as constraintField,
+	true as isViolated,
+	'Gross Exposure: '||doubleFormat(T.grossExposureBase) || ', Account: '||T.accountShortName || ', 20% of Account NRA: '||doubleFormat(0.2*R.grossMarketValueBase) as parameters,
+	current_timestamp as validationTime,
+	'The gross exposure of an Equity in EU member States, in Whitney Capital-JPM exceeded 20% of the Client’s Gross Market Value.' as summary,
+	T.accountShortName as dimension
+from
+AccountWithNav as R
+where T.grossExposureBase > 0.2*R.grossMarketValueBase and R.accountId=T.accountId;

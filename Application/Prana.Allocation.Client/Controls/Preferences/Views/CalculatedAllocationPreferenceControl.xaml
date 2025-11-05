@@ -1,0 +1,81 @@
+﻿<UserControl 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Prana.Allocation.Client.Controls.Preferences.Views" 
+            xmlns:Views="clr-namespace:Prana.Allocation.Client.Controls.Common.Views" 
+            x:Class="Prana.Allocation.Client.Controls.Preferences.Views.CalculatedAllocationPreferenceControl" 
+            xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Preferences.ViewModels"
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+            xmlns:themes="http://infragistics.com/Themes"
+            mc:Ignorable="d" 
+            DataContext="{DynamicResource CalculatedAllocationPreferenceControlViewModel}" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:CalculatedAllocationPreferenceControlViewModel x:Key="CalculatedAllocationPreferenceControlViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <local:CalculatedPreferencesListControl Grid.Column="0" DataContext="{Binding Path=CalculatedPreferencesListControlViewModel}" Background="{DynamicResource UserControlBackGround}"/>
+        <GridSplitter Grid.Column="1" ResizeDirection="Auto" Height="Auto" Width="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Visible" Margin="0"/>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.50*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="0.50*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Name="AccountStrategy" Grid.Row="0" Header="Account Strategy Distribution" Margin="5" BorderBrush="{DynamicResource GroupBoxBorder}">
+                <local:PreferenceAccountStrategyControl DataContext="{Binding Path=PreferenceAccountStrategyControlViewModel}" Margin="5"/>
+            </GroupBox>
+            <GroupBox Name="gboxDefaultRule" Grid.Row="1" Header="Default Rule" Margin="5" BorderBrush="{DynamicResource GroupBoxBorder}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <local:CalculatedPreferenceDefaultRuleControl DataContext="{Binding Path=CalculatedPreferenceDefaultRuleControlViewModel}"/>
+                </ScrollViewer>
+            </GroupBox>
+
+            <GroupBox Name="gboxGeneralRule" Header="General Rule"  Grid.Row="2"  Margin="5" BorderBrush="{DynamicResource GroupBoxBorder}">
+                    <local:CalculatedPreferenceGeneralRuleControl  DataContext="{Binding Path=CalculatedPreferenceGeneralRuleControlViewModel}"/>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

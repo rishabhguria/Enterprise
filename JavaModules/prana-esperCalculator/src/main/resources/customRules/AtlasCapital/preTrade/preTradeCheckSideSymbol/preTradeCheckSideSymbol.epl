@@ -1,0 +1,63 @@
+module customRules.nirvana.preTrade.preTradeCheckSideSymbol.preTradeCheckSideSymbol;
+
+
+@Name('PreTradeDetailsSymbol')
+@Description('Contains new trade details with their previous state')
+on pattern [every (T = RowCalculationBaseWindowWhatIfModified)]
+insert into PreTradeDetailsSymbol
+select distinct
+	S.symbol as symbol,
+	S.quantity as preQuantity,
+	T.quantity as tradeQuantity,
+	T.quantity + S.quantity as postQuantity,
+	T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	"RowCalculationBaseWindowWhatIfModified,SymbolWithNav" as parentWindowStream
+from
+	SymbolWithNav as S
+where
+	S.symbol = T.symbol; 
+
+
+@Name('PreTradeDetailsSymbolNot')
+@Description('Contains new trade details with their previous state')
+insert into PreTradeDetailsSymbol
+select distinct
+	T.symbol as symbol,
+	0.0 as preQuantity,
+	T.quantity as tradeQuantity,
+	T.quantity as postQuantity,
+	T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream
+from
+	RowCalculationBaseWindowWhatIfModified as T
+where
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType<>'WhatIf' and  S.symbol = T.symbol);
+
+
+@Name('PreTradeCheckSideSymbol')
+@Description('Checks for order side violation on symbol level.')
+insert into PreTradeCheckSideSymbol
+select
+	cast(T.userId, int) as userId,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	'N/A' || ValueSeparator || doubleFormat(coalesce(T.preQuantity, 0)) || ValueSeparator || 'N/A' as threshold,
+	T.symbol || ValueSeparator || doubleFormat(coalesce(T.postQuantity, 0)) || ValueSeparator || T.orderSide as actualResult,
+	'Symbol' || ValueSeparator || 'Quantity' || ValueSeparator || 'OrderSide' as constraintField,
+	exprIsInvalidSide(T) as isViolated,
+	'Order Side: '|| T.orderSide || 
+	', Symbol: '|| T.symbol ||
+	', Quantity before trade: '|| doubleFormat(coalesce(T.preQuantity, 0)) ||
+	', Order quantity: '|| doubleFormat(coalesce(T.tradeQuantity, 0)) ||
+	', Quantity if trade is executed: '|| doubleFormat(coalesce(T.postQuantity, 0)) as parameters,
+	current_timestamp as validationTime,
+	'The Order Side ' || T.orderSide || ' is invalid for this trade' as summary,
+	T.symbol as dimension
+from
+	PreTradeDetailsSymbol as T;

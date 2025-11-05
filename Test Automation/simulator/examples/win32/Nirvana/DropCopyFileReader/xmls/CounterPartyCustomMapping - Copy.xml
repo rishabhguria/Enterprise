@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Counterparties>
+
+
+    <CounterParty ID="13" Name="DBA">
+
+      <DefaultRule>
+        <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+      </DefaultRule>
+      <Rule1 >
+        <!--<Condition Direction="0"  ConditionString="" FromTags="17" ToTags="37" />-->
+        <!--<Condition Direction="0"  ConditionString="20=2" FromTags="11" ToTags="41" />-->
+      </Rule1>
+
+      <Rule2 >       
+        <Condition Direction="0"  ConditionString="" ToTags="100002" ToTagsValues="17" />
+       <Condition Direction="1"  ConditionString="" ToTags="100014" ToTagsValues="1" />
+        
+        <Condition Direction="0" ConditionString ="55=ARN AND 100=TC" ToTags="100" ToTagsValues="VC"  ></Condition>
+        <Condition Direction="0"  ConditionString="55=TELT.L" ToTags="55" ToTagsValues="TCM.L" />
+        <Condition Direction="0"  ConditionString="55=AUTOA.L" ToTags="55" ToTagsValues="AUTO-LON" />
+      </Rule2>
+
+      <Rule3>
+        <Condition Direction="1" ConditionString="100004=1" DeleteTags="167" />
+        <Condition Direction="1" ConditionString="100004=1" DeleteTags="200" />
+        <Condition Direction="1" ConditionString="100004=1" DeleteTags="201" />
+        <Condition Direction="1" ConditionString="100004=1" DeleteTags="231" />
+        <Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+        <Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+        <Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+        <Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+        <Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+        <Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+      </Rule3>
+
+      <DllRule>
+        <!--<Condition Direction="0" ConditionString="100004=2" RegularExpression="^(?'G4'.{2})(?'G1'.{2})(?'G3'\s*\b)(?'G2'.{5})$"  ReplaceWith="${G4} ${G1}${G2}"  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>-->
+        <!--<Condition Direction="0" ConditionString="65? AND 65=CT ."  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'-TC'"></Condition>-->
+      <!--<Condition Direction="0" ConditionString="55=M"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'SFT'"></Condition>
+      <Condition Direction="1" ConditionString="55=M"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'SFT'"></Condition>-->
+        <Condition Direction="0" ConditionString="100,15= LN,GBX" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="6=6*'.01'" />
+        <Condition Direction="0" ConditionString="100,15= LN,GBX" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="31=31*'.01'" />
+        <Condition Direction="0" ConditionString="100,15= LN,GBX" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="44=44*'.01'" />
+        <Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+        <Condition Direction="0" ConditionString="" RegularExpression="\.TO$" ReplaceWith="-TC" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+        <Condition Direction="0" ConditionString="" RegularExpression="\.TC$" ReplaceWith="-TC" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+        <Condition Direction="0" ConditionString="" RegularExpression="\.V$" ReplaceWith="-VC" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+        <Condition Direction="0" ConditionString="" RegularExpression="\.AX$" ReplaceWith="-ASX" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+        <Condition Direction="0" ConditionString="" RegularExpression="\.L$" ReplaceWith="-LON" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+        <Condition Direction="0" ConditionString="" RegularExpression="\.OL$" ReplaceWith="-OSL" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      </DllRule>
+  </CounterParty>
+
+</Counterparties>

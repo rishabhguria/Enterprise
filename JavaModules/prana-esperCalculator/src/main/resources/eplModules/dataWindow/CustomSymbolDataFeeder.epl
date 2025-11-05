@@ -1,0 +1,78 @@
+module eplModules.dataWindow.CustomSymbolDataFeeder;
+
+@Name('CustomSymbolDataWindow')
+@Description('Named window which store custom symbol data.')
+create window CustomSymbolDataWindow.std:unique(symbol)
+(	
+	symbol string,
+	underlyingSymbol string,
+	askPrice double,
+	bidPrice double,
+	lowPrice double,
+	highPrice double,
+	openPrice double,
+	closePrice double,
+	lastPrice double,
+	selectedFeedPrice double,
+	conversionMethod string,
+	markPrice double,	
+	delta double,
+	beta5YearMonthly double,
+	assetId int,
+	openInterest double,
+	avgVolume20Days double,
+	sharesOutstanding BigDecimal,
+	parentWindowStream string
+);
+ 
+@Name('CustomSymbolDataWindowUpsert')
+@Description('This updates the CustomSymbolDataWindow every time new CustomSymbolData event occurs.')
+on CustomSymbolData as C
+merge CustomSymbolDataWindow CW where CW.symbol = C.symbol
+when matched
+		then 
+			update 
+				set					
+					CW.selectedFeedPrice = C.selectedFeedPrice,
+					 CW.askPrice = C.askPrice,
+					 CW.bidPrice = C.bidPrice,
+					 CW.lowPrice = C.lowPrice,
+					 CW.highPrice = C.highPrice,
+					 CW.openPrice = C.openPrice,
+					 CW.closePrice = C.closePrice,
+					 CW.lastPrice = C.lastPrice,
+					 CW.conversionMethod = C.conversionMethod,
+					 CW.markPrice = C.markPrice,
+					 CW.delta = Coalesce(C.delta,1),
+					 CW.beta5YearMonthly = C.beta5YearMonthly,
+					 CW.assetId = C.assetId,
+					 CW.openInterest = C.openInterest,
+					 CW.avgVolume20Days = C.avgVolume20Days,
+					 CW.sharesOutstanding = C.sharesOutstanding,
+					 CW.parentWindowStream = "CustomSymbolData" 
+when not matched
+		then insert select			
+			C.symbol as symbol,
+		   	C.underlyingSymbol as underlyingSymbol,
+			C.askPrice as askPrice,
+			C.bidPrice as bidPrice,
+			C.lowPrice as lowPrice,
+			C.highPrice as highPrice,
+			C.openPrice as openPrice,
+			C.closePrice as closePrice,
+			C.lastPrice as lastPrice,
+			C.selectedFeedPrice as selectedFeedPrice,
+			C.conversionMethod as conversionMethod,
+			C.markPrice as markPrice,
+	 		Coalesce(C.delta,1) as delta,
+	 		C.beta5YearMonthly as beta5YearMonthly,
+	 		C.assetId as assetId,
+	 		C.openInterest as openInterest,
+	 		C.avgVolume20Days as avgVolume20Days,
+	 		C.sharesOutstanding as sharesOutstanding,
+		   	"CustomSymbolData" as parentWindowStream;
+	 			 		
+@Name('CustomSymbolDataWindowClear')
+@Description('Clears the custom symbol data window whenever ClearCustomSymbolData event occurs.')
+on ClearCustomSymbolData as C
+delete from CustomSymbolDataWindow 		

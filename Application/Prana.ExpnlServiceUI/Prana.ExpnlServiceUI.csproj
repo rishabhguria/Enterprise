@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DF20E0C3-CE20-4071-8A7E-1EC173A83FF0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.ExpnlServiceUI</RootNamespace>
+    <AssemblyName>Prana.ExpnlServiceUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\Prana.Global\Resources\ExpnlServiceUI.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\Prana.BusinessObjects\Dlls\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\Prana.BusinessObjects\Dlls\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClearanceTimeSetUpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClearanceTimeSetUpForm.Designer.cs">
+      <DependentUpon>ClearanceTimeSetUpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExpnlServiceUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExpnlServiceUI.Designer.cs">
+      <DependentUpon>ExpnlServiceUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimerSchedulerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimerSchedulerControl.Designer.cs">
+      <DependentUpon>TimerSchedulerControl.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ExpnlServiceUI.resx">
+      <DependentUpon>ExpnlServiceUI.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CoreService.Interfaces\Prana.CoreService.Interfaces.csproj">
+      <Project>{79a6b4bd-7843-477b-a6d2-980bedab9f86}</Project>
+      <Name>Prana.CoreService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ExpnlServiceManager\Prana.ExpnlServiceManager.csproj">
+      <Project>{17ba2eaf-a494-4837-88b2-21e945e8f5df}</Project>
+      <Name>Prana.ExpnlServiceManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

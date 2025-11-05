@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<log4net>
+  <appender name="Console" type="log4net.Appender.ConsoleAppender">
+    <layout type="log4net.Layout.PatternLayout">
+      <!-- Pattern to output the caller's file name and line number -->
+      <conversionPattern value="%5level [%thread] (%file:%line) - %message%newline" />
+    </layout>
+  </appender>
+	<appender name="SmtpAppender" type="log4net.Appender.SmtpAppender">
+		<to value="vinodnayal1981@gmail.com" />
+		<from value="nirvanasupport@nirvana-sol.com" />
+		<subject value="Nirvana Alert" />
+		<smtpHost value="smtp.nirvana-sol.com" />
+		<bufferSize value="512" />
+		<lossy value="true" />
+		<evaluator type="log4net.Core.LevelEvaluator">
+			<threshold value="WARN"/>
+		</evaluator>
+		<layout type="log4net.Layout.PatternLayout">
+			<conversionPattern value="%newline%message%newline%newline%newline" />
+		</layout>
+	</appender>
+
+	<appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
+    <file value="log/Log4net.log" />
+    <appendToFile value="true" />
+    <maximumFileSize value="100KB" />
+    <maxSizeRollBackups value="-1" />
+    <countDirection value="1"/>
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="%date [%thread] %-5level %logger %ndc - %message%newline" />
+      <!--<conversionPattern value="%level %thread %logger - %message%newline" />-->
+    </layout>
+  </appender>
+
+  <root>
+    <level value="INFO" />
+    <appender-ref ref="Console" />
+    <appender-ref ref="RollingFile" />
+	  <appender-ref ref="SmtpAppender" />
+
+  </root>
+</log4net>

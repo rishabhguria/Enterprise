@@ -1,0 +1,155 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Core="clr-namespace:System;assembly=mscorlib" 
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Allocation.ViewModels"
+             xmlns:Custom="http://infragistics.com/Editors"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:themes="http://infragistics.com/Themes"
+             x:Class="Prana.Allocation.Client.Controls.Allocation.Views.AllocationSwapControl" 
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Constants"
+             xmlns:behaviors="clr-namespace:Prana.Allocation.Client.Behaviours" 
+             xmlns:Converters="clr-namespace:Prana.Allocation.Client.ValueConvertor"  
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+             DataContext="{DynamicResource AllocationSwapControlViewModel}"
+             mc:Ignorable="d" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>-->
+            <viewModels:AllocationSwapControlViewModel x:Key="AllocationSwapControlViewModel"/>
+            <Converters:PrecisionFormatDisplayConverter x:Key="PrecisionFormatDisplayConverter"/>
+            <Style x:Key="NumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource PrecisionFormatDisplayConverter}"/>
+                <Setter Property="Tag" Value="{Binding Path=PrecisionFormat}"></Setter>
+                <Setter Property="Mask" Value="{}{char:15:0-9.}"/>
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="5,5,5,5"/>
+                <Setter Property="IsReadOnly" Value="{Binding IsReadOnly,Mode=TwoWay}"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid IsEnabled="{Binding Path=EnableControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Notional Value" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="Interest Rate" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="Spread(B.P)" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="First Reset Date" Grid.Row="3" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="Day Count" Grid.Row="4" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="Original T.Date" Grid.Row="5" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="Original Cost Basis" Grid.Row="6" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Label Content="Swap Description" Grid.Row="7" Grid.Column="0" Margin="5,5,5,5"/>
+                    <Custom:XamNumericEditor Name="NotionalValueEditor" Grid.Row="0" Grid.Column="1" ValueType="Core:Double" Value="{Binding Path=NotionalValueEditor,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1">
+                        <i:Interaction.Behaviors>
+                            <behaviors:XamNumericEditorBehaviour/>
+                        </i:Interaction.Behaviors>
+                    </Custom:XamNumericEditor>
+                    <Custom:XamNumericEditor x:Name="InterestRateEditor" Grid.Row="1" Grid.Column="1" ValueType="Core:Double" Value="{Binding Path=InterestRateEditor,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1">
+                        <i:Interaction.Behaviors>
+                            <behaviors:XamNumericEditorBehaviour/>
+                        </i:Interaction.Behaviors>
+                    </Custom:XamNumericEditor>
+                    <Custom:XamNumericEditor x:Name="SpreadEditor" Grid.Row="2" Grid.Column="1" ValueType="Core:Int32" Value="{Binding Path=SpreadEditor,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" NullText="0" SpinIncrement="1" Mask="{x:Static Constants:AllocationClientConstants.INTEGER_MASK}" Style="{StaticResource NumericEditorStyle}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:XamNumericEditorBehaviour/>
+                        </i:Interaction.Behaviors>
+                    </Custom:XamNumericEditor>
+                    <igWPF:XamDateTimeEditor Name="cbSwapFirstResetDate" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" Text="{Binding FirstResetDateEditor,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <Custom:XamNumericEditor x:Name="DayCountEditor" Grid.Row="4" Grid.Column="1" NullText="365" ValueType="Core:Int32" Value="{Binding Path=DayCountEditor,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SpinIncrement="1" Mask="{x:Static Constants:AllocationClientConstants.INTEGER_MASK}"  Style="{StaticResource NumericEditorStyle}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:XamNumericEditorBehaviour/>
+                        </i:Interaction.Behaviors>
+                        <Custom:XamNumericEditor.ValueConstraint>
+                            <Custom:ValueConstraint MaxInclusive="365" MinInclusive="1" Nullable="False"/>
+                        </Custom:XamNumericEditor.ValueConstraint>
+                    </Custom:XamNumericEditor>
+                    <igWPF:XamDateTimeEditor Name="cbSwapOriginalTDate" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" Text="{Binding OriginalDateEditor,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <Custom:XamNumericEditor x:Name="OriginalCostEditor" Grid.Row="6" Grid.Column="1" ValueType="Core:Double" Value="{Binding Path=OriginalCostEditor,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1">
+                        <i:Interaction.Behaviors>
+                            <behaviors:XamNumericEditorBehaviour/>
+                        </i:Interaction.Behaviors>
+                    </Custom:XamNumericEditor>
+                    <TextBox Name="tbSwapDescription" Grid.Row="7" Grid.Column="1" Margin="5,5,5,5" Text="{Binding Path=SwapDescription}" />
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="1" Height="35">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnSwapUpdate" Content="{Binding Path=ButtonText}" Grid.Column="1" Margin="20,5,20,5" Width="90" Template="{DynamicResource GreenButtonSkinTemplate}" Foreground="{DynamicResource ButtonForeground}" Visibility="{Binding IsSwapUpdateButton, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding Path=SwapUpdate}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button x:Name="btnClear" Content="Clear" Grid.Column="2" Margin="20,5,20,5" Width="80" Template="{DynamicResource RedButtonSkinTemplate}" Foreground="{DynamicResource ButtonForeground}" Visibility="{Binding IsSwapUpdateButton, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction Command="{Binding Path=ClearButton}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+    </Grid>
+    
+</UserControl>

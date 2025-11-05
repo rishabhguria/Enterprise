@@ -1,0 +1,470 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="d47cb6bd-ca58-4ae0-a5f1-715f51a549be" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Dim Time</ID>
+  <Name>Dim Time</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="3" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-1885" scrolltop="-4432" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="7620" y="14023" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="Dim_Time (dbo.Dim_Time)" left="20" top="0" logicalid="2" controlid="1" masterid="0" hint1="0" hint2="0" width="3810" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000e20e000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_Dim_Time" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-1885</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>-4432</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>20</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="79257703-8dbe-4e8f-9959-9c8f9728b6d1">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <Type>Time</Type>
+  <UnknownMember>Visible</UnknownMember>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="e29fda43-1498-4553-9efa-852acef6a4bd">
+      <ID>Dim Time</ID>
+      <Name>Date</Name>
+      <Type>Date</Type>
+      <Usage>Key</Usage>
+      <EstimatedCount>7671</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="d545ff86-6031-4793-9465-a9b57b3490a8">
+          <NullProcessing>UnknownMember</NullProcessing>
+          <DataType>BigInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="56dd2f18-4da5-455c-a2f6-4d5d26626c52">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>PK_TimeKey</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="6b512d80-ef06-4004-9558-e145a4ffd714">
+        <DataType>WChar</DataType>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="cb892491-13c9-449a-9b8f-05adf36182f6">
+          <TableID>dbo_Dim_Time</TableID>
+          <ColumnID>FullDateAlternateKey</ColumnID>
+        </Source>
+      </NameColumn>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="18de441a-8272-4aca-9b05-ee5fc35b47db">
+          <AttributeID>Full Date Alternate Key</AttributeID>
+          <Name>Full Date Alternate Key</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="34c81c30-a8a0-484d-9222-bb59f8b127ce">
+          <AttributeID>Day Number Of Week</AttributeID>
+          <Name>Day Number Of Week</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="0b192c71-f22b-4eee-b472-23dd66528f87">
+          <AttributeID>Day Name Of Week</AttributeID>
+          <Name>Day Name Of Week</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ba19e6d8-309e-43dd-9c17-2b4dea6782b8">
+          <AttributeID>Day Number Of Month</AttributeID>
+          <Name>Day Number Of Month</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="7f33560d-392a-449b-946e-70fd5c20613d">
+          <AttributeID>Day Number Of Year</AttributeID>
+          <Name>Day Number Of Year</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ca34f422-2671-4223-a4e2-042f65a91fc0">
+          <AttributeID>Month Name</AttributeID>
+          <Name>Month Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="30fd4000-c663-4e27-87e4-82b8c911ab30">
+          <AttributeID>Calendar Week No</AttributeID>
+          <Name>Calendar Week No</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="7f754aa4-ffbc-42a2-9f70-23171b974b44">
+          <AttributeID>Calendar Month No</AttributeID>
+          <Name>Calendar Month No</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="5bed6498-8df0-400e-832f-bf446c2fecba">
+          <AttributeID>Calendar Quarter</AttributeID>
+          <Name>Calendar Quarter</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="1ed3940f-9d59-4df7-9470-2e2d0e3656e6">
+          <AttributeID>Calendar Year</AttributeID>
+          <Name>Calendar Year</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="fc673b34-acbe-4c06-b754-7fa84859c6ac">
+          <AttributeID>Fiscal Week No</AttributeID>
+          <Name>Fiscal Week No</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="b1005da4-f573-4a2e-aaf0-e189b36325cc">
+          <AttributeID>Fiscal Month No</AttributeID>
+          <Name>Fiscal Month No</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="a7c61201-e9c0-490f-addc-d5caaba72ad0">
+          <AttributeID>Fiscal Quarter</AttributeID>
+          <Name>Fiscal Quarter</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="664753f1-a06e-4706-a5fc-6b071fe5254e">
+          <AttributeID>Fiscal Year</AttributeID>
+          <Name>Fiscal Year</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="6be49474-046e-4fbb-82d2-3f3943097ff0">
+          <AttributeID>Is Weekend</AttributeID>
+          <Name>Is Weekend</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="af79ff31-cf07-4ad5-8f6c-087915f3f9d6">
+          <AttributeID>Is Holiday</AttributeID>
+          <Name>Is Holiday</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ValueColumn dwd:design-time-name="2e6676c2-366b-414d-81f6-d601ede2c167">
+        <DataType>Date</DataType>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="3a9d0f0b-4cdb-4018-993e-6998336cbd4a">
+          <TableID>dbo_Dim_Time</TableID>
+          <ColumnID>FullDateAlternateKey</ColumnID>
+        </Source>
+      </ValueColumn>
+      <InstanceSelection>MandatoryFilter</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="a70d6404-f3b1-40ba-a57d-68a14042d06d">
+      <ID>Full Date Alternate Key</ID>
+      <Name>Full Date Alternate Key</Name>
+      <EstimatedCount>7671</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="0a77c3d0-c307-49bb-a06d-280c5700396a">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="849cc52b-55c9-48f5-b916-bb851984c09d">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>FullDateAlternateKey</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>MandatoryFilter</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="d542872c-a488-4d72-a932-f8cace3542e2">
+      <ID>Day Number Of Week</ID>
+      <Name>Day Number Of Week</Name>
+      <EstimatedCount>7</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="ae939c94-01c0-47f1-a416-49faa4930a02">
+          <DataType>UnsignedTinyInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="ad45ce7b-5f86-47ea-b5a4-977ffa38039c">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>DayNumberOfWeek</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="9361b3da-01fd-45eb-816c-760eec169bbe">
+      <ID>Day Name Of Week</ID>
+      <Name>Day Name Of Week</Name>
+      <EstimatedCount>7</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="af276a82-6ff1-4ed6-ad3f-6c3a6e84a144">
+          <DataType>WChar</DataType>
+          <DataSize>10</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="ae1f04d3-17c3-4c1a-af7d-5b968cfe84fe">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>DayNameOfWeek</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="4443215a-0da3-4ad9-b88e-759de8747b95">
+      <ID>Day Number Of Month</ID>
+      <Name>Day Number Of Month</Name>
+      <EstimatedCount>31</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="9d70f6df-9746-4feb-988d-73f0ac3a453c">
+          <DataType>UnsignedTinyInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a8f7094f-4380-4238-badc-e66f30bb0961">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>DayNumberOfMonth</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="bef577c9-24de-453b-b451-9a9a7bc9b93b">
+      <ID>Day Number Of Year</ID>
+      <Name>Day Number Of Year</Name>
+      <EstimatedCount>366</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="5a3e8420-47b6-4749-968b-32f751c96124">
+          <DataType>SmallInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="0d2e8717-5d1f-4664-a07d-276fd29ad918">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>DayNumberOfYear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>List</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="e831e611-d590-4291-9d09-435647610451">
+      <ID>Month Name</ID>
+      <Name>Month Name</Name>
+      <EstimatedCount>12</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="7215dd5a-53de-451e-9bf9-211b7d59b9dd">
+          <DataType>WChar</DataType>
+          <DataSize>10</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="8f8d9114-ad6b-4cfb-86c9-b9b78daa7c9a">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>MonthName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="71099c42-ca31-45f1-a2e8-a3729441dfcc">
+      <ID>Calendar Week No</ID>
+      <Name>Calendar Week No</Name>
+      <Type>Weeks</Type>
+      <EstimatedCount>54</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="bd5c10ea-e2bb-4e23-a662-a536cabd084d">
+          <DataType>UnsignedTinyInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="0e62dd28-673b-4aed-8208-0e456f13ae41">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>CalendarWeekNo</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="ba4ca3c3-5971-470f-a449-0ea97a428985">
+      <ID>Calendar Month No</ID>
+      <Name>Calendar Month No</Name>
+      <Type>Months</Type>
+      <EstimatedCount>12</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="79852205-b9eb-4fd5-84f9-ad35ef4a299d">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="e35c1340-c147-4968-ace4-b40703e13cae">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>CalendarMonthNo</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="e262b4c0-bc88-4074-b645-06566e7be6de">
+        <DataType>WChar</DataType>
+        <DataSize>10</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="fd44b634-88ae-4a68-bedb-fad9b3e5f88d">
+          <TableID>dbo_Dim_Time</TableID>
+          <ColumnID>MonthName</ColumnID>
+        </Source>
+      </NameColumn>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="ee5e0122-8149-4bb5-a09a-a563ba42fcdb">
+      <ID>Calendar Quarter</ID>
+      <Name>Calendar Quarter</Name>
+      <Type>Quarters</Type>
+      <EstimatedCount>4</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="466fd0cf-1d74-41e9-b3e8-78bd5d512639">
+          <DataType>UnsignedTinyInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2ac52380-ce1c-4410-97d3-3024c126a80c">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>CalendarQuarter</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="cb982e47-1a11-4405-be58-a1e798fdcff1">
+      <ID>Calendar Year</ID>
+      <Name>Calendar Year</Name>
+      <Type>Years</Type>
+      <EstimatedCount>21</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="3656774f-e6e6-4618-91f6-a942a1b2bd56">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2250cf74-78a3-44f9-b7c4-af11a883e6ae">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>CalendarYear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="569b9784-43d4-4d0b-999e-404aaf9c2fbe">
+      <ID>Fiscal Week No</ID>
+      <Name>Fiscal Week No</Name>
+      <EstimatedCount>54</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="54a8fe89-c664-436f-a7fa-c94f5c158ba6">
+          <DataType>UnsignedTinyInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="ef26bc93-1437-46cc-857e-b58bbda22435">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>FiscalWeekNo</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="4f9f11ca-5f50-4070-ae61-57700df07ed3">
+      <ID>Fiscal Month No</ID>
+      <Name>Fiscal Month No</Name>
+      <EstimatedCount>12</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="d9997070-41dd-44cb-9bac-d3cfee74a6ae">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="6b2bc1d1-6f82-49d0-890b-04b9ba4b0976">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>FiscalMonthNo</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="0f54b8c8-b738-48ca-9cc2-ccd6e826d34d">
+      <ID>Fiscal Quarter</ID>
+      <Name>Fiscal Quarter</Name>
+      <EstimatedCount>4</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="a429887d-8742-45e9-a82a-7ca58c5cf9c8">
+          <DataType>UnsignedTinyInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="bc93f70f-9b5d-4b43-a370-0c03183dcce1">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>FiscalQuarter</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="26693bdf-618d-4236-830f-0253f36c7f77">
+      <ID>Fiscal Year</ID>
+      <Name>Fiscal Year</Name>
+      <EstimatedCount>21</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8708bc87-693f-4332-b159-513ec50e5d6a">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9173e244-6cfc-4473-8e2d-859f8d9f3978">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>FiscalYear</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="a0781c81-d167-4712-bc4d-b97c0c58b6b3">
+      <ID>Is Weekend</ID>
+      <Name>Is Weekend</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="f321578a-1e28-4cb6-8366-4bb4854f173f">
+          <DataType>Boolean</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="633193b2-4435-4af1-8d34-0f6b22862893">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>IsWeekend</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="a7e6f982-9a37-4d58-bdf3-d0d3ada9c53e">
+      <ID>Is Holiday</ID>
+      <Name>Is Holiday</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8249ec59-557b-48df-88ed-640b1aa2d55e">
+          <DataType>Boolean</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="f88e6fa3-c211-4a23-8ee4-c00eb89873f0">
+            <TableID>dbo_Dim_Time</TableID>
+            <ColumnID>IsHoliday</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+  </Attributes>
+  <Hierarchies>
+    <Hierarchy dwd:design-time-name="59f414e1-1e62-4c56-8c39-273fd70469ab">
+      <ID>Calendar Quarter - Calendar Month No</ID>
+      <Name>Calender</Name>
+      <Levels>
+        <Level dwd:design-time-name="d03e5beb-7619-40f3-bad6-f92910f8a221">
+          <ID>Calendar Year</ID>
+          <Name>Year</Name>
+          <SourceAttributeID>Calendar Year</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="7e3cc8f8-70df-4cb4-8ca4-401421f3cd9e">
+          <ID>Calendar Quarter</ID>
+          <Name>Quarter</Name>
+          <SourceAttributeID>Calendar Quarter</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="6fa0e22f-488f-4c7c-ba39-70d43af8877b">
+          <ID>Calendar Month No</ID>
+          <Name>Month</Name>
+          <SourceAttributeID>Calendar Month No</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="c3c814e9-2ef2-4858-b26f-fa811fba3986">
+          <ID>Date</ID>
+          <Name>Date</Name>
+          <SourceAttributeID>Dim Time</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+  </Hierarchies>
+</Dimension>

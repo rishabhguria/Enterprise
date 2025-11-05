@@ -1,0 +1,15 @@
+with member MarkPriceMonthStartDate
+as
+(
+([Dim Time].[Calender].[Year].&[2010].&[2].&[5].&[14761],[Measures].[Final Mark Price])
+)
+ member MarkPriceMonthEndDate
+as
+(
+([Dim Time].[Calender].[Year].&[2010].&[2].&[6].&[14771],[Measures].[Final Mark Price])
+)
+
+SELECT  
+          { MarkPriceMonthStartDate,MarkPriceMonthEndDate} on columns,
+ [PM Taxlots].[Symbol-TaxLotID].[Symbol].members on rows 
+ FROM [Nirvana Client DW]

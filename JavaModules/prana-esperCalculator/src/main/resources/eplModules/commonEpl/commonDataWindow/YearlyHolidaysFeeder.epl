@@ -1,0 +1,21 @@
+module eplModules.dataWindow.HolidaysFeeder;
+
+@Name('YearlyHolidaysWindow')
+@Description('Named window which stores the data for YearlyHolidays.')
+create window YearlyHolidaysWindow.std:unique(auecId,holiday)
+(						
+			auecId int,
+			holiday java.util.Date,
+			parentWindowStream string
+);
+ 
+@Name('YearlyHolidaysWindowInsert')
+@Description('This updates the YearlyHolidaysWindow every time new YearlyHolidaysEvent event occurs.')
+on YearlyHolidaysEvent as s
+merge YearlyHolidaysWindow sw where sw.auecId = s.auecId and s.holiday = sw.holiday	
+	when not matched and dateExistsInWeeklyHolidayForAuecId(s.auecId,s.holiday)=false
+		then insert 
+			select
+		   		s.auecId as auecId,
+				s.holiday as holiday,
+		   		"YearlyHolidaysEvent" as parentWindowStream; 

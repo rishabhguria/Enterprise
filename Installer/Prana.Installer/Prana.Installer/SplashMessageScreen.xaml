@@ -1,0 +1,17 @@
+﻿<Window x:Class="Prana.Installer.SplashMessageScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Installer Message" Height="110" Width="500"
+        WindowStyle="None" ResizeMode="NoResize"
+        AllowsTransparency="True" Background="Transparent" WindowStartupLocation="CenterOwner">
+    <Border CornerRadius="15" Background="#212c39" BorderThickness="5" BorderBrush="DimGray">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.4*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="20" VerticalAlignment="Center" Margin="5" Foreground="White" x:Name="MainText" />
+        <TextBlock FontSize="12" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Margin="5,10,5,0" Foreground="White" x:Name="SubText" Grid.Row="1" Height="80"/>
+    </Grid>
+    </Border>
+</Window>

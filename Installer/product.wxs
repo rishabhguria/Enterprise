@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product Id="*" Name="Prana Trial" Language="1033" Version="2.4.0.0" Manufacturer="Nirvana Solutions" UpgradeCode="62718b57-574D-4A9A-A266-5B5EC2C02210">
+    <Package Id="*" InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." AllowSameVersionUpgrades="yes" Schedule="afterInstallInitialize" />
+    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+    <WixVariable Id="WixUILicenseRtf" Value="EULA.rtf" />
+    <!-- Each Feature is Treated as Independent Entity and it is necessary to Refrence each Component in Feature -->
+    <!-- Disallow makes a feature Permanent which can't be removed by user and Hidden is for not displaying it on UI -->
+    <Feature Id="RegistryValues_Feature" Title="RegistryEntries" Level="1" Absent="disallow" Display="hidden">
+      <ComponentRef Id="RegistryEntries" />
+      <ComponentRef Id="RemoveOnUninstall" />
+    </Feature>
+    <!--Refrence to all 9 modules which will be Displayed on UI as Separate Independent Feature -->
+    <Feature Id="Prana.PricingService2_Feature" Title="PricingService2" Level="1" Absent="disallow">
+      <ComponentGroupRef Id="componentGroupId_Prana.Path_PricingService2" />
+      <ComponentRef Id="ApplicationShortcut_PricingService2Host" />
+      <ComponentRef Id="ApplicationShortcut_PricingService2UI" />
+    </Feature>
+    <Feature Id="Prana.TradeService_Feature" Title="TradeService" Level="1" Absent="disallow">
+      <ComponentGroupRef Id="componentGroupId_Prana.Path_TradeService" />
+      <ComponentRef Id="ApplicationShortcut_TradeServiceHost" />
+      <ComponentRef Id="ApplicationShortcut_TradeServiceUI" />
+    </Feature>
+    <Feature Id="Prana.ExpnlService_Feature" Title="ExpnlService" Level="1" Absent="disallow">
+      <ComponentGroupRef Id="componentGroupId_Prana.Path_ExpnlService" />
+      <ComponentRef Id="ApplicationShortcut_ExpnlServiceHost" />
+      <ComponentRef Id="ApplicationShortcut_ExpnlServiceUI" />
+    </Feature>
+    <Feature Id="Prana.Client_Feature" Title="Client" Level="1" Absent="disallow">
+      <ComponentGroupRef Id="componentGroupId_Client" />
+      <ComponentRef Id="ApplicationShortcut_Client" />
+    </Feature>
+    <Feature Id="Prana.Admin_Feature" Title="Admin" Level="1" Absent="disallow">
+      <ComponentGroupRef Id="componentGroupId_Admin" />
+      <ComponentRef Id="ApplicationShortcut_Admin" />
+    </Feature>
+	<Feature Id="Prana.ServiceGateway_Feature" Title="ServiceGateway" Level="2">
+      <ComponentGroupRef Id="componentGroupId_ServiceGateway" />
+      <ComponentRef Id="ApplicationShortcut_ServiceGateway" />
+    </Feature>
+	<Feature Id="Prana.GreenFieldServices_Feature" Title="GreenFieldServices" Level="2">
+      <ComponentGroupRef Id="componentGroupId_GreenFieldServices" />
+      <ComponentRef Id="ApplicationShortcut_AllocationService" />
+	  <ComponentRef Id="ApplicationShortcut_AuthService" />
+	  <ComponentRef Id="ApplicationShortcut_BlotterDataService" />
+	  <ComponentRef Id="ApplicationShortcut_CalculationService" />
+	  <ComponentRef Id="ApplicationShortcut_CommonDataService" />
+	  <ComponentRef Id="ApplicationShortcut_LiveFeedService" />
+	  <ComponentRef Id="ApplicationShortcut_SecurityValidationService" />
+	  <ComponentRef Id="ApplicationShortcut_TradingService" />
+	  <ComponentRef Id="ApplicationShortcut_WatchlistDataService" />
+	  <ComponentRef Id="ApplicationShortcut_ComplianceAlertsService" />
+	  <ComponentRef Id="ApplicationShortcut_LayoutService" />
+    </Feature>
+    <Feature Id="Prana.EsperCalculator_Feature" Title="EsperCalculator" Level="1">
+      <ComponentGroupRef Id="componentGroupId_EsperCalculator" />
+      <ComponentRef Id="ApplicationShortcut_Esper" />
+    </Feature>
+    <Feature Id="Prana.RuleEngineMediator_Feature" Title="RuleEngineMediator" Level="1">
+      <ComponentGroupRef Id="componentGroupId_RuleEngineMediator" />
+      <ComponentRef Id="ApplicationShortcut_RuleMediator" />
+    </Feature>
+    <Feature Id="Prana.ComplianceLoggingTool_Feature" Title="ComplianceLoggingTool" Level="1">
+      <ComponentGroupRef Id="componentGroupId_ComplianceLoggingTool" />
+      <ComponentRef Id="ApplicationShortcut_ComplianceLoggingTool" />
+    </Feature>
+    <Feature Id="Prana.BasketComplianceService_Feature" Title="BasketComplianceService" Level="1">
+      <ComponentGroupRef Id="componentGroupId_BasketComplianceService" />
+      <ComponentRef Id="ApplicationShortcut_BasketComplianceService" />
+    </Feature>
+    <!--Directory Structure Of Installation-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!--Directory Structure Where Installation Will Take Place By Default-->
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Prana">
+          <Directory Id="INSTALL_SUBFOLDER" Name="!(bind.property.ProductName)">
+            <Directory Id="TargetDirectoryPricingService2" Name="Pricing" />
+            <Directory Id="TargetDirectoryTradeService" Name="Server" />
+            <Directory Id="TargetDirectoryExpnlService" Name="Expnl" />
+            <Directory Id="TargetDirectoryClient" Name="Client Release" />
+            <Directory Id="TargetDirectoryAdmin" Name="Admin Release" />
+            <Directory Id="TargetDirectoryServiceGateway" Name="ServiceGateway" />
+			<Directory Id="TargetDirectoryGreenFieldServices" Name="GreenField Services" />
+            <Directory Id="TargetDirectoryEsper" Name="EsperCalculator" />
+            <Directory Id="TargetDirectoryRuleMediator" Name="RuleEngineMediator" />
+            <Directory Id="TargetDirectoryComplianceLoggingTool" Name="ComplianceLoggingTool" />
+            <Directory Id="TargetDirectoryBasketComplianceService" Name="BasketComplianceService" />
+          </Directory>
+        </Directory>
+      </Directory>
+      <!--Directory Structure of Shortcuts Involved-->
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Directory Id="DesktopFolder_Shortcut" Name="!(bind.property.ProductName)">
+          <Component Id="ApplicationShortcut_PricingService2Host" Guid="CB0A48BB-D5BE-4428-8087-BAFF937A270F" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_PricingService2Host" Name="PricingService2" Description="Pricing Service2 Host" Target="[INSTALL_SUBFOLDER]Pricing\Prana.PricingService2Host.exe" WorkingDirectory="TargetDirectoryPricingService2" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_PricingService2UI" Guid="B5464E5F-6E33-40D0-BC0E-6C9986687ABB" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_PricingService2UI" Name="PricingService2UI" Description="Pricing Service2 UI" Target="[INSTALL_SUBFOLDER]Pricing\Prana.PricingService2UI.exe" WorkingDirectory="TargetDirectoryPricingService2" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_TradeServiceHost" Guid="6044033D-4741-4ED5-8B38-A37E3E069C05" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_TradeServiceHost" Name="TradeService" Description="Trade Service Host" Target="[INSTALL_SUBFOLDER]Server\Prana.TradeServiceHost.exe" WorkingDirectory="TargetDirectoryTradeService" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_TradeServiceUI" Guid="D6CFA7D7-1A7D-4089-BDF6-16D04B04C437" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_TradeServiceUI" Name="TradeServiceUI" Description="Trade Service UI" Target="[INSTALL_SUBFOLDER]Server\Prana.TradeServiceUI.exe" WorkingDirectory="TargetDirectoryTradeService" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_ExpnlServiceHost" Guid="10C1292C-02DB-4529-8CD3-16AD454CA1DC" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_ExpnlServiceHost" Name="ExpnlService" Description="Expnl Service Host" Target="[INSTALL_SUBFOLDER]Expnl\Prana.ExpnlServiceHost.exe" WorkingDirectory="TargetDirectoryExpnlService" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_ExpnlServiceUI" Guid="27368DF8-FF39-4EE7-865A-6B7A2507CDD0" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_ExpnlServiceUI" Name="ExpnlServiceUI" Description="Expnl Service UI" Target="[INSTALL_SUBFOLDER]Expnl\Prana.ExpnlServiceUI.exe" WorkingDirectory="TargetDirectoryExpnlService" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_Client" Guid="4D487EE2-B812-4F99-980F-1208B2F9C8D1" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_Client" Name="Client" Description="Client Application" Target="[INSTALL_SUBFOLDER]Client Release\Prana.exe" WorkingDirectory="TargetDirectoryClient" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_Admin" Guid="62718b57-575A-4A9A-A266-5B5EC2C02210" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_Admin" Name="Admin" Description="Admin Application" Target="[INSTALL_SUBFOLDER]Admin Release\Prana.Admin.exe" WorkingDirectory="TargetDirectoryAdmin" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_ServiceGateway" Guid="DF41A343-C99A-41D1-B265-8F510B26A640" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_ServiceGateway" Name="ServiceGateway" Description="Service Gateway" Target="[INSTALL_SUBFOLDER]ServiceGateway\Prana.ServiceGateway.exe" WorkingDirectory="TargetDirectoryServiceGateway" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_AllocationService" Guid="CFA200CB-7A17-44FC-8159-419DA7345A3F" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_AllocationService" Name="Allocation Service" Description="Allocation Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Allocation Service\Prana.AllocationServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_AuthService" Guid="8E5B9D53-EFBB-4449-B996-904F88223AB3" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_AuthService" Name="Auth Service" Description="Auth Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Auth Service\Prana.AuthServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_BlotterDataService" Guid="F89596F9-D0A1-4593-8B65-737041C50388" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_BlotterDataService" Name="Blotter Data Service" Description="Blotter Data Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Blotter Data Service\Prana.BlotterDataServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_CalculationService" Guid="E519DD4F-F054-4254-92F4-8B8F50C8272A" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_CalculationService" Name="Calculation Service" Description="Calculation Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Calculation Service\Prana.CalculationServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_CommonDataService" Guid="4B16164E-AE24-4151-B575-EEB140C44FCB" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_CommonDataService" Name="Common Data Service" Description="Common Data Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Common Data Service\Prana.CommonDataServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_LiveFeedService" Guid="35988FC1-FE78-4EE3-87D4-7D406696E62B" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_LiveFeedService" Name="LiveFeed Service" Description="LiveFeed Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\LiveFeed Service\Prana.LiveFeedServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_SecurityValidationService" Guid="E0064B26-B9DF-4F33-8215-FAFD6FBD3D96" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_SecurityValidationService" Name="Security Validation Service" Description="Security Validation Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Security Validation Service\Prana.SecurityValidationServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_TradingService" Guid="A0934E88-5359-46D1-A0BC-5E49B21CC541" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_TradingService" Name="Trading Service" Description="Trading Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Trading Service\Prana.TradingServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_WatchlistDataService" Guid="E8CC41A6-DC8E-4061-BE80-EE10241853D1" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_WatchlistDataService" Name="Watchlist Data Service" Description="Watchlist Data Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Watchlist Data Service\Prana.WatchlistDataServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_ComplianceAlertsService" Guid="492F4BEF-6CEA-48D4-A8AC-8A43889F13D7" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_ComplianceAlertsService" Name="Compliance Alerts Service" Description="Compliance Alerts Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Compliance Alerts Service\Prana.ComplianceAlertsServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+		  <Component Id="ApplicationShortcut_LayoutService" Guid="7FF98877-C389-4EB8-90C5-326D714C6392" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_LayoutService" Name="Layout Service" Description="Layout Mini Service" Target="[INSTALL_SUBFOLDER]\GreenField Services\Layout Service\Prana.LayoutServiceHost.exe" WorkingDirectory="TargetDirectoryGreenFieldServices" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_Esper" Guid="A2627E4E-6569-49DF-B857-ED8E290CD43A" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_Esper" Name="EsperCalculator" Description="My Application Description" Target="[INSTALL_SUBFOLDER]EsperCalculator\StartEsperCalculator.bat" WorkingDirectory="TargetDirectoryEsper" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_RuleMediator" Guid="58D3E8AB-C1B1-4EB8-BA91-D665FA8B8001" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_RuleMediator" Name="RuleMediator" Description="My Application Description" Target="[INSTALL_SUBFOLDER]RuleEngineMediator\StartRuleEngineMediator.bat" WorkingDirectory="TargetDirectoryRuleMediator" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_ComplianceLoggingTool" Guid="44EC6515-3919-423D-85B4-E07862BC8B1A" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_ComplianceLoggingTool" Name="ComplianceLoggingTool" Description="My Application Description" Target="[INSTALL_SUBFOLDER]ComplianceLoggingTool\StartLoggingTool.bat" WorkingDirectory="TargetDirectoryComplianceLoggingTool" />
+            <CreateFolder />
+          </Component>
+          <Component Id="ApplicationShortcut_BasketComplianceService" Guid="C9716707-987E-4D0B-8C39-D9f7278643D4" KeyPath="yes">
+            <Shortcut Id="ApplicationDesktopShortcut_BasketComplianceService" Name="BasketComplianceService" Description="My Application Description" Target="[INSTALL_SUBFOLDER]BasketComplianceService\StartBasketComplianceService.bat" WorkingDirectory="TargetDirectoryBasketComplianceService" />
+            <CreateFolder />
+          </Component>
+          <!--Remove the ShortcutDesktop Folder On Uninstall-->
+          <Component Id="RemoveOnUninstall" Guid="976F4485-2396-410C-AECF-9D8068349E1B">
+            <RemoveFolder Id="DesktopFolder_Shortcut" On="uninstall" />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+    <!--Registry Entries That are Stored In HKEY_LOCAL_MACHINE on Specified Path and Removed On Uninstall-->
+    <DirectoryRef Id="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="62718b57-574D-4A9A-A266-5B5EC2C02222">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\[ProductName]" Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="string" Name="Path" Value="[INSTALLFOLDER]" KeyPath="yes" />
+          <RegistryValue Type="string" Name="ProductCode" Value="[ProductCode]" />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+    <Property Id="InstallDir" Value="INSTALLFOLDER" />
+    <!--InstallDir and ProductName Will be sent as session parameters to Dll for Backup-->
+    <CustomAction Id="SetDirProp" Property="InstallDir" Value="[INSTALLFOLDER]" />
+    <CustomAction Id="SetProductProp" Property="ProductName" Value="[ProductName]" />
+    <InstallExecuteSequence>
+      <Custom Before="RemoveFiles" Action="SetDirProp" />
+      <Custom After="SetDirProp" Action="SetProductProp" />
+      <!-- <Custom After="SetProductProp" Action="Backup" /> -->
+    </InstallExecuteSequence>
+    <!--Reference to Customized User Interface That is Defined In Fragment Below-->
+    <UIRef Id="CUSTOMUI_IDENTIFIER" />
+  </Product>
+  <Fragment>
+    <UI Id="CUSTOMUI_IDENTIFIER">
+      <!--We are using Predefined UI WixUI_InstallDir and Predefined Dialog CustomizeDlg Defined in WixUIExtension.dll-->
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+      <UIRef Id="WixUI_InstallDir" />
+      <DialogRef Id="CustomizeDlg" />
+      <!--Merging of WixUI_InstallDir UI and CustomizeDlg Dialog-->
+      <Publish Dialog="LicenseAgreementDlg" Control="Next" Event="NewDialog" Value="CustomizeDlg">LicenseAccepted = "1"</Publish>
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg">1</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlg" Order="1">Installed</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Back" Event="NewDialog" Value="LicenseAgreementDlg" Order="2">NOT Installed</Publish>
+      <Publish Dialog="CustomizeDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg">1</Publish>
+    </UI>
+  </Fragment>
+</Wix>

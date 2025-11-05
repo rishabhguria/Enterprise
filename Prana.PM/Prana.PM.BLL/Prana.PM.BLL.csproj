@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F3EB40AF-D2B7-44C9-A7ED-FD54F4D95A3D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.PM.BLL</RootNamespace>
+    <AssemblyName>Prana.PM.BLL</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile></DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile></DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddPositionDerived.cs" />
+    <Compile Include="AddPositionDerivedList.cs" />
+    <Compile Include="AddressDetails.cs" />
+    <Compile Include="AppReconciliedColumn.cs" />
+    <Compile Include="AppReconciliedColumnList.cs" />
+    <Compile Include="Asset.cs" />
+    <Compile Include="AssetList.cs" />
+    <Compile Include="AUEC.cs" />
+    <Compile Include="AuecDetail.cs" />
+    <Compile Include="AuecHelper.cs" />
+    <Compile Include="AUECList.cs" />
+    <Compile Include="BatchItem.cs" />
+    <Compile Include="BatchSetupManager.cs" />
+    <Compile Include="BusinessBase.cs" />
+    <Compile Include="CashBalance.cs" />
+    <Compile Include="CashBalanceEntry.cs" />
+    <Compile Include="CashBalanceEntryList.cs" />
+    <Compile Include="CashBalanceList.cs" />
+    <Compile Include="CashBalanceManagement.cs" />
+    <Compile Include="CashRecon.cs" />
+    <Compile Include="CashReconDetails.cs" />
+    <Compile Include="CashReconItem.cs" />
+    <Compile Include="CashReconItemList.cs" />
+    <Compile Include="CashReconManualEntry.cs" />
+    <Compile Include="CashTransaction.cs" />
+    <Compile Include="CashTransactionDetailReconItem.cs" />
+    <Compile Include="CashTransactionDetailReconItemList.cs" />
+    <Compile Include="CashTransactionManagement.cs" />
+    <Compile Include="CloseTradeInterface.cs" />
+    <Compile Include="CloseTradeMatchedTradeReport.cs" />
+    <Compile Include="CloseTradeMatchedTradeReportItem.cs" />
+    <Compile Include="CloseTradePreferences.cs" />
+    <Compile Include="ClosingContext.cs" />
+    <Compile Include="clsAccrual.cs" />
+    <Compile Include="clsAccruals.cs" />
+    <Compile Include="clsBaseEquityValues.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="CompanyApplicationDetails.cs" />
+    <Compile Include="CompanyType.cs" />
+    <Compile Include="CompanyTypeList.cs" />
+    <Compile Include="CorporateAction.cs" />
+    <Compile Include="CorporateActionEntry.cs" />
+    <Compile Include="CorporateActionNameID.cs" />
+    <Compile Include="CorporateActionType.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="CreatePositionUserInterface.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="DAL\AUECManager.cs" />
+    <Compile Include="DAL\BatchSetupDAL.cs" />
+    <Compile Include="DAL\CashBalanceManager.cs" />
+    <Compile Include="DAL\CommonManager.cs" />
+    <Compile Include="DAL\CompanyManager.cs" />
+    <Compile Include="DAL\CompanyStrategyDailyPNL.cs" />
+    <Compile Include="DAL\CompanyStrategyDailyPNLList.cs" />
+    <Compile Include="DAL\CreatePositionManager.cs" />
+    <Compile Include="DAL\DataManagerPM.cs" />
+    <Compile Include="DAL\DeskTradeManager.cs" />
+    <Compile Include="DAL\FileSettingDAL.cs" />
+    <Compile Include="DAL\TradeDataManager.cs" />
+    <Compile Include="DAL\TradeReconManager.cs" />
+    <Compile Include="DataSourceColumnList.cs" />
+    <Compile Include="DAL\DataSourceManager.cs" />
+    <Compile Include="DAL\RunUploadManager.cs" />
+    <Compile Include="DataSource.cs" />
+    <Compile Include="DataSourceColumn.cs" />
+    <Compile Include="DataSourceEventArgs.cs" />
+    <Compile Include="DataSourceTable.cs" />
+    <Compile Include="DataSourceTableList.cs" />
+    <Compile Include="DeskTrade.cs" />
+    <Compile Include="DeskTradeInterface.cs" />
+    <Compile Include="DeskTradeList.cs" />
+    <Compile Include="FileSettingManager.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="ReconDataSource.cs" />
+    <Compile Include="ReconInfo.cs" />
+    <Compile Include="ReconLogic.cs" />
+    <Compile Include="ReconLogicBase.cs" />
+    <Compile Include="ReconPosition.cs" />
+    <Compile Include="FileParsingStrategy.cs" />
+    <Compile Include="OptionPosition.cs" />
+    <Compile Include="OrderSides.cs" />
+    <Compile Include="FundList.cs" />
+    <Compile Include="OTCPositionList.cs" />
+    <Compile Include="PrimaryContact.cs" />
+    <Compile Include="DataSourceReconColumnsInfo.cs" />
+    <Compile Include="DataSourceReconSummaryInfo.cs" />
+    <Compile Include="DataSourceStatus.cs" />
+    <Compile Include="DataSourceType.cs" />
+    <Compile Include="DividendEntry.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="ExceptionReportEntry.cs" />
+    <Compile Include="ExceptionReportSummary.cs" />
+    <Compile Include="Exchange.cs" />
+    <Compile Include="ImportFormat.cs" />
+    <Compile Include="ImportFormatList.cs" />
+    <Compile Include="ImportMethod.cs" />
+    <Compile Include="ImportMethodList.cs" />
+    <Compile Include="ImportSetup.cs" />
+    <Compile Include="MapAUEC.cs" />
+    <Compile Include="MapColumns.cs" />
+    <Compile Include="MapFunds.cs" />
+    <Compile Include="MappingItem.cs" />
+    <Compile Include="MappingItemList.cs" />
+    <Compile Include="PricingModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReconSetup.cs" />
+    <Compile Include="ReconSetups.cs" />
+    <Compile Include="SetUploadClient.cs" />
+    <Compile Include="StepAnalysis.cs" />
+    <Compile Include="StepAnalysisList.cs" />
+    <Compile Include="SymbolConvention.cs" />
+    <Compile Include="SymbolConventionList.cs" />
+    <Compile Include="TableType.cs" />
+    <Compile Include="TableTypeList.cs" />
+    <Compile Include="TradingAccount.cs" />
+    <Compile Include="TradingAccountList.cs" />
+    <Compile Include="UploadClientSetUpList.cs" />
+    <Compile Include="RunUploadSummary.cs" />
+    <Compile Include="SelectColumns.cs" />
+    <Compile Include="SelectColumnsItem.cs" />
+    <Compile Include="SetupColumnsItemList.cs" />
+    <Compile Include="State.cs" />
+    <Compile Include="Symbol.cs" />
+    <Compile Include="TradeReconManualEntry.cs" />
+    <Compile Include="TradeReconSummary.cs" />
+    <Compile Include="TradeTransaction.cs" />
+    <Compile Include="CashTransactionList.cs" />
+    <Compile Include="TransactionReportSummary.cs" />
+    <Compile Include="Underlying.cs" />
+    <Compile Include="UploadDataCollection.cs" />
+    <Compile Include="UploadedData.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="UserList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram2.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.PM.BLL.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.PM.BLL.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

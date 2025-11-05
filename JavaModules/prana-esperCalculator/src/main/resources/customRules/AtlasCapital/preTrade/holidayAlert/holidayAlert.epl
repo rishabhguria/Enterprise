@@ -1,0 +1,24 @@
+
+module customRules.nirvana.preTrade.holidayAlert.holidayAlert;
+
+@Name('HolidayAlert')
+@Description('Checks if there are any weekly or yearly holidays between the trade and settlement date')
+insert into HolidayAlert
+select
+	cast(R.userId, int) as userId,
+	R.taxlotId as taxlotId,
+	R.basketId as basketId,
+	'0' || ValueSeparator || '0' as threshold,
+	cast(getNoOfWeeklyHolidaysBetweenForAuec(R.auecId,R.tradeDate,R.settlementDate),string) || ValueSeparator || cast(getNoOfYearlyHolidaysBetweenForAuec(R.auecId,R.tradeDate,R.settlementDate),string) as actualResult,
+	'Weekly Holidays' || ValueSeparator || 'Yearly Holidays' as constraintField,
+	(getNoOfWeeklyHolidaysBetweenForAuec(R.auecId,R.tradeDate,R.settlementDate) > 0 or getNoOfYearlyHolidaysBetweenForAuec(R.auecId,R.tradeDate,R.settlementDate) > 0) as isViolated,
+	'Symbol: ' || R.symbol 
+		|| ', Settlement Date: ' || cast(R.settlementDate,string)
+		|| ', Weekly Holidays: ' || cast(getNoOfWeeklyHolidaysBetweenForAuec(R.auecId,R.tradeDate,R.settlementDate),string)
+		|| ', Yearly Holidays: ' || cast(getNoOfYearlyHolidaysBetweenForAuec(R.auecId,R.tradeDate,R.settlementDate),string)
+		 as parameters,
+	current_timestamp as validationTime,
+	'Checks if there are any weekly or yearly holidays before the trade settlement date.' as summary,
+	R.symbol as dimension
+from
+	RowCalculationBaseWindowWhatIfModified as R;

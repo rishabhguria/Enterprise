@@ -1,0 +1,61 @@
+module customRules.EpicenterCapital.preTrade.noSingleTrade.preTradeNoSingleTrade;
+
+@Name('NoSingleTradeExceeding')
+@Description('check if trade done in set account and asset or not.')
+on BasketEOM  as B 
+insert into NoSingleTradeExceeding
+select distinct
+	B.basketId as basketId,
+	R.notionalBase as notional,
+	R.accountId as accountId,
+	R.accountShortName as accountName,
+	(case( valueExistsInCSV(R.udaAsset,Asset_SingleTrade) is false)
+	when true then true else false end) as validation,
+	(case (R.accountId=-1) when true then true else false end) as isUnallocated,
+	R.symbol as symbol,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+@Name('WhatIfNoSingleTradeExceeding')
+@Description('stores the notional value and account nav.')
+on NoSingleTradeExceeding as B
+insert into WhatIfNoSingleTradeExceeding
+select distinct
+	B.basketId as basketId,
+	B.notional as notional,
+	W.userId as userId,
+	B.validation as finalValidation,
+	(case B.isUnallocated when true then sum(W.accountNav)
+	else W.accountNav end) as accountNav,
+	B.accountName as accountName,
+	B.symbol as symbol,
+	"WhatIfAccountWithNav" as parentWindowStream
+from WhatIfAccountWithNav as W where W.basketId = B.basketId and
+(case(B.isUnallocated) when true then W.accountId in (select distinct Z.accountId from WhatIfAccountWithNav Z) else W.accountId = B.accountId end);
+
+@Name('PreTradeNoSingleTradeExceeding')
+@Description('Checks if condition breached or not.')
+insert into PreTradeNoSingleTradeExceeding
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(Threshold_Metric)as threshold,
+	(case Threshold_Type=1 when true then doubleFormat(Math.abs(coalesce((A.notional / A.accountNav)*100,0))) else doubleFormat(A.notional) end) as actualResult,
+	(case Threshold_Type=1 when true then '% Total NAV' else 'Notional' end) as constraintField,
+     (case A.finalValidation is true 
+	when true then
+    (case Threshold_Type=1  when true then Math.abs(coalesce(A.notional,0)) > Math.abs(coalesce(Threshold_Metric*A.accountNav/100,0)) else (Math.abs(coalesce(A.notional,0)) > Threshold_Metric) end)
+    else false end)as isViolated,
+	'Account: ' || A.accountName || ', Account NAV: ' || doubleFormat(Math.abs(coalesce(A.accountNav, 0)))
+	|| (case Threshold_Type=1 when true then (', % Total NAV : ' || doubleFormat(Math.abs(coalesce((A.notional / A.accountNav)*100,0)))) 
+	else (', Notional : ' || doubleFormat(Math.abs(coalesce(A.notional,0))) ) end) 
+	|| ', Symbol : ' || A.symbol as parameters,
+	current_timestamp as validationTime,
+	(case Threshold_Type=1 when true then ('Notional value of trade exceeds ' || doubleFormat(Threshold_Metric) ||'% of NAV.') 
+	else ('Notional value of trade exceeds ' || doubleFormat(Threshold_Metric) ||'.') end) as summary,
+	A.accountName as dimension
+from
+WhatIfNoSingleTradeExceeding as A
+where A.userId is not null;

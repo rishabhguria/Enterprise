@@ -1,0 +1,56 @@
+module customRules.AtlasCapital.preTrade.freeFloatAdjustedShares.preTradeFreeFloatAdjustedShares;
+
+@Name('FreeFloatingSharesCheckInAccount')
+@Description('Checks if trade done in set account or not.')
+on BasketEOM as B
+insert into FreeFloatingSharesCheckInAccount
+select distinct
+    B.basketId as basketId,
+	B.userId as userId,
+	R.accountId as accountId,
+	R.symbol as symbol,
+	R.accountShortName as accountShortName,
+	(case(valueExistsInCSV(R.accountShortName, Account_Name_Floating_Shares))
+	when true then true else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfAccountFreeFloatingSharesCheck')
+@Description('Stores calculated value of free floating shares for current trade.')
+on FreeFloatingSharesCheckInAccount as B
+insert into WhatIfAccountFreeFloatingSharesCheck
+select distinct
+    B.basketId as basketId,
+    W.userId as userId,
+    W.quantity as quantity,
+    W.accountId as accountId,
+    W.accountShortName as accountName,
+    W.symbol as symbol,
+    B.validation as finalValidation,
+    convertStrToInt(W.customUDA8) as totalFreeFloatingShares,
+    "WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId and B.symbol = W.symbol
+group by W.accountId;
+
+@Name('PreTradeFreeFloatingSharesCheck')
+@Description('Final stream to check if condition is breached')
+insert into PreTradeFreeFloatingSharesCheck
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+    Account_Name_Floating_Shares || ValueSeparator || doubleFormat(FloatingSharesPercentage) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.quantity/A.totalFreeFloatingShares)*100,0))) as actualResult,
+    'Account' || ValueSeparator || 'Total free floating shares ' as constraintField,
+    (case A.finalValidation is true
+    when true then ((A.totalFreeFloatingShares > 1) and (Math.abs(A.quantity) > A.totalFreeFloatingShares*(FloatingSharesPercentage/100)))
+    else false end) as isViolated,
+	'Account: ' || A.accountName ||', Symbol: '||A.symbol || ', Quantity: ' || doubleFormat(A.quantity) || ', % Total free floating shares: ' || doubleFormat(Math.abs(coalesce((A.quantity/A.totalFreeFloatingShares)*100,0))) as parameters,
+	current_timestamp as validationTime,
+	'Quantity should be less than '||doubleFormat(FloatingSharesPercentage)||'% of total free floating shares.' as summary,
+	A.accountName as dimension
+  from  WhatIfAccountFreeFloatingSharesCheck as A
+  where A.userId is not null;

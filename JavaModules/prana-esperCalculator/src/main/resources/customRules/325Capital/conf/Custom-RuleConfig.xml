@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="Capital">
+ 				<rule id="custom-rule-325Capital">
+			<name>Order Side Check</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+			<description>Pre-Trade Alerts For OrderSide Violation on Account-Symbol Level</description>
+			<compressionLevel>Custom</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList> 
+			</constantList>	
+		</rule>	
+		<rule id="custom-rule-325Capital-TradeQuantity">
+			<name>Trade Quantity Rule</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckQuantitySymbol/</eplPath>
+			<description>Security traded more than the defined trade quantity limit</description>
+			<compressionLevel>Trade</compressionLevel>
+			<validationCompletedEventName>preTradeCheckQuantitySymbol</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="preTradeCheckQuantitySymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="preTradeCheckQuantitySymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Symbols to be monitored" name="Symbol_10KQTY_TradeQuantity" type="String" value=""/>
+		   		<constantValue displayName="Quantity greater than/equalTo" name="Quantity_10K_TradeQuantity" type="double" value="10000"/>
+				<constantValue displayName="Symbols to be monitored" name="Symbol_5KQTY_TradeQuantity" type="String" value=""/>
+		   		<constantValue displayName="Quantity greater than/equalTo" name="Quantity_5K_TradeQuantity" type="double" value="5000"/> 
+			</constantList>			
+		</rule>
+	</rules>
+</ruleConfig>

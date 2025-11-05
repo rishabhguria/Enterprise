@@ -1,0 +1,755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <rd:DataSourceID>26f32b07-0851-43be-9cb6-21b53adc1361</rd:DataSourceID>
+      <DataSourceReference>DataSource1</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="ToDimTimeDate">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>[Dim Time].[Calender].[Year].&amp;[2009].&amp;[2].&amp;[5].&amp;[3430]</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ToDimTimeDate</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>ToDimTimeDate1</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+          <LabelField>ParameterCaption</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="TCompanyFundsFundName">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC OPP FUND]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC OPP INTL FUND]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC OPP INTL UBS]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC OPP UBS]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC PARTNERS II LP]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC PARTNERS INTL LTD]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC PARTNERS LP]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC VISION FUND INTL]</Value>
+          <Value>[T Company Funds].[Fund Name].&amp;[SC VISION FUND LP]</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>TCompanyFundsFundName</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>TCompanyFundsFundName</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+          <LabelField>ParameterCaption</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>1in</RightMargin>
+  <LeftMargin>1in</LeftMargin>
+  <BottomMargin>1in</BottomMargin>
+  <rd:ReportID>61d68ac8-df50-4019-b45d-34b33bf93d40</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSource1">
+      <Fields>
+        <Field Name="Year">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Year]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Quarter">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Quarter]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Month">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Month]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Date">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Date]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MarketValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[MarketValue]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Profit">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[Profit]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="SimpleRateOfReturn">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SimpleRateOfReturn]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>with 
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):strtomember(@ToDimTimeDate,                CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+set [MPDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):
+strtomember(@ToDimTimeDate,CONSTRAINED).PrevMember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+member MarkPriceEndDate
+as
+(
+(EndDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPriceStartDate
+as
+(
+(MPDate.Item(0),[Measures].[Final Mark Price])
+)
+
+member SnapShotCashValue as
+(
+([Measures].[Cash Value])
+)
+
+member Accruals
+as
+(
+sum(
+      descendants(
+             [Fact Accrued Cash].[AccountSubAccount],
+              [Fact Accrued Cash].[AccountSubAccount].[Fact Accrued Cash]
+                 ),
+iif(EndDate.Item(0).Properties("Key",TYPED)&lt; [Measures].[Payout Date Key]
+and EndDate.Item(0).Properties("Key",TYPED)&gt;= [Measures].[Accrue Date Key]
+,
+              [Measures].[AccruedCashValue],0
+)
+)
+)
+
+
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+(null:[Dim Time].[Calender].CurrentMember)*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+member [BeginningMarketValue] as
+(
+sum(
+[PM Open Position Snap Shots].[Symbol].children,
+[SymbolLastQuantity]*([Measures].[Final Mark Price],[Dim Time].[Calender].CurrentMember)
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+)
+)
+
+
+member MarketValue as 
+(
+[BeginningMarketValue]
+--iif(IsEmpty([BeginningMarketValue]+[SnapShotCashValue]+[Accruals]),0,
+--[BeginningMarketValue]+[SnapShotCashValue]+[Accruals])
+  
+)
+
+
+
+
+member UnRealisedCommission
+as
+(
+sum(
+crossjoin([Dim Time].[Calender].CurrentMember:EndDate.Item(0) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+)
+,
+
+[Measures].[Open Total Commissionand Fees]
+
+)
+)
+member DailyUnRealisedPnl as
+(
+sum(
+--crossjoin([Dim Time].[Calender].CurrentMember:EndDate.Item(0) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+         -- )
+,
+ iif([Measures].[TradeDateKey]&gt;=EndDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-UnRealisedCommission
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPriceStartDate)
+)
+)
+)
+member DailyRealisedPnl as
+(
+sum(
+crossjoin(EndDate.Item(0):EndDate.Item(0) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  ))
+,
+ iif([Measures].[TradeDateKey]&gt;=EndDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPriceStartDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+member [Profit] as 
+(
+[DailyRealisedPnl]+[DailyUnRealisedPnl]
+)
+member [SimpleRateOfReturn]  as 
+(
+[Profit]/[MarketValue]
+)
+
+SELECT  {[MarketValue], [Profit],[SimpleRateOfReturn]} ON COLUMNS,
+{
+
+(STRTOMEMBER(@ToDimTimeDate).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild),
+(STRTOMEMBER(@ToDimTimeDate).Parent.Parent.FirstChild.FirstChild),
+(STRTOMEMBER(@ToDimTimeDate).Parent.FirstChild),
+(STRTOMEMBER(@ToDimTimeDate))
+}
+ DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM 
+( SELECT ( [Dim Time].[Calender].[Year].&amp;[2000].&amp;[1].&amp;[1].&amp;[1]: STRTOMEMBER(@ToDimTimeDate) )
+ ON COLUMNS FROM ( SELECT ( { [Dim Sub Accounts].[Type ID].&amp;[4],[Dim Sub Accounts].[Type ID].&amp;[1] } ) 
+
+ON COLUMNS FROM ( SELECT ( STRTOSET(@TCompanyFundsFundName, CONSTRAINED) ) ON COLUMNS FROM [Nirvana Client DW])))
+
+
+ CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="ToDimTimeDate">
+            <Value>=Parameters!ToDimTimeDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="TCompanyFundsFundName">
+            <Value>=Parameters!TCompanyFundsFundName.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Year</LevelName><UniqueName>[Dim Time].[Calender].[Year]</UniqueName></ID><ItemCaption>Year</ItemCaption><UniqueName>true</UniqueName></Item><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Quarter</LevelName><UniqueName>[Dim Time].[Calender].[Quarter]</UniqueName></ID><ItemCaption>Quarter</ItemCaption><UniqueName>true</UniqueName></Item><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Month</LevelName><UniqueName>[Dim Time].[Calender].[Month]</UniqueName></ID><ItemCaption>Month</ItemCaption><UniqueName>true</UniqueName></Item><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Date</LevelName><UniqueName>[Dim Time].[Calender].[Date]</UniqueName></ID><ItemCaption>Date</ItemCaption><UniqueName>true</UniqueName></Item><Item><ID xsi:type="Measure"><MeasureName>MarketValue</MeasureName><UniqueName>[Measures].[MarketValue]</UniqueName></ID><ItemCaption>MarketValue</ItemCaption><BackColor>true</BackColor><ForeColor>true</ForeColor><FontFamily>true</FontFamily><FontSize>true</FontSize><FontWeight>true</FontWeight><FontStyle>true</FontStyle><FontDecoration>true</FontDecoration><FormattedValue>true</FormattedValue><FormatString>true</FormatString></Item><Item><ID xsi:type="Measure"><MeasureName>Profit</MeasureName><UniqueName>[Measures].[Profit]</UniqueName></ID><ItemCaption>Profit</ItemCaption><BackColor>true</BackColor><ForeColor>true</ForeColor><FontFamily>true</FontFamily><FontSize>true</FontSize><FontWeight>true</FontWeight><FontStyle>true</FontStyle><FontDecoration>true</FontDecoration><FormattedValue>true</FormattedValue><FormatString>true</FormatString></Item><Item><ID xsi:type="Measure"><MeasureName>SimpleRateOfReturn</MeasureName><UniqueName>[Measures].[SimpleRateOfReturn]</UniqueName></ID><ItemCaption>SimpleRateOfReturn</ItemCaption><BackColor>true</BackColor><ForeColor>true</ForeColor><FontFamily>true</FontFamily><FontSize>true</FontSize><FontWeight>true</FontWeight><FontStyle>true</FontStyle><FontDecoration>true</FontDecoration><FormattedValue>true</FormattedValue><FormatString>true</FormatString></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>with 
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):strtomember(@ToDimTimeDate,                CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+set [MPDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):
+strtomember(@ToDimTimeDate,CONSTRAINED).PrevMember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+member MarkPriceEndDate
+as
+(
+(EndDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPriceStartDate
+as
+(
+(MPDate.Item(0),[Measures].[Final Mark Price])
+)
+
+member SnapShotCashValue as
+(
+([Measures].[Cash Value])
+)
+
+member Accruals
+as
+(
+sum(
+      descendants(
+             [Fact Accrued Cash].[AccountSubAccount],
+              [Fact Accrued Cash].[AccountSubAccount].[Fact Accrued Cash]
+                 ),
+iif(EndDate.Item(0).Properties("Key",TYPED)&lt; [Measures].[Payout Date Key]
+and EndDate.Item(0).Properties("Key",TYPED)&gt;= [Measures].[Accrue Date Key]
+,
+              [Measures].[AccruedCashValue],0
+)
+)
+)
+
+
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+(null:[Dim Time].[Calender].CurrentMember)*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+member [BeginningMarketValue] as
+(
+sum(
+[PM Open Position Snap Shots].[Symbol].children,
+[SymbolLastQuantity]*([Measures].[Final Mark Price],[Dim Time].[Calender].CurrentMember)
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+)
+)
+
+
+member MarketValue as 
+(
+[BeginningMarketValue]
+--iif(IsEmpty([BeginningMarketValue]+[SnapShotCashValue]+[Accruals]),0,
+--[BeginningMarketValue]+[SnapShotCashValue]+[Accruals])
+  
+)
+
+
+
+
+member UnRealisedCommission
+as
+(
+sum(
+crossjoin([Dim Time].[Calender].CurrentMember:EndDate.Item(0) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+)
+,
+
+[Measures].[Open Total Commissionand Fees]
+
+)
+)
+member DailyUnRealisedPnl as
+(
+sum(
+--crossjoin([Dim Time].[Calender].CurrentMember:EndDate.Item(0) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+         -- )
+,
+ iif([Measures].[TradeDateKey]&gt;=EndDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-UnRealisedCommission
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPriceStartDate)
+)
+)
+)
+member DailyRealisedPnl as
+(
+sum(
+crossjoin(EndDate.Item(0):EndDate.Item(0) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  ))
+,
+ iif([Measures].[TradeDateKey]&gt;=EndDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPriceStartDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+member [Profit] as 
+(
+[DailyRealisedPnl]+[DailyUnRealisedPnl]
+)
+member [SimpleRateOfReturn]  as 
+(
+[Profit]/[MarketValue]
+)
+
+SELECT  {[MarketValue], [Profit],[SimpleRateOfReturn]} ON COLUMNS,
+{
+
+(STRTOMEMBER(@ToDimTimeDate).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild),
+(STRTOMEMBER(@ToDimTimeDate).Parent.Parent.FirstChild.FirstChild),
+(STRTOMEMBER(@ToDimTimeDate).Parent.FirstChild),
+(STRTOMEMBER(@ToDimTimeDate))
+}
+ DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM 
+( SELECT ( [Dim Time].[Calender].[Year].&amp;[2000].&amp;[1].&amp;[1].&amp;[1]: STRTOMEMBER(@ToDimTimeDate) )
+ ON COLUMNS FROM ( SELECT ( { [Dim Sub Accounts].[Type ID].&amp;[4],[Dim Sub Accounts].[Type ID].&amp;[1] } ) 
+
+ON COLUMNS FROM ( SELECT ( STRTOSET(@TCompanyFundsFundName, CONSTRAINED) ) ON COLUMNS FROM [Nirvana Client DW])))
+
+
+ CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</Statement><ParameterDefinitions><ParameterDefinition><Name>ToDimTimeDate</Name><DefaultValues><DefaultValue>[Dim Time].[Calender].[Year].&amp;[2009].&amp;[2].&amp;[5].&amp;[3430]</DefaultValue></DefaultValues><Caption>ToDimTimeDate</Caption><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery></ParameterDefinition><ParameterDefinition><Name>TCompanyFundsFundName</Name><DefaultValues><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC OPP FUND]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC OPP INTL FUND]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC OPP INTL UBS]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC OPP UBS]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC PARTNERS II LP]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC PARTNERS INTL LTD]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC PARTNERS LP]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC VISION FUND INTL]</DefaultValue><DefaultValue>[T Company Funds].[Fund Name].&amp;[SC VISION FUND LP]</DefaultValue></DefaultValues><Caption>TCompanyFundsFundName</Caption><HierarchyUniqueName>[T Company Funds].[Fund Name]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T Company Funds].[Fund Name].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery><MultipleValues>true</MultipleValues></ParameterDefinition></ParameterDefinitions></Query></QueryDefinition></rd:MdxQuery>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+      </Query>
+    </DataSet>
+    <DataSet Name="ToDimTimeDate">
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+    </DataSet>
+    <DataSet Name="TCompanyFundsFundName">
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T Company Funds].[Fund Name].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T Company Funds].[Fund Name].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T Company Funds].[Fund Name].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+    </DataSet>
+    <DataSet Name="ToDimTimeDate1">
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Width>8.375in</Width>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Width>5in</Width>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>20pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.36in</Height>
+        <Value>PerformanceSummary</Value>
+      </Textbox>
+      <Table Name="table1">
+        <DataSetName>DataSource1</DataSetName>
+        <Top>0.36in</Top>
+        <Width>5.25in</Width>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Date">
+                      <rd:DefaultName>Date</rd:DefaultName>
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <Format>N</Format>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>2</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Date.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Profit_1">
+                      <rd:DefaultName>Profit_1</rd:DefaultName>
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <Format>N</Format>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>1</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Profit.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="SimpleRateOfReturn_1">
+                      <rd:DefaultName>SimpleRateOfReturn_1</rd:DefaultName>
+                      <Style>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <Format>N</Format>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!SimpleRateOfReturn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.21in</Height>
+            </TableRow>
+          </TableRows>
+        </Details>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <rd:DefaultName>textbox2</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>5</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Date</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox3">
+                      <rd:DefaultName>textbox3</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>4</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Profit</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox5">
+                      <rd:DefaultName>textbox5</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>3</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Simple Rate Of Return</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.22in</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>1.5in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.875in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.875in</Width>
+          </TableColumn>
+        </TableColumns>
+        <Height>0.43in</Height>
+      </Table>
+    </ReportItems>
+    <Height>4.25in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

@@ -1,0 +1,52 @@
+module eplModules.dataWindow.PmCalculationPreference;
+
+@Name('PmCalculationPreferenceWindow')
+@Description('Named window which stores the PM Calculation Preference for each account.')
+create window PmCalculationPreferenceWindow.std:unique(accountId)
+(
+			accountId int,
+			highWaterMark double,
+			stopOut double,
+			traderPayoutPercent double,
+			capital double,
+			mtdPnl double,
+			longDebitBalance double, 
+			longDebitLimit double, 
+			shortCreditBalance double, 
+			shortCreditLimit double,
+			parentWindowStream string
+); 
+
+@Priority(10)
+@Name('PmCalculationPreferenceWindow')
+@Description('PmCalculationPreferenceWindow')	  
+on PMCalculationPrefs as s
+merge PmCalculationPreferenceWindow sw where sw.accountId = s.accountId
+	when matched and
+			(
+				sw.highWaterMark <> s.highWaterMark or
+				sw.stopOut <> s.stopOut or
+				sw.traderPayoutPercent <> s.traderPayoutPercent
+			)
+		then 
+			update 
+				set
+				sw.highWaterMark = s.highWaterMark,
+				sw.stopOut = s.stopOut,
+				sw.traderPayoutPercent = s.traderPayoutPercent,
+				sw.parentWindowStream = "PMCalculationPrefs"
+				
+	when not matched
+		then insert 
+		select
+			s.accountId as accountId, 
+			s.highWaterMark as highWaterMark,
+			s.stopOut as stopOut,
+			s.traderPayoutPercent as traderPayoutPercent,
+			0.0 as capital,
+			0.0 as mtdPnl,
+			0.0 as longDebitBalance, 
+			0.0 as longDebitLimit, 
+			0.0 as shortCreditBalance, 
+			0.0 as shortCreditLimit,
+		   	"PMCalculationPrefs" as parentWindowStream;	

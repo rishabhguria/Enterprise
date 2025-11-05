@@ -1,0 +1,70 @@
+module customRules.postTrade.loebAsiaOptGrExp.LoebAsiaOptGrExp;
+
+
+/* Constant Variable region starts here*/
+
+create constant variable double LOEB_ASIA_MAX_GROSS_EXPOSURE_COEFFICIENT = 1.5;
+create constant variable double LOEB_ASIA_OPT_GRS_EXPOSURE_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+
+
+@Name('AggregationOptionAccountAssetPostLoebAsia')
+@Description('Calculates gross exposure of options by Loeb Asia.')
+insert into AggregationOptionAccountAssetPostLoebAsia
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId
+	
+from
+
+AccountSymbolWithNav(asset in ('EquityOption')) as T 
+
+where T.accountShortName='Loeb Asia'
+// T.asset in 
+//('EquityOption')// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('OptionExopsurePostLoebAsia')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationOptionAccountAssetPostLoebAsia]
+insert into OptionExopsurePostLoebAsia
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(LOEB_ASIA_OPT_GRS_EXPOSURE_COEFFICIENT * coalesce(NF.accountNav,1) * LOEB_ASIA_MAX_GROSS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName
+from 
+AccountWithNav as NF
+where NF.accountId=T.accountId;
+
+@Name('RuleName15FinalPostLoebAsia')
+@Description('Checks if limit is beached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName15FinalPostLoebAsia
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '20'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'If options make up 20% or more of Loeb Asia, please advise' as summary,
+	R.accountShortName as dimension
+from
+OptionExopsurePostLoebAsia as R
+where R.percentageExposure > 20;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

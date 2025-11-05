@@ -1,0 +1,44 @@
+module customRules.PSPResearch.postTrade.kenya.postTradeKenya;
+ 
+@Name('PostKEAccountNavCheckNZS')
+@Description('Contains the calculated value of current NAV and net market value')
+on DivisorEndMessage as B
+insert into PostKEAccountNavCheckNZS
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	W.countryOfRisk as countryOfRisk,
+	sum(case (valueExistsInCSV(W.accountShortName, AccountNamePost) and valueExistsInCSV(W.countryOfRisk, Country_Of_Issue_To_Check_Post))
+	when true then coalesce(W.netMarketValueBase,0)
+	else 0 end) as calculationField,
+	(case (valueExistsInCSV(W.accountShortName, AccountNamePost) and valueExistsInCSV(W.countryOfRisk, Country_Of_Issue_To_Check_Post))
+	when true then true else false end) as validation,
+	"AccountSymbolWithNav" as parentWindowStream 
+from AccountSymbolWithNav as W 
+group by W.accountId, W.countryOfRisk;
+
+@Name('PostTradeMaxFivePercentKenya')
+@Description('Check if condition is breached')
+insert into PostTradeMaxFivePercentKenya
+select distinct 
+    A.userId as userId,
+    A.taxlotId as taxlotId,
+	AccountNamePost || ValueSeparator || Country_Of_Issue_To_Check_Post || ValueSeparator || doubleFormat(PostMaxNavPercentage) as threshold,
+	A.accountShortName || ValueSeparator || A.countryOfRisk || ValueSeparator || doubleFormat(Math.abs(coalesce((A.calculationField/ A.accountNav)*100, 0))) as actualResult,
+    'Account' || ValueSeparator || 'Country of Risk' || ValueSeparator || '% Total Nav' as constraintField,
+    (case A.validation is true
+    when true then (Math.abs(coalesce(A.calculationField/ A.accountNav, 0)) > (PostMaxNavPercentage/100))
+    else false end) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Net Market Value:' || doubleFormat(A.calculationField)
+		|| ', Country of Issue : ' || A.countryOfRisk 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.calculationField / A.accountNav)*100,0))) as parameters,
+    current_timestamp as validationTime,
+    'Sum of market value of all the securities exceeded ' || doubleFormat(PostMaxNavPercentage) || '% of NAV in ' || Country_Of_Issue_To_Check_Post as summary,
+    A.accountShortName || ValueSeparator || A.countryOfRisk as dimension
+from PostKEAccountNavCheckNZS as A;
+  

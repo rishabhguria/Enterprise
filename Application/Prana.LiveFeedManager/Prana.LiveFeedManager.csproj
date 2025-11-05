@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9EC0A3C2-A02C-4628-960A-0FB84EBACB11}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.LiveFeedManager</RootNamespace>
+    <AssemblyName>Prana.LiveFeedManager</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataEnricher.cs" />
+    <Compile Include="ILiveFeedManager.cs" />
+    <Compile Include="LiveFeedFactory.cs" />
+    <Compile Include="LiveFeedManager.cs" />
+    <Compile Include="NonePricingManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{aebd67d7-2487-4d54-b93f-fe8b3685e6b3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ActivAdapter\Prana.ActivAdapter.csproj">
+      <Project>{14bb398c-11bc-4066-9929-85e25e423273}</Project>
+      <Name>Prana.ActivAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BloombergAdapter\Prana.BloombergAdapter.csproj">
+      <Project>{9dbe3cf9-2e73-49c7-9a2f-16451e5b4c5d}</Project>
+      <Name>Prana.BloombergAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ESignalAdapter\Prana.ESignalAdapter.csproj">
+      <Project>{A1968E77-F603-42A2-B526-37BDA81F7747}</Project>
+      <Name>Prana.ESignalAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.FactSetAdapter\Prana.FactSetAdapter.csproj">
+      <Project>{c38c719b-9c5c-4217-97c6-522d2975c34e}</Project>
+      <Name>Prana.FactSetAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.MarketDataAdapter.Common\Prana.MarketDataAdapter.Common.csproj">
+      <Project>{2fc67c23-3c11-4f13-b47d-d4e3c4e73de0}</Project>
+      <Name>Prana.MarketDataAdapter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.MarketDataService.Client\Prana.MarketDataService.Client.csproj">
+      <Project>{d289d7ab-98fd-4ab9-a415-5c5b765a088b}</Project>
+      <Name>Prana.MarketDataService.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.MarketDataAdapter.Common\Prana.MarketDataAdapter.Common.csproj">
+      <Project>{2fc67c23-3c11-4f13-b47d-d4e3c4e73de0}</Project>
+      <Name>Prana.MarketDataAdapter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PricingAnalysisModels\Nirvana.OptionCalculator.Common\Prana.OptionCalculator.Common.csproj">
+      <Project>{278CBDB2-1971-4483-B45C-8A274CE377FA}</Project>
+      <Name>Prana.OptionCalculator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35b3fd76-9aa5-424b-9e04-b7ff1ef1bfc2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.SAPIAdapter\Prana.SAPIAdapter.csproj">
+      <Project>{a7bae2d8-e416-4b82-a709-403c313d64ff}</Project>
+      <Name>Prana.SAPIAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

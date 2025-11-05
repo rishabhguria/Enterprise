@@ -1,0 +1,43 @@
+﻿-----------------------------------------------------------------------------------------
+Version 1.7.1.15
+Date 2/22/2013
+
+Added the ability to capture external VEDA prices and calculate exposures using old middleware procedures
+A config setting UseExternalCalcs is used to override the internal calculations for greeks and exposure 
+A config setting GetPricesFromVeda is used to override prices captured from new Pricing Server
+
+Changed the following Scripts
+
+P_MW_GetGenericPNL and P_MW_GetTransactions - Added a parameter to AutoSave. The default is no. This is for future use and makes it uniform the existing scripts.
+
+GetDataFromVeda - Changes were made on the open_closetag to capture all where value <> 'C' rather than = 'o'
+
+P_MW_Batch - Although not used for production, it is still functional for testing and possible emergency usage. Changes were made to to Set AutoSave to True for both P_MW_GetGenericPNL and P_MW_GetTransactions
+
+
+CSBatch.exe - Added ability to to pass the @AdjustFrom and @AdjustTo parameters which is used by AdjustBusinessDays
+	ie toDate = (DateTime)db.AdjustBusinessDays(toDate, @AdjustTo, db.T_Companies.First().DefaultAUECID);
+	The default is -1 which is the previous trading day. This allows us to override the default value, such for Cannon.
+
+Fixed bug in UnderlyingMarkPrice when symbol didn't exist in Security Master.
+
+-----------------------------------------------------------------------------------------
+
+
+Version 1.7.1.16
+Date 3/14/2013
+
+New Scripts Added:
+
+1.	P_MW_ChangeInEquity_PSR
+2.	P_MW_Exposure_PSR
+3.	P_MW_GetAdjustedDate
+4.	P_MW_GetCashActivitySummary
+5.	P_MW_GetCashBalances
+6.	P_MW_GetDividendInterestSummary
+7.	P_MW_OpeningEquity_PSR
+8.	P_MW_Performance_PSR
+9.	P_MW_PortfolioComposition_PSR
+10.	P_MW_ProfitLoss_PSR
+
+-----------------------------------------------------------------------------------------

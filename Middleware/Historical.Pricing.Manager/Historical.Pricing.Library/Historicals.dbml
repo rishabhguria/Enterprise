@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Historicals" Class="HistoricalsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=dev.nirvanasolutions.com;Initial Catalog=Historicals;User ID=sa" SettingsObjectName="Historical.Pricing.Library.Properties.Settings" SettingsPropertyName="HistoricalsConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.FileSpecs" Member="FileSpecs">
+    <Type Name="FileSpec">
+      <Column Name="FileSpecId" Type="System.String" DbType="NVarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Delimiter" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DateFormat" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Heading" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Symbol" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Open]" Member="Open" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="High" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Low" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Interest" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SplitRatio" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FlatFiles" Member="FlatFiles">
+    <Type Name="FlatFile">
+      <Column Name="FlatFileId" Type="System.String" DbType="NVarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FileSpecId" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Queries" Member="Queries">
+    <Type Name="Query">
+      <Column Name="QueryId" Type="System.String" DbType="NVarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Query" Member="Query1" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Securities" Member="Securities">
+    <Type Name="Security">
+      <Column Name="SecurityID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Ticker" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Symbol" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Servers" Member="Servers">
+    <Type Name="Server">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="[External]" Member="External" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Internal" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MailSettings" Member="MailSettings">
+    <Type Name="MailSetting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MailFrom" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MailTo" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="MailSmtp" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MailSubject" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MailBody" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MailPort" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MailUser" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MailPassword" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Providers" Member="Providers">
+    <Type Name="Provider">
+      <Column Name="ProviderId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Process" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="LogFile" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Subscriptions" Member="Subscriptions">
+    <Type Name="Subscription">
+      <Column Name="SubscriberID" Type="System.String" DbType="NVarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ProviderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sun" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Mon" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Tue" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Wed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Thu" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Fri" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Sat" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FlatFileId" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="NextRun" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LastRun" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Messages" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ExitCode" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ServiceControl" Member="ServiceControls">
+    <Type Name="ServiceControl">
+      <Column Name="Flags" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Enabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DailyBars" Member="DailyBars">
+    <Type Name="DailyBar">
+      <Column Name="Symbol" Type="System.String" DbType="NVarChar(255) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProviderId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Interest" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Flags" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SettlementDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="SettlementPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SplitRatio" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BarStats" Member="BarStats">
+    <Type Name="BarStat">
+      <Column Name="Symbol" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DaySpan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BarCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProviderId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Registrations" Member="Registrations">
+    <Type Name="Registration">
+      <Column Name="RegistrationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Server" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="[Database]" Member="Database" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="QueryId" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="SubscriberId" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="KeyColumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssetColumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TickerColumn" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="[Column]" Member="Column" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="VWAPS">
+    <Type Name="VWAPS">
+      <Column Name="Symbol" Type="System.String" DbType="Varchar(255) No Null" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="VWAP" Type="System.Double" DbType="Float No Null" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.spGetAverageVolume" Method="spGetAverageVolume">
+    <Parameter Name="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="AverageDays" Parameter="averageDays" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Provider" Parameter="provider" Type="System.Int32" DbType="Int" />
+    <ElementType Name="spGetAverageVolumeResult">
+      <Column Name="Symbol" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="AverageVolume" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

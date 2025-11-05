@@ -1,0 +1,40 @@
+module detectionEpl.MasterFundLevelDetection;
+
+
+@Name('MasterFundSummation')
+@Description('This statement validates master fund compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency sec)]
+insert into MasterFundSummation
+select
+	sum(coalesce(F.shortMarketValueBase, 0)) as shortMarketValueBase,
+	F.masterFundId as masterFundId
+from MasterFundSymbolWithNav as F
+group by F.masterFundId;
+
+
+@Name('MasterFundLevelDetection')
+@Description('This statement validates fund compliance level with margin 1%')
+on pattern[every D = MasterFundSummation]
+insert into MasterFundLevelDetection
+select distinct
+	'ShortMarketValueBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'MasterFund' as compressionLevel,
+	G.masterFundName as masterFundName,	
+	D.shortMarketValueBase as actualShortMarketValueBase,
+	G.shortMarketValueBase as masterFundShortMarketValueBase,
+	D.shortMarketValueBase - G.shortMarketValueBase as difference, 
+	case 
+		when 
+			Math.abs(D.shortMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.shortMarketValueBase) 
+			or Math.abs(D.shortMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.shortMarketValueBase)
+			then true
+		else false
+	end as detectionResult 
+from MasterFundWithNav as G
+where G.masterFundId = D.masterFundId
+having
+(
+	Math.abs(D.shortMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.shortMarketValueBase) 
+	or Math.abs(D.shortMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.shortMarketValueBase)
+);

@@ -1,0 +1,40 @@
+﻿CREATE TABLE [dbo].[T_Journal] (
+    [TaxLotID]                   VARCHAR (50)   NULL,
+    [FundID]                     INT            NOT NULL,
+    [SubAccountID]               INT            NOT NULL,
+    [CurrencyID]                 INT            NOT NULL,
+    [Symbol]                     VARCHAR (100)  NULL,
+    [PBDesc]                     VARCHAR (3000) NULL,
+    [TransactionDate]            DATETIME       NULL,
+    [TransactionID]              VARCHAR (50)   NULL,
+    [DR]                         FLOAT (53)     NOT NULL,
+    [CR]                         FLOAT (53)     NOT NULL,
+    [TransactionSource]          VARCHAR (100)  NULL,
+    [TransactionEntryID]         VARCHAR (50)   NOT NULL,
+    [TransactionNumber]          INT            NULL,
+    [AccountSide]                VARCHAR (2)    NULL,
+    [ActivityId_FK]              VARCHAR (50)   NULL,
+    [ActivitySource]             VARCHAR (50)   NULL,
+    [FxRate]                     FLOAT (53)     NULL,
+    [FXConversionMethodOperator] VARCHAR (3)    NULL,
+    [ModifyDate]                 DATETIME       CONSTRAINT [DF_MODIFYDATE] DEFAULT (getdate()) NULL,
+    [EntryDate]                  DATETIME       CONSTRAINT [DF_ENTRYDATE] DEFAULT (getdate()) NULL,
+    [UserId]                     INT            NULL,
+    PRIMARY KEY CLUSTERED ([TransactionEntryID] ASC),
+    CONSTRAINT [FK_T_Journal_T_CompanyFunds] FOREIGN KEY ([FundID]) REFERENCES [dbo].[T_CompanyFunds] ([CompanyFundID])
+);
+
+GO
+CREATE INDEX [ActivityId_FK_NonClustered]
+	ON [dbo].[T_Journal](ActivityId_FK);
+
+GO
+CREATE NONCLUSTERED INDEX [NonClustered_FID_SACID_ACTID_CURID] ON [dbo].[T_Journal]
+(
+	[FundID] ASC,
+	[SubAccountID] ASC,
+	[ActivityId_FK] ASC,
+	[CurrencyID] ASC,
+	[ActivitySource] ASC,
+	[TransactionID] ASC
+) Include (FXRate, FXConversionMethodOperator, TransactionDate);

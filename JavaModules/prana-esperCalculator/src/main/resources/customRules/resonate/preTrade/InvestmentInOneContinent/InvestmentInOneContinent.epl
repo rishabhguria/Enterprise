@@ -1,0 +1,80 @@
+module customRules.resonate.preTrade.InvestmentInOneContinent.InvestmentInOneContinent;
+								     						  
+
+@Name('InvestmentInOneContinentResonateWhatIfAggregator')
+@Description('Transaction will result in breach of this rule resulting in more than 25% investment in one continent')
+on BasketEOM as B
+insert into InvestmentInOneContinentResonateWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	sum(case W.customUDA1 = 'North America'
+	when true then
+		(case W.udaCountry ='USA'
+		when true then W.notionalBase
+		else 0.0 end)
+	else 0.0 end) as usaNotional,
+	sum(coalesce(W.notionalBase,0)) as notionalBase,
+	W.accountNav as accountNav,
+	W.udaCountry as udaCountry,
+	W.customUDA1 as continent,
+	W.accountShortName as accountShortName,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId, W.customUDA1;
+
+
+@Name('InvestmentInOneContinentResonate1')
+@Description('Stores notional for accounts in North America.')
+insert into InvestmentInOneContinentResonate1
+select distinct
+	W.userId as userId,
+	W.basketId as basketId,
+	(W.notionalBase - W.usaNotional) as notionalBase,
+	W.accountNav as accountNav,
+	W.continent as continent,
+	W.accountShortName as accountShortName,
+	"InvestmentInOneContinentResonateWhatIfAggregator" as parentWindowStream
+from InvestmentInOneContinentResonateWhatIfAggregator as W where W.continent = 'North America'
+group by W.accountId;
+
+@Name('InvestmentInOneContinentResonate2')
+@Description('Stores notional for accounts not in North America.')
+insert into InvestmentInOneContinentResonate1
+select distinct
+	W.userId as userId,
+	W.basketId as basketId,
+	W.notionalBase as notionalBase,
+	W.accountNav as accountNav,
+	W.continent as continent,
+	W.accountShortName as accountShortName,
+	"InvestmentInOneContinentResonateWhatIfAggregator" as parentWindowStream
+from InvestmentInOneContinentResonateWhatIfAggregator as W where W.continent is not 'North America'
+group by W.accountId;
+
+@Name('InvestmentInOneContinentResonate')
+@Description('Checks if limit is breached.')
+insert into InvestmentInOneContinentResonate
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(INVESTMENT_LIMIT1_RESONATE) || ValueSeparator || FUND_NAME1_RESONATE  as threshold,
+	doubleFormat(coalesce((A.notionalBase / A.accountNav)*100,0)) || ValueSeparator || A.accountShortName as actualResult,
+	'Investment Limit' || ValueSeparator || 'Account' as constraintField,
+	(case A.continent is not 'Undefined'
+	when true then
+	(((coalesce(A.notionalBase/ A.accountNav, 0)) > ((INVESTMENT_LIMIT1_RESONATE)/100)) and valueExistsInCSV(A.accountShortName, FUND_NAME1_RESONATE))
+	else false end) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Continent Name: ' || A.continent
+		|| ',  Notional: ' || doubleFormat(A.notionalBase)
+		|| ', % Investment: ' || doubleFormat(coalesce((A.notionalBase / A.accountNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Transaction will result in breach of this rule resulting in more than ' || doubleFormat(INVESTMENT_LIMIT1_RESONATE) ||  '% investment in one continent' as summary,
+	A.accountShortName || '-' || A.continent as dimension
+from
+InvestmentInOneContinentResonate1 as A
+where A.userId is not null;

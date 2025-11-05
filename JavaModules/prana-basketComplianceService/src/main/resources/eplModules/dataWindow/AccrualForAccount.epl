@@ -1,0 +1,48 @@
+module eplModules.dataWindow.AccrualForAccount;
+
+@Name('AccrualForAccountWindow')
+@Description('Named window which stores the accrual details for an account.')
+create window AccrualForAccountWindow.std:unique(accountId)
+(
+			accountId int,
+			startOfDayAccrual double,
+			dayAccrual double,
+			parentWindowStream string
+);
+
+@Name('AccrualForAccountWindowInsert')
+@Description('This updates the AccrualForAccountWindow whenever new AccrualForAccount or AccountCollection or both events occur.
+				Also inserts data into AccrualForAccountWindowUpdated stream.')
+on pattern [every(s=AccrualForAccount) or every(f=AccountCollection)]  
+merge AccrualForAccountWindow sw where sw.accountId = coalesce(s.accountId,f.accountId)
+	when matched and 
+	(			
+			 	sw.startOfDayAccrual <> s.startOfDayAccrual or
+			 	sw.dayAccrual <> s.dayAccrual
+	)
+		then 
+			update 
+				set  
+				sw.startOfDayAccrual = coalesce(s.startOfDayAccrual,sw.startOfDayAccrual,0),
+				sw.dayAccrual = coalesce(s.dayAccrual, sw.dayAccrual, 0),
+				sw.parentWindowStream = "AccrualForAccountWindow,AccrualForAccount"
+				
+		then insert into AccrualForAccountWindowUpdated
+			select 
+				sw.accountId as accountId,
+				sw.startOfDayAccrual as startOfDayAccrual,
+				sw.dayAccrual as dayAccrual,
+				"AccrualForAccountWindow" as parentWindowStream		
+	when not matched
+		then insert 
+			select    	
+		   	coalesce(f.accountId,s.accountId) as accountId,
+			coalesce(s.startOfDayAccrual,0.0) as startOfDayAccrual,
+			coalesce(s.dayAccrual,0.0) as dayAccrual,
+			"AccrualForAccount,AccountCollection" as parentWindowStream			
+	 	then insert into AccrualForAccountWindowUpdated
+			select 
+				coalesce(f.accountId,s.accountId) as accountId,
+				coalesce(s.startOfDayAccrual,0.0) as startOfDayAccrual,
+				coalesce(s.dayAccrual,0.0) as dayAccrual,
+				"AccrualForAccount,AccountCollection" as parentWindowStream;

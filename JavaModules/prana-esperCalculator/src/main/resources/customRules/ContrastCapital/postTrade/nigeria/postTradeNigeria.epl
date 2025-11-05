@@ -1,0 +1,46 @@
+module customRules.ContrastCapital.postTrade.nigeria.postTradeNigeria;
+
+@Name('PostNGAccountNavCheckNZS')
+@Description('Contains the calculated value of current NAV and net market value')
+on DivisorEndMessage as B
+insert into PostNGAccountNavCheckNZS
+select distinct
+	0 as userId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.symbol as symbol,
+	W.accountShortName as accountShortName,
+	W.countryOfRisk as countryOfRisk,
+	sum(case (valueExistsInCSV(W.accountShortName, Account_Name_Check_post) and valueExistsInCSV(W.countryOfRisk, Country_to_check_post))
+	when true then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalMarketValueBase,
+    (case (valueExistsInCSV(W.accountShortName, Account_Name_Check_post) and valueExistsInCSV(W.countryOfRisk, Country_to_check_post))
+	when true then true else false end) as validation,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId, W.countryOfRisk;
+
+
+@Name('PostTradeMaxFivePercentNigeria')
+@Description('Check if condition is breached')
+insert into PostTradeMaxFivePercentNigeria
+select distinct 
+    A.userId as userId,
+    '' as taxlotId,
+    A.symbol as symbol,
+	Account_Name_Check_post || ValueSeparator || Country_to_check_post || ValueSeparator || doubleFormat(Post_Maximum_Nav_Percentage) as threshold,
+	A.accountShortName || ValueSeparator || A.countryOfRisk || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase/ A.accountNav)*100, 0))) as actualResult,
+    'Account' || ValueSeparator || 'Country of Risk' || ValueSeparator || '% Total Nav' as constraintField,
+    (case A.validation is true
+    when true then (Math.abs(coalesce(A.totalMarketValueBase/ A.accountNav, 0)) > (Post_Maximum_Nav_Percentage/100)) 
+    else false end) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Net Market Value:' || doubleFormat(A.totalMarketValueBase)
+		|| ', Country of Issue : ' || A.countryOfRisk 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0))) as parameters,
+    current_timestamp as validationTime,
+    'Sum of market value of all the securities exceeded ' || doubleFormat(Post_Maximum_Nav_Percentage) || '% of NAV in ' || Country_to_check_post as summary,
+    A.accountShortName || ValueSeparator || A.countryOfRisk as dimension
+from PostNGAccountNavCheckNZS as A;
+  

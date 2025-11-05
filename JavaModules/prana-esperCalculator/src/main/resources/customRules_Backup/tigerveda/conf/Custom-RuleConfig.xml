@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="TigerVeda">
+		<rule id="custom-rule-TigerVeda1">
+			<name>Concentration (NAV)</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/NAVConcentration/</eplPath>
+			<description>The sum of all securities that make up at least 5 % of the portfolio make up 40% or more of the portfolio.</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>NAVConcentrationTigerVeda</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="NAVConcentrationTigerVeda" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="NAVConcentrationTigerVeda" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="Fund_Name" type="String" value="UCITS" displayName="Master Funds to be monitored" />
+				<constantValue name="Securities_Percentage" type="double" value="5" displayName="Individual Securities Concentration Limit" />
+				<constantValue name="Total_Percentage" type="double" value="40" displayName="Total concentration limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-TigerVeda2">
+			<name>Liquid Limit</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/LiquidLimit/</eplPath>
+			<description>Transaction results in investment in Liquid Securities to fall below the 90% threshold</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>LiquidLimitTigerVeda</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="LiquidLimitTigerVeda" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="LiquidLimitTigerVeda" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="Fund_Name1" type="String" value="UCITS" displayName="Master Funds to be monitored" />
+		   		<constantValue name="Liquid_Securities_Percentage" type="double" value="90" displayName="Liquid Securities Percentage" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-TigerVeda3">
+			<name>Eligible Investments</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/EligibleInvestments/</eplPath>
+			<description>Transaction results in investment in Eligible Securities to fall below the 90% threshold</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>EligibleInvestmentsTigerVeda</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="EligibleInvestmentsTigerVeda" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="EligibleInvestmentsTigerVeda" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="Fund_Name2" type="String" value="UCITS" displayName="Master Funds to be monitored" />
+				<constantValue name="Eligible_Securities_Percentage" type="double" value="90" displayName="Eligible Securities Percentage" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-TigerVeda4">
+			<name>Concentration (NAV) Post Trade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/NAVConcentration/</eplPath>
+			<description>The sum of all securities that make up at least 5 % of the portfolio make up 40% or more of the portfolio.</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>NAVConcentrationTigerVedaPostTrade</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="NAVConcentrationTigerVedaPostTrade" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="NAVConcentrationTigerVedaPostTrade" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="Fund_Name_PT" type="String" value="UCITS" displayName="Master Funds to be monitored" />
+				<constantValue name="Securities_Percentage_PT" type="double" value="5" displayName="Individual Securities Concentration Limit" />
+				<constantValue name="Total_Percentage_PT" type="double" value="40" displayName="Total concentration limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-TigerVeda5">
+			<name>Liquid Limit Post Trade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/LiquidLimit/</eplPath>
+			<description>Transaction results in investment in Liquid Securities to fall below the 90% threshold</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>LiquidLimitTigerVedaPostTrade</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="LiquidLimitTigerVedaPostTrade" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="LiquidLimitTigerVedaPostTrade" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="Fund_Name1_PT" type="String" value="UCITS" displayName="Master Funds to be monitored" />
+		   		<constantValue name="Liquid_Securities_Percentage_PT" type="double" value="90" displayName="Liquid Securities Percentage" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-TigerVeda6">
+			<name>Eligible Investments PostTrade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/EligibleInvestments/</eplPath>
+			<description>Transaction results in investment in Eligible Securities to fall below the 90% threshold</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>EligibleInvestmentsTigerVedaPostTrade</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="EligibleInvestmentsTigerVedaPostTrade" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="EligibleInvestmentsTigerVedaPostTrade" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="Fund_Name2_PT" type="String" value="UCITS" displayName="Master Funds to be monitored" />
+				<constantValue name="Eligible_Securities_Percentage_PT" type="double" value="90" displayName="Eligible Securities Percentage" />
+			</constantList>
+		</rule>
+		<!-- This rule is not working as expected throwing an run time exception -->
+		<!-- <rule id="custom-rule-limit-global">
+			<name>Reporting for Ownership Global</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/ReportingforOwnershipGlobal/</eplPath>
+			<description/>
+			<compressionLevel>Global</compressionLevel>
+			<validationCompletedEventName>ReportingforOwnershipGlobal</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="ReportingforOwnershipGlobal"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="ReportingforOwnershipGlobal"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList/>
+		</rule> -->
+		<rule id="custom-rule-tigerveda-checkside">
+			<name>Check Side Rule (MAsterfund)</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/CheckSide/</eplPath>
+			<description/>
+			<compressionLevel>Global</compressionLevel>
+			<validationCompletedEventName>CheckSide</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="CheckSide"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="CheckSide"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList/>
+		</rule>
+	</rules>
+</ruleConfig>

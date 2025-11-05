@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?><ruleConfig>
+	<!--  	 	1. id is primary key.
+			    2. name and rule-Type should be unique in combination-->
+	<rules name="KettleHill">	
+		 
+		 <rule id="custom-rule-KH1">
+			<name>Max Net Industry as per GICS</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/MaxNetIndustryasPerGICS/</eplPath>
+			<description>Contains current Net Exposure for MasterFund Custom UDA1 compression greater than 20%</description>
+			<compressionLevel>MasterFund-CustomUDA1</compressionLevel>
+			<validationCompletedEventName>MFCustomUDA1ConcentrationKH</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="MFCustomUDA1ConcentrationKH"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="MFCustomUDA1ConcentrationKH"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_KH1" type="String" value="KH1, KH2, LoCorr"/>
+		   		<constantValue displayName="% Net Exposure" name="Percentage_NetExposure_KH1" type="double" value="20"/>
+			</constantList>			
+		</rule> 
+			
+		  <rule id="custom-rule-KH2">
+			<name>Max Gross Sector as per GICS</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/MaxGrossSectorasPerGICS/</eplPath>
+			<description>Contains current Gross Exposure for MasterFund Sector compression greater than 40%</description>
+			<compressionLevel>MasterFund-Sector</compressionLevel>
+			<validationCompletedEventName>MFSectorConcentrationKH</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="MFSectorConcentrationKH"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="MFSectorConcentrationKH"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_KH2" type="String" value="SEI"/>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH2" type="double" value="40"/>
+			</constantList>			
+		</rule> 
+		
+		<rule id="custom-rule-KH3">
+			<name>Max Gross International Developed</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/MaxGrossInternationalDeveloped/</eplPath>
+			<description>The MasterFund Country Gross Exposure concentration is above 10%</description>
+			<compressionLevel>MasterFund-Country</compressionLevel>
+			<validationCompletedEventName>MFCountryConcentrationKH</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="MFCountryConcentrationKH"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="MFCountryConcentrationKH"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_KH3" type="String" value="SEI"/>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH3" type="double" value="10"/>
+				<constantValue displayName="Countries to be monitored" name="Country_KH3" type="String" value="Canada, Japan, Australia, Germany, 
+				United Kingdom, Netherlands, France, Italy, Norway, Sweden, Finland, Denmark, Austria, Spain, Israel, SouthKorea, Ireland"/>
+			</constantList>			
+		</rule> 
+			
+		<rule id="custom-rule-KH4">
+			<name>Max Top 5 Longs Aggregate Gross</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/maxTop5LongsAggregateGross/</eplPath>
+			<description>The % Gross Exposure of the top 5 long positions is greater than 40%</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>FinalStreamSumOfTop5GrossExpPositions</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="FinalStreamSumOfTop5GrossExpPositions"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="FinalStreamSumOfTop5GrossExpPositions"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="MasterFund_Name" name="MasterFund_Name_KH4" type="String" value="SEI"/>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH4" type="double" value="40"/>
+			</constantList>			
+		</rule> 
+		 
+		 <rule id="custom-rule-KH5">
+			<name>Max Net Industry as per GICS Post Trade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/MaxNetIndustryasPerGICS/</eplPath>
+			<description>Contains current Net Exposure for MasterFund Custom UDA1 compression greater than 20%</description>
+			<compressionLevel>MasterFund-CustomUDA1</compressionLevel>
+			<validationCompletedEventName>MFCustomUDA1ConcentrationKHPostTrade</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="MFCustomUDA1ConcentrationKHPostTrade"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="MFCustomUDA1ConcentrationKHPostTrade"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_KH5_PT" type="String" value="KH1, KH2, LoCorr"/>
+		   		<constantValue displayName="% Net Exposure" name="Percentage_NetExposure_KH5_PT" type="double" value="20"/>
+			</constantList>			
+		</rule> 
+		
+		  <rule id="custom-rule-KH6">
+			<name>Max Gross Sector as per GICS Post Trade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/MaxGrossSectorasPerGICS/</eplPath>
+			<description>Contains current Gross Exposure for MasterFund Sector compression greater than 40%</description>
+			<compressionLevel>MasterFund-Sector</compressionLevel>
+			<validationCompletedEventName>MFSectorConcentrationKHPostTrade</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="MFSectorConcentrationKHPostTrade"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="MFSectorConcentrationKHPostTrade"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_KH6_PT" type="String" value="SEI"/>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH6_PT" type="double" value="40"/>
+			</constantList>			
+		</rule> 
+		
+		<rule id="custom-rule-KH7">
+			<name>Max Gross International Developed Post Trade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/MaxGrossInternationalDeveloped/</eplPath>
+			<description>The MasterFund Country Gross Exposure concentration is above 10%</description>
+			<compressionLevel>MasterFund-Country</compressionLevel>
+			<validationCompletedEventName>MFCountryConcentrationKHPostTrade</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="MFCountryConcentrationKHPostTrade"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="MFCountryConcentrationKHPostTrade"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_KH7_PT" type="String" value="SEI"/>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH7_PT" type="double" value="10"/>
+				<constantValue displayName="Countries to be monitored" name="Country_KH7_PT" type="String" value="Canada, Japan, Australia, Germany, 
+				United Kingdom, Netherlands, France, Italy, Norway, Sweden, Finland, Denmark, Austria, Spain, Israel, SouthKorea, Ireland"/>
+			</constantList>			
+		</rule> 
+		
+		<rule id="custom-rule-KH8">
+			<name>Max Top 5 Longs Aggregate Gross</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/MaxTop5LongsAggregateGross/</eplPath>
+			<description>The % Gross Exposure of the top 5 long positions is greater than 40%</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>FinalStreamSumOfTop5GrossExpPositionsKHPostTrade</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="FinalStreamSumOfTop5GrossExpPositionsKHPostTrade"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="FinalStreamSumOfTop5GrossExpPositionsKHPostTrade"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH8_PT" type="double" value="40"/>
+			</constantList>			
+		</rule> 
+		<rule id="custom-rule-KH9">
+			<name>Symbol Crossing 0</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/PreTradeCheckSideAccountSymbol/</eplPath>
+			<description>Possible oversell</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+			    
+			</constantList>			
+		</rule>
+		
+		<rule id="custom-rule-KH10">
+			<name>Heptagon Max Top 5 % Gross Exposure PreTrade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/maxTop5AggregateGross/</eplPath>
+			<description>The % Gross Exposure of the top 5 positions is greater than 40%</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>FinalStreamSumOfTop5GrossExpoAllPositionsKH</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="FinalStreamSumOfTop5GrossExpoAllPositionsKH"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="FinalStreamSumOfTop5GrossExpoAllPositionsKH"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+				<constantValue displayName="MasterFund_Name" name="MasterFund_Name_KH10" type="String" value="Heptagon"/>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH10" type="double" value="40"/>
+			</constantList>			
+		</rule> 
+		
+		<rule id="custom-rule-KH11">
+			<name>Heptagon Max Top 5 % Gross Exposure PostTrade</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/maxTop5AggregateGross/</eplPath>
+			<description>The % Gross Exposure of the top 5 positions is greater than 40%</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>FinalStreamSumOfTop5GrossExpoAllPositionsKHPost</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="FinalStreamSumOfTop5GrossExpoAllPositionsKHPost"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="FinalStreamSumOfTop5GrossExpoAllPositionsKHPost"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>
+		   		<constantValue displayName="% Gross Exposure" name="Percentage_GrossExposure_KH11" type="double" value="40"/>
+			</constantList>			
+		</rule> 
+		
+		<rule id="custom-rule-KH12">
+			<name>Max Market Cap exposure $250M to $500M</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/securitiesWithinRangeMarketCap/</eplPath>
+			<description>Gross exposure exceeded 5% for securities with a market cap between 250 and 500 mm.</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>StreamSecuritiesWithinRangeMarketCapKHPreTrade</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="StreamSecuritiesWithinRangeMarketCapKHPreTrade"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="StreamSecuritiesWithinRangeMarketCapKHPreTrade"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>		   		
+		   		<constantValue displayName="Minimum Market Capitalization" name="MINIMUM_MARKET_CAP_KH12" type="double" value="250000000"  />
+				<constantValue displayName="Maximum Market Capitalization" name="MAXIMUM_MARKET_CAP_KH12" type="double" value="500000000"  />
+				<constantValue displayName="% Gross Exposure" name="PERCENTAGE_GROSS_EXPOSURE_KH12" type="double" value="5"  />
+				<constantValue displayName="Master Fund(* only one master fund is allowed)" name="MASTER_FUND_NAME_KH12" type="String" value="Catenary"/>
+			</constantList>			
+		</rule> 
+		
+		<rule id="custom-rule-KH13">
+			<name>Max Market Cap exposure $250M to $500M</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/securitiesWithinRangeMarketCap/</eplPath>
+			<description>Gross exposure exceeded 5% for securities with a market cap between 250 and 500 mm.</description>
+			<compressionLevel>MasterFund</compressionLevel>
+			<validationCompletedEventName>StreamSecuritiesWithinRangeMarketCapKH</validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="StreamSecuritiesWithinRangeMarketCapKH"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="StreamSecuritiesWithinRangeMarketCapKH"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>		
+			<constantList>		   		
+		   		<constantValue displayName="Minimum Market Capitalization" name="MINIMUM_MARKET_CAP_KH13" type="double" value="250000000"  />
+				<constantValue displayName="Maximum Market Capitalization" name="MAXIMUM_MARKET_CAP_KH13" type="double" value="500000000"  />
+				<constantValue displayName="% Gross Exposure" name="PERCENTAGE_GROSS_EXPOSURE_KH13" type="double" value="5"  />
+				<constantValue displayName="Master Fund(* only one master fund is allowed)" name="MASTER_FUND_NAME_KH13" type="String" value="Catenary"/>
+			</constantList>			
+		</rule> 
+		
+		</rules>
+</ruleConfig>

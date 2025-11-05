@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{81DD4C94-38CB-4836-A864-B9BF38EF5AF0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.PortfolioReports</RootNamespace>
+    <AssemblyName>Prana.PortfolioReports</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Excel.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLLs\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\DataSetHelper.cs" />
+    <Compile Include="Classes\Enums.cs" />
+    <Compile Include="Constants\ReportConstants.cs" />
+    <Compile Include="Controls\CntrlDailyPositions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CntrlDailyPositions.Designer.cs">
+      <DependentUpon>CntrlDailyPositions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CntrlRealizedPL.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CntrlRealizedPL.designer.cs">
+      <DependentUpon>CntrlRealizedPL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlDailySheets.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlDailySheets.Designer.cs">
+      <DependentUpon>CtrlDailySheets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlMTDDailyPNL.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlMTDDailyPNL.Designer.cs">
+      <DependentUpon>CtrlMTDDailyPNL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlRealizedPNLReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlRealizedPNLReport.Designer.cs">
+      <DependentUpon>CtrlRealizedPNLReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlTransactionSummaryReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlTransactionSummaryReport.Designer.cs">
+      <DependentUpon>CtrlTransactionSummaryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlValuationSummaryReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlValuationSummaryReport.Designer.cs">
+      <DependentUpon>CtrlValuationSummaryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetCompanyLogo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCompanyLogo.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetRealizedPNL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetRealizedPNL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetMonthlySummary.cs">
+      <DependentUpon>DataSetMonthlySummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetMonthlySummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetMonthlySummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetMTDDailyPNL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetMTDDailyPNL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetTransactionSummary.cs">
+      <DependentUpon>DataSetTransactionSummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetTransactionSummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetTransactionSummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetValuationStatement.cs">
+      <DependentUpon>DataSetValuationStatement.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetValuationStatement.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetValuationStatement.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ClosingHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ClosingHistory.Designer.cs">
+      <DependentUpon>ClosingHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DailyReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DailyReports.Designer.cs">
+      <DependentUpon>DailyReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MTDDailyPNL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MTDDailyPNL.Designer.cs">
+      <DependentUpon>MTDDailyPNL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RealizedPL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RealizedPL.Designer.cs">
+      <DependentUpon>RealizedPL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RealizedPNLReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RealizedPNLReport.Designer.cs">
+      <DependentUpon>RealizedPNLReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TransactionSummaryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TransactionSummaryReport.Designer.cs">
+      <DependentUpon>TransactionSummaryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ValuationSummaryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ValuationSummaryReport.Designer.cs">
+      <DependentUpon>ValuationSummaryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ServerReports\ServerReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerReports\ServerReportForm.Designer.cs">
+      <DependentUpon>ServerReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\CntrlDailyPositions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CntrlDailyPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CntrlRealizedPL.resx">
+      <DependentUpon>CntrlRealizedPL.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlDailySheets.resx">
+      <DependentUpon>CtrlDailySheets.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlMTDDailyPNL.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlMTDDailyPNL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlRealizedPNLReport.resx">
+      <DependentUpon>CtrlRealizedPNLReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlTransactionSummaryReport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlTransactionSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlValuationSummaryReport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlValuationSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DailySheet.rdlc" />
+    <EmbeddedResource Include="Forms\ClosingHistory.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ClosingHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DailyReports.resx">
+      <DependentUpon>DailyReports.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MTDDailyPNL.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MTDDailyPNL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RealizedPL.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RealizedPL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RealizedPNLReport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RealizedPNLReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TransactionSummaryReport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TransactionSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ValuationSummaryReport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ValuationSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="MTDDailyPNL.rdlc" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RealizedPNL.rdlc" />
+    <EmbeddedResource Include="ServerReports\ServerReportForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ServerReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Resources\Logo.jpg" />
+    <Content Include="TransactionSummary.rdlc" />
+    <EmbeddedResource Include="ValuationSummary.rdlc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{F015C504-985F-44AA-92EC-E6F8C8461F9C}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{aebd67d7-2487-4d54-b93f-fe8b3685e6b3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.BLL\Prana.PM.BLL.csproj">
+      <Project>{F3EB40AF-D2B7-44C9-A7ED-FD54F4D95A3D}</Project>
+      <Name>Prana.PM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.Common\Prana.PM.Common.csproj">
+      <Project>{CA3F44AC-2814-4E5E-84B7-DCAF8F42A026}</Project>
+      <Name>Prana.PM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35b3fd76-9aa5-424b-9e04-b7ff1ef1bfc2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.InstanceCreator\Prana.InstanceCreator.csproj">
+      <Project>{3F5CFA1B-EA85-4EFF-9FFB-0564B801DC10}</Project>
+      <Name>Prana.InstanceCreator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataSetCompanyLogo.xsc">
+      <DependentUpon>DataSetCompanyLogo.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCompanyLogo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCompanyLogo.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetCompanyLogo.xss">
+      <DependentUpon>DataSetCompanyLogo.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetMonthlySummary.xsc">
+      <DependentUpon>DataSetMonthlySummary.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetMonthlySummary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetMonthlySummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetMonthlySummary.xss">
+      <DependentUpon>DataSetMonthlySummary.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetMTDDailyPNL.xsc">
+      <DependentUpon>DataSetMTDDailyPNL.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetMTDDailyPNL.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetMTDDailyPNL.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSetMTDDailyPNL.xss">
+      <DependentUpon>DataSetMTDDailyPNL.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetRealizedPNL.xsc">
+      <DependentUpon>DataSetRealizedPNL.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetRealizedPNL.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetRealizedPNL.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetRealizedPNL.xss">
+      <DependentUpon>DataSetRealizedPNL.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetTransactionSummary.xsc">
+      <DependentUpon>DataSetTransactionSummary.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetTransactionSummary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetTransactionSummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetTransactionSummary.xss">
+      <DependentUpon>DataSetTransactionSummary.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetValuationStatement.xsc">
+      <DependentUpon>DataSetValuationStatement.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetValuationStatement.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetValuationStatement.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetValuationStatement.xss">
+      <DependentUpon>DataSetValuationStatement.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ServerReports\CashForecastReport.rdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.PortfolioReports.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.PortfolioReports.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(ProjectDir)DLLs\Microsoft.ReportViewer.Common.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)DLLs\Microsoft.ReportViewer.WebForms.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)DLLs\Microsoft.ReportViewer.WinForms.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

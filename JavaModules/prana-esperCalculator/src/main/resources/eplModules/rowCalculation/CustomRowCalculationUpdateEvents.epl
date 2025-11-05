@@ -1,0 +1,213 @@
+module eplModules.rowCalculation.CustomRowCalculationUpdateEvents;
+
+uses eplModules.rowCalculation.RowCalculationWhatIfUpsert;
+uses eplModules.rowCalculation.RowCalculationPostUpsert;
+uses eplModules.rowCalculation.RowCalculationPostDelay;
+uses eplModules.dataWindow.TaxlotFeeder;
+uses eplModules.dataWindow.SymbolDataFeeder;
+uses eplModules.dataWindow.AuecFeeder;
+uses eplModules.rowCalculation.RowCalculationWindow;
+
+@Name('RowCalculationUpdateEventForTaxlot')
+@Description('Creates or updates RowCalculationUpdateEventForTaxlot with data from RowCalculationBaseWindowModified.')
+insert into RowCalculationUpdateEventForTaxlot
+select distinct
+	R.underlyingSymbol as underlyingSymbol,
+	R.modificationId as modificationId,
+	R.userId as userId ,
+	R.masterFundId as masterFundId,
+	R.masterFundName as masterFundName, 
+	R.accountId as accountId,	
+	R.accountShortName as accountShortName,
+	R.accountLongName as accountLongName, 
+	R.accountShortName as accountShortName,
+	R.masterStrategyId as masterStrategyId,
+	R.masterStrategyName as masterStrategyName,
+	R.strategyId as strategyId,
+	R.strategyName as strategyName,
+	R.strategyFullName as strategyFullName,
+	R.taxlotState as taxlotState,
+	R.taxlotType as taxlotType,
+	R.symbol as symbol,
+	R.assetId as assetId,
+	R.asset as asset,
+	R.sector as sector,
+	R.udaAsset as udaAsset,
+	R.udaSecurityType as udaSecurityType,
+	R.udaSector as udaSector,
+	R.udaSubSector as udaSubSector,
+	R.udaCountry as udaCountry,
+	R.subSector as subSector,
+	R.exchange as exchange,
+	R.currency as currency,	
+	R.riskCurrency as riskCurrency,
+	R.issuer as issuer,
+	R.countryOfRisk as countryOfRisk,
+	R.region as region,
+	R.analyst as analyst,
+	R.ucitsEligibleTag as ucitsEligibleTag,
+	R.liquidTag as liquidTag,
+	R.marketCap as marketCap,
+	R.customUDA1 as customUDA1,
+	R.customUDA2 as customUDA2,
+	R.customUDA3 as customUDA3,
+	R.customUDA4 as customUDA4,
+	R.customUDA5 as customUDA5,
+	R.customUDA6 as customUDA6,
+	R.customUDA7 as customUDA7,
+	R.roundLot as roundLot,
+	"RowCalculationBaseWindowModified" as parentWindowStream,
+	R.customUDA8 as customUDA8,
+	R.customUDA9 as customUDA9,
+	R.customUDA10 as customUDA10,
+	R.customUDA11 as customUDA11,
+	R.customUDA12 as customUDA12,
+	R.bloombergSymbol as bloombergSymbol,
+	R.activSymbol as activSymbol,
+	R.factSetSymbol as factSetSymbol,
+	R.bloombergSymbolWithExchangeCode as bloombergSymbolWithExchangeCode,
+	R.tradeAttribute1 as tradeAttribute1,
+	R.tradeAttribute2 as tradeAttribute2,
+	R.tradeAttribute3 as tradeAttribute3,
+	R.tradeAttribute4 as tradeAttribute4,
+	R.tradeAttribute5 as tradeAttribute5,
+	R.tradeAttribute6 as tradeAttribute6,
+	R.pricingStatus as pricingStatus,
+	R.auecId as auecId,
+	R.currencyId as currencyId,
+	R.exchangeId as exchangeId,
+    R.underlyingId as underlyingId,
+	R.avgPrice as avgPrice,
+	R.orderSide as orderSide,
+	R.expirationDate as expirationDate,
+	R.todayReturnValuelocal as todayReturnValuelocal,
+	R.todayReturnValueBase as todayReturnValueBase
+from pattern
+[
+	every (R = RowCalculationBaseWindowModified)
+] where DataLoaded=true;
+
+@Description('Creates or updates RowCalculationUpdateEventForSymbolData with data from SymbolDataCycleCompleted.')
+insert into RowCalculationUpdateEventForSymbolData
+select
+	E.cycleId as cycleId,
+	"SymbolDataCycleCompleted" as parentWindowStream	
+from SymbolDataCycleCompleted as E;
+/*
+@Name('RowCalculationUpdateEventForSymbolData')
+@Description('Creates or updates RowCalculationUpdateEventForSymbolData with data from RowCalculationBaseWindowModified.')
+insert into RowCalculationUpdateEventForSymbolData
+select distinct
+	T.modificationId as modificationId,
+	R.underlyingSymbol as underlyingSymbol,	
+	R.taxlotType as taxlotType,
+	R.symbol as symbol,
+	R.assetId as assetId,
+	R.asset as asset,
+	R.sector as sector,
+	R.subSector as subSector,
+	R.udaAsset as udaAsset,
+	R.udaSecurityType as udaSecurityType,
+	R.udaCountry as udaCountry,	
+	R.riskCurrency as riskCurrency,
+	R.issuer as issuer,
+	R.countryOfRisk as countryOfRisk,
+	R.region as region,
+	R.analyst as analyst,
+	R.ucitsEligibleTag as ucitsEligibleTag,
+	R.liquidTag as liquidTag,
+	R.marketCap as marketCap,
+	R.customUDA1 as customUDA1,
+	R.customUDA2 as customUDA2,
+	R.customUDA3 as customUDA3,
+	R.customUDA4 as customUDA4,
+	R.customUDA5 as customUDA5,
+	R.customUDA6 as customUDA6,
+	R.customUDA7 as customUDA7,
+	R.roundLot as roundLot,
+	"RowCalculationBaseWindowModified" as parentWindowStream,
+	R.customUDA8 as customUDA8,
+	R.customUDA9 as customUDA9,
+	R.customUDA10 as customUDA10,
+	R.customUDA11 as customUDA11,
+	R.customUDA12 as customUDA12	
+from pattern
+[
+	 T = SymbolDataWindowUpdated -> every R = RowCalculationBaseWindowModified
+] where DataLoaded=true;
+
+*/
+@Name('RowCalculationUpdateEventForAuec')
+@Description('Creates or updates RowCalculationUpdateEventForAuec with data from RowCalculationBaseWindowModified.')
+insert into RowCalculationUpdateEventForAuec
+select distinct
+com.espertech.esper.common.internal.util.UuidGenerator.generate() as modificationId,
+	R.assetId as assetId,
+	R.asset as asset,
+	T.auecId as auecId,
+	"AuecWindow,RowCalculationBaseWindowModified" as parentWindowStream
+from pattern
+[
+	every (T = AuecWindow -> R = RowCalculationBaseWindowModified)
+];
+
+@Name('RowCalculationUpdateEventForSecurity')
+@Description('Creates or updates RowCalculationUpdateEventForSecurity with data from RowCalculationBaseWindowModified.')
+insert into RowCalculationUpdateEventForSecurity
+select distinct
+com.espertech.esper.common.internal.util.UuidGenerator.generate() as modificationId,
+	R.underlyingSymbol as underlyingSymbol,	
+	R.symbol as symbol,
+	R.assetId as assetId,
+	R.asset as asset,
+	R.sector as sector,
+	R.subSector as subSector,
+	R.udaAsset as udaAsset,
+	R.udaCountry as udaCountry,
+	R.udaSecurityType as udaSecurityType,
+	R.udaSector as udaSector,
+	R.udaSubSector as udaSubSector,
+	R.riskCurrency as riskCurrency,
+	R.issuer as issuer,
+	R.countryOfRisk as countryOfRisk,
+	R.region as region,
+	R.analyst as analyst,
+	R.ucitsEligibleTag as ucitsEligibleTag,
+	R.liquidTag as liquidTag,
+	R.marketCap as marketCap,
+	R.customUDA1 as customUDA1,
+	R.customUDA2 as customUDA2,
+	R.customUDA3 as customUDA3,
+	R.customUDA4 as customUDA4,
+	R.customUDA5 as customUDA5,
+	R.customUDA6 as customUDA6,
+	R.customUDA7 as customUDA7,
+	R.roundLot as roundLot,
+	"RowCalculationBaseWindowModified" as parentWindowStream,
+	R.customUDA8 as customUDA8,
+	R.customUDA9 as customUDA9,
+	R.customUDA10 as customUDA10,
+	R.customUDA11 as customUDA11,
+	R.customUDA12 as customUDA12,
+	R.bloombergSymbol as bloombergSymbol,
+	R.activSymbol as activSymbol,
+	R.factSetSymbol as factSetSymbol,
+	R.bloombergSymbolWithExchangeCode as bloombergSymbolWithExchangeCode
+	
+from pattern
+[
+	every (T = Security -> R = RowCalculationBaseWindowModified)
+];
+
+@Name('DataLoadCompleteEventForAuec')
+@Description('Updates RowCalculationUpdateEventForAuec after initialization is complete with data from RowCalculationBaseWindowModified.')
+on pattern[every InitComplete(initComplete=true, action='DataLoaded')]
+insert into RowCalculationUpdateEventForAuec
+select distinct
+com.espertech.esper.common.internal.util.UuidGenerator.generate() as modificationId,
+	R.assetId as assetId,
+	R.asset as asset,
+	R.auecId as auecId,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+group by R.auecId;

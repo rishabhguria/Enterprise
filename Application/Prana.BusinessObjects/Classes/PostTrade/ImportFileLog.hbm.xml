@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Prana.BusinessObjects"
+                   assembly="Prana.BusinessObjects">
+	<class name="ImportFileLog" table="T_ImportFileLog">
+		<id name="ImportFileID"/>
+		<!--<generator class="native" />-->
+		<property name="ImportFileName" />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,402 @@
+﻿<Window x:Name="AllocationClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Views="clr-namespace:Prana.Allocation.Client.Controls.Allocation.Views" 
+        xmlns:igDock="http://infragistics.com/DockManager"
+        xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Forms.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:behavior="clr-namespace:Prana.Allocation.Client.Forms.Behaviours"
+        xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+        xmlns:client="clr-namespace:Prana.Allocation.Client"
+        xmlns:ig="http://infragistics.com/Themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+        x:Class="Prana.Allocation.Client.Forms.Views.AllocationClient"
+        xmlns:Converters="clr-namespace:Prana.Allocation.Client.ValueConvertor"        
+        xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+        Title="Allocation" SizeToContent="Manual"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:sysglobal="clr-namespace:System.Globalization;assembly=mscorlib"
+        Height="{Binding Path=FormHeight, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="{Binding Path=FormWidth, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+        xmlns:commonbehaviors="clr-namespace:Prana.Allocation.Client.Behaviours"
+        DataContext="{DynamicResource AllocationClientViewModel}"
+        md:DialogServiceViews.IsRegistered="True" Background="Transparent" MinWidth="500" MinHeight="500">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:AllocationClientViewModel x:Key="AllocationClientViewModel"/>
+            <Converters:BooleanToVisbilityConverterLocal x:Key="BooleanToVisbilityConverterLocal"></Converters:BooleanToVisbilityConverterLocal>
+            <Style x:Key="styleContentPane" TargetType="{x:Type igDock:ContentPane}">
+                <Setter Property="AllowDocking" Value="False"/>
+                <Setter Property="AllowDockingFloating" Value="False"/>
+                <Setter Property="AllowInDocumentHost" Value="False"/>
+                <Setter Property="WindowPositionMenuVisibility" Value="Collapsed"/>
+                <Style.Resources>
+                    <Style TargetType="{x:Type ContextMenu}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Style x:Key="styleDocumentContentPane" TargetType="{x:Type igDock:DocumentContentHost}">
+                <Style.Resources>
+                    <Style TargetType="{x:Type ContextMenu}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Image x:Key="EditIcon" Height="20" Stretch="Uniform">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEditMode, Mode=TwoWay}" Value="True">
+                                <Setter Property="Source" Value="..\..\Resources\edit_icon.jpg" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEditMode, Mode=TwoWay}" Value="False">
+                                <Setter Property="Source" Value="..\..\Resources\edit_disable_icon.jpg" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=AllocationClientViewLoaded}"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Deactivated">
+            <i:InvokeCommandAction Command="{Binding Path=AllocationClientDeactivated}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="HideCloseBtnDictionary.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--provide the background for the entire form.  In practice, this appears as the window's resize border, because the title and window content obscure the rest-->
+        <Border CornerRadius="2" Grid.RowSpan="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#FFD1D2D4"/>
+
+        <!--title bar-->
+        <Border CornerRadius="2" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <!--Window Icon and Title-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Text" Value="Nirvāna"/>
+                            <Setter Property="FontFamily" Value="Mulish"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AllocationClientWindow, Path=WindowState}" Value="Minimized">
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Text" Value="Allocation"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+
+        </Border>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="Allocation" Height="22" FontSize="15" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=AllocationClientWindow, Path=WindowState}" Value="Minimized">
+                                <Setter Property="Text" Value=""/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center"/>
+        </StackPanel>
+        <!--min/max/close buttons-->
+
+        <!--Content-->
+        <Grid Grid.Row="1">
+            <Grid  Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Row="0">
+                    <ToolBarTray DockPanel.Dock="Top" Background="{DynamicResource ToolTrayBackGround}" IsEnabled="{Binding Path=EnableDisableToolBar}">
+                        <ToolBar Background="{DynamicResource ToolBarBackGround}" Foreground="{DynamicResource ToolBarForeGround}">
+                            <Button x:Name="btnPreferences" Content="Preferences" Padding="10,5,10,5" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding LoadAllocationPreferencesUI}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button x:Name="btnEditAllocationPreferences" Content="Edit Allocation Preferences" Padding="10,5,10,5" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding LoadEditAllocationPreferencesUI}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button x:Name="btnSnapshot" Content="Snapshot" Padding="10,5,10,5" Background="{DynamicResource ToolBarBackGround}" Foreground="{DynamicResource ToolBarButtonForground}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding Path=ScreenShot}" CommandParameter="{Binding ElementName=AllocationClientWindow}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
+                </DockPanel>
+                <GroupBox Grid.Row="1" BorderBrush="{DynamicResource GroupBoxBorder}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" IsEnabled="{Binding Path=EnableDisableUiElements}"/>
+                            <ColumnDefinition Width="Auto" IsEnabled="{Binding Path=EnableDisableUiElements}"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <RadioButton x:Name="currentRadioButton" Content="Current" Grid.Column="0"  Margin="5" IsChecked="{Binding IsCurrentRBChecked}" VerticalAlignment="Center"  IsEnabled="{Binding Path=EnableDisableUiElements}"/>
+                        <RadioButton x:Name="historicalRadioButton" Content="Historical" Grid.Column="1" Margin="5" IsChecked="{Binding IsHistoricalRBChecked}" VerticalAlignment="Center"  IsEnabled="{Binding Path=EnableDisableUiElements}"/>
+                        <igWPF:XamDateTimeEditor x:Name="FromDate" Grid.Column="2"  Margin="5" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" DropDownButtonDisplayMode="OnlyInEditMode" Text="{Binding SelectedFromDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsFromDatePickerEnabled}">
+                            <i:Interaction.Behaviors>
+                                <commonbehaviors:XamDateTimeEditorBehaviour/>
+                            </i:Interaction.Behaviors>
+                        </igWPF:XamDateTimeEditor>
+                        <igWPF:XamDateTimeEditor x:Name="ToDate" Grid.Column="3" Margin="5" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" DropDownButtonDisplayMode="OnlyInEditMode" Text="{Binding SelectedToDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsToDatePickerEnabled}">
+                            <i:Interaction.Behaviors>
+                                <commonbehaviors:XamDateTimeEditorBehaviour/>
+                            </i:Interaction.Behaviors>
+                        </igWPF:XamDateTimeEditor>
+                        <Button x:Name="btnGetData" Content="Get Data" Grid.Column="4"  Margin="5" Template="{DynamicResource ButtonControlTemplate}" Foreground="White" IsEnabled="{Binding Path=EnableDisableGetDataButton}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding LoadAllocationFilteredData}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button x:Name="btnAutoGroup" Content="Auto-Group" Grid.Column="5"   Margin="5" Background="#FF212C39" Foreground="White" BorderBrush="#FF212C39" Template="{DynamicResource ButtonControlTemplate}" IsEnabled="{Binding Path=EnableDisableUiElements}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AutoGroup}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button x:Name="btnProrata" Content="Prorata" Grid.Column="6"   Margin="5" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}" IsEnabled="{Binding Path=EnableDisableUiElements}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding LoadProrataUI}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button x:Name="btnExportData" Content="Export Data" Grid.Column="7" Margin="5" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}" IsEnabled="{Binding Path=EnableDisableUiElements}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding ExportAllocationData}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <ToggleButton x:Name="btnEditToggle" Grid.Column="8" Margin="5" Content="{StaticResource EditIcon}" IsChecked="{Binding IsEditMode, Mode=TwoWay}" Visibility= "{Binding IsEditTradeDockPaneVisible, Mode=TwoWay}" Foreground="{DynamicResource ButtonForeground}"  IsEnabled="{Binding Path=EnableDisableUiElements}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding AllowEditGrids}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ToggleButton.Style>
+                                <Style TargetType="ToggleButton">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="ToolTip" Value="Disable Editing"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                    <Setter Property="ToolTip" Value="Enable Editing"></Setter>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                    </Grid>
+                </GroupBox>
+                <igDock:XamDockManager x:Name="dockManager" Grid.Row="3" BorderBrush="Black" IsEnabled="{Binding Path=EnableDisableUiElements}">
+                    <i:Interaction.Behaviors>
+                        <behavior:AllocationClientDockManagerBehavior IsSaveLayout="{Binding IsSaveLayout, Mode=TwoWay}" IsLoadLayout="{Binding IsLoadLayout, Mode=TwoWay}"/>
+                    </i:Interaction.Behaviors>
+                    <igDock:XamDockManager.Panes>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedRight" Width="450" SplitterOrientation="Horizontal">
+                            <igDock:ContentPane x:Name="rightEdgeDock" Header="Allocate/ Reallocate" IsPinned="{Binding IsPinnedAccountStrategyGrid, Mode= OneWayToSource}" Visibility= "{Binding IsAllocationDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                <i:Interaction.Behaviors>
+                                    <behavior:AllocationClientDockPanelBehavior/>
+                                </i:Interaction.Behaviors>
+                                <Views:AccountStrategyControl DataContext="{Binding AccountStrategyControlViewModel}"/>
+                            </igDock:ContentPane>
+                        </igDock:SplitPane>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedRight" Width="300" SplitterOrientation="Horizontal">
+                            <igDock:ContentPane x:Name="CurrentStatePane" Header="Review Existing Positions" IsPinned="False" Visibility= "{Binding IsAllocationDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                <i:Interaction.Behaviors>
+                                    <behavior:AllocationClientDockPanelBehavior/>
+                                </i:Interaction.Behaviors>
+                                <Views:CurrentSymbolStateControl DataContext="{Binding CurrentSymbolStateControlViewModel}"/>
+                            </igDock:ContentPane>
+                        </igDock:SplitPane>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedRight" SplitterOrientation="Horizontal" Width="Auto">
+                            <igDock:ContentPane x:Name="rightEdgeDock1" Header="Swap Control" IsPinned="False" Visibility= "{Binding IsSwapDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                <Views:AllocationSwapControl DataContext="{Binding Path=AllocationSwapControlViewModel}"/>
+                                <i:Interaction.Behaviors>
+                                    <behavior:AllocationClientDockPanelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </igDock:ContentPane>
+                        </igDock:SplitPane>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedRight" SplitterOrientation="Horizontal" Width="Auto">
+                            <igDock:ContentPane x:Name="rightEdgeDockOTC" Header="OTC Control" IsPinned="False" Visibility= "{Binding IsOTCDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                <Views:AllocationOTCControl DataContext="{Binding Path=AllocationOTCControlViewModel}"/>
+                                <i:Interaction.Behaviors>
+                                    <behavior:AllocationClientDockPanelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </igDock:ContentPane>
+                        </igDock:SplitPane>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedRight" SplitterOrientation="Horizontal" Width="Auto">
+                            <igDock:ContentPane x:Name="EditTradePane" Header="Edit Trade" IsPinned="False"   Visibility= "{Binding IsEditTradeDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                <Views:EditTradeControl DataContext="{Binding Path=EditTradeControlViewModel}"/>
+                                <i:Interaction.Behaviors>
+                                    <behavior:AllocationClientDockPanelBehavior/>
+                                </i:Interaction.Behaviors>
+                            </igDock:ContentPane>
+                        </igDock:SplitPane>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedLeft" SplitterOrientation="Horizontal">
+                            <igDock:ContentPane x:Name="leftEdgeDock" Header="Filters" IsPinned="False" Style="{StaticResource styleContentPane}">
+                                <i:Interaction.Behaviors>
+                                    <behavior:AllocationClientDockPanelBehavior/>
+                                </i:Interaction.Behaviors>
+                                <Views:AllocationFiltersControl DataContext="{Binding AllocationFiltersControlViewModel}"/>
+                            </igDock:ContentPane>
+                        </igDock:SplitPane>
+                        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedBottom">
+                            <igDock:TabGroupPane>
+                                <igDock:ContentPane x:Name="bottomEdgeDock" Header="Trade Attribute bulk change"  IsPinned="False"  Visibility= "{Binding IsEditTradeDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                    <i:Interaction.Behaviors>
+                                        <behavior:AllocationClientDockPanelBehavior/>
+                                    </i:Interaction.Behaviors>
+                                    <Views:TradeAttributeBulkChangeControl DataContext="{Binding TradeAttributeBulkChangeControlViewModel}"/>
+                                </igDock:ContentPane>
+                                <igDock:ContentPane x:Name="bottomEdgeDock1" Header="Commission bulk change"  IsPinned="False" Visibility= "{Binding IsEditTradeDockPaneVisible, Mode=TwoWay}" Style="{StaticResource styleContentPane}">
+                                    <i:Interaction.Behaviors>
+                                        <behavior:AllocationClientDockPanelBehavior/>
+                                    </i:Interaction.Behaviors>
+                                    <Views:CommissionFeesBulkChangeControl DataContext="{Binding CommissionFeesBulkChangeControlViewModel}"/>
+                                </igDock:ContentPane>
+                            </igDock:TabGroupPane>
+                        </igDock:SplitPane>
+                    </igDock:XamDockManager.Panes>
+                    <igDock:DocumentContentHost Style="{StaticResource styleDocumentContentPane}">
+                        <igDock:SplitPane>
+                            <igDock:TabGroupPane>
+                                <igDock:ContentPane x:Name="AllocationGrids" Header="Allocation Grids" AllowClose="False" CloseButtonVisibility="Collapsed" PinButtonVisibility="Collapsed" WindowPositionMenuVisibility="Collapsed" AllowDocking="False">
+                                    <Views:AllocationGridControl x:Name="AllocationGrid" DataContext="{Binding AllocationGridControlViewModel}"/>
+                                </igDock:ContentPane>
+                            </igDock:TabGroupPane>
+                        </igDock:SplitPane>
+                    </igDock:DocumentContentHost>
+                </igDock:XamDockManager>
+                <Grid Grid.Row="4" IsEnabled="{Binding Path=EnableDisableUiElements}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Close Data" x:Name="btnCloseData" Grid.Column="1" Margin="5,5,5,5" MinWidth="78" Style="{DynamicResource RedButtonSkin}" Foreground="{DynamicResource ButtonForeground}" Template="{DynamicResource RedButtonSkinTemplate}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CloseData}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Content="Save w/Status" x:Name="SaveWStatus" Grid.Column="2" Margin="5,5,5,5" MinWidth="95" Visibility="{Binding Path=IsSaveWithStateEnabled, Converter={StaticResource BooleanToVisbilityConverterLocal}}" Foreground="{DynamicResource ButtonForeground}" Template="{DynamicResource GreenButtonSkinTemplate}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SaveAllocationGroups}" CommandParameter="{Binding Name, ElementName=SaveWStatus}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Content="Save w/o Status" x:Name="SaveWoState" Grid.Column="3" Margin="5,5,5,5" MinWidth="100" Visibility="{Binding Path=IsSaveWithoutStateEnabled, Converter={StaticResource BooleanToVisbilityConverterLocal}}" Foreground="{DynamicResource ButtonForeground}" Template="{DynamicResource ButtonControlTemplate}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SaveAllocationGroups}" CommandParameter="{Binding Name, ElementName=SaveWoState}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+                <DockPanel Grid.Row="5">
+                    <StatusBar Name="AllocationStatusBar" DockPanel.Dock="Bottom" Background="{DynamicResource StatusBarBackground}" Foreground="{DynamicResource StatusBarForeground}">
+                        <StatusBarItem>
+                            <TextBlock Text="{Binding StatusBarText}"/>
+                        </StatusBarItem>
+                    </StatusBar>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

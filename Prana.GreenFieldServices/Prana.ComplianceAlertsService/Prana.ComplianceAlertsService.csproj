@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F863CA79-1862-498D-AA0E-798461641705}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.ComplianceAlertsService</RootNamespace>
+    <AssemblyName>Prana.ComplianceAlertsService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc" />
+    <Reference Include="Castle.Windsor, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AmqpPluginManager.cs" />
+    <Compile Include="ComplianceAlertsConstants.cs" />
+    <Compile Include="ComplianceAlertsService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10DD56D7-73F5-4213-9F65-74ABCCA49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Authentication.Common\Prana.Authentication.Common.csproj">
+      <Project>{e24d23e5-1ab0-4588-a7f8-03492c524b62}</Project>
+      <Name>Prana.Authentication.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CoreService.Interfaces\Prana.CoreService.Interfaces.csproj">
+      <Project>{79A6B4BD-7843-477B-A6D2-980BEDAB9F86}</Project>
+      <Name>Prana.CoreService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477E-5152-4CBF-B120-97DB05CBC464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.KafkaWrapper.Extension\Prana.KafkaWrapper.Extension.csproj">
+      <Project>{5E70C0C3-36B3-4C1E-A7E1-981FC7A4A231}</Project>
+      <Name>Prana.KafkaWrapper.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.KafkaWrapper\Prana.KafkaWrapper.csproj">
+      <Project>{7E3A131C-D57A-43D6-AAD7-5AC43BE3CC31}</Project>
+      <Name>Prana.KafkaWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026B8-A7E0-4BFA-AC4F-C43DAA2A4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.SocketCommunication\Prana.SocketCommunication.csproj">
+      <Project>{F221A266-01C2-4ECA-ADED-0717573BCC2E}</Project>
+      <Name>Prana.SocketCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.GreenfieldServices.Common\Prana.GreenfieldServices.Common.csproj">
+      <Project>{f728598a-6e1b-4fe6-ae21-899b780de0ea}</Project>
+      <Name>Prana.GreenfieldServices.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*"  "$(SolutionDir)Prana.GreenFieldServices\Prana.ComplianceAlertsServiceHost\$(OutDir)" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

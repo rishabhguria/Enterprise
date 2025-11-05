@@ -1,0 +1,38 @@
+module customRules.tigerveda.preTrade.EligibleInvestments.EligibleInvestmentsTigerVeda;
+
+@Name('EligibleInvestmentsTigerVedaWhatIfAggregatorPostTrade')
+@Description('Transaction results in investment in Eligible Securities to fall below the 90% threshold')
+on pattern[every R=MasterFundUnderlyingSymbolUpdated]
+insert into EligibleInvestmentsTigerVedaWhatIfAggregatorPostTrade
+select distinct
+	sum(case W.ucitsEligibleTag='Yes'
+			when true then W.grossExposureUnderlying
+			else 0.0
+		end) as grossExposureUnderlying,
+	W.masterFundNav as masterFundNav,
+	W.masterFundName as masterFundName,
+	"MasterFundUnderlyingSymbolWithNav" as parentWindowStream
+from MasterFundUnderlyingSymbolWithNav as W  
+group by W.masterFundId;
+
+
+@Name('EligibleInvestmentsTigerVedaPostTrade')
+@Description('Checks if limits are breached.')
+insert into EligibleInvestmentsTigerVedaPostTrade
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Eligible_Securities_Percentage_PT) || ValueSeparator || Fund_Name2_PT  as threshold,
+	doubleFormat(coalesce((A.grossExposureUnderlying / A.masterFundNav)*100,0)) || ValueSeparator || A.masterFundName as actualResult,
+	'Eligible Securities Percentage' || ValueSeparator || 'MasterFund' as constraintField,
+	(((coalesce(A.grossExposureUnderlying/ A.masterFundNav, 0)) < (Eligible_Securities_Percentage_PT/100)) and valueExistsInCSV(A.masterFundName, Fund_Name2_PT)) as isViolated,
+	'Master Fund: ' || A.masterFundName
+		|| ', Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0))
+		|| ',  Gross Exposure of Eligible assets: ' || doubleFormat(A.grossExposureUnderlying)
+		|| ', % Gross Exposure of Eligible Assets: ' || doubleFormat(coalesce((A.grossExposureUnderlying / A.masterFundNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Transaction results in investment in Eligible Securities to fall below the ' || doubleFormat(Eligible_Securities_Percentage_PT) ||  '% threshold' as summary,
+	A.masterFundName as dimension,
+	"EligibleInvestmentsTigerVedaWhatIfAggregatorPostTrade" as parentWindowStream
+from
+EligibleInvestmentsTigerVedaWhatIfAggregatorPostTrade as A;

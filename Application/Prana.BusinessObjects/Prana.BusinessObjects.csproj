@@ -1,0 +1,947 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.BusinessObjects</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Prana.BusinessObjects</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Nuget DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Nuget DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BasicOrderInfo.cs" />
+    <Compile Include="BindableBase.cs" />
+    <Compile Include="Classes\AllocationCheckSidePref.cs" />
+    <Compile Include="Classes\Allocation\AllocationBaseType.cs" />
+    <Compile Include="Classes\Allocation\AllocationCompanyWisePref.cs" />
+    <Compile Include="Classes\Allocation\AllocationFixedPreference.cs" />
+    <Compile Include="Classes\Allocation\AllocationMasterFundPreference.cs" />
+    <Compile Include="Classes\Allocation\AllocationOperationPreference.cs" />
+    <Compile Include="Classes\Allocation\AllocationParameter.cs" />
+    <Compile Include="Classes\Allocation\AllocationPreferencesType.cs" />
+    <Compile Include="Classes\Allocation\AllocationPrefetchFilter.cs" />
+    <Compile Include="Classes\Allocation\AllocationResponse.cs" />
+    <Compile Include="Classes\Allocation\AllocationRule.cs" />
+    <Compile Include="Classes\Allocation\AllocationStringConstants.cs" />
+    <Compile Include="Classes\Allocation\CheckListWisePreference.cs" />
+    <Compile Include="Classes\Allocation\CurrentSymbolState.cs" />
+    <Compile Include="Classes\Allocation\CustomOperator.cs" />
+    <Compile Include="Classes\Allocation\FixedPreferenceCreationSource.cs" />
+    <Compile Include="Classes\Allocation\FundValue.cs" />
+    <Compile Include="Classes\Allocation\MatchClosingTransactionType.cs" />
+    <Compile Include="Classes\Allocation\MatchingRuleType.cs" />
+    <Compile Include="Classes\Allocation\PreferenceUpdateResult.cs" />
+    <Compile Include="Classes\Allocation\StrategyValue.cs" />
+    <Compile Include="Classes\Analytics\RiskParameter.cs" />
+    <Compile Include="Classes\Blotter\AllocationDetails.cs" />
+    <Compile Include="Classes\Blotter\StageOrderRemovalData.cs" />
+    <Compile Include="Classes\Blotter\SubOrderRemovalData.cs" />
+    <Compile Include="Classes\BusinessBaseClass\AdditionalTradeAttributes.cs" />
+    <Compile Include="Classes\Cash Management\CashJournalMappingItem.cs" />
+    <Compile Include="Classes\CommissionRule\OtherFeesCriteria.cs" />
+    <Compile Include="Classes\CommissionRule\ClearingFeeCriteria.cs" />
+    <Compile Include="Classes\CollateralImport.cs" />
+    <Compile Include="Classes\Corporate Action\CorpActionParameterHelper.cs" />
+    <Compile Include="Classes\DataErrorInfoSupport.cs" />
+    <Compile Include="Classes\DividendYieldImport.cs" />
+    <Compile Include="Classes\Extensions\AllocationGroupExtensions.cs" />
+    <Compile Include="Classes\Extensions\AllocationOrderExtension.cs" />
+    <Compile Include="Classes\Extensions\DataTableExtension.cs" />
+    <Compile Include="Classes\Extensions\DataRowExtension.cs" />
+    <Compile Include="Classes\Extensions\TaxlotExtension.cs" />
+    <Compile Include="Classes\LiveFeed\AdviceSymbolInfo.cs" />
+    <Compile Include="Classes\MarketDataSymbolMapper.cs" />
+    <Compile Include="Classes\MarketDataSymbolMapperHelper.cs" />
+    <Compile Include="Classes\MarketDataSymbolResponse.cs" />
+    <Compile Include="Classes\MarkPrice\PricingPolicyDetails.cs" />
+    <Compile Include="Classes\MarkPrice\PricingPolicyDetailsFromSP.cs" />
+    <Compile Include="Classes\NAVLockDateRule.cs" />
+    <Compile Include="Classes\OptionChainFilter.cs" />
+    <Compile Include="Classes\OTC\CFDTradeData.cs" />
+    <Compile Include="Classes\OTC\ConvertibleBondTradeData.cs" />
+    <Compile Include="Classes\OTC\SecMasterConvertibleBondData.cs" />
+    <Compile Include="Classes\OTC\OTCTradeData.cs" />
+    <Compile Include="Classes\OTC\EquitySwapTradeData.cs" />
+    <Compile Include="Classes\PostTrade\PhysicalSettlementDto.cs" />
+    <Compile Include="Classes\PTT\PTTAllocDetailsRequest.cs" />
+    <Compile Include="Classes\PTT\PTTBusinessConstants.cs" />
+    <Compile Include="Classes\PTT\PTTRequestObject.cs" />
+    <Compile Include="Classes\PTT\PTTResponseObject.cs" />
+    <Compile Include="Classes\Import\StageImportData.cs" />
+    <Compile Include="Classes\Import\StageImportDataList.cs" />
+    <Compile Include="Classes\RebalancerNew\AccountLevelNAV.cs" />
+    <Compile Include="Classes\RebalancerNew\CustomGroupDto.cs" />
+    <Compile Include="Classes\RebalancerNew\IAccountLevelNAV.cs" />
+    <Compile Include="Classes\RebalancerNew\IRebalancerDto.cs" />
+    <Compile Include="Classes\RebalancerNew\ModelPortfolioDto.cs" />
+    <Compile Include="Classes\RebalancerNew\ModelPortfolioSecurityDto.cs" />
+    <Compile Include="Classes\RebalancerNew\PriceAndFx.cs" />
+    <Compile Include="Classes\RebalancerNew\RebalancerData.cs" />
+    <Compile Include="Classes\Cash Management\CollateralInterestValue.cs" />
+    <Compile Include="Classes\RebalancerNew\RebalancerDto.cs" />
+    <Compile Include="Classes\RebalancerNew\RebalPreferencesDto.cs" />
+    <Compile Include="Classes\OTC\OTCCustomFields.cs" />
+    <Compile Include="Classes\OTC\SecMasterOTCData.cs" />
+    <Compile Include="Classes\OTC\SecMasterEquitySwap.cs" />
+    <Compile Include="Classes\OTC\SecMasterCFDData.cs" />
+    <Compile Include="Classes\ShortLocate\ShortLocateListParameter.cs" />
+    <Compile Include="Classes\ShortLocate\ShortLocateOrder.cs" />
+    <Compile Include="Classes\SnapshotResponseData.cs" />
+    <Compile Include="Classes\ThirdParty\Collections\DataCollection.cs" />
+    <Compile Include="Classes\ThirdParty\Collections\ThirdPartyEmails.cs" />
+    <Compile Include="Classes\ThirdParty\Collections\ThirdPartyFtps.cs" />
+    <Compile Include="Classes\ThirdParty\Collections\ThirdPartyGnuPGs.cs" />
+    <Compile Include="Classes\ThirdParty\EventArgs\MessageEventArgs.cs" />
+    <Compile Include="Classes\ThirdParty\EventArgs\PromptEventArgs.cs" />
+    <Compile Include="Classes\ThirdParty\EventArgs\StatusEventArgs.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyAllocationDetailComparison.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyAllocationLevelDetails.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyBatch.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyBatchCommon.cs" />
+    <Compile Include="Classes\ThirdParty\Collections\ThirdPartyBatches.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyBlockLevelDetails.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyBatchEventData.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyFileLog.cs" />
+    <Compile Include="Classes\ThirdParty\Tables\ThirdPartyForceConfirm.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyOrderDetail.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyTimeBatch.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyToleranceProfile.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdParties.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdParty.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyAllocationMatchDetails.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyBatchExtensions.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyCommon.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFileFormat.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFileFormats.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFlatFileDetail.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFlatFileDetailCollection.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFlatFileFooter.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFlatFileHeader.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFlatFileSaveDetail.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyPermittedFund.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyPermittedFunds.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyStringWriterWithEncoding.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyToleranceProfileCommon.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyType.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyTypes.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyUserDefinedFormat.cs" />
+    <Compile Include="Classes\TradeAudit\AuditTrailFilterParams.cs" />
+    <Compile Include="Classes\TradeAudit\CashJournalAuditEntry.cs" />
+    <Compile Include="Classes\TTPrefs\DefAssetSide.cs" />
+    <Compile Include="Classes\TTPrefs\DefTTControlsMapping.cs" />
+    <Compile Include="Classes\TTPrefs\OrderDetails.cs" />
+    <Compile Include="Classes\TTPrefs\TradingTicketRulesPrefs.cs" />
+    <Compile Include="Classes\TTPrefs\TradingTicketUIPrefs.cs" />
+    <Compile Include="Classes\Utilities\IEnumerableExtension.cs" />
+    <Compile Include="Classes\WinDaleParams.cs" />
+    <Compile Include="Classes\VWAPImport.cs" />
+    <Compile Include="Classes\WPFErrorObject.cs" />
+    <Compile Include="Classes\WPFUIValidation.cs" />
+    <Compile Include="Classes\OptionSymbolMapper.cs" />
+    <Compile Include="Classes\CommonObjects\WorkflowItem.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByExactFund.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByExactSymbol.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataForSameUsers.cs" />
+    <Compile Include="Classes\PostTrade\StateObject.cs" />
+    <Compile Include="Classes\Reconciliation\ReconParameters.cs" />
+    <Compile Include="Classes\Reconciliation\ReconPreference.cs" />
+    <Compile Include="Classes\Reconciliation\ReconPreferencesExtension.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\DynamicUDA.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterSymbolSearchReq.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterSymbolSearchRes.cs" />
+    <Compile Include="Classes\SettlementDateCashCurrencyValue.cs" />
+    <Compile Include="Classes\ClosingParameters.cs" />
+    <Compile Include="Classes\VolatilityImport.cs" />
+    <Compile Include="Compliance\Alerting\NotificationStrategy.cs" />
+    <Compile Include="Compliance\Alerting\PendingApprovalOrderDetails.cs" />
+    <Compile Include="Compliance\Alerting\PreTradeApprovalInfo.cs" />
+    <Compile Include="Compliance\Alerting\SimulationResult.cs" />
+    <Compile Include="Compliance\Constants\AlertHistoryConstants.cs" />
+    <Compile Include="Compliance\Constants\ComplianceConstants.cs" />
+    <Compile Include="Compliance\Constants\CustomRuleConstants.cs" />
+    <Compile Include="Compliance\Constants\PreTradeConstants.cs" />
+    <Compile Include="Constants\PTTConstants.cs" />
+    <Compile Include="Compliance\Constants\RuleNavigatorConstants.cs" />
+    <Compile Include="Compliance\Constants\UserDefinedRuleConstants.cs" />
+    <Compile Include="Compliance\DataSendingObjects\Accurals.cs" />
+    <Compile Include="Compliance\DataSendingObjects\CashFlowToCompliance.cs" />
+    <Compile Include="Compliance\Definition\CustomRuleDefinition.cs" />
+    <Compile Include="Compliance\Definition\GroupBase.cs" />
+    <Compile Include="Compliance\Definition\GroupNotificationDetails.cs" />
+    <Compile Include="Compliance\Definition\ImportDefinition.cs" />
+    <Compile Include="Compliance\Definition\RuleBase.cs" />
+    <Compile Include="Compliance\Definition\UserDefinedRule.cs" />
+    <Compile Include="Compliance\Delegates\AlertHistoryDelegates.cs" />
+    <Compile Include="Compliance\Delegates\RuleGroupingDelegates.cs" />
+    <Compile Include="Compliance\Delegates\RuleLoadDelegates.cs" />
+    <Compile Include="Compliance\Enums\AlertHistoryOperations.cs" />
+    <Compile Include="Compliance\Enums\AlertPopUpResponse.cs" />
+    <Compile Include="Compliance\Enums\AlertPopUpType.cs" />
+    <Compile Include="Compliance\Enums\ComplianceOrderStatus.cs" />
+    <Compile Include="Compliance\Enums\Compression.cs" />
+    <Compile Include="Compliance\Enums\AlertType.cs" />
+    <Compile Include="Compliance\Enums\GroupOperations.cs" />
+    <Compile Include="Compliance\Enums\PreTradeActionType.cs" />
+    <Compile Include="Compliance\Enums\RuleCategory.cs" />
+    <Compile Include="Compliance\Enums\RuleOperations.cs" />
+    <Compile Include="Compliance\Enums\RuleOverrideType.cs" />
+    <Compile Include="Compliance\Enums\RulePackage.cs" />
+    <Compile Include="Compliance\Enums\PreTradeType.cs" />
+    <Compile Include="Compliance\EventArguments\BrowserSaveEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\GetAlertEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\GroupOperationsEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\ImportExportEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\OperationsOnRuleEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\ProcessCompletedEventArg.cs" />
+    <Compile Include="Compliance\EventArguments\RuleCheckRecievedArguments.cs" />
+    <Compile Include="Compliance\EventArguments\RuleLoadEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\RuleOperationEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\SelectedEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\StatusBarEventArgs.cs" />
+    <Compile Include="Compliance\EventArguments\UpdateAlertGridEventArgs.cs" />
+    <Compile Include="Compliance\Interfaces\IRuleHandler.cs" />
+    <Compile Include="Classes\Authorization\Enums.cs" />
+    <Compile Include="Classes\BetaImport.cs" />
+    <Compile Include="Classes\Cash Management\LastRevaluationCalculationDate.cs" />
+    <Compile Include="Classes\CommissionRule\Commission.cs" />
+    <Compile Include="Classes\CommonObjects\CompanyReleaseDetail.cs" />
+    <Compile Include="Classes\CommonObjects\FileMetaData.cs" />
+    <Compile Include="Classes\CommonObjects\FileSettingItem.cs" />
+    <Compile Include="Classes\CommonObjects\Holiday.cs" />
+    <Compile Include="Classes\CommonObjects\Holidays.cs" />
+    <Compile Include="Classes\CommonObjects\NAVLockItem.cs" />
+    <Compile Include="Compliance\CompliancePref\CompliancePref.cs" />
+    <Compile Include="Classes\Authorization\NirvanaIdentity.cs" />
+    <Compile Include="Classes\Authorization\NirvanaPrincipal.cs" />
+    <Compile Include="Classes\Authorization\NirvanaRoles.cs" />
+    <Compile Include="Classes\Authorization\ResourceAction.cs" />
+    <Compile Include="Classes\Corporate Action\CAPreferences.cs" />
+    <Compile Include="Classes\MarkPrice\GenericDayEndData.cs" />
+    <Compile Include="Classes\MarkPrice\PricingRule.cs" />
+    <Compile Include="Classes\MarkPrice\SymbolPriceRequest.cs" />
+    <Compile Include="Classes\DailyCreditLimit.cs" />
+    <Compile Include="Classes\OptionDetail.cs" />
+    <Compile Include="Classes\OptionGreeks\PSSymbolMapper.cs" />
+    <Compile Include="Classes\OptionGreeks\PSSymbolRoot.cs" />
+    <Compile Include="Classes\PMPrefs\PMCalculationPrefs.cs" />
+    <Compile Include="Classes\PositionManagement\GenericPositionData.cs" />
+    <Compile Include="Classes\PostTrade\ClosingMethodology.cs" />
+    <Compile Include="Classes\PostTrade\ClosingTemplate.cs" />
+    <Compile Include="Classes\PostTrade\CustomCondition.cs" />
+    <Compile Include="Classes\PostTrade\ImportFileLog.cs" />
+    <Compile Include="Classes\Reconciliation\ApprovedChanges.cs" />
+    <Compile Include="Classes\Reconciliation\GroupingCriteria.cs" />
+    <Compile Include="Classes\Reconciliation\ImportFileDetail.cs" />
+    <Compile Include="Classes\Reconciliation\MatchingRule.cs" />
+    <Compile Include="Classes\Reconciliation\ReconFilters.cs" />
+    <Compile Include="Classes\Reconciliation\ReconPreferences.cs" />
+    <Compile Include="Classes\Reconciliation\ReconTemplate.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\FutureRootData.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SearchCondition.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SMUISearchParams.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDA.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDACollection.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDASymbolDataCollection.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDASymbolReq.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDADataReqObj.cs" />
+    <Compile Include="Classes\StringOffset.cs" />
+    <Compile Include="Classes\SymbolInfo\SymbolPriceWithDate.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyEmail.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyFtp.cs" />
+    <Compile Include="Classes\ThirdParty\ThirdPartyGnuPG.cs" />
+    <Compile Include="Classes\TradeAudit\TradeAuditActionTypeConverter.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDASymbolReqList.cs" />
+    <Compile Include="Compliance\Alerting\Alert.cs" />
+    <Compile Include="Compliance\DataSendingObjects\ComplianceDelegates.cs" />
+    <Compile Include="Compliance\Permissions\CompliancePermissions.cs" />
+    <Compile Include="Compliance\Permissions\ComplianceUIPermissions.cs" />
+    <Compile Include="Compliance\Alerting\INotificationExtractor.cs" />
+    <Compile Include="Compliance\Alerting\INotificationProcessor.cs" />
+    <Compile Include="Compliance\Definition\NotificationSetting.cs" />
+    <Compile Include="Compliance\Alerting\ProcessingBehavior.cs" />
+    <Compile Include="Compliance\Permissions\RuleCheckPermissions.cs" />
+    <Compile Include="Compliance\Alerting\StrategyBehavior.cs" />
+    <Compile Include="Compliance\DataSendingObjects\StrategyDetails.cs" />
+    <Compile Include="Classes\TradeAudit\PM_Taxlots_DeletedAudit.cs" />
+    <Compile Include="Classes\TradeAudit\T_Group_DeletedAudit.cs" />
+    <Compile Include="Classes\Severity.cs" />
+    <Compile Include="Classes\Analytics\StepAnalysisPref.cs" />
+    <Compile Include="Classes\Analytics\SymbolMapping.cs" />
+    <Compile Include="Classes\AutomationEnum\AutomationEnum.cs" />
+    <Compile Include="Classes\Cash Management\CashDataEventArgs.cs" />
+    <Compile Include="Classes\Cash Management\CashPreferences.cs" />
+    <Compile Include="Classes\Cash Management\CompanyAccountCashCurrencyValue.cs" />
+    <Compile Include="Classes\Cash Management\LastCalculatedBalanceDate.cs" />
+    <Compile Include="Classes\Cash Management\Transaction.cs" />
+    <Compile Include="Classes\Cash Management\TransactionEntry.cs" />
+    <Compile Include="Classes\CashActivity\CashActivity.cs" />
+    <Compile Include="Classes\ClosingPreferences.cs" />
+    <Compile Include="Classes\CommonObjects\GenericNameID.cs" />
+    <Compile Include="Classes\Corporate Action\CACloseData.cs" />
+    <Compile Include="Classes\Corporate Action\CAPreviewResult.cs" />
+    <Compile Include="Classes\Corporate Action\ClosingInfo.cs" />
+    <Compile Include="Classes\DividendImport.cs" />
+    <Compile Include="Compliance\DataSendingObjects\AuecDetails.cs" />
+    <Compile Include="Compliance\DataSendingObjects\DbNav.cs" />
+    <Compile Include="Compliance\DataSendingObjects\DayEndFundCash.cs" />
+    <Compile Include="Compliance\DataSendingObjects\FundDetails.cs" />
+    <Compile Include="Compliance\DataSendingObjects\YesterdayFxRate.cs" />
+    <Compile Include="Classes\EPNL Business Objects\CompressedDataDictionaries.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderFixedIncome.cs" />
+    <Compile Include="Classes\EPNL Business Objects\OutputCompressedSummaries.cs" />
+    <Compile Include="Classes\EPNL Business Objects\DistinctFundSetWiseSummaryCollection.cs" />
+    <Compile Include="Classes\EPNL Business Objects\PMPrefData.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ReturnsStruct.cs" />
+    <Compile Include="Classes\EventData.cs" />
+    <Compile Include="Classes\GenericBindingList.cs" />
+    <Compile Include="Classes\GenericRepository.cs" />
+    <Compile Include="Classes\INotifyPropertyChangedCustom.cs" />
+    <Compile Include="Classes\IPreferenceData.cs" />
+    <Compile Include="Classes\MailDeliveryParameters.cs" />
+    <Compile Include="Classes\MarkPrice\MarkPriceInfo.cs" />
+    <Compile Include="Classes\OMIPreferences\LiveFeedPreferences.cs" />
+    <Compile Include="Classes\OptionGreeks\OptionSimulationInputs.cs" />
+    <Compile Include="Classes\OptionGreeks\SubscriberViewInputs.cs" />
+    <Compile Include="Classes\OptionGreeks\UserOptModelInput.cs" />
+    <Compile Include="Classes\OptionGreeks\VolatilitySkewRequestObject.cs" />
+    <Compile Include="Classes\PMPrefs\PMViewPreferenceList.cs" />
+    <Compile Include="Classes\PMPrefs\PMViewPreferences.cs" />
+    <Compile Include="Classes\PMPrefs\PMUIPrefs.cs" />
+    <Compile Include="Classes\PositionManagement\ClosingData.cs" />
+    <Compile Include="Classes\PositionManagement\ClosingInfo.cs" />
+    <Compile Include="Classes\PositionManagement\StatusInfo.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByAUECDateWise.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataForLastDateModified.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByDateRange.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByFromDate.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByToDate.cs" />
+    <Compile Include="Classes\PositionManagement\FilterDataByExactDate.cs" />
+    <Compile Include="Classes\PositionManagement\IFilterable.cs" />
+    <Compile Include="Classes\PositionManagement\FilterData.cs" />
+    <Compile Include="Classes\PostTrade\AllocationGroupCollection.cs" />
+    <Compile Include="Classes\PostTrade\CommissionFields.cs" />
+    <Compile Include="Classes\PostTrade\DateSymbol.cs" />
+    <Compile Include="Classes\PostTrade\Level1Allocation.cs" />
+    <Compile Include="Classes\PostTrade\PostTradeEnums.cs" />
+    <Compile Include="Classes\PostTrade\TradeAttributes.cs" />
+    <Compile Include="Classes\PSSymbolRequestObject.cs" />
+    <Compile Include="Classes\Risk Management\BaseSettings.cs" />
+    <Compile Include="Classes\Risk Management\ClientFundsStruct.cs" />
+    <Compile Include="Classes\Risk Management\ClientInfo.cs" />
+    <Compile Include="Classes\Risk Management\ClientRiskPref.cs" />
+    <Compile Include="Classes\Risk Management\DBSettings.cs" />
+    <Compile Include="Classes\Risk Management\FileSetting.cs" />
+    <Compile Include="Classes\Risk Management\InternalExternalColumnsStruct.cs" />
+    <Compile Include="Classes\Risk Management\RiskPathCreator.cs" />
+    <Compile Include="Classes\Risk Management\ClientSettingsPref.cs" />
+    <Compile Include="Classes\Risk Management\RiskGrouping.cs" />
+    <Compile Include="Classes\Risk Management\RiskStressTest.cs" />
+    <Compile Include="Classes\RiskReporting\PositionSettings.cs" />
+    <Compile Include="Classes\Risk Management\ClientSettings.cs" />
+    <Compile Include="Classes\Risk Management\Preferences.cs" />
+    <Compile Include="Classes\RiskReporting\RiskSettings.cs" />
+    <Compile Include="Classes\SecMasterUpdateDataByImportList.cs" />
+    <Compile Include="Classes\SecMasterUpdateDataByImportUI.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterFixedIncome.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterGlobalPreferences.cs" />
+    <Compile Include="Classes\TradeAudit\TradeAuditActionType.cs" />
+    <Compile Include="Classes\TradeAudit\TradeAuditEntry.cs" />
+    <Compile Include="Classes\TranferTradeRules.cs" />
+    <Compile Include="AssetCategoryWiseAuecConstants.cs" />
+    <Compile Include="Compliance\ComplianceEnums.cs" />
+    <Compile Include="Compliance\Permissions\RuleLevelPermission.cs" />
+    <Compile Include="Constants\BlotterDataService\BlotterDataConstants.cs" />
+    <Compile Include="Constants\EndPointAddressConstants.cs" />
+    <Compile Include="Constants\LiveFeed\BloombergSapiConstants.cs" />
+    <Compile Include="Constants\NumberPrecisionConstants.cs" />
+    <Compile Include="Constants\SecMasterConstants.cs" />
+    <Compile Include="Constants\ThirdPartyConstants.cs" />
+    <Compile Include="Constants\TradeManagerConstants.cs" />
+    <Compile Include="CostAdjustment\Definitions\CostAdjustmentTaxlotForUndo.cs" />
+    <Compile Include="CostAdjustment\Definitions\CostAdjustmentTaxlotsForSave.cs" />
+    <Compile Include="CostAdjustment\Enums\CostAdjustmentMethodology.cs" />
+    <Compile Include="CostAdjustment\Definitions\CostAdjustmentResult.cs" />
+    <Compile Include="CostAdjustment\Definitions\CostAdjustmentParameter.cs" />
+    <Compile Include="CostAdjustment\Definitions\CostAdjustmentTaxlot.cs" />
+    <Compile Include="CostAdjustment\Delegates\CostAdjustmentDelegates.cs" />
+    <Compile Include="CostAdjustment\Enums\CostAdjustmentTypeEnum.cs" />
+    <Compile Include="CostAdjustment\EventArguments\CostAdjustmentEventArgs.cs" />
+    <Compile Include="CounterPartyWiseCommissionBasis.cs" />
+    <Compile Include="Enumerators\CashManagementEnums.cs" />
+    <Compile Include="Enumerators\RebalancerNew\RebalancerEnums.cs" />
+    <Compile Include="Enumerators\ThirdPartyToleranceProfileEnums.cs" />
+    <Compile Include="EventArguments\ResizeHandlerEventArgs.cs" />
+    <Compile Include="EventArguments\PostTradeServicesErrorEventArgs.cs" />
+    <Compile Include="EventArguments\QueuedDelegateEventArgs.cs" />
+    <Compile Include="FixClasses\AlgoStrategyParametersToUpdate.cs" />
+    <Compile Include="FixClasses\AlgoStrategyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FixClasses\RepeatingGroup.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GreenFieldModels\MasterFundAccountDetails.cs" />
+    <Compile Include="GreenFieldModels\ServiceStatusDto.cs" />
+    <Compile Include="MarketDataProviderPermissions\MarketDataPermissionRequest.cs" />
+    <Compile Include="MarketDataProviderPermissions\Providers\ActivMarketDataPermissionRequest.cs" />
+    <Compile Include="MarketDataProviderPermissions\Providers\FactSetMarketDataPermissionRequest.cs" />
+    <Compile Include="HostedService.cs" />
+    <Compile Include="ManualOrderSendSchedularData.cs" />
+    <Compile Include="MarketDataProviderPermissions\Providers\SapiMarketDataPermissionRequest.cs" />
+    <Compile Include="NewLiveFeed\CashSymbolData.cs" />
+    <Compile Include="NewLiveFeed\DMServiceData.cs" />
+    <Compile Include="NewLiveFeed\FeedPriceChooser.cs" />
+    <Compile Include="Constants\Topics.cs" />
+    <Compile Include="FixClasses\Field.cs" />
+    <Compile Include="FixClasses\IntField.cs" />
+    <Compile Include="FixClasses\OrderSeqNumber.cs" />
+    <Compile Include="LaunchFormEventArgs.cs" />
+    <Compile Include="Enumerators\Scheduler Task classes\EPNLSchedulerTask.cs" />
+    <Compile Include="Enumerators\Scheduler Task classes\ITask.cs" />
+    <Compile Include="Enumerators\Scheduler Task classes\BlotterSchedulerTasks.cs" />
+    <Compile Include="Enumerators\Scheduler Task classes\Task.cs" />
+    <Compile Include="BusinessRules.cs" />
+    <Compile Include="Classes\Analytics\RiskPrefernece.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EpnlDBSymbolDataStruct.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EpnlOrderComparer.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ColPropertyAttribute.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderFXForward.cs" />
+    <Compile Include="Classes\Mapper.cs" />
+    <Compile Include="Classes\CAOnProcessObjects.cs" />
+    <Compile Include="Classes\CorporateActionConstants.cs" />
+    <Compile Include="Classes\PerformanceParameters.cs" />
+    <Compile Include="Classes\PostTrade\AccountingMethods.cs" />
+    <Compile Include="Classes\PostTrade\AllocationDefault.cs" />
+    <Compile Include="Classes\PostTrade\AllocationDefaultCollection.cs" />
+    <Compile Include="Classes\PostTrade\AllocationGroup.cs" />
+    <Compile Include="Classes\PostTrade\AllocationLevelClass.cs" />
+    <Compile Include="Classes\PostTrade\AllocationLevelList.cs" />
+    <Compile Include="Classes\Analytics\PranaRiskResult.cs" />
+    <Compile Include="Classes\Analytics\PranaRiskSimulationObj.cs" />
+    <Compile Include="Classes\Analytics\Option\ResponseObj.cs" />
+    <Compile Include="Classes\Analytics\Option\PranaPositionWithGreekColl.cs" />
+    <Compile Include="Classes\Analytics\Option\PranaPositionWithGreekReqCarrier.cs" />
+    <Compile Include="Classes\Analytics\Option\PranaPositionWithGreeks.cs" />
+    <Compile Include="Classes\Analytics\PranaPosition.cs" />
+    <Compile Include="Classes\Analytics\PranaRequestCarrier.cs" />
+    <Compile Include="Classes\Analytics\PranaRiskObj.cs" />
+    <Compile Include="Classes\Analytics\PranaRiskObjColl.cs" />
+    <Compile Include="Classes\Analytics\RiskConstants.cs" />
+    <Compile Include="Classes\BusinessBaseClass\PranaBasicBusinessLogic.cs" />
+    <Compile Include="Classes\BusinessBaseClass\PranaBasicMessage.cs" />
+    <Compile Include="Classes\CashCurrencyValue.cs" />
+    <Compile Include="Classes\CommissionRule\CommissionRule.cs" />
+    <Compile Include="Classes\CommissionRule\CommissionRuleCriteria.cs" />
+    <Compile Include="Classes\CommissionRule\CVAUECFundCommissionRule.cs" />
+    <Compile Include="Classes\CommissionRule\GroupedorderCache.cs" />
+    <Compile Include="Classes\CommissionRule\OtherFeeRule.cs" />
+    <Compile Include="Classes\CommonObjects\Assets.cs" />
+    <Compile Include="Classes\CommonObjects\AUEC.cs" />
+    <Compile Include="Classes\CommonObjects\Asset.cs" />
+    <Compile Include="Classes\BasketDetail.cs" />
+    <Compile Include="Classes\Broker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\BrokerCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\BusinessObjectConstants.cs" />
+    <Compile Include="Classes\CommonObjects\AUECs.cs" />
+    <Compile Include="Classes\CommonObjects\ClearingFirmPrimeBroker.cs" />
+    <Compile Include="Classes\CommonObjects\ClearingFirmsPrimeBrokers.cs" />
+    <Compile Include="Classes\CommonObjects\Client.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\ClientCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\ClientFund.cs" />
+    <Compile Include="Classes\CommonObjects\ClientFunds.cs" />
+    <Compile Include="Classes\CommonObjects\CompanyCVCMTAIdentifier.cs" />
+    <Compile Include="Classes\CommonObjects\CompanyCVCMTAIdentifiers.cs" />
+    <Compile Include="Classes\CommonObjects\CompanyCVGiveUpIdentifier.cs" />
+    <Compile Include="Classes\CommonObjects\CompanyCVGiveUpIdentifiers.cs" />
+    <Compile Include="Classes\CommonObjects\Exchanges.cs" />
+    <Compile Include="Classes\CommonObjects\ExecutionInstruction.cs" />
+    <Compile Include="Classes\CommonObjects\ExecutionInstructions.cs" />
+    <Compile Include="Classes\CommonObjects\HandlingInstruction.cs" />
+    <Compile Include="Classes\CommonObjects\HandlingInstructions.cs" />
+    <Compile Include="Classes\CommonObjects\OrderType.cs" />
+    <Compile Include="Classes\CommonObjects\OrderTypes.cs" />
+    <Compile Include="Classes\CommonObjects\Side.cs" />
+    <Compile Include="Classes\CommonObjects\Sides.cs" />
+    <Compile Include="Classes\CommonObjects\TimeInForce.cs" />
+    <Compile Include="Classes\CommonObjects\TimeInForces.cs" />
+    <Compile Include="Classes\CommonObjects\Trader.cs" />
+    <Compile Include="Classes\CommonObjects\Traders.cs" />
+    <Compile Include="Classes\CommonObjects\UnderLyings.cs" />
+    <Compile Include="Classes\CompanyUser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\ConfirmationPopUp.cs" />
+    <Compile Include="Classes\ConversionRate.cs" />
+    <Compile Include="Classes\DropCopy\DCOCNew.cs" />
+    <Compile Include="Classes\DropCopy\DropCopyOrder.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderBase.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderEquity.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderEquitySwap.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderFuture.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderFX.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrderOption.cs" />
+    <Compile Include="Classes\CommonObjects\CounterParty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\CounterPartyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\Currency.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\CurrencyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CurrencyConversion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CurrencyConversionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\DynamicClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Enums.cs" />
+    <Compile Include="Classes\EPNL Business Objects\EPnLOrder.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExposureAndPnlOrderCollection.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExposureAndPnlOrderSummary.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExposurePnlCacheItem.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExposurePnlCacheItemList.cs" />
+    <Compile Include="Classes\CommonObjects\Fund.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\FundCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\BizDataFilter.cs" />
+    <Compile Include="Classes\ExternalOrdersAndPositions\ImportBase.cs" />
+    <Compile Include="Classes\ExternalOrdersAndPositions\OrderForGC.cs" />
+    <Compile Include="Classes\DateComparer.cs" />
+    <Compile Include="Classes\IDGenerator.cs" />
+    <Compile Include="Classes\ImportTradeXSLTFile.cs" />
+    <Compile Include="Classes\ImportTradeXSLTFileCollection.cs" />
+    <Compile Include="Classes\Instruction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\InstructionCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\LiveFeed\AsyncBindingList.cs" />
+    <Compile Include="Classes\LiveFeed\Container.cs" />
+    <Compile Include="Classes\LiveFeed\ContainerCollection.cs" />
+    <Compile Include="Classes\LiveFeed\ContainerEventArgs.cs" />
+    <Compile Include="Classes\LiveFeed\DataContainerCollection.cs" />
+    <Compile Include="Classes\LiveFeed\FullOptionData.cs" />
+    <Compile Include="Classes\LiveFeed\FullOptionDataCollection.cs" />
+    <Compile Include="Classes\LiveFeed\LeafContainer.cs" />
+    <Compile Include="Classes\LiveFeed\Level1Data.cs" />
+    <Compile Include="Classes\LiveFeed\Level1StockPriceData.cs" />
+    <Compile Include="Classes\LiveFeed\Level2Data.cs" />
+    <Compile Include="Classes\LiveFeed\MarketMaker.cs" />
+    <Compile Include="Classes\LiveFeed\MarketMakerCollection.cs" />
+    <Compile Include="Classes\LiveFeed\MarketMakerStruct.cs" />
+    <Compile Include="Classes\LiveFeed\MMIDBook.cs" />
+    <Compile Include="Classes\LiveFeed\MMIDPriority.cs" />
+    <Compile Include="Classes\LiveFeed\OHLCStruct.cs" />
+    <Compile Include="Classes\LiveFeed\OptionsUpdateStruct.cs" />
+    <Compile Include="Classes\LiveFeed\PriceSizePriority.cs" />
+    <Compile Include="Classes\LiveFeed\PricingModelData.cs" />
+    <Compile Include="Classes\LiveFeed\ProcessingManager.cs" />
+    <Compile Include="Classes\LiveFeed\StrikedataStruct.cs" />
+    <Compile Include="Classes\LiveFeed\TickStruct.cs" />
+    <Compile Include="Classes\MarketTimes.cs" />
+    <Compile Include="Classes\MarkPriceImport.cs" />
+    <Compile Include="Classes\MarkPrice\DayMarkPrice.cs" />
+    <Compile Include="Classes\MarkPrice\MarkPriceBase.cs" />
+    <Compile Include="Classes\MarkPrice\DayMarkPriceList.cs" />
+    <Compile Include="Classes\MarkPrice\MonthMarkPrice.cs" />
+    <Compile Include="Classes\MarkPrice\MonthMarkPriceList.cs" />
+    <Compile Include="Classes\NAVStruct.cs" />
+    <Compile Include="Classes\PositionManagement\AllocatedTrade.cs" />
+    <Compile Include="Classes\PositionManagement\AllocatedTradesList.cs" />
+    <Compile Include="Classes\PositionManagement\CompanyNameID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\PositionManagement\CompanyNameIDList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\PositionManagement\ThirdPartyNameID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\PositionManagement\Fund.cs" />
+    <Compile Include="Classes\PositionManagement\NetPositionList.cs" />
+    <Compile Include="Classes\OptionGreeks\GeneralMatrix.cs" />
+    <Compile Include="Classes\OptionGreeks\InputParametersCollection.cs" />
+    <Compile Include="Classes\OptionGreeks\InputParametersForGreeks.cs" />
+    <Compile Include="Classes\OptionGreeks\OptionGreeks.cs" />
+    <Compile Include="Classes\OptionGreeks\StepAnalysisRequestObject.cs" />
+    <Compile Include="Classes\OptionGreeks\StepAnalysisResponse.cs" />
+    <Compile Include="Classes\OptionGreeks\StepAnalysisResponseCollection.cs" />
+    <Compile Include="Classes\Order.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\OrderBindingList.cs" />
+    <Compile Include="Classes\OrderCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\OrderFill.cs" />
+    <Compile Include="Classes\OrderFillCollection.cs" />
+    <Compile Include="Classes\OrderSingle.cs" />
+    <Compile Include="Classes\PositionManagement\OpenTaxlot.cs" />
+    <Compile Include="Classes\PositionManagement\OpenTaxLotList.cs" />
+    <Compile Include="Classes\PositionManagement\Position.cs" />
+    <Compile Include="Classes\PositionManagement\RunUpload.cs" />
+    <Compile Include="Classes\PositionManagement\RunUploadList.cs" />
+    <Compile Include="Classes\PositionManagement\Strategy.cs" />
+    <Compile Include="Classes\PositionMaster.cs" />
+    <Compile Include="Classes\PositionMasterList.cs" />
+    <Compile Include="Classes\PostTrade\AllocationOrder.cs" />
+    <Compile Include="Classes\PostTrade\AllocationOrderCollection.cs" />
+    <Compile Include="Classes\PostTrade\PostTradeConstants.cs" />
+    <Compile Include="Classes\PostTrade\PostTradeHelper.cs" />
+    <Compile Include="Classes\PostTrade\TaxLot.cs" />
+    <Compile Include="Classes\PostTrade\TaxLotCollection.cs" />
+    <Compile Include="Classes\PostTrade\TaxLotDetails.cs" />
+    <Compile Include="Classes\QueueMessage.cs" />
+    <Compile Include="Classes\CommonObjects\Strategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\StrategyCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterFXForwardObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterFxObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterIndexObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterUIObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterBaseObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterCoreObject.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterEquityObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterFutObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterOptObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterRequestObj.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SecMasterbaseList.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\SymbolLookupRequestObject.cs" />
+    <Compile Include="Classes\SecurityMasterBusinessObjects\UDAData.cs" />
+    <Compile Include="Classes\ServerClasses\ConnectionProperties.cs" />
+    <Compile Include="Classes\ServerClasses\HandlerType.cs" />
+    <Compile Include="Classes\ServiceClient.cs" />
+    <Compile Include="Classes\ServiceEndPoint.cs" />
+    <Compile Include="Classes\SortableSearchableList.cs" />
+    <Compile Include="Classes\StructSettlementPeriodSidewise.cs" />
+    <Compile Include="Classes\Swap\SwapParameters.cs" />
+    <Compile Include="Classes\Corporate Action\TaxlotBase.cs" />
+    <Compile Include="Classes\Corporate Action\TaxlotBaseCollection.cs" />
+    <Compile Include="Classes\Ticket.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\TicketCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\TradeParameters.cs" />
+    <Compile Include="Classes\PriceSymbolValidation.cs" />
+    <Compile Include="Classes\CommonObjects\TradingAccount.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\TradingAccountCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\TradingInstruction.cs" />
+    <Compile Include="Classes\User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\UserCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\Venue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CommonObjects\VenueCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Wave.cs" />
+    <Compile Include="Classes\Waves.cs" />
+    <Compile Include="Classes\WeeklyHolidays.cs" />
+    <Compile Include="Classes\WeeklyHolidaysCollection.cs" />
+    <Compile Include="ClearanceData.cs" />
+    <Compile Include="ClearanceDataCollection.cs" />
+    <Compile Include="Constants\DateTimeConstants.cs" />
+    <Compile Include="Constants\LiveFeed\LiveFeedConstants.cs" />
+    <Compile Include="Constants\NirvanaInternalConstants.cs" />
+    <Compile Include="Constants\NirvanaMessageConstants.cs" />
+    <Compile Include="Constants\NirvanaServerConstants.cs" />
+    <Compile Include="ControlState.cs" />
+    <Compile Include="CustomDelegates.cs" />
+    <Compile Include="EnumerationValue.cs" />
+    <Compile Include="EnumerationValueList.cs" />
+    <Compile Include="Enumerators\LiveFeed\Enums.cs" />
+    <Compile Include="Enumerators\TradingInstructionEnums.cs" />
+    <Compile Include="Enumerators\TradingTicketEnums.cs" />
+    <Compile Include="Classes\CommonObjects\Exchange.cs" />
+    <Compile Include="Classes\CommonObjects\Underlying.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExPnlCalculationData.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExPnlFillData.cs" />
+    <Compile Include="Classes\EPNL Business Objects\ExPnlLiveFeedData.cs" />
+    <Compile Include="FixClasses\AlgoStrategyParameters.cs" />
+    <Compile Include="FixClasses\Constants\CustomFixConstants.cs" />
+    <Compile Include="FixClasses\Constants\FIXConstants.cs" />
+    <Compile Include="FixClasses\FixPartyDetails.cs" />
+    <Compile Include="FixClasses\PranaMessage.cs" />
+    <Compile Include="FixClasses\OrderAlgoStartegyParameters.cs" />
+    <Compile Include="Classes\ForexPriceImport.cs" />
+    <Compile Include="ListEventArgs.cs" />
+    <Compile Include="NewLiveFeed\Data.cs" />
+    <Compile Include="NewLiveFeed\DictionaryMode.cs" />
+    <Compile Include="NewLiveFeed\EquitySymbolData.cs" />
+    <Compile Include="NewLiveFeed\FixedIncomeSymbolData.cs" />
+    <Compile Include="NewLiveFeed\FutureOptionSymbolData.cs" />
+    <Compile Include="NewLiveFeed\FutureSymbolData.cs" />
+    <Compile Include="NewLiveFeed\FxContractSymbolData.cs" />
+    <Compile Include="NewLiveFeed\FxForwardContractSymbolData.cs" />
+    <Compile Include="NewLiveFeed\FxSymbolData.cs" />
+    <Compile Include="NewLiveFeed\CurrencyConversion.cs" />
+    <Compile Include="NewLiveFeed\ILiveFeedAdapter.cs" />
+    <Compile Include="NewLiveFeed\IndexSymbolData.cs" />
+    <Compile Include="NewLiveFeed\IStore.cs" />
+    <Compile Include="NewLiveFeed\LiveFeedDataInstanceCreater.cs" />
+    <Compile Include="NewLiveFeed\OptionStaticData.cs" />
+    <Compile Include="NewLiveFeed\OptionSymbolData.cs" />
+    <Compile Include="NewLiveFeed\PricingRequestMappings.cs" />
+    <Compile Include="NewLiveFeed\SymbolData.cs" />
+    <Compile Include="NewLiveFeed\SymbolDataLiveFeedEventArgs.cs" />
+    <Compile Include="NewLiveFeed\UserSettingConstants.cs" />
+    <Compile Include="ObservableDictionary.cs" />
+    <Compile Include="ObjectParamEventArg.cs" />
+    <Compile Include="ProgressInfo.cs" />
+    <Compile Include="OTCPosition.cs" />
+    <Compile Include="QTTBlotterLinkingData.cs" />
+    <Compile Include="RepeatingFixField.cs" />
+    <Compile Include="Seperators.cs" />
+    <Compile Include="SerializableDictionary.cs" />
+    <Compile Include="SettlementCachePreferences.cs" />
+    <Compile Include="SMObjects\SMBatch.cs" />
+    <Compile Include="SMObjects\StructPricingField.cs" />
+    <Compile Include="TestingParameters.cs" />
+    <Compile Include="TextSearch\Common\TextSearchDataModel.cs" />
+    <Compile Include="TextSearch\SymbolSearch\SymbolSearchDataModel.cs" />
+    <Compile Include="TimeZone.cs" />
+    <Compile Include="TimeZoneAndTime.cs" />
+    <Compile Include="TimeZoneInfo.cs" />
+    <Compile Include="UserPreferencesEventArgs.cs" />
+    <Compile Include="Classes\ValidAUEC.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Classes\EPNL Business Objects\ExPnlItem Hierarchy.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Classes\Cash Management\CollateralInterestValue.hbm.xml" />
+    <Content Include="Dlls\WPFCustomMessageBox.dll" />
+    <EmbeddedResource Include="Classes\PostTrade\AllocationGroup.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classes\PostTrade\Level1Allocation.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classes\PostTrade\TaxLot.hbm.xml" />
+    <EmbeddedResource Include="Classes\PostTrade\AllocationOrder.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Classes\Cash Management\CompanyAccountCashCurrencyValue.hbm.xml" />
+    <EmbeddedResource Include="Classes\Cash Management\CashPreferences.hbm.xml" />
+    <EmbeddedResource Include="Classes\Cash Management\TransactionEntry.hbm.xml" />
+    <EmbeddedResource Include="Classes\Cash Management\LastCalculatedBalanceDate.hbm.xml" />
+    <EmbeddedResource Include="Classes\CashActivity\CashActivity.hbm.xml" />
+    <EmbeddedResource Include="Classes\Cash Management\LastRevaluationCalculationDate.hbm.xml" />
+    <EmbeddedResource Include="Classes\PostTrade\ImportFileLog.hbm.xml" />
+    <EmbeddedResource Include="Classes\Swap\SwapParameters.hbm.xml" />
+    <Content Include="Dlls\Castle.Core.dll" />
+    <Content Include="Dlls\Castle.DynamicProxy2.dll" />
+    <Content Include="Dlls\Castle.Facilities.Logging.dll" />
+    <Content Include="Dlls\Castle.MicroKernel.dll" />
+    <Content Include="Dlls\Castle.Services.Logging.NLogIntegration.dll" />
+    <Content Include="Dlls\Castle.Windsor.dll" />
+    <Content Include="Dlls\Common.Logging.dll" />
+    <Content Include="Dlls\Csla.dll" />
+    <Content Include="Dlls\dotNetAdapter.dll" />
+    <Content Include="Dlls\ExcelLibrary.dll" />
+    <Content Include="Dlls\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="Dlls\Iesi.Collections.dll" />
+    <Content Include="Dlls\NHibernate.ByteCode.Castle.dll" />
+    <Content Include="Dlls\NHibernate.dll" />
+    <Content Include="Dlls\NLog.dll" />
+    <Content Include="Dlls\NPOI.dll" />
+    <Content Include="Dlls\NPOI.OOXML.dll" />
+    <Content Include="Dlls\NPOI.OpenXml4Net.dll" />
+    <Content Include="Dlls\NPOI.OpenXmlFormats.dll" />
+    <Content Include="Dlls\Quartz.dll" />
+    <Content Include="Dlls\Remotion.Data.Linq.dll" />
+    <Content Include="Dlls\System.IdentityModel.dll" />
+    <Content Include="Dlls\System.Runtime.Serialization.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Component Include="Dlls\C5.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)Dlls\dotNetAdapter.dll"  "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceHost\$(OutDir)PluggableDlls\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

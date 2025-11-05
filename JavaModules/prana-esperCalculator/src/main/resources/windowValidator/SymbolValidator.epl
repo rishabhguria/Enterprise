@@ -1,0 +1,12 @@
+/*
+ * The query here validates the windows,
+ * THe @XXXXX is the place holder for the symbol
+ * 
+ */
+
+Select
+	S.sharesOutstanding = 0 as sharesOutstanding,
+	S.selectedFeedPrice = 0 as selectedFeedPrice
+from SymbolDataWindow as S
+where
+	S.symbol = '@XXXXX'

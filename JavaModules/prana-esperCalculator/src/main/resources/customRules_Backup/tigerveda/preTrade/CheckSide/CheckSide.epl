@@ -1,0 +1,27 @@
+module customRules.tigerveda.preTrade.CheckSide.CheckSide;
+
+
+@Name('CheckSide')
+@Description('Transaction results in check side fail')
+insert into CheckSide
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	B.basketId as taxlotId,
+	'N/A' || ValueSeparator || 'N/A' || ValueSeparator || doubleFormat(coalesce(M.quantity, 0)) as threshold,
+	W.symbol || ValueSeparator || W.masterFundName || ValueSeparator || doubleFormat(coalesce(W.quantity, 0)) as actualResult,
+	'Symbol' || ValueSeparator || 'MasterFund' || ValueSeparator || 'Quantity check side' as constraintField,
+	exists (select * from RowCalculationBaseWindow where symbol = W.symbol and basketId = B.basketId)
+		AND
+	((coalesce(W.quantity, 0) > 0 and coalesce(M.quantity, 0) < 0) OR (coalesce(W.quantity, 0) < 0 and coalesce(M.quantity, 0) > 0)) as isViolated,
+	'Original Position : ' || doubleFormat(coalesce(M.quantity, 0)) || 
+		', New Position : ' || doubleFormat(coalesce(W.quantity, 0)) ||
+		', Symbol : ' || W.symbol ||
+		', Master Fund : ' || W.masterFundName as parameters,
+	current_timestamp as validationTime,
+	'Check side failed for the symbol ' || W.symbol || ' in ' || W.masterFundName as summary,
+	 W.masterFundName|| '-' || W.symbol as dimension
+from
+	BasketEOM as B unidirectional left outer join 
+	WhatIfMasterFundSymbolWithNav as W on W.basketId = B.basketId left outer join
+	MasterFundSymbolWithNav as M on M.symbol = W.symbol and M.masterFundId = W.masterFundId;

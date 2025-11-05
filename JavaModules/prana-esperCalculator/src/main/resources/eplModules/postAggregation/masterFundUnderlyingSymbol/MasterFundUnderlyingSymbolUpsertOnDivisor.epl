@@ -1,0 +1,95 @@
+module eplModules.postAggregation.masterFundUnderlyingSymbol.MasterFundUnderlyingSymbolUpsert;
+
+
+uses eplModules.postAggregation.masterFundUnderlyingSymbol.MasterFundUnderlyingSymbolUpsertIntermediate;
+uses eplModules.divisorCalculators.MasterFundDivisorWindow;
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+uses eplModules.postAggregation.masterFundUnderlyingSymbol.MasterFundUnderlyingSymbolWindow;
+
+
+
+@Name('MasterFundUnderlyingSymbolWithNavMasterFundDivisorUpsert')
+@Description('Update MasterFundUnderlyingSymbolWithNav whenever MasterFundDivisorUpdateEvent event occurs.')
+on MasterFundDivisorUpdateEvent as F 
+merge MasterFundUnderlyingSymbolWithNav as W where F.masterFundId = W.masterFundId
+when matched and 
+	(
+		W.masterFundNav <> F.shadowNavMF 
+		or W.startOfDayNavMasterFund <> F.startOfDayNavMF
+		or W.grossMarketValueBaseMasterFund <> F.grossMarketValueBaseMF
+		or W.grossExposureBaseMasterFund <> F.grossExposureBaseMF
+		or W.netExposureBaseMasterFund <> F.netExposureBaseMF
+		or W.currentCash <> F.currentCash
+		or W.accrual <> F.accrual
+	)
+	then update set
+		W.masterFundNav = F.shadowNavMF,
+		W.startOfDayNavMasterFund = F.startOfDayNavMF,		
+		W.grossMarketValueBaseMasterFund = F.grossMarketValueBaseMF,
+		W.grossExposureBaseMasterFund = F.grossExposureBaseMF,
+		W.netExposureBaseMasterFund = F.netExposureBaseMF,
+		
+		W.percentNetMarketValueMasterFund = percent(W.netMarketValueBase, coalesce(F.shadowNavMF,0)),
+		//W.percentLongExposureMasterFund = percent(W.longExposureBase, coalesce(F.shadowNavMF,0)),
+		//W.percentShortExposureMasterFund = percent(W.shortExposureBase, coalesce(F.shadowNavMF,0)),
+		W.percentNetExposureMasterFund = percent(W.netExposureBase, coalesce(F.shadowNavMF,0)),
+		W.percentBetaAdjustedExposureMasterFund = percent(W.betaAdjustedExposureBase, coalesce(F.shadowNavMF,0)),
+		W.percentGrossExposureMasterFund = percent(W.grossExposureBase, coalesce(F.shadowNavMF,0)),
+		//W.percentLongMarketValueMasterFund = percent(W.longMarketValueBase, coalesce(F.shadowNavMF,0)),
+		//W.percentShortMarketValueMasterFund = percent(W.shortMarketValueBase, coalesce(F.shadowNavMF,0)),
+		W.percentGrossMarketValueMasterFund = percent(W.grossMarketValueBase, coalesce(F.shadowNavMF,0)),
+		//W.percentLongNotionalMasterFund = percent(W.longNotionalBase, coalesce(F.shadowNavMF,0)),
+		//W.percentShortNotionalMasterFund = percent(W.shortNotionalBase, coalesce(F.shadowNavMF,0)),
+		W.percentNetNotionalMasterFund = percent(W.notionalBase, coalesce(F.shadowNavMF,0)),
+		W.pnlContributionMasterFund = percent(W.dayPnLBase, coalesce(F.shadowNavMF,0)),
+		W.percentCostBasisPnlMasterFund = percent(W.costBasisPnLBase, coalesce(F.shadowNavMF,0)),
+		W.dayReturnMasterFund = percent(W.dayPnLBase,F.startOfDayNavMF),
+		W.currentCash = F.currentCash,
+		W.accrual = F.accrual,
+
+		W.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund = percent(coalesce(W.betaAdjustedGrossExposureUnderlyingBase,0),coalesce(F.shadowNavMF,0)),
+		W.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund = percent(coalesce(W.betaAdjustedLongExposureUnderlyingBase,0),coalesce(F.shadowNavMF,0)),
+		W.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund = percent(coalesce(W.betaAdjustedShortExposureUnderlyingBase,0),coalesce(F.shadowNavMF,0));
+
+
+
+
+
+@Name('MasterFundUnderlyingSymbolWithNavGlobalDivisorUpsert')
+@Description('Update MasterFundUnderlyingSymbolWithNav whenever GlobalDivisorUpdateEvent event occurs.')
+on GlobalDivisorUpdateEvent as F 
+merge MasterFundUnderlyingSymbolWithNav as W// where F.masterFundId = W.masterFundId
+when matched and 
+	(
+		W.globalNav <> F.shadowNavG 
+		or W.startOfDayNavGlobal <> F.startOfDayNavG
+		or W.grossMarketValueBaseGlobal <> F.grossMarketValueBaseG
+		or W.grossExposureBaseGlobal <> F.grossExposureBaseG
+		or W.netExposureBaseGlobal <> F.netExposureBaseG
+	)
+	then update set
+		W.globalNav = F.shadowNavG,
+		W.startOfDayNavGlobal = F.startOfDayNavG,
+		W.grossMarketValueBaseGlobal = F.grossMarketValueBaseG,
+		W.grossExposureBaseGlobal = F.grossExposureBaseG,
+		W.netExposureBaseGlobal = F.netExposureBaseG,
+		
+		W.percentNetMarketValueGlobal = percent(W.netMarketValueBase, coalesce(F.shadowNavG,0)),
+		//W.percentLongExposureGlobal = percent(W.longExposureBase, coalesce(F.shadowNavG,0)),
+		//W.percentShortExposureGlobal = percent(W.shortExposureBase, coalesce(F.shadowNavG,0)),
+		W.percentNetExposureGlobal = percent(W.netExposureBase, coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedExposureGlobal = percent(W.betaAdjustedExposureBase, coalesce(F.shadowNavG,0)),
+		W.percentGrossExposureGlobal = percent(W.grossExposureBase, coalesce(F.shadowNavG,0)),
+		//W.percentLongMarketValueGlobal = percent(W.longMarketValueBase, coalesce(F.shadowNavG,0)),
+		//W.percentShortMarketValueGlobal = percent(W.shortMarketValueBase, coalesce(F.shadowNavG,0)),
+		W.percentGrossMarketValueGlobal = percent(W.grossMarketValueBase, coalesce(F.shadowNavG,0)),
+		//W.percentLongNotionalGlobal = percent(W.longNotionalBase, coalesce(F.shadowNavG,0)),
+		//W.percentShortNotionalGlobal = percent(W.shortNotionalBase, coalesce(F.shadowNavG,0)),
+		W.percentNetNotionalGlobal = percent(W.notionalBase, coalesce(F.shadowNavG,0)),
+		W.pnlContributionGlobal = percent(W.dayPnLBase, coalesce(F.shadowNavG,0)),
+		W.percentCostBasisPnlGlobal = percent(W.costBasisPnLBase, coalesce(F.shadowNavG,0)),
+		W.dayReturnGlobal = percent(W.dayPnLBase,F.startOfDayNavG),
+		
+		W.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal = percent(coalesce(W.betaAdjustedGrossExposureUnderlyingBase,0),coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedLongExposureUnderlyingBaseGlobal = percent(coalesce(W.betaAdjustedLongExposureUnderlyingBase,0),coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedShortExposureUnderlyingBaseGlobal = percent(coalesce(W.betaAdjustedShortExposureUnderlyingBase,0),coalesce(F.shadowNavG,0));

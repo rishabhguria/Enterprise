@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{18B82055-1039-4F1D-B978-6978DE4998F7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.TestAutomation.Steps.Unknown</RootNamespace>
+    <AssemblyName>Nirvana.TestAutomation.Steps.Unknown</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.UIA">
+      <HintPath>..\..\DLLs\Interop.UIA.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.UIAutomationClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\DLLs\Interop.UIAutomationClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Caching.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Caching.Cryptography.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Caching.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Caching.Database.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Caching.Database.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Database">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Database.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.Database.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Security.Cache.CachingStore.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Security.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.Design">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Security.Cryptography.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestAutomationFX.Core, Version=2.6.65.0, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\CheckModStatus.cs" />
+    <Compile Include="Steps\CheckWindow.cs" />
+    <Compile Include="Steps\NirvanaDialogueBoxHandler.cs" />
+    <Compile Include="Steps\OpenColumnChooser.cs" />
+    <Compile Include="Steps\RightClickAndClickOperations.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyFatFingerTR.cs" />
+    <Compile Include="Steps\VerifyOverBuySellTR.cs" />
+    <Compile Include="Steps\WindowAction.cs" />
+    <Compile Include="UIMapping\BlotterUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIMapping\BlotterUIMap.Designer.cs">
+      <DependentUpon>BlotterUIMap.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UIMapping\BlotterUIMap.resx">
+      <DependentUpon>BlotterUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.BussinessObjects\Nirvana.TestAutomation.BussinessObjects.csproj">
+      <Project>{b6c8fded-0558-4930-a9ff-f6e61c76af7d}</Project>
+      <Name>Nirvana.TestAutomation.BussinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Factory\Nirvana.TestAutomation.Factory.csproj">
+      <Project>{8d2bb2fc-8362-41ba-ab0f-4c6b0e8915f6}</Project>
+      <Name>Nirvana.TestAutomation.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Interfaces\Nirvana.TestAutomation.Interfaces.csproj">
+      <Project>{85e56089-02d6-435a-ab82-dc828da19114}</Project>
+      <Name>Nirvana.TestAutomation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.UIAutomation\Nirvana.TestAutomation.UIAutomation.csproj">
+      <Project>{c814debb-9e96-4795-9fde-8f7b950771f7}</Project>
+      <Name>Nirvana.TestAutomation.UIAutomation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Utilities\Nirvana.TestAutomation.Utilities.csproj">
+      <Project>{1dc3644b-50a8-4fe8-9237-39e3f3ae563a}</Project>
+      <Name>Nirvana.TestAutomation.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

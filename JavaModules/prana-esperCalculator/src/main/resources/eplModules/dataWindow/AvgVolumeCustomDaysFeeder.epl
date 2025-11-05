@@ -1,0 +1,42 @@
+module eplModules.dataWindow.AvgVolumeCustomDaysFeeder;
+
+@Name('AvgVolumeCustomDaysWindow')
+@Description('Named window which stores the avgVolume for a symbol.')
+create window AvgVolumeCustomDaysWindow.std:unique(symbol)
+(
+	symbol String,
+	avgVolume double,
+	parentWindowStream string	
+);
+ 
+@Name('AvgVolumeCustomDaysWindowInsert')
+@Description('This updates the AvgVolumeCustomDaysWindow every time new AvgVolCustomDays event occurs.
+			  Also inserts data into AvgVolumeCustomDaysWindowUpdated stream.')
+on AvgVolCustomDays as s
+merge AvgVolumeCustomDaysWindow sw where sw.symbol = s.symbol
+	when matched and
+			(
+				sw.avgVolume <> s.avgVolume
+			)
+		then 
+			update 
+				set  
+				sw.avgVolume = s.avgVolume,
+				sw.parentWindowStream = "AvgVolCustomDays"
+			then insert into AvgVolumeCustomDaysWindowUpdated
+				select
+					s.symbol as symbol,
+					s.avgVolume as avgVolume,
+					"AvgVolCustomDays" as parentWindowStream
+				 
+	when not matched
+		then insert 
+			select    	
+		   		s.symbol as symbol,
+		   		s.avgVolume as avgVolume,
+					"AvgVolCustomDays" as parentWindowStream
+			then insert into AvgVolumeCustomDaysWindowUpdated
+				select
+					s.symbol as symbol,
+		   			s.avgVolume as avgVolume,
+					"AvgVolCustomDays" as parentWindowStream;

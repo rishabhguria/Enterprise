@@ -1,0 +1,39 @@
+module customRules.resonate.preTrade.NoDebitCashBalance.NoDebitCashBalance;
+								     						  
+@Name('NoDebitCashBalanceWaveFrontWhatIfAggregator')
+@Description('No trades can be more than the current cash balance of the masterfund')
+insert into NoDebitCashBalanceWaveFrontWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+ 	T.userId as userId,
+ 	T.symbol as symbol,
+ 	T.accountShortName as accountShortName,
+ 	M.currentCash as masterFundCurrentCash,
+ 	T.cashImpactBase as cashImpactBase,
+ 	T.masterFundName as masterFundName,
+	"RowCalculationBaseWindow,MasterFundDivisorWindow" as parentWindowStream
+from BasketEOM as B unidirectional left outer join  RowCalculationBaseWindow as T on B.basketId = T.basketId
+left outer join MasterFundDivisorWindow as M on T.masterFundId = M.masterFundId;
+
+@Name('NoDebitCashBalanceWaveFront')
+@Description('Checks if the limit is breached.')
+insert into NoDebitCashBalanceWaveFront
+select distinct
+	A.basketId as basketId,
+	cast(A.userId, int) as userId,
+	A.basketId as taxlotId,
+	FUND_NAME2_WAVEFRONT as threshold,
+	A.accountShortName as actualResult,
+	'Fund Names' as constraintField,
+	((A.masterFundCurrentCash + A.cashImpactBase) < 0) and valueExistsInCSV(A.accountShortName, FUND_NAME2_WAVEFRONT) as isViolated,
+	 'Current Masteraccount Cash : ' || cast(A.masterFundCurrentCash, string)
+	|| ', Cash Impact of symbol ' || A.symbol || ' is: ' || cast(A.cashImpactBase, string)
+	|| ', Account Name: ' || A.accountShortName
+	|| ', Master Account : ' || A.masterFundName
+	|| ', Master Account Cash after this Trade: ' || cast((A.masterFundCurrentCash + A.cashImpactBase), string)
+		|| ', Symbol: ' || A.symbol as parameters,
+	current_timestamp as validationTime,
+	'Current cash balance of ' || A.symbol || ' in MasterFund ' || A.masterFundName || ' is less than the Trade Cash Impact Base value' as summary,
+	A.symbol as dimension
+	from NoDebitCashBalanceWaveFrontWhatIfAggregator as A
+where A.userId is not null;

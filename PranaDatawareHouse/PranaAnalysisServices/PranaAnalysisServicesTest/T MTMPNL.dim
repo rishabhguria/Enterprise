@@ -1,0 +1,106 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="5671a1ea-28c6-4959-977b-e15156cf5cef" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>T MTMPNL</ID>
+  <Name>T MTMPNL</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="b5a12f7d-0e7f-4f57-8313-2657f2fa55e7">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="dc22e229-a492-4b78-b02a-bd02b8b50eee">
+      <ID>T MTMPNL</ID>
+      <Name>T MTMPNL</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="08dbd304-66f1-45ce-861a-a8dbc6aa30e1">
+          <DataType>BigInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="c45b1bb4-8779-4b05-81c0-87bdcad3d939">
+            <TableID>dbo_T_MTMPNL</TableID>
+            <ColumnID>PK_URPNL</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="fc001785-7513-44da-a13e-9514aeb1c8ec">
+          <AttributeID>Taxlot ID</AttributeID>
+          <Name>Taxlot ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="3b6d760a-49ca-4273-a12e-fbbc7a346869">
+          <AttributeID>Symbol</AttributeID>
+          <Name>Symbol</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+    </Attribute>
+    <Attribute dwd:design-time-name="f2545ef2-ef6b-4ef6-baec-96b851f8ee72">
+      <ID>Taxlot ID</ID>
+      <Name>Taxlot ID</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="0b5a9e51-e1e9-4740-8829-55d6a7640ddb">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="be49ea4d-c27a-45dc-bcc6-19f90a6fb00b">
+            <TableID>dbo_T_MTMPNL</TableID>
+            <ColumnID>TaxlotID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+    </Attribute>
+    <Attribute dwd:design-time-name="d77f85f6-fdd5-4fee-bc9a-61842d222198">
+      <ID>Symbol</ID>
+      <Name>Symbol</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="022c398f-4346-46d9-b50e-13306c0c89b9">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a991af08-c9a4-4ded-8946-64614b427737">
+            <TableID>dbo_T_MTMPNL</TableID>
+            <ColumnID>Symbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+    </Attribute>
+  </Attributes>
+</Dimension>

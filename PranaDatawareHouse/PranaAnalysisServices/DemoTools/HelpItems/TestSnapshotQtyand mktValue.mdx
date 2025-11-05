@@ -1,0 +1,36 @@
+with
+
+member [LastNonEmptyMarkPrice] as
+(
+sum(
+Tail(
+Filter(
+{([Dim Time].[Calender].[Year].&[2009].&[2].&[4].&[3408].lag(5)):
+([Dim Time].[Calender].[Year].&[2009].&[2].&[4].&[3408])}
+,
+Not isEmpty([Measures].[Final Mark Price]))
+,1),
+[Measures].[Final Mark Price]
+)
+
+)
+
+
+member [BeginningMarketValue] as
+(
+
+sum(
+([Dim Time].[Calender].[Year].&[2009].&[2].&[4].&[3408])*
+[PM Open Position Snap Shots].[Symbol].children,
+[Measures].[SymbolQuantity]
+
+)
+)
+
+
+
+select {
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3439])*
+[PM Open Position Snap Shots].[Symbol].members
+                  } on rows ,
+                  {[Measures].[SymbolQuantity]} on columns from [Nirvana Client DW]

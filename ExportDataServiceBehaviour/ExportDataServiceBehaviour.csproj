@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A22B6965-1FE4-4CA2-9CDE-A1046F0872A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExportDataServiceBehaviour</RootNamespace>
+    <AssemblyName>ExportDataServiceBehaviour</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ExportGridData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Prana.Allocation.Client\Prana.Allocation.Client.csproj">
+      <Project>{6352b192-fc82-45ad-b543-10982f67df4f}</Project>
+      <Name>Prana.Allocation.Client</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.BlotterNew\Prana.Blotter.csproj">
+      <Project>{2d361045-9144-4ba7-93a5-653a98a0f8cc}</Project>
+      <Name>Prana.Blotter</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{a28ae507-104b-45c5-bcb1-ce51394e3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.ThirdPartyUI\Prana.ThirdPartyUI.csproj">
+      <Project>{bc0c239d-7f00-43b4-b94f-a2bd0a484f10}</Project>
+      <Name>Prana.ThirdPartyUI</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{abb4950f-def1-4095-8e93-1eb3292c69f5}</Project>
+      <Name>Prana.TradeManager</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.TradingTicket\Prana.TradingTicket.csproj">
+      <Project>{32885552-8f03-45fd-8806-ccc39090a1e5}</Project>
+      <Name>Prana.TradingTicket</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.ComplianceEngine\Prana.ComplianceEngine.csproj">
+      <Project>{cce11e0d-2cf9-4ea1-9ccc-b86747687129}</Project>
+      <Name>Prana.ComplianceEngine</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Rebalancer\Prana.Rebalancer.csproj">
+      <Project>{0e2e40e8-8e6d-4730-9a00-e6fd1dece9bc}</Project>
+      <Name>Prana.Rebalancer</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.ShortLocate\Prana.ShortLocate.csproj">
+      <Project>{9b6487ce-d331-4387-9585-1b3c1b1a4cfe}</Project>
+      <Name>Prana.ShortLocate</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.WatchList\Prana.WatchList.csproj">
+      <Project>{33813047-bfb8-4434-b9c6-ca85b173646f}</Project>
+      <Name>Prana.WatchList</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{c7d2faeb-0fe4-4e42-8317-ac5249ee0e4e}</Project>
+      <Name>ExportGridsData</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026B8-A7E0-4BFA-AC4F-C43DAA2A4835}</Project>
+      <Name>Prana.LogManager</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PM\Prana.PM.Client.UI\Prana.PM.Client.UI.csproj">
+      <Project>{8c38bb01-a351-4e6e-89fc-a169bfe25efb}</Project>
+      <Name>Prana.PM.Client.UI</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Tools\Prana.Tools.csproj">
+      <Project>{77edd942-555b-4d21-b68b-afd0fbab36b3}</Project>
+      <Name>Prana.Tools</Name>
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

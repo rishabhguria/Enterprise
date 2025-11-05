@@ -1,0 +1,496 @@
+module eplModules.postAggregation.masterFund.AggregationMasterFund;
+
+
+
+uses eplModules.postAggregation.masterFund.AggregationMasterFundIntermediate;
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+uses eplModules.postAggregation.masterFund.AggregationMasterFundWindow;
+
+
+
+
+@Name('MasterFundWithNavUpdate')
+@Description('Insert data into MasterFundWithNavUpdate from MasterFundWithNavIntermediate')
+insert into MasterFundWithNavUpdate
+select distinct
+
+	F.modifiedBy as modifiedBy,
+	
+	'Post' as taxlotType,
+	'MasterFund' as compressionLevel,			
+	
+	F.masterFundId as masterFundId,
+	F.masterFundName as masterFundName,
+	
+
+	F.equityHaircutBase as equityHaircutBase,
+	F.indexHaircutBase as indexHaircutBase,
+
+	F.liquidationPnlBase as liquidationPnlBase,
+	
+	
+	
+	F.notionalBase as notionalBase,
+	F.cashImpactBase as cashImpactBase,
+	F.cashInflowBase as cashInflowBase,
+	F.cashOutflowBase as cashOutflowBase,
+	F.netMarketValueBase as netMarketValueBase,
+	F.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	//F.grossMarketValueBase as grossMarketValueBase,
+	F.costBasisPnLBase as costBasisPnLBase,
+	F.dayPnLBase as dayPnLBase,
+	//F.netExposureBase as netExposureBase,
+	//F.grossExposureBase as grossExposureBase,
+	F.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	F.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	
+	F.longNotionalBase as longNotionalBase,
+	F.shortNotionalBase as shortNotionalBase,
+	F.shortMarketValueBase as shortMarketValueBase,
+	F.longMarketValueBase as longMarketValueBase,
+	F.shortExposureBase as shortExposureBase,
+	F.longExposureBase as longExposureBase,
+	
+	F.dayInterestBase as dayInterestBase,
+	F.totalInterestBase as totalInterestBase,
+	
+	coalesce(F.grossExposureUnderlying,0) as grossExposureUnderlying,
+	
+	
+	coalesce(F.shortExposureUnderlying,0) as shortExposureUnderlying,
+	coalesce(F.longExposureUnderlying,0) as longExposureUnderlying,
+	
+	coalesce(F.globalNav,0) as globalNav,
+	F.startOfDayNavGlobal as startOfDayNavGlobal,
+	F.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	F.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	F.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+	coalesce(F.masterFundNav,0) as masterFundNav,
+	F.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	F.grossMarketValueBase as grossMarketValueBase,
+	F.grossExposureBase as grossExposureBase,
+	F.netExposureBase as netExposureBase,
+	F.currentCash as currentCash,
+	F.accrual as accrual,
+	
+	percent(F.netMarketValueBase, F.masterFundNav) as percentNetMarketValueMasterFund,
+	percent(F.longExposureBase, coalesce(F.masterFundNav,0)) as percentLongExposureMasterFund,
+	percent(F.shortExposureBase, coalesce(F.masterFundNav,0)) as percentShortExposureMasterFund,
+	percent(F.netExposureBase, coalesce(F.masterFundNav,0)) as percentNetExposureMasterFund,
+	percent(F.betaAdjustedExposureBase, coalesce(F.masterFundNav,0)) as percentBetaAdjustedExposureMasterFund,
+	percent(F.grossExposureBase, coalesce(F.masterFundNav,0)) as percentGrossExposureMasterFund,
+	percent(F.longMarketValueBase, coalesce(F.masterFundNav,0)) as percentLongMarketValueMasterFund,
+	percent(F.shortMarketValueBase, coalesce(F.masterFundNav,0)) as percentShortMarketValueMasterFund,
+	percent(F.grossMarketValueBase, coalesce(F.masterFundNav,0)) as percentGrossMarketValueMasterFund,
+	percent(F.longNotionalBase, coalesce(F.masterFundNav,0)) as percentLongNotionalMasterFund,
+	percent(F.shortNotionalBase, coalesce(F.masterFundNav,0)) as percentShortNotionalMasterFund,
+	percent(F.notionalBase, coalesce(F.masterFundNav,0)) as percentNetNotionalMasterFund,
+	percent(F.dayPnLBase, coalesce(F.masterFundNav,0)) as pnlContributionMasterFund,
+	percent(F.costBasisPnLBase, coalesce(F.masterFundNav,0)) as percentCostBasisPnlMasterFund,
+	percent(coalesce(F.grossExposureUnderlying,0), coalesce(F.masterFundNav,0)) as percentGrossExposureUnderlyingMasterFund,
+	percent(F.dayPnLBase,F.startOfDayNavMasterFund) as dayReturnMasterFund,
+	
+	percent(F.netMarketValueBase, F.globalNav) as percentNetMarketValueGlobal,	
+	percent(F.longExposureBase, coalesce(F.globalNav,0)) as percentLongExposureGlobal,
+	percent(F.shortExposureBase, coalesce(F.globalNav,0)) as percentShortExposureGlobal,
+	percent(F.netExposureBase, coalesce(F.globalNav,0)) as percentNetExposureGlobal,
+	percent(F.betaAdjustedExposureBase, coalesce(F.globalNav,0)) as percentBetaAdjustedExposureGlobal,
+	percent(F.grossExposureBase, coalesce(F.globalNav,0)) as percentGrossExposureGlobal,
+	percent(F.longMarketValueBase, coalesce(F.globalNav,0)) as percentLongMarketValueGlobal,
+	percent(F.shortMarketValueBase, coalesce(F.globalNav,0)) as percentShortMarketValueGlobal,
+	percent(F.grossMarketValueBase, coalesce(F.globalNav,0)) as percentGrossMarketValueGlobal,
+	percent(F.longNotionalBase, coalesce(F.globalNav,0)) as percentLongNotionalGlobal,
+	percent(F.shortNotionalBase, coalesce(F.globalNav,0)) as percentShortNotionalGlobal,
+	percent(F.notionalBase, coalesce(F.globalNav,0)) as percentNetNotionalGlobal,
+	percent(F.dayPnLBase, coalesce(F.globalNav,0)) as pnlContributionGlobal,
+	percent(F.costBasisPnLBase, coalesce(F.globalNav,0)) as percentCostBasisPnlGlobal,
+	percent(coalesce(F.grossExposureUnderlying,0), coalesce(F.globalNav,0)) as percentGrossExposureUnderlyingGlobal,
+	percent(F.dayPnLBase,F.startOfDayNavGlobal) as dayReturnGlobal,
+	
+	F.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	F.todayLongTradeQuantity as todayLongTradeQuantity,
+	F.todayShortTradeQuantity as todayShortTradeQuantity,
+	F.todayNetNotionalBase as todayNetNotionalBase,
+	F.todayLongNotionalBase as todayLongNotionalBase,
+	F.todayShortNotionalBase as todayShortNotionalBase,
+	
+	F.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	F.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	F.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	percent(F.betaAdjustedGrossExposureUnderlyingBase, F.globalNav) as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	percent(F.betaAdjustedLongExposureUnderlyingBase, F.globalNav) as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	percent(F.betaAdjustedShortExposureUnderlyingBase, F.globalNav) as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	
+	percent(F.betaAdjustedGrossExposureUnderlyingBase, F.masterFundNav) as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	percent(F.betaAdjustedLongExposureUnderlyingBase, F.masterFundNav) as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	percent(F.betaAdjustedShortExposureUnderlyingBase, F.masterFundNav) as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	"MasterFundWithNavIntermediate" as parentWindowStream
+
+
+from MasterFundWithNavIntermediate as F;
+
+@Name('MasterFundWithNav')
+@Description('Update MasterFundWithNav whenever MasterFundWithNavUpdate event occurs.')
+on MasterFundWithNavUpdate as s
+merge MasterFundWithNav as sw where sw.masterFundId=s.masterFundId
+when matched /*and s.modifiedBy <> 'TaxlotDeleted'*/
+then update set
+	sw.taxlotType = 'Post',
+	sw.compressionLevel = 'MasterFund',
+	
+	sw.masterFundId = s.masterFundId,
+	sw.masterFundName = s.masterFundName,
+		
+	sw.equityHaircutBase = s.equityHaircutBase,
+	sw.indexHaircutBase = s.indexHaircutBase,
+	
+	sw.liquidationPnlBase = s.liquidationPnlBase,
+	
+	sw.notionalBase = s.notionalBase,
+	sw.cashImpactBase = s.cashImpactBase,
+	sw.cashInflowBase = s.cashInflowBase,
+	sw.cashOutflowBase = s.cashOutflowBase,
+	sw.netMarketValueBase = s.netMarketValueBase,
+	sw.yesterdayMarketValueBase = s.yesterdayMarketValueBase,
+	//sw.grossMarketValueBase = s.grossMarketValueBase,
+	sw.costBasisPnLBase = s.costBasisPnLBase,
+	sw.dayPnLBase = s.dayPnLBase,
+	//sw.netExposureBase = s.netExposureBase,
+	//sw.grossExposureBase = s.grossExposureBase,
+	sw.betaAdjustedExposureBase = s.betaAdjustedExposureBase,
+
+	sw.underlyingValueForOptionsBase = s.underlyingValueForOptionsBase,
+	
+	
+	sw.longNotionalBase = s.longNotionalBase,
+	sw.shortNotionalBase = s.shortNotionalBase,
+	sw.shortMarketValueBase = s.shortMarketValueBase,
+	sw.longMarketValueBase = s.longMarketValueBase,
+	sw.shortExposureBase = s.shortExposureBase,
+	sw.longExposureBase = s.longExposureBase,
+	
+	sw.dayInterestBase = s.dayInterestBase,
+	sw.totalInterestBase = s.totalInterestBase,
+	
+	sw.grossExposureUnderlying = s.grossExposureUnderlying,
+	
+	sw.shortExposureUnderlying = s.shortExposureUnderlying,
+	sw.longExposureUnderlying = s.longExposureUnderlying,	
+	
+	sw.globalNav = s.globalNav,
+	sw.startOfDayNavGlobal = s.startOfDayNavGlobal,
+	sw.grossMarketValueBaseGlobal = s.grossMarketValueBaseGlobal,
+	sw.grossExposureBaseGlobal = s.grossExposureBaseGlobal,
+	sw.netExposureBaseGlobal = s.netExposureBaseGlobal,
+	
+	sw.masterFundNav = s.masterFundNav,	
+	sw.startOfDayNavMasterFund = s.startOfDayNavMasterFund,
+	sw.grossMarketValueBase = s.grossMarketValueBase,
+	sw.grossExposureBase = s.grossExposureBase,
+	sw.netExposureBase = s.netExposureBase,
+	sw.currentCash = s.currentCash,
+	sw.accrual = s.accrual,
+	
+	sw.percentLongExposureMasterFund = s.percentLongExposureMasterFund,
+	sw.percentShortExposureMasterFund = s.percentShortExposureMasterFund,
+	sw.percentNetExposureMasterFund = s.percentNetExposureMasterFund,
+	sw.percentBetaAdjustedExposureMasterFund = s.percentBetaAdjustedExposureMasterFund,
+	sw.percentNetMarketValueMasterFund = s.percentNetMarketValueMasterFund,
+	sw.percentGrossExposureMasterFund = s.percentGrossExposureMasterFund,
+	sw.percentLongMarketValueMasterFund = s.percentLongMarketValueMasterFund,
+	sw.percentShortMarketValueMasterFund = s.percentShortMarketValueMasterFund,
+	sw.percentGrossMarketValueMasterFund = s.percentGrossMarketValueMasterFund,
+	sw.percentLongNotionalMasterFund = s.percentLongNotionalMasterFund,
+	sw.percentShortNotionalMasterFund = s.percentShortNotionalMasterFund,
+	sw.percentNetNotionalMasterFund = s.percentNetNotionalMasterFund,
+	sw.pnlContributionMasterFund = s.pnlContributionMasterFund,
+	sw.percentCostBasisPnlMasterFund = s.percentCostBasisPnlMasterFund,
+	sw.percentGrossExposureUnderlyingMasterFund = s.percentGrossExposureUnderlyingMasterFund,
+	sw.dayReturnMasterFund = s.dayReturnMasterFund,
+	
+	sw.percentNetMarketValueGlobal = s.percentNetMarketValueGlobal,
+	sw.percentLongExposureGlobal = s.percentLongExposureGlobal,
+	sw.percentShortExposureGlobal = s.percentShortExposureGlobal,
+	sw.percentNetExposureGlobal = s.percentNetExposureGlobal,
+	sw.percentBetaAdjustedExposureGlobal = s.percentBetaAdjustedExposureGlobal,
+	sw.percentGrossExposureGlobal = s.percentGrossExposureGlobal,
+	sw.percentLongMarketValueGlobal = s.percentLongMarketValueGlobal,
+	sw.percentShortMarketValueGlobal = s.percentShortMarketValueGlobal,
+	sw.percentGrossMarketValueGlobal = s.percentGrossMarketValueGlobal,
+	sw.percentLongNotionalGlobal = s.percentLongNotionalGlobal,
+	sw.percentShortNotionalGlobal = s.percentShortNotionalGlobal,
+	sw.percentNetNotionalGlobal = s.percentNetNotionalGlobal,
+	sw.pnlContributionGlobal = s.pnlContributionGlobal,
+	sw.percentCostBasisPnlGlobal = s.percentCostBasisPnlGlobal,
+	sw.percentGrossExposureUnderlyingGlobal = s.percentGrossExposureUnderlyingGlobal,
+	sw.dayReturnGlobal = s.dayReturnGlobal,
+	
+	sw.todayAbsTradeQuantity = s.todayAbsTradeQuantity,
+	sw.todayLongTradeQuantity = s.todayLongTradeQuantity,
+	sw.todayShortTradeQuantity = s.todayShortTradeQuantity,
+	sw.todayNetNotionalBase = s.todayNetNotionalBase,
+	sw.todayLongNotionalBase = s.todayLongNotionalBase,
+	sw.todayShortNotionalBase = s.todayShortNotionalBase,
+	
+	sw.betaAdjustedGrossExposureUnderlyingBase = s.betaAdjustedGrossExposureUnderlyingBase,
+	sw.betaAdjustedLongExposureUnderlyingBase = s.betaAdjustedLongExposureUnderlyingBase,
+	sw.betaAdjustedShortExposureUnderlyingBase = s.betaAdjustedShortExposureUnderlyingBase,
+	
+	sw.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal = s.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	sw.percentBetaAdjustedLongExposureUnderlyingBaseGlobal = s.percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	sw.percentBetaAdjustedShortExposureUnderlyingBaseGlobal = s.percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	
+	sw.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund = s.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	sw.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund = s.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	sw.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund = s.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	sw.parentWindowStream = "MasterFundWithNavUpdate"
+
+	
+
+/*when matched and s.modifiedBy = 'TaxlotDeleted'
+	then delete*/
+
+when not matched /*and s.modifiedBy <> 'TaxlotDeleted'*/
+then insert select
+	
+	'Post' as taxlotType,
+	'MasterFund' as compressionLevel,
+	
+	s.masterFundId as masterFundId,
+	s.masterFundName as masterFundName,
+	
+	s.equityHaircutBase as equityHaircutBase,
+	s.indexHaircutBase as indexHaircutBase,
+	
+	s.liquidationPnlBase as liquidationPnlBase,
+
+	
+	s.notionalBase as notionalBase,
+	s.cashImpactBase as cashImpactBase,
+	s.cashInflowBase as cashInflowBase,
+	s.cashOutflowBase as cashOutflowBase,
+	s.netMarketValueBase as netMarketValueBase,
+	s.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	//s.grossMarketValueBase as grossMarketValueBase,
+	s.costBasisPnLBase as costBasisPnLBase,
+	s.dayPnLBase as dayPnLBase,
+	//s.netExposureBase as netExposureBase,
+	//s.grossExposureBase as grossExposureBase,
+	s.betaAdjustedExposureBase as betaAdjustedExposureBase,
+
+	s.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	
+	s.longNotionalBase as longNotionalBase,
+	s.shortNotionalBase as shortNotionalBase,
+	s.shortMarketValueBase as shortMarketValueBase,
+	s.longMarketValueBase as longMarketValueBase,
+	s.shortExposureBase as shortExposureBase,
+	s.longExposureBase as longExposureBase,
+	
+	s.dayInterestBase as dayInterestBase,
+	s.totalInterestBase as totalInterestBase,
+	
+	s.grossExposureUnderlying as grossExposureUnderlying,
+	
+	
+	s.shortExposureUnderlying as shortExposureUnderlying,
+	s.longExposureUnderlying as longExposureUnderlying,
+	
+	
+	s.globalNav as globalNav,
+	s.startOfDayNavGlobal as startOfDayNavGlobal,
+	s.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	s.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	s.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+	s.masterFundNav as masterFundNav,
+	s.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	s.grossMarketValueBase as grossMarketValueBase,
+	s.grossExposureBase as grossExposureBase,
+	s.netExposureBase as netExposureBase,
+	s.currentCash as currentCash,
+	s.accrual as accrual,
+		
+	s.percentLongExposureMasterFund as percentLongExposureMasterFund,
+	s.percentShortExposureMasterFund as percentShortExposureMasterFund,
+	s.percentNetExposureMasterFund as percentNetExposureMasterFund,
+	s.percentBetaAdjustedExposureMasterFund as percentBetaAdjustedExposureMasterFund,
+	s.percentNetMarketValueMasterFund as percentNetMarketValueMasterFund,
+	s.percentGrossExposureMasterFund as percentGrossExposureMasterFund,
+	s.percentLongMarketValueMasterFund as percentLongMarketValueMasterFund,
+	s.percentShortMarketValueMasterFund as percentShortMarketValueMasterFund,
+	s.percentGrossMarketValueMasterFund as percentGrossMarketValueMasterFund,
+	s.percentLongNotionalMasterFund as percentLongNotionalMasterFund,
+	s.percentShortNotionalMasterFund as percentShortNotionalMasterFund,
+	s.percentNetNotionalMasterFund as percentNetNotionalMasterFund,
+	s.pnlContributionMasterFund as pnlContributionMasterFund,
+	s.percentCostBasisPnlMasterFund as percentCostBasisPnlMasterFund,
+	s.percentGrossExposureUnderlyingMasterFund as percentGrossExposureUnderlyingMasterFund,
+	s.dayReturnMasterFund as dayReturnMasterFund,
+	
+	s.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	s.percentLongExposureGlobal as percentLongExposureGlobal,
+	s.percentShortExposureGlobal as percentShortExposureGlobal,
+	s.percentNetExposureGlobal as percentNetExposureGlobal,
+	s.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	s.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	s.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	s.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	s.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	s.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	s.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	s.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	s.pnlContributionGlobal as pnlContributionGlobal,
+	s.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	s.percentGrossExposureUnderlyingGlobal as percentGrossExposureUnderlyingGlobal,
+	s.dayReturnGlobal as dayReturnGlobal,
+	
+	s.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	s.todayLongTradeQuantity as todayLongTradeQuantity,
+	s.todayShortTradeQuantity as todayShortTradeQuantity,
+	s.todayNetNotionalBase as todayNetNotionalBase,
+	s.todayLongNotionalBase as todayLongNotionalBase,
+	s.todayShortNotionalBase as todayShortNotionalBase,
+	
+	s.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	s.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	s.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+		
+	s.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	s.percentBetaAdjustedLongExposureUnderlyingBaseGlobal as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	s.percentBetaAdjustedShortExposureUnderlyingBaseGlobal as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+		
+	s.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	s.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	s.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	"MasterFundWithNavUpdate" as parentWindowStream;
+	
+
+
+
+
+@Name('MasterFundWindowInitial')
+@Description('Insert data into MasterFundWindowInitial from MasterFundWithNav whenever DivisorEndMessage or InitComplete event occurs.')
+on pattern[every (InitComplete(initComplete=true,action='Validation')  or DivisorEndMessage)]
+insert into MasterFundWindowInitial
+select 
+	'Post' as taxlotType,
+	'MasterFund' as compressionLevel,
+	
+	s.masterFundId as masterFundId,
+	s.masterFundName as masterFundName,
+	
+	s.equityHaircutBase as equityHaircutBase,
+	s.indexHaircutBase as indexHaircutBase,
+	
+	s.liquidationPnlBase as liquidationPnlBase,
+
+	
+	s.notionalBase as notionalBase,
+	s.cashImpactBase as cashImpactBase,
+	s.cashInflowBase as cashInflowBase,
+	s.cashOutflowBase as cashOutflowBase,
+	s.netMarketValueBase as netMarketValueBase,
+	s.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	//s.grossMarketValueBase as grossMarketValueBase,
+	s.costBasisPnLBase as costBasisPnLBase,
+	s.dayPnLBase as dayPnLBase,
+	//s.netExposureBase as netExposureBase,
+	//s.grossExposureBase as grossExposureBase,
+	s.betaAdjustedExposureBase as betaAdjustedExposureBase,
+
+	s.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	
+	s.longNotionalBase as longNotionalBase,
+	s.shortNotionalBase as shortNotionalBase,
+	s.shortMarketValueBase as shortMarketValueBase,
+	s.longMarketValueBase as longMarketValueBase,
+	s.shortExposureBase as shortExposureBase,
+	s.longExposureBase as longExposureBase,
+	
+	s.dayInterestBase as dayInterestBase,
+	s.totalInterestBase as totalInterestBase,
+	
+	s.grossExposureUnderlying as grossExposureUnderlying,
+	
+
+	s.shortExposureUnderlying as shortExposureUnderlying,
+	s.longExposureUnderlying as longExposureUnderlying,
+	
+	s.globalNav as globalNav,
+	s.startOfDayNavGlobal as startOfDayNavGlobal,
+	s.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	s.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	s.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+	
+	s.masterFundNav as masterFundNav,
+	s.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	s.grossMarketValueBase as grossMarketValueBase,
+	s.grossExposureBase as grossExposureBase,
+	s.netExposureBase as netExposureBase,
+	s.currentCash as currentCash,
+	s.accrual as accrual,
+		
+	s.percentLongExposureMasterFund as percentLongExposureMasterFund,
+	s.percentShortExposureMasterFund as percentShortExposureMasterFund,
+	s.percentNetExposureMasterFund as percentNetExposureMasterFund,
+	s.percentBetaAdjustedExposureMasterFund as percentBetaAdjustedExposureMasterFund,
+	s.percentNetMarketValueMasterFund as percentNetMarketValueMasterFund,
+	s.percentGrossExposureMasterFund as percentGrossExposureMasterFund,
+	s.percentLongMarketValueMasterFund as percentLongMarketValueMasterFund,
+	s.percentShortMarketValueMasterFund as percentShortMarketValueMasterFund,
+	s.percentGrossMarketValueMasterFund as percentGrossMarketValueMasterFund,
+	s.percentLongNotionalMasterFund as percentLongNotionalMasterFund,
+	s.percentShortNotionalMasterFund as percentShortNotionalMasterFund,
+	s.percentNetNotionalMasterFund as percentNetNotionalMasterFund,
+	s.pnlContributionMasterFund as pnlContributionMasterFund,
+	s.percentCostBasisPnlMasterFund as percentCostBasisPnlMasterFund,
+	s.percentGrossExposureUnderlyingMasterFund as percentGrossExposureUnderlyingMasterFund,
+	s.dayReturnMasterFund as dayReturnMasterFund,
+	
+	s.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	s.percentLongExposureGlobal as percentLongExposureGlobal,
+	s.percentShortExposureGlobal as percentShortExposureGlobal,
+	s.percentNetExposureGlobal as percentNetExposureGlobal,
+	s.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	s.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	s.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	s.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	s.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	s.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	s.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	s.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	s.pnlContributionGlobal as pnlContributionGlobal,
+	s.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	s.percentGrossExposureUnderlyingGlobal as percentGrossExposureUnderlyingGlobal,
+	s.dayReturnGlobal as dayReturnGlobal,
+	
+	s.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	s.todayLongTradeQuantity as todayLongTradeQuantity,
+	s.todayShortTradeQuantity as todayShortTradeQuantity,
+	s.todayNetNotionalBase as todayNetNotionalBase,
+	s.todayLongNotionalBase as todayLongNotionalBase,
+	s.todayShortNotionalBase as todayShortNotionalBase,
+	
+	s.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	s.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	s.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	s.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	s.percentBetaAdjustedLongExposureUnderlyingBaseGlobal as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	s.percentBetaAdjustedShortExposureUnderlyingBaseGlobal as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	
+	s.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	s.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	s.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	"MasterFundWithNav" as parentWindowStream
+	
+	
+from MasterFundWithNav as s;
+//where DataLoaded=true;

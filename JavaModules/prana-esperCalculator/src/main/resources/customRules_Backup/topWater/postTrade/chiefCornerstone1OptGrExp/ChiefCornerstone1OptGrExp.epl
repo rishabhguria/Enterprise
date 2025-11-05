@@ -1,0 +1,71 @@
+module customRules.postTrade.chiefCornerstone1OptGrExp.ChiefCornerstone1OptGrExp;
+
+
+/* Constant Variable region starts here*/
+
+create constant variable double CHIEF_CORNERSTONE1_MAX_GROSS_EXPOSURE_COEFFICIENT = 1.0;
+create constant variable double CHIEF_CORNERSTONE1_OPT_GRS_EXPOSURE_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+@Name('AggregationOptionAccountAssetPostChiefCornerstone1')
+@Description('Stores gross exposure for Chief Cornerstone1(TA)')
+insert into AggregationOptionAccountAssetPostChiefCornerstone1
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(asset in ('EquityOption')) as T 
+
+where T.accountShortName='Chief Cornerstone1(TA)'
+// T.asset in 
+//('EquityOption')// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('OptionExopsurePostChiefCornerstone1')
+@Description('Calculates option exposure.')
+on pattern[every T=AggregationOptionAccountAssetPostChiefCornerstone1]
+insert into OptionExopsurePostChiefCornerstone1
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(CHIEF_CORNERSTONE1_OPT_GRS_EXPOSURE_COEFFICIENT * coalesce(NF.accountNav,1) * CHIEF_CORNERSTONE1_MAX_GROSS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationOptionAccountAssetPostChiefCornerstone1" as parentWindowStream
+from 
+AccountWithNav as NF
+where NF.accountId=T.accountId;
+
+@Name('RuleName15FinalPostChiefCornerstone1')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName15FinalPostChiefCornerstone1
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '20'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName || ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'If options make up 20% or more of Chief Cornerstone1(TA), please advise' as summary,
+	R.accountShortName as dimension,
+	"OptionExopsurePostChiefCornerstone1" as parentWindowStream
+from
+OptionExopsurePostChiefCornerstone1 as R
+where R.percentageExposure > 20;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

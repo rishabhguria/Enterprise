@@ -1,0 +1,30 @@
+module eplModules.dataWindow.OrderTypeFeeder;
+
+@Name('OrderTypeWindow')
+@Description('This store the initial list of different ordertypes.')
+create window OrderTypeWindow.std:unique(orderTypeTagValue)
+(
+			orderTypeTagValue string,
+			orderType string,
+			parentWindowStream string
+);
+
+@Name('OrderTypeWindowInsert')
+@Description('This updates the OrderTypeWindow every time new OrderType event occurs.')
+on OrderType as s
+merge OrderTypeWindow sw where sw.orderTypeTagValue = s.orderTypeTagValue
+	when matched and 
+			(
+				s.orderType <> sw.orderType 
+			)
+		then 
+			update 
+				set 
+				sw.orderType = s.orderType,
+				sw.parentWindowStream = "OrderType"
+	when not matched
+		then insert 
+			select    	
+		   	s.orderTypeTagValue as orderTypeTagValue,
+		   	s.orderType as orderType,
+		   	"OrderType" as parentWindowStream;

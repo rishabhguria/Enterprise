@@ -1,0 +1,134 @@
+﻿<Window x:Name="RebalancerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+        xmlns:custom="http://infragistics.com/Windows"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Prana.Rebalancer.RebalancerNew.Views"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        mc:Ignorable="d"
+        x:Class="Prana.Rebalancer.RebalancerNew.Views.RebalancerMainView"
+        xmlns:themes="http://infragistics.com/Themes"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+        Title="RebalancerView"  Width="1300" MinHeight="700" Loaded="RebalancerMainView_OnLoaded" Closed="RebalancerMainView_OnClosed" ContentRendered ="RebalancerMainView_ContentRendered">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/NirvanaSkin.xaml" />
+                <!--<ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/NirvanaErrorTemplate.xaml" />-->
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/DataPresenterIGTheme_Express.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0" />
+    </shell:WindowChrome.WindowChrome>
+
+    <ig:XamBusyIndicator Name="Indicator" IsIndeterminate="False">
+        <ig:XamBusyIndicator.Animation>
+            <ig:SpinnerSegmentedBusyAnimation AnimationFill="#FF43A898"/>
+        </ig:XamBusyIndicator.Animation>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="20" />
+            </Grid.RowDefinitions>
+            <Border CornerRadius="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#58585A" Grid.RowSpan="2" />
+            <Border CornerRadius="2" Grid.Row="0" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock x:Name="tbNirvana" Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="Text" Value="Nirvāna"/>
+                                <Setter Property="FontFamily" Value="Mulish"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=RebalancerWindow, Path=WindowState}" Value="Minimized">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Text" Value="Rebalancer"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock x:Name="tbRebalancer" Text="Rebalancer" Height="22" FontSize="14" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <customChromeLibrary:CaptionButtons  VerticalAlignment="Center" />
+            </StackPanel>
+
+            <DockPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" LastChildFill="True">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="1" Margin="5,5,5,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <custom:XamTabControl  Background="#E7E8E9" SelectionChanged="RebalancerTabControl_SelectionChanged">
+                            <custom:TabItemEx x:Name="RebalancerTab" Header="Rebalance" IsSelected="True" FontFamily="Tahoma" FontSize="12" FontStyle="Normal">
+                                <views:RebalancerView x:Name="RebalancerView"/>
+                            </custom:TabItemEx>
+                            <custom:TabItemEx x:Name="CustomGroupsTab" Header="Custom Groups" FontFamily="Tahoma" FontSize="12" FontStyle="Normal">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <views:CustomGroupsView x:Name="CustomGroupsView"/>
+                                </ScrollViewer>
+                            </custom:TabItemEx>
+                            <custom:TabItemEx x:Name="ModelPortfolioTab" Header="Model Portfolio" FontFamily="Tahoma" FontSize="12" FontStyle="Normal">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <views:ModelPortfolioView x:Name="ModelPortfolioView"/>
+                                </ScrollViewer>
+                            </custom:TabItemEx>
+                            <custom:TabItemEx x:Name="DataPreferenceTab" Header="Data Preference" FontFamily="Tahoma" FontSize="12" FontStyle="Normal">
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                    <views:DataPreferenceView x:Name="DataPreferenceView"/>
+                                </ScrollViewer>
+                            </custom:TabItemEx>
+                        </custom:XamTabControl>
+                    </DockPanel>
+                    <DockPanel x:Name="StatusAndErrorsDock" Grid.Row="2" Height="20" Width="Auto" Margin="5,0,5,10" LastChildFill="False" RenderTransformOrigin="0.5,0.5">
+                        <StatusBar Name="RebalancerStatusBar" Background="{DynamicResource StatusBarBackground}" Foreground="{DynamicResource StatusBarForeground}" Margin="0" RenderTransformOrigin="0.502,0.909" DockPanel.Dock="Bottom" Height="20" FontFamily="Tahoma" FontSize="11" FontStyle="Normal">
+                            <StatusBar.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1000" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                </ItemsPanelTemplate>
+                            </StatusBar.ItemsPanel>
+                            <StatusBarItem Grid.Column="0" Foreground="{DynamicResource StatusBarForeground}">
+                                <TextBlock x:Name="tbStatusMessage" Text="{Binding StatusMessage}"/>
+                            </StatusBarItem>
+                            <StatusBarItem Grid.Column="1" Foreground="{DynamicResource StatusBarForeground}" HorizontalAlignment="Right">
+                                <TextBlock x:Name="tbErrorMessage" Text="{Binding ErrorMessage}" DockPanel.Dock="Right" Foreground="Red" />
+                            </StatusBarItem>
+                        </StatusBar>
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+        </Grid>
+    </ig:XamBusyIndicator>
+</Window>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ruleConfig>
+     <rules name="PanoramicCapital">
+          <rule id="custom-rulePanoramicCapital">
+			<name>Order Side Check</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+			<description>Trade would sell more than the current position</description>
+			<compressionLevel>Custom</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList> 
+			</constantList>	
+		</rule>
+		<rule id="custom-rule-PanoramicCapital39">
+				<name>No single trade exceeding.</name>
+				<enabled>true</enabled>
+				<isDeleted>false</isDeleted>
+				<ruleType>PreTrade</ruleType>
+				<eplPath>/noSingleTrade/</eplPath>
+				<description>
+				 	No single trade exceeding 5% of assets.
+				</description>
+				<compressionLevel>Account</compressionLevel>
+				<validationCompletedEventName>PreTradeNoSingleTradeExceeding</validationCompletedEventName>
+				<outputStatementList>
+					<outputStatementName name="PreTradeNoSingleTradeExceeding"/>
+				</outputStatementList>
+				<windowFillerStatementList>
+					<windowFillerStatementName name="PreTradeNoSingleTradeExceeding"/>
+				</windowFillerStatementList>
+				<blocked>true</blocked>
+				<constantList>
+					<constantValue displayName="Select Type - Absolute (0) / %of NAV (1) :" name="Threshold_Type" type="double" value="1"/>
+					<constantValue displayName="Threshold :" name="Threshold_Metric" type="double" value="5"/>
+					<constantValue displayName="Asset Class (exclusions)  :" name="Asset_SingleTrade" type="string" value="Cash"/>
+				</constantList>
+          </rule> 
+     
+		<rule id="custom-rulePanoramicCapital3">
+				<name>Restrict trades exceeding 25000 quantity </name>
+				<enabled>true</enabled>
+				<isDeleted>false</isDeleted>
+				<ruleType>PreTrade</ruleType>
+				<eplPath>/basketQuantityLimit/</eplPath>
+				<description>
+					Blocks trade orders with quantity over 25000
+				</description>
+				<compressionLevel>Trade</compressionLevel>
+				<validationCompletedEventName>PreTradeBasketQuantityLimit</validationCompletedEventName>
+				<outputStatementList>
+					<outputStatementName name="PreTradeBasketQuantityLimit"/>
+				</outputStatementList>
+				<windowFillerStatementList>
+					<windowFillerStatementName name="PreTradeBasketQuantityLimit"/>
+				</windowFillerStatementList>
+				<blocked>true</blocked>
+				<constantList>
+					<constantValue displayName="Max quantity per basket: " name="MaxBasketQuantity" type="double" value="25000"/>
+				</constantList>
+			</rule>
+	 </rules>
+</ruleConfig>

@@ -1,0 +1,161 @@
+with 
+
+member [MarkPriceStartDate] as
+(
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430],[Measures].[Final Mark Price])
+)
+
+member [MarkPriceEndDate] as
+(
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430],[Measures].[Final Mark Price])
+)
+
+
+member [TradeValue] as
+(
+Sum(Filter(crossjoin (
+[Dim Time].[Calender].CurrentMember:
+[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430],
+[Positional Taxlot].[TaxLotID].children),
+not isempty([Measures].[Tax Lot Open Qty])
+),
+[Measures].[Tax Lot Open Qty]*(
+[Dim Time].[Calender].CurrentMember.Parent.LastChild.Properties("Key",TYPED)
+- [Measures].[TradeDateKey]
+)/30
+*[Measures].[Avg Price]
+)
+)
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+{([Dim Time].[Calender].CurrentMember)
+:
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430])}*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+member [BeginningMarketValue] as
+(
+sum(
+[PM Open Position Snap Shots].[Symbol].children,
+[SymbolLastQuantity]*([Measures].[Final Mark Price],[Dim Time].[Calender].CurrentMember)
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+)
+)
+
+member UnRealisedPnl_Calc as
+(
+
+sum(
+Filter(
+crossjoin(([Dim Time].[Calender].CurrentMember)
+:
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430]) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )),not isempty([Measures].[TaxLotOpenQty]))
+,
+ iif([Measures].[TaxlotTradeDate]>=[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPriceStartDate)
+)
+)
+)
+member RealisedPnl_Calc as
+(
+sum(
+Filter(
+crossjoin(([Dim Time].[Calender].CurrentMember)
+:
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430]) ,
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )),not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[TaxlotTradeDate]>=[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPriceStartDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+
+
+
+
+
+
+
+
+
+member [DailyACB] as
+(
+([TradeValue],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].PrevMember)
++
+([BeginningMarketValue],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].PrevMember)
+)
+
+member [DailyMarktoMktProfit] as
+(
+([RealisedPnl_Calc],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].PrevMember)
++
+([UnRealisedPnl_Calc],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].PrevMember)
+)
+member DailyIRR as 
+(
+[DailyMarktoMktProfit]/[DailyACB]
+)
+
+member [MonthlyACB] as
+(
+([TradeValue],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.FirstChild)+
+([BeginningMarketValue],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.FirstChild)
+)
+
+member [MonthlyMarktoMktProfit] as
+(
+([RealisedPnl_Calc],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.FirstChild)+
+([UnRealisedPnl_Calc],[Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.FirstChild)
+)
+member MonthlyIRR as 
+(
+[MonthlyMarktoMktProfit]/[MonthlyACB]
+)
+
+select {DailyACB,DailyMarktoMktProfit,DailyIRR,
+MonthlyACB,MonthlyMarktoMktProfit,
+MonthlyIRR} on columns,
+{[T Company Funds].[Fund Name].children} 
+on rows from [Nirvana Client DW]
+
+
+

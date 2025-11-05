@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[T_CVAUECSide] (
+    [CVAUECSideID] BIGINT IDENTITY (1, 1) NOT NULL,
+    [CVAUECID]     BIGINT NOT NULL,
+    [SideID]       INT    NOT NULL,
+    CONSTRAINT [PK_T_CounterPartyVenueSide] PRIMARY KEY CLUSTERED ([CVAUECSideID] ASC)
+);
+

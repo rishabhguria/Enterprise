@@ -1,0 +1,1026 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{171A3819-4AD0-42AC-B735-AEEE760A95D7}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.Admin.Controls</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Prana.Admin.Controls</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccAuxPath>
+    </SccAuxPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinDataSource.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinListView.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinListView.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinListBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinListBar.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinToolbars.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTree.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinExplorerBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.AppStylistSupport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PostSharp, Version=4.1.13.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Nuget DLLs\PostSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Drawing.Design">
+      <Name>System.Drawing.Design</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Name>System.EnterpriseServices</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\..\Application\Prana.AuditManager\Prana.AuditManager.csproj">
+      <Project>{64697a00-2561-4167-b31b-7e0596e34ba1}</Project>
+      <Name>Prana.AuditManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.CommissionRules\Prana.CommissionRules.csproj">
+      <Project>{C649C854-C197-4147-A793-6063E4911CAF}</Project>
+      <Name>Prana.CommissionRules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.Admin.CommonControls\Prana.Admin.CommonControls.csproj">
+      <Project>{4e18aa07-c6f6-47a6-a7c2-f4363281f978}</Project>
+      <Name>Prana.Admin.CommonControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CashManagement\Prana.CashManagement.csproj">
+      <Project>{a8098aa7-c314-4489-8e13-8dbc9ae0f8fc}</Project>
+      <Name>Prana.CashManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.BLL\Prana.PM.BLL.csproj">
+      <Project>{f3eb40af-d2b7-44c9-a7ed-fd54f4d95a3d}</Project>
+      <Name>Prana.PM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.Common\Prana.PM.Common.csproj">
+      <Project>{ca3f44ac-2814-4e5e-84b7-dcaf8f42a026}</Project>
+      <Name>Prana.PM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.ThirdPartyManager\Prana.ThirdPartyManager.csproj">
+      <Project>{6011A10D-51E9-436B-BB73-4104303A8BE2}</Project>
+      <Name>Prana.ThirdPartyManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{F015C504-985F-44AA-92EC-E6F8C8461F9C}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\AUECAudit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AUEC\AUECAudit.Designer.cs">
+      <DependentUpon>AUECAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AUEC\OtherFee.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\CtrlAllocationPref.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\CtrlAllocationPref.Designer.cs">
+      <DependentUpon>CtrlAllocationPref.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlotterPrefs\Constants\BlotterPreferenceConstants.cs" />
+    <Compile Include="BlotterPrefs\CtrlBlotterClearance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BlotterPrefs\CtrlBlotterClearance.Designer.cs">
+      <DependentUpon>CtrlBlotterClearance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CashPref\ctrlCashManagementPreferences.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CashPref\ctrlCashManagementPreferences.Designer.cs">
+      <DependentUpon>ctrlCashManagementPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AUEC\OtherFee.Designer.cs">
+      <DependentUpon>OtherFee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CashPref\SymbolLevelAccrualUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashPref\SymbolLevelAccrualUtility.Designer.cs">
+      <DependentUpon>SymbolLevelAccrualUtility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionRules\CommissionRule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommissionRules\CtrlClearingBrokerFee.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommissionRules\CtrlClearingBrokerFee.Designer.cs">
+      <DependentUpon>CtrlClearingBrokerFee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionRules\CtrlCommission.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommissionRules\CtrlCommission.Designer.cs">
+      <DependentUpon>CtrlCommission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionRules\ctrlCommissionRule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommissionRules\ctrlCommissionRule.Designer.cs">
+      <DependentUpon>ctrlCommissionRule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionRules\CreateCommissionRules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommissionRules\ViewEditCommissionRule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CAPrefsCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CAPrefsCtrl.Designer.cs">
+      <DependentUpon>CAPrefsCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\ClientAudit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ClientAudit.Designer.cs">
+      <DependentUpon>ClientAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\ClientClearer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ClientCompany.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ClientPermission.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ColumnPreferenceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCompliance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyCommissionRules.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyCVIdentifier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyFileFormats.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyFunds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyFunds.Designer.cs">
+      <DependentUpon>CompanyThirdPartyFunds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyMappingDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyUser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyUserPermissions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyUserPermissionsNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyVenue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ComplianceAlerts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ComplianceAlerts.Designer.cs">
+      <DependentUpon>ComplianceAlerts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\ComplianceAlertUserPermission.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ComplianceAlertUserPermission.Designer.cs">
+      <DependentUpon>ComplianceAlertUserPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\AUECAccountCVMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\AUECAccountCVMapping.designer.cs">
+      <DependentUpon>AUECAccountCVMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\CreateClearingFirmsPrimeBrokers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateClientFund.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateClientTrader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateCompanyClearingFirmsPrimeBrokers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateCompanyClientFund.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateCompanyClientTradingAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateCompanyCounterPartiesCompanyLevelTags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CreateCompanyStrategy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateCompanyTradingAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CreateStrategy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CreateTradingAccounts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ctrlImportTag.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\ctrlImportTag.Designer.cs">
+      <DependentUpon>ctrlImportTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\CtrlPricingPolicy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CtrlPricingPolicy.Designer.cs">
+      <DependentUpon>CtrlPricingPolicy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\CtrlUserPermissions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\CtrlUserPermissions.Designer.cs">
+      <DependentUpon>CtrlUserPermissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\EnableDisabledItems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\EnableDisabledItems.Designer.cs">
+      <DependentUpon>EnableDisabledItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\FeederAccountSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\FeederAccountSetup.Designer.cs">
+      <DependentUpon>FeederAccountSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\FundGroupSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\FundGroupSetup.Designer.cs">
+      <DependentUpon>FundGroupSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\FundSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\FundSetup.Designer.cs">
+      <DependentUpon>FundSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\GridClearingFirmsPrimeBrokers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridClientFix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridClientFunds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridClientTraders.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridClientTradingAccounts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridCompanyCountePartiesCompanyLevelTags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridCompanyCounterPartiesCompanyLevelTag.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridFunds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridStrategy.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\GridTradingAccounts.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\MarketDataDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\MarketDataDetails.Designer.cs">
+      <DependentUpon>MarketDataDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\MasterFundMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\MasterFundMapping.designer.cs">
+      <DependentUpon>MasterFundMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\MasterStrategyMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\MasterStrategyMapping.Designer.cs">
+      <DependentUpon>MasterStrategyMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\NAVLockSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\NAVLockSetup.Designer.cs">
+      <DependentUpon>NAVLockSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\NewIdentifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyThirdPartyFundsPermission.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\PricingRules.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\PricingRules.Designer.cs">
+      <DependentUpon>PricingRules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\Release.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\Release.Designer.cs">
+      <DependentUpon>Release.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\SetUpContract.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\SetUpContract.Designer.cs">
+      <DependentUpon>SetUpContract.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\UserPermission.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\UserPermission.Designer.cs">
+      <DependentUpon>UserPermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\UserSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\UserSetup.Designer.cs">
+      <DependentUpon>UserSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\UserSetupDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\UserSetupDetails.Designer.cs">
+      <DependentUpon>UserSetupDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\WaterMarkTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyVenueAcceptedOrderTypes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyVenueDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyVenueSymbolMapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyVenueVenues.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\Fix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\SymbolMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DefaultAUECMapping\ctrlDefaultAUECMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DefaultAUECMapping\ctrlDefaultAUECMapping.Designer.cs">
+      <DependentUpon>ctrlDefaultAUECMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EMSImportExport\ctrlSaveImportXSLT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EMSImportExport\ctrlSaveImportXSLT.designer.cs">
+      <DependentUpon>ctrlSaveImportXSLT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Company\FundFeederFundMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Company\FundFeederFundMapping.Designer.cs">
+      <DependentUpon>FundFeederFundMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="General\TimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PmPrefs\PMPrefsCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PmPrefs\PMPrefsCtrl.Designer.cs">
+      <DependentUpon>PMPrefsCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PmPrefs\PMViewCopyCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PmPrefs\PMViewCopyCtrl.Designer.cs">
+      <DependentUpon>PMViewCopyCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CashPref\ctrlRevaluationPreference.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CashPref\ctrlRevaluationPreference.Designer.cs">
+      <DependentUpon>ctrlRevaluationPreference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CashPref\RevaluationPrefConstants.cs" />
+    <Compile Include="RiskPrefs\RiskPrefsCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RiskPrefs\RiskPrefsCtrl.Designer.cs">
+      <DependentUpon>RiskPrefsCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ShortLocatePref\ctrlShortLocateCompanywise.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ShortLocatePref\ctrlShortLocateCompanywise.Designer.cs">
+      <DependentUpon>ctrlShortLocateCompanywise.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdParty\FileSettingSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\FileSettingSetup.Designer.cs">
+      <DependentUpon>FileSettingSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdParty\frmThirdPartyEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\frmThirdPartyEditor.Designer.cs">
+      <DependentUpon>frmThirdPartyEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyAudit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyAudit.Designer.cs">
+      <DependentUpon>ThirdPartyAudit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyVendor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyVendor.Designer.cs">
+      <DependentUpon>ThirdPartyVendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ThirdParty\TimedBatchSchedulingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\TimedBatchSchedulingForm.Designer.cs">
+      <DependentUpon>TimedBatchSchedulingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WashSalePref\ctrlWashSalePreferences.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WashSalePref\ctrlWashSalePreferences.Designer.cs">
+      <DependentUpon>ctrlWashSalePreferences.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AUEC\AUECAudit.resx">
+      <DependentUpon>AUECAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AUEC\OtherFee.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OtherFee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\CtrlAllocationPref.resx">
+      <DependentUpon>CtrlAllocationPref.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlotterPrefs\CtrlBlotterClearance.resx">
+      <DependentUpon>CtrlBlotterClearance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashPref\ctrlCashManagementPreferences.resx">
+      <DependentUpon>ctrlCashManagementPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashPref\SymbolLevelAccrualUtility.resx">
+      <DependentUpon>SymbolLevelAccrualUtility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommissionRules\CommissionRule.resx">
+      <DependentUpon>CommissionRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommissionRules\CtrlClearingBrokerFee.resx">
+      <DependentUpon>CtrlClearingBrokerFee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommissionRules\CtrlCommission.resx">
+      <DependentUpon>CtrlCommission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommissionRules\ctrlCommissionRule.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlCommissionRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommissionRules\CreateCommissionRules.resx">
+      <DependentUpon>CreateCommissionRules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommissionRules\ViewEditCommissionRule.resx">
+      <DependentUpon>ViewEditCommissionRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CAPrefsCtrl.resx">
+      <DependentUpon>CAPrefsCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ClientAudit.resx">
+      <DependentUpon>ClientAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ClientClearer.resx">
+      <DependentUpon>ClientClearer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ClientCompany.resx">
+      <DependentUpon>ClientCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ClientPermission.resx">
+      <DependentUpon>ClientPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ColumnPreferenceControl.resx">
+      <DependentUpon>ColumnPreferenceControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyCompliance.resx">
+      <DependentUpon>CompanyCompliance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyThirdPartyCommissionRules.resx">
+      <DependentUpon>CompanyThirdPartyCommissionRules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyThirdPartyCVIdentifier.resx">
+      <DependentUpon>CompanyThirdPartyCVIdentifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyThirdPartyFileFormats.resx">
+      <DependentUpon>CompanyThirdPartyFileFormats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyThirdPartyFunds.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CompanyThirdPartyFunds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyThirdPartyMappingDetails.resx">
+      <DependentUpon>CompanyThirdPartyMappingDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyUser.resx">
+      <DependentUpon>CompanyUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyUserPermissions.resx">
+      <DependentUpon>CompanyUserPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyUserPermissionsNew.resx">
+      <DependentUpon>CompanyUserPermissionsNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyVenue.resx">
+      <DependentUpon>CompanyVenue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ComplianceAlerts.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ComplianceAlerts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ComplianceAlertUserPermission.resx">
+      <DependentUpon>ComplianceAlertUserPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\AUECAccountCVMapping.resx">
+      <DependentUpon>AUECAccountCVMapping.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateClearingFirmsPrimeBrokers.resx">
+      <DependentUpon>CreateClearingFirmsPrimeBrokers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateClientFund.resx">
+      <DependentUpon>CreateClientFund.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateClientTrader.resx">
+      <DependentUpon>CreateClientTrader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateCompanyClearingFirmsPrimeBrokers.resx">
+      <DependentUpon>CreateCompanyClearingFirmsPrimeBrokers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateCompanyClientFund.resx">
+      <DependentUpon>CreateCompanyClientFund.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateCompanyClientTradingAccount.resx">
+      <DependentUpon>CreateCompanyClientTradingAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateCompanyCounterPartiesCompanyLevelTags.resx">
+      <DependentUpon>CreateCompanyCounterPartiesCompanyLevelTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateCompanyStrategy.resx">
+      <DependentUpon>CreateCompanyStrategy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateCompanyTradingAccounts.resx">
+      <DependentUpon>CreateCompanyTradingAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateStrategy.resx">
+      <DependentUpon>CreateStrategy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CreateTradingAccounts.resx">
+      <DependentUpon>CreateTradingAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\ctrlImportTag.resx">
+      <DependentUpon>ctrlImportTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CtrlPricingPolicy.resx">
+      <DependentUpon>CtrlPricingPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CtrlUserPermissions.resx">
+      <DependentUpon>CtrlUserPermissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\EnableDisabledItems.resx">
+      <DependentUpon>EnableDisabledItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\FeederAccountSetup.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FeederAccountSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\FundGroupSetup.resx">
+      <DependentUpon>FundGroupSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\FundSetup.resx">
+      <DependentUpon>FundSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridClearingFirmsPrimeBrokers.resx">
+      <DependentUpon>GridClearingFirmsPrimeBrokers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridClientFix.resx">
+      <DependentUpon>GridClientFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridClientFunds.resx">
+      <DependentUpon>GridClientFunds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridClientTraders.resx">
+      <DependentUpon>GridClientTraders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridClientTradingAccounts.resx">
+      <DependentUpon>GridClientTradingAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridCompanyCountePartiesCompanyLevelTags.resx">
+      <DependentUpon>GridCompanyCountePartiesCompanyLevelTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridCompanyCounterPartiesCompanyLevelTag.resx">
+      <DependentUpon>GridCompanyCounterPartiesCompanyLevelTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridFunds.resx">
+      <DependentUpon>GridFunds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridStrategy.resx">
+      <DependentUpon>GridStrategy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\GridTradingAccounts.resx">
+      <DependentUpon>GridTradingAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\MarketDataDetails.resx">
+      <DependentUpon>MarketDataDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\MasterFundMapping.resx">
+      <DependentUpon>MasterFundMapping.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\MasterStrategyMapping.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MasterStrategyMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\NAVLockSetup.resx">
+      <DependentUpon>NAVLockSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\NewIdentifier.resx">
+      <DependentUpon>NewIdentifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\CompanyThirdPartyFundsPermission.resx">
+      <DependentUpon>CompanyThirdPartyFundsPermission.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\PricingRules.resx">
+      <DependentUpon>PricingRules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\Release.resx">
+      <DependentUpon>Release.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\SetUpContract.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SetUpContract.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\UserPermission.resx">
+      <DependentUpon>UserPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\UserSetup.resx">
+      <DependentUpon>UserSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\UserSetupDetails.resx">
+      <DependentUpon>UserSetupDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyVenue\CounterPartyVenueAcceptedOrderTypes.resx">
+      <DependentUpon>CounterPartyVenueAcceptedOrderTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyVenue\CounterPartyVenueDetails.resx">
+      <DependentUpon>CounterPartyVenueDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyVenue\CounterPartyVenueSymbolMapping.resx">
+      <DependentUpon>CounterPartyVenueSymbolMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyVenue\CounterPartyVenueVenues.resx">
+      <DependentUpon>CounterPartyVenueVenues.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyVenue\Fix.resx">
+      <DependentUpon>Fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyVenue\SymbolMapping.resx">
+      <DependentUpon>SymbolMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DefaultAUECMapping\ctrlDefaultAUECMapping.resx">
+      <DependentUpon>ctrlDefaultAUECMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EMSImportExport\ctrlSaveImportXSLT.resx">
+      <DependentUpon>ctrlSaveImportXSLT.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Company\FundFeederFundMapping.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FundFeederFundMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="General\TimeControl.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PmPrefs\PMPrefsCtrl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PMPrefsCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PmPrefs\PMViewCopyCtrl.resx">
+      <DependentUpon>PMViewCopyCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashPref\ctrlRevaluationPreference.resx">
+      <DependentUpon>ctrlRevaluationPreference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RiskPrefs\RiskPrefsCtrl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RiskPrefsCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShortLocatePref\ctrlShortLocateCompanywise.resx">
+      <DependentUpon>ctrlShortLocateCompanywise.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThirdParty\FileSettingSetup.resx">
+      <DependentUpon>FileSettingSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThirdParty\frmThirdPartyEditor.resx">
+      <DependentUpon>frmThirdPartyEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThirdParty\ThirdPartyAudit.resx">
+      <DependentUpon>ThirdPartyAudit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThirdParty\ThirdPartyForm.resx">
+      <DependentUpon>ThirdPartyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThirdParty\ThirdPartyVendor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ThirdPartyVendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ThirdParty\TimedBatchSchedulingForm.resx">
+      <DependentUpon>TimedBatchSchedulingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WashSalePref\ctrlWashSalePreferences.resx">
+      <DependentUpon>ctrlWashSalePreferences.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_add.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\btn_remove.gif" />
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\btn_cancel.jpg" />
+    <Content Include="Resources\btn_Pause.png" />
+    <Content Include="Resources\btn_Resume.png" />
+    <None Include="Resources\btn_save.jpg" />
+    <Content Include="Resources\btn_delete.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

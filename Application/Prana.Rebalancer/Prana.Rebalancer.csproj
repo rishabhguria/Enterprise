@@ -1,0 +1,852 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0E2E40E8-8E6D-4730-9A00-E6FD1DECE9BC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Rebalancer</RootNamespace>
+    <AssemblyName>Prana.Rebalancer</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2.FormulaBuilder, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinChart.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinDataSource.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.DocumentExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinPrintPreviewDialog.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamComboEditor.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Editors.XamComboEditor.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Grids.XamGrid.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Menus.XamMenu.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Menus.XamMenu.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataPresenter.ExcelExporter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.ExcelExporter.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataPresenter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DockManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Documents.Excel.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Editors.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Documents.Core.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Documents.Core.v20.2.dll</HintPath>
+      <Name>InfragisticsWPF4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Nuget DLLs\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla">
+      <HintPath>..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Nuget DLLs\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Nuget DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="Prism">
+      <HintPath>..\..\Nuget DLLs\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\..\Nuget DLLs\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFCustomMessageBox">
+      <HintPath>..\Prana.BusinessObjects\Dlls\WPFCustomMessageBox.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CacheStore\AlertCache.cs" />
+    <Compile Include="Classes\DataContextProxy.cs" />
+    <Compile Include="Classes\HelperFunctionsForCompliance.cs" />
+    <Compile Include="Classes\RebalancerConstants.cs" />
+    <Compile Include="Classes\ServiceManager.cs" />
+    <Compile Include="Classes\ValueToLinkDisplayTemplate.cs" />
+    <Compile Include="CommonBehavior\CommonSymbolBehaviour.cs" />
+    <Compile Include="CommonBehavior\DynamicStackPanelBehavior.cs" />
+    <Compile Include="CommonViewModel\BlockedAlertsViewModel.cs" />
+    <Compile Include="CommonView\BlockedAlertsViewWindow.xaml.cs">
+      <DependentUpon>BlockedAlertsViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\FieldNameConverter.cs" />
+    <Compile Include="Converters\EnumToEnumerationDescriptionConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\InverseNullableBooleanConverter.cs" />
+    <Compile Include="Converters\IsPercentageNegativeConverter.cs" />
+    <Compile Include="Converters\IsValueNegativeConverter.cs" />
+    <Compile Include="Converters\NullableValueConverter.cs" />
+    <Compile Include="Converters\NullIfEmptyConverter.cs" />
+    <Compile Include="Converters\RebalancerPrecisionFormatConverter.cs" />
+    <Compile Include="Converters\OrderSideIdToOrderSideNameConverter.cs" />
+    <Compile Include="Converters\ValueToMultipleConverter.cs" />
+    <Compile Include="PercentTradingTool\Preferences\ctrlPTTPreferences.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PercentTradingTool\Preferences\ctrlPTTPreferences.Designer.cs">
+      <DependentUpon>ctrlPTTPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PercentTradingTool\Preferences\MasterFundAccountGridControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PercentTradingTool\Preferences\MasterFundAccountGridControl.Designer.cs">
+      <DependentUpon>MasterFundAccountGridControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PercentTradingTool\Preferences\PTTAccountPreference.cs" />
+    <Compile Include="PercentTradingTool\Preferences\PTTMFAccountPref.cs" />
+    <Compile Include="PercentTradingTool\Preferences\PTTPrefDataManager.cs" />
+    <Compile Include="PercentTradingTool\Preferences\PTTPreferences.cs" />
+    <Compile Include="PercentTradingTool\Behavior\RepositionPopupBehavior.cs" />
+    <Compile Include="PercentTradingTool\Behavior\XamComboEditorSelectAllBehavior.cs" />
+    <Compile Include="PercentTradingTool\Behavior\XamComboEditorSelectedItemsBehavior.cs" />
+    <Compile Include="PercentTradingTool\Behavior\XamDataGridExporter.cs" />
+    <Compile Include="PercentTradingTool\Behavior\XamDataGridTabSwitching.cs" />
+    <Compile Include="PercentTradingTool\Behavior\XamDataGridValidationErrorAggregator.cs" />
+    <Compile Include="Converters\AccountIDToAccountNameConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverterLocal.cs" />
+    <Compile Include="Converters\MasterFundIDToMasterFundNameConverter.cs" />
+    <Compile Include="Converters\PrecisionFormatConverter.cs" />
+    <Compile Include="Converters\SummaryAlignmentConverter.cs" />
+    <Compile Include="Converters\SystemColorToSolidBrushConverter.cs" />
+    <Compile Include="Converters\WidthToBorderThickConverter.cs" />
+    <Compile Include="PercentTradingTool\CustomControls\ConnectionIndicator.xaml.cs">
+      <DependentUpon>ConnectionIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PercentTradingTool\CustomControls\PranaSymbolWPFControl.cs" />
+    <Compile Include="PercentTradingTool\DAL\EXPNLConnector.cs" />
+    <Compile Include="Converters\BooleanToEnumerationConverter.cs" />
+    <Compile Include="PercentTradingTool\DAL\PTTDataManager.cs" />
+    <Compile Include="PercentTradingTool\DelegateCommand.cs" />
+    <Compile Include="PercentTradingTool\PTTConstants.cs" />
+    <Compile Include="PercentTradingTool\ViewModel\PercentTradingToolViewModel.cs" />
+    <Compile Include="PercentTradingTool\ViewModel\ViewAllocationDetailsViewModel.cs" />
+    <Compile Include="PercentTradingTool\View\PercentTradingToolWindow.xaml.cs">
+      <DependentUpon>PercentTradingToolWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PercentTradingTool\View\ViewAllocationDetailsWindow.xaml.cs">
+      <DependentUpon>ViewAllocationDetailsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="PercentTradingTool\BusinessLogic\PTTCalculator.cs" />
+    <Compile Include="PercentTradingTool\PTTManager.cs" />
+    <Compile Include="RebalancerNew\Behaviours\ComplianceAlertsTabBehavior.cs" />
+    <Compile Include="RebalancerNew\Behaviours\RebalancerDockPanelBehavior.cs" />
+    <Compile Include="RebalancerNew\Behaviours\XamComboEditorBehaviour.cs" />
+    <Compile Include="RebalancerNew\Behaviours\XamDataGridExporterForRebalancer.cs" />
+    <Compile Include="RebalancerNew\BussinessLogic\Interfaces\IImport.cs" />
+    <Compile Include="RebalancerNew\BussinessLogic\Interfaces\IImportFactory.cs" />
+    <Compile Include="RebalancerNew\BussinessLogic\Interfaces\IRebalancerHelper.cs" />
+    <Compile Include="RebalancerNew\BussinessLogic\RebalancerBase.cs" />
+    <Compile Include="RebalancerNew\BussinessLogic\RebalancerFormulas.cs" />
+    <Compile Include="RebalancerNew\BussinessLogic\RebalancerHelper.cs" />
+    <Compile Include="RebalancerNew\Calculator\BaseCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\ModelPortfolioTargetCashCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\ModelPortfolioTargetSecurityCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\ModelPortfolioTypeCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\RASCashflowCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\RASCashOutflowCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\IRebalCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\IBaseCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\CashFlowCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\RASCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\ModelPortfolioCalculator.cs" />
+    <Compile Include="RebalancerNew\Calculator\RASCashInflowCalculator.cs" />
+    <Compile Include="RebalancerNew\Classes\CheckComplianceFeedback.cs" />
+    <Compile Include="RebalancerNew\Classes\ImportCashFlow.cs" />
+    <Compile Include="RebalancerNew\Classes\ImportCustomGroup.cs" />
+    <Compile Include="RebalancerNew\Classes\ImportFactory.cs" />
+    <Compile Include="RebalancerNew\Classes\RebalancerCommon.cs" />
+    <Compile Include="RebalancerNew\Classes\RebalancerGridSummaryCalculator.cs" />
+    <Compile Include="RebalancerNew\Classes\RebalancerMapper.cs" />
+    <Compile Include="RebalancerNew\Classes\RebalancerCache.cs" />
+    <Compile Include="Converters\BooleanToVisibileCollapseConverter.cs" />
+    <Compile Include="RebalancerNew\Classes\RebalViewModelExtension.cs" />
+    <Compile Include="RebalancerNew\Classes\StringsValuesSummaryCalculator.cs" />
+    <Compile Include="RebalancerNew\Models\AccountGroupDropdownPrefModel.cs" />
+    <Compile Include="RebalancerNew\Models\AccountsModel.cs" />
+    <Compile Include="RebalancerNew\Models\AccountWiseSecurityDataGridModel.cs" />
+    <Compile Include="RebalancerNew\Models\AdjustedAccountLevelNAV.cs" />
+    <Compile Include="RebalancerNew\Models\CalculationModel.cs" />
+    <Compile Include="RebalancerNew\Models\AccountGroupNAV.cs" />
+    <Compile Include="RebalancerNew\Models\ImportCashFlowModel.cs" />
+    <Compile Include="RebalancerNew\Models\ImportCustomGroupModel.cs" />
+    <Compile Include="RebalancerNew\Models\ImportModel.cs" />
+    <Compile Include="RebalancerNew\Models\NavPreferencesModel.cs" />
+    <Compile Include="RebalancerNew\Models\SymbolModel.cs" />
+    <Compile Include="RebalancerNew\Models\TradingRules.cs" />
+    <Compile Include="RebalancerNew\Models\SubCalculationModel.cs" />
+    <Compile Include="RebalancerNew\Models\KeyValueItem.cs" />
+    <Compile Include="RebalancerNew\Models\KeyValueItemWithFlag.cs" />
+    <Compile Include="RebalancerNew\Models\PortfolioDto.cs" />
+    <Compile Include="RebalancerNew\Models\RebalancerModel.cs" />
+    <Compile Include="RebalancerNew\Models\SecurityDataGridModel.cs" />
+    <Compile Include="RebalancerNew\Models\StatusAndErrorMessageModel.cs" />
+    <Compile Include="RebalancerNew\Models\TradeListModel.cs" />
+    <Compile Include="RebalancerNew\Models\TradeListSummaryModel.cs" />
+    <Compile Include="RebalancerNew\Models\TradeListOrderSideSummaryModel.cs" />
+    <Compile Include="RebalancerNew\Models\TradingRulesBase.cs" />
+    <Compile Include="RebalancerNew\RebalancerNewConstants.cs" />
+    <Compile Include="RebalancerNew\Themes\RebalancerTheme.xaml.cs">
+      <DependentUpon>RebalancerTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\ViewModels\CustomCashFlowViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\CustomGroupsViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\DataPreferencesViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\ImportViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\ModelPortfolioViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\ComplianceAlertsViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\RASImportViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\RebalancerViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\TradeListViewModel.cs" />
+    <Compile Include="RebalancerNew\ViewModels\TradeListSummaryViewModel.cs" />
+    <Compile Include="RebalancerNew\Views\ComplianceAlertsView.xaml.cs">
+      <DependentUpon>ComplianceAlertsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\CustomCashFlowView.xaml.cs">
+      <DependentUpon>CustomCashFlowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\CustomGroupsView.xaml.cs">
+      <DependentUpon>CustomGroupsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\DataPreferenceView.xaml.cs">
+      <DependentUpon>DataPreferenceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\FormatWindow.xaml.cs">
+      <DependentUpon>FormatWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\ImportView.xaml.cs">
+      <DependentUpon>ImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\ModelPortfolioView.xaml.cs">
+      <DependentUpon>ModelPortfolioView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\RASImportView.xaml.cs">
+      <DependentUpon>RASImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\RebalancerMainView.xaml.cs">
+      <DependentUpon>RebalancerMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\RebalancerView.xaml.cs">
+      <DependentUpon>RebalancerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\TradeListSummaryView.xaml.cs">
+      <DependentUpon>TradeListSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RebalancerNew\Views\TradeListView.xaml.cs">
+      <DependentUpon>TradeListView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="PercentTradingTool\Preferences\ctrlPTTPreferences.resx">
+      <DependentUpon>ctrlPTTPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PercentTradingTool\Preferences\MasterFundAccountGridControl.resx">
+      <DependentUpon>MasterFundAccountGridControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="RebalancerNew\Resources\Font\SegoeDynamic2.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10dd56d7-73f5-4213-9f65-74abcca49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ClientPreferences\Prana.ClientPreferences.csproj">
+      <Project>{87409B83-E284-40A0-8DAF-40B58413449C}</Project>
+      <Name>Prana.ClientPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Windows.Shell\Microsoft.Windows.Shell.csproj">
+      <Project>{55d5297c-f1df-4b76-a3c1-d82cc294eebb}</Project>
+      <Name>Microsoft.Windows.Shell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{db822308-7562-4404-8d85-e1de6f5a317d}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{a28ae507-104b-45c5-bcb1-ce51394e3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.Import\Prana.Import.csproj">
+      <Project>{a7618cc8-df0e-4d12-ab7b-ee3269dc854d}</Project>
+      <Name>Prana.Import</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.LiveFeedProvider\Prana.LiveFeedProvider.csproj">
+      <Project>{188CA486-DEC3-4BB2-B335-4BCAB1C0D76C}</Project>
+      <Name>Prana.LiveFeedProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.MvvmDialogs\Prana.MvvmDialogs.csproj">
+      <Project>{29051b6f-74c5-4ef6-a792-4e382ce233fa}</Project>
+      <Name>Prana.MvvmDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.TradeManager.Extension\Prana.TradeManager.Extension.csproj">
+      <Project>{7CADBFE3-8E3E-4C3B-A6DD-F3764519E6C2}</Project>
+      <Name>Prana.TradeManager.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{abb4950f-def1-4095-8e93-1eb3292c69f5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ComplianceEngine\Prana.ComplianceEngine.csproj">
+      <Project>{CCE11E0D-2CF9-4EA1-9CCC-B86747687129}</Project>
+      <Name>Prana.ComplianceEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CustomChromeLibrary\Prana.CustomChromeLibrary.csproj">
+      <Project>{25990f61-a27b-4edf-a402-b31bf952153f}</Project>
+      <Name>Prana.CustomChromeLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ExposurePnlCache\Prana.ExposurePnlCache.csproj">
+      <Project>{704a1960-d9cc-4702-9ffb-d82c6e872047}</Project>
+      <Name>Prana.ExposurePnlCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TaskManagement.Definition\Prana.TaskManagement.Definition.csproj">
+      <Project>{5fb30912-0851-40ee-a312-9fb67d33af3f}</Project>
+      <Name>Prana.TaskManagement.Definition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.UIEventAggregator\Prana.UIEventAggregator.csproj">
+      <Project>{a00a7a0b-2b49-4905-a043-da6c7a012fe4}</Project>
+      <Name>Prana.UIEventAggregator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AppResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommonView\BlockedAlertsViewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\CustomControls\ConnectionIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\NirvanaErrorTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\DataPresenterGeneric.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\DataPresenterGeneric_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\DataPresenterGeneric_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\DataPresenterIGTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\DataPresenterIGTheme_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\DataPresenterIGTheme_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamComboEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamDataPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamDockManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamEditors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\IG.xamMultiColumnCombo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\IG\Theme.Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\Themes\NirvanaSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\View\PercentTradingToolWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PercentTradingTool\View\ViewAllocationDetailsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\DataPresenterGeneric.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\DataPresenterGeneric_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\DataPresenterGeneric_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\DataPresenterIGTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\DataPresenterIGTheme_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\DataPresenterIGTheme_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamComboEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamDataPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamDockManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamEditors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\IG.xamMultiColumnCombo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\RebalancerTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\IG\Theme.Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\NirvanaErrorTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Themes\NirvanaSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RebalancerNew\Views\ComplianceAlertsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\CustomCashFlowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\CustomGroupsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\DataPreferenceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\FormatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\ImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\ModelPortfolioView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\RASImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\RebalancerMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\RebalancerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\TradeListSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RebalancerNew\Views\TradeListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\AndGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\FilterClearButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\FilterClearMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\FixedButtonWhenFixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\FixedButtonWhenUnfixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\IconAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\IconSubtract.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\MagnifyingGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\OrGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\summary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\ToggleCardCollapsedState_Collapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\ToggleCardCollapsedState_NotCollapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_Collapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_NotCollapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\ToggleGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="PercentTradingTool\Themes\IG\Images\UngroupGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\delete.png" />
+    <Resource Include="RebalancerNew\Resources\Images\delete_all.png" />
+    <Resource Include="RebalancerNew\Resources\Images\lock_closed.png" />
+    <Resource Include="RebalancerNew\Resources\Images\lock_open.png" />
+    <Resource Include="RebalancerNew\Resources\Images\upload.png" />
+    <Resource Include="RebalancerNew\Resources\Images\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PL\Controls\" />
+    <Folder Include="RebalancerNew\CustomControls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\InValidIcon.png" />
+    <Resource Include="RebalancerNew\Resources\Images\ValidIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\AndGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\FilterClearButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\FilterClearMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\FixedButtonWhenFixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\FixedButtonWhenUnfixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\IconAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\IconSubtract.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\MagnifyingGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\OrGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\summary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\ToggleCardCollapsedState_Collapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\ToggleCardCollapsedState_NotCollapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_Collapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_NotCollapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\ToggleGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Themes\IG\Images\UngroupGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\CustomGroupsImportFormat.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\CashFlowImportFormatNew.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\ModelPortfolioExampleNew.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\ToleranceInPercentage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="RebalancerNew\Resources\Images\ToleranceInBPS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DefaultXSLT\DefaultXSLTForRebalancerMainGridExport.xslt">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.Rebalancer.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.Rebalancer.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(ProjectDir)DefaultXSLT\*.*" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)\" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

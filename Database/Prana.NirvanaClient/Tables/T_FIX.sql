@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[T_FIX] (
+    [FIXID]      INT          IDENTITY (1, 1) NOT NULL,
+    [FixVersion] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_T_FIX] PRIMARY KEY CLUSTERED ([FIXID] ASC)
+);
+

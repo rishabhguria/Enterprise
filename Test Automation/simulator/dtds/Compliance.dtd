@@ -1,0 +1,180 @@
+<!ELEMENT ComplianceFilterSets (ComplianceFilterSet*)>
+<!ATTLIST ComplianceFilterSets
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.ComplianceFilterSetDictionary"
+>
+
+<!ELEMENT ComplianceFilterSet (ConcurrentOrderFilter | InadvertentCrossingFilter | GrossExposureFilter | MarketModeFilter | NetExposureFilter | OrderValueFilter | PercentageFromAuctionPriceFilter | PercentageFromBestPriceFilter | PercentageFromLastPriceFilter | PercentageFromMarketPriceFilter | PriceStepsFromAuctionPriceFilter | PriceStepsFromBestPriceFilter | PriceStepsFromLastPriceFilter | PriceStepsFromMarketPriceFilter | SecurityFilter | SecurityTypeFilter )* >
+<!ATTLIST ComplianceFilterSet
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.ComplianceFilterSet"
+          id         CDATA #REQUIRED
+          refid      CDATA #IMPLIED
+>
+
+<!ELEMENT ConcurrentOrderFilter EMPTY>
+<!ATTLIST ConcurrentOrderFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.ConcurrentOrderFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          tolerance CDATA #REQUIRED
+          clientEntityMapper  CDATA "com.cameronsystems.fix.compliance.DefaultClientEntityMapper"
+>
+
+<!ELEMENT InadvertentCrossingFilter EMPTY>
+<!ATTLIST InadvertentCrossingFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.InadvertentCrossingFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          clientEntityMapper  CDATA "com.cameronsystems.fix.compliance.DefaultClientEntityMapper"
+>
+
+<!ELEMENT GrossExposureFilter EMPTY>
+<!ATTLIST GrossExposureFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.GrossExposureFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          tolerance CDATA #REQUIRED
+          clientEntityMapper  CDATA "com.cameronsystems.fix.compliance.DefaultClientEntityMapper"
+>
+
+<!ELEMENT MarketModeFilter EMPTY>
+<!-- Allowed modes are a comma separated list of market modes.
+     For SEATS, this might PL,PE for production and TL,TE for test.
+ -->
+<!ATTLIST MarketModeFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.MarketModeFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          allowed   CDATA #REQUIRED
+>
+
+<!ELEMENT NetExposureFilter EMPTY>
+<!ATTLIST NetExposureFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.NetExposureFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          tolerance CDATA #REQUIRED
+          clientEntityMapper  CDATA "com.cameronsystems.fix.compliance.DefaultClientEntityMapper"
+>
+
+<!ELEMENT OrderValueFilter EMPTY>
+<!ATTLIST OrderValueFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.OrderValueFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          minNormal CDATA "0"
+          minPreOpen CDATA "0"
+>
+
+<!ELEMENT PercentageFromAuctionPriceFilter EMPTY>
+<!ATTLIST PercentageFromAuctionPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PercentageFromAuctionPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          tolerance CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PercentageFromBestPriceFilter EMPTY>
+<!ATTLIST PercentageFromBestPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PercentageFromBestPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PercentageFromLastPriceFilter EMPTY>
+<!ATTLIST PercentageFromLastPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PercentageFromLastPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PercentageFromMarketPriceFilter EMPTY>
+<!ATTLIST PercentageFromMarketPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PercentageFromMarketPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PriceStepsFromAuctionPriceFilter EMPTY>
+<!ATTLIST PriceStepsFromAuctionPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PriceStepsFromAuctionPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          tolerance CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PriceStepsFromBestPriceFilter EMPTY>
+<!ATTLIST PriceStepsFromBestPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PriceStepsFromBestPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PriceStepsFromLastPriceFilter EMPTY>
+<!ATTLIST PriceStepsFromLastPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PriceStepsFromLastPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT PriceStepsFromMarketPriceFilter EMPTY>
+<!ATTLIST PriceStepsFromMarketPriceFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.PriceStepsFromMarketPriceFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          maxNormal CDATA #REQUIRED
+          maxPreOpen CDATA #REQUIRED
+          absolute ( true | false ) "false"
+>
+
+<!ELEMENT SecurityFilter EMPTY>
+<!ATTLIST SecurityFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.SecurityFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+          disallowed CDATA ""
+>
+
+<!ELEMENT SecurityTypeFilter EMPTY>
+<!ATTLIST SecurityTypeFilter
+          class     CDATA #FIXED "com.cameronsystems.fix.compliance.SecurityTypeFilter"
+          enabled   ( true | false ) "true"
+          autoReject  ( true | false ) "true"
+	  disallowed CDATA ""
+>
+
+<!ELEMENT PriceStepTableDefinitions (PriceStepTable*)>
+<!ATTLIST PriceStepTableDefinitions
+          class     CDATA #FIXED "com.cameronsystems.fix.marketdata.PriceStepTableDictionary"
+>
+
+<!ELEMENT PriceStepTable (PriceStepTableEntry*)>
+<!ATTLIST PriceStepTable
+          class     CDATA #FIXED "com.cameronsystems.fix.marketdata.PriceStepTable"
+          id         CDATA #REQUIRED
+>
+
+<!ELEMENT PriceStepTableEntry EMPTY >
+<!ATTLIST PriceStepTableEntry
+          class     CDATA #FIXED "com.cameronsystems.fix.marketdata.PriceStepTableEntry"
+          maxPrice  CDATA #REQUIRED
+          priceStep CDATA #REQUIRED
+>

@@ -1,0 +1,191 @@
+
+
+<!ELEMENT MessageRuleSets (Properties?, MessageRuleSet*)>
+<!ATTLIST MessageRuleSets
+          class     CDATA #FIXED "com.cameronsystems.fix.validator.MessageRuleSetContainer"
+>
+
+<!-- Copied from CameronConfig.dtd
+     @todo should probably be factored out.
+ -->
+<!ELEMENT Properties ((Properties | Property)*)>
+<!ATTLIST Properties
+          id          CDATA #IMPLIED
+          refid       CDATA #IMPLIED
+>
+
+<!ELEMENT Property (#PCDATA)>
+<!ATTLIST Property
+          name      CDATA #REQUIRED
+          value     CDATA #IMPLIED
+>
+
+
+<!ELEMENT MessageRuleSet ( MessageRule* )>
+<!ATTLIST MessageRuleSet
+          class        CDATA #FIXED "com.cameronsystems.fix.validator.MessageRuleSet"
+          rejectReason CDATA "11"
+          mustMatch    ( true | false ) "false"
+          name         CDATA #REQUIRED
+>
+
+
+<!ELEMENT MessageRule ( RequiredFields? , OptionalFields? , GenericMessageRule* )>
+<!ATTLIST MessageRule
+          class               CDATA #FIXED "com.cameronsystems.fix.validator.MessageValidator"
+          msgType             CDATA #REQUIRED
+          rejectUnknown       ( true | false ) "false"
+          rejectReason CDATA "2"
+>
+
+<!ENTITY % fieldRules "( ( Field | Int | Qty | Float | FloatQty | Price | Char | Boolean | String | Currency | UTCTimeStamp | UTCTimeOnly | UTCDateOnly | MonthYear | RawData | GenericFieldRule )* )" >
+
+
+<!ELEMENT RequiredFields %fieldRules; >
+<!ATTLIST RequiredFields
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.RequiredFieldsValidator"
+          rejectReason   CDATA "1"
+>
+
+<!ELEMENT OptionalFields %fieldRules; >
+<!ATTLIST OptionalFields
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.OptionalFieldsValidator"
+          rejectReason   CDATA #FIXED "0"
+>
+
+<!ELEMENT GenericMessageRule ANY>
+<!ATTLIST GenericMessageRule
+          class          CDATA #REQUIRED
+>
+
+<!ELEMENT Field EMPTY>
+<!ATTLIST Field
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.FieldPresenceValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+>
+
+<!ELEMENT Int EMPTY>
+<!ATTLIST Int
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.IntFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          minValue       CDATA #IMPLIED
+          maxValue       CDATA #IMPLIED
+>
+
+<!ELEMENT Qty EMPTY>
+<!ATTLIST Qty
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.IntFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          minValue       CDATA #IMPLIED
+          maxValue       CDATA #IMPLIED
+>
+
+<!ELEMENT Float EMPTY>
+<!ATTLIST Float
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.FloatFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          minValue       CDATA #IMPLIED
+          maxValue       CDATA #IMPLIED
+>
+
+<!ELEMENT FloatQty EMPTY>
+<!ATTLIST FloatQty
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.FloatFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          minValue       CDATA #IMPLIED
+          maxValue       CDATA #IMPLIED
+>
+
+<!ELEMENT Price EMPTY>
+<!ATTLIST Price
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.FloatFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          minValue       CDATA #IMPLIED
+          maxValue       CDATA #IMPLIED
+>
+
+<!ELEMENT Char EMPTY>
+<!ATTLIST Char
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.CharFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          possibleValues CDATA #IMPLIED
+>
+
+<!ELEMENT Boolean EMPTY>
+<!ATTLIST Boolean
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.CharFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          possibleValues CDATA #FIXED "YN"
+>
+
+<!ELEMENT String EMPTY>
+<!ATTLIST String
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.StringFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          regex          CDATA #IMPLIED
+          minLength      CDATA #IMPLIED
+          maxLength      CDATA #IMPLIED
+>
+
+<!ELEMENT Currency EMPTY>
+<!ATTLIST Currency
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.StringFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          minLength      CDATA #FIXED "3"
+          maxLength      CDATA #FIXED "3"
+>
+
+<!ELEMENT UTCTimeStamp EMPTY>
+<!ATTLIST UTCTimeStamp
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.StringFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          regex          CDATA #FIXED "((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])-([01]\d|2[0123]):[0-5][0-9]:[0-5]\d(\.\d{3})?)"
+>
+
+<!ELEMENT UTCTimeOnly EMPTY>
+<!ATTLIST UTCTimeOnly
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.StringFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          regex          CDATA #FIXED "(([01]\d|2[0123]):[0-5][0-9]:[0-5]\d(\.\d{3})?)"
+>
+
+<!ELEMENT UTCDateOnly EMPTY>
+<!ATTLIST UTCDateOnly
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.StringFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          regex          CDATA #FIXED "((19|20)\d\d(0[1-9]|1[012])(0[1-9]|[12]\d|3[01]))"
+>
+
+<!ELEMENT MonthYear EMPTY>
+<!ATTLIST MonthYear
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.StringFieldValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+          regex          CDATA #FIXED "((19|20)\d\d(0[1-9]|1[012]))"
+>
+
+<!ELEMENT RawData EMPTY>
+<!ATTLIST RawData
+          class          CDATA #FIXED "com.cameronsystems.fix.validator.field.RawDataValidator"
+          tag            CDATA #REQUIRED
+          rejectReason   CDATA "6"
+>
+
+<!ELEMENT GenericFieldRule EMPTY>
+<!ATTLIST GenericFieldRule
+          class          CDATA #REQUIRED
+          tag            CDATA #REQUIRED
+>

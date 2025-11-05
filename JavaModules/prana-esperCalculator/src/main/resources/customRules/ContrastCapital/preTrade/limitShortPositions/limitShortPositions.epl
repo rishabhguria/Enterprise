@@ -1,0 +1,64 @@
+
+module customRules.nirvana.preTrade.limitShortPositions.limitShortPositions;
+
+
+@Name('CheckLimitShortInWhatIf')
+@Description('Stores the number of long positions.')
+on BasketEOM as B
+insert into CheckLimitShortInWhatIf
+select
+distinct
+	W.userId as userId,
+	B.basketId as basketId,
+	count(*) as WhatIfShortPositions,
+	W.accountShortName as accountShortName,
+	W.taxlotId as taxlotId,
+	'yes' as typo,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from
+	WhatIfAccountSymbolWithNav as W
+where
+	W.defaultPositionSide = 'short' and W.basketId = B.basketId and W.userId is not null
+group by accountId;
+
+@Name('CheckLimitShortInWhatIfNOT')
+@Description('This will trigger if there are no Short positions')
+on BasketEOM as B
+insert into CheckLimitShortInWhatIf
+select
+distinct
+	W.userId as userId,
+	B.basketId as basketId,
+	0L as WhatIfShortPositions,
+	W.accountShortName as accountShortName,
+	W.taxlotId as taxlotId,
+	'not' as typo,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from
+	WhatIfAccountSymbolWithNav as W
+where
+	not exists(select * from WhatIfAccountSymbolWithNav where defaultPositionSide = 'short' and basketId = B.basketId and W.userId is not null)
+group by accountId;
+
+
+
+
+@Name('CheckLimitShortFinal')
+@Description('Checks if limits are breached.')
+insert into CheckLimitShortFinal
+select
+distinct
+	R.userId as userId,
+	R.basketId as basketId,
+	R.taxlotId as taxlotId,
+	cast(ShortPositionLimit, string) as threshold,
+	cast(R.WhatIfShortPositions, string) as actualResult,
+	'Short positions' as constraintField,
+	R.WhatIfShortPositions < ShortPositionLimit as isViolated,
+	current_timestamp as validationTime,
+	'Total short positions are less than ' || cast(ShortPositionLimit, string) as summary,
+	R.accountShortName as dimension,
+	'Total short positions : ' || cast(R.WhatIfShortPositions, string) || ' Account Name : ' || R.accountShortName as parameters
+from
+	CheckLimitShortInWhatIf as R;	
+	

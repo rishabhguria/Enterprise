@@ -1,0 +1,5 @@
+﻿--Update All FX and FxForword Security roundlot with 0.00000001
+IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='T_SMSymbolLookUpTable' AND COLUMN_NAME='RoundLot')
+BEGIN
+	UPDATE T_SMSymbolLookUpTable SET RoundLot=0.00000001 WHERE AssetID IN (5, 11);
+END

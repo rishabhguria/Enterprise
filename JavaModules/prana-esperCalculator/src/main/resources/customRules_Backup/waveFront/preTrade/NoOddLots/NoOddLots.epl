@@ -1,0 +1,37 @@
+module customRules.resonate.preTrade.NoOddLots.NoOddLots;
+
+@Name('NoOddLotsWaveFront')
+@Description('If security window contains the underlying symbol of that symbol')
+insert into NoOddLotsWaveFront
+select distinct
+	B.basketId as basketId,
+ 	T.userId as userId,
+ 	T.symbol as symbol,
+ 	T.underlyingSymbol as underlyingSymbol,
+ 	(case S.tickerSymbol is not null when true
+ 	then S.roundLot else T.roundLot end) as roundLot,
+ 	T.accountShortName as accountShortName,
+	"RowCalculationBaseWindow,SecurityWindow" as parentWindowStream
+from BasketEOM as B unidirectional left outer join  RowCalculationBaseWindow as T on B.basketId = T.basketId
+left outer join SecurityWindow as S	on T.underlyingSymbol = S.tickerSymbol;
+
+@Name('NoOddLotsWaveFrontFinal')
+@Description('Checks if limits are breached.')
+insert into NoOddLotsWaveFrontFinal
+select distinct
+	A.basketId as basketId,
+	cast(A.userId, int) as userId,
+	A.basketId as taxlotId,
+	FUND_NAME1_WAVEFRONT as threshold,
+	A.accountShortName as actualResult,
+	'Fund Names' as constraintField,
+	(case A.roundLot % 2 <> 0 when true then true else false  end) and valueExistsInCSV(A.accountShortName, FUND_NAME1_WAVEFRONT) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Symbol: ' || A.symbol || ', Underlying Symbol: ' || A.underlyingSymbol
+		|| ',  Round Lot of Underlyning symbol ' || A.underlyingSymbol || 'is: ' || doubleFormat(A.roundLot) as parameters,
+	current_timestamp as validationTime,
+	'Only trade orders for round lots of underlying security allowed (No Odd Lots) in ' || FUND_NAME1_WAVEFRONT as summary,
+	A.symbol as dimension
+from
+NoOddLotsWaveFront as A
+where A.userId is not null;

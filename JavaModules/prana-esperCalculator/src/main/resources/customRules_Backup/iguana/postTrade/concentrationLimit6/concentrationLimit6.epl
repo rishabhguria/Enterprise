@@ -1,0 +1,89 @@
+module customRules.iguana.postTrade.concentrationLimit6.ConcentrationLimit6;
+
+@Name('WhitneyAccountBottom5MarketValueWindow')
+@Description('Creating top 5 window which will contain bottom 5 rows symbol wise for a given account')
+create window WhitneyAccountBottom5MarketValueWindow.ext:sort(5, netMarketValueBase asc)
+(
+	accountId int,
+	symbol String,
+	netMarketValueBase double
+);
+
+
+@Name('Bottom5MarketValueWindowInitialFillup')
+@Description('This statement fills initial data to Bottom 5 window')
+on pattern[every InitComplete(initComplete=true, action='Validation')]
+insert into WhitneyAccountBottom5MarketValueWindow
+select 
+	accountId as accountId,
+	symbol as symbol,
+	netMarketValueBase as netMarketValueBase
+from AccountSymbolWithNav
+where accountShortName='Whitney Capital-JPM' and defaultPositionSide = 'short'
+order by netMarketValueBase asc
+limit 5;
+
+@Name('WhitneyAccountBottom5MarketValueWindowUpsert')
+@Description('Merging is based on netMarketValueBase')
+on AccountSymbolIntermediate(accountShortName='Whitney Capital-JPM') as s
+merge WhitneyAccountBottom5MarketValueWindow sw where sw.symbol = s.symbol
+when matched and s.modifiedBy<>'TaxlotDeleted' and s.defaultPositionSide='short' and sw.netMarketValueBase <> s.netMarketValueBase
+	then update set
+		sw.netMarketValueBase = s.netMarketValueBase
+	then insert into Bottom5MarketValueUpdated  select
+		'Updated' as status
+when matched and s.modifiedBy<>'TaxlotDeleted' and s.defaultPositionSide='long'
+	then delete //Deleting row as it is no longer in short group
+	then insert into Bottom5MarketValueUpdated  select
+		'Deleted' as status
+when matched and s.modifiedBy='TaxlotDeleted'
+	then delete
+	then insert into Bottom5MarketValueUpdated  select
+		'Deleted' as status
+when not matched and s.defaultPositionSide='short' and s.netMarketValueBase < (select MAX(netMarketValueBase) from WhitneyAccountBottom5MarketValueWindow)
+	then insert select
+		s.accountId as accountId,
+		s.symbol as symbol,
+		s.netMarketValueBase as netMarketValueBase
+	then insert into Bottom5MarketValueUpdated select
+		'Inserted' as status;
+
+@Name('WhitneyAccountBottom5MarketValueSummation')
+@Description('This sum up all market value available in Bottom 5 window')
+on Bottom5MarketValueUpdated
+insert into WhitneyAccountBottom5MarketValueSummation 
+select distinct
+	sum(coalesce(F.netMarketValueBase,0)) as netMarketValueBase,
+	F.accountId as accountId
+from  WhitneyAccountBottom5MarketValueWindow as F;
+
+@Name('WhitneyAccountBottom5MarketValueSummationChangesOnly')
+@Description('If there is change then state property will contain changed other wise event can be filtered out')
+insert into WhitneyAccountBottom5MarketValueSummationChangesOnly 
+select distinct
+	case prev(1,netMarketValueBase) is null or prev(1,netMarketValueBase) <> netMarketValueBase
+		when true then 'changed'
+		else 'no change' end  as state,
+	prev(1,netMarketValueBase) as preval,
+	netMarketValueBase as netMarketValueBase,
+	accountId as accountId
+from  WhitneyAccountBottom5MarketValueSummation.win:length(2);
+
+@Name('ConcentrationLimits6')
+@Description('Output event')
+insert into ConcentrationLimits5
+select distinct
+	'' as taxlotId,
+	0 as userId,
+	'15' || ValueSeparator || 'Whitney Capital-JPM' as threshold,
+	doubleFormat(0.15*N.grossMarketValueBase) || ValueSeparator || 'Whitney Capital-JPM' as actualResult,
+	'Top 5 short positions %' || ValueSeparator || 'Account' as constraintField,
+	true as isViolated,
+	'Market Value Base: '||doubleFormat(R.netMarketValueBase) || ', Account: Whitney Capital-JPM, 15% of Account Gross Market Value: '||doubleFormat(0.15*N.grossMarketValueBase) as parameters,
+	current_timestamp as validationTime,
+	'The size of the top 5 short positions in Whitney Capital-JPM exceeded 15% of the client Gross Market Value.' as summary,
+	'Whitney Capital-JPM' as dimension
+from
+WhitneyAccountBottom5MarketValueSummationChangesOnly(state='changed') as R unidirectional left outer join
+AccountDivisorWindow as N on R.accountId = N.accountId
+where Math.abs(R.netMarketValueBase) > 0.15*N.grossMarketValueBase;

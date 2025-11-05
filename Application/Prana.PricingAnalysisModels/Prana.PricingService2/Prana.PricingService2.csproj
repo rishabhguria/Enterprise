@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44376587-88C9-4988-801E-128A074DA34C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.PricingService2</RootNamespace>
+    <AssemblyName>Prana.PricingService2</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AmqpPlugin\AmqpPluginManager.cs" />
+    <Compile Include="AmqpPlugin\WhatIfSnapShotCallBack.cs" />
+    <Compile Include="PricingService2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10dd56d7-73f5-4213-9f65-74abcca49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CoreService.Interfaces\Prana.CoreService.Interfaces.csproj">
+      <Project>{79a6b4bd-7843-477b-a6d2-980bedab9f86}</Project>
+      <Name>Prana.CoreService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.MonitoringProcessor\Prana.MonitoringProcessor.csproj">
+      <Project>{43aabd95-3224-4cf7-bb1d-c77a73ea01fb}</Project>
+      <Name>Prana.ServerMonitoringProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.SocketCommunication\Prana.SocketCommunication.csproj">
+      <Project>{f221a266-01c2-4eca-aded-0717573bcc2e}</Project>
+      <Name>Prana.SocketCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ActivAdapter\Prana.ActivAdapter.csproj">
+      <Project>{14bb398c-11bc-4066-9929-85e25e423273}</Project>
+      <Name>Prana.ActivAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BloombergAdapter\Prana.BloombergAdapter.csproj">
+      <Project>{9dbe3cf9-2e73-49c7-9a2f-16451e5b4c5d}</Project>
+      <Name>Prana.BloombergAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.FactSetAdapter\Prana.FactSetAdapter.csproj">
+      <Project>{c38c719b-9c5c-4217-97c6-522d2975c34e}</Project>
+      <Name>Prana.FactSetAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LiveFeedManager\Prana.LiveFeedManager.csproj">
+      <Project>{9ec0a3c2-a02c-4628-960a-0fb84ebacb11}</Project>
+      <Name>Prana.LiveFeedManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.MarketDataAdapter.Common\Prana.MarketDataAdapter.Common.csproj">
+      <Project>{2fc67c23-3c11-4f13-b47d-d4e3c4e73de0}</Project>
+      <Name>Prana.MarketDataAdapter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService\Prana.PubSubService.csproj">
+      <Project>{80fa0efa-0b1f-495e-bdfa-590c7c9686d3}</Project>
+      <Name>Prana.PubSubService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.RiskAPI\Prana.RiskServer.csproj">
+      <Project>{60a87992-bc4c-4ce5-82e3-20a1e7459162}</Project>
+      <Name>Prana.RiskServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.SAPIAdapter\Prana.SAPIAdapter.csproj">
+      <Project>{a7bae2d8-e416-4b82-a709-403c313d64ff}</Project>
+      <Name>Prana.SAPIAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Server\Prana.QueueManager\Prana.QueueManager.csproj">
+      <Project>{d3d605fa-45b0-41b6-abc6-12cb49a81815}</Project>
+      <Name>Prana.QueueManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PranaOptionAnalytics\Prana.OptionServer.csproj">
+      <Project>{de60d673-dc8e-42bf-8b3d-b70d3ccff9bb}</Project>
+      <Name>Prana.OptionServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.OptionCalculator.Common\Prana.OptionCalculator.Common.csproj">
+      <Project>{278cbdb2-1971-4483-b45c-8a274ce377fa}</Project>
+      <Name>Prana.OptionCalculator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.OptionDataCalculator\Prana.OptionCalculator.CalculationComponent.csproj">
+      <Project>{cc443e3a-ab7c-46c1-a9e1-633ad8362a05}</Project>
+      <Name>Prana.OptionCalculator.CalculationComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.PricingAnalysisModels\Prana.PricingAnalysisModels.csproj">
+      <Project>{461c86f3-4ca6-441c-8a90-34e4a753dfa9}</Project>
+      <Name>Prana.PricingAnalysisModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2Host\$(OutDir)" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,87 @@
+﻿namespace Prana.TradeServiceUI
+{
+    partial class UsrCtrlConnectionStatus
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnConnect = new System.Windows.Forms.Button();
+            this.lblPartyName = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.SuspendLayout();
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConnect.Location = new System.Drawing.Point(74, 3);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(88, 23);
+            this.btnConnect.TabIndex = 0;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
+            // lblCpName
+            // 
+            this.lblPartyName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPartyName.Location = new System.Drawing.Point(3, 8);
+            this.lblPartyName.Name = "lblCpName";
+            this.lblPartyName.Size = new System.Drawing.Size(70, 21);
+            this.lblPartyName.TabIndex = 15;
+            this.lblPartyName.Text = "CounterParty";
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblStatus.Location = new System.Drawing.Point(168, 7);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(110, 23);
+            this.lblStatus.TabIndex = 16;
+            this.lblStatus.Text = "Connecting...";
+            // 
+            // UsrCtrlConnectionStatus
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblStatus);
+            this.Controls.Add(this.lblPartyName);
+            this.Controls.Add(this.btnConnect);
+            this.Name = "UsrCtrlConnectionStatus";
+            this.Size = new System.Drawing.Size(264, 28);
+            this.ResumeLayout(false);
+
+        }
+        #endregion
+
+        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.Label lblPartyName;
+        private System.Windows.Forms.Label lblStatus;
+    }
+}

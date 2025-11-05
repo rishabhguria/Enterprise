@@ -1,0 +1,1091 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="PercentageAsset">
+      <ConnectionProperties>
+        <IntegratedSecurity>true</IntegratedSecurity>
+        <ConnectString>Data Source=192.168.1.19;Initial Catalog=PranaAnalysisServices</ConnectString>
+        <DataProvider>OLEDB-MD</DataProvider>
+      </ConnectionProperties>
+      <rd:DataSourceID>ff8d806e-1f2b-482f-ba7f-391cf8198232</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
+  <ReportParameters>
+    <ReportParameter Name="FirstDimTime">
+      <DataType>DateTime</DataType>
+      <Prompt>FirstDimTime</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <ZIndex>1</ZIndex>
+        <Width>4.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontFamily>Tahoma</FontFamily>
+          <FontWeight>700</FontWeight>
+          <FontSize>20pt</FontSize>
+          <Color>SteelBlue</Color>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.36in</Height>
+        <Value>PercentageAsset</Value>
+      </Textbox>
+      <Table Name="table1">
+        <DataSetName>PercentageAsset</DataSetName>
+        <Top>0.36in</Top>
+        <Width>4.125in</Width>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Symbol">
+                      <rd:DefaultName>Symbol</rd:DefaultName>
+                      <ZIndex>14</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>="&gt;$5 B"</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox4">
+                      <rd:DefaultName>textbox4</rd:DefaultName>
+                      <ZIndex>13</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!LongMarketValue_G5B.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox6">
+                      <rd:DefaultName>textbox6</rd:DefaultName>
+                      <ZIndex>12</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!ShortMarketValue_G5B.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.21in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox7">
+                      <rd:DefaultName>textbox7</rd:DefaultName>
+                      <ZIndex>11</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>="$1B-$5B"</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox8">
+                      <rd:DefaultName>textbox8</rd:DefaultName>
+                      <ZIndex>10</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!LongMarketValue_G1B.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox9">
+                      <rd:DefaultName>textbox9</rd:DefaultName>
+                      <ZIndex>9</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!ShortMarketValue_G1B.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox10">
+                      <rd:DefaultName>textbox10</rd:DefaultName>
+                      <ZIndex>8</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>="$500MM-$1B"</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox11">
+                      <rd:DefaultName>textbox11</rd:DefaultName>
+                      <ZIndex>7</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!LongMarketValue_G500Mn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox12">
+                      <rd:DefaultName>textbox12</rd:DefaultName>
+                      <ZIndex>6</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!ShortMarketValue_G500Mn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox13">
+                      <rd:DefaultName>textbox13</rd:DefaultName>
+                      <ZIndex>5</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>="$50MM-$500MM"</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox14">
+                      <rd:DefaultName>textbox14</rd:DefaultName>
+                      <ZIndex>4</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!LongMarketValue_G50Mn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox15">
+                      <rd:DefaultName>textbox15</rd:DefaultName>
+                      <ZIndex>3</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!ShortMarketValue_G50Mn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox16">
+                      <rd:DefaultName>textbox16</rd:DefaultName>
+                      <ZIndex>2</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>="&lt;$50MM"</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox17">
+                      <rd:DefaultName>textbox17</rd:DefaultName>
+                      <ZIndex>1</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!LongMarketValue_L50Mn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox18">
+                      <rd:DefaultName>textbox18</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!ShortMarketValue_L50Mn.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+          </TableRows>
+        </Details>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox3">
+                      <rd:DefaultName>textbox3</rd:DefaultName>
+                      <ZIndex>17</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Market Capitlization</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <rd:DefaultName>textbox2</rd:DefaultName>
+                      <ZIndex>16</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Long Market value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox5">
+                      <rd:DefaultName>textbox5</rd:DefaultName>
+                      <ZIndex>15</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Short Market Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.22in</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>1.375in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.375in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.375in</Width>
+          </TableColumn>
+        </TableColumns>
+      </Table>
+    </ReportItems>
+    <Height>1.79in</Height>
+  </Body>
+  <rd:ReportID>a8769fd1-7fb5-48ba-8200-d6aa67ca8f7d</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="PercentageAsset">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>with 
+set [FirstDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Lag(10):strtomember(@FirstDimTime,                CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+(null:[Dim Time].[Calender].CurrentMember)*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+
+member MarketCapTest as
+(
+([Measures].[Last Outstandings],FirstDate.item(0))*
+(FirstDate.item(0),[Measures].[Final Mark Price])
+)
+
+member LongMarketValue_G5B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+    
+)
+member LongMarketValue_G1B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and MarketCapTest&gt;1000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member LongMarketValue_G500Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=1000000000 and MarketCapTest&gt;500000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member LongMarketValue_G50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=500000000 and  MarketCapTest&gt;50000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member LongMarketValue_L50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=50000000 and MarketCapTest&gt;0
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_G5B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+    
+)
+member ShortMarketValue_G1B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and MarketCapTest&gt;1000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_G500Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=1000000000 and MarketCapTest&gt;500000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_G50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=500000000 and  MarketCapTest&gt;50000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_L50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=50000000 and MarketCapTest&gt;0
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+
+
+
+
+
+
+
+
+select {LongMarketValue_G5B,LongMarketValue_G1B,LongMarketValue_G500Mn,
+LongMarketValue_G50Mn,LongMarketValue_L50Mn,
+ShortMarketValue_G5B,ShortMarketValue_G1B,ShortMarketValue_G500Mn,ShortMarketValue_G50Mn,
+ShortMarketValue_L50Mn
+} on columns,
+
+
+
+
+{
+([Dim Sub Accounts].[AccountName].&amp;[Realized Unrealized Gain/(Loss) on Securities])
+
+} on rows from [Nirvana Client DW] 
+
+
+
+</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="FirstDimTime">
+            <Value>="[Dim Time].[Calender].[Year].&amp;[" &amp; Year(Parameters!FirstDimTime.Value) &amp; "].&amp;[" &amp; CInt(Format(Month(Parameters!FirstDimTime.Value), "00")/3) &amp; "].&amp;[" &amp; Format(Month(Parameters!FirstDimTime.Value), "00") &amp; "].[" &amp; Year(Parameters!FirstDimTime.Value) &amp; "-" &amp; Format(Month(Parameters!FirstDimTime.Value), "00") &amp; "-" &amp; Format(Day(Parameters!FirstDimTime.Value),"00") &amp; " 00:00:00]"</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <DataSourceName>PercentageAsset</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>Dim Sub Accounts</DimensionName><HierarchyName>AccountName</HierarchyName><HierarchyUniqueName>[Dim Sub Accounts].[AccountName]</HierarchyUniqueName><LevelName>AccountName</LevelName><UniqueName>[Dim Sub Accounts].[AccountName].[AccountName]</UniqueName></ID><ItemCaption>AccountName</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>LongMarketValue_G5B</MeasureName><UniqueName>[Measures].[LongMarketValue_G5B]</UniqueName></ID><ItemCaption>LongMarketValue_G5B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LongMarketValue_G1B</MeasureName><UniqueName>[Measures].[LongMarketValue_G1B]</UniqueName></ID><ItemCaption>LongMarketValue_G1B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LongMarketValue_G500Mn</MeasureName><UniqueName>[Measures].[LongMarketValue_G500Mn]</UniqueName></ID><ItemCaption>LongMarketValue_G500Mn</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LongMarketValue_G50Mn</MeasureName><UniqueName>[Measures].[LongMarketValue_G50Mn]</UniqueName></ID><ItemCaption>LongMarketValue_G50Mn</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LongMarketValue_L50Mn</MeasureName><UniqueName>[Measures].[LongMarketValue_L50Mn]</UniqueName></ID><ItemCaption>LongMarketValue_L50Mn</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ShortMarketValue_G5B</MeasureName><UniqueName>[Measures].[ShortMarketValue_G5B]</UniqueName></ID><ItemCaption>ShortMarketValue_G5B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ShortMarketValue_G1B</MeasureName><UniqueName>[Measures].[ShortMarketValue_G1B]</UniqueName></ID><ItemCaption>ShortMarketValue_G1B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ShortMarketValue_G500Mn</MeasureName><UniqueName>[Measures].[ShortMarketValue_G500Mn]</UniqueName></ID><ItemCaption>ShortMarketValue_G500Mn</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ShortMarketValue_G50Mn</MeasureName><UniqueName>[Measures].[ShortMarketValue_G50Mn]</UniqueName></ID><ItemCaption>ShortMarketValue_G50Mn</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ShortMarketValue_L50Mn</MeasureName><UniqueName>[Measures].[ShortMarketValue_L50Mn]</UniqueName></ID><ItemCaption>ShortMarketValue_L50Mn</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>with 
+set [FirstDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Lag(10):strtomember(@FirstDimTime,                CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+(null:[Dim Time].[Calender].CurrentMember)*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+
+member MarketCapTest as
+(
+([Measures].[Last Outstandings],FirstDate.item(0))*
+(FirstDate.item(0),[Measures].[Final Mark Price])
+)
+
+member LongMarketValue_G5B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+    
+)
+member LongMarketValue_G1B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and MarketCapTest&gt;1000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member LongMarketValue_G500Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=1000000000 and MarketCapTest&gt;500000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member LongMarketValue_G50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=500000000 and  MarketCapTest&gt;50000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member LongMarketValue_L50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2000]
+                  ,
+                 MarketCapTest
+                  &lt;=50000000 and MarketCapTest&gt;0
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_G5B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+    
+)
+member ShortMarketValue_G1B as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and MarketCapTest&gt;1000000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_G500Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=1000000000 and MarketCapTest&gt;500000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_G50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=500000000 and  MarketCapTest&gt;50000000
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+member ShortMarketValue_L50Mn as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+     *[PM Open Position Snap Shots].[Sub Account ID].&amp;[2001]
+                  ,
+                 MarketCapTest
+                  &lt;=50000000 and MarketCapTest&gt;0
+                  )
+                  ,
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+)
+
+
+
+
+
+
+
+
+select {LongMarketValue_G5B,LongMarketValue_G1B,LongMarketValue_G500Mn,
+LongMarketValue_G50Mn,LongMarketValue_L50Mn,
+ShortMarketValue_G5B,ShortMarketValue_G1B,ShortMarketValue_G500Mn,ShortMarketValue_G50Mn,
+ShortMarketValue_L50Mn
+} on columns,
+
+
+
+
+{
+([Dim Sub Accounts].[AccountName].&amp;[Realized Unrealized Gain/(Loss) on Securities])
+
+} on rows from [Nirvana Client DW] 
+
+
+
+</Statement><ParameterDefinitions><ParameterDefinition><Name>FirstDimTime</Name><DefaultValues><DefaultValue>[Dim Time].[Calender].[Year].&amp;[2009].&amp;[2].&amp;[5].&amp;[3430]</DefaultValue></DefaultValues><Caption>FirstDimTime</Caption><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery></ParameterDefinition></ParameterDefinitions></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="AccountName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Sub Accounts].[AccountName].[AccountName]" /&gt;</DataField>
+        </Field>
+        <Field Name="LongMarketValue_G5B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LongMarketValue_G5B]" /&gt;</DataField>
+        </Field>
+        <Field Name="LongMarketValue_G1B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LongMarketValue_G1B]" /&gt;</DataField>
+        </Field>
+        <Field Name="LongMarketValue_G500Mn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LongMarketValue_G500Mn]" /&gt;</DataField>
+        </Field>
+        <Field Name="LongMarketValue_G50Mn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LongMarketValue_G50Mn]" /&gt;</DataField>
+        </Field>
+        <Field Name="LongMarketValue_L50Mn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LongMarketValue_L50Mn]" /&gt;</DataField>
+        </Field>
+        <Field Name="ShortMarketValue_G5B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ShortMarketValue_G5B]" /&gt;</DataField>
+        </Field>
+        <Field Name="ShortMarketValue_G1B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ShortMarketValue_G1B]" /&gt;</DataField>
+        </Field>
+        <Field Name="ShortMarketValue_G500Mn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ShortMarketValue_G500Mn]" /&gt;</DataField>
+        </Field>
+        <Field Name="ShortMarketValue_G50Mn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ShortMarketValue_G50Mn]" /&gt;</DataField>
+        </Field>
+        <Field Name="ShortMarketValue_L50Mn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ShortMarketValue_L50Mn]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FirstDimTime">
+      <Query>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>PercentageAsset</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FirstDimTime1">
+      <Query>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>PercentageAsset</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>5.5in</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

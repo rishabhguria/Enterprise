@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3416CB7F-357F-46DA-B316-88CECDE724AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.TestAutomation.Steps.Compliance</RootNamespace>
+    <AssemblyName>Nirvana.TestAutomation.Steps.Compliance</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.Apis, Version=1.16.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.16.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.16.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Drive.v3, Version=1.16.0.621, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Google.Apis.Drive.v3.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Gmail.v1, Version=1.16.0.557, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\DLLs\Google.Apis.Gmail.v1.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Database">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Nirvana.TestAutomation.BussinessObjects\Dlls\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestAutomationFX.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ComplianceEngineUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ComplianceEngineUIMap.Designer.cs">
+      <DependentUpon>ComplianceEngineUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\CheckCompliance.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditInterceptorFile.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EnableDisableRule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GetEmail.cs" />
+    <Compile Include="Steps\ReplaceInterceptorFile.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RestartEsper.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RestartReleasesAndServices.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAccountDivisorWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAccountNavPreferenceWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAccountSymbolDivisorWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAccrualForAccountWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationAccountSymbolWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggAccountSymbolWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationAccountWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationAssetWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationGlobalWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationMasterFundSymbolWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationMasterFundUnderlyingSymbolWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationMasterFundWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationSectorWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationSubSectorWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationSymbolWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAggregationUnderlyingSymbolWithNav.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAuecWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyBetaWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyCustomSymbolDataWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyDayEndCashAccountWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyDbNavWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyGlobalDivisorWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyMasterFundDivisorWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyMasterFundSymbolDivisorWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyPmCalculationPreferenceWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyRowCalculationBaseWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifySecurityWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifySymbolDataWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifySymbolDivisorWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyTaxlotWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ApproveorRejectpendingapproval.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAlertHistory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="ComplianceEngineUIMap.resx">
+      <DependentUpon>ComplianceEngineUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopUpUIMap.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PopUpUIMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="client_secret.json" />
+    <None Include="credential.json" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PopUpUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PopUpUIMap.Designer.cs">
+      <DependentUpon>PopUpUIMap.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.BussinessObjects\Nirvana.TestAutomation.BussinessObjects.csproj">
+      <Project>{b6c8fded-0558-4930-a9ff-f6e61c76af7d}</Project>
+      <Name>Nirvana.TestAutomation.BussinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Factory\Nirvana.TestAutomation.Factory.csproj">
+      <Project>{8d2bb2fc-8362-41ba-ab0f-4c6b0e8915f6}</Project>
+      <Name>Nirvana.TestAutomation.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Interfaces\Nirvana.TestAutomation.Interfaces.csproj">
+      <Project>{85e56089-02d6-435a-ab82-dc828da19114}</Project>
+      <Name>Nirvana.TestAutomation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.UIAutomation\Nirvana.TestAutomation.UIAutomation.csproj">
+      <Project>{c814debb-9e96-4795-9fde-8f7b950771f7}</Project>
+      <Name>Nirvana.TestAutomation.UIAutomation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Utilities\Nirvana.TestAutomation.Utilities.csproj">
+      <Project>{1dc3644b-50a8-4fe8-9237-39e3f3ae563a}</Project>
+      <Name>Nirvana.TestAutomation.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Steps.CameronSimulator\Nirvana.TestAutomation.Steps.CameronSimulator.csproj">
+      <Project>{95632692-2f01-4974-b2a0-1ae37bcc49b3}</Project>
+      <Name>Nirvana.TestAutomation.Steps.CameronSimulator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Steps.Expnl\Nirvana.TestAutomation.Steps.Expnl.csproj">
+      <Project>{60a29787-d11b-40e1-9892-1f0e3be60d91}</Project>
+      <Name>Nirvana.TestAutomation.Steps.Expnl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Steps.PranaClient\Nirvana.TestAutomation.Steps.PranaClient.csproj">
+      <Project>{3b7a79e9-7dda-482e-b824-8860920e2ec2}</Project>
+      <Name>Nirvana.TestAutomation.Steps.PranaClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Steps.PricingServer\Nirvana.TestAutomation.Steps.PricingServer.csproj">
+      <Project>{df8efa67-3378-4d9f-b49c-d03d09f6072f}</Project>
+      <Name>Nirvana.TestAutomation.Steps.PricingServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Steps.TradeServer\Nirvana.TestAutomation.Steps.TradeServer.csproj">
+      <Project>{48bc2d86-c113-41c0-8ed3-fe0ad7a46436}</Project>
+      <Name>Nirvana.TestAutomation.Steps.TradeServer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

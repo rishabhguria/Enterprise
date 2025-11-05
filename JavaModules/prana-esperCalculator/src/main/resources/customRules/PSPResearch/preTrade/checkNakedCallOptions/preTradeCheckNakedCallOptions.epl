@@ -1,0 +1,95 @@
+module customRules.PSPResearch.preTrade.checkNakedCallOptions.preTradeCheckNakedCallOptions;
+	
+@Name('NakedCallAccSymbolExistingPositionsOtherExist')
+@Description('Getting pre quantity positions sum, including InStage and InMarket taxlot type')
+on pattern [every (T = RowCalculationBaseWindowWhatIfModified)]
+insert into NakedCallAccSymbolExistingPositions
+select
+	R.underlyingSymbol as underlyingSymbol,
+	"RowCalculationBaseWindow" as parentWindowStream,
+	sum(R.quantity* R.multiplier) as preQuantity,
+	R.accountId as accountId,
+	'Other Exists' as eventType
+from
+	RowCalculationBaseWindow as R
+where R.underlyingSymbol = T.underlyingSymbol and R.accountId = T.accountId 
+and ((R.taxlotId <> T.taxlotId and R.taxlotType <> 'WhatIf') or (R.taxlotId = T.taxlotId and R.taxlotType = 'Post')) 
+and (R.asset = 'Equity' or (R.asset = 'EquityOption' and R.putOrCall = 'Call' and R.orderSide = 'Sell to Open'))
+group by accountId, underlyingSymbol;
+	
+
+@Name('NakedCallAccSymbolExistingPositionsTaxlotNotExist')
+@Description('If symbol position is not exist in portfolio')
+insert into NakedCallAccSymbolExistingPositions
+select distinct
+	T.underlyingSymbol as underlyingSymbol,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream,
+	0.0 as preQuantity,
+	T.accountId as accountId,
+	'Nothing Exists' as eventType
+from
+	RowCalculationBaseWindowWhatIfModified as T
+where
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.underlyingSymbol = T.underlyingSymbol and S.accountId = T.accountId and (S.asset = 'Equity' or (S.asset = 'EquityOption' and S.putOrCall = 'Call' and S.orderSide = 'Sell to Open')));
+	
+@Name('NakedCallAccSymbolOnlyExistingPositions')
+@Description('If symbol position is not exist in portfolio')
+insert into NakedCallAccSymbolExistingPositions
+select distinct
+	T.underlyingSymbol as underlyingSymbol,
+	"RowCalculationBaseWindowWhatIfModified,RowCalculationBaseWindow" as parentWindowStream,
+	0.0 as preQuantity,
+	T.accountId as accountId,
+	'Only Exists' as eventType
+from
+	RowCalculationBaseWindowWhatIfModified as T unidirectional left outer join
+	RowCalculationBaseWindow as R
+where	R.taxlotType <> 'WhatIf' and R.underlyingSymbol = T.underlyingSymbol and R.accountId = T.accountId and
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.underlyingSymbol = T.underlyingSymbol and S.accountId = T.accountId and S.taxlotId <> T.taxlotId and (R.asset = 'Equity' or (R.asset = 'EquityOption' and R.putOrCall = 'Call' and R.orderSide = 'Sell to Open')));
+
+@Name('PreTradeDetailsNakedCallAccSymbolTaxlotExist')
+@Description('If symbol position exist in portfolio')
+insert into PreTradeDetailsNakedCallAccSymbol
+select
+    T.symbol as symbol,
+	S.underlyingSymbol as underlyingSymbol,
+	S.preQuantity as preQuantity,
+    T.quantity as tradeQuantity,	
+    T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	T.accountShortName as accountShortName,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream
+from pattern
+[
+	every (T = RowCalculationBaseWindowWhatIfModified -> S = NakedCallAccSymbolExistingPositions)
+]
+where S.underlyingSymbol = T.underlyingSymbol and S.accountId = T.accountId;
+
+
+@Name('PreTradeCheckSideNakedCallAccSymbol')
+@Description('Final PreTradeCheckSideNakedCallAccSymbol stream')
+insert into PreTradeCheckSideNakedCallAccSymbol
+select
+	cast(T.userId, int) as userId,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	'N/A' || ValueSeparator || 'N/A' || ValueSeparator || 'N/A' || ValueSeparator || 'N/A' as threshold,
+	T.symbol || ValueSeparator || T.accountShortName || ValueSeparator || doubleFormat(coalesce(T.tradeQuantity, 0)) || ValueSeparator || T.orderSide as actualResult,
+	'Symbol' || ValueSeparator || 'Account' || ValueSeparator || 'Quantity' || ValueSeparator || 'OrderSide' as constraintField,
+    (case (S.assetId = 2 and S.putOrCall = 'Call' and T.orderSide = 'Sell to Open' and valueExistsInCSV(T.accountShortName, Account_NakedCallOptions)) when true then 
+	(T.preQuantity + (T.tradeQuantity*S.multiplier) < 0)
+    else false end)	
+	as isViolated,
+	'Order Side: '|| T.orderSide || 
+	', Symbol: '|| T.symbol ||
+	', Account: '|| T.accountShortName ||
+	', Underlying Shares available: '|| doubleFormat(coalesce(T.preQuantity, 0)) ||
+	', Trade quantity: '|| doubleFormat(coalesce(T.tradeQuantity * -1, 0)) || ' contracts' as parameters,
+	current_timestamp as validationTime,
+	'Account does not have sufficient underlying shares to cover call options' as summary,
+	T.accountShortName|| '-' || T.symbol as dimension
+from
+	PreTradeDetailsNakedCallAccSymbol as T unidirectional left outer join
+	SecurityWindow as S on T.symbol = S.tickerSymbol;

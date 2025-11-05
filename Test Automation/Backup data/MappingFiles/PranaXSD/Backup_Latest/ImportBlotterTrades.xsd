@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="PositionMaster">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="OrderSideTagValue" type="xs:string" minOccurs="1" />
+							<xs:element name="Symbol" type="xs:string" minOccurs="1" />
+							<xs:element name="Quantity" type="xs:decimal" minOccurs="1" />
+							<xs:element name="Price" type="xs:decimal" minOccurs="0" />
+							<xs:element name="Venue" type="xs:string" minOccurs="0" />
+							<xs:element name="VenueID" type="xs:int" minOccurs="0" />
+							<xs:element name="CounterPartyName" type="xs:string" minOccurs="0" />
+							<xs:element name="CounterPartyID" type="xs:int" minOccurs="0" />
+							<xs:element name="HandlingInstruction" type="xs:int" minOccurs="0" />
+							<xs:element name="AuecLocalDate" type="xs:string" minOccurs="0" />
+							<xs:element name="StopPrice" type="xs:decimal" minOccurs="0" />
+							<xs:element name="TIF" type="xs:int" minOccurs="0" />
+							<xs:element name="Level1ID" type="xs:double" minOccurs="0" />
+							<xs:element name="Level2ID" type="xs:double" minOccurs="0" />
+							<xs:element name="TradingAccountID" type="xs:int" minOccurs="0" />
+							<xs:element name="ExecutionInstruction" type="xs:string" minOccurs="0" />
+							<xs:element name="AUECID" type="xs:int" minOccurs="0" />
+							<xs:element name="AssetID" type="xs:int" minOccurs="0" />
+							<xs:element name="UnderlyingID" type="xs:int" minOccurs="0" />
+							<xs:element name="CumQty" type="xs:int" minOccurs="0" />
+							<xs:element name="SettlCurrFxRate" type="xs:decimal" minOccurs="0" />
+							<xs:element name="SettlCurrFxRateCalc" type="xs:string" minOccurs="0" />
+							<xs:element name="CurrencyID" type="xs:int" minOccurs="0" />
+							<xs:element name="ExchangeID" type="xs:int" minOccurs="0" />
+							<xs:element name="CommissionRate" type="xs:decimal" minOccurs="0" />
+							<xs:element name="CalcBasis" type="xs:int" minOccurs="0" />
+							<xs:element name="SecurityType" type="xs:string" minOccurs="0" />
+							<xs:element name="DiscretionInst" type="xs:int" minOccurs="0" />
+							<xs:element name="DisplayQuantity" type="xs:decimal" minOccurs="0" />
+							<xs:element name="LocateReqd" type="xs:string" minOccurs="0" />
+							<xs:element name="PranaMsgType" type="xs:int" minOccurs="0" />
+							<xs:element name="UserID" type="xs:integer" minOccurs="0" />
+							<xs:element name="OrderTypeTagValue">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

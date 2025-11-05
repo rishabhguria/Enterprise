@@ -1,0 +1,97 @@
+ExchangeList:
+	1. Nirvana.EsperRequest - Durable, fanout("//will be converted to direct")
+			Used by prana.expnlCalculator for sending messages like "initialization inforamtion", "live feed request"
+			listeners are:
+				1. Prana.ExposureAndPnLCalulator for sending data
+				2. Prana.OptionServer for recieving livefeed request
+	
+	2. Nirvana.Portfolio - Durable, Direct, routing key will be compressionLevel
+			Used by prana.expnlCalculator for sending portfolio (post trade)
+			Listeners are:
+				1. prana.riskManagementJava for checking post trade rules
+				2. PM for displaying data
+	
+	3. Nirvana.WhatIfPortfolio - Durable, Direct, routing key will be compressionLevel
+			Used by prana.expnlCalculator for sending portfolio (pre trade)
+			Listeners are:
+				1. prana.riskManagementJava for checking post trade rules
+				
+	4. Nirvana.OverrideRuleRequest - Durable,Direct, routing key will be userId of client
+			used by Prana.Server for asking client (whether to pass what if trade which has been blocked by rules)
+			Listeners are:
+				1. Prana.Client for responding 
+				
+	5. Nirvana.RuleBuildRequest - Durable,fanout
+			Used by Prana.Client for risk management UI to refresh and build rule definition
+			Listeners are:
+				1. prana.riskManagementJava to build package for refreshing new rules
+				
+	6. Nirvana.RuleBuildResponse - Durable, fanout
+			Used by prana.riskManagementJava to respond back for all clients tha rule definitions has be refreshed
+			Listeners are:
+				1. Prana.Client for refreshing their rule definition UI
+	
+	7. Nirvana.RuleSixteenB - Durable, fanout
+			used by Prana.ExposureAndPnLCalulator for sending data at startup.
+			used by Prana.Client for sending data at runtime.
+			Listeners are:
+				1. Prana.ExposureAndPnLCalulator for recieving rules at runtime
+				2. prana.expnlCalculator for recieving rules at runtime for calculating runtime rulfeed genaration
+	
+QueueList:
+	1. Nirvana.Order - 
+			Used by Prana.ExposureAndPnLCalulator for sending current executed trades
+			Listeners are:
+				1. prana.expnlCalculator for recieving orderSingle
+	
+	2. Nirvana.HistoricalPosition - 
+		Used by Prana.ExposureAndPnLCalulator for sending historical positions
+		Listeners are:
+			1. prana.expnlCalculator for recieving historical positions
+		
+	3. Nirvana.SymbolData - 
+		Used by Prana.ExposureAndPnLCalulator for sending recieved symbol data
+		Listeners are:
+			1. prana.expnlCalculator for recieving symboldata
+			
+	4. Nirvana.WhatIfOrder - 
+			Used by Prana.Server(Trade server) for sending whatif (pre) trades
+			Listeners are:
+				1. prana.expnlCalculator for recieving what if (pre-trade)
+	
+	5. Nirvana.SixteenBRuleFeed - 
+			Used by Prana.Server(Trade server) for sending whatif (pre) trades
+			Listeners are:
+				1. prana.expnlCalculator for recieving 16B rules
+	
+	6. Nirvana.SixteenBRuleDataFeed - 
+			Used by Prana.Server(Trade server) for sending whatif (pre) trades
+			Listeners are:
+				1. prana.expnlCalculator for recieving data for each 16B rule
+	
+	7. Nirvana.RuleResponseSixteenB - 
+			Used by prana.expnlCalculator for sending rule response after checking pretrade for 16B rule
+			Listeners are:
+				1. Prana.Server for checking what if (pre-trade)
+	
+	8. Nirvana.RuleResponseWashSale - 
+			Used by prana.expnlCalculator for sending rule response after checking pretrade for WashSale rule
+			Listeners are:
+				1. Prana.Server for checking what if (pre-trade)
+	
+	9. Nirvana.RuleResponseUserDefined - 
+			Used by prana.RuleManagementjava for sending rule response after checking pretrade for user defined rules
+			Listeners are:
+				1. Prana.Server for checking what if (pre-trade)
+	
+	10. Nirvana.OverrideRuleResponse - 
+			Used by Prana.Client for sending rule response to override
+			Listeners are:
+				1. Prana.Server for checking what if (pre-trade)
+	
+	11. Nirvana.RuleFeedSixteenB
+			Used By Prana.ExposureAndPnLCalulator to send rulefeed for SixteenB
+			Listeners are:
+				1. prana.expnlCalculator to operate on RuleFeed
+				
+			

@@ -1,0 +1,63 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+<!DOCTYPE Configure PUBLIC
+ "-//Mort Bay Consulting//DTD Configure 1.2//EN"
+ "http://jetty.mortbay.org/configure_1_2.dtd">
+
+<!--
+ Jetty configuration file.
+
+ This starts jetty on port specified by system property "jetty.port" or, if that
+ it not set, port 8080.
+ -->
+
+<Configure class="org.mortbay.jetty.Server">
+
+  <!-- Comment this element out if you want to disable HTTP access. -->
+  <Call name="addListener">
+    <Arg>
+      <New class="org.mortbay.http.SocketListener">
+        <Set name="Port">
+          <!-- Change the HTTP port here or define the jetty.port system property-->
+          <SystemProperty name="jetty.port" default="8080"/>
+        </Set>
+      </New>
+    </Arg>
+  </Call>
+
+
+
+  <Call name="addWebApplication">
+    <Arg>/web</Arg>
+    <Arg>
+      <SystemProperty name="jetty.home" default="."/>
+    </Arg>
+    <!-- <Set name="defaultsDescriptor">
+      <SystemProperty name="jetty.home"
+       default="."/>webdefault.xml
+    </Set> -->
+
+    <!--
+      Uncomment the following "Set" element to enable role base access
+      control.  You should also uncomment the Security Constraints and Security Roles
+      sections in ../WEB-INF/web.xml
+
+      It create a HashUserRealm called "Standard", which loads a list of users,
+      passwords and roles from the ${jetty.home}/etc/password.txt into an in
+      memory hash table.
+
+      A UserRealm is an object that can authenticate users.  Note that there are
+      other implementations of UserRealm that can authenticate against other
+      sources of user information (e.g., databases or any JAAS source).
+      See http://jetty.mortbay.org/ and http://java.sun.com/products/jaas
+    -->
+    <!--
+    <Set name="Realm">
+      <New class="org.mortbay.http.HashUserRealm">
+        <Arg>Standard</Arg>
+        <Arg><SystemProperty name="jetty.home" default="."/>/etc/passwords.txt</Arg>
+      </New>
+    </Set>
+    -->
+  </Call>
+
+</Configure>

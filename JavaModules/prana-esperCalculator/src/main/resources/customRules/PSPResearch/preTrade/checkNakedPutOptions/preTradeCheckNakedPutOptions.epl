@@ -1,0 +1,119 @@
+module customRules.SpecialSituation.preTrade.checkNakedPutOptions.preTradeCheckNakedPutOptions;
+	
+@Name('NakedPutAccSymbolExistingDetailsOtherExist')
+@Description('Getting existing Put options cash, including InStage and InMarket taxlot type')
+on pattern [every (T = RowCalculationBaseWindowWhatIfModified)]
+insert into NakedPutAccSymbolExistingDetails
+select
+	T.basketId as basketId,
+	T.taxlotId as taxlotId,
+	"RowCalculationBaseWindow" as parentWindowStream,
+	sum(R.quantity* R.multiplier*R.strikePrice) as existingCashInOptions,
+	R.accountId as accountId,
+	'Other Exists' as eventType
+from
+	RowCalculationBaseWindow as R
+where R.accountId = T.accountId 
+and ((R.taxlotId <> T.taxlotId and R.taxlotType <> 'WhatIf') or (R.taxlotId = T.taxlotId and R.taxlotType = 'Post')) 
+and (R.asset = 'EquityOption' and R.putOrCall = 'Put' and R.orderSide = 'Sell to Open')
+group by accountId;
+	
+
+@Name('NakedPutAccSymbolExistingDetailsTaxlotNotExist')
+@Description('If symbol position is not exist in portfolio')
+insert into NakedPutAccSymbolExistingDetails
+select distinct
+	T.basketId as basketId,
+	T.taxlotId as taxlotId,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream,
+	0.0 as existingCashInOptions,
+	T.accountId as accountId,
+	'Nothing Exists' as eventType
+from
+	RowCalculationBaseWindowWhatIfModified as T
+where
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.accountId = T.accountId and (S.asset = 'EquityOption' and S.putOrCall = 'Put' and S.orderSide = 'Sell to Open'));
+	
+@Name('NakedPutAccSymbolOnlyExistingPositions')
+@Description('If symbol position is not exist in portfolio')
+insert into NakedPutAccSymbolExistingDetails
+select distinct
+	T.basketId as basketId,
+	T.taxlotId as taxlotId,
+	"RowCalculationBaseWindowWhatIfModified,RowCalculationBaseWindow" as parentWindowStream,
+	0.0 as existingCashInOptions,
+	T.accountId as accountId,
+	'Only Exists' as eventType
+from
+	RowCalculationBaseWindowWhatIfModified as T unidirectional left outer join
+	RowCalculationBaseWindow as R
+where	R.taxlotType <> 'WhatIf' and R.accountId = T.accountId and
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.accountId = T.accountId and S.taxlotId <> T.taxlotId and (R.asset = 'EquityOption' and R.putOrCall = 'Put' and R.orderSide = 'Sell to Open'));
+
+
+@Name('PreTradeDetailsNakedPutAccSymbolTaxlotExist_CashImpact')
+@Description('In market and in stage cash impact adding')
+on NakedPutAccSymbolExistingDetails as S
+insert into PreTradeDetailsNakedPutAccSymbolCashImpact
+select distinct
+	S.basketId as basketId,
+	"NakedPutAccSymbolExistingDetails" as parentWindowStream,
+	S.existingCashInOptions as existingCashInOptions,
+	sum(R.cashImpactBase) as cashImpactBase,
+	S.accountId as accountId,
+	'Cash Impact' as eventType
+	from RowCalculationBaseWindow as R
+    where (S.accountId = R.accountId and R.taxlotType <> 'WhatIf' and R.taxlotType <> 'Post' and S.taxlotId <> R.taxlotId)
+	or (R.taxlotId = S.taxlotId and R.taxlotType='WhatIf')
+	group by R.accountId;	
+
+@Name('PreTradeDetailsNakedPutAccSymbolTaxlotExist')
+@Description('If symbol position exist in portfolio')
+insert into PreTradeDetailsNakedPutAccSymbol
+select
+    T.symbol as symbol,
+	S.existingCashInOptions as existingCashInOptions,
+	S.cashImpactBase as cashImpactBase,
+    T.quantity as tradeQuantity,	
+    T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream
+from pattern
+[
+	every (T = RowCalculationBaseWindowWhatIfModified -> S = PreTradeDetailsNakedPutAccSymbolCashImpact)
+]
+where S.basketId = T.basketId and S.accountId = T.accountId;
+
+
+
+@Name('PreTradeCheckSideNakedPutAccSymbol')
+@Description('Final PreTradeCheckSideNakedPutAccSymbol stream')
+insert into PreTradeCheckSideNakedPutAccSymbol
+select
+	cast(T.userId, int) as userId,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	'N/A' || ValueSeparator || 'N/A' || ValueSeparator || 'N/A' || ValueSeparator || 'N/A' as threshold,
+	T.symbol || ValueSeparator || T.accountShortName || ValueSeparator || doubleFormat(coalesce(T.tradeQuantity, 0)) || ValueSeparator || T.orderSide as actualResult,
+	'Symbol' || ValueSeparator || 'Account' || ValueSeparator || 'Quantity' || ValueSeparator || 'OrderSide' as constraintField,
+    (case (S.assetId = 2 and S.putOrCall = 'Put' and T.orderSide = 'Sell to Open' and valueExistsInCSV(T.accountShortName, Account_NakedPutOptions)) when true then 
+	(T.existingCashInOptions +T.cashImpactBase + A.currentCash + (T.tradeQuantity*S.multiplier*S.strikePrice) < 0)
+    else false end)	
+	as isViolated,
+	'Order Side: '|| T.orderSide || 
+	', Symbol: '|| T.symbol ||
+	', Account: '|| T.accountShortName ||
+	', Cash available: '|| doubleFormat(coalesce(T.existingCashInOptions + A.currentCash + T.cashImpactBase, 0)) ||
+	', Cash required: '|| doubleFormat(coalesce((T.tradeQuantity*S.multiplier*S.strikePrice*-1), 0)) ||
+	', Trade quantity: '|| doubleFormat(coalesce(T.tradeQuantity * -1, 0)) || ' contracts' as parameters,
+	current_timestamp as validationTime,
+	'Account does not have sufficient cash to cover Put options' as summary,
+	T.accountShortName|| '-' || T.symbol as dimension
+from
+	PreTradeDetailsNakedPutAccSymbol as T unidirectional left outer join
+	SecurityWindow as S on T.symbol = S.tickerSymbol left outer join
+	AccountWithNav as A on T.accountId = A.accountId ;

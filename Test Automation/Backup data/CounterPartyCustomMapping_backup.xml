@@ -1,0 +1,613 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Counterparties>
+  <CounterParty ID="19" Name="Abundance_GSCO">
+    <!--<MethodRule>
+				<Condition Direction="0" ConditionString ="167=OPT" ToTag="55" FromTag="55" MethodName="Replace" Parameters="/, " ParametersTypes="String,String"></Condition>
+			</MethodRule>-->
+    <DllRule>
+      <!--<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+' '+207"></Condition>-->
+      <Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G'.{2})$"  ReplaceWith=" ${G}"  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString="65=A"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+      <Condition Direction="0" ConditionString="65=B"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+    </DllRule>
+    <Rule1 >
+      <!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+      <Condition Direction="0"  ConditionString="39=5" FromTags="37" ToTags="41" />
+      <Condition Direction="0"  ConditionString="167=OPT" FromTags="11055" ToTags="55" />
+    </Rule1>
+    <DefaultRule>
+      <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,19,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+    </DefaultRule>
+    <Rule2>
+      <Condition Direction="0"  ConditionString="167=OPT" ToTags="100041"  ToTagsValues="0"  />
+    </Rule2>
+  </CounterParty>
+  <CounterParty ID="15" Name="Abundance_GSEC">
+    <DefaultRule>
+      <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,19,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+    </DefaultRule>
+    <Rule1 >
+      <Condition Direction="0"  ConditionString="39=5" FromTags="37" ToTags="41" />
+      <Condition Direction="0"  ConditionString="" FromTags="60" ToTags="10096" />
+    </Rule1>
+    <DllRule>
+      <Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G'.{2})$"  ReplaceWith=" ${G}"  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString="" RegularExpression="(?'G'.{9})$"  ReplaceWith="1"  Tag="10096" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=37+37-10096"></Condition>
+    </DllRule>
+  </CounterParty>
+
+
+  <CounterParty ID="11" Name="ER_LR">
+
+    <MethodRule>
+      <Condition Direction="0" ConditionString ="115=BLPNDRP" ToTag="55" FromTag="55" MethodName="Replace" Parameters=" CV, CN" ParametersTypes="String,String"></Condition>
+      <Condition Direction="0" ConditionString ="115=BLPNDRP" ToTag="55" FromTag="55" MethodName="Replace" Parameters=" CT, CN" ParametersTypes="String,String"></Condition>
+    </MethodRule>
+    <Rule1 >
+      <!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+      <Condition Direction="0"  ConditionString="39=5" FromTags="37" ToTags="41" />
+    </Rule1>
+    <DefaultRule>
+      <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,19,17,1,1,1" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+    </DefaultRule>
+
+    <DllRule>
+      <Condition Direction="0" ConditionString="115=BLPEORD"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+' '+207"></Condition>
+      <Condition Direction="0" ConditionString="115=BLPNDRP" RegularExpression="([ ]+)"  ReplaceWith=" "  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString="115=BLPNDRP" RegularExpression="-[0-9]{3}"  ReplaceWith="-"  Tag="37" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString="115=BLPNDRP" RegularExpression="-[0-9]{3}"  ReplaceWith="-"  Tag="41" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+    </DllRule>
+
+    <Rule2>
+      <Condition Direction="0"  ConditionString="76=MIZ" ToTags="100002"  ToTagsValues="14"  />
+      <Condition Direction="0"  ConditionString="76=AGCO" ToTags="100002"  ToTagsValues="19"  />
+      <Condition Direction="0"  ConditionString="76=KISC" ToTags="100002"  ToTagsValues="15"  />
+      <Condition Direction="0"  ConditionString="76=UBS" ToTags="100002"  ToTagsValues="16"  />
+      <Condition Direction="0"  ConditionString="76=CLST" ToTags="100002"  ToTagsValues="17"  />
+      <Condition Direction="0"  ConditionString="76=ABN1" ToTags="100002"  ToTagsValues="18"  />
+      <Condition Direction="0"  ConditionString="76=BSMN" ToTags="100002"  ToTagsValues="20"  />
+      <Condition Direction="0"  ConditionString="76=BTIA" ToTags="100002"  ToTagsValues="21"  />
+      <Condition Direction="0"  ConditionString="76=CG" ToTags="100002"  ToTagsValues="22"  />
+      <Condition Direction="0"  ConditionString="76=CLSA" ToTags="100002"  ToTagsValues="23"  />
+      <Condition Direction="0"  ConditionString="76=GLBL" ToTags="100002"  ToTagsValues="24"  />
+      <Condition Direction="0"  ConditionString="76=GMNY" ToTags="100002"  ToTagsValues="25"  />
+      <Condition Direction="0"  ConditionString="76=JEFB" ToTags="100002"  ToTagsValues="26"  />
+      <Condition Direction="0"  ConditionString="76=KEHK" ToTags="100002"  ToTagsValues="27"  />
+      <Condition Direction="0"  ConditionString="76=KENY" ToTags="100002"  ToTagsValues="28"  />
+      <Condition Direction="0"  ConditionString="76=MQSL" ToTags="100002"  ToTagsValues="29"  />
+      <Condition Direction="0"  ConditionString="76=UBKH" ToTags="100002"  ToTagsValues="30"  />
+      <Condition Direction="0"  ConditionString="76=LGIS" ToTags="100002"  ToTagsValues="31"  />
+      <Condition Direction="0"  ConditionString="76=NE" ToTags="100002"  ToTagsValues="32"  />
+      <Condition Direction="0"  ConditionString="76=3V" ToTags="100002"  ToTagsValues="34"  />
+      <Condition Direction="0"  ConditionString="76=CORMACK" ToTags="100002"  ToTagsValues="35"  />
+      <Condition Direction="0"  ConditionString="76=EVO" ToTags="100002"  ToTagsValues="36"  />
+      <Condition Direction="0"  ConditionString="76=JENNINGS" ToTags="100002"  ToTagsValues="37"  />
+      <Condition Direction="0"  ConditionString="76=JS-GLOBAL" ToTags="100002"  ToTagsValues="38"  />
+      <Condition Direction="0"  ConditionString="76=MIR" ToTags="100002"  ToTagsValues="39"  />
+      <Condition Direction="0"  ConditionString="76=MLCO" ToTags="100002"  ToTagsValues="40"  />
+      <Condition Direction="0"  ConditionString="76=Para" ToTags="100002"  ToTagsValues="41"  />
+      <Condition Direction="0"  ConditionString="76=REN" ToTags="100002"  ToTagsValues="42"  />
+      <Condition Direction="0"  ConditionString="76=SMSNG" ToTags="100002"  ToTagsValues="43"  />
+      <Condition Direction="0"  ConditionString="76=INET" ToTags="100002"  ToTagsValues="44"  />
+
+      <Condition Direction="0"  ConditionString="207=CV" ToTags="207"  ToTagsValues="CN"  />
+      <Condition Direction="0"  ConditionString="207=CT" ToTags="207"  ToTagsValues="CN"  />
+    </Rule2>
+
+    <!--<Rule2>
+			<Condition Direction="0"  ConditionString="167=OPT" ToTags="100041"  ToTagsValues="0"  />
+		</Rule2>-->
+
+  </CounterParty>
+
+  <CounterParty ID="1" Name="MS">
+
+	<Rule1 >
+
+		<!-- Copy Sedol Symbol to tag 48 -->
+		<Condition Direction="1"  ConditionString="" FromTags="100045" ToTags="48" /> 
+
+		<!-- Copy Underlying Symbol into tag 55 in case of Option-->
+		<Condition Direction="1"  ConditionString="167=OPT" FromTags="311" ToTags="55" />
+
+		<!-- IF BorrowBroker is present in a SellShort trade then assign its value to 5700 -->
+		<Condition Direction="1"  ConditionString="100165? AND 54==5" FromTags="100165" ToTags="5700" />
+
+		<!-- Specific to GTC/GTD wherein we dont want to miss the fills in case of pending replace/pending cancel  --> 
+        <Condition Direction="0"  ConditionString="59,59 = 1,6 AND 150=1"  FromTags="150" ToTags="39"  />
+		
+		<!-- SWAP PARAMETER -->
+		<Condition Direction="1"  ConditionString="100074?" FromTags="100074" ToTags="58" />
+		
+	</Rule1>
+
+	<Rule2 >
+		
+		<!-- Set the routing values -->
+		<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="TITNTRFXSTNE"/>
+		<Condition Direction="1"  ConditionString="" ToTags="128"  ToTagsValues="SNEX"/>
+
+		
+		<Condition Direction="1"  ConditionString="35=D" ToTags="47"  ToTagsValues="A"/>
+		<Condition Direction="1"  ConditionString="35=G" ToTags="47"  ToTagsValues="A"/>
+		
+		<Condition Direction="1"  ConditionString="100009=17" ToTags="116"  ToTagsValues="Support_TEST"/>
+		<Condition Direction="1" ConditionString="100009=87" ToTags="116"  ToTagsValues="CPaolino" />
+		<Condition Direction="1"  ConditionString="" ToTags="18"  ToTagsValues="1"/>
+		<Condition Direction="1"  ConditionString="100003==41" ToTags="21"  ToTagsValues="1"/>
+		<Condition Direction="1"  ConditionString="100003==1" ToTags="21"  ToTagsValues="3"/>
+
+		<Condition Direction="1"  ConditionString="100004==1" ToTags="167"  ToTagsValues="CS"/>
+		<Condition Direction="1"  ConditionString="100004==2" ToTags="167"  ToTagsValues="OPT"/>
+
+		
+
+		<Condition Direction="1" ConditionString="" ToTags="22" ToTagsValues="2"/>
+		<Condition Direction="1" ConditionString="100165? AND 54==5" ToTags="114" ToTagsValues="N"/>
+		<Condition Direction="1" ConditionString="100165!? AND 54==5" ToTags="114" ToTagsValues="Y"/>
+		<!-- <Condition Direction="1" ConditionString="54==5" ToTags="5700" ToTagsValues="SNEX"/> -->
+		
+
+		<!--currency mapping(on broker demand only)-->
+		<Condition Direction="1"  ConditionString="100007==1" ToTags="15" ToTagsValues="USD"  />
+		
+		<!--Exchange mapping (on broker demand only)-->
+		<Condition Direction="1"  ConditionString="100008==1" ToTags="100" ToTagsValues="O"  />
+		
+		
+		<!--Default is US exchanges-->
+		<Condition Direction="1"  ConditionString="" ToTags="100" ToTagsValues="O"  />
+		
+		<!--Newyork-->
+		<Condition Direction="1"  ConditionString="100006==1" ToTags="100" ToTagsValues="US"  />
+		
+		<Condition Direction="1"  ConditionString="100006==15" ToTags="100" ToTagsValues="US"  />
+		
+		<!--Newyork-->
+		<Condition Direction="1"  ConditionString="100008==11" ToTags="100" ToTagsValues="P"  />
+		<!--Hong Kong-->
+		<Condition Direction="1"  ConditionString="100008==36" ToTags="100" ToTagsValues="HK"  />
+		<Condition Direction="1"  ConditionString="100008==20" ToTags="100" ToTagsValues="HK"  />
+		<!--Korea Stock Exchange KSE-->
+		<Condition Direction="1"  ConditionString="100008==65" ToTags="100" ToTagsValues="KS"  />
+		<!--Korea Stock Exchange KOSDAQ-->
+		<Condition Direction="1"  ConditionString="100008==69" ToTags="100" ToTagsValues="KQ"  />
+		<!--London-->
+		<Condition Direction="1"  ConditionString="100008==43" ToTags="100" ToTagsValues="LN"  />
+		<!--Mexico-->
+		<Condition Direction="1"  ConditionString="100008==102" ToTags="100" ToTagsValues="MM"  />
+		<!--Taiwan Exchange-->
+		<Condition Direction="1"  ConditionString="100008==76" ToTags="100" ToTagsValues="TT"  />
+		<!--France (Paris Euronext) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==44" ToTags="100" ToTagsValues="FP"  />
+		<!--Italy (Vienna) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==45" ToTags="100" ToTagsValues="AV"  />
+		<!--Denmark (Copenhagen) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==108" ToTags="100" ToTagsValues="DC"  />
+		<!--Finland (Helsinki) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==48" ToTags="100" ToTagsValues="FH"  />
+		<!--Ireland Exchange-->
+		<Condition Direction="1"  ConditionString="100008==49" ToTags="100" ToTagsValues="ID"  />
+		<!--Spain (Madrid) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==53" ToTags="100" ToTagsValues="SM"  />
+		<!--Greece (Athens)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==55" ToTags="100" ToTagsValues="GA"  />
+		<!--Switzerland (Swiss)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==54" ToTags="100" ToTagsValues="SW"  />
+		<!--Italy (Milan)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==56" ToTags="100" ToTagsValues="IM"  />
+		<!--Sweden (Stockholm)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==59" ToTags="100" ToTagsValues="SS"  />
+		<!--Belgium(Euronext Brussels)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==79" ToTags="100" ToTagsValues="BB"  />
+		<!--Romania (Bucharest)Exchange-->
+		<!-- <Condition Direction="1"  ConditionString="100008==86" ToTags="100" ToTagsValues="RO"  /> -->
+		<!--Poland (Warsaw)Exchange-->
+		<!-- <Condition Direction="1"  ConditionString="100008==87" ToTags="100" ToTagsValues="PW"  /> -->
+		<!--Netherlands (Euronext Amsterdam)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==109" ToTags="100" ToTagsValues="NA"  />
+		<!--Japan (Tokyo)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==21" ToTags="100" ToTagsValues="JP"  />
+		<Condition Direction="1"  ConditionString="100008==23" ToTags="100" ToTagsValues="JP"  />
+		<!--Japan (JASDAQ)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==28" ToTags="100" ToTagsValues="JP"  />
+		<!--Japan (Nagoya)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==75" ToTags="100" ToTagsValues="JP"  />
+		<!--Japan (Osaka)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==27" ToTags="100" ToTagsValues="JP"  />
+		<!--Australia Exchange-->
+		<Condition Direction="1"  ConditionString="100008==63" ToTags="100" ToTagsValues="AU"  />
+		<!--New Zealand Exchange-->
+		<Condition Direction="1"  ConditionString="100008==107" ToTags="100" ToTagsValues="NZ"  />
+		<!--Norway (Oslo) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==31" ToTags="100" ToTagsValues="NO"  />
+		<!-- <Condition Direction="1"  ConditionString="100008==109" ToTags="100" ToTagsValues="SZ"  /> -->
+		<!--China Exchange-->
+		<Condition Direction="1"  ConditionString="100008==64" ToTags="100" ToTagsValues="CG"  />
+		<!--Germany Exchange-->
+		<Condition Direction="1"  ConditionString="100008==34" ToTags="100" ToTagsValues="GR"  />
+		<!--Canada Exchange-->
+		<Condition Direction="1"  ConditionString="100008==73" ToTags="100" ToTagsValues="CN"  />
+		<Condition Direction="1"  ConditionString="100008==74" ToTags="100" ToTagsValues="CN"  />
+		<!--Israel(Tel Aviv) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==110" ToTags="100" ToTagsValues="IT"  />
+		<!--China (Shenzhen) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==111" ToTags="100" ToTagsValues="CS"  />
+		<!--Colombia Exchange-->
+		<Condition Direction="1"  ConditionString="100008==112" ToTags="100" ToTagsValues="CX"  />
+		<!--Chile (Santiago) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==113" ToTags="100" ToTagsValues="CC"  />
+		<!--Czech Republic (Prague) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==114" ToTags="100" ToTagsValues="CK"  />
+		<!--U.A.E (Nasdaq Dubai) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==115" ToTags="100" ToTagsValues="DU"  />
+		<!--Hungary (Budapest) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==116" ToTags="100" ToTagsValues="HB"  />
+		<!--Egypt (Egyptian) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==117" ToTags="100" ToTagsValues="EC"  />
+		<!--Indonesia Exchange-->
+		<Condition Direction="1"  ConditionString="100008==118" ToTags="100" ToTagsValues="IJ"  />
+		<!--Bursa Malaysia Exchange-->
+		<Condition Direction="1"  ConditionString="100008==119" ToTags="100" ToTagsValues="MK"  />
+		<!--Kuwait Exchange-->
+		<Condition Direction="1"  ConditionString="100008==120" ToTags="100" ToTagsValues="KK"  />
+		<!--Qatar Exchange-->
+		<Condition Direction="1"  ConditionString="100008==121" ToTags="100" ToTagsValues="QD"  />
+		<!--Borsa Istanbul Exchange-->
+		<Condition Direction="1"  ConditionString="100008==122" ToTags="100" ToTagsValues="TS"  />
+		<!--Russia (Moscow) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==123" ToTags="100" ToTagsValues="RX"  />
+		<!--Philippine Exchange-->
+		<Condition Direction="1"  ConditionString="100008==124" ToTags="100" ToTagsValues="PM"  />
+		<!--Poland (Warsaw)Exchange-->
+		<Condition Direction="1"  ConditionString="100008==125" ToTags="100" ToTagsValues="PW"  />	
+		<!--Pakistan Exchange-->
+		<Condition Direction="1"  ConditionString="100008==126" ToTags="100" ToTagsValues="PK"  />
+		<!--Canada (Aequitas Neo) Exchange-->
+		<Condition Direction="1"  ConditionString="100008==127" ToTags="100" ToTagsValues="QH"  />	
+					
+		<!--Currency Setting-->
+		<!--CurrencyID[100007]-->
+		<!--United States-->
+		<Condition Direction="1"  ConditionString="100007==1" ToTags="15" ToTagsValues="USD"  />
+		<!--Hong Kong-->
+		<Condition Direction="1"  ConditionString="100007==2" ToTags="15" ToTagsValues="HKD"  />
+		<!--GBP-->
+		<Condition Direction="1"  ConditionString="100007==4" ToTags="15" ToTagsValues="GBP"  />
+		<!--Korea-->
+		<Condition Direction="1"  ConditionString="100007==16" ToTags="15" ToTagsValues="KRW"  />
+		<!--Taiwan-->
+		<Condition Direction="1"  ConditionString="100007==46" ToTags="15" ToTagsValues="TWD"  />
+		<!--Norway-->
+		<Condition Direction="1"  ConditionString="100007==9" ToTags="15" ToTagsValues="NOK"  />
+		<!--Euro-->
+		<Condition Direction="1"  ConditionString="100007==8" ToTags="15" ToTagsValues="EUR"  />
+		<!--Denmark-->
+		<Condition Direction="1"  ConditionString="100007==27" ToTags="15" ToTagsValues="DKK"  />
+		<!--Sweden-->
+		<Condition Direction="1"  ConditionString="100007==13" ToTags="15" ToTagsValues="SEK"  />
+		<!--Romania-->
+		<Condition Direction="1"  ConditionString="100007==40" ToTags="15" ToTagsValues="RON"  />
+		<!--Poland-->
+		<Condition Direction="1"  ConditionString="100007==38" ToTags="15" ToTagsValues="PLN"  />
+		<!--Japan-->
+		<Condition Direction="1"  ConditionString="100007==3" ToTags="15" ToTagsValues="JPY"  />
+		<!--Brazil-->
+		<Condition Direction="1"  ConditionString="100007==6" ToTags="15" ToTagsValues="BRL"  />
+		<!--Australia-->
+		<Condition Direction="1"  ConditionString="100007==14" ToTags="15" ToTagsValues="AUD"  />
+		<!--New Zealand-->
+		<Condition Direction="1"  ConditionString="100007==36" ToTags="15" ToTagsValues="NZD"  />
+		<!--Switzerland-->
+		<Condition Direction="1"  ConditionString="100007==23" ToTags="15" ToTagsValues="CHF"  />
+		<!--Israel-->
+		<Condition Direction="1"  ConditionString="100007==31" ToTags="15" ToTagsValues="ILS"  />
+		<!--China-->
+		<Condition Direction="1"  ConditionString="100007==15" ToTags="15" ToTagsValues="CNY"  />
+		<!--Colombia-->
+		<Condition Direction="1"  ConditionString="100007==25" ToTags="15" ToTagsValues="COP"  />
+		<!--Chile-->
+		<Condition Direction="1"  ConditionString="100007==24" ToTags="15" ToTagsValues="CLP"  />
+		<!--Czech Republic-->
+		<Condition Direction="1"  ConditionString="100007==26" ToTags="15" ToTagsValues="CZK"  />
+		<!--UAE-->
+		<Condition Direction="1"  ConditionString="100007==5" ToTags="15" ToTagsValues="AED"  />
+		<!--Hungary-->
+		<Condition Direction="1"  ConditionString="100007==29" ToTags="15" ToTagsValues="HUF"  />
+		<!--Egypt-->
+		<Condition Direction="1"  ConditionString="100007==57" ToTags="15" ToTagsValues="EGP"  />
+		<!--Indonesia-->
+		<Condition Direction="1"  ConditionString="100007==30" ToTags="15" ToTagsValues="IDR"  />
+		<!--Malaysia-->
+		<Condition Direction="1"  ConditionString="100007==51" ToTags="15" ToTagsValues="MYR"  />
+		<!--Kuwait-->
+		<Condition Direction="1"  ConditionString="100007==58" ToTags="15" ToTagsValues="KWD"  />
+		<!--Qatar-->
+		<Condition Direction="1"  ConditionString="100007==60" ToTags="15" ToTagsValues="QAR"  />
+		<!--Turkey-->
+		<Condition Direction="1"  ConditionString="100007==43" ToTags="15" ToTagsValues="TRY"  />
+		<!--Russia-->
+		<Condition Direction="1"  ConditionString="100007==41" ToTags="15" ToTagsValues="RUB"  />
+		<!--Philippine-->
+		<Condition Direction="1"  ConditionString="100007==61" ToTags="15" ToTagsValues="PHP"  />
+		<!--Pakistan-->
+		<Condition Direction="1"  ConditionString="100007==56" ToTags="15" ToTagsValues="PKR"  />
+		<!--Canada-->
+		<Condition Direction="1"  ConditionString="100007==7" ToTags="15" ToTagsValues="CAD"  />
+		<!--Singapore-->
+		<Condition Direction="1"  ConditionString="100007==10" ToTags="15" ToTagsValues="SGD"  />
+		<!--MAXICAN-->
+		<Condition Direction="1"  ConditionString="100007==35" ToTags="15" ToTagsValues="MXN"  />
+		<!--SAUDI-->
+		<Condition Direction="1"  ConditionString="100007==77" ToTags="15" ToTagsValues="SAR"  />
+		
+		
+		<Condition Direction="1"  ConditionString="100007==18" ToTags="15" ToTagsValues="THB"  />
+		
+		<Condition Direction="1"  ConditionString="100007==21" ToTags="15" ToTagsValues="INR"  />
+		
+		<Condition Direction="1"  ConditionString="100007==80" ToTags="15" ToTagsValues="VND"  />
+
+		
+	</Rule2>
+
+
+	<Rule3>
+
+		<Condition Direction="1" ConditionString="" DeleteTags="77" />
+		
+		<Condition Direction="1" ConditionString="35=F" DeleteTags="114" />
+
+		 <!-- For unallocated trades, delete tag 1 as it goes   --> 
+		 <Condition Direction="1" ConditionString="1==-" DeleteTags="1" /> 
+
+		<!-- Delete tag 121(ForexReq) -->
+		<Condition Direction="1" ConditionString="" DeleteTags="223" />
+
+		<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+
+		<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+
+		<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+
+		<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+
+		<!-- <Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" /> -->
+
+
+		<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+		<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+
+		<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+		<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+
+		<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+		<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+
+		<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+		<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+
+		<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+		<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+
+		<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+		<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+
+		<!-- Delete tag 121(ForexReq) -->
+		<Condition Direction="1" ConditionString="" DeleteTags="121" />
+		
+		<!-- <Condition Direction="1" ConditionString="6007==" DeleteTags="6007" /> -->
+        <!-- <Condition Direction="1" ConditionString="6007==None" DeleteTags="6007" /> -->
+		<!-- <Condition Direction="1" ConditionString="6011==" DeleteTags="6011" /> -->
+        <!-- <Condition Direction="1" ConditionString="6011==None" DeleteTags="6011" /> -->
+		<!-- <Condition Direction="1" ConditionString="6012==" DeleteTags="6012" /> -->
+        <!-- <Condition Direction="1" ConditionString="6012==None" DeleteTags="6012" /> -->
+		<!-- <Condition Direction="1" ConditionString="6034==" DeleteTags="6034" /> -->
+        <!-- <Condition Direction="1" ConditionString="6034==None" DeleteTags="6034" /> -->
+		<!-- <Condition Direction="1" ConditionString="6111==" DeleteTags="6111" /> -->
+        <!-- <Condition Direction="1" ConditionString="6111==None" DeleteTags="6111" /> -->
+		<!-- <Condition Direction="1" ConditionString="6014==" DeleteTags="6014" /> -->
+        <!-- <Condition Direction="1" ConditionString="6014==None" DeleteTags="6014" /> -->
+		<!-- <Condition Direction="1" ConditionString="6006==" DeleteTags="6006" /> -->
+        <!-- <Condition Direction="1" ConditionString="6006==None" DeleteTags="6006" /> -->
+		<!-- <Condition Direction="1" ConditionString="8807==" DeleteTags="8807" /> -->
+        <!-- <Condition Direction="1" ConditionString="8807==None" DeleteTags="8807" /> -->
+		<!-- <Condition Direction="1" ConditionString="8808==" DeleteTags="8808" /> -->
+        <!-- <Condition Direction="1" ConditionString="8808==None" DeleteTags="8808" /> -->
+		<!-- <Condition Direction="1" ConditionString="8834==" DeleteTags="8834" /> -->
+        <!-- <Condition Direction="1" ConditionString="8834==None" DeleteTags="8834" /> -->
+		<!-- <Condition Direction="1" ConditionString="8838==" DeleteTags="8838" /> -->
+        <!-- <Condition Direction="1" ConditionString="8838==None" DeleteTags="8838" /> -->
+		<!-- <Condition Direction="1" ConditionString="8851==" DeleteTags="8851" /> -->
+        <!-- <Condition Direction="1" ConditionString="8851==None" DeleteTags="8851" /> -->
+		<!-- <Condition Direction="1" ConditionString="8854==" DeleteTags="8854" /> -->
+        <!-- <Condition Direction="1" ConditionString="8854==None" DeleteTags="8854" /> -->
+		<!-- <Condition Direction="1" ConditionString="8855==" DeleteTags="8855" /> -->
+        <!-- <Condition Direction="1" ConditionString="8855==None" DeleteTags="8855" /> -->
+		<!-- <Condition Direction="1" ConditionString="8975==" DeleteTags="8975" /> -->
+        <!-- <Condition Direction="1" ConditionString="8975==None" DeleteTags="8975" /> -->
+
+		<Condition Direction="1"  ConditionString="" DeleteTags="541" />
+
+	</Rule3>
+
+	<DllRule>
+		<!--If we receive | in tag 58 then replace it with - -->
+		<Condition Direction="0" ConditionString="" Tag="6" RoundOffUpto="4" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RoundOffRule"  ConditionToApply="" ></Condition>
+		 
+		<Condition Direction="0" ConditionString="58=\|" RegularExpression="(\|)" ReplaceWith="-" Tag="58" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+		
+		<!-- Specific to Multi-Day Orders Done for the day and Restated messages will not be processed into the system and will be blocked using the below rule.-->
+        <Condition Direction="0" ConditionString="59,59 = 1,6 AND 150,150,39 = 3,D,3" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.TradeBlockRule" ></Condition> 
+	</DllRule>
+
+</CounterParty>
+  <CounterParty ID="999" Name="MOXY">
+    <Rule2>
+      <Condition  Direction="0" ConditionString="5555555=BOFA" ToTags="100002,100003" ToTagsValues="1,1" />
+      <Condition Direction="0" ConditionString ="" ToTags="100001" ToTagsValues="10" Name="TradingAccount"  ></Condition>
+    </Rule2>
+    <Rule1>
+
+
+      <Condition Direction="0" ConditionString ="" FromTags="5555555" ToTags="100036" Name="Broker"  ></Condition>
+    </Rule1>
+
+  </CounterParty>
+  <CounterParty ID="10" Name="TOR">
+    <Rule2>
+      <!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+      <Condition Direction="1"  ConditionString="" ToTags="128"  ToTagsValues="BOSMGORB"  />
+      <Condition Direction="1"  ConditionString="" ToTags="129"  ToTagsValues="MATT"  />
+      <Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+      <Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+    </Rule2>
+  </CounterParty>
+
+  <CounterParty ID="12" Name="BLOK">
+    <Rule2>
+      <!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+      <Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="NIRVANA2"  />
+      <Condition Direction="1"  ConditionString="" ToTags="50"  ToTagsValues="ANDY"  />
+      <Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+      <Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+    </Rule2>
+  </CounterParty>
+
+  <CounterParty ID="14" Name="DC">
+    <Rule2>
+      <!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+      <Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="NIRV"  />
+      <Condition Direction="1"  ConditionString="" ToTags="128"  ToTagsValues="DAP"  />
+      <Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+      <Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+    </Rule2>
+    <DllRule>
+      <!--      Symbology
+              TickerSymbol=0,
+              ReutersSymbol=1,
+              ISINSymbol=2,
+              SEDOLSymbol=3,
+              CUSIPSymbol=4,
+              BloombergSymbol=5,
+              OSIOptionSymbol = 6,
+              IDCOOptionSymbol = 7,
+              OPRAOptionSymbol = 8 
+      -->
+      <!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+      <!--SymbolTag represents the symbol in respective symbology-->
+      <!--<Condition Direction="0" ConditionString="167=OPT"  Symbology="6" SymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+      <!--<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage ="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+
+    </DllRule>
+  </CounterParty>
+
+  <CounterParty ID="5" Name="CRST">
+    <!--<Rule2>-->
+    <!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+    <!--<Condition Direction="1"  ConditionString="" ToTags="57"  ToTagsValues="execsvcs"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />-->
+    <!--</Rule2>-->
+    <DefaultRule>
+      <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,19,17,1,1,1" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+    </DefaultRule>
+    <Rule1 >
+      <!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+      <Condition Direction="0"  ConditionString="" FromTags="11" ToTags="37" />
+      <Condition Direction="0"  ConditionString="39=5" FromTags="11" ToTags="41" />
+    </Rule1>
+  </CounterParty>
+
+  <CounterParty ID="13" Name="BOFA">
+    <Rule2>
+      <!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+      <Condition Direction="1"  ConditionString="" ToTags="128"  ToTagsValues="BOFA"  />
+    </Rule2>
+    <Rule3>
+      <Condition Direction="1" ConditionString="5904=" DeleteTags="5904" />
+    </Rule3>
+
+  </CounterParty>
+  <CounterParty ID="2" Name="GS">
+    <!--<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100002,100003,100009,21,18,59,100014" ToTagsValues="11,1,1,15,1,1,1,19190051" Name="TradingAccount,counterpartyID,venueID,userID,handlinginst,executioninst,tif,Level1ID"  ></Condition>
+			
+			
+			-->
+    <!--100014='19190051'   means level1id=50-50 rule in db-->
+    <!--
+		</DefaultRule>
+		<MethodRule>
+			<Condition Direction="0" ConditionString ="167=OPT" ToTag="55" FromTag="55" MethodName="Replace" Parameters="/, " ParametersTypes="String,String"></Condition>
+		</MethodRule>
+		<Rule1 >
+			<Condition Direction="0"  ConditionString="22=5" ToTags="100043"  FromTags="48" />
+			<Condition Direction="0"  ConditionString="" ToTags="37"  FromTags="41" />
+		</Rule1>
+		<Rule3>
+			<Condition Direction="0" ConditionString="39 !=5 AND 39 !=6" DeleteTags="41" />
+		</Rule3>
+		<Rule2>
+			<Condition Direction="0"  ConditionString="167=OPT" ToTags="100041"  ToTagsValues="0" />
+			<Condition Direction="0"  ConditionString="" ToTags="100009"  ToTagsValues="28" />
+			<Condition Direction="0"  ConditionString="55=AD M9" ToTags="55"  ToTagsValues="6A M9" />
+			<Condition Direction="0" ConditionString ="" ToTags="100014" ToTagsValues="9123904"   ></Condition>
+			-->
+    <!--<Condition Direction="0"  ConditionString="55?" ToTags="55"  ToTagsValues="TWX"  />-->
+    <!--
+		</Rule2>
+		<DllRule>
+			<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=37+' '+100108"></Condition>
+			<Condition Direction="0" ConditionString="207=LIFEE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'-EEI'"></Condition>
+			<Condition Direction="0" ConditionString="55,55=USD,GOOG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="6=6/'100'"></Condition>
+		</DllRule>-->
+
+    <DefaultRule>
+      <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,19,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+    </DefaultRule>
+    <Rule1 >
+      <Condition Direction="0"  ConditionString="" FromTags="41" ToTags="37" />
+      <Condition Direction="0"  ConditionString="" FromTags="60" ToTags="100075" />
+    </Rule1>
+    <Rule2>
+      <Condition Direction="0"  ConditionString="54=Z" ToTags="54"  ToTagsValues="B"  />
+      <Condition Direction="0"  ConditionString="54=E" ToTags="54"  ToTagsValues="B"  />
+    </Rule2>
+    <Rule3 >
+      <Condition Direction="0" ConditionString="39!=5 AND 39!=6" DeleteTags="41" />
+    </Rule3>
+    <DllRule>
+      <Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G'.{2})$"  ReplaceWith=" ${G}"  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString="" RegularExpression="(?'G'.{9})$"  ReplaceWith="1"  Tag="100075" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=37+' '+100075"></Condition>
+      <Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+' '+100075"></Condition>
+      <Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+
+    </DllRule>
+
+    <!--<DllRule>
+      -->
+    <!--<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+' '+207"></Condition>-->
+    <!--
+      <Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G'.{2})$"  ReplaceWith=" ${G}"  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+      <Condition Direction="0" ConditionString="65=A"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+      <Condition Direction="0" ConditionString="65=B"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+    </DllRule>
+    <Rule1 >
+      -->
+    <!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+    <!--
+      <Condition Direction="0"  ConditionString="39=5" FromTags="37" ToTags="41" />
+      <Condition Direction="0"  ConditionString="167=OPT" FromTags="11055" ToTags="55" />
+    </Rule1>
+    <DefaultRule>
+      <Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,19,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+    </DefaultRule>
+    <Rule2>
+      <Condition Direction="0"  ConditionString="167=OPT" ToTags="100041"  ToTagsValues="0"  />
+    </Rule2>-->
+
+  </CounterParty>
+</Counterparties>

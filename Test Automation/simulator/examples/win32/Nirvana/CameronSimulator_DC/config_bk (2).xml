@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE Config SYSTEM "../../../../dtds/CameronConfig.dtd">
+
+<Config>
+	<Application id="buy">
+		<Logger class="com.cameronsystems.util.logger.Log4JLoggerFactory">
+			<log4j:configuration>
+				<appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+					<layout class="org.apache.log4j.PatternLayout">
+						<param name="ConversionPattern" value="%d{Absolute} %-5p %c{2} - %m%n"/>
+					</layout>
+					<filter class="org.apache.log4j.varia.LevelRangeFilter">
+						<param name="LevelMin" value="INFO"/>
+						<param name="LevelMax" value="FATAL"/>
+						<param name="AcceptOnMatch" value="true"/>
+					</filter>
+				</appender>
+				<appender name="AllFixLog" class="org.apache.log4j.FileAppender">
+					<param name="File" value="AllFixLog.log"/>
+					<layout class="org.apache.log4j.PatternLayout">
+						<param name="ConversionPattern" value="%d %-5p %c{2} - %m%n"/>
+					</layout>
+					<filter class="org.apache.log4j.varia.LevelRangeFilter">
+						<param name="LevelMin" value="INFO"/>
+						<param name="LevelMax" value="FATAL"/>
+						<param name="AcceptOnMatch" value="true"/>
+					</filter>
+				</appender>
+				<root>
+					<priority value="debug"/>
+					<appender-ref ref="STDOUT"/>
+					<appender-ref ref="AllFixLog"/>
+				</root>
+			</log4j:configuration>
+		</Logger>
+		<Parties>
+			<Party compid="DAWAY">
+			
+				<Session fixversion="4.2" heartbeat="80" compid="SendToDAWAY">
+					<Persister>
+						<LimitedMemoryFilePersister baselogfile="logs/buy"/>
+					</Persister>
+				</Session>
+				<Connections>
+					<SocketConnection hostname="localhost" port="2000" />
+				</Connections>
+				<SessionManager>
+					<SourceMessageProcessors>
+						<SourceMessageBuffer id="DAWAYOutMessageBuffer" buffer="buffers/DAWAYOutBuffer">
+							<SocketAdapter id="socket_adapter8000" port="8000" ackTimeout="0" alwaysUseMsgId="false" ></SocketAdapter>
+						</SourceMessageBuffer>
+					</SourceMessageProcessors>
+					<ListenerMessageProcessors>
+						<ListenerMessageBuffer id="DAWAYInMessageBuffer" buffer="buffers/DAWAYInBuffer">
+							<SocketAdapter id="socket_adapter8000" port="8000" ackTimeout="0" alwaysUseMsgId="false" ></SocketAdapter>
+						</ListenerMessageBuffer>
+						<SampleMessageListener/>
+					</ListenerMessageProcessors>
+				</SessionManager>
+			</Party>
+		</Parties>
+	</Application>
+	<Application id="sell" rmiName="sell">
+		<Parties>
+			<Party compid="SendToDAWAY">
+
+				<Session fixversion="4.2" heartbeat="30" compid="DAWAY">
+					<Persister>
+						<LimitedMemoryFilePersister baselogfile="logs/sn_server"/>
+					</Persister>
+				</Session>
+
+				<Connections>
+					<SocketConnection listenport="2000"/>
+				</Connections>
+
+				<SessionManager>
+					<SourceMessageProcessors>
+						<SourceMessageBuffer id="SentToDAWAYOutMessageBuffer" buffer="buffers/SentToDAWAYOutBuffer">
+							<SocketAdapter id="socket_adapter7010" port="7010" ackTimeout="0" alwaysUseMsgId="false" ></SocketAdapter>
+						</SourceMessageBuffer>
+					</SourceMessageProcessors>
+					<ListenerMessageProcessors>
+						<ListenerMessageBuffer id="SentToDAWAYInMessageBuffer" buffer="buffers/SentToDAWAYInBuffer">
+							<SocketAdapter id="socket_adapter7010" port="7010" ackTimeout="0" alwaysUseMsgId="false" ></SocketAdapter>
+						</ListenerMessageBuffer>
+					</ListenerMessageProcessors>
+				</SessionManager>
+
+			</Party>
+				
+		</Parties>
+	</Application>
+</Config>

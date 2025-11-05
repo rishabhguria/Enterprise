@@ -1,0 +1,133 @@
+module customRules.specialSituations.preTrade.anyFiveIssuerExposureInPE.preTradeAnyFiveIssuerExposureCheck;
+
+@Name('IssuerExposureForGivenAccount')
+@Description('Creating window which will contain calculationField position')
+create window IssuerExposureForGivenAccount.ext:sort(5, calculationField desc)
+(
+	basketId string,
+	userId int,
+	accountId int,
+	calculationField Long,
+	accountNav Long,
+	accountShortName string,
+	issuer string,
+	parentWindowStream String
+);
+
+@Name('TopFiveIssuerExposureForGivenAccount')
+@Description('Creating window which will contain sum of calculationField of top 5 issuers')
+create window TopFiveIssuerExposureForGivenAccount.std:groupwin(accountShortName).ext:sort(1, calculationField desc).win:time_batch(2 sec)
+(
+	basketId string,
+	userId int,
+	accountId int,
+	calculationField Long,
+	accountNav Long,
+	accountShortName string,
+	parentWindowStream String
+);
+
+@Name('IssuerExposureForGivenAccount')
+@Description('IssuerExposureForGivenAccount')
+on BasketEOM as B
+insert into IssuerExposureForGivenAccount
+select distinct
+	W.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	cast((case valueExistsInCSV(W.accountShortName, Account_Name_To_Check)
+	when true then (case Variable is 'Net Exposure' when true then sum(coalesce(W.netExposureBase,0)) else sum(coalesce(W.netMarketValueBase,0)) end)
+	else 0 end),Long) as calculationField,
+	cast(W.accountNav,Long) as accountNav,
+	W.accountShortName as accountShortName,
+	W.issuer as issuer,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId and
+	W.accountId in (select distinct R.accountId from RowCalculationBaseWindow as R where R.basketId = B.basketId) and 
+	valueExistsInCSV(W.accountShortName, Account_Name_To_Check) is true
+group by W.accountId,W.issuer
+order by (case Variable is 'Net Exposure' when true then W.netExposureBase else W.netMarketValueBase end) desc;
+
+@Name('TopFiveIssuerExposureForGivenAccount')
+@Description('TopFiveIssuerExposureForGivenAccount')
+insert into TopFiveIssuerExposureForGivenAccount
+select
+	W.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	sum(coalesce(W.calculationField,0)) as calculationField,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	"IssuerExposureForGivenAccount" as parentWindowStream
+from IssuerExposureForGivenAccount as W
+group by W.accountId
+Limit 5;
+
+@Name('SumTopFiveIssuerExposure')
+@Description('SumTopFiveIssuerExposure')
+insert into SumTopFiveIssuerExposure
+select
+	W.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.calculationField as calculationField,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	"IssuerExposureForGivenAccount" as parentWindowStream
+from TopFiveIssuerExposureForGivenAccount as W
+group by W.accountId;
+
+@Name('SumTopFiveIssuerExposure')
+@Description('SumTopFiveIssuerExposure if not traded in given account')
+on WhatIfAggregationTrade  as W 
+insert into SumTopFiveIssuerExposure
+select distinct
+	W.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	cast(0,Long) as calculationField,
+	cast(123,Long) as accountNav,
+	W.accountShortName as accountShortName,
+	"WhatIfAggregationTrade" as parentWindowStream
+from RowCalculationBaseWindow as T
+where W.basketId = T.basketId and T.taxlotType='WhatIf' and valueExistsInCSV(T.accountShortName, Account_Name_To_Check) is false and 
+not exists (select * from IssuerExposureForGivenAccount as A where valueExistsInCSV(A.accountShortName, Account_Name_To_Check) is true);
+
+@Name('PreTradeAnyFiveIssuerExposureCheck')
+@Description('Exposure to Any 5 issuers in PE account')
+insert into PreTradeAnyFiveIssuerExposureCheck
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(Exposure_Percentage_To_Check) as threshold,
+	doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as actualResult,
+	'Investment limit' as constraintField,
+	(case valueExistsInCSV(A.accountShortName, Account_Name_To_Check)
+	when true then 
+		((coalesce(A.calculationField/ A.accountNav, 0)) > (Exposure_Percentage_To_Check/100))
+	else 
+		false end) as isViolated,
+	'Account: ' || A.accountShortName || ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+	|| (case Variable is 'Net Exposure' when true then ', Net Exposure: ' else ', Net Market Value: ' end) || doubleFormat(A.calculationField)
+	|| ', % Investment: ' || doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Exposure to any five issuers cannot be more than ' || doubleFormat(Exposure_Percentage_To_Check) ||'% of its total assets in ' || Account_Name_To_Check as summary,
+	A.accountShortName as dimension
+from
+SumTopFiveIssuerExposure as A
+where A.userId is not null;
+
+@Priority(10)
+@Name('IssuerExposureForGivenAccount Delete')
+@Description('Select  delete from IssuerExposureForGivenAccount')
+on WhatIfFinalEndMessage as D
+delete from IssuerExposureForGivenAccount as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('TopFiveIssuerExposureForGivenAccount Delete')
+@Description('Select  delete from TopFiveIssuerExposureForGivenAccount')
+on WhatIfFinalEndMessage as D
+delete from TopFiveIssuerExposureForGivenAccount as C
+where D.basketId  = C.basketId;

@@ -1,0 +1,147 @@
+module customRules.Maplerock.preTrade.PreTradeSharesOutstandingRangeAlert.PreTradeSharesOutstandingRangeAlert;
+
+@Name('MasterfundSymbolExistingPositionsRange')
+@Description('Named window for storing symbol positions in a masterfund')
+create window MasterfundSymbolExistingPositionsRange.std:unique(masterFundId)
+(
+	symbol string,
+	preQuantity double,
+	masterFundId int,
+	eventType string,
+	parentWindowStream String
+);
+
+@Name('MasterfundSymbolWhatIfTradesRange')
+@Description('Named window for storing symbol positions in a masterfund')
+create window MasterfundSymbolWhatIfTradesRange.std:unique(masterFundId)
+(
+	basketId string,
+	userId string,
+	masterFundId int,
+	symbol string,
+	orderSide string,
+	tradeQuantity double,
+	masterFundName string,
+	parentWindowStream String
+);
+
+@Name('MasterfundSymbolWhatIfTradesRange')
+@Description('Contains what if position of the trades for the symbol')
+on BasketEOM as B
+insert into MasterfundSymbolWhatIfTradesRange
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.masterFundId as masterFundId,
+	W.symbol as symbol,
+	W.orderSide as orderSide,
+	sum(W.quantity) as tradeQuantity,
+	W.masterFundName as masterFundName,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as W where W.basketId = B.basketId and W.taxlotType = 'WhatIf'
+group by W.masterFundId, W.symbol;
+
+
+
+@Name('MasterfundSymbolExistingPositionsRangeOtherExist')									   
+@Description('Getting pre quantity positions sum, including InStage and InMarket taxlot type')
+insert into MasterfundSymbolExistingPositionsRange
+select
+	T.symbol as symbol,
+	"MasterfundSymbolWhatIfTradesRange" as parentWindowStream,
+	sum(R.quantity) as preQuantity,
+	T.masterFundId as masterFundId,
+	'Other Exists' as eventType
+from
+	MasterfundSymbolWhatIfTradesRange as T unidirectional left outer join 
+	RowCalculationBaseWindow as R 
+where R.symbol = T.symbol and R.masterFundId = T.masterFundId and ((R.basketId <> T.basketId and R.taxlotType <> 'WhatIf') or (R.basketId = T.basketId and R.taxlotType = 'Post'))
+group by T.masterFundId, T.symbol;
+	
+@Name('MasterfundSymbolExistingPositionsRangeTaxlotNotExist')
+@Description('If symbol position is not exist in portfolio')
+insert into MasterfundSymbolExistingPositionsRange
+select distinct
+	T.symbol as symbol,
+	"MasterfundSymbolWhatIfTradesRange" as parentWindowStream,
+	0.0 as preQuantity,
+	T.masterFundId as masterFundId,
+	'Nothing Exists' as eventType
+from
+	MasterfundSymbolWhatIfTradesRange as T
+where
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.symbol = T.symbol and S.masterFundId = T.masterFundId)	;
+	
+@Name('MasterfundSymbolOnlyExistingPositionsRange')
+@Description('If symbol position is not exist in portfolio')
+insert into MasterfundSymbolExistingPositionsRange
+select distinct
+	T.symbol as symbol,
+	"MasterfundSymbolWhatIfTradesRange,RowCalculationBaseWindow" as parentWindowStream,
+	0.0 as preQuantity,
+	T.masterFundId as masterFundId,
+	'Only Exists' as eventType
+from
+	MasterfundSymbolWhatIfTradesRange as T unidirectional left outer join
+	RowCalculationBaseWindow as R
+where	R.taxlotType <> 'WhatIf' and R.symbol = T.symbol and R.masterFundId = T.masterFundId and
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.symbol = T.symbol and S.masterFundId = T.masterFundId and S.basketId <> T.basketId);
+
+
+@Name('PreTradeDetailsMasterfundSymbolTaxlotExistRange')
+@Description('If symbol position exist in portfolio')
+insert into PreTradeDetailsMasterfundSymbolRange
+select
+	S.symbol as symbol,
+	coalesce(S.preQuantity, 0.0) as preQuantity,
+	T.tradeQuantity as tradeQuantity,
+	(coalesce(S.preQuantity, 0.0) + T.tradeQuantity)  as postQuantity,	
+    T.orderSide as orderSide,
+	T.basketId as basketId,
+	T.userId as userId,
+	T.masterFundName as masterFundName,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream
+from
+    MasterfundSymbolWhatIfTradesRange as T left outer join
+	MasterfundSymbolExistingPositionsRange as S
+ where S.symbol = T.symbol and S.masterFundId = T.masterFundId;
+
+
+@Name('PreTradeSharesOutstandingRangeAlert')
+@Description('Final PreTradeSharesOutstandingRangeAlert stream')
+insert into PreTradeSharesOutstandingRangeAlert
+select
+	cast(T.userId, int) as userId,
+	T.basketId as taxlotId,
+	T.basketId as basketId,
+	cast((SharesOutstandingLowerLimitPercentage/100) * coalesce(S.sharesOutstanding,BigDecimal.valueOf(0.0)),string) as threshold,
+	doubleFormat(coalesce(T.postQuantity, 0)) as actualResult,
+	'Quantity' as constraintField,
+	coalesce(S.sharesOutstanding,BigDecimal.valueOf(0.0)) <> BigDecimal.valueOf(0.0)
+	and (( Math.abs(T.preQuantity) <= (SharesOutstandingLowerLimitPercentage/100) * coalesce(S.sharesOutstanding,BigDecimal.valueOf(0.0)) and Math.abs(T.postQuantity) > (SharesOutstandingLowerLimitPercentage/100) * coalesce(S.sharesOutstanding,BigDecimal.valueOf(0.0)) and Math.abs(T.postQuantity) <= (SharesOutstandingUpperLimitPercentage/100) * coalesce(S.sharesOutstanding,BigDecimal.valueOf(0.0)))
+    and T.masterFundName = MasterFundNameRangeAlert)	as isViolated,
+	'Order Side: '|| T.orderSide || 
+	', Symbol: '|| T.symbol ||
+	', MasterFundName: '|| T.masterFundName ||
+	', Quantity before trade: '|| doubleFormat(coalesce(T.preQuantity, 0)) ||
+	', Order quantity: '|| doubleFormat(coalesce(T.tradeQuantity, 0)) ||
+	', Shares Outstanding: '|| cast(coalesce(S.sharesOutstanding,BigDecimal.valueOf(0.0)),string) ||
+	', Quantity if trade is executed: '|| doubleFormat(coalesce(T.postQuantity, 0)) as parameters,
+	current_timestamp as validationTime,
+	SummaryDescriptionRangeAlert as summary,
+	T.masterFundName|| '-' || T.symbol as dimension
+from
+	PreTradeDetailsMasterfundSymbolRange as T unidirectional left outer join
+	SymbolDataWindow as S where T.symbol = S.symbol ;
+	
+@Priority(10)
+@Name('MasterfundSymbolExistingPositionsRange Delete')
+@Description('Select  delete from MasterfundSymbolExistingPositionsRange')
+on PreTradeSharesOutstandingRangeAlert as D
+delete from MasterfundSymbolExistingPositionsRange as C;
+
+@Priority(10)
+@Name('MasterfundSymbolWhatIfTradesRange Delete')
+@Description('Select  delete from MasterfundSymbolWhatIfTradesRange')
+on PreTradeSharesOutstandingRangeAlert as D
+delete from MasterfundSymbolWhatIfTradesRange as C;	

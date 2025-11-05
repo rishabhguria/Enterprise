@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[PM_CompanyUploadSetup] (
+    [CompanyUploadSetupID] INT            IDENTITY (1, 1) NOT NULL,
+    [PMCompanyID]          INT            NOT NULL,
+    [ThirdPartyID]         INT            NOT NULL,
+    [FTPFilePath]          NVARCHAR (max) NOT NULL Default '',
+    [FTPServer]            NVARCHAR (100) NOT NULL,
+    [FTPPort]              INT            NOT NULL,
+    [FTPUserName]          NVARCHAR (100) NOT NULL,
+    [FTPPassword]          NVARCHAR (50)  NOT NULL,
+    [AutoTime]             DATETIME       NULL,
+    [DirectoryPath]        NVARCHAR (500) NOT NULL,
+    [FileName]             NVARCHAR (500) NOT NULL,
+    [LastRunUploadDate]    DATETIME       NULL,
+    [TableTypeID]          INT            NOT NULL,
+    [AutoImport]           BIT            CONSTRAINT [DF_PM_CompanyUploadSetup_IsAutoTime] DEFAULT ((0)) NOT NULL,
+    [FileLayoutType]       INT            NULL,
+    [TableFormatName]      VARCHAR (100)  NULL,
+    [XSLTFileId]           INT            NULL,
+    [LastImportedFile]     NVARCHAR (max) NOT NULL Default '',
+    CONSTRAINT [PK_PM_CompanyUploadSetup] PRIMARY KEY CLUSTERED ([CompanyUploadSetupID] ASC),
+    CONSTRAINT [FK_PM_CompanyUploadSetup_PM_Company] FOREIGN KEY ([PMCompanyID]) REFERENCES [dbo].[PM_Company] ([PMCompanyID]),
+    CONSTRAINT [FK_PM_CompanyUploadSetup_PM_TableTypes] FOREIGN KEY ([TableTypeID]) REFERENCES [dbo].[PM_TableTypes] ([TableTypeID]),
+    CONSTRAINT [FK_PM_CompanyUploadSetup_T_ThirdParty] FOREIGN KEY ([ThirdPartyID]) REFERENCES [dbo].[T_ThirdParty] ([ThirdPartyID])
+);
+

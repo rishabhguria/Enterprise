@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E689F137-E3B0-431A-A41B-B073D1A89E1B}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.SM.OTC</RootNamespace>
+    <AssemblyName>Prana.SM.OTC</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="InfragisticsWPF4.Calculations.XamCalculationManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamComboEditor.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamSlider.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Grids.XamGrid.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Menus.XamMenu.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataPresenter.CalculationAdapter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataPresenter.ExcelExporter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.ExcelExporter.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataPresenter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DockManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Documents.Excel.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Documents.Excel.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Editors.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Persistence.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Documents.Core.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Documents.Core.v20.2.dll</HintPath>
+      <Name>InfragisticsWPF4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Nuget DLLs\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Nuget DLLs\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="Prism">
+      <HintPath>..\..\..\Nuget DLLs\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\..\..\Nuget DLLs\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviours\XamNumericEditorBehaviour.cs" />
+    <Compile Include="Converters\BooleanToEnumerationConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibileCollapseConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverterLocal.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\IsValueNegativeConverter.cs" />
+    <Compile Include="Converters\NullableValueConverter.cs" />
+    <Compile Include="Converters\PrecisionFormatConverter.cs" />
+    <Compile Include="Converters\WidthToBorderThickConverter.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helper\CommonMethods.cs" />
+    <Compile Include="Model\CustomFieldsModel.cs" />
+    <Compile Include="Model\SecMasterCFDModel.cs" />
+    <Compile Include="Model\SecMasterEquitySwapModel.cs" />
+    <Compile Include="Model\SecMasterOTCDataModel.cs" />
+    <Compile Include="Model\SecMasterConvertibleBondModel.cs" />
+    <Compile Include="UserControls\ViewModel\CFDViewModel.cs" />
+    <Compile Include="UserControls\ViewModel\ConvertibleBondViewModel.cs" />
+    <Compile Include="UserControls\ViewModel\EquitySwapViewModel.cs" />
+    <Compile Include="UserControls\ViewModel\ShowCustomTemplateViewModel.cs" />
+    <Compile Include="UserControls\View\CFDView.xaml.cs">
+      <DependentUpon>CFDView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\View\ConvertibleBondView.xaml.cs">
+      <DependentUpon>ConvertibleBondView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\View\EquitySwapView.xaml.cs">
+      <DependentUpon>EquitySwapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\View\ShowCustomTemplateView.xaml.cs">
+      <DependentUpon>ShowCustomTemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\ViewModel\AddOTCTemplateViewModel.cs" />
+    <Compile Include="UserInterface\ViewModel\OTCTradeDetailsViewModel.cs" />
+    <Compile Include="UserInterface\ViewModel\InstrumentTypeFieldsViewModel.cs" />
+    <Compile Include="UserInterface\View\AddCustomFieldView.xaml.cs">
+      <DependentUpon>AddCustomFieldView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\View\OTCTradeDetailsView.xaml.cs">
+      <DependentUpon>OTCTradeDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\View\InstrumentTypesFieldsView.xaml.cs">
+      <DependentUpon>InstrumentTypesFieldsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\View\AddOTCTemplateView.xaml.cs">
+      <DependentUpon>AddOTCTemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\ViewModel\AddCustomFieldViewModel.cs" />
+    <Compile Include="UserInterface\ViewModel\OTCTemplateViewModel.cs" />
+    <Compile Include="ValueConvertor\ObservableDictionary.cs" />
+    <Compile Include="ValueConvertor\PrecisionFormatDisplayConverter.cs" />
+    <Page Include="Themes\IG\DataPresenterGeneric.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterGeneric_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterGeneric_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterIGTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterIGTheme_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterIGTheme_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamComboEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamDataPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamDockManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamEditors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamMultiColumnCombo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\Theme.Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\NirvanaSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\OTCTemplatesTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\View\CFDView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\View\ConvertibleBondView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\View\EquitySwapView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\View\ShowCustomTemplateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserInterface\View\AddCustomFieldView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\View\OTCTradeDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserInterface\View\InstrumentTypesFieldsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\View\AddOTCTemplateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserInterface\View\OTCTemplateView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UserInterface\View\OTCTemplateView.xaml.cs">
+      <DependentUpon>OTCTemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{aebd67d7-2487-4d54-b93f-fe8b3685e6b3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Microsoft.Windows.Shell\Microsoft.Windows.Shell.csproj">
+      <Project>{55d5297c-f1df-4b76-a3c1-d82cc294eebb}</Project>
+      <Name>Microsoft.Windows.Shell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CustomChromeLibrary\Prana.CustomChromeLibrary.csproj">
+      <Project>{25990f61-a27b-4edf-a402-b31bf952153f}</Project>
+      <Name>Prana.CustomChromeLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.MvvmDialogs\Prana.MvvmDialogs.csproj">
+      <Project>{29051b6f-74c5-4ef6-a792-4e382ce233fa}</Project>
+      <Name>Prana.MvvmDialogs</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\AndGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\Filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\FilterClearButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\FilterClearMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\FixedButtonWhenFixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\FixedButtonWhenUnfixed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\IconAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\IconSubtract.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\MagnifyingGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\OrGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\summary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\ToggleCardCollapsedState_Collapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\ToggleCardCollapsedState_NotCollapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_Collapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_NotCollapsed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\ToggleGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\UngroupGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit_disable_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.SM.OTC.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.SM.OTC.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

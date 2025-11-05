@@ -1,0 +1,164 @@
+module eplModules.dataWindow.PmCalculationPreference;
+
+uses  eplModules.dataWindow.AccountFeeder;
+
+@Name('PmCalculationPreferenceWindow')
+@Description('Named window which stores the PM Calculation Preference for each account.')
+create window PmCalculationPreferenceWindow.std:unique(accountId)
+(
+			accountId int,
+			highWaterMark double,
+			stopOut double,
+			traderPayoutPercent double,
+			capital double,
+			mtdPnl double,
+			longDebitBalance double, 
+			longDebitLimit double, 
+			shortCreditBalance double, 
+			shortCreditLimit double,
+			parentWindowStream string
+); 
+
+@Name('PmCalculationPreferenceWindowNewAccountInsert')
+@Description('This updates the PmCalculationPreferenceWindow every time new NewAccountRecieved event occurs.')
+on NewAccountRecieved as s
+merge PmCalculationPreferenceWindow sw where sw.accountId = s.accountId		
+	when not matched
+		then insert 
+		select
+			s.accountId as accountId, 
+			0.0 as highWaterMark,
+			0.0 as stopOut,
+			0.0 as traderPayoutPercent,
+			0.0 as capital,
+			0.0 as mtdPnl,
+			0.0 as longDebitBalance,
+			0.0 as longDebitLimit, 
+			0.0 as shortCreditBalance, 
+			0.0 as shortCreditLimit,
+		   	"NewAccountRecieved" as parentWindowStream;			
+
+@Name('PmCalculationPreferenceWindowInsert')
+@Description('This updates the PmCalculationPreferenceWindow every time new PMCalculationPrefs event occurs.')
+on PMCalculationPrefs as s
+merge PmCalculationPreferenceWindow sw where sw.accountId = s.accountId
+	when matched and
+			(
+				sw.highWaterMark <> s.highWaterMark or
+				sw.stopOut <> s.stopOut or
+				sw.traderPayoutPercent <> s.traderPayoutPercent
+			)
+		then 
+			update 
+				set
+				sw.highWaterMark = s.highWaterMark,
+				sw.stopOut = s.stopOut,
+				sw.traderPayoutPercent = s.traderPayoutPercent,
+				sw.parentWindowStream = "PMCalculationPrefs"
+				
+	when not matched
+		then insert 
+		select
+			s.accountId as accountId, 
+			s.highWaterMark as highWaterMark,
+			s.stopOut as stopOut,
+			s.traderPayoutPercent as traderPayoutPercent,
+			0.0 as capital,
+			0.0 as mtdPnl,
+			0.0 as longDebitBalance, 
+			0.0 as longDebitLimit, 
+			0.0 as shortCreditBalance, 
+			0.0 as shortCreditLimit,
+		   	"PMCalculationPrefs" as parentWindowStream;
+		
+@Name('PmCalculationPreferenceWindowCapitalInsert')
+@Description('This updates the PmCalculationPreferenceWindow every time new StartOfMonthCapitalAccount event occurs.')
+on StartOfMonthCapitalAccount as s
+merge PmCalculationPreferenceWindow sw where sw.accountId = s.accountId
+	when matched and
+			(
+				sw.capital <> s.capital 
+			)
+		then 
+			update 
+				set
+				sw.capital = s.capital,
+				sw.parentWindowStream = "StartOfMonthCapitalAccount"				
+	when not matched
+		then insert 
+		select
+			s.accountId as accountId, 
+			0.0 as highWaterMark,
+			0.0 as stopOut,
+			0.0 as traderPayoutPercent,
+			s.capital as capital,
+			0.0 as mtdPnl,
+			0.0 as longDebitBalance,
+			0.0 as longDebitLimit, 
+			0.0 as shortCreditBalance, 
+			0.0 as shortCreditLimit,
+		   	"StartOfMonthCapitalAccount" as parentWindowStream;
+			
+@Name('PmCalculationPreferenceWindowMTDPnlInsert')
+@Description('This updates the PmCalculationPreferenceWindow every time new UserDefinedMTDPnl event occurs.')
+on UserDefinedMTDPnl as s
+merge PmCalculationPreferenceWindow sw where sw.accountId = s.accountId
+	when matched and
+			(
+				sw.mtdPnl <> s.mtdPnl 
+			)
+		then 
+			update 
+				set
+				sw.mtdPnl = s.mtdPnl,
+				sw.parentWindowStream = "UserDefinedMTDPnl"	
+				
+	when not matched
+		then insert 
+		select
+			s.accountId as accountId, 
+			0.0 as highWaterMark,
+			0.0 as stopOut,
+			0.0 as traderPayoutPercent,
+			0.0 as capital,
+			s.mtdPnl as mtdPnl,
+			0.0 as longDebitBalance,
+			0.0 as longDebitLimit, 
+			0.0 as shortCreditBalance, 
+			0.0 as shortCreditLimit,
+		   	"UserDefinedMTDPnl" as parentWindowStream;	
+
+@Name('PmCalculationPreferenceWindowCreditLimit')
+@Description('This updates the PmCalculationPreferenceWindow every time new DailyCreditLimits event occurs.')
+on DailyCreditLimits as s
+merge PmCalculationPreferenceWindow sw where sw.accountId = s.accountId
+	when matched and
+			(
+				sw.longDebitBalance <> s.longDebitBalance or 
+				sw.longDebitLimit <> s.longDebitLimit or 
+				sw.shortCreditBalance <> s.shortCreditBalance or
+				sw.shortCreditLimit <> s.shortCreditLimit				
+			)
+		then 
+			update 
+				set
+				sw.longDebitBalance = coalesce(s.longDebitBalance,0), 
+				sw.longDebitLimit = coalesce(s.longDebitLimit,0), 
+				sw.shortCreditBalance = coalesce(s.shortCreditBalance,0), 
+				sw.shortCreditLimit = coalesce(s.shortCreditLimit,0),
+				sw.parentWindowStream = "DailyCreditLimits"			
+				
+	when not matched
+		then insert 
+		select
+			s.accountId as accountId, 
+			0.0 as highWaterMark,
+			0.0 as stopOut,
+			0.0 as traderPayoutPercent,
+			0.0 as capital,
+			0.0 as mtdPnl,
+			coalesce(s.longDebitBalance,0) as longDebitBalance, 
+			coalesce(s.longDebitLimit,0) as longDebitLimit, 
+			coalesce(s.shortCreditBalance,0) as shortCreditBalance, 
+			coalesce(s.shortCreditLimit,0) as shortCreditLimit,
+		   	"DailyCreditLimits" as parentWindowStream;

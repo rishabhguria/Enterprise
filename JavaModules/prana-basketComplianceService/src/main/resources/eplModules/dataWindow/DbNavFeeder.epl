@@ -1,0 +1,33 @@
+module eplModules.dataWindow.DbNavFeeder;
+
+@Name('DbNavWindow')
+@Description('Named window which stores the NAV details for each account.')
+Create window DbNavWindow.std:unique(accountId)
+(
+	accountId int,
+	startOfDayNav double,
+	shadowNav double,
+	parentWindowStream string
+);
+
+@Name('DbNavWindowInsert')
+@Description('This updates the DbNavWindow every time new DbNav event occurs.')
+on DbNav as s
+merge DbNavWindow sw where sw.accountId = s.accountId
+	when matched and
+	(
+		sw.startOfDayNav <> s.startOfDayNav or
+		sw.shadowNav <> s.shadowNav
+	)
+	then update
+	 set
+	  	sw.startOfDayNav=s.startOfDayNav,
+		sw.shadowNav=s.shadowNav,
+		sw.parentWindowStream = "DbNav"
+	when not matched 
+	then insert
+		select 
+		 s.accountId as accountId,
+		 s.startOfDayNav as startOfDayNav, 
+		 s.shadowNav as shadowNav,
+		 "DbNav" as parentWindowStream;

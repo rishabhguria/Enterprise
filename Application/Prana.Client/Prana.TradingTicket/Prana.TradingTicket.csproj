@@ -1,0 +1,597 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{32885552-8F03-45FD-8806-CCC39090A1E5}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.TradingTicket</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Prana.TradingTicket</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <SccAuxPath>
+    </SccAuxPath>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+	<DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+	<DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.DataVisualization.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.DataVisualization.UltraDataChart.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Portable.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinDock.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDock.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinListView.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinSchedule.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinToolbars.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic">
+      <Name>Microsoft.VisualBasic</Name>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Drawing.Design">
+      <Name>System.Drawing.Design</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Name>System.EnterpriseServices</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+      <Name>System.Runtime.Serialization.Formatters.Soap</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.Admin.CommonControls\Prana.Admin.CommonControls.csproj">
+      <Project>{4E18AA07-C6F6-47A6-A7C2-F4363281F978}</Project>
+      <Name>Prana.Admin.CommonControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ClientPreferences\Prana.ClientPreferences.csproj">
+      <Project>{87409B83-E284-40A0-8DAF-40B58413449C}</Project>
+      <Name>Prana.ClientPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.Tools\Prana.Tools.csproj">
+      <Project>{77EDD942-555B-4D21-B68B-AFD0FBAB36B3}</Project>
+      <Name>Prana.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Name>Prana.BusinessObjects</Name>
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Package>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ComplianceEngine\Prana.ComplianceEngine.csproj">
+      <Project>{cce11e0d-2cf9-4ea1-9ccc-b86747687129}</Project>
+      <Name>Prana.ComplianceEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ExposurePnlCache\Prana.ExposurePnlCache.csproj">
+      <Project>{704a1960-d9cc-4702-9ffb-d82c6e872047}</Project>
+      <Name>Prana.ExposurePnlCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Name>Prana.Global</Name>
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Package>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Name>Prana.Interfaces</Name>
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Package>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Rebalancer\Prana.Rebalancer.csproj">
+      <Project>{0E2E40E8-8E6D-4730-9A00-E6FD1DECE9BC}</Project>
+      <Name>Prana.Rebalancer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ShortLocate\Prana.ShortLocate.csproj">
+      <Project>{9b6487ce-d331-4387-9585-1b3c1b1a4cfe}</Project>
+      <Name>Prana.ShortLocate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.AlgoStrategyControls\Prana.AlgoStrategyControls.csproj">
+      <Project>{22605932-14D9-48CC-A46F-2E918DCC69BC}</Project>
+      <Name>Prana.AlgoStrategyControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{A28AE507-104B-45C5-BCB1-CE51394E3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.InstanceCreator\Prana.InstanceCreator.csproj">
+      <Project>{3F5CFA1B-EA85-4EFF-9FFB-0564B801DC10}</Project>
+      <Name>Prana.InstanceCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.LiveFeed.UI\Prana.LiveFeed.UI.csproj">
+      <Project>{bc6595d1-c281-42bf-a560-c7f634ad332c}</Project>
+      <Name>Prana.LiveFeed.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Preferences\Prana.Preferences.csproj">
+      <Project>{8f145d78-4ea1-487e-8be7-0cbcb764d934}</Project>
+      <Name>Prana.Preferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.SecurityMasterNew\Prana.SecurityMasterNew.csproj">
+      <Project>{8237C28A-EE49-4A68-A89A-1F1F6A939FC4}</Project>
+      <Name>Prana.SecurityMasterNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.SM.OTC\Prana.SM.OTC.csproj">
+      <Project>{e689f137-e3b0-431a-a41b-b073d1a89e1b}</Project>
+      <Name>Prana.SM.OTC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TradeManager.Extension\Prana.TradeManager.Extension.csproj">
+      <Project>{7CADBFE3-8E3E-4C3B-A6DD-F3764519E6C2}</Project>
+      <Name>Prana.TradeManager.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{ABB4950F-DEF1-4095-8E93-1EB3292C69F5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\BrokerComboDrawFilter.cs" />
+    <Compile Include="Classes\BulkOrderSingle.cs" />
+    <Compile Include="Classes\MultiBrokerGridDrawFilter.cs" />
+    <Compile Include="Classes\QTTCreationFilter.cs" />
+    <Compile Include="Classes\QTTHelper.cs" />
+    <Compile Include="Controls\QuickTTPreference.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\QuickTTPreference.Designer.cs">
+      <DependentUpon>QuickTTPreference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RestrictedAllowedSecuritiesPreference.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\RestrictedAllowedSecuritiesPreference.Designer.cs">
+      <DependentUpon>RestrictedAllowedSecuritiesPreference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AlgoControlPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgoControlPopUp.Designer.cs">
+      <DependentUpon>AlgoControlPopUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BrokersConnectionStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BrokersConnectionStatus.Designer.cs">
+      <DependentUpon>BrokersConnectionStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MultiTradingTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MultiTradingTicket.Designer.cs">
+      <DependentUpon>MultiTradingTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuickTradingTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuickTradingTicket.Designer.cs">
+      <DependentUpon>QuickTradingTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StagedOrderAllocationView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StagedOrderAllocationView.Designer.cs">
+      <DependentUpon>StagedOrderAllocationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ShortLocateListPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ShortLocateListPopUp.Designer.cs">
+      <DependentUpon>ShortLocateListPopUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderManager\GetOrderSingleBase.cs" />
+    <Compile Include="OrderManager\GetOrderSingleEquity.cs" />
+    <Compile Include="OrderManager\GetOrderSingleFixedIncome.cs" />
+    <Compile Include="OrderManager\GetOrderSingleFuture.cs" />
+    <Compile Include="OrderManager\GetOrderSingleFX.cs" />
+    <Compile Include="OrderManager\GetOrderSingleOption.cs" />
+    <Compile Include="OrderManager\IGetOrderSingle.cs" />
+    <Compile Include="OrderManager\IOrderSingleProvider.cs" />
+    <Compile Include="OrderManager\OrderSingleProvider.cs" />
+    <Compile Include="TTPresenter\MTTPresenter.cs" />
+    <Compile Include="TTPresenter\QuickTradingTicketPresenter.cs" />
+    <Compile Include="TTPresenter\TradingTicketPresenter.cs" />
+    <Compile Include="TTPresenter\TicketPresenterBase.cs" />
+    <Compile Include="TTView\IMultiTradingTicketView.cs" />
+    <Compile Include="TTView\IQuickTradingTicketView.cs" />
+    <Compile Include="TTView\ITicketView.cs" />
+    <Compile Include="TTView\ITradingTicketView.cs" />
+    <Compile Include="TradingTicketConstants.cs" />
+    <Content Include="App.ico" />
+    <Content Include="Classes\MYControls.xml" />
+    <Content Include="Resources\Calander.png" />
+    <Content Include="Resources\Link.png" />
+    <Content Include="Resources\Link_Hover.png" />
+    <Content Include="Resources\Maximize.png" />
+    <Content Include="Resources\Minimise.png" />
+    <Content Include="Resources\Minimise_Hover.png" />
+    <Content Include="Resources\SaveLayout.png" />
+    <Content Include="Resources\SaveLayout_Hover.png" />
+    <None Include="Resources\SecurityMaster_Hover.png" />
+    <None Include="Resources\SecurityMaster.png" />
+    <None Include="Resources\btnColumnChooser.Image.jpg" />
+    <None Include="Resources\appearance31.ImageBackground.jpg" />
+    <None Include="Resources\appearance32.ImageBackground.jpg" />
+    <Content Include="Resources\Close.png" />
+    <Content Include="Resources\Close_Hover.png" />
+    <Content Include="Resources\img.bmp" />
+    <None Include="Resources\TTIconThemeOff.ico" />
+    <None Include="Resources\TTIconThemeOn.ico" />
+    <None Include="Resources\level1.ico" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\CounterPartyWiseDefaultCommissions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CounterPartyWiseDefaultCommissions.Designer.cs">
+      <DependentUpon>CounterPartyWiseDefaultCommissions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomSettingsGridNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomSettingsGridNew.Designer.cs">
+      <DependentUpon>CustomSettingsGridNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AlgoStrategy.cs" />
+    <Compile Include="Classes\TradingTicketSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\TradingTicketManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\TradingTicketSettingsCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\TTPrefSettingsNew.cs" />
+    <Compile Include="Controls\AlgoTicket.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AlgoTicketDock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ConfirmationPopUpUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\GeneralPreferences.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\GeneralPreferences.Designer.cs">
+      <DependentUpon>GeneralPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StrategyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\StrategyControl.designer.cs">
+      <DependentUpon>StrategyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PriceSymbolValidateCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\AccountQty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AccountQty.Designer.cs">
+      <DependentUpon>AccountQty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NewTicketCustomSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TicketPreferenceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\NewOrderPromptWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TradingTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TradingTicket.Designer.cs">
+      <DependentUpon>TradingTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Controls\CounterPartyWiseDefaultCommissions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CounterPartyWiseDefaultCommissions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CustomSettingsGridNew.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CustomSettingsGridNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AlgoTicket.resx">
+      <DependentUpon>AlgoTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AlgoTicketDock.resx">
+      <DependentUpon>AlgoTicketDock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ConfirmationPopUpUserControl.resx">
+      <DependentUpon>ConfirmationPopUpUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\GeneralPreferences.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GeneralPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\QuickTTPreference.resx">
+      <DependentUpon>QuickTTPreference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RestrictedAllowedSecuritiesPreference.resx">
+      <DependentUpon>RestrictedAllowedSecuritiesPreference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StrategyControl.resx">
+      <DependentUpon>StrategyControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PriceSymbolValidateCtrl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PriceSymbolValidateCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AccountQty.resx">
+      <DependentUpon>AccountQty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AlgoControlPopUp.resx">
+      <DependentUpon>AlgoControlPopUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BrokersConnectionStatus.resx">
+      <DependentUpon>BrokersConnectionStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MultiTradingTicket.resx">
+      <DependentUpon>MultiTradingTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewTicketCustomSetting.resx">
+      <DependentUpon>NewTicketCustomSetting.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TicketPreferenceControl.resx">
+      <DependentUpon>TicketPreferenceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NewOrderPromptWindow.resx">
+      <DependentUpon>NewOrderPromptWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuickTradingTicket.resx">
+      <DependentUpon>QuickTradingTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StagedOrderAllocationView.resx">
+      <DependentUpon>StagedOrderAllocationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ShortLocateListPopUp.resx">
+      <DependentUpon>ShortLocateListPopUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TradingTicket.resx">
+      <DependentUpon>TradingTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CDTradingTicket.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.TradingTicket.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.TradingTicket.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

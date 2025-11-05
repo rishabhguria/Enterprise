@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{172CB6EC-AD14-4275-99BD-A3775380DFA6}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.Admin.RoutingLogic</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Prana.Admin.RoutingLogic</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\ClientGroup\Client.resx">
+      <DependentUpon>Client.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\DialogBox.resx">
+      <DependentUpon>DialogBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\RLogic\RLogic.resx">
+      <DependentUpon>RLogic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\RoutingLogic.resx">
+      <DependentUpon>RoutingLogic.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\AUEC\AUEC.resx">
+      <DependentUpon>AUEC.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\AndOr.resx">
+      <DependentUpon>AndOr.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\IfCondition.resx">
+      <DependentUpon>IfCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\Parameters\Miscl.resx">
+      <DependentUpon>Miscl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\Parameters\Quantity.resx">
+      <DependentUpon>Quantity.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\Parameters\Symbol.resx">
+      <DependentUpon>Symbol.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfThenCondition.resx">
+      <DependentUpon>IfThenCondition.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\Then\IfThen.resx">
+      <DependentUpon>IfThen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\Then\ThenCombo.resx">
+      <DependentUpon>ThenCombo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Nirvana.RoutingLogic\App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Nirvana.RoutingLogic\AssemblyInfo.cs" />
+    <Compile Include="Nirvana.RoutingLogic\ClientGroup\Client.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\Data\DataCallFunctionsManager.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\DataHandelingManager.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\DataRoutingLogicObjects.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicAUECObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicBaseObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicCompanyClientObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicCompanyGroupObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicConditionAndJoinObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicRLObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicRoutingPathObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\Data\SubDataClasses\DataRoutingLogicTradingAccountAndCounterPartyVenueObject.cs" />
+    <Compile Include="Nirvana.RoutingLogic\DialogBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\MisclFunctions\Functions.cs" />
+    <Compile Include="Nirvana.RoutingLogic\MisclFunctions\NodeTree.cs" />
+    <Compile Include="Nirvana.RoutingLogic\RLogic\RLogic.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\RoutingLogic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\AUEC\AUEC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\AndOr.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\IfCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\Parameters\Miscl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\Parameters\Quantity.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfCondition\Parameters\Symbol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\IfThenCondition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\Then\IfThen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nirvana.RoutingLogic\UserControls\IfThenCondition\Then\ThenCombo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTree.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+   <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

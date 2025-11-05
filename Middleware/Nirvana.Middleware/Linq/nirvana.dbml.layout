@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DerivedData">
+  <DataContextMoniker Name="/NirvanaDataContext" />
+  <nestedChildShapes>
+    <classShape Id="cf8cfbce-805c-4266-bf32-372efd4f31d3" isExpanded="false" absoluteBounds="2, 2.125, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/PM_CompanyFundCashCurrencyValue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="35354aea-bad4-43a1-ae9a-f3bda2564e55" absoluteBounds="2.015, 2.585, 1.9700000000000002, 1.3578898111979165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="efb549a1-e27c-4d3d-b8b4-e3cdcbad26d8" isExpanded="false" absoluteBounds="2, 3.125, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_CompanyFund" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ac172040-bee9-47dc-a050-46d7534e9db1" absoluteBounds="2.0150000000000006, 3.585, 1.9700000000000002, 1.19354248046875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.46875 : 3.125); (3.46875 : 2.575)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/NirvanaDataContext/T_CompanyFund/T_CompanyFund_PM_CompanyFundCashCurrencyValue" />
+      <nodes>
+        <classShapeMoniker Id="efb549a1-e27c-4d3d-b8b4-e3cdcbad26d8" />
+        <classShapeMoniker Id="cf8cfbce-805c-4266-bf32-372efd4f31d3" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6e34dfee-2f0c-4a5f-b2e3-311b0beb3d5d" isExpanded="false" absoluteBounds="4.375, 2.125, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_SubAccount" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8bfbb2a9-291d-4ab2-8498-5e11cf342789" absoluteBounds="4.39, 2.585, 1.9700000000000002, 0.86484781901041663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="866d9091-6f88-400d-947a-bc972294bab2" isExpanded="false" absoluteBounds="4.375, 3.125, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_SubAccountCashValue" />
+      <nestedChildShapes>
+        <elementListCompartment Id="667cfc7a-729b-47e1-adea-08f69fb7d369" absoluteBounds="4.39, 3.5850000000000009, 1.9700000000000002, 2.3439737955729165" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4 : 3.35); (4.375 : 3.35)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/NirvanaDataContext/T_CompanyFund/T_CompanyFund_T_SubAccountCashValue" />
+      <nodes>
+        <classShapeMoniker Id="efb549a1-e27c-4d3d-b8b4-e3cdcbad26d8" />
+        <classShapeMoniker Id="866d9091-6f88-400d-947a-bc972294bab2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.21875 : 2.575); (5.21875 : 3.125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/NirvanaDataContext/T_SubAccount/T_SubAccount_T_SubAccountCashValue" />
+      <nodes>
+        <classShapeMoniker Id="6e34dfee-2f0c-4a5f-b2e3-311b0beb3d5d" />
+        <classShapeMoniker Id="866d9091-6f88-400d-947a-bc972294bab2" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6ea1bce5-b393-46d8-95d4-cbf3d8e5be93" isExpanded="false" absoluteBounds="0.875, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_TS_Transaction" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c9dafaad-8b08-403f-90da-99cc8e08223b" absoluteBounds="0.89000000000000057, 0.96, 1.9700000000000002, 6.7813517252604161" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="07ef4dbb-e824-46d6-bf07-e03b62a05850" isExpanded="false" absoluteBounds="5.5, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/PM_DailyBeta" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b4d44bc5-0386-4bcc-a4a3-7ec25e9b1874" absoluteBounds="5.5150000000000006, 1.71, 1.9700000000000002, 0.86484781901041663" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ac4dda60-3317-4b14-8974-3496bfc7e701" isExpanded="false" absoluteBounds="3.25, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_TS_DerivedData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d813a946-8332-44ea-b469-14b245414646" absoluteBounds="3.2649999999999997, 1.71, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9f0ee149-a8d8-4252-b6ec-0de4164093cd" isExpanded="false" absoluteBounds="3.125, 4.125, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_TS_GenericPNL" />
+      <nestedChildShapes>
+        <elementListCompartment Id="935805a4-44c6-4f9e-acc9-2428dadbf097" absoluteBounds="3.1400000000000006, 4.585, 1.9700000000000002, 12.697855631510416" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c8a0b277-6c1d-4665-b852-48437615f34f" isExpanded="false" absoluteBounds="3.125, 5, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/PM_DayMarkPrice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3d303d07-e1b4-4137-9d17-e5713dea1235" absoluteBounds="3.14, 5.46, 1.9700000000000002, 1.5222371419270833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9f42e812-d06a-4e70-8e34-2bc192d47148" isExpanded="false" absoluteBounds="3.125, 5.875, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/T_Company" />
+      <nestedChildShapes>
+        <elementListCompartment Id="567d5478-67c5-443e-9d49-7c97c95888ab" absoluteBounds="3.1399999999999997, 6.335, 1.9700000000000002, 5.959615071614583" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.125 : 6.1); (2.5624995 : 6.1); (2.5624995 : 3.575)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/NirvanaDataContext/T_Company/T_Company_T_CompanyFund" />
+      <nodes>
+        <classShapeMoniker Id="9f42e812-d06a-4e70-8e34-2bc192d47148" />
+        <classShapeMoniker Id="efb549a1-e27c-4d3d-b8b4-e3cdcbad26d8" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="0eda71ef-27ed-4599-9b4e-9011f0e0aec6" isExpanded="false" absoluteBounds="3.25, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/NirvanaDataContext/V_SecMasterData" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4aa92bee-9900-491f-ad46-b8abdb8d7cbc" absoluteBounds="3.2649999999999997, 0.96, 1.9700000000000002, 6.452657063802083" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

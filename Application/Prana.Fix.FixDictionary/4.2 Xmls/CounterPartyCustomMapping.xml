@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Counterparties>
+	<!--DropCopy Session-->
+	<CounterParty ID="1">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="0" ConditionString="" FromTags="52" ToTags="60" ></Condition>
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+		</Rule2>
+		<Rule3>
+			<!--This is used for deletion of tags from trade message if the ConditionString satisfies-->
+		</Rule3>
+	</CounterParty>
+
+	<!--Two way Session - CameronSimulator-->
+	<CounterParty ID="2">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="1" ConditionString="" FromTags="54" ToTags="5700" ></Condition>
+			<Condition Direction="1"  ConditionString=""  FromTags="100106" ToTags="128" />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" FromTags="114" ToTags="5666" />
+			<Condition Direction="1"  ConditionString="167=OPT" FromTags="100111" ToTags="55" />
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+			<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="DevLocal1"/>
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=1" ToTags="10000"  ToTagsValues="NASD_Eqty"  />
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=2" ToTags="10000" ToTagsValues="NASD_Opts"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+		</Rule2>
+		<Rule3>
+			<!-- For unallocated trades, delete tag 1 as it goes ‘-’   -->
+			<Condition Direction="1" ConditionString="1==-" DeleteTags="1" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="223" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" />
+			<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+			<Condition Direction="1" ConditionString="40=2" DeleteTags="99" />
+			<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+			<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="121" />
+			<!-- https://dev.azure.com/NirvanaSolutions/Enterprise/_workitems/edit/19490 Not to be applied from 2.12.1 onwards as code change done  -->
+			<Condition Direction="0" ConditionString="59,59 = 1,6" DeleteTags="126" />
+		</Rule3>
+	</CounterParty>
+
+	<!--Two way Session - CameronSimulator-->
+	<CounterParty ID="3">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="1" ConditionString="" FromTags="54" ToTags="5700"></Condition>
+			<Condition Direction="1"  ConditionString=""  FromTags="100106" ToTags="128"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" FromTags="114" ToTags="5666" />
+			<Condition Direction="1"  ConditionString="167=OPT" FromTags="100111" ToTags="55" />
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+			<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="DevLocal2"/>
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=1" ToTags="10000"  ToTagsValues="NASD_Eqty"  />
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=2" ToTags="10000" ToTagsValues="NASD_Opts"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+		</Rule2>
+		<Rule3>
+			<!-- For unallocated trades, delete tag 1 as it goes ‘-’   -->
+			<Condition Direction="1" ConditionString="1==-" DeleteTags="1" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="223" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" />
+			<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+			<Condition Direction="1" ConditionString="40=2" DeleteTags="99" />
+			<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+			<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="121" />
+			<!-- https://dev.azure.com/NirvanaSolutions/Enterprise/_workitems/edit/19490 Not to be applied from 2.12.1 onwards as code change done  -->
+			<Condition Direction="0" ConditionString="59,59 = 1,6" DeleteTags="126" />
+		</Rule3>
+	</CounterParty>
+
+	<!--Two way Session - New FixSim (FIXHUB) using CameronSimulator-->
+	<CounterParty ID="4">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="1" ConditionString="" FromTags="54" ToTags="5700" ></Condition>
+			<Condition Direction="1"  ConditionString=""  FromTags="100106" ToTags="128" />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" FromTags="114" ToTags="5666" />
+			<Condition Direction="1"  ConditionString="167=OPT" FromTags="100111" ToTags="55" />
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+			<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="DevLocal1_India"/>
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=1" ToTags="10000"  ToTagsValues="NASD_Eqty"  />
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=2" ToTags="10000" ToTagsValues="NASD_Opts"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+		</Rule2>
+		<Rule3>
+			<!-- For unallocated trades, delete tag 1 as it goes ‘-’   -->
+			<Condition Direction="1" ConditionString="1==-" DeleteTags="1" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="223" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" />
+			<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+			<Condition Direction="1" ConditionString="40=2" DeleteTags="99" />
+			<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+			<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="121" />
+			<!-- https://dev.azure.com/NirvanaSolutions/Enterprise/_workitems/edit/19490 Not to be applied from 2.12.1 onwards as code change done  -->
+			<Condition Direction="0" ConditionString="59,59 = 1,6" DeleteTags="126" />
+		</Rule3>
+	</CounterParty>
+
+	<!--Two way Session - New FixSim (FIXHUB) using CameronSimulator-->
+	<CounterParty ID="5">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="1" ConditionString="" FromTags="54" ToTags="5700" ></Condition>
+			<Condition Direction="1"  ConditionString=""  FromTags="100106" ToTags="128" />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" FromTags="114" ToTags="5666" />
+			<Condition Direction="1"  ConditionString="167=OPT" FromTags="100111" ToTags="55" />
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+			<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="DevLocal2_India"/>
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=1" ToTags="10000"  ToTagsValues="NASD_Eqty"  />
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=2" ToTags="10000" ToTagsValues="NASD_Opts"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />			
+		</Rule2>
+		<Rule3>
+			<!-- For unallocated trades, delete tag 1 as it goes ‘-’   -->
+			<Condition Direction="1" ConditionString="1==-" DeleteTags="1" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="223" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" />
+			<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+			<Condition Direction="1" ConditionString="40=2" DeleteTags="99" />
+			<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+			<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="121" />
+			<!-- https://dev.azure.com/NirvanaSolutions/Enterprise/_workitems/edit/19490 Not to be applied from 2.12.1 onwards as code change done  -->
+			<Condition Direction="0" ConditionString="59,59 = 1,6" DeleteTags="126" />
+		</Rule3>
+	</CounterParty>
+
+	<!--Two way Session - New FixSim (FIXHUB) using CameronSimulator-->
+	<CounterParty ID="6">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="1" ConditionString="" FromTags="54" ToTags="5700" ></Condition>
+			<Condition Direction="1"  ConditionString=""  FromTags="100106" ToTags="128" />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" FromTags="114" ToTags="5666" />
+			<Condition Direction="1"  ConditionString="167=OPT" FromTags="100111" ToTags="55" />
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+			<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="DevLocal3_India"/>
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=1" ToTags="10000"  ToTagsValues="NASD_Eqty"  />
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=2" ToTags="10000" ToTagsValues="NASD_Opts"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+		</Rule2>
+		<Rule3>
+			<!-- For unallocated trades, delete tag 1 as it goes ‘-’   -->
+			<Condition Direction="1" ConditionString="1==-" DeleteTags="1" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="223" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" />
+			<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+			<Condition Direction="1" ConditionString="40=2" DeleteTags="99" />
+			<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+			<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="121" />
+			<!-- https://dev.azure.com/NirvanaSolutions/Enterprise/_workitems/edit/19490 Not to be applied from 2.12.1 onwards as code change done  -->
+			<Condition Direction="0" ConditionString="59,59 = 1,6" DeleteTags="126" />
+		</Rule3>
+	</CounterParty>
+
+	<!--Two way Session - New FixSim (FIXHUB) using CameronSimulator-->
+	<CounterParty ID="7">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<DllRule>
+			<!--New Option symbology rule-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+		<Rule1 >
+			<!--This is used for filling values of tags 0 trade message from specified tag values if the ConditionString satisfies-->
+			<Condition Direction="1" ConditionString="" FromTags="54" ToTags="5700" ></Condition>
+			<Condition Direction="1"  ConditionString=""  FromTags="100106" ToTags="128" />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" FromTags="114" ToTags="5666" />
+			<Condition Direction="1"  ConditionString="167=OPT" FromTags="100111" ToTags="55" />
+		</Rule1>
+		<Rule2>
+			<!--This is used for filling values of tags trade message to specified fixed values if the ConditionString satisfies-->
+			<Condition Direction="1"  ConditionString="" ToTags="115"  ToTagsValues="DevLocal4_India"/>
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=1" ToTags="10000"  ToTagsValues="NASD_Eqty"  />
+			<Condition Direction="1"  ConditionString="100004=1 AND 100005=2" ToTags="10000" ToTagsValues="NASD_Opts"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=True AND 54=5" ToTags="114" ToTagsValues="Y"  />
+			<Condition Direction="1"  ConditionString="35,35 = D,G AND 114=False AND 54=5" ToTags="114" ToTagsValues="N"  />
+		</Rule2>
+		<Rule3>
+			<!-- For unallocated trades, delete tag 1 as it goes ‘-’   -->
+			<Condition Direction="1" ConditionString="1==-" DeleteTags="1" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="223" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="200" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="201" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="202" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="231" />
+			<Condition Direction="1" ConditionString="100004!=2" DeleteTags="167" />
+			<!-- If MsgType is F (Order Cancel Request)  then Delete tag 21(HandlInst) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="21" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 100(ExDestination) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="100" />
+			<!-- If MsgType is F (Order Cancel Request) then Delete tag 15(Currency) -->
+			<Condition Direction="1" ConditionString="35=F" DeleteTags="15" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 44(Price) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="44" />
+			<!-- If OrdTypes = 1 (Market) then Delete tag 99(StopPx) -->
+			<Condition Direction="1" ConditionString="40=1" DeleteTags="99" />
+			<Condition Direction="1" ConditionString="40=2" DeleteTags="99" />
+			<!-- If Side is not shell short then Delete tag 114(LoateReq) -->
+			<Condition Direction="1" ConditionString="54!=5" DeleteTags="114" />
+			<!-- Delete tag 121(ForexReq) -->
+			<Condition Direction="1" ConditionString="" DeleteTags="121" />
+			<!-- https://dev.azure.com/NirvanaSolutions/Enterprise/_workitems/edit/19490 Not to be applied from 2.12.1 onwards as code change done  -->
+			<Condition Direction="0" ConditionString="59,59 = 1,6" DeleteTags="126" />
+		</Rule3>
+	</CounterParty>
+</Counterparties>

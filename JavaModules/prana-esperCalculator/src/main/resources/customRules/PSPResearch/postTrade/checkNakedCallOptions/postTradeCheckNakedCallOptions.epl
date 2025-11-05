@@ -1,0 +1,37 @@
+module customRules.SpecialSituation.postTrade.checkNakedCallOptions.postTradeCheckNakedCallOptions;
+	
+@Name('NakedCallAccSymbolExistingPositionsPost')
+@Description('Getting post quantity sum')
+on DivisorEndMessage as B
+insert into NakedCallAccSymbolExistingPositionsPost
+select
+	R.underlyingSymbol as underlyingSymbol,
+	"RowCalculationBaseWindow" as parentWindowStream,
+	sum(R.quantity* R.multiplier) as postQuantity,
+	R.accountId as accountId,
+	R.accountShortName as accountShortName
+from
+	RowCalculationBaseWindow as R
+where R.taxlotType = 'Post' and valueExistsInCSV(R.accountShortName, Account_NakedCallOptions_Post)
+and (R.asset = 'Equity' or (R.asset = 'EquityOption' and R.putOrCall = 'Call' and R.orderSide = 'Sell to Open'))
+group by accountId, underlyingSymbol;
+	
+
+@Name('PostTradeCheckSideNakedCallAccSymbol')
+@Description('Final PostTradeCheckSideNakedCallAccSymbol stream')
+insert into PostTradeCheckSideNakedCallAccSymbol
+select
+	0 as userId,
+	'' as taxlotId,
+	'N/A' as threshold,
+    doubleFormat(coalesce(T.postQuantity, 0)) as actualResult,
+    'Quantity'  as constraintField,
+     T.postQuantity < 0  and exists (select* from RowCalculationBaseWindow as R where (R.taxlotType = 'Post' and R.asset = 'EquityOption' and R.putOrCall = 'Call' and R.orderSide = 'Sell to Open' and R.underlyingSymbol = T.underlyingSymbol)) as isViolated,
+	' Symbol: '|| T.underlyingSymbol ||
+	', Account: '|| T.accountShortName ||
+	', Extra Underlying Shares needed: '|| doubleFormat(coalesce(T.postQuantity * -1, 0)) as parameters,
+	current_timestamp as validationTime,
+	'Account does not have sufficient underlying shares to cover call options' as summary,
+	T.accountShortName|| '-' || T.underlyingSymbol as dimension
+from
+	NakedCallAccSymbolExistingPositionsPost as T;

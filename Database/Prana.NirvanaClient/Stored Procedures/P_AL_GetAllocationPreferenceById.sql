@@ -1,0 +1,93 @@
+﻿
+CREATE PROCEDURE [dbo].[P_AL_GetAllocationPreferenceById]
+(
+	@PreferenceId int
+)
+AS
+
+SELECT 
+def.[Id],def.[Name],def.[CompanyId], def.[PositionPriority], def.[AllocationBase],
+def.[MatchingRule],def.[MatchPortfolioPosition],def.[PreferencedFundId],def.[UpdateDateTime],
+def.[IsPrefVisible],
+(
+		select FundId as FundId
+		from T_AL_ProrataFundList as TPFL
+		where TPFL.checkListId=-1 and TPFL.PreferenceId= @PreferenceId
+		FOR XML AUTO, ELEMENTS, ROOT('ProrataFundList')
+	) as ProrataFundList,
+ def.ProrataDaysBack,
+(
+	SELECT PercentageData.[FundId], PercentageData.[Value],
+	
+	(
+		select [StrategyId], [Value]
+		from [T_AL_StrategyValue] as Strategy
+		where Strategy.[AllocationPrefDataId]=PercentageData.Id 
+		FOR XML AUTO, ELEMENTS, ROOT('StrategyList')
+	) as StrategyList
+	
+	FROM T_AL_AllocationPreferenceData as PercentageData 
+	where PercentageData.PresetDefId = def.Id 
+	FOR XML AUTO, TYPE, ELEMENTS, ROOT('PercentageDataList'), XMLSCHEMA
+) as PercentageDataList,
+(
+	SELECT 
+	[CheckListId],[PresetDefId],	
+	[ExchangeOperator],
+	(
+		select ExchangeId
+		from T_AL_Exchange as Exchange
+		where Exchange.checkListId=CheckList.checkListId 
+		FOR XML AUTO, ELEMENTS, ROOT('ExchangeList')
+	) as ExchangeList,
+	[AssetOperator], 
+	(
+		select AssetId
+		from T_AL_Asset as Asset
+		where Asset.checkListId=CheckList.checkListId 
+		FOR XML AUTO, ELEMENTS, ROOT('AssetList')
+	) as AssetList,
+	[PROperator],
+	(
+		select PR as PRId
+		from T_AL_PR as TPR
+		where TPR.checkListId=CheckList.checkListId 
+		FOR XML AUTO, ELEMENTS, ROOT('PRList')
+	) as PRList,
+	[AllocationBase],[MatchingRule],
+	[MatchPortfolioPosition],
+	[PreferencedFundId],
+	(
+		select FundId as FundId
+		from T_AL_ProrataFundList as TPFL
+		where TPFL.checkListId=CheckList.checkListId 
+		FOR XML AUTO, ELEMENTS, ROOT('ProrataFundList')
+	) as ProrataFundList,
+	[ProrataDaysBack],
+	[OrderSideOperator],
+	(
+		select OrderSideId
+		from T_AL_OrderSide as OrderSide
+		where OrderSide.checkListId=CheckList.checkListId 
+		FOR XML AUTO, ELEMENTS, ROOT('OrderSideList')
+	) as OrderSideList,
+	(
+		SELECT TargetPercentageData.[AccountId], TargetPercentageData.[Value],
+		(	
+			SELECT [StrategyId], [Value]
+			from T_AL_StrategyChecklistValues as StrategyData
+			where StrategyData.AccountCheckListId = TargetPercentageData.Id 
+			FOR XML AUTO, ELEMENTS, ROOT('StrategyCheckListValue')
+		) as StrategyCheckListValue
+		FROM T_AL_AccountCheckListValue as TargetPercentageData 
+		where TargetPercentageData.CheckListId = CheckList.CheckListId 
+		FOR XML AUTO, ELEMENTS, ROOT('TargetPercentageCheckListData'), XMLSCHEMA
+	) as TargetPercentageCheckListData
+	FROM T_AL_CheckList as CheckList
+	where CheckList.PresetDefId = def.Id 
+	FOR XML AUTO, TYPE, ELEMENTS, ROOT('CheckListCollection'), XMLSCHEMA
+) as CheckListCollection
+
+from T_AL_AllocationPreferenceDef as def
+where def.Id = @PreferenceId
+ORDER BY def.PositionPriority ASC

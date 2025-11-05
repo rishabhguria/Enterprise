@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="WaveFront">
+		<rule id="custom-rule-WaveFront1">
+			<name>No Short Equities</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/CheckSideRuleNoShortEquities/</eplPath>
+			<description>Pre-Trade Alerts For Erroneous Short Sale Violation on Account-Symbol Level</description>
+			<compressionLevel>AccountSymbol</compressionLevel>
+			<validationCompletedEventName>CheckSideRuleNoShortEquities</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="CheckSideRuleNoShortEquities" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="CheckSideRuleNoShortEquities" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME_WAVEFRONT" type="string" value="WaveFront China Fund, WaveFront EM Fund II, CCMO, USA Mutuals/WF Hedged EM Fund" displayName="Fund Names" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-WaveFront2">
+			<name>No Odd Lots WaveFront</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/NoOddLots/</eplPath>
+			<description>Only trade orders for round lots of underlying security allowed (No Odd Lots)</description>
+			<compressionLevel>Trade</compressionLevel>
+			<validationCompletedEventName>NoOddLotsWaveFrontFinal</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="NoOddLotsWaveFrontFinal" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="NoOddLotsWaveFrontFinal" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME1_WAVEFRONT" type="string" value="WaveFront China Fund, WaveFront EM Fund II, CCMO, USA Mutuals/WF Hedged EM Fund" displayName="Fund Names" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-WaveFront3">
+			<name>No Debit Cash Balance WaveFront</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/NoDebitCashBalance/</eplPath>
+			<description>No trades can be more than the current cash balance of the masterfund</description>
+			<compressionLevel>Trade</compressionLevel>
+			<validationCompletedEventName>NoDebitCashBalanceWaveFront</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="NoDebitCashBalanceWaveFront" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="NoDebitCashBalanceWaveFront" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME2_WAVEFRONT" type="string" value="WaveFront China Fund, WaveFront EM Fund II, CCMO, USA Mutuals/WF Hedged EM Fund" displayName="Fund Names" />
+			</constantList>
+		</rule>
+	</rules>
+</ruleConfig>

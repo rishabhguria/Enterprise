@@ -1,0 +1,71 @@
+module customRules.postTrade.symphonyOptGrExp.SymphonyOptGrExp;
+
+/* Constant Variable region starts here*/
+
+create constant variable double SYMPHONY_MAX_GROSS_EXPOSURE_COEFFICIENT = 1.1;
+create constant variable double SYMPHONY_OPT_GRS_EXPOSURE_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationOptionAccountAssetPostSymphony')
+@Description('Calculates gross exposure of investments in options by Symphony.')
+insert into AggregationOptionAccountAssetPostSymphony
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(asset in ('EquityOption')) as T 
+
+where T.accountShortName='Symphony'
+// T.asset in 
+//('EquityOption')// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('OptionExopsurePostSymphony')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationOptionAccountAssetPostSymphony]
+insert into OptionExopsurePostSymphony
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(SYMPHONY_OPT_GRS_EXPOSURE_COEFFICIENT * coalesce(NF.accountNav,1) * SYMPHONY_MAX_GROSS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationOptionAccountAssetPostSymphony" as parentWindowStream
+from 
+AccountWithNav as NF
+where NF.accountId=T.accountId;
+
+@Name('RuleName15FinalPostSymphony')
+@Description('Checks if limits are breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName15FinalPostSymphony
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '20'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'If options make up 20% or more of Symphony, please advise' as summary,
+	R.accountShortName as dimension,
+	"OptionExopsurePostSymphony" as parentWindowStream
+from
+OptionExopsurePostSymphony as R
+where R.percentageExposure > 20;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

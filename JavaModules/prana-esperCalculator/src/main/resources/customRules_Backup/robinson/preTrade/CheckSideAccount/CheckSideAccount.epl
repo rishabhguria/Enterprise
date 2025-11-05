@@ -1,0 +1,27 @@
+module customRules.robinson.preTrade.CheckSideAccount.CheckSideAccount;
+
+
+@Name('CheckSideAccount')
+@Description('Transaction results in check side fail')
+insert into CheckSideAccount
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	B.basketId as taxlotId,
+	'N/A' || ValueSeparator || 'N/A' || ValueSeparator || doubleFormat(coalesce(M.quantity, 0))  as threshold,
+	W.symbol || ValueSeparator || W.accountShortName || ValueSeparator || doubleFormat(coalesce(W.quantity, 0)) as actualResult,
+	'Symbol' || ValueSeparator || 'Account' || ValueSeparator || 'Quantity' as constraintField,
+	exists (select * from RowCalculationBaseWindow where symbol = W.symbol and basketId = B.basketId)
+		AND
+	((coalesce(W.quantity, 0) > 0 and coalesce(M.quantity, 0) < 0) OR (coalesce(W.quantity, 0) < 0 and coalesce(M.quantity, 0) > 0))  and (M.asset = W.asset) as isViolated,
+	'Original Position : ' || doubleFormat(coalesce(M.quantity, 0)) || 
+		', New Position : ' || doubleFormat(coalesce(W.quantity, 0)) ||
+		', Symbol : ' || W.symbol ||
+		', Account : ' || W.accountShortName as parameters,
+	current_timestamp as validationTime,
+	'Check side failed for the symbol ' || W.symbol || ' in ' || W.accountShortName as summary,
+	 W.accountShortName|| '-' || W.symbol as dimension
+from
+	BasketEOM as B unidirectional left outer join 
+	WhatIfAccountSymbolWithNav as W on W.basketId = B.basketId left outer join
+	AccountSymbolWithNav as M on M.symbol = W.symbol and M.accountId = W.accountId;

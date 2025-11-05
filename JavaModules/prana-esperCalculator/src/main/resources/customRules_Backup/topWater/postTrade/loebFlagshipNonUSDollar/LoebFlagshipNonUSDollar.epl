@@ -1,0 +1,67 @@
+module customRules.preTrade.loebFlagshipNonUSDollar.LoebFlagshipNonUSDollar;
+
+/* Constant Variable region starts here*/
+
+create constant variable double LOEB_FLAGSHIP_GROSS_EXPOSURE_NON_US_COEFFICIENT = 0.5;
+
+/* Constant Variable region ends here*/
+
+@Name('AggregationAccountCurrencyPost')
+@Description('Calculates gross exposure of investments in non denominated US dollars by Loeb Flagship.')
+insert into AggregationAccountCurrencyPost
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	"AccountSymbolWithNav" as parentWindowStream
+from
+AccountSymbolWithNav(currency not in ('USD')) as T 
+where // T.taxlotType='Post' and 
+T.accountShortName='Loeb Flagship'
+group by T.accountShortName;
+//TODO: What happens when check for currency is in "where" clause
+//What is main difference
+
+
+@Name('PercentNetExposureCurrencyPost')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationAccountCurrencyPost]
+insert into PercentNetExposureCurrencyPost
+select distinct
+	coalesce(T.grossExposureBase*100/(LOEB_FLAGSHIP_GROSS_EXPOSURE_NON_US_COEFFICIENT * coalesce(NF.accountNav,1)),0) as percentageGrossExposureBase,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationAccountCurrencyPost" as parentWindowStream
+	
+from 
+AccountWithNav as NF
+where T.accountId=NF.accountId;
+//TODO: Check should be done on account short name, 
+//as it will trigger many alerts from all possible combination of accounts 
+
+
+
+@Name('RuleName12FinalPost')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName12FinalPost
+select distinct
+	'' as taxlotId,
+	0 as userId,
+	'N/A' || ValueSeparator || '50'  as threshold,
+	T.accountShortName || ValueSeparator || cast(T.percentageGrossExposureBase,String) as actualResult,
+	'Account' || ValueSeparator || '% Net Exposure' as constraintField,
+	true as isViolated,
+	'% Net Exposure: '||cast(T.percentageGrossExposureBase,String) || ', Account: '||T.accountShortName|| ', Gross Exposure: '|| T.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 50% of Loeb Flagship may be invested in non denominated US dollars. ' as summary,
+	T.accountShortName as dimension,
+	"PercentNetExposureCurrencyPost" as parentWindowStream
+from
+PercentNetExposureCurrencyPost as T
+where T.percentageGrossExposureBase > 50;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+//TODO: What if we move this check of "case when T.percentageNetExposureBase > 50 then true"
+//to where condition of statement. As we don't need to raise false as isViolated, because this is post-trade
+
+ 

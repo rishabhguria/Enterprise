@@ -1,0 +1,76 @@
+module customRules.postTrade.chiefCornerstone1AvgPxLess5GrExp.ChiefCornerstone1AvgPxLess5GrExp;
+
+
+/* Constant Variable region starts here*/
+
+
+create constant variable double CHIEF_CORNERSTONE1_COEFFICIENT = 1.0;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationPricePost')
+@Description('Stores gross exposure for Chief Cornerstone1(TA)')
+insert into AggregationPricePost
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"RowCalculationBaseWindow" as parentWindowStream
+	
+from
+
+RowCalculationBaseWindow(avgPrice < 5 and currency = 'USD') as T 
+where T.accountShortName='Chief Cornerstone1(TA)' and T.taxlotType='Post'
+group by T.accountShortName;
+
+
+
+
+
+@Name('AccountPricePercentExposurePost')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationPricePost]
+insert into AccountPricePercentExposurePost
+select distinct
+	coalesce(T.grossExposureBase*100/(coalesce(F.accountNav,1) * CHIEF_CORNERSTONE1_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationPricePost" as parentWindowStream
+	
+from 
+AccountWithNav as F
+where F.accountId=T.accountId;
+
+
+
+@Name('RuleName2FinalChiefCornerstone1')
+@Description('Checks if limits is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName2FinalChiefCornerstone1
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '10'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	//case when R.percentageExposure > 10 then true
+	//		else false
+	//end
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 10% of Chief Cornerstone1(TA) exposure shall be invested in stocks and Average Price less than $5.' as summary,
+	R.accountShortName as dimension,
+	"AccountPricePercentExposurePost" as parentWindowStream
+from
+AccountPricePercentExposurePost as R
+where R.percentageExposure > 10;
+
+
+ 

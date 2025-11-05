@@ -1,0 +1,35 @@
+module customRules.iguana.postTrade.concentrationLimit9c.concentrationLimit9c;
+
+@Name('AggregationGrossExposureAccountSymbol')
+@Description('Holds quantity of symbols traded by Whitney Capital-JPM or Iguana Healthcare-JPM.')
+on pattern[every R=AccountSymbolWithNavUpdated]
+insert into AggregationGrossExposureAccountSymbol
+select distinct
+	sum(T.quantity) as quantity,
+	T.symbol as symbol,
+	'' as taxlotId,
+	0 as userId	
+from
+AccountSymbolWithNav as T
+where (T.accountShortName='Whitney Capital-JPM' or T.accountShortName='Iguana Healthcare-JPM') and asset='Equity' and T.symbol=R.symbol
+group by T.symbol;
+
+@Name('ConcentrationLimits9c')
+@Description('Checks if limit is breached and fills aggregate data whenever limit is breached.')
+on pattern[every T=AggregationGrossExposureAccountSymbol]
+insert into ConcentrationLimits9c
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'4.99' || ValueSeparator || 'Whitney Capital-JPM,Iguana Healthcare-JPM' || ValueSeparator || 'N/A' as threshold,
+	formatBigDecimal(MultiplyDoubleToBigDecimal(R.sharesOutstanding, 0.0499)) || ValueSeparator || 'Whitney Capital-JPM,Iguana Healthcare-JPM' || ValueSeparator || T.symbol as actualResult,
+	'Equity security holding % of the outstanding stock' || ValueSeparator || 'Account' || ValueSeparator || 'Symbol' as constraintField,
+	true as isViolated,
+	'Position: '||doubleFormat(T.quantity) || ', Account: Whitney Capital-JPM and Iguana Healthcare-JPM'|| ', Symbol: '||T.symbol|| ', 4.99% of Shares Outstanding: '|| formatBigDecimal(MultiplyDoubleToBigDecimal(R.sharesOutstanding, 0.0499)) as parameters,
+	current_timestamp as validationTime,
+	'An equity security holding exceeded 4.99% of the outstanding stock of in Whitney Capital-JPM and Iguana Healthcare-JPM.' as summary,
+	T.symbol as dimension
+from
+AccountSymbolWithNav as R
+where T.quantity > 0.0499*R.sharesOutstanding and R.symbol=T.symbol and R.sharesOutstanding>0;
+

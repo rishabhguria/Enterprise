@@ -1,0 +1,129 @@
+module eplModules.postAggregation.extendedAccountSymbol.RowCalculationBaseWithNavUpsert;
+
+uses eplModules.postAggregation.extendedAccountSymbol.ExtendedAccountSymbolWithNavIntermediate;
+uses eplModules.divisorCalculators.AccountDivisorWindow;
+uses eplModules.divisorCalculators.MasterFundDivisorWindow;
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+
+@Name('AccountSymbolWithNavAccountDivisorUpsert')
+@Description('Updates AccountSymbolWithNav when AccountDivisorUpdateEvent occurs.')
+on AccountDivisorUpdateEvent as F
+merge ExtendedAccountSymbolWithNav as W where F.accountId = W.accountId
+when matched and 
+	(
+	W.accountNav <> F.shadowNav 
+	or W.startOfDayNavAccount <> F.startOfDayNav
+	or W.grossMarketValueBaseAccount <> F.grossMarketValueBase
+	or W.grossExposureBaseAccount <> F.grossExposureBase
+	or W.netExposureBaseAccount <> F.netExposureBase
+	or W.currentCash <> F.currentCash
+	or W.accrual <> F.accrual
+	)
+	then update set
+		W.accountNav = F.shadowNav,
+		W.startOfDayNavAccount = F.startOfDayNav,
+		W.grossMarketValueBaseAccount = F.grossMarketValueBase,
+		W.grossExposureBaseAccount = F.grossExposureBase,
+		W.netExposureBaseAccount = F.netExposureBase,		
+		W.percentNetMarketValueAccount = percent(coalesce(W.netMarketValueBase,0), coalesce(F.shadowNav,0)),
+		W.percentLongExposureAccount = percent(coalesce(W.longExposureBase,0), coalesce(F.shadowNav,0)),
+		W.percentShortExposureAccount = percent(coalesce(W.shortExposureBase,0), coalesce(F.shadowNav,0)),
+		W.percentNetExposureAccount = percent(coalesce(W.netExposureBase,0), coalesce(F.shadowNav,0)),
+		W.percentBetaAdjustedExposureAccount = percent(coalesce(W.betaAdjustedExposureBase,0), coalesce(F.shadowNav,0)),
+		W.percentGrossExposureAccount = percent(coalesce(W.grossExposureBase,0), coalesce(F.shadowNav,0)),
+		W.percentCostBasisPnlAccount = percent(coalesce(W.costBasisPnLBase,0), coalesce(F.shadowNav,0)),
+		W.currentCash = F.currentCash,
+		W.accrual = F.accrual,
+		W.parentWindowStream = "AccountDivisorUpdateEvent,ExtendedAccountSymbolWithNav"
+
+when not matched and (F.currentCash <> 0 or F.accrual <> 0 or F.startOfDayNav <> 0)
+then insert select
+		getUniqueKeyExtendedAccountSymbolWithNav(F.accountId,"",0,0,"","","","","","","") as uniqueKey,
+		F.accountId as accountId,
+		F.accountName as accountShortName,
+		F.masterFundId as masterFundId,
+		F.masterFundName as masterFundName,
+		0.0 as quantity,
+		'NO-Position' as symbol,
+		-1 as assetId,
+		'NO-Asset' as asset,
+		F.shadowNav as accountNav,
+		F.startOfDayNav as startOfDayNavAccount,
+		F.grossMarketValueBase as grossMarketValueBaseAccount,
+		F.grossExposureBase as grossExposureBaseAccount,
+		F.netExposureBase as netExposureBaseAccount,		
+		coalesce(F.shadowNav,0) as percentNetMarketValueAccount,
+		coalesce(F.shadowNav,0) as percentLongExposureAccount,
+		coalesce(F.shadowNav,0) as percentShortExposureAccount,
+		coalesce(F.shadowNav,0) as percentNetExposureAccount,
+		coalesce(F.shadowNav,0) as percentBetaAdjustedExposureAccount,
+		coalesce(F.shadowNav,0) as percentGrossExposureAccount,
+		coalesce(F.shadowNav,0) as percentGrossExposureAccount,
+		F.currentCash as currentCash,
+		F.accrual as accrual,
+		0.0 as masterFundNav,
+		0.0 as startOfDayNavMasterFund,
+		0.0 as grossExposureBaseMasterFund,
+		0.0 as grossExposureBaseMasterFund,
+		0.0 as grossExposureBaseMasterFund,
+		0.0 as globalNav,
+		0.0 as startOfDayNavGlobal,
+		0.0 as grossMarketValueBaseGlobal,
+		0.0 as grossExposureBaseGlobal,
+		0.0 as netExposureBaseGlobal,
+		'ExtendedAccountSymbolWithNav' as compressionLevel,	
+		"NO-Position-ExtendedAccountSymbolWithNav" as parentWindowStream; 
+
+@Name('AccountSymbolWithNavMasterFundDivisorUpsert')
+@Description('Updates AccountSymbolWithNav whenever MasterFundDivisorUpdateEvent event occurs.')
+on MasterFundDivisorUpdateEvent as F 
+merge ExtendedAccountSymbolWithNav as W where F.masterFundId = W.masterFundId
+when matched and 
+	(
+	W.masterFundNav <> F.shadowNavMF 
+	or W.startOfDayNavMasterFund <> F.startOfDayNavMF
+	or W.grossMarketValueBaseMasterFund <> F.grossMarketValueBaseMF
+	or W.grossExposureBaseMasterFund <> F.grossExposureBaseMF
+	or W.netExposureBaseMasterFund <> F.netExposureBaseMF
+	)
+	then update set
+		W.masterFundNav = F.shadowNavMF,
+		W.startOfDayNavMasterFund = F.startOfDayNavMF,
+		W.grossMarketValueBaseMasterFund = F.grossMarketValueBaseMF,
+		W.grossExposureBaseMasterFund = F.grossExposureBaseMF,
+		W.netExposureBaseMasterFund = F.netExposureBaseMF,		
+		W.percentNetMarketValueMasterFund = percent(coalesce(W.netMarketValueBase,0), coalesce(F.shadowNavMF,0)),
+		W.percentLongExposureMasterFund = percent(coalesce(W.longExposureBase,0), coalesce(F.shadowNavMF,0)),
+		W.percentShortExposureMasterFund = percent(coalesce(W.shortExposureBase,0), coalesce(F.shadowNavMF,0)),
+		W.percentNetExposureMasterFund = percent(coalesce(W.netExposureBase,0), coalesce(F.shadowNavMF,0)),
+		W.percentBetaAdjustedExposureMasterFund = percent(coalesce(W.betaAdjustedExposureBase,0), coalesce(F.shadowNavMF,0)),
+		W.percentGrossExposureMasterFund = percent(coalesce(W.grossExposureBase,0), coalesce(F.shadowNavMF,0)),
+		W.percentCostBasisPnlMasterFund = percent(coalesce(W.costBasisPnLBase,0), coalesce(F.shadowNavMF,0)),
+		W.parentWindowStream = "MasterFundDivisorUpdateEvent,ExtendedAccountSymbolWithNav";
+
+@Name('AccountSymbolWithNavGlobalDivisorUpsert')
+@Description('Updates AccountSymbolWithNav whenever GlobalDivisorUpdateEvent event occurs.')
+on GlobalDivisorUpdateEvent as F 
+merge ExtendedAccountSymbolWithNav as W
+when matched and 
+	(
+		W.globalNav <> F.shadowNavG 
+		or W.startOfDayNavGlobal <> F.startOfDayNavG
+		or W.grossMarketValueBaseGlobal <> F.grossMarketValueBaseG
+		or W.grossExposureBaseGlobal <> F.grossExposureBaseG
+		or W.netExposureBaseGlobal <> F.netExposureBaseG
+	)
+	then update set
+		W.globalNav = F.shadowNavG,
+		W.startOfDayNavGlobal = F.startOfDayNavG,
+		W.grossMarketValueBaseGlobal = F.grossMarketValueBaseG,
+		W.grossExposureBaseGlobal = F.grossExposureBaseG,
+		W.netExposureBaseGlobal = F.netExposureBaseG,		
+		W.percentNetMarketValueGlobal = percent(coalesce(W.netMarketValueBase,0), coalesce(F.shadowNavG,0)),
+		W.percentLongExposureGlobal = percent(coalesce(W.longExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentShortExposureGlobal = percent(coalesce(W.shortExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentNetExposureGlobal = percent(coalesce(W.netExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedExposureGlobal = percent(coalesce(W.betaAdjustedExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentGrossExposureGlobal = percent(coalesce(W.grossExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentCostBasisPnlGlobal = percent(coalesce(W.costBasisPnLBase,0), coalesce(F.shadowNavG,0)),
+		W.parentWindowStream = "GlobalDivisorUpdateEvent,ExtendedAccountSymbolWithNav";

@@ -1,0 +1,78 @@
+ module customRules.postTrade.eastwindLongOptionMVInFrontMonth.EastwindLongOptionMVInFrontMonth;
+
+
+/* Constant Variable region starts here*/
+
+
+create constant variable double EASTWIND_LONG_OPT_MV_FRONT_MONTH_COEFFICIENT = 0.05;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationFrontMonthAssetPost')
+@Description('Calculate gross exposure of equity and future options for Eastwind.')
+insert into AggregationFrontMonthAssetPost
+select distinct
+	
+	sum(T.netMarketValueBase) as netMarketValueBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(actualDaysToExpire <= 30 and defaultPositionSide = 'long' and asset in ('EquityOption','FutureOption')) as T 
+
+//where T.asset in ('EquityOption','FutureOption') and T.taxlotType='Post'
+where T.accountShortName='Eastwind'
+group by T.accountId,T.asset;
+
+
+@Name('PercentageFrontMonthMarketValuePost')
+@Description('Calculate percentage exposure.')
+on pattern[every T=AggregationFrontMonthAssetPost]
+insert into PercentageFrontMonthMarketValuePost
+select distinct
+	coalesce(T.netMarketValueBase*100/(EASTWIND_LONG_OPT_MV_FRONT_MONTH_COEFFICIENT * coalesce(NF.accountNav,1)),0) as percentageMarketValue,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.netMarketValueBase) as netMarketValueBase,
+	T.accountShortName as accountShortName,
+	"AggregationFrontMonthAssetPost" as parentWindowStream
+	
+	
+from 
+AccountWithNav as NF
+where T.accountId=NF.accountId;
+
+
+
+@Name('RuleName7FinalPost')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName7FinalPost
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '5'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageMarketValue,String) as actualResult,
+	'Account' || ValueSeparator || '% Net Market Value Account' as constraintField,
+	//case when R.percentageMarketValue > 5 then true
+		//	else false
+	//end
+	true as isViolated,
+	'% Net Market Value Account: '||cast(R.percentageMarketValue,String) || ' Account Name: '||R.accountShortName|| ', Market Value Base: '|| R.netMarketValueBase as parameters,
+	current_timestamp as validationTime,
+	'The market value of all long option positions in the front month shall not exceed 5% in Eastwind.' as summary,
+	R.accountShortName as dimension,
+	"PercentageFrontMonthMarketValuePost" as parentWindowStream
+from
+PercentageFrontMonthMarketValuePost as R
+where R.percentageMarketValue > 5;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

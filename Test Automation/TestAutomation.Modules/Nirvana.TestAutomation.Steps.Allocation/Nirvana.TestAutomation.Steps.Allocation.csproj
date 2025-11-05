@@ -1,0 +1,593 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{48CEC7FB-646D-4B7C-9A17-9A6EBBDD199E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.TestAutomation.Steps.Allocation</RootNamespace>
+    <AssemblyName>Nirvana.TestAutomation.Steps.Allocation</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.UIA">
+      <HintPath>..\..\DLLs\Interop.UIA.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.UIAutomationClient">
+      <HintPath>..\..\DLLs\Interop.UIAutomationClient.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51205.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestAutomationFX.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AllocationUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AllocationUIMap.Designer.cs">
+      <DependentUpon>AllocationUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CalculatedPreferencesUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CalculatedPreferencesUIMap.Designer.cs">
+      <DependentUpon>CalculatedPreferencesUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FixedPreferencesUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FixedPreferencesUIMap.Designer.cs">
+      <DependentUpon>FixedPreferencesUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MasterFundPreferencesUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MasterFundPreferencesUIMap.Designer.cs">
+      <DependentUpon>MasterFundPreferencesUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreferencesUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PreferencesUIMap.Designer.cs">
+      <DependentUpon>PreferencesUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\SQLQueriesConstants.cs" />
+    <Compile Include="Steps\ActionOnGroupBox.cs" />
+    <Compile Include="Steps\AddCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AddCalculatedPreferenceToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AddMFPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AddMFPreferenceToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\Allocate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AllocateWithPopUp.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ApplyBulkUpdateOnGroups.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ApplyBulkUpdateOnTaxlots.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ApplyPrefetchFilters.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CheckAllocatedTaxlots.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CheckPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CheckUnallocatedGroups.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CleanUpUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ClearFiltersAllocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ClearFiltersUnallocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ClearPrefetchFilters.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CloseAllocation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CloseCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CloseOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CommissionBulkChangeOnGroups.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CommissionBulkChangeOnTaxlots.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteGroupWithOutSave.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditAttRenaming.cs" />
+    <Compile Include="Steps\EditTradeSidePanel.cs" />
+    <Compile Include="Steps\EditUnallocatedGridWPF.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditAllocatedGridWPF.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditAllocatedGridTaxlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteCalculatedPreferencesTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteMFPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteMFPreferenceToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DisableCheckside.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DisableChecksideForAccount.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DisableChecksideForAsset.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DisableChecksideForCounterParty.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditAllocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditAllocatedGroupSidePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteFixedPreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditUnallocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EnterAccountValuesToAllocate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EnterAllocatePreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EnterCustomAllocatePreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EnterStrategyValuesToAllocate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CopyCalculatedPreferenceToolbar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExpandCollapseAllocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExpandCollapseUnallocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExportAllCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExportAllCalculatedPreferTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExportCalculatedPreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GroupTrades.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ImportCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ImportCalculatedPreferencesTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\IsAllocationOpen.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ModifyMFPrefGeneralRuleValues.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\OpenAuditTrailAllocatedGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\OpenAuditTrailUnallocatedGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\OpenSymbolLookupAllocatedGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\OpenSymbolLookupUnallocateGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\OperationsonAllocation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RenameCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RenameMFPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RenameTradeAttributes.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReviewExistingPositions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveAllocation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveCloseMFPreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveLayoutAllocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveLayoutAllocationUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveLayoutUnallocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectAllTradesAllocation.cs" />
+    <Compile Include="Steps\SelectUnallocatedGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetAutoGroupingAccount.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetAutoGroupingPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetAvgPriceRounding.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetBrokerAccountMapping.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetFundDistribution.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetGeneralPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetGeneralRuleCalculatedPref.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetGroupingRules.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\BulkChangeCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CheckAllocatedGroups.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CheckFixedPreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CopyCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DeleteCalculatedPreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GetFixedPreference.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CleanUp.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditUnallocatedGroupSidePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditTradesAllocated.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditTradesUnallocated.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GeneralPrefCompanyUserWise.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GeneralPreferencesDefaultRule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMasterFundRatio.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GetDataAllocation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\Reallocate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RunAutoGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RunProrata.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectAllocatedGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetAccountValueCalculatedPref.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetDefaultRuleCalculatedPref.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMFPrefAccountValues.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMFPreferencesDefaultRule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMFPrefFundDefaultRule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMFPrefFundDistribution.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMFPrefGeneralRule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetMFPrefStrategyValues.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetStrategyValueCalculatedPref.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\BookOrUpdateSwap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SetTradeAttributePreferences.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ShowMasterFundAsClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ShowMasterFundOnTT.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\TradeAttributeBulkChangeGroups.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\Unallocate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\TradeAttributeBulkChangeTaxlots.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UnallocateWithOutSave.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UngroupTrades.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ModifyGRPreferenceValues.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UpdateGRAccountValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UpdateGeneralRulePref.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UpdateGRDefaultRule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UpdateGRStrategyValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAllocationStatusBar.cs" />
+    <Compile Include="Steps\VerifyExpansionIndicator.cs" />
+    <Compile Include="Steps\VerifyLayoutAllocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyLayoutUnallocatedGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="AllocationUIMap.resx">
+      <DependentUpon>AllocationUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CalculatedPreferencesUIMap.resx">
+      <DependentUpon>CalculatedPreferencesUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FixedPreferencesUIMap.resx">
+      <DependentUpon>FixedPreferencesUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterFundPreferencesUIMap.resx">
+      <DependentUpon>MasterFundPreferencesUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreferencesUIMap.resx">
+      <DependentUpon>PreferencesUIMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Steps\ApplyPrefetchFilters.resx">
+      <DependentUpon>ApplyPrefetchFilters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Steps\SetStrategyValueCalculatedPref.resx">
+      <DependentUpon>SetStrategyValueCalculatedPref.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.BussinessObjects\Nirvana.TestAutomation.BussinessObjects.csproj">
+      <Project>{b6c8fded-0558-4930-a9ff-f6e61c76af7d}</Project>
+      <Name>Nirvana.TestAutomation.BussinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Factory\Nirvana.TestAutomation.Factory.csproj">
+      <Project>{8d2bb2fc-8362-41ba-ab0f-4c6b0e8915f6}</Project>
+      <Name>Nirvana.TestAutomation.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NIrvana.TestAutomation.Interfaces\Nirvana.TestAutomation.Interfaces.csproj">
+      <Project>{85e56089-02d6-435a-ab82-dc828da19114}</Project>
+      <Name>Nirvana.TestAutomation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.TestDataProvider\Nirvana.TestAutomation.TestDataProvider.csproj">
+      <Project>{6CB848D1-A53E-433B-8A0F-497E0DBF6041}</Project>
+      <Name>Nirvana.TestAutomation.TestDataProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.UIAutomation\Nirvana.TestAutomation.UIAutomation.csproj">
+      <Project>{c814debb-9e96-4795-9fde-8f7b950771f7}</Project>
+      <Name>Nirvana.TestAutomation.UIAutomation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Utilities\Nirvana.TestAutomation.Utilities.csproj">
+      <Project>{1dc3644b-50a8-4fe8-9237-39e3f3ae563a}</Project>
+      <Name>Nirvana.TestAutomation.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

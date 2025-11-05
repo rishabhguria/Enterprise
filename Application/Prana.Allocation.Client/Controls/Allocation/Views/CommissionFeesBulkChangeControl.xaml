@@ -1,0 +1,475 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Custom="http://infragistics.com/Editors"
+            x:Class="Prana.Allocation.Client.Controls.Allocation.Views.CommissionFeesBulkChangeControl"
+            xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Allocation.ViewModels"
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Constants"
+             xmlns:behaviors="clr-namespace:Prana.Allocation.Client.Behaviours"
+             xmlns:commonBehaviors="clr-namespace:Prana.Allocation.Client.Behaviours"
+             xmlns:Converters="clr-namespace:Prana.Allocation.Client.ValueConvertor"   
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+            xmlns:ig="http://schemas.infragistics.com/xaml"
+            xmlns:Core="clr-namespace:System;assembly=mscorlib"
+            xmlns:themes="http://infragistics.com/Themes"
+            DataContext="{DynamicResource CommissionFeesBulkChangeControlViewModel}"
+            xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+            md:DialogServiceViews.IsRegistered="True"
+             mc:Ignorable="d" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>-->
+            <viewModels:CommissionFeesBulkChangeControlViewModel x:Key="CommissionFeesBulkChangeControlViewModel"/>
+            <Converters:PrecisionFormatDisplayConverter x:Key="PrecisionFormatDisplayConverter"/>
+            <Converters:DictionaryToEnumConverter x:Key="DictionaryToEnumConverter"/>
+            <Style x:Key="NumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource PrecisionFormatDisplayConverter}"/>
+                <Setter Property="Tag" Value="{Binding Path=PrecisionFormat}"></Setter>
+                <Setter Property="Mask" Value="{}{char:15:0-9.}"/>
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="SpinIncrement" Value="0.25"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="15,5,15,5"/>
+                <Setter Property="Width" Value="100"/>
+            </Style>
+            <Style x:Key="NegativeNumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource PrecisionFormatDisplayConverter}"/>
+                <Setter Property="Tag" Value="{Binding Path=PrecisionFormat}"></Setter>
+                <Setter Property="Mask" Value="{}{char:15:-0-9.}"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="SpinIncrement" Value="0.25"/>
+                <Setter Property="Margin" Value="5,5,5,5"/>
+                <Setter Property="MinWidth" Value="100"/>
+            </Style>
+            <Style x:Key="IntegerEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="Mask" Value="{}{number:0-16}"/>
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="SpinIncrement" Value="1"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="15,5,15,5"/>
+                <Setter Property="Width" Value="100"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalScrollBarVisibility="Visible">
+        <Grid x:Name="MainGrid" Background="{DynamicResource UserControlBackGround}">
+            <GroupBox BorderBrush="{DynamicResource GroupBoxBorder}">
+                <Grid Background="{DynamicResource UserControlBackGround}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width=" Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Recalculator Methodology" Grid.Row="0" Grid.Column="0" BorderBrush="{DynamicResource GroupBoxBorder}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                <RadioButton x:Name="GroupLevel" Content="Group Level(Default Commissions/Bulk Updates)" Margin="10,5,5,5" GroupName="Group3" IsChecked="{Binding Path=GroupLevel, UpdateSourceTrigger=PropertyChanged}"/>
+                                <RadioButton x:Name="TaxlotLevel" Content="Taxlot Level(Specefic Commission/Fx Rates)" Margin="5,5,0,5" GroupName="Group3" IsChecked="{Binding Path=TaxlotLevel, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding Path=TaxlotEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+                            </StackPanel>
+                            <Grid x:Name="Left" Grid.Row="1" Background="{DynamicResource UserControlBackGround}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Filter Taxlot Level(Fx Update/Specify CommRule)" Grid.Column="0" Grid.Row="0" IsEnabled="{Binding ElementName=TaxlotLevel,Path=IsChecked}" BorderBrush="{DynamicResource GroupBoxBorder}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Content="Master Fund" Grid.Column="0" Grid.Row="0"  Width="80" Margin="10,5,15,5"/>
+                                        <ComboBox x:Name="MasterFundsCombo" Margin="15,5,15,5" Grid.Column="1" Grid.Row="0"  Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" SelectedItem="{Binding Path=SelectedMasterFunds}" ItemsSource="{Binding Path=MasterFunds}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <Label Content="PB" Grid.Column="0" Grid.Row="1" Width="80" Margin="10,5,15,5"/>
+                                        <ComboBox x:Name="ThirdPartyDetailsCombo" Margin="15,5,15,5" Width="100" Grid.Column="1" Grid.Row="1" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" SelectedItem="{Binding Path=SelectedThirdPartyDetails}" ItemsSource="{Binding Path=ThirdPartyDetails}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <Label Content="Accounts" Margin="10,5,15,5" Grid.Column="0" Grid.Row="2"/>
+                                        <ig:XamComboEditor x:Name="AccountListCombo" Grid.Column="1" Grid.Row="2" Margin="15,5,15,5"  Width="100" ToolTip="{Binding SelectedValues, ElementName=ComboBehavior}" IsEditable="True" AllowMultipleSelection="True" CheckBoxVisibility="Visible" EmptyText="Select" ItemsSource="{Binding Path=ListBoxData, Mode=TwoWay}" IsDropDownOpen="True">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamComboEditorBehavior x:Name="ComboBehavior" SelectedItems ="{Binding Path=SelectedAccountIDsList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                            </i:Interaction.Behaviors>
+                                        </ig:XamComboEditor>
+                                    </Grid>
+                                </GroupBox>
+                                <Grid Grid.Column="1">
+                                    <GroupBox Header="Applying Group Update" BorderBrush="{DynamicResource GroupBoxBorder}">
+                                        <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Button x:Name="btnUpdateAll" Content="Update All" Grid.Row="1" Margin="15,41,15,10" Width="75" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}" >
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <i:InvokeCommandAction Command="{Binding Path=CommissionBulkChangeCommand}" CommandParameter="UpdateAllBtn"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <CheckBox Name="EnableAvgPrice" IsEnabled="{Binding Path=GroupLevel}" Content="Avg Price" Grid.Column="0" Grid.Row="0" Margin="10,5,15,5" IsChecked="{Binding Path=EnableAvgPrice}"/>
+                                            <CheckBox Name="EnableAccruedInterest" IsEnabled="{Binding Path=GroupLevel}" Content="Accrued Interest" Grid.Column="0" Grid.Row="1" Margin="10,5,15,5" IsChecked="{Binding Path=EnableAccruedInterest}"/>
+                                            <CheckBox Name="EnableBroker" IsEnabled="{Binding Path=GroupLevel}" Content="Broker" Grid.Column="0" Grid.Row="2" Margin="10,5,15,5" IsChecked="{Binding Path=EnableBroker}"/>
+                                            <CheckBox Name="EnableDescription" IsEnabled="{Binding Path=GroupLevel}" Content="Description" Grid.Column="0" Grid.Row="3" Margin="10,5,15,5" IsChecked="{Binding Path=EnableDescription}"/>
+                                            <CheckBox Name="EnableInternalComments" IsEnabled="{Binding Path=GroupLevel}" Content="Internal Comments" Grid.Column="0" Grid.Row="4" Margin="10,5,15,5" IsChecked="{Binding Path=EnableInternalComments}"/>
+                                            <CheckBox Name="EnableFxRate" Content="Fx Rate" Grid.Column="0" Grid.Row="5" Margin="10,5,15,5" IsChecked="{Binding Path=EnableFxRate}" />
+                                            <CheckBox Name="EnableFxRateOperator" Content="Fx Rate Operator" Grid.Column="0" Grid.Row="6" Margin="10,5,15,5" IsChecked="{Binding Path=EnableFxRateOperator}"/>
+                                            <CheckBox Name="EnableAvgPriceRounding" IsEnabled="{Binding Path=GroupLevel}" Content="Avg Price Rounding" Grid.Column="0" Grid.Row="7" Margin="10,5,15,5" IsChecked="{Binding Path=EnableAvgPriceRounding}"/>
+                                            <CheckBox Name="EnableAll" IsEnabled="{Binding Path=GroupLevel}" Content="Select/Unselect All" Grid.Column="0" Grid.Row="8" Margin="10,5,15,5" IsChecked="{Binding Path=EnableAll}"/>
+                                            <Custom:XamNumericEditor Name="AvgPriceEditor" Grid.Row="0" Grid.Column="1" ValueType="Core:Double" Style="{StaticResource NumericEditorStyle}" IsEnabled="{Binding ElementName=EnableAvgPrice, Path=IsChecked}" Value="{Binding Path=AvgPriceEditor, Mode=TwoWay}">
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:XamNumericEditorBehaviour/>
+                                                </i:Interaction.Behaviors>
+                                            </Custom:XamNumericEditor>
+                                            <Custom:XamNumericEditor Name="AccruedInterestEditor" Grid.Row="1" Grid.Column="1" ValueType="Core:Double" Style="{StaticResource NumericEditorStyle}" IsEnabled="{Binding ElementName=EnableAccruedInterest, Path=IsChecked}" Value="{Binding Path=AccruedInterestEditor}">
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:XamNumericEditorBehaviour/>
+                                                </i:Interaction.Behaviors>
+                                            </Custom:XamNumericEditor>
+                                            <ComboBox x:Name="CounterPartiesCombo" Grid.Row="2" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableBroker, Path=IsChecked}" SelectedItem="{Binding Path=SelectedCounterParties}" ItemsSource="{Binding Path=CounterParties}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style>
+                                                        <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
+                                            <TextBox Grid.Row="3" Name="DescriptionBox" Grid.Column="1" Margin="15,5,15,5" IsEnabled="{Binding ElementName=EnableDescription, Path=IsChecked}" Text="{Binding Path=DescriptionBox}"/>
+                                            <TextBox Grid.Row="4" Name="InternalCommentsBox" Grid.Column="1" Margin="15,5,15,5" IsEnabled="{Binding ElementName=EnableInternalComments, Path=IsChecked}" Text="{Binding Path=InternalCommentsBox}"/>
+                                            <Custom:XamNumericEditor Name="FxRateEditor" Grid.Row="5" Grid.Column="1" ValueType="Core:Double" Style="{StaticResource NumericEditorStyle}" IsEnabled="{Binding ElementName=EnableFxRate, Path=IsChecked}" Value="{Binding Path=FxRateEditor}">
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:XamNumericEditorBehaviour/>
+                                                </i:Interaction.Behaviors>
+                                            </Custom:XamNumericEditor>
+                                            <ComboBox x:Name="FxRateOperatorCombo" Grid.Row="6" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.DisplayText, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableFxRateOperator, Path=IsChecked}" ItemsSource="{Binding Path=FxConversionOperator}" SelectedItem="{Binding Path=SelectedFxConversionOperator}" DisplayMemberPath="DisplayText" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                                <ComboBox.ItemContainerStyle>
+                                                    <Style>
+                                                        <Setter Property="Control.ToolTip" Value="{Binding DisplayText}" />
+                                                    </Style>
+                                                </ComboBox.ItemContainerStyle>
+                                            </ComboBox>
+                                            <Custom:XamNumericEditor Name="AvgPriceRoundingEditor" Grid.Row="7" Grid.Column="1" ValueType="Core:Int32" Style="{StaticResource IntegerEditorStyle}" IsEnabled="{Binding ElementName=EnableAvgPriceRounding, Path=IsChecked}" Value="{Binding Path=AvgPriceRoundingEditor, Mode=TwoWay}">
+                                                <i:Interaction.Behaviors>
+                                                    <behaviors:XamNumericEditorBehaviour/>
+                                                </i:Interaction.Behaviors>
+                                            </Custom:XamNumericEditor>
+                                        </Grid>
+                                        </Grid>
+                                    </GroupBox>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Recalculate Commissions" Grid.Row="0" Grid.Column="1" BorderBrush="{DynamicResource GroupBoxBorder}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <GroupBox Grid.Row="1" IsEnabled="{Binding ElementName=SpecifyCommissionRule,Path=IsChecked}" BorderBrush="{DynamicResource GroupBoxBorder}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox Name="EnableDisableAll" Content="Select/Unselect All" Grid.Column="0" Grid.Row="0" Margin="10,5,15,5" IsChecked="{Binding Path=ChkbxSelectAll}"/>
+                                        <CheckBox Name="EnableCommission" Content="Commission" Grid.Column="0" Grid.Row="1" Margin="10,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsCommissionApplied}"/>
+                                        <CheckBox Name="EnableSoftCommission" Content="Soft Commission" Grid.Column="0" Grid.Row="2" Margin="10,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsSoftCommissionApplied}"/>
+                                        <CheckBox Name="EnableOtherBrokerFees" Content="Other Broker Fees" Grid.Column="0" Grid.Row="3" Margin="10,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsClearingFeeApplied}"/>
+                                        <CheckBox Name="EnableClearingBrokerFees" Content="Clearing Broker Fees" Grid.Column="0" Grid.Row="4" Margin="10,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsClearingBrokerFeeApplied}"/>
+                                        <CheckBox Name="EnableTranscationLevy" Content="Transaction Levy" Grid.Column="0" Grid.Row="5" Margin="10,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsTransactionLevyApplied}"/>
+                                        <CheckBox Name="EnableTaxOnCommission" Content="Tax on Commissions" Grid.Column="0" Grid.Row="6" Margin="10,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsTaxonCommissionsApplied}"/>
+                                        <ComboBox x:Name="CommissionCombo" Grid.Row="1" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableCommission, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.Commission.RuleAppliedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="SoftCommissionCombo" Grid.Row="2" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableSoftCommission, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.SoftCommission.RuleAppliedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="ClearingFeeObjCombo" Grid.Row="3" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableOtherBrokerFees, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.ClearingFeeObj.RuleAppliedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="ClearingBrokerFeeObjCombo" Grid.Row="4" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableClearingBrokerFees, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.ClearingBrokerFeeObj.RuleAppliedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="TransactionLevyCalculationBasedOn" Grid.Row="5" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableTranscationLevy, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.TransactionLevyCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="TaxonCommissionsCalculationBasedOn" Grid.Row="6" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableTaxOnCommission, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.TaxonCommissionsCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <Custom:XamNumericEditor x:Name="CommissionEditor" Grid.Row="1" Grid.Column="2" ValueType="Core:Double"  Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableCommission, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.Commission.CommissionRate}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="SoftCommissionEditor" Grid.Row="2" Grid.Column="2" ValueType="Core:Double"  Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableSoftCommission, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.SoftCommission.CommissionRate}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="ClearingFeeObjEditor" Grid.Row="3" Grid.Column="2" ValueType="Core:Double"  Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableOtherBrokerFees, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.ClearingFeeObj.ClearingFeeRate}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="ClearingBrokerFeeObjEditor" Grid.Row="4" Grid.Column="2" ValueType="Core:Double"  Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableClearingBrokerFees, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.ClearingBrokerFeeObj.ClearingFeeRate}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="TransactionLevyEditor" Grid.Row="5" Grid.Column="2" ValueType="Core:Double"  Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableTranscationLevy, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.TransactionLevy}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="TaxonCommissionsEditor" Grid.Row="6" Grid.Column="2" ValueType="Core:Double"  Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableTaxOnCommission, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.TaxonCommissions}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <CheckBox Name="EnableStampDuty" Content="Stamp Duty" Grid.Column="0" Grid.Row="1" Margin="15,5,15,5" IsChecked="{Binding Path=SpecifiedCommissionRule.IsStampDutyApplied}"/>
+                                        <CheckBox Name="EnableAUECFee1" Content="AUEC Fee1" Grid.Column="0" Grid.Row="2" Margin="15,5,15,5"  IsChecked="{Binding Path=SpecifiedCommissionRule.IsClearingFee_AApplied, Mode=TwoWay}"/>
+                                        <CheckBox Name="EnableAUECFee2" Content="AUEC Fee2" Grid.Column="0" Grid.Row="3" Margin="15,5,15,5"  IsChecked="{Binding Path=SpecifiedCommissionRule.IsMiscFeesApplied}"/>
+                                        <CheckBox Name="EnableSECFee" Content="SEC Fee" Grid.Column="0" Grid.Row="4" Margin="15,5,15,5"  IsChecked="{Binding Path=SpecifiedCommissionRule.IsSecFeeApplied}"/>
+                                        <CheckBox Name="EnableOCCFee" Content="OCC Fee" Grid.Column="0" Grid.Row="5" Margin="15,5,15,5"  IsChecked="{Binding Path=SpecifiedCommissionRule.IsOccFeeApplied}"/>
+                                        <CheckBox Name="EnableORFFee" Content="ORF Fee" Grid.Column="0" Grid.Row="6" Margin="15,5,15,5"  IsChecked="{Binding Path=SpecifiedCommissionRule.IsOrfFeeApplied}"/>
+                                        <ComboBox x:Name="SpecifiedCommissionRuleCombo1" Grid.Row="1" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableStampDuty, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.StampDutyCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="SpecifiedCommissionRuleCombo2" Grid.Row="2" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableAUECFee1, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.ClearingFeeCalculationBasedOn_A, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="SpecifiedCommissionRuleCombo3" Grid.Row="3" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableAUECFee2, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.MiscFeesCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="SpecifiedCommissionRuleCombo4" Grid.Row="4" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableSECFee, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.SecFeeCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="SpecifiedCommissionRuleCombo5" Grid.Row="5" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableOCCFee, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.OccFeeCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <ComboBox x:Name="SpecifiedCommissionRuleCombo6" Grid.Row="6" Grid.Column="1" Margin="15,5,15,5" Width="100" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" IsEnabled="{Binding ElementName=EnableORFFee, Path=IsChecked}" SelectedItem="{Binding Path=SpecifiedCommissionRule.OrfFeeCalculationBasedOn, Mode=TwoWay, Converter={StaticResource DictionaryToEnumConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.CALCULATION_BASIS}}" ItemsSource="{Binding Path=CalculationBasis}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style>
+                                                    <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
+                                        <Custom:XamNumericEditor x:Name="SpecifiedCommissionRuleEditor1" Grid.Row="1" Grid.Column="2" Margin="5,5,5,5" ValueType="Core:Double" Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableStampDuty, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.StampDuty}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="SpecifiedCommissionRuleEditor2" Grid.Row="2" Grid.Column="2" ValueType="Core:Double" Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableAUECFee1, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.ClearingFee_A}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="SpecifiedCommissionRuleEditor3" Grid.Row="3" Grid.Column="2" ValueType="Core:Double" Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableAUECFee2, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.MiscFees}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="SpecifiedCommissionRuleEditor4" Grid.Row="4" Grid.Column="2" ValueType="Core:Double" Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableSECFee, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.SecFee}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="SpecifiedCommissionRuleEditor5" Grid.Row="5" Grid.Column="2" ValueType="Core:Double" Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableOCCFee, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.OccFee}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                        <Custom:XamNumericEditor x:Name="SpecifiedCommissionRuleEditor6" Grid.Row="6" Grid.Column="2" ValueType="Core:Double" Style="{StaticResource NegativeNumericEditorStyle}" IsEnabled="{Binding ElementName=EnableORFFee, Path=IsChecked}" Value="{Binding Path=SpecifiedCommissionRule.OrfFee}">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:XamNumericEditorBehaviour/>
+                                            </i:Interaction.Behaviors>
+                                        </Custom:XamNumericEditor>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
+                            <Button x:Name="btnCalculate" Content="Calculate" Grid.Row="2" Margin="355,30,355,10" Width="75" Template="{DynamicResource GreenButtonSkinTemplate}" Foreground="{DynamicResource ButtonForeground}" Height="27">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding Path=CommissionBulkChangeCommand}" CommandParameter="CalculateBtn"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Vertical" Grid.Column="0">
+                                    <RadioButton x:Name="UseDefaultRules" Content="Use Default Rules for all Commission and Fee Fields" Margin="15,5,15,5" GroupName="Group2" IsChecked="True" IsEnabled="{Binding Path=DefaultRule}"/>
+                                    <RadioButton x:Name="SelectCommissionRule" Content="Select Commission Rule" Margin="15,5,15,5" GroupName="Group2" IsChecked="{Binding Path=RdBtnSelectCommissionRule}"/>
+                                    <RadioButton x:Name="SpecifyCommissionRule" Content="Specify Commission Rule" Margin="15,5,15,5" GroupName="Group2" IsChecked="{Binding Path=RdBtnSpecifyCommRule}"/>
+                                </StackPanel>
+                                <GroupBox IsEnabled="{Binding ElementName=SelectCommissionRule,Path=IsChecked}" VerticalAlignment="Center" Grid.Column="1" BorderThickness="0">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <ComboBox x:Name="CommissionRuleCombo" Width="100" ToolTip="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" Margin="15,5,15,5" SelectedItem="{Binding Path=SelectedCommissionRule}" ItemsSource="{Binding Path=CommissionRules}" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedIndex="0"/>
+                                        <Button x:Name="btnViewRule" Content="View Rule" Margin="15,5,15,5" Width="75" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}" >
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Click">
+                                                    <i:InvokeCommandAction Command="{Binding LoadCommissionRuleForm}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Button>
+                                    </StackPanel>
+                                </GroupBox>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

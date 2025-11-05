@@ -1,0 +1,1375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DS_Reports">
+      <rd:DataSourceID>b9e0666f-46b0-4352-b43d-3ab6c541d3af</rd:DataSourceID>
+      <DataSourceReference>DS_Reports</DataSourceReference>
+    </DataSource>
+    <DataSource Name="DS_SMReports">
+      <rd:DataSourceID>213efe76-20b3-40ad-b8a2-82ebe3679770</rd:DataSourceID>
+      <DataSourceReference>DS_SMReports</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>8.5in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="paramMasterFundID">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_34</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramCompanyID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyID</DataSetName>
+          <ValueField>CompanyID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramCompanyID</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyID</DataSetName>
+          <ValueField>CompanyID</ValueField>
+          <LabelField>CompanyID</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFunds">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>paramMasterFunds</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+          <LabelField>MasterFundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFundAssociationCount">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetIsMasterFundAssociationSaved</DataSetName>
+          <ValueField>ID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_12</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetIsMasterFundAssociationSaved</DataSetName>
+          <ValueField>ID</ValueField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterStrategyAssociationCount">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>P_IsMasterStrategyAssociationSaved</DataSetName>
+          <ValueField>ID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramMasterStrategyAssociationCount</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>P_IsMasterStrategyAssociationSaved</DataSetName>
+          <ValueField>ID</ValueField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMonthStartDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>MonthStartDate</DataSetName>
+          <ValueField>MonthStartDate</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Month Start Date</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>MonthStartDate</DataSetName>
+          <ValueField>MonthStartDate</ValueField>
+          <LabelField>MonthStartDate</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramLastBusinessDay">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>LastBusinessDay</DataSetName>
+          <ValueField>LastBusinessDay</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Last Business Day</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>LastBusinessDay</DataSetName>
+          <ValueField>LastBusinessDay</ValueField>
+          <LabelField>LastBusinessDay</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramBusinessAdjtoday">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetBusinessAdjTodayDate</DataSetName>
+          <ValueField>StartDate</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Business Adjusted today</Prompt>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMonthStartOrLastBusinessDayOrToday">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>1)Month Start 2)Last Business Day 3)Business Adjusted Today</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramEndDateAsLastBusinessDayOrToday">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>True</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>(T)Last Business Day/(F)Today</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramStartDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=IIF(Parameters!paramEndDateAsLastBusinessDayOrToday.Value.Equals(True),
+	Parameters!paramLastBusinessDay.Value,
+	Parameters!paramBusinessAdjtoday.Value
+	)</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Start Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramEndDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=IIF(Parameters!paramEndDateAsLastBusinessDayOrToday.Value.Equals(True),
+	Parameters!paramLastBusinessDay.Value,
+	Parameters!paramBusinessAdjtoday.Value
+	)</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>End Date</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramUserID">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetUserID</DataSetName>
+          <ValueField>UserID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>userID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramErrorMessage">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value />
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ErrorMessage</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramErrorNumber">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ErrorNumber</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramFilterFund">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyFunds</DataSetName>
+          <ValueField>FundName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Funds</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyFunds</DataSetName>
+          <ValueField>FundName</ValueField>
+          <LabelField>FundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="paramShowCompanyName">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>True</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_30</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramShowMasterFund">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>True</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_31</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramPriceFormat">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>#,##0.0000</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_34</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>#,###</Value>
+            <Label>No Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.0</Value>
+            <Label>1 Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.00</Value>
+            <Label>2 Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.000</Value>
+            <Label>3 Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.0000</Value>
+            <Label>4 Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.00000</Value>
+            <Label>5 Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.000000</Value>
+            <Label>6 Decimal</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramReportId">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>MTM_V0</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_27</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramShowHideDetails">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>true</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramShowHideDetails</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramNAVfromPMorMW">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>NAVfromPMorMW</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>PM</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>MW</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramUDASecurityType">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Closed-End Fund</Value>
+          <Value>ETP</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Fund Comp </Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetUDAAssets</DataSetName>
+          <ValueField>AssetName</ValueField>
+          <LabelField>AssetName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>11in</InteractiveWidth>
+  <rd:GridSpacing>0.05in</rd:GridSpacing>
+  <rd:SnapToGrid>false</rd:SnapToGrid>
+  <RightMargin>0.2in</RightMargin>
+  <LeftMargin>0.2in</LeftMargin>
+  <BottomMargin>0.5in</BottomMargin>
+  <rd:ReportID>532d2fe9-c17a-491e-b1df-bf5c43365996</rd:ReportID>
+  <CodeModules>
+    <CodeModule>Formulae, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</CodeModule>
+  </CodeModules>
+  <PageWidth>11in</PageWidth>
+  <DataSets>
+    <DataSet Name="NirvanaDBServer">
+      <Fields>
+        <Field Name="FundCompName">
+          <DataField>FundCompName</DataField>
+        </Field>
+        <Field Name="PercentOfPortValue">
+          <DataField>PercentOfPortValue</DataField>
+        </Field>
+        <Field Name="Select">
+          <Value>="Select"</Value>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>p_mw_getIssuerConcentration</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@startDate">
+            <Value>=Parameters!paramStartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@enddate">
+            <Value>=Parameters!paramStartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Fund">
+            <Value>=Parameters!paramFilterFund.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@NAVFromPMorMW">
+            <Value>=Parameters!paramNAVfromPMorMW.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ReportId">
+            <Value>=Parameters!paramReportId.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@SecurityType">
+            <Value>=Parameters!paramUDASecurityType.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetDate">
+      <Fields>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>Select getdate() AS Date</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyLogoShared">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetCompanyLogo</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@companyID">
+            <Value>=Parameters!paramCompanyID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@userID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorMessage">
+            <Value>=Parameters!paramErrorMessage.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorNumber">
+            <Value>=Parameters!paramErrorNumber.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetGroupingParameters">
+      <Fields>
+        <Field Name="ID_Select_">
+          <DataField>-Select-</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FundName">
+          <DataField>FundName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Symbol">
+          <DataField>Symbol</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Side">
+          <DataField>Side</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MasterFund">
+          <DataField>MasterFund</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TradeDate">
+          <DataField>TradeDate</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select 'Select' AS [-Select-], 'FundName' AS [FundName], 'Symbol' AS [Symbol], 'Side' AS [Side], 'MasterFund' AS [MasterFund],'TradeDate' AS [TradeDate]</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetIsMasterFundAssociationSaved">
+      <Fields>
+        <Field Name="ID">
+          <DataField />
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_IsMasterFundAssociationSaved</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyLogo">
+      <Fields>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>Select Name From T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyFunds">
+      <Fields>
+        <Field Name="CompanyUserFundID">
+          <DataField>CompanyUserFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CompanyFundID">
+          <DataField>CompanyFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FundName">
+          <DataField>FundName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetCompanyFundsForUser_Updated</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@paramUserID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@FundID">
+            <Value>=Parameters!paramMasterFunds.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyID">
+      <Fields>
+        <Field Name="CompanyID">
+          <DataField>CompanyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select top 1 CompanyID from T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyStrategy">
+      <Fields>
+        <Field Name="CompanyStrategyID">
+          <DataField>CompanyStrategyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StrategyShortName">
+          <DataField>StrategyShortName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StrategyName">
+          <DataField>StrategyName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CompanyID">
+          <DataField>CompanyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetCompanyStrategies</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@companyID">
+            <Value>=Parameters!paramCompanyID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUDAAssets">
+      <Fields>
+        <Field Name="AssetName">
+          <DataField>AssetName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AssetID">
+          <DataField>AssetID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllAssets</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUDACountries">
+      <Fields>
+        <Field Name="CountryName">
+          <DataField>CountryName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CountryID">
+          <DataField>CountryID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllCountry</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUDASecurityTypes">
+      <Fields>
+        <Field Name="SecurityTypeName">
+          <DataField>SecurityTypeName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SecurityTypeID">
+          <DataField>SecurityTypeID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllSecurityType</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUDASubSectors">
+      <Fields>
+        <Field Name="SubSectorName">
+          <DataField>SubSectorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SubSectorID">
+          <DataField>SubSectorID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllSubSector</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUSectors">
+      <Fields>
+        <Field Name="SectorName">
+          <DataField>SectorName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SectorID">
+          <DataField>SectorID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_SMReports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UDAGetAllSectors</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetThirdParties">
+      <Fields>
+        <Field Name="ThirdPartyID">
+          <DataField>ThirdPartyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="ThirdPartyName">
+          <DataField>ThirdPartyName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ThirdPartyTypeID">
+          <DataField>ThirdPartyTypeID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetAllPrimeBrokerAndClearers</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="MonthStartDate">
+      <Fields>
+        <Field Name="MonthStartDate">
+          <DataField>MonthStartDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetMonthStartDate</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="LastBusinessDay">
+      <Fields>
+        <Field Name="LastBusinessDay">
+          <DataField>LastBusinessDay</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetLastBusinessDay</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="ReportGroupRowColors">
+      <Fields>
+        <Field Name="Group1BGColor">
+          <DataField>Group1BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group2BGColor">
+          <DataField>Group2BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group3BGColor">
+          <DataField>Group3BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group4BGColor">
+          <DataField>Group4BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DetailRowBGColor">
+          <DataField>DetailRowBGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetReportGroupRowColors</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCounterParty">
+      <Fields>
+        <Field Name="CounterPartyID">
+          <DataField>CounterPartyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FullName">
+          <DataField>FullName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ShortName">
+          <DataField>ShortName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Address">
+          <DataField>Address</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Phone">
+          <DataField>Phone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fax">
+          <DataField>Fax</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName1">
+          <DataField>ContactName1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Title1">
+          <DataField>Title1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EMail1">
+          <DataField>EMail1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName2">
+          <DataField>ContactName2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Title2">
+          <DataField>Title2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EMail2">
+          <DataField>EMail2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CounterPartyTypeID">
+          <DataField>CounterPartyTypeID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Address2">
+          <DataField>Address2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CountryID">
+          <DataField>CountryID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="StateID">
+          <DataField>StateID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Zip">
+          <DataField>Zip</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName1_LastName">
+          <DataField>ContactName1_LastName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName1_WorkPhone">
+          <DataField>ContactName1_WorkPhone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName1_Cell">
+          <DataField>ContactName1_Cell</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName2_LastName">
+          <DataField>ContactName2_LastName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName2_WorkPhone">
+          <DataField>ContactName2_WorkPhone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ContactName2_Cell">
+          <DataField>ContactName2_Cell</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="City">
+          <DataField>City</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetAllCounterParties</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="P_IsMasterStrategyAssociationSaved">
+      <Fields>
+        <Field Name="ID">
+          <DataField />
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_IsMasterStrategyAssociationSaved</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetPranaLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetPranaLogo</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyName">
+      <Fields>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select Name from T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetBusinessAdjTodayDate">
+      <Fields>
+        <Field Name="StartDate">
+          <DataField>StartDate</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>Declare @companyID int
+Select @companyID = CompanyID from T_Company
+
+Declare @auecID int
+Select @auecID = DefaultAuecID from T_Company where companyID = @companyID
+
+Select
+Case dbo.IsBusinessDay(GetDate(),@auecID)
+	When 1
+	Then Convert(datetime,dbo.GetFormattedDatePart(GetDate()))
+	Else Convert(datetime,dbo.GetFormattedDatePart(dbo.AdjustBusinessDays(GetDate(),-1,@auecID)))
+End as StartDate</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUserID">
+      <Fields>
+        <Field Name="UserID">
+          <DataField>UserID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_getUserIDforReports</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetMasterFunds">
+      <Fields>
+        <Field Name="MasterFundID">
+          <DataField>MasterFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="MasterFundName">
+          <DataField>MasterFundName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MasterFundLogo">
+          <DataField>MasterFundLogo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetMasterFundByID</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@FundId">
+            <Value>=Parameters!paramMasterFundID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>5.57292in</Width>
+  <Body>
+    <ColumnSpacing>0.1in</ColumnSpacing>
+    <ReportItems>
+      <Table Name="table1">
+        <NoRows>No Data</NoRows>
+        <ZIndex>5</ZIndex>
+        <DataSetName>NirvanaDBServer</DataSetName>
+        <Top>1.08698in</Top>
+        <Width>4.33334in</Width>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <Visibility>
+                <Hidden>=IIF(Parameters!paramShowHideDetails.Value = True, False, True)</Hidden>
+              </Visibility>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <Style>
+                        <BackgroundColor>= iif(RowNumber(Nothing) Mod 2, "White", IIF(First(Fields!DetailRowBGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"Gainsboro",First(Fields!DetailRowBGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <Format>d</Format>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>2</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox17">
+                      <Style>
+                        <BackgroundColor>= iif(RowNumber(Nothing) Mod 2, "White", IIF(First(Fields!DetailRowBGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"Gainsboro",First(Fields!DetailRowBGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <Format>d</Format>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>1</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!FundCompName.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox168">
+                      <Style>
+                        <BackgroundColor>= iif(RowNumber(Nothing) Mod 2, "White", IIF(First(Fields!DetailRowBGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"Gainsboro",First(Fields!DetailRowBGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <Format>N</Format>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>= Format(Fields!PercentOfPortValue.Value,Parameters!paramPriceFormat.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.15073in</Height>
+            </TableRow>
+          </TableRows>
+          <Sorting>
+            <SortBy>
+              <SortExpression>=Fields!PercentOfPortValue.Value</SortExpression>
+              <Direction>Descending</Direction>
+            </SortBy>
+          </Sorting>
+        </Details>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontSize>12pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Left</TextAlign>
+        </Style>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox22">
+                      <Style>
+                        <BackgroundColor>White</BackgroundColor>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>8</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox23">
+                      <Style>
+                        <BackgroundColor>White</BackgroundColor>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>7</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Fund Comp. Name</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox6">
+                      <Style>
+                        <BackgroundColor>White</BackgroundColor>
+                        <BorderStyle>
+                          <Right>Solid</Right>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <Format>N</Format>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>6</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Sum of % of Port Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.20097in</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+          <FixedHeader>true</FixedHeader>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>0.69792in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.15625in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.47917in</Width>
+          </TableColumn>
+        </TableColumns>
+        <Height>0.55686in</Height>
+        <Footer>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox131">
+                      <Style>
+                        <BorderStyle>
+                          <Left>Solid</Left>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>5</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Grand Total:</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox158">
+                      <Style>
+                        <BorderStyle>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>4</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value />
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox178">
+                      <Style>
+                        <BorderStyle>
+                          <Right>Solid</Right>
+                          <Top>Solid</Top>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>6pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <Format>=Parameters!paramPriceFormat.Value</Format>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>3</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>= Format(sum(Fields!PercentOfPortValue.Value),Parameters!paramPriceFormat.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.20516in</Height>
+            </TableRow>
+          </TableRows>
+        </Footer>
+      </Table>
+      <Textbox Name="textbox42">
+        <Visibility>
+          <Hidden>=IIF(Parameters!paramShowCompanyName.Value,False,True)</Hidden>
+        </Visibility>
+        <Top>0.32766in</Top>
+        <Width>5.53125in</Width>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>=First(Fields!Name.Value, "DataSetCompanyName")</Value>
+      </Textbox>
+      <Image Name="image2">
+        <Sizing>AutoSize</Sizing>
+        <Width>5.55209in</Width>
+        <MIMEType>image/jpeg</MIMEType>
+        <Source>Database</Source>
+        <Style />
+        <ZIndex>3</ZIndex>
+        <Height>0.05in</Height>
+        <Value>=First(Fields!Logo.Value, "DataSetPranaLogo")</Value>
+      </Image>
+      <Textbox Name="textbox415">
+        <rd:DefaultName>textbox415</rd:DefaultName>
+        <Top>0.50297in</Top>
+        <Width>5.5625in</Width>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>Issuer Concentration Report</Value>
+      </Textbox>
+      <Textbox Name="textbox14">
+        <rd:DefaultName>textbox14</rd:DefaultName>
+        <Top>0.75327in</Top>
+        <Width>5.53125in</Width>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>="Date: " &amp; Parameters!paramStartDate.Value 
+			&amp; "   " &amp; "Rendered: " &amp; Today()</Value>
+      </Textbox>
+      <Image Name="image1">
+        <Sizing>AutoSize</Sizing>
+        <Top>0.08183in</Top>
+        <Width>5.53125in</Width>
+        <MIMEType>image/jpeg</MIMEType>
+        <Source>Database</Source>
+        <Style />
+        <Height>0.09792in</Height>
+        <Value>=First(Fields!Logo.Value, "DataSetCompanyLogoShared")</Value>
+      </Image>
+    </ReportItems>
+    <Height>1.78126in</Height>
+  </Body>
+  <Classes>
+    <Class>
+      <ClassName>Prana.Formulae.Formulae</ClassName>
+      <InstanceName>GetPnL</InstanceName>
+    </Class>
+  </Classes>
+  <Language>en-US</Language>
+  <PageFooter>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <ReportItems>
+      <Textbox Name="textbox79">
+        <Top>0.02917in</Top>
+        <Width>1.40417in</Width>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontSize>7pt</FontSize>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Left>2.94999in</Left>
+        <Height>0.15in</Height>
+        <Value>="Page " &amp; Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>0.21041in</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+  <TopMargin>0.5in</TopMargin>
+  <PageHeight>8.5in</PageHeight>
+</Report>

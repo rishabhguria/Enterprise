@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A7618CC8-DF0E-4D12-AB7B-EE3269DC854D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Import</RootNamespace>
+    <AssemblyName>Prana.Import</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinListView.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2.FormulaBuilder, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.SupportDialogs.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Quartz, Version=2.2.2.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BAL\AutoImportManager.cs" />
+    <Compile Include="BAL\Constants.cs" />
+    <Compile Include="BAL\FTPTradeImportWatcher.cs" />
+    <Compile Include="BAL\Handlers\AllocationSchemeAppPositionHandler.cs" />
+    <Compile Include="BAL\Handlers\CashImportHandler.cs" />
+    <Compile Include="BAL\Handlers\CollateralPriceHandler.cs" />
+    <Compile Include="BAL\Handlers\CreditLimitHandler.cs" />
+    <Compile Include="BAL\Handlers\DailyDividendYieldHandler.cs" />
+    <Compile Include="BAL\Handlers\DailyVolatilityHandler.cs" />
+    <Compile Include="BAL\Handlers\DailyVWAPHandler.cs" />
+    <Compile Include="BAL\Handlers\GenericImportHandler.cs" />
+    <Compile Include="BAL\Handlers\OptionModelInputHandler.cs" />
+    <Compile Include="BAL\Handlers\SecMasterUpdateHandler.cs" />
+    <Compile Include="BAL\Handlers\SMPricingDataHandler.cs" />
+    <Compile Include="BAL\ImportCacheManager.cs" />
+    <Compile Include="BAL\ImportExecutionHelper.cs" />
+    <Compile Include="BAL\ImportHelper.cs" />
+    <Compile Include="BAL\ImportReportColumnDetails.cs" />
+    <Compile Include="BAL\ImportReportLayout.cs" />
+    <Compile Include="BAL\SecMasterHelper.cs" />
+    <Compile Include="BAL\ServiceManager.cs" />
+    <Compile Include="BAL\Handlers\AllocationSchemeHandler.cs" />
+    <Compile Include="BAL\Handlers\ActivitiesHandler.cs" />
+    <Compile Include="BAL\Handlers\SecMasterHandler.cs" />
+    <Compile Include="BAL\Handlers\DailyBetaHandler.cs" />
+    <Compile Include="BAL\Handlers\ForexPriceHandler.cs" />
+    <Compile Include="BAL\Handlers\ImportHandlerManager.cs" />
+    <Compile Include="BAL\Handlers\MarkPriceHandler.cs" />
+    <Compile Include="BAL\Handlers\PositionAndTransactionHandler.cs" />
+    <Compile Include="BAL\Handlers\StagedOrderHandler.cs" />
+    <Compile Include="BAL\ImportManager.cs" />
+    <Compile Include="BAL\ImportSetUpManager.cs" />
+    <Compile Include="BAL\SecurityMasterManager.cs" />
+    <Compile Include="BAL\SymbolManagementLayout.cs" />
+    <Compile Include="BAL\XSLTManager.cs" />
+    <Compile Include="BusinessObjects\ImportSettings.cs" />
+    <Compile Include="Classes\ArchiveDashBoardLayout.cs" />
+    <Compile Include="Controls\cntrlValidateSymbol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\cntrlValidateSymbol.Designer.cs">
+      <DependentUpon>cntrlValidateSymbol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlArchivedData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlArchivedData.Designer.cs">
+      <DependentUpon>CtrlArchivedData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlHistoricalUpload.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlHistoricalUpload.Designer.cs">
+      <DependentUpon>CtrlHistoricalUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlImportTag.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlImportTag.Designer.cs">
+      <DependentUpon>ctrlImportTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlSymbolManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlSymbolManagement.Designer.cs">
+      <DependentUpon>ctrlSymbolManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlImportDashboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlImportDashboard.Designer.cs">
+      <DependentUpon>CtrlImportDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlImportReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlImportReport.Designer.cs">
+      <DependentUpon>ctrlImportReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlManualUpload.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlManualUpload.Designer.cs">
+      <DependentUpon>ctrlManualUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlSymbolMismatch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlSymbolMismatch.Designer.cs">
+      <DependentUpon>ctrlSymbolMismatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\ImportDashboardLayout.cs" />
+    <Compile Include="DAL\ImportDataManager.cs" />
+    <Compile Include="Helper\FTPTradeEmailHelper.cs" />
+    <Compile Include="Helper\ImportLoggingHelper.cs" />
+    <Compile Include="PL\frmImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\frmImport.Designer.cs">
+      <DependentUpon>frmImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\cntrlValidateSymbol.resx">
+      <DependentUpon>cntrlValidateSymbol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlArchivedData.resx">
+      <DependentUpon>CtrlArchivedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlHistoricalUpload.resx">
+      <DependentUpon>CtrlHistoricalUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlImportTag.resx">
+      <DependentUpon>ctrlImportTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlSymbolManagement.resx">
+      <DependentUpon>ctrlSymbolManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlImportDashboard.resx">
+      <DependentUpon>CtrlImportDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlImportReport.resx">
+      <DependentUpon>ctrlImportReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlManualUpload.resx">
+      <DependentUpon>ctrlManualUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlSymbolMismatch.resx">
+      <DependentUpon>ctrlSymbolMismatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\frmImport.resx">
+      <DependentUpon>frmImport.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.Admin.CommonControls\Prana.Admin.CommonControls.csproj">
+      <Project>{4e18aa07-c6f6-47a6-a7c2-f4363281f978}</Project>
+      <Name>Prana.Admin.CommonControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.BLL\Prana.PM.BLL.csproj">
+      <Project>{f3eb40af-d2b7-44c9-a7ed-fd54f4d95a3d}</Project>
+      <Name>Prana.PM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PM\Prana.PM.Common\Prana.PM.Common.csproj">
+      <Project>{CA3F44AC-2814-4E5E-84B7-DCAF8F42A026}</Project>
+      <Name>Prana.PM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.AuditManager\Prana.AuditManager.csproj">
+      <Project>{64697a00-2561-4167-b31b-7e0596e34ba1}</Project>
+      <Name>Prana.AuditManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Fix.FixDictionary\Prana.Fix.FixDictionary.csproj">
+      <Project>{08ad82ef-9fc2-4225-8014-a030a9b1b356}</Project>
+      <Name>Prana.Fix.FixDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35b3fd76-9aa5-424b-9e04-b7ff1ef1bfc2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.TaskManagement.Definition\Prana.TaskManagement.Definition.csproj">
+      <Project>{5fb30912-0851-40ee-a312-9fb67d33af3f}</Project>
+      <Name>Prana.TaskManagement.Definition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.TaskManagement.Execution\Prana.TaskManagement.Execution.csproj">
+      <Project>{4a035762-7313-4316-b3d3-d4ca11e303f5}</Project>
+      <Name>Prana.TaskManagement.Execution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.AlgoStrategyControls\Prana.AlgoStrategyControls.csproj">
+      <Project>{22605932-14d9-48cc-a46f-2e918dcc69bc}</Project>
+      <Name>Prana.AlgoStrategyControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{a28ae507-104b-45c5-bcb1-ce51394e3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.SecurityMasterNew\Prana.SecurityMasterNew.csproj">
+      <Project>{8237c28a-ee49-4a68-a89a-1f1f6a939fc4}</Project>
+      <Name>Prana.SecurityMasterNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{abb4950f-def1-4095-8e93-1eb3292c69f5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.Import.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.Import.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

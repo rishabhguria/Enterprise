@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  COPYRIGHT (c) 1998-2006 Cameron Systems Pty Ltd. All Rights Reserved.
+-->
+
+<!ELEMENT MarketDataSources EMPTY>
+<!ATTLIST MarketDataSources
+          class CDATA #FIXED "com.cameronsystems.fix.marketdata.MarketDataProcessor"
+          serviceIDs CDATA #IMPLIED
+>
+
+<!-- PRICING SERVICES -->
+
+<!--
+  Sample pricing service.
+
+  An update goes out every "interval" milliseconds.
+
+  The type of updates is determined by "update".
+  If "update" is "top", only top of book updates go out.
+  If "depth", depth updates (aggregated by price) as well as top of book go out.
+  If "detail", detail updates (unaggregated by price) as well as top of book
+  go out.
+-->
+<!ELEMENT SampleMarketDataService EMPTY>
+<!ATTLIST SampleMarketDataService
+          class    CDATA #FIXED "com.cameronsystems.util.marketdata.SampleMarketDataService"
+          id       CDATA #REQUIRED
+          interval CDATA "1000"
+          update   (top | depth | detail) "top"
+>
+
+<!-- SessionManager can only contain MarketDataSources-->
+<!ENTITY % sessionManagerContent "MarketDataSources?">
+
+<!-- Modified class for processing new SessionManager content -->
+<!ENTITY partyConfigClass "com.cameronsystems.fix.marketdata.configuration.MarketDataPartyConfigInXml">
+
+
+<!ENTITY % BaseConfig SYSTEM "CameronConfig.dtd">
+%BaseConfig;

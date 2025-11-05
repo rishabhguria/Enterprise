@@ -1,0 +1,59 @@
+
+module customRules.resonate.preTrade.ShortPositionsLimit.ShortPositionsLimit;
+
+@Name('CheckLimitShortInWhatIf1')
+@Description('Stores the number of short positions.')
+on BasketEOM as B
+insert into CheckLimitShortInWhatIf1
+select
+distinct
+	W.userId as userId,
+	B.basketId as basketId,
+	count(*) as WhatIfShortPositions,
+	W.accountShortName as accountShortName,
+	W.taxlotId as taxlotId,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from
+	WhatIfAccountSymbolWithNav as W
+where
+	W.defaultPositionSide = 'short' and W.basketId = B.basketId
+group by accountId;
+
+@Name('CheckLimitShortInWhatIfNOT')
+@Description('This will trigger if there are no Short positions')
+on BasketEOM as B
+insert into CheckLimitShortInWhatIf1
+select
+distinct
+	W.userId as userId,
+	B.basketId as basketId,
+	0L as WhatIfShortPositions,
+	W.accountShortName as accountShortName,
+	W.taxlotId as taxlotId,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from
+	WhatIfAccountSymbolWithNav as W
+where
+	not exists(select * from WhatIfAccountSymbolWithNav where defaultPositionSide = 'short' and basketId = B.basketId)
+group by accountId;
+
+@Name('ShortPositionsLimitResonate')
+@Description('Checks if limits are breached.')
+insert into ShortPositionsLimitResonate
+select
+distinct
+	R.userId as userId,
+	R.basketId as basketId,
+	R.taxlotId as taxlotId,
+	doubleFormat(SHORT_POSITIONS_MIN_LIMIT_RESONATE) || ValueSeparator || doubleFormat(SHORT_POSITIONS_MAX_LIMIT_RESONATE) || ValueSeparator || 'N/A'  as threshold,
+	doubleFormat(WhatIfShortPositions) || ValueSeparator || doubleFormat(WhatIfShortPositions) || ValueSeparator || R.accountShortName as actualResult,
+	'Short Position Minimum Limit' || ValueSeparator || 'Short Position Maximum Limit' || ValueSeparator || 'Account' as constraintField,
+	(R.WhatIfShortPositions is not 0) and (R.WhatIfShortPositions < SHORT_POSITIONS_MIN_LIMIT_RESONATE or R.WhatIfShortPositions > SHORT_POSITIONS_MAX_LIMIT_RESONATE) as isViolated,
+	current_timestamp as validationTime,
+	'Total short positions are less than ' || cast(SHORT_POSITIONS_MIN_LIMIT_RESONATE, string) || ' or Total short positions are greater than ' || cast(SHORT_POSITIONS_MAX_LIMIT_RESONATE, string)as summary,
+	R.accountShortName as dimension,
+	'Total short positions : ' || cast(R.WhatIfShortPositions, string) || ' Account Name : ' || R.accountShortName as parameters
+from
+	CheckLimitShortInWhatIf1 as R
+	where R.userId is not null;
+	

@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[T_CashTransactions] (
+    [CashTransactionId]          BIGINT        IDENTITY (1, 1) NOT NULL,
+    [FundID]                     INT           NULL,
+    [TaxlotId]                   VARCHAR (50)  NULL,
+    [Symbol]                     VARCHAR (50)  NULL,
+    [Amount]                     FLOAT (53)    CONSTRAINT [DF_T_TaxlotCashDividends_Dividend] DEFAULT ((0)) NOT NULL,
+    [PayoutDate]                 DATETIME      NULL,
+    [ExDate]                     DATETIME      NOT NULL,
+    [CurrencyID]                 INT           NOT NULL,
+    [RecordDate]                 DATETIME      NULL,
+    [DeclarationDate]            DATETIME      NULL,
+    [Description]                VARCHAR (100) NULL,
+    [ActivityTypeId]             INT           NULL,
+    [Level2Id]                   INT           DEFAULT ((0)) NULL,
+    [FXRate]                     FLOAT (53)    NULL,
+    [OtherCurrencyID]            INT           NULL,
+    [FXConversionMethodOperator] VARCHAR (3)   NULL,
+    [TransactionSource]          VARCHAR (100) NULL,
+    [ModifyDate]                 DATETIME      CONSTRAINT [DF_CASHMODIFYDATE] DEFAULT (getdate()) NULL,
+    [EntryDate]                  DATETIME      CONSTRAINT [DF_CASHENTRYDATE] DEFAULT (getdate()) NULL,
+	[UserID]                     INT            DEFAULT ((0)) not NULL,
+    CONSTRAINT [PK_T_TaxlotCashDividends] PRIMARY KEY CLUSTERED ([CashTransactionId] ASC),
+    CONSTRAINT [FK_T_TaxlotCashDividends_T_CompanyFunds] FOREIGN KEY ([FundID]) REFERENCES [dbo].[T_CompanyFunds] ([CompanyFundID])
+);
+

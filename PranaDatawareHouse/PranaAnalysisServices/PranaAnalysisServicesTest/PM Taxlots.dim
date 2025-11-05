@@ -1,0 +1,512 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="4ba34bb1-3df4-4783-9563-fe4f7e4858aa" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>PM Taxlots</ID>
+  <Name>PM Taxlots</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="22" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-6006" scrolltop="871" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="10213" y="14129" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="PM_Taxlots (dbo.PM_Taxlots)" left="-139" top="4047" logicalid="11" controlid="1" masterid="0" hint1="0" hint2="0" width="5212" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000800005c14000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_PM_Taxlots" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_SMData (dbo.T_SMData)" left="2964" top="-3968" logicalid="12" controlid="2" masterid="0" hint1="0" hint2="0" width="3519" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000bf0d000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_SMData" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="517" top="533" logicalid="13" controlid="3" masterid="0" hint1="0" hint2="0" width="2956" height="3814" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_PM_Taxlots_T_SMData]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="2" destid="1" sourceattachpoint="1" destattachpoint="2" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="3073" y="1032" />
+              <point x="3073" y="2500" />
+              <point x="817" y="2500" />
+              <point x="817" y="4047" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_CompanyMasterFunds (dbo.T_CompanyMasterFunds)" left="3413" top="1614" logicalid="14" controlid="4" masterid="0" hint1="0" hint2="0" width="4180" height="1879" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000800005410000057070000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_CompanyMasterFunds" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_CompanyFunds (dbo.T_CompanyFunds)" left="-1006" top="-3915" logicalid="15" controlid="5" masterid="0" hint1="0" hint2="0" width="3307" height="3149" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000eb0c00004d0c0000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_CompanyFunds" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="2001" top="-2091" logicalid="16" controlid="6" masterid="0" hint1="0" hint2="0" width="1712" height="4494" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_T_CompanyFunds_T_CompanyMasterFunds]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="4" destid="5" sourceattachpoint="14" destattachpoint="17" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="3413" y="2003" />
+              <point x="2857" y="2003" />
+              <point x="2857" y="-1791" />
+              <point x="2301" y="-1791" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="-302" top="-1265" logicalid="17" controlid="7" masterid="0" hint1="0" hint2="0" width="1419" height="5612" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_PM_Taxlots_T_CompanyFunds]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="5" destid="1" sourceattachpoint="3" destattachpoint="2" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="97" y="-766" />
+              <point x="97" y="1601" />
+              <point x="817" y="1601" />
+              <point x="817" y="4047" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_Currency (dbo.T_Currency)" left="0" top="0" logicalid="18" controlid="8" masterid="0" hint1="0" hint2="0" width="3254" height="2302" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000b60c0000fe080000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_Currency" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="2954" top="732" logicalid="19" controlid="9" masterid="0" hint1="0" hint2="0" width="2619" height="1369" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_T_SMData_T_Currency]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="8" destid="2" sourceattachpoint="15" destattachpoint="9" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="3254" y="1701" />
+              <point x="3654" y="1701" />
+              <point x="3654" y="1432" />
+              <point x="5273" y="1432" />
+              <point x="5273" y="1032" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_Asset (dbo.T_Asset)" left="0" top="0" logicalid="20" controlid="10" masterid="0" hint1="0" hint2="0" width="3000" height="2302" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000b80b0000fe080000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_Asset" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-6006</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>871</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>-1006</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>-3968</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="75692cd6-65a0-4721-bdaa-88607f6912ad">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="9a5b9aba-d7bf-4b5e-9db4-28c292317363">
+      <ID>PM Taxlots</ID>
+      <Name>Taxlot_PKID</Name>
+      <Usage>Key</Usage>
+      <EstimatedCount>13368</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="5888adca-517e-4db8-8f4a-622d1d90cb0a">
+          <DataType>BigInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="911e05ae-9a9b-462f-96c2-0bdd5760dffa">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>TaxLot_PK</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="273ad582-e070-4a0b-ab9c-3ee1481eefea">
+          <AttributeID>Tax Lot ID</AttributeID>
+          <Name>Tax Lot ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="9df87710-a692-4359-9a41-601641727174">
+          <AttributeID>Side Tag Value</AttributeID>
+          <Name>Side Tag Value</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="1d77816f-6f1c-4f1e-a3e5-1231d426b714">
+          <AttributeID>Time Key</AttributeID>
+          <Name>Time Key</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="d926551d-4c99-4a6b-a776-ca38d224c6c4">
+          <AttributeID>Fund ID</AttributeID>
+          <Name>Fund ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="1861be2b-8b35-4cb0-a87a-d021e2660266">
+          <AttributeID>Level2ID</AttributeID>
+          <Name>Level2ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="6c7015f2-3cd3-46e6-af55-63a5e29c3707">
+          <AttributeID>Symbol</AttributeID>
+          <Name>Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="c50ed43f-a2bb-4bf3-b037-c825c63e9318">
+          <AttributeID>Fund Name</AttributeID>
+          <Name>Fund Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="c2712812-1baf-420c-a43b-99046c32704a">
+          <AttributeID>Currency ID</AttributeID>
+          <Name>Currency ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="828c3d22-5490-4490-b372-3afd7f2bb373">
+          <AttributeID>Asset ID</AttributeID>
+          <Name>Asset</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ecdb8cfc-f93b-4788-90db-e9b7714800e1">
+          <AttributeID>Under Lying Symbol</AttributeID>
+          <Name>Under Lying Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="8feb62cb-fb94-4573-97e7-5b677a30ad18">
+          <AttributeID>Side ID</AttributeID>
+          <Name>Side ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="0e378970-d7f1-4b6c-bcf7-776c1861e450">
+          <AttributeID>Sub Account ID</AttributeID>
+          <Name>Sub Account ID</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>MandatoryFilter</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="f9139a43-ae81-48d1-ad90-45b3fcd07379">
+      <ID>Tax Lot ID</ID>
+      <Name>TaxLotID</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="e4927894-d177-4c20-ac6d-834becc36113">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="68553104-01d2-43f0-b036-24ad476ca4f4">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>TaxLotID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="76f645eb-afed-433b-b9ed-3aa121b3effb">
+          <AttributeID>Side ID</AttributeID>
+          <Name>Side ID</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>MandatoryFilter</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="d3427d13-4d03-4761-ab64-8d36265ff901">
+      <ID>Side Tag Value</ID>
+      <Name>Side Tag Value</Name>
+      <EstimatedCount>7</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="582272aa-f96c-4d14-a27d-c02b25d03e2b">
+          <DataType>WChar</DataType>
+          <DataSize>10</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="7f4fcdbf-a2a9-4ca5-9196-8812ea48a58a">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>SideTagValue</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="04bf9a33-9c76-4eb7-bb53-5dad5b6c7a8d">
+      <ID>Time Key</ID>
+      <Name>Time Key</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="7c766090-f2df-4744-a813-98f963405e8b">
+          <DataType>BigInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2e1ea982-9c42-46e5-a317-214fea339ce5">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>TimeKey</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>MandatoryFilter</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="083b7d2d-ed0a-4499-8e03-25def80c77eb">
+      <ID>Fund ID</ID>
+      <Name>Fund ID</Name>
+      <EstimatedCount>4</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c6fc5f44-bbf2-42ec-ac28-97a3164abb61">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="7df87f20-abe3-445f-a9a5-0a07b493d908">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>FundID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="17490499-ae6b-4273-a71e-ed7c5bb5b89c">
+      <ID>Level2ID</ID>
+      <Name>Level2ID</Name>
+      <EstimatedCount>1</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="fadfd761-36af-45b1-9fb2-1aa40528d03c">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9b0d5c07-1b2e-4a6c-94dd-e0c8889116f0">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>Level2ID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="777b1e67-83fa-4b0f-9921-958fbb707585">
+      <ID>Symbol</ID>
+      <Name>Symbol</Name>
+      <EstimatedCount>247</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="2be0d7fd-8c3c-4a60-9835-c339613e3578">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5872f0db-4f62-4386-bbf5-c6df438a9262">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>Symbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="c5b58765-47dd-4703-b2a8-2b6880ec2774">
+          <AttributeID>Under Lying Symbol</AttributeID>
+          <RelationshipType>Rigid</RelationshipType>
+          <Cardinality>One</Cardinality>
+          <Name>Under Lying Symbol</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>FilteredList</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="5b49333a-2ab4-4f9b-b7f3-6aaae9cffa34">
+      <ID>Fund Name</ID>
+      <Name>Fund Name</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="e4dc506a-a108-4205-8914-1a2295bf9ff7">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="101e14ad-593a-49de-a154-9383fa36022c">
+            <TableID>dbo_T_CompanyFunds</TableID>
+            <ColumnID>FundName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="5f27fed9-2fad-41c4-90f8-eca6ae74457e">
+      <ID>Currency ID</ID>
+      <Name>Currency ID</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="5186ef6c-41be-4ecf-8799-65b0ab0ad7cd">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="c0fa1756-eda4-4364-88d0-7ef87035f866">
+            <TableID>dbo_T_Currency</TableID>
+            <ColumnID>CurrencyID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="575e11df-f84d-43f5-a760-42746f5f170c">
+      <ID>Asset ID</ID>
+      <Name>Asset</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="a9254af6-c8c1-447f-bc2d-31c5d62e0432">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="61eecf53-3681-4416-b135-1d87b656847f">
+            <TableID>dbo_T_Asset</TableID>
+            <ColumnID>AssetID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="1915be6a-28b1-4485-8b2f-54ea9d5e34db">
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="8215e224-f74a-4c40-b172-b0115d3175d6">
+          <TableID>dbo_T_Asset</TableID>
+          <ColumnID>AssetName</ColumnID>
+        </Source>
+      </NameColumn>
+    </Attribute>
+    <Attribute dwd:design-time-name="fbb2f5c3-20ee-499d-8656-89c5add85fe6">
+      <ID>Under Lying Symbol</ID>
+      <Name>Under Lying Symbol</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="430fb05b-d768-43cf-a4f2-c6e37c422499">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="7b563c27-1cc0-4c18-b5ec-239bfb7e8145">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>UnderLyingSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="b0f851df-e243-4179-87ea-3429306ef846">
+      <ID>Side ID</ID>
+      <Name>Side ID</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="371211ae-e012-4ebc-b3bc-f04b4b1a3be6">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2f51fdd3-8b66-4772-80f7-2ca973dead61">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>SideID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="8c562290-5be4-4a5e-a652-37249256ad53">
+      <ID>Sub Account ID</ID>
+      <Name>Sub Account ID</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="2bc644e0-6752-469b-a4a2-b8e601a1e471">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2ce9d7dd-93d4-4a53-8818-e2cdb36f5542">
+            <TableID>dbo_PM_Taxlots</TableID>
+            <ColumnID>SubAccountID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="62f7e1d6-239c-4ae4-aa01-074fa805973c">
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="031c144d-2488-4bf2-9dbe-38c068fe800c">
+          <TableID>dbo_Dim_SubAccounts</TableID>
+          <ColumnID>Name</ColumnID>
+        </Source>
+      </NameColumn>
+    </Attribute>
+  </Attributes>
+  <Hierarchies>
+    <Hierarchy dwd:design-time-name="3e2a92b7-c0e2-4ddf-b3f0-303a83603a56">
+      <ID>Symbol - Tax Lot ID</ID>
+      <Name>Symbol-TaxLotID</Name>
+      <Levels>
+        <Level dwd:design-time-name="4ac9bde1-2c50-4bf2-b7df-2a3b694a1ab4">
+          <ID>Symbol</ID>
+          <Name>Symbol</Name>
+          <SourceAttributeID>Symbol</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="2924d9d9-0b3a-4c43-ad9a-2c34d4d62dd2">
+          <ID>Tax Lot ID</ID>
+          <Name>Tax Lot ID</Name>
+          <SourceAttributeID>Tax Lot ID</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="f64ac43b-2e0e-4e11-bdee-a0803ec82843">
+          <ID>PM Taxlots</ID>
+          <Name>PM Taxlots</Name>
+          <SourceAttributeID>PM Taxlots</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+  </Hierarchies>
+</Dimension>

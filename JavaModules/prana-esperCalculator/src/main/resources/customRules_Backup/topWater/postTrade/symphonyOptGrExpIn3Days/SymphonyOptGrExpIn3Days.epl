@@ -1,0 +1,72 @@
+module customRules.postTrade.symphonyOptGrExpIn3Days.SymphonyOptGrExpIn3Days;
+
+/* Constant Variable region starts here*/
+
+create constant variable double SYMPHONY_OPT_GRS_EXPOSURE_3DAYS_COEFFICIENT = 0.05;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregateAccountAssetPostSymphony')
+@Description('Calculates gross exposure of investments in options that are expiring within 3 business days by Symphony.')
+insert into AggregateAccountAssetPostSymphony
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	//T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(businessDaysToExpire <= 3) as T 
+
+where T.asset in 
+('EquityOption','FutureOption') and T.accountShortName='Symphony'// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('RuleConditionPostSymphony')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregateAccountAssetPostSymphony]
+insert into RuleConditionPostSymphony
+select distinct
+	coalesce(T.grossExposureBase*100/(SYMPHONY_OPT_GRS_EXPOSURE_3DAYS_COEFFICIENT * coalesce(F.accountNav,1)),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregateAccountAssetPostSymphony" as parentWindowStream
+	
+from 
+AccountWithNav as F
+where F.accountId=T.accountId;
+
+@Name('RuleName4FinalPostSymphony')
+@Description('Checks if limits are breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName4FinalPostSymphony
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '5'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	//case when R.percentageExposure > 2 then true
+		//	else false
+	//end
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 5% of Symphony exposure shall be used to purchase options that are expiring within 3 business days.' as summary,
+	R.accountShortName as dimension,
+	"RuleConditionPostSymphony" as parentWindowStream
+from
+RuleConditionPostSymphony as R
+where R.percentageExposure > 5;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

@@ -1,0 +1,42 @@
+module customRules.resonate.preTrade.PartnershipInvestmentLimit.PartnershipInvestmentLimit;
+								     						  
+
+@Name('PartnershipLiquidationLimitResonateWhatIfAggregator')
+@Description('Transaction will result in breach of this rule resulting in the aggregate notional value of futures and commodity options cannot exceed one hundred percent (100%) of the Partnerships liquidation value')
+on BasketEOM as B
+insert into PartnershipLiquidationLimitResonateWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	sum(case (W.asset = 'Future' or W.asset = 'FutureOption')
+		when true then  W.notionalBase
+		else 0.0 end) as notionalBase,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId;
+
+
+@Name('PartnershipLiquidationLimitResonate')
+@Description('Checks if limits are breached.')
+insert into PartnershipLiquidationLimitResonate
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(INVESTMENT_LIMIT3_RESONATE) || ValueSeparator || FUND_NAME3_RESONATE  as threshold,
+	doubleFormat(coalesce((A.notionalBase / A.accountNav)*100,0)) || ValueSeparator || A.accountShortName as actualResult,
+	'Partnership Liquidation Limit' || ValueSeparator || 'Account' as constraintField,
+	(((coalesce(A.notionalBase/ A.accountNav, 0)) > ((INVESTMENT_LIMIT3_RESONATE)/100)) and valueExistsInCSV(A.accountShortName, FUND_NAME3_RESONATE)) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ',Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ',  Notional: ' || doubleFormat(A.notionalBase)
+		|| ', % Investment: ' || doubleFormat(coalesce((A.notionalBase / A.accountNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Transaction will result in breach of this rule resulting in theThe aggregate notional value of futures and commodity options cannot exceed ' || doubleFormat(INVESTMENT_LIMIT3_RESONATE) ||  '%  of the Partnerships liquidation value' as summary,
+	A.accountShortName as dimension
+from
+PartnershipLiquidationLimitResonateWhatIfAggregator as A
+where A.userId is not null;

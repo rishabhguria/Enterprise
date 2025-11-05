@@ -1,0 +1,197 @@
+module eplModules.postAggregation.global.AggregationGlobal;
+
+
+uses eplModules.postAggregation.global.AggregationGlobalIntermediate;
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+uses eplModules.postAggregation.global.AggregationGlobalWindow;
+
+
+
+
+@Name('GlobalWithNav')
+@Description('Insert data into GlobalWithNav from GlobalWithNavIntermediate.')
+insert into GlobalWithNav
+select distinct
+
+	//F.modifiedBy as modifiedBy,
+	
+	'Post' as taxlotType,
+	'Global' as compressionLevel,
+	
+
+	F.equityHaircutBase as equityHaircutBase,
+	F.indexHaircutBase as indexHaircutBase,
+	
+	F.liquidationPnlBase as liquidationPnlBase,
+	
+	
+	
+	F.notionalBase as notionalBase,
+	F.cashImpactBase as cashImpactBase,
+	F.cashInflowBase as cashInflowBase,
+	F.cashOutflowBase as cashOutflowBase,
+	F.netMarketValueBase as netMarketValueBase,
+	F.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	F.grossMarketValueBase as grossMarketValueBase,
+	F.costBasisPnLBase as costBasisPnLBase,
+	F.dayPnLBase as dayPnLBase,
+	F.netExposureBase as netExposureBase,
+	F.grossExposureBase as grossExposureBase,
+	F.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	F.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	
+	F.longNotionalBase as longNotionalBase,
+	F.shortNotionalBase as shortNotionalBase,
+	F.shortMarketValueBase as shortMarketValueBase,
+	F.longMarketValueBase as longMarketValueBase,
+	F.shortExposureBase as shortExposureBase,
+	F.longExposureBase as longExposureBase,
+	
+	F.dayInterestBase as dayInterestBase,
+	F.totalInterestBase as totalInterestBase,
+	
+	
+	F.shortExposureUnderlying as shortExposureUnderlying,
+	F.longExposureUnderlying as longExposureUnderlying,
+	
+	F.grossExposureUnderlying as grossExposureUnderlying,
+	F.globalNav as globalNav,
+	F.startOfDayNavGlobal as startOfDayNavGlobal,
+	F.currentCash as currentCash,
+	F.accrual as accrual,
+	//F.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	//F.netExposureBaseGlobal as netExposureBaseGlobal,
+	//F.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+		
+	percent(F.longExposureBase, F.globalNav) as percentLongExposureGlobal,
+	percent(F.shortExposureBase, F.globalNav) as percentShortExposureGlobal,
+	percent(F.netExposureBase, F.globalNav) as percentNetExposureGlobal,
+	percent(F.betaAdjustedExposureBase, F.globalNav) as percentBetaAdjustedExposureGlobal,
+	percent(F.grossExposureBase, F.globalNav) as percentGrossExposureGlobal,
+	percent(F.longMarketValueBase, F.globalNav) as percentLongMarketValueGlobal,
+	percent(F.shortMarketValueBase, F.globalNav) as percentShortMarketValueGlobal,
+	percent(F.netMarketValueBase, F.globalNav) as percentNetMarketValueGlobal,
+	
+	percent(F.grossMarketValueBase, F.globalNav) as percentGrossMarketValueGlobal,
+	percent(F.longNotionalBase, F.globalNav) as percentLongNotionalGlobal,
+	percent(F.shortNotionalBase, F.globalNav) as percentShortNotionalGlobal,
+	percent(F.notionalBase, F.globalNav) as percentNetNotionalGlobal,
+	percent(F.dayPnLBase, F.globalNav) as pnlContributionGlobal,
+	percent(F.costBasisPnLBase, F.globalNav) as percentCostBasisPnlGlobal,
+	percent(F.grossExposureUnderlying, F.globalNav) as percentGrossExposureUnderlyingGlobal,
+	percent(F.dayPnLBase,F.startOfDayNavGlobal) as dayReturnGlobal,
+	
+	F.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	F.todayLongTradeQuantity as todayLongTradeQuantity,
+	F.todayShortTradeQuantity as todayShortTradeQuantity,
+	F.todayNetNotionalBase as todayNetNotionalBase,
+	F.todayLongNotionalBase as todayLongNotionalBase,
+	F.todayShortNotionalBase as todayShortNotionalBase,
+	
+	F.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	F.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	F.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	percent(F.betaAdjustedGrossExposureUnderlyingBase, F.globalNav) as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	percent(F.betaAdjustedLongExposureUnderlyingBase, F.globalNav) as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	percent(F.betaAdjustedShortExposureUnderlyingBase, F.globalNav) as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	"GlobalWithNavIntermediate" as parentWindowStream
+	
+
+from GlobalWithNavIntermediate as F
+/*where F.modifiedBy <> 'TaxlotDeleted'*/;
+
+
+
+@Name('GlobalWindowInitial')
+@Description('Insert data into GlobalWindowInitial from GlobalWithNav whenever DivisorEndMessage or InitComplete event occurs.')
+on pattern[every (InitComplete(initComplete=true,action='Validation') or DivisorEndMessage)]
+insert into GlobalWindowInitial
+select 
+	'Post' as taxlotType,
+	'Global' as compressionLevel,
+	
+
+	F.equityHaircutBase as equityHaircutBase,
+	F.indexHaircutBase as indexHaircutBase,
+	
+	F.liquidationPnlBase as liquidationPnlBase,
+	
+	
+	
+	F.notionalBase as notionalBase,
+	F.cashImpactBase as cashImpactBase,
+	F.cashInflowBase as cashInflowBase,
+	F.cashOutflowBase as cashOutflowBase,
+	F.netMarketValueBase as netMarketValueBase,
+	F.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	F.grossMarketValueBase as grossMarketValueBase,
+	F.costBasisPnLBase as costBasisPnLBase,
+	F.dayPnLBase as dayPnLBase,
+	F.netExposureBase as netExposureBase,
+	F.grossExposureBase as grossExposureBase,
+	F.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	F.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	
+	F.longNotionalBase as longNotionalBase,
+	F.shortNotionalBase as shortNotionalBase,
+	F.shortMarketValueBase as shortMarketValueBase,
+	F.longMarketValueBase as longMarketValueBase,
+	F.shortExposureBase as shortExposureBase,
+	F.longExposureBase as longExposureBase,
+	
+	F.dayInterestBase as dayInterestBase,
+	F.totalInterestBase as totalInterestBase,
+	
+	
+	F.shortExposureUnderlying as shortExposureUnderlying,
+	F.longExposureUnderlying as longExposureUnderlying,
+	
+	F.grossExposureUnderlying as grossExposureUnderlying,
+	F.globalNav as globalNav,
+	F.startOfDayNavGlobal as startOfDayNavGlobal,
+	F.currentCash as currentCash,
+	F.accrual as accrual,
+	//F.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	//F.netExposureBaseGlobal as netExposureBaseGlobal,
+	//F.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+		
+	F.percentLongExposureGlobal as percentLongExposureGlobal,
+	F.percentShortExposureGlobal as percentShortExposureGlobal,
+	F.percentNetExposureGlobal as percentNetExposureGlobal,
+	F.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	F.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	F.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	F.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	F.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	
+	F.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	F.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	F.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	F.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	F.pnlContributionGlobal as pnlContributionGlobal,
+	F.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	F.percentGrossExposureUnderlyingGlobal as percentGrossExposureUnderlyingGlobal,
+	F.dayReturnGlobal as dayReturnGlobal,
+	
+	F.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	F.todayLongTradeQuantity as todayLongTradeQuantity,
+	F.todayShortTradeQuantity as todayShortTradeQuantity,
+	F.todayNetNotionalBase as todayNetNotionalBase,
+	F.todayLongNotionalBase as todayLongNotionalBase,
+	F.todayShortNotionalBase as todayShortNotionalBase,
+	
+	F.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	F.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	F.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	F.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	F.percentBetaAdjustedLongExposureUnderlyingBaseGlobal as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	F.percentBetaAdjustedShortExposureUnderlyingBaseGlobal as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	"GlobalWithNav" as parentWindowStream
+	
+	
+from GlobalWithNav as F;
+//where DataLoaded=true;

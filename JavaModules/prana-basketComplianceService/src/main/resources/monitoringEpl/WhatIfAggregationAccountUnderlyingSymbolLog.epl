@@ -1,0 +1,174 @@
+module target.resources.monitoringEpl.WhatIfAggregationAccountUnderlyingSymbolLog;
+
+uses eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolWindowWithNav;
+
+
+@Priority(10)
+@Name('WhatIfAccountUnderlyingSymbolLog')
+@Description('')
+on BasketEOM as E
+insert into WhatIfAggregationAccountUnderlyingSymbolLog
+select distinct
+	
+	T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,
+	E.userId as userId,
+	
+	'WhatIf' as taxlotType,
+	'Account-UnderlyingSymbol' as compressionLevel,
+	T.underlyingSymbol as underlyingSymbol,
+	T.accountId as accountId,
+	T.accountShortName as accountShortName,
+	T.accountLongName as accountLongName,
+	T.masterFundId as masterFundId,
+	T.masterFundName as masterFundName,	
+	T.underlyingAsset as underlyingAsset,
+	T.underlyingCountry as underlyingCountry,
+
+	T.underlyingSharesOutstanding as underlyingSharesOutstanding,
+	T.underlyingMarketCapitalization as underlyingMarketCapitalization,
+
+	T.equityHaircutBase as equityHaircutBase,
+	T.indexHaircutBase as indexHaircutBase,	
+	T.liquidationPnlBase as liquidationPnlBase,
+	
+	T.notionalBase as notionalBase,
+	T.cashImpactBase as cashImpactBase,
+	T.cashInflowBase as cashInflowBase,
+	T.cashOutflowBase as cashOutflowBase,
+	T.netMarketValueBase as netMarketValueBase,
+
+	T.grossMarketValueBase as grossMarketValueBase,
+	T.costBasisPnLBase as costBasisPnLBase,
+	T.dayPnLBase as dayPnLBase,
+	T.netExposureBase as netExposureBase,
+	T.grossExposureBase as grossExposureBase,
+	T.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	T.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	T.dayInterestBase as dayInterestBase,
+	T.totalInterestBase as totalInterestBase,
+	T.equivalent as equivalent,
+	
+	T.grossExposureUnderlying as grossExposureUnderlying,	
+	T.underlyingExposurePositionSide as underlyingExposurePositionSide,
+	
+        T.shortExposureUnderlying as shortExposureUnderlying,
+        T.longExposureUnderlying as longExposureUnderlying,
+	
+	T.globalNav as globalNav,
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	T.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	T.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+	T.accountNav as accountNav,	
+	T.accountNRA as accountNRA,
+	T.startOfDayNavAccount as startOfDayNavAccount,
+	T.grossMarketValueBaseAccount as grossMarketValueBaseAccount,
+	T.grossExposureBaseAccount as grossExposureBaseAccount,
+	T.netExposureBaseAccount as netExposureBaseAccount,
+	T.currentCash as currentCash,
+	T.accrual as accrual,
+	
+	T.masterFundNav as masterFundNav,
+	T.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	T.grossMarketValueBaseMasterFund as grossMarketValueBaseMasterFund,
+	T.grossExposureBaseMasterFund as grossExposureBaseMasterFund,
+	T.netExposureBaseMasterFund as netExposureBaseMasterFund,
+	
+	T.pnlContributionAccount as pnlContributionAccount,
+	T.percentNetExposureAccount as percentNetExposureAccount,	
+	T.percentBetaAdjustedExposureAccount as percentBetaAdjustedExposureAccount,	
+	T.percentGrossExposureAccount as percentGrossExposureAccount,	
+	T.percentNetMarketValueAccount as percentNetMarketValueAccount,	
+	T.percentGrossMarketValueAccount as percentGrossMarketValueAccount,
+	T.percentCostBasisPnlAccount as percentCostBasisPnlAccount,	
+	T.percentNetNotionalAccount as percentNetNotionalAccount,
+        T.percentGrossExposureUnderlyingAccount as percentGrossExposureUnderlyingAccount,
+	T.dayReturnAccount as dayReturnAccount,
+	
+	T.pnlContributionMasterFund as pnlContributionMasterFund,	
+	T.percentNetExposureMasterFund as percentNetExposureMasterFund,	
+	T.percentBetaAdjustedExposureMasterFund as percentBetaAdjustedExposureMasterFund,	
+	T.percentGrossExposureMasterFund as percentGrossExposureMasterFund,	
+	T.percentNetMarketValueMasterFund as percentNetMarketValueMasterFund,
+	T.percentGrossMarketValueMasterFund as percentGrossMarketValueMasterFund,	
+	T.percentNetNotionalMasterFund as percentNetNotionalMasterFund,
+	T.percentCostBasisPnlMasterFund as percentCostBasisPnlMasterFund,
+        T.percentGrossExposureUnderlyingMasterFund as percentGrossExposureUnderlyingMasterFund,
+	T.dayReturnMasterFund as dayReturnMasterFund,
+
+	T.pnlContributionGlobal as pnlContributionGlobal,	
+	T.percentNetExposureGlobal as percentNetExposureGlobal,	
+	T.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,	
+	T.percentGrossExposureGlobal as percentGrossExposureGlobal,	
+	T.percentNetMarketValueGlobal as percentNetMarketValueGlobal,	
+	T.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,	
+	T.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	T.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+        T.percentGrossExposureUnderlyingGlobal as percentGrossExposureUnderlyingGlobal,
+	T.dayReturnGlobal as dayReturnGlobal,
+	
+	T.longNotionalBase as longNotionalBase,
+	T.shortNotionalBase as shortNotionalBase,
+	T.shortMarketValueBase as shortMarketValueBase,
+	T.longMarketValueBase as longMarketValueBase,
+	T.shortExposureBase as shortExposureBase,
+	T.longExposureBase as longExposureBase,
+    T.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	
+	
+	T.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	T.todayLongTradeQuantity as todayLongTradeQuantity,
+	T.todayShortTradeQuantity as todayShortTradeQuantity,
+	T.todayNetNotionalBase as todayNetNotionalBase,
+	T.todayLongNotionalBase as todayLongNotionalBase,
+	T.todayShortNotionalBase as todayShortNotionalBase,
+	
+	T.longDebitBalance as longDebitBalance,
+	T.shortCreditBalance as shortCreditBalance,
+	
+	T.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	T.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	T.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	T.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	T.percentBetaAdjustedLongExposureUnderlyingBaseGlobal as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	T.percentBetaAdjustedShortExposureUnderlyingBaseGlobal as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	
+	T.percentBetaAdjustedGrossExposureUnderlyingBaseAccount as percentBetaAdjustedGrossExposureUnderlyingBaseAccount,
+	T.percentBetaAdjustedLongExposureUnderlyingBaseAccount as percentBetaAdjustedLongExposureUnderlyingBaseAccount,
+	T.percentBetaAdjustedShortExposureUnderlyingBaseAccount as percentBetaAdjustedShortExposureUnderlyingBaseAccount,
+	
+	T.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	T.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	T.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	
+	T.riskCurrency as riskCurrency,
+	T.issuer as issuer,
+	T.countryOfRisk as countryOfRisk,
+	T.region as region,
+	T.analyst as analyst,
+	T.ucitsEligibleTag as ucitsEligibleTag,
+	T.liquidTag as liquidTag,
+	T.marketCap as marketCap,
+	T.customUDA1 as customUDA1,
+	T.customUDA2 as customUDA2,
+	T.customUDA3 as customUDA3,
+	T.customUDA4 as customUDA4,
+	T.customUDA5 as customUDA5,
+	T.customUDA6 as customUDA6,
+	T.customUDA7 as customUDA7,
+	
+	T.exchange as exchange,
+	T.udaCountry as udaCountry,
+	T.deltaAdjPosition as deltaAdjPosition,
+	T.customUDA8 as customUDA8,
+	T.customUDA9 as customUDA9,
+	T.customUDA10 as customUDA10,
+	T.customUDA11 as customUDA11,
+	T.customUDA12 as customUDA12
+	
+from WhatIfAccountUnderlyingSymbolWithNav as T where T.basketId = E.basketId and IsLoggingEnabled = true;

@@ -1,0 +1,68 @@
+module customRules.SpecialSituation.preTrade.singleIndustryExposureCheck.preTradeSingleIndustryExposureCheck;
+
+@Name('AccountCheckInIndustry')
+@Description('checks if trade done in set account and industries or not')
+on BasketEOM  as B 
+insert into AccountCheckInIndustry
+select distinct
+  B.basketId as basketId,
+  B.userId as userId,
+  R.accountId as accountId,
+  R.accountShortName as accountName,
+  R.customUDA1 as customUDA1,
+ (case(valueExistsInCSV(R.accountShortName, Account_SingleIndustryExposure) is true and 
+ valueExistsInCSV(R.customUDA1, IndustryCodesSingle) is true) 
+  when true then true else false end ) as validation,
+   "RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfAccountCheckIndustry')
+@Description('the values of industries and account nav')
+on AccountCheckInIndustry as B
+insert into WhatIfAccountCheckIndustry
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountName,
+	W.customUDA1 as customUDA1,
+    B.validation as finalValidation,
+ 	sum(case when (valueExistsInCSV(W.customUDA1, IndustryCodesSingle) is true  and 
+    valueExistsInCSV(W.accountShortName, Account_SingleIndustryExposure) is true)
+	 then (case Variable8 is 'Net Exposure' when true then W.netExposureBase else W.netMarketValueBase end)
+	else 0 end) as calculationField,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId and B.customUDA1=W.customUDA1
+group by W.accountId;
+
+@Name('PreTradeSingleIndustryExposureCheck')
+@Description('Final stream to check condition is breached')
+insert into PreTradeSingleIndustryExposureCheck
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+  	Account_SingleIndustryExposure || ValueSeparator || IndustryCodesSingle || ValueSeparator ||doubleFormat(Percentage_SingleIndustryExposure) as threshold,
+	A.accountName || ValueSeparator || A.customUDA1 || ValueSeparator || doubleFormat(Math.abs(coalesce((A.calculationField / A.accountNav)*100,0))) as actualResult,
+	'Account' || ValueSeparator ||'Industry' ||  ValueSeparator || '% Total Nav' as constraintField,
+	(case A.finalValidation is true
+	when true then 
+		(Math.abs(coalesce(A.calculationField/ A.accountNav, 0)) > (Percentage_SingleIndustryExposure / 100))
+	else 
+		false end) as isViolated,
+   'Account: ' || A.accountName 
+		|| (case Variable8 is 'Net Exposure' when true then ',% Total Exposure: ' else ',% Total Net Market Value: ' end) ||doubleFormat(Math.abs(coalesce((A.calculationField / A.accountNav)*100,0)))
+		|| (case Variable8 is 'Net Exposure' when true then ', Net Exposure: ' else ', Net Market Value: ' end)   || doubleFormat(A.calculationField)
+		|| ', Industry : ' || A.customUDA1 as parameters,
+    current_timestamp as validationTime,
+	'Restriction on having no more than ' || doubleFormat(Percentage_SingleIndustryExposure) || '% of total assets in one industry' as summary,
+	A.accountName as dimension
+from
+WhatIfAccountCheckIndustry as A
+where A.userId is not null;
+
+

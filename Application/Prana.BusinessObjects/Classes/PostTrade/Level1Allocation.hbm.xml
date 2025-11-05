@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Prana.BusinessObjects"
+                   assembly="Prana.BusinessObjects">
+	<class name="Level1Allocation" table="T_FundAllocation">
+		<id name="AllocationId"/>
+			<!--<generator class="native" />
+		</id>-->
+		<property name="GroupID" />
+		<property name="AllocatedQty"/>
+		<property name="Percentage"/>
+		<property name="AccountID" column="FundID"/>
+		<bag name="TaxLotsH" cascade="all-delete-orphan" lazy="false">
+			<key column="Level1AllocationID" />
+			<one-to-many class="TaxLot" />
+		</bag>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+module eplModules.dataWindow.OrderSideFeeder;
+
+@Name('OrderSideWindow')
+@Description('Named window which stores the details of order side along with sideMultiplier.')
+create window OrderSideWindow.std:unique(orderSideTagValue)
+(
+			orderSideTagValue string,
+			orderSide string,
+			sideMultiplier int,
+			parentWindowStream string
+);
+
+@Name('OrderSideWindowInsert')
+@Description('This updates the OrderSideWindow every time new OrderSide event occurs.')
+on OrderSide as s
+merge OrderSideWindow sw where sw.orderSideTagValue = s.orderSideTagValue
+	when matched and 
+			(
+				s.orderSide <> sw.orderSide or
+				s.sideMultiplier <> sw.sideMultiplier
+			)
+		then 
+			update 
+				set 
+				sw.orderSide = s.orderSide,
+				sw.sideMultiplier=s.sideMultiplier,
+				sw.parentWindowStream = "OrderSide"
+	when not matched
+		then insert 
+			select    	
+		   	s.orderSideTagValue as orderSideTagValue,
+		   	s.orderSide as orderSide,
+		   	s.sideMultiplier as sideMultiplier,
+		   	"OrderSide" as parentWindowStream;

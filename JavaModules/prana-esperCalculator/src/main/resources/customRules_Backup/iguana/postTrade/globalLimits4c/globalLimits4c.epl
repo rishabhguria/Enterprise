@@ -1,0 +1,38 @@
+module customRules.iguana.postTrade.globalLimits4c.globalLimits4c;
+
+@Name('AggregationNetExposureEUStates')
+@Description('Calculates and stores grossExposureBase of equity option underlying for Whitney Capital-JPM accounts in EU member states.')
+on pattern[every R=AccountUnderlyingSymbolUpdated]
+insert into AggregationNetExposureEUStates
+select distinct
+	sum(T.netExposureBase) as netExposureBase,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId	
+from
+AccountUnderlyingSymbolWithNav as T
+where T.accountShortName='Whitney Capital-JPM' and T.underlyingAsset in ('Equity')
+and T.underlyingCountry in ('Europe', 'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom')
+group by T.accountShortName;
+
+@Name('GlobalLimits4c')
+@Description('Aggregates data whenever the Gross exposure exceedes +/-5 percent of gross market value.')
+on pattern[every T=AggregationNetExposureEUStates]
+insert into GlobalLimits4c
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'5' || ValueSeparator || T.accountShortName  as threshold,
+	doubleFormat(0.05*R.grossMarketValueBase) || ValueSeparator || T.accountShortName as actualResult,
+	'Net exposure %' || ValueSeparator || 'Account' as constraintField,
+	true as isViolated,
+	'Net Exposure: '||doubleFormat(T.netExposureBase) || ', Account: '||T.accountShortName || ', 5% of Account Gross Market Value: '||doubleFormat(0.05*R.grossMarketValueBase) as parameters,
+	current_timestamp as validationTime,
+	'The net exposure of an underlying security in EU member States, in Whitney Capital-JPM exceeded +/-5% of the Client’s Gross Market Value.' as summary,
+	T.accountShortName as dimension
+from
+AccountWithNav as R
+where (T.netExposureBase > 0.05*R.grossMarketValueBase or T.netExposureBase < -0.05*R.grossMarketValueBase) and R.accountId=T.accountId;
+
+

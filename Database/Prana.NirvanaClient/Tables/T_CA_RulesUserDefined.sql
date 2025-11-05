@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[T_CA_RulesUserDefined] (
+    [ID]                    INT            IDENTITY (1, 1) NOT NULL,
+    [RuleName]              VARCHAR (100)   NOT NULL,
+    [BaseUrl]               VARCHAR (200)  NULL,
+    [PackageName]           VARCHAR (100)  NULL,
+    [PopUpEnabled]          BIT            CONSTRAINT [DF_T_CA_RulesUserDefined_PopUpEnabed] DEFAULT ((1)) NULL,
+    [EmailEnabled]          BIT            CONSTRAINT [DF_T_CA_RulesUserDefined_EmailEnabled] DEFAULT ((1)) NULL,
+    [EmailToList]           VARCHAR (1000) NULL,
+    [LimitFrequencyMinutes] INT            NULL,
+    [Uuid]                  VARCHAR (50)   NULL,
+    [RuleId]                VARCHAR (50)   NULL,
+    [EmailCCList]           VARCHAR (1000) NULL,
+    [AlertInTimeRange]      BIT            NULL,
+    [StopAlertOnHolidays]   BIT            NULL,
+    [StartTime]             DATETIME       NULL,
+    [EndTime]               DATETIME       NULL,
+	[SendInOneEmail]			BIT            NOT NULL DEFAULT 0,
+	[Slot1]					DATETIME		NOT NULL DEFAULT '1800-01-01 00:00:00.000',
+    [Slot2]					DATETIME		NOT NULL DEFAULT '1800-01-01 00:00:00.000',
+	[Slot3]					DATETIME		NOT NULL DEFAULT '1800-01-01 00:00:00.000',
+    [Slot4]					DATETIME		NOT NULL DEFAULT '1800-01-01 00:00:00.000',
+	[Slot5]					DATETIME		NOT NULL DEFAULT '1800-01-01 00:00:00.000',
+    [GroupId]               VARCHAR (50)   NULL,
+    [IsDeleted]             BIT            DEFAULT ('False') NOT NULL,
+    [EmailSubject]			VARCHAR(1000)  NOT NULL DEFAULT '', 
+    CONSTRAINT [PK_T_CA_RulesUserDefined_1] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

@@ -1,0 +1,278 @@
+﻿<UserControl x:Class="Prana.Rebalancer.RebalancerNew.Views.DataPreferenceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ig="http://schemas.infragistics.com/xaml"
+             xmlns:themes="http://infragistics.com/Themes"
+             xmlns:igDp="http://infragistics.com/DataPresenter"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:igWPF="http://infragistics.com/Editors"
+             xmlns:converters="clr-namespace:Prana.Rebalancer.Converters"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:behaviours="clr-namespace:Prana.Rebalancer.RebalancerNew.Behaviours" 
+             xmlns:igWPF1="http://schemas.infragistics.com/xaml/wpf"
+             mc:Ignorable="d" 
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/NirvanaSkin.xaml" />
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/RebalancerTheme.xaml" />
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/DataPresenterIGTheme_Express.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:AccountIDToAccountNameConverter x:Key="AccountIdToAccountNameConverter"/>
+            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+            <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <converters:InverseNullableBooleanConverter x:Key="InverseNullableBooleanConverter"/>
+            <igWPF1:DataPresenterExcelExporter x:Key="Exporter" />
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Width" Value="75"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="20,0,0,0"/>
+            </Style>
+            <Style TargetType="ig:XamComboEditor" BasedOn="{StaticResource igXamComboEditorStyle}">
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="22"/>
+                <Setter Property="AllowDropDownResizing" Value="False"/>
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ItemValue}" ToolTip="{Binding ItemValue}"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Width" Value="100"/>
+            </Style>
+
+            <DataTemplate x:Key="CheckBoxTemplate">
+                <CheckBox AutomationProperties.Name="{Binding ItemValue}" AutomationProperties.AutomationId="{Binding ItemValue}" Content="{Binding ItemValue}" IsChecked="{Binding Flag}"/>
+            </DataTemplate>
+            <Style TargetType="{x:Type ListBoxItem}" x:Key="SecuritiesHoldingListBoxContainerStyleForHoldings">
+                <Setter Property="ContentTemplate" Value="{StaticResource CheckBoxTemplate}"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Margin="{TemplateBinding Padding}" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource SecuritiesHoldingListBoxContainerStyleForHoldings}" x:Key="AssetClassListBoxContainerStyle">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <CheckBox AutomationProperties.Name="{Binding ItemValue}" AutomationProperties.AutomationId="{Binding ItemValue}" Content="{Binding ItemValue}" IsChecked="{Binding Flag}" IsEnabled="False"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="PricingOptionsPanel" Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,10">
+            <Label x:Name="lblPricingField" Content="Pricing Field:"/>
+            <ig:XamComboEditor  x:Name="CmbFeedPriceList" ItemsSource="{Binding FeedPriceList}" SelectedItem="{Binding SelectedFeedPriceInstance}" DisplayMemberPath="ItemValue"/>
+
+            <Label x:Name="lblRASIncreaseDecreaseSet" Content="+/-/=:" Margin="20,0,0,0"/>
+            <ig:XamComboEditor x:Name="CmbRASIncreaseDecreaseSet" Margin="-40,0,0,0" ItemsSource="{Binding RASIncreaseDecreaseOrSetList}" SelectedItem="{Binding SelectedRASIncreaseDecreaseOrSet}" DisplayMemberPath="ItemValue"/>
+
+            <Button x:Name="btnDatePreferenceSave" Content="Save" Command="{Binding SaveCommand}" IsEnabled="{Binding IsEnabled,ElementName=PricingOptionsPanel}" Margin="20,3,0,0" VerticalAlignment="Top"/>
+        </StackPanel>
+        <StackPanel x:Name="AcountOrGroupDropDownPreferencePanel" Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+            <Label x:Name="lblAccountsAndGroupVisibility" Content="Account/Groups Visibility : " Width="auto"/>
+            <CheckBox x:Name="chkboxAccountIncluded" VerticalAlignment="Center" IsChecked="{Binding Path= AccountGroupDropdownPref.IsAccountIncluded}"/>
+            <Label x:Name="lblAccount" Content="Account" Margin="5,0,15,0"/>
+            <CheckBox x:Name="chkboxMasterfundIncluded" VerticalAlignment="Center" IsChecked="{Binding Path=AccountGroupDropdownPref.IsMasterFundIncluded}"/>
+            <Label x:Name="lblMasterfund" Content="Master Fund"  Margin="0,0,15,0"/>
+            <CheckBox x:Name="chkboxCustomGroupsIncluded" VerticalAlignment="Center" IsChecked="{Binding Path= AccountGroupDropdownPref.IsCustomGroupIncluded}"/>
+            <Label x:Name="lblCustomGroup" Content="Custom Group"  Margin="0,0,15,0"/>
+        </StackPanel>
+        <StackPanel x:Name="ImportSymbologyPreference" Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <Label x:Name="lblImportSymbology" Content="Import Symbology:" Width="auto"/>
+            <ig:XamComboEditor x:Name="cmbImportSymbology" ItemsSource="{Binding ImportSymbologyList}" SelectedItem="{Binding SelectedImportSymbology}" DisplayMemberPath="ItemValue" />
+        </StackPanel>
+        <GroupBox Header="UI Preference" Grid.Row="3" Height="Auto" BorderBrush="Black" BorderThickness="2" Width="Auto" Margin="0,0,0,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel x:Name="TradingRulesPreferencePanel" Grid.Row="0"  Orientation="Horizontal" Margin="0,5,0,10">
+                    <Label  x:Name="lblPreferencesForTradingRules" Content="Default preference for Trading Rules : " Width="auto"/>
+                    <CheckBox x:Name="chkboxReinvest" VerticalAlignment="Center" Content="Reinvest Cash" FontWeight="Bold" IsChecked="{Binding Path=TradingRulesInstance.IsReInvestCash}" Margin="10 0 10 0"/>
+                    <CheckBox x:Name="chkboxSellToRaise" VerticalAlignment="Center" Content="Sell to raise cash" FontWeight="Bold" IsChecked="{Binding Path=TradingRulesInstance.IsSellToRaiseCash}" Margin="10 0 10 0"/>
+                    <CheckBox x:Name="chkboxNoShorting" VerticalAlignment="Center" Content="No Shorting" FontWeight="Bold" IsChecked="{Binding Path=TradingRulesInstance.IsNoShorting}" Margin="10 0 10 0"/>
+                    <CheckBox x:Name="chkboxAllowNegative" VerticalAlignment="Center" Content="Allow Negative Cash" FontWeight="Bold" IsChecked="{Binding Path=TradingRulesInstance.IsNegativeCashAllowed}" Margin="10 0 10 0"/>
+                    <CheckBox x:Name="chkboxSetTarget" VerticalAlignment="Center" Content="Set cash target" FontWeight="Bold" IsChecked="{Binding Path=TradingRulesInstance.IsSetCashTarget}" Margin="10 0 10 0"/>
+                </StackPanel>
+
+                <StackPanel x:Name="RoundingTypePanel" Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+                    <Label x:Name="lblRoundingType" Content="Rounding Type "/>
+                    <ig:XamComboEditor Name="CmbRoundType" Margin="10 0 10 0" SelectedItem="{Binding SelectedRoundingType}" ItemsSource="{Binding RoundingTypeList}" DisplayMemberPath="ItemValue"/>
+                </StackPanel>
+                <StackPanel x:Name="IsExpandRebalanceAcrossSecuritiesPanel" Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+                    <CheckBox x:Name="chkboxExpandRAS" VerticalAlignment="Center" Content="Always expand rebalance across securities" FontWeight="Bold" IsChecked="{Binding Path=IsExpanded}" Margin="5 5 5 0"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <StackPanel x:Name="ShowSaveTradePopup" Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,5">
+            <CheckBox  x:Name="chkboxAskToSaveOrders" VerticalAlignment="Center" Content="Always ask for saving orders" FontWeight="Bold" IsChecked="{Binding Path=ShowSaveTradePopup}" Margin="5 5 5 0"/>
+        </StackPanel>
+        <GroupBox Name="gbNavCalculationPreference" Grid.Row="5"  Height="Auto" BorderBrush="Black" BorderThickness="2" Width="Auto" Header="NAV Calculation Preference" Margin="0,10,0,15">
+            <ig:XamBusyIndicator IsBusy="{Binding IsNavCalculationPreferenceAllowed, Converter={StaticResource InverseBooleanConverter}}" IsIndeterminate="False" Background="#cccccc" Animation="None" Opacity="{Binding NavCalculationBoxOpacity}"  >
+                <ig:XamBusyIndicator.BusyContent>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30">
+                        <Label x:Name="lblComplianceInfoMessage" Content="NAV Calculation preference is not allowed in case of Compliance." Width="Auto" Margin="0" FontWeight="Bold" Foreground="Black" FontSize="12" FontFamily="Tahoma"/>
+                    </StackPanel>
+                </ig:XamBusyIndicator.BusyContent>
+                <Grid IsEnabled="{Binding Path=IsNavCalculationPreferenceAllowed}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Name="gbAssetClass" Header="Asset Class" Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="2">
+                        <ListBox x:Name="AssetClassList" HorizontalAlignment="Left" Width="200" Background="LightGray" ItemsSource="{Binding AssetClassCollection}" ItemContainerStyle="{StaticResource AssetClassListBoxContainerStyle}"/>
+                </GroupBox>
+                <GroupBox Name="gbOtherItemsImpactingNav" Grid.Row="2" Grid.Column="0" Header="Other Items Impacting NAV" BorderBrush="Black" BorderThickness="2" Margin="0,10,0,0">
+                        <ListBox x:Name="SecuritiesHoldingList" HorizontalAlignment="Left"  Width="200" Background="LightGray" ItemContainerStyle="{StaticResource SecuritiesHoldingListBoxContainerStyleForHoldings}" ItemsSource="{Binding OtherNavImpactingCollection}"/>
+                </GroupBox>
+                    <Button x:Name="btnDatePreferenceApply" Content="Apply" Grid.Row="3" Grid.Column="0" Command="{Binding ApplyPreferenceToAccountsCommand}" Margin="0,-5,0,0"/>
+                <igDp:XamDataGrid Grid.Row="1" x:Name="DataGrid"  Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  GroupByAreaLocation="None"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                  DataSource="{Binding NavPreferencesList}" Height="450" Margin="20,5,0,10" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="RecordFilterChanged">
+                            <i:InvokeCommandAction Command="{Binding NavPreferenceFilterChangeCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=ViewableRecords}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamDataGridExporterForRebalancer ExportFilePath="{Binding ExportFilePathForAutomation}" ExportGridData="{Binding ExportDataGridForAutomation}" ExporterResource="{StaticResource Exporter}"/>
+                        </i:Interaction.Behaviors>
+                        <igDp:XamDataGrid.Resources>
+                            <Style TargetType="{x:Type igDp:FieldChooser}" BasedOn="{StaticResource FieldChooserStyle}"/>
+                            <Style TargetType="{x:Type igDp:CellValuePresenter}" BasedOn="{StaticResource CellValuePresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type igDp:SummaryResultPresenter}" BasedOn="{StaticResource SummaryResultPresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type igDp:DataRecordCellArea}" BasedOn="{StaticResource DataRecordCellAreaStyleForGrid}"/>
+                            <Style TargetType="{x:Type igDp:GroupBySummariesPresenter}" BasedOn="{StaticResource GroupBySummariesPresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type igDp:GroupByRecordPresenter}" BasedOn="{StaticResource GroupByRecordPresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type igDp:LabelPresenter}" BasedOn="{StaticResource LabelPresenterStyle}"/>
+                            <Style TargetType="{x:Type igDp:DataRecordPresenter}" BasedOn="{StaticResource DataRecordPresenterStyle}"/>
+                            <Style TargetType="{x:Type igDp:RecordSelector}"
+                               BasedOn="{x:Null}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type igDp:RecordSelector}">
+                                        <CheckBox HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  IsChecked="{Binding Path=DataItem.IsSelected, Mode=TwoWay}" Command="{Binding Path= DataPresenter.DataContext.SelectionCheckboxClickedCommand}">
+                                        </CheckBox>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style TargetType="{x:Type igDp:HeaderPrefixArea}"
+                               BasedOn="{x:Null}">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type igDp:HeaderPrefixArea}">
+                                        <CheckBox HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  IsChecked="{Binding Path=DataPresenter.DataContext.AreAllAccountsSelected, Mode=TwoWay}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <DataTemplate x:Key="CheckBoxTemplateForPreferenceGrid">
+                            <CheckBox IsChecked="{igWPF:TemplateEditorValueBinding}" HorizontalAlignment="Center" VerticalAlignment="Center"></CheckBox>
+                        </DataTemplate>
+                    </igDp:XamDataGrid.Resources>
+                    <igDp:XamDataGrid.FieldLayoutSettings>
+                        <igDp:FieldLayoutSettings AutoFitMode="Default" HeaderPlacement="OnTopOnly" AutoGenerateFields="False" FilterUIType="LabelIcons"  AllowClipboardOperations="Copy" HighlightAlternateRecords="True"/>
+                    </igDp:XamDataGrid.FieldLayoutSettings>
+                    <igDp:XamDataGrid.FieldSettings>
+                        <igDp:FieldSettings LabelTextWrapping="Wrap"  AutoSizeOptions="Label, DataCells" AutoSizeScope="AllRecords" AllowResize="True"  AllowEdit="True" AllowRecordFiltering="False" AllowSummaries="False"  CellHeight="30" AllowFixing="No"/>
+                    </igDp:XamDataGrid.FieldSettings>
+                    <igDp:XamDataGrid.FieldLayouts>
+                        <igDp:FieldLayout>
+                            <igDp:FieldLayout.SortedFields>
+                                <igDp:FieldSortDescription Direction="Ascending" FieldName="AccountId"/>
+                            </igDp:FieldLayout.SortedFields>
+                            <igDp:TemplateField Label="Account" IsReadOnly="True" AllowRecordFiltering="True" Name="AccountId" ToolTip="Account" AllowEdit="False" Width="Auto" Converter="{StaticResource AccountIdToAccountNameConverter}"  ConverterParameter="{}{0:00}" HorizontalContentAlignment="Right" LabelTextAlignment="Center"> 
+                                <igDp:TemplateField.DisplayTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+                                                   HorizontalAlignment="Left" Padding="0,0,5,0" >
+                                            <TextBlock.Style>
+                                                <Style>
+                                                    <Setter Property="TextBlock.Foreground" Value="Black"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDp:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                                            <Setter Property="TextBlock.Foreground" Value="White"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </igDp:TemplateField.DisplayTemplate>
+                                <igDp:TemplateField.Settings>
+                                    <igDp:FieldSettings EditAsType="system:String"/>
+                                </igDp:TemplateField.Settings>
+                            </igDp:TemplateField>
+                            <igDp:CheckBoxField Name="IsIncludeCash" Label="Cash" LabelTextAlignment="Center"/>
+                            <igDp:CheckBoxField Name="IsIncludeAccruals" Label="Accruals" LabelTextAlignment="Center"/>
+                            <igDp:CheckBoxField Name="IsIncludeOtherAssetsMarketValue" Label="Other Assets  Market Value" LabelTextAlignment="Center"/>
+                            <igDp:CheckBoxField Name="IsIncludeSwapNavAdjustment" Label="Swap NAV Adjustment" LabelTextAlignment="Center"/>
+                            <igDp:CheckBoxField Name="IsIncludeUnrealizedPnlOfSwaps" LabelTextAlignment="Center">
+                                <igDp:CheckBoxField.Label>Unrealized P&amp;L of Swaps</igDp:CheckBoxField.Label>
+                            </igDp:CheckBoxField>
+                        </igDp:FieldLayout>
+                    </igDp:XamDataGrid.FieldLayouts>
+                </igDp:XamDataGrid>
+            </Grid>
+            </ig:XamBusyIndicator>
+        </GroupBox>
+    </Grid>
+</UserControl>

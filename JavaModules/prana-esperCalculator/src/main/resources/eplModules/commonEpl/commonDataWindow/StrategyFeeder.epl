@@ -1,0 +1,46 @@
+module eplModules.dataWindow.StrategyFeeder;
+
+@Name('StrategyWindow')
+@Description('This stores strategies defined in the system and is filled only while initial initiallization.')
+create window StrategyWindow.std:unique(strategyId)
+(
+	strategyId int,
+	strategyFullName string,
+	strategyName string,
+	companyId int,
+	masterStrategyId int,
+	masterStrategyName string,
+	parentWindowStream string	
+);
+
+@Name('StrategyWindowInsert')
+@Description('This updates the StrategyWindow every time new StrategyCollection event occurs.')
+on StrategyCollection as s
+merge StrategyWindow sw where sw.strategyId = s.strategyId
+	when matched and
+			(
+				s.strategyName <> sw.strategyName or
+				s.strategyFullName <> sw.strategyFullName or
+				s.companyId <> sw.companyId or
+				s.masterStrategyId <> sw.masterStrategyId or
+				s.masterStrategyName <>sw.masterStrategyName
+ 		)
+		then 
+			update 
+				set  
+				sw.strategyName = s.strategyName,
+				sw.strategyFullName = s.strategyFullName,
+				sw.companyId = s.companyId,
+				sw.masterStrategyId = s.masterStrategyId,
+				sw.masterStrategyName = s.masterStrategyName,
+				sw.parentWindowStream = "StrategyCollection"
+	when not matched
+		then insert 
+			select    	
+		   	s.strategyId as strategyId,
+		   	s.strategyName as strategyName,
+			s.strategyFullName as strategyFullName,
+			s.companyId as companyId,
+			s.masterStrategyId as masterStrategyId,
+			s.masterStrategyName as masterStrategyName,
+		   	"StrategyCollection" as parentWindowStream;

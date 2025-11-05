@@ -1,0 +1,423 @@
+module eplModules.expressions.BaseExpression;
+
+@Name('ExpressionGetAveragePriceForWhatIfOrder')
+@Description('Expression to calculate AveragePriceForWhatIfOrder')
+create expression exprGetAveragePriceForWhatIfOrder{(TAX,SYM) =>
+		case TAX.taxlotType <>'Post' and TAX.taxlotType in ('InTradeMarket','InTradeStage')
+			when true then 
+			case TAX.sideMultiplier=1 
+					when true then 
+						case
+							when SYM.selectedFeedPrice <> 0 then SYM.selectedFeedPrice
+							else SYM.askPrice
+						end  
+					when false then
+						case
+							when SYM.selectedFeedPrice <> 0 then SYM.selectedFeedPrice
+							else SYM.bidPrice
+						end  
+			end
+			when false then TAX.avgPrice
+		end
+};
+
+@Name('ExpressionNormalisedTradeFxRate')
+@Description('Expression to calculate NormalisedTradeFxRate')
+create expression exprNormalisedTradeFxRate{(TAX,FX) =>	
+case TAX.taxlotType in ('InTradeMarket','InTradeStage') when true then
+	coalesce(exprNormalisedCurrentFxRate(FX),1)
+when false then
+				case when TAX.avgFxRateForTrade = 0
+						then
+							case when FX is null
+								then 1
+							else 
+								case 
+									when FX.conversionMethod='M' then coalesce(FX.selectedFeedPrice,FX.markPrice)
+									when FX.conversionMethod='D' then coalesce(1/FX.selectedFeedPrice,1/FX.markPrice,1)
+									else 1
+								end
+							end						
+						else
+							case when TAX.conversionMethodOperator='M'
+								then TAX.avgFxRateForTrade
+							when TAX.conversionMethodOperator='D'
+								then coalesce(1/TAX.avgFxRateForTrade,1)
+							else
+								1
+							end										
+						end
+	end
+};
+
+@Name('ExprNormalisedFxRate')
+@Description('Expression to calculate Normalised FX Rate')
+create expression exprNormalisedFxRate{(FX) =>
+				case FX.selectedFeedPrice <> 0
+				when true then
+					(coalesce(exprNormalisedCurrentFxRate(FX),1))
+				when false then
+					(coalesce(exprNormalisedYesterdayFxRate(FX),1))
+				end
+	};
+
+@Name('ExpressionNormalisedCurrentFxRate')
+@Description('Expression to calculate NormalisedCurrentFxRate')
+create expression exprNormalisedCurrentFxRate{(FX) =>
+							case 
+								when FX.conversionMethod='M' then FX.selectedFeedPrice
+								when FX.conversionMethod='D' then coalesce(1/FX.selectedFeedPrice,1)
+								else 1
+							end
+						};
+						
+@Name('ExpressionNormalisedCurrentFxRate')
+@Description('Expression to calculate NormalisedCurrentFxRate')
+create expression exprNormalisedCurrentFxRateForFXForward{(FX,SYM,SECU,TAX) =>
+							case 
+								when SECU.leadCurrencyId != TAX.baseCurrencyId then coalesce(1*SYM.selectedFeedPrice,1)
+								else coalesce(1/SYM.selectedFeedPrice,1)
+							end
+						};
+						
+@Name('ExpressionNormalisedCurrentFxRateForCashImpactBase')
+@Description('Expression to calculate NormalisedCurrentFxRateForCashImpactBase')
+create expression exprNormalisedCurrentFxRateForCashImpactBase{(TAX,FX) =>
+							case 
+								when FX.conversionMethod='M' then TAX.avgFxRateForTrade
+								when FX.conversionMethod='D' then coalesce(1/TAX.avgFxRateForTrade,1)
+								else 1
+							end
+						};
+
+@Name('ExpressionNormalisedUnderlyingPrice')
+@Description('For Fx/FxForward we are using it to get normalized underlying price')
+create expression exprNormalisedUnderlyingPrice{(UND) =>
+							case 
+								when UND.conversionMethod='M' then UND.selectedFeedPrice
+								when UND.conversionMethod='D' then coalesce(1/UND.selectedFeedPrice,1)
+								else 1
+							end
+						};
+
+@Name('ExpressionNormalisedYesterdayFxRate')
+@Description('Formula to calculate NormalisedYesterdayFxRate')
+create expression exprNormalisedYesterdayFxRate{(FX) =>
+							case 
+								when FX.conversionMethod='M' then FX.markPrice
+								when FX.conversionMethod='D' then coalesce(1/FX.markPrice,1)
+								else 1
+							end
+						};
+						
+@Name('ExpressionIsTodayFutureTrade')
+@Description('Expression to calculate if trade is of future date or not.')
+create expression exprIsTodayFutureTrade{ (AUE,TAX) =>
+					case
+			when (AUE is not null) and (TAX is not null)
+			then
+				case 
+					when (AUE.today is not null) and (TAX.auecLocalDate is not null)
+					then
+					case
+					  (AUE.today.get('day')=TAX.auecLocalDate.get('day') and AUE.today.get('month')=TAX.auecLocalDate.get('month') and AUE.today.get('year')=TAX.auecLocalDate.get('year'))
+					   or
+                      ((AUE.today.get('year')=TAX.auecLocalDate.get('year')) and (AUE.today.get('month')=TAX.auecLocalDate.get('month')) and (AUE.today.get('day')<TAX.auecLocalDate.get('day')))
+                       or
+ 					  ((AUE.today.get('year')=TAX.auecLocalDate.get('year')) and (AUE.today.get('month')<TAX.auecLocalDate.get('month')))
+ 					   or
+ 					  (AUE.today.get('year')<TAX.auecLocalDate.get('year'))
+ 					  
+                     when true then true
+                     else false
+                    end
+                else false
+				end
+			else false 
+			end                     
+};
+
+@Name('ExpressionGetLeveragedFactor')
+@Description('Expression to calculate LeveragedFactor')
+create expression exprGetLeveragedFactor{ (USECR,AUE,SECU) => 	
+											 case
+ 													when AUE.asset in ('Equity','PrivateEquity','FixedIncome','CreditDefaultSwap','Future','Indices','FX','FXForward') then
+         												SECU.leveragedFactor
+         											when AUE.asset in ('FutureOption','EquityOption','ConvertibleBond') then 
+         												USECR.leveragedFactor        												
+         											else 
+         												1
+         										end
+							};
+
+@Name('ExpressionInterestRate')
+@Description('Expression to calculate Interest Rate in case of swap')
+create expression exprInterestRate{ (TAX)=>	TAX.benchMarkRate+TAX.differential };
+
+@Name('ExpressionDayDiff')
+@Description('Total Number of days from current date to transaction date in case of swap')
+create expression exprDayDiff{ (TAX,AUE)=> 
+			case 
+			when (AUE is not null) and (TAX is not null)
+			then
+				case 
+					when (AUE.today is not null) and (TAX.auecLocalDate is not null)
+					then
+							getNoOfDays(TAX.auecLocalDate,AUE.today)
+							//org.joda.time.Days.daysBetween(new DateTime(past), new DateTime(today)).getDays() 
+						else 0
+						end 
+			else 0 
+			end 
+			};
+			
+@Name('ExpressionBusinessDaysToExpire')
+@Description('Expression to calculate BusinessDaysToExpire.')
+create expression exprBusinessDaysToExpire{ (AUE,SECU)=> 
+			case 
+			when (AUE is not null) and (SECU is not null)
+			then
+				case 
+					when (AUE.today is not null) and (SECU.expirationDate is not null)
+					then
+				getNoOfBusinessDays(AUE.auecId,AUE.today.withTime(0,0,0,0),SECU.expirationDate.withTime(0,0,0,0))
+				else 0
+				end
+			else 0 
+			end
+				};
+				
+@Name('ExpressionActualDaysToExpire')
+@Description('Expression to calculate ActualDaysToExpire.')
+create expression exprActualDaysToExpire{ (AUE,SECU)=> 
+
+			case 
+			when (AUE is not null) and (SECU is not null)
+			then
+				case 
+					when (AUE.today is not null) and (SECU.expirationDate is not null)
+					then
+				getNoOfDays(AUE.today.withTime(0,0,0,0),SECU.expirationDate.withTime(0,0,0,0))
+				else 0
+				end
+			else 0 
+			end
+				};
+								
+@Name('ExpressionGetBeta')
+@Description('Expression to get beta5YearMonthly.')
+create expression exprGetBeta{ (A,L,U)=>
+			case 
+				when A.asset in ('EquityOption','FutureOption','FX','FXForward')
+					then U.beta5YearMonthly
+				else L.beta5YearMonthly
+			end
+	}; 	
+								
+@Name('ExpressionEquivalent')
+@Description('Expression to calculate Equivalent.')
+create expression exprEquivalent{ (TAX)=> 	
+						case
+						when TAX.asset = 'Equity' and TAX.quantity > 0 then
+							TAX.quantity
+						when ((TAX.asset = 'EquityOption' and TAX.putOrCall = 'Call' and TAX.quantity > 0 and TAX.businessDaysToExpire <= 60)
+							or (TAX.asset = 'EquityOption' and TAX.putOrCall = 'Put' and TAX.quantity < 0 and TAX.businessDaysToExpire <= 60))
+						then
+							TAX.quantity * TAX.multiplier
+						else 0.0
+						end 
+					};
+					
+@Name('ExpressionCapitalAccount')
+@Description('Expression to calculate CapitalAccount')
+create expression exprCapitalAccount{ (PMPREF,FUND)=> 	
+						coalesce(PMPREF.capital,0) + coalesce(PMPREF.mtdPnl,0) + coalesce(FUND.dayPnLBase,0) 
+					};						
+					
+@Name('ExpressionStopout')
+@Description('Expression to calculate Stopout')
+create expression exprStopout{ (PMPREF,FUND)=> 	
+						 exprCapitalAccount(PMPREF,FUND) - PMPREF.stopOut
+					};		
+											
+@Name('ExpressionGrossPnl')
+@Description('Expression to calculate GrossPnl')
+create expression exprGrossPnl{ (PMPREF,FUND)=> 	
+						 exprCapitalAccount(PMPREF,FUND) - PMPREF.highWaterMark
+					};		
+
+@Name('ExpressionAdjustedPnlTrader')
+@Description('Expression to calculate AdjustedPnl for trader.')
+create expression exprAdjustedPnlTrader{ (PMPREF,FUND)=> 	
+						 case
+						 when exprGrossPnl(PMPREF,FUND) > 0 then
+						 	(exprGrossPnl(PMPREF,FUND))*((PMPREF.traderPayoutPercent/100) + (1-PMPREF.traderPayoutPercent/100) * PMPREF.capital/FUND.accountNav)
+						 else
+						 	exprGrossPnl(PMPREF,FUND)
+						 end
+					};
+
+@Name('ExpressionAdjustedPnlAccount')
+@Description('Expression to calculate AdjustedPnl for account.')
+create expression exprAdjustedPnlAccount{ (PMPREF,FUND)=> 	
+						 case
+						 when exprGrossPnl(PMPREF,FUND) > 0 then
+						 	exprGrossPnl(PMPREF,FUND) - exprAdjustedPnlTrader(PMPREF,FUND)
+						 else
+						 	0.0
+						 end
+					};	
+					
+@Name('ExpressionCapitalAccountWhatIf')
+@Description('Expression to calculate CapitalAccountWhatIf.')
+create expression exprCapitalAccountWhatIf{ (PMPREF,FUND,WFUND)=> 	
+						coalesce(PMPREF.capital,0) + 
+						coalesce(PMPREF.mtdPnl,0) +
+						 sum(coalesce(FUND.dayPnLBase,0)) + 
+						 coalesce(WFUND.dayPnLBase,0) 
+					};
+
+@Name('ExpressionStopoutWhatIf')
+@Description('Expression to calculate StopoutWhatIf')
+create expression exprStopoutWhatIf{ (PMPREF,FUND,WFUND)=> 	
+						 exprCapitalAccountWhatIf(PMPREF,FUND,WFUND) - PMPREF.stopOut
+					};		
+											
+@Name('ExpressionGrossPnlWhatIf')
+@Description('Expression to calculate GrossPnlWhatIf')
+create expression exprGrossPnlWhatIf{ (PMPREF,FUND,WFUND)=> 	
+						 exprCapitalAccountWhatIf(PMPREF,FUND,WFUND) - PMPREF.highWaterMark
+					};		
+
+@Name('ExpressionAdjustedPnlTraderWhatIf')
+@Description('Expression to calculate AdjustedPnlTraderWhatIf')
+create expression exprAdjustedPnlTraderWhatIf{ (PMPREF,FUND,WFUND)=> 	
+						case
+						 when exprGrossPnlWhatIf(PMPREF,FUND,WFUND) > 0 then
+						 	(exprGrossPnlWhatIf(PMPREF,FUND,WFUND))*((PMPREF.traderPayoutPercent/100) + (1-PMPREF.traderPayoutPercent/100) * PMPREF.capital/FUND.accountNav)
+						 else
+						 	exprGrossPnlWhatIf(PMPREF,FUND,WFUND)
+						 end
+					};						
+
+
+@Name('ExpressionAdjustedPnlAccountWhatIf')
+@Description('Expression to calculate AdjustedPnlAccountWhatIf')
+create expression exprAdjustedPnlAccountWhatIf{ (PMPREF,FUND,WFUND)=> 	
+						 case
+						 when exprGrossPnlWhatIf(PMPREF,FUND,WFUND) > 0 then
+						 	exprGrossPnlWhatIf(PMPREF,FUND,WFUND) - exprAdjustedPnlTraderWhatIf(PMPREF,FUND,WFUND)
+						 else
+						 	0.0
+						 end
+					};
+	
+@Name('ExpressionMarketCapitalization')
+@Description('Expression to calculate MarketCapitalization')
+create expression exprMarketCapitalization{ (Asset,L)=>
+			case 
+				when Asset in ('Equity')
+					then MultiplyDoubleToBigDecimal(coalesce(L.sharesOutstanding, BigDecimal.ZERO), coalesce(L.selectedFeedPrice, 0))
+				else BigDecimal.ZERO
+			end
+	}; 	
+	
+@Name('ExpressionTodayAbsTradeQuantity')
+@Description('Expression to calculate TodayAbsTradeQuantity')
+create expression exprTodayAbsTradeQuantity{ (AUE,TAX,SECU)=>
+			case 
+			when TAX.isTodayTrade
+			then
+				TAX.quantity*SECU.multiplier
+			else
+				0.0
+			end
+	}; 		
+	
+	
+@Name('ExpressionTodayLongTradeQuantity')
+@Description('Expression to calculate TodayLongTradeQuantity')
+create expression exprTodayLongTradeQuantity{ (AUE,TAX,SECU)=>
+			case 
+			when TAX.isTodayTrade
+			then
+				case
+				when TAX.sideMultiplier >= 0
+				then
+					TAX.quantity*SECU.multiplier*TAX.sideMultiplier
+				else
+					0.0
+				end
+			else
+				0.0	
+			end
+	}; 	
+	
+@Name('ExpressionTodayShortTradeQuantity')
+@Description('Expression to calculate TodayShortTradeQuantity')
+create expression exprTodayShortTradeQuantity{ (AUE,TAX,SECU)=>
+			case 
+			when TAX.isTodayTrade
+			then
+				case
+				when TAX.sideMultiplier < 0
+				then
+					TAX.quantity*SECU.multiplier*TAX.sideMultiplier
+				else
+					0.0
+				end
+			else
+				0.0		
+			end
+	};
+
+@Name('ExpressionUnderLyingExposurePositionSide')
+@Description('Expression to calculate UnderLyingExposurePositionSide')
+create expression exprUnderlyingExposurePositionSide{ (T)=>
+		case 	
+		when T.netExposureBase >= 0 then 'long'
+		when T.netExposureBase < 0 then 'short'
+		end		
+	};		
+	
+@Name('ExpressionIsInvalidSide')
+@Description('Check is if a trade side is invalid, returns true for invalid statements')
+create expression exprIsInvalidSide{ T =>
+	
+	case
+		when(T.preQuantity = 0 and T.orderSide in('Buy','Sell short','Buy to Open','Sell to Open'))
+			then false
+		when(T.preQuantity > 0 and T.postQuantity >= 0 and T.orderSide in('Buy','Sell to Close','Buy to Open','Sell'))
+			then false
+		when(T.preQuantity < 0 and T.postQuantity <= 0 and T.orderSide in('Sell short','Buy to Close','Sell to Open'))
+			then false
+		when(T.preQuantity = 0 and T.postQuantity = 0)
+			then false
+		else
+			true
+	end
+}; 		
+
+@Name('ExpressionAsset')
+@Description('Custom handling so that asset is available as a swap')
+create expression exprGetAsset{ (TAX)=>
+			case 
+			when TAX.isSwapped = true
+			then
+				'EquitySwap'
+			else
+				TAX.asset
+			end
+	}; 	
+
+@Name('ExpressionAssetId')
+@Description('Custom handling so that asset id is available as a swap. Asset ID will be zero')
+create expression exprGetAssetID{ (TAX)=>
+			case 
+			when TAX.isSwapped = true
+			then
+				0
+			else
+				TAX.assetId
+			end
+	}; 	

@@ -1,0 +1,67 @@
+module customRules.PSPResearch.preTrade.singleOpenEndFunds.preTradeSingleOpenEndFunds;
+
+@Name('FundsCheckInAccount')
+@Description('FundsCheckInAccount window is updated if condition satisfies for given account and fund name.')
+on BasketEOM as B
+insert into FundsCheckInAccount
+select distinct
+    B.basketId as basketId,
+	B.userId as userId,
+	R.accountId as accountId,
+	R.accountShortName as accountShortName,
+	R.customUDA1 as fundName,
+	R.symbol as symbol,
+	(case(valueExistsInCSV(R.accountShortName, AccountNameToVerify) and 
+	valueExistsInCSV(R.customUDA1, Fund_to_check))
+	when true then true 
+	else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+@Name('WhatIfAccountFundCheck')
+@Description('Contains the calculated value of current NAV and net market value for current trade')
+on FundsCheckInAccount as B
+insert into WhatIfAccountFundCheck
+select distinct
+	B.basketId as basketId,
+	B.userId as userId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	B.validation as finalValidation,
+	W.customUDA1 as fundName,
+	W.netMarketValueBase as netMarketValueBase,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId and 
+	B.accountId = W.accountId and 
+	W.customUDA1 = B.fundName and
+	W.symbol = B.symbol
+group by W.accountId;
+
+@Name('PreTradeMaxFundCheck')
+@Description('Check if condition is breached')
+insert into PreTradeMaxFundCheck
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+	AccountNameToVerify || ValueSeparator || Fund_to_check || ValueSeparator || doubleFormat(Maximum_Percentage) as threshold,
+	A.accountShortName || ValueSeparator || A.fundName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.netMarketValueBase/ A.accountNav)*100, 0))) as actualResult,
+	'Account' || ValueSeparator || 'Open End Fund' || ValueSeparator || '% Total Nav' as constraintField,
+    (case A.finalValidation is true
+	when true then
+		(Math.abs(coalesce(A.netMarketValueBase/ A.accountNav, 0)) > (Maximum_Percentage/100))
+	else
+		false end ) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Net Market Value:' || doubleFormat(A.netMarketValueBase)
+		|| ', Fund Name : ' || A.fundName  
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.netMarketValueBase/ A.accountNav)*100, 0))) as parameters,
+    current_timestamp as validationTime,
+    'The market value in fund - ' || A.fundName ||' exceeded ' || doubleFormat(Maximum_Percentage) || '% of Account NAV.'  as summary,
+    A.accountShortName as dimension
+  from  
+  WhatIfAccountFundCheck as A
+  where A.userId is not null;
+  

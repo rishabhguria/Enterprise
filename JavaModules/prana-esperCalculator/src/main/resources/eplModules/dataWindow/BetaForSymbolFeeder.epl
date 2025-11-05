@@ -1,0 +1,25 @@
+module eplModules.dataWindow.BetaForSymbolFeeder;
+
+@Name('BetaWindow')
+@Description('Named window which the beta for a particular symbol.')
+create window BetaWindow.std:unique(symbol)
+(
+			symbol string,
+			beta5YearMonthly double,
+			parentWindowStream string
+);
+
+@Name('BetaWindowInsert')
+@Description('This updates the BetaWindow every time new BetaForSymbol event occurs.')
+on BetaForSymbol as s
+merge BetaWindow sw where sw.symbol = s.symbol
+	when matched and s.beta5YearMonthly <> sw.beta5YearMonthly			
+		then update set 
+				sw.beta5YearMonthly = s.beta5YearMonthly,
+				sw.parentWindowStream = "BetaForSymbol"
+	when not matched
+		then insert 
+			select    	
+		   	s.symbol as symbol,
+		   	s.beta5YearMonthly as beta5YearMonthly,
+		   	"BetaForSymbol" as parentWindowStream;

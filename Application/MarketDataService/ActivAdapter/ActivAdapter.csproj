@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3467FE7E-44F4-4EA9-BFBD-127E9A3FBB10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ActivAdapter</RootNamespace>
+    <AssemblyName>ActivAdapter</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Activ.ContentGatewayApi, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Activ DLLs\Activ.ContentGatewayApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Activ.ContentServerApi, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Activ DLLs\Activ.ContentServerApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Activ.ContributionGatewayApi, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Activ DLLs\Activ.ContributionGatewayApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Activ.ContributionServerApi, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Activ DLLs\Activ.ContributionServerApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Activ.Middleware, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Activ DLLs\Activ.Middleware.dll</HintPath>
+    </Reference>
+    <Reference Include="SamplesCommon, Version=2.3.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Activ DLLs\SamplesCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActivConnectionAndDataProvider.cs" />
+    <Compile Include="ActivProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
+      <Project>{618ab42d-2f42-4acf-8ea2-6981695567c7}</Project>
+      <Name>BusinessObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Activ DLLs\Activ.ContentGatewayApi.dll" />
+    <Content Include="Activ DLLs\Activ.ContentGatewayApi.xml" />
+    <Content Include="Activ DLLs\Activ.ContentServerApi.dll" />
+    <Content Include="Activ DLLs\Activ.ContentServerApi.xml" />
+    <Content Include="Activ DLLs\Activ.ContributionGatewayApi.dll" />
+    <Content Include="Activ DLLs\Activ.ContributionGatewayApi.xml" />
+    <Content Include="Activ DLLs\Activ.ContributionServerApi.dll" />
+    <Content Include="Activ DLLs\Activ.ContributionServerApi.xml" />
+    <Content Include="Activ DLLs\Activ.Middleware.dll" />
+    <Content Include="Activ DLLs\Activ.Middleware.xml" />
+    <Content Include="Activ DLLs\SamplesCommon.dll" />
+    <Content Include="Activ DLLs\ServiceLocation.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ActivAdapter.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

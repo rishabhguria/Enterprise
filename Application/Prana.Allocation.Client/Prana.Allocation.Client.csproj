@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6352B192-FC82-45AD-B543-10982F67DF4F}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Allocation.Client</RootNamespace>
+    <AssemblyName>Prana.Allocation.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="InfragisticsWPF4.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Persistence.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Persistence.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Editors.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Editors.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Documents.Excel.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Documents.Excel.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Documents.Core.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Documents.Core.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DockManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DockManager.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataPresenter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataPresenter.ExcelExporter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.ExcelExporter.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataPresenter.CalculationAdapter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataPresenter.CalculationAdapter.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.DataManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.DataManager.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Menus.XamMenu.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Menus.XamMenu.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Grids.XamGrid.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Grids.XamGrid.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamSlider.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Editors.XamSlider.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamComboEditor.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Controls.Editors.XamComboEditor.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Calculations.XamCalculationManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\WPF\CLR4.0\Bin\InfragisticsWPF4.Calculations.XamCalculationManager.v20.2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Accessibility" />
+    <Reference Include="CommonServiceLocator">
+      <HintPath>..\..\Nuget DLLs\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla">
+      <HintPath>..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Nuget DLLs\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Nuget DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Classic" />
+    <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Prism">
+      <HintPath>..\..\Nuget DLLs\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf">
+      <HintPath>..\..\Nuget DLLs\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WPFCustomMessageBox">
+      <HintPath>..\Prana.BusinessObjects\Dlls\WPFCustomMessageBox.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviours\CustomValueComboBoxBehavior.cs" />
+    <Compile Include="Behaviours\XamComboEditorSelectAllBehavior.cs" />
+    <Compile Include="Behaviours\XamComboEditorSelectedItemsBehavior.cs" />
+    <Compile Include="CacheStore\AllocationCompanyWisePreferenceCache.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\AllocationOTCControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\CFDViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\ConvertibleBondViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\EquitySwapViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\ShowCustomTemplateViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\TradeAttributeViewModel.cs" />
+    <Compile Include="Controls\Allocation\Views\AllocationOTCControl.xaml.cs">
+      <DependentUpon>AllocationOTCControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\CFDView.xaml.cs">
+      <DependentUpon>CFDView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\ConvertibleBondView.xaml.cs">
+      <DependentUpon>ConvertibleBondView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\EquitySwapView.xaml.cs">
+      <DependentUpon>EquitySwapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\ShowCustomTemplateView.xaml.cs">
+      <DependentUpon>ShowCustomTemplateView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\Behaviors\AllocationSymbolFilterBehavior.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\UpdatePreferenceUIViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\MasterFundPreferencesControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\Views\UpdatePreferenceUI.xaml.cs">
+      <DependentUpon>UpdatePreferenceUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\MasterFundPreferencesControl.xaml.cs">
+      <DependentUpon>MasterFundPreferencesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Definitions\DictionaryImpersonation.cs" />
+    <Compile Include="Behaviours\XamComboEditorBehavior.cs" />
+    <Compile Include="Behaviours\XamDataGridExporter.cs" />
+    <Compile Include="Behaviours\XamDateTimeEditorBehaviour.cs" />
+    <Compile Include="Behaviours\XamNumericEditorBehaviour.cs" />
+    <Compile Include="Definitions\GeneralRules.cs" />
+    <Compile Include="Definitions\TradeAttributeGroupingPreference.cs" />
+    <Compile Include="Enums\ActionAfterSavingData.cs" />
+    <Compile Include="Enums\AllocationPrefOperation.cs" />
+    <Compile Include="Enums\DefaultBoolean.cs" />
+    <Compile Include="Enums\UnAllocationCompletionStatus.cs" />
+    <Compile Include="EventArguments\AllocationPrefOperationEventArgs.cs" />
+    <Compile Include="CacheStore\AllocationClientGroupCache.cs" />
+    <Compile Include="CacheStore\AllocationClientPreferenceCache.cs" />
+    <Compile Include="Definitions\AllocationPreferences.cs" />
+    <Compile Include="AllocationClientPreferenceManager.cs" />
+    <Compile Include="Definitions\AllocationPreferencesCollection.cs" />
+    <Compile Include="EventArguments\ApplyBulkChangeEventArgs.cs" />
+    <Compile Include="BindingProxy.cs" />
+    <Compile Include="Definitions\BulkChangesGroupLevel.cs" />
+    <Compile Include="Definitions\CalculatedFields.cs" />
+    <Compile Include="Definitions\AllocationPermissions.cs" />
+    <Compile Include="Helper\CommonAllocationMethods.cs" />
+    <Compile Include="Helper\BulkChangeHelper.cs" />
+    <Compile Include="Helper\EditTradeValidation.cs" />
+    <Compile Include="Helper\EditTradeHelper.cs" />
+    <Compile Include="Helper\ExportHelper.cs" />
+    <Compile Include="Helper\FieldCalculator.cs" />
+    <Compile Include="Helper\AllocationManualGroupingHelper.cs" />
+    <Compile Include="Constants\AllocationClientConstants.cs" />
+    <Compile Include="Constants\AllocationUIConstants.cs" />
+    <Compile Include="Controls\Allocation\Behaviours\AllocatedGridBehavior.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Allocation\Behaviours\AllocationGridsExporter.cs" />
+    <Compile Include="Controls\Allocation\Behaviours\ScrollViewerBehavior.cs" />
+    <Compile Include="Behaviours\CustomValueXamComboEditorBehavior.cs" />
+    <Compile Include="Controls\Allocation\Behaviours\XamDataGridClearFilters.cs" />
+    <Compile Include="Controls\Allocation\Behaviours\EditTradeNumericEditorBehavior.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\ExternalTransactionIdViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\AllocationFiltersControlViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Allocation\Behaviours\UnallocatedGridBehavior.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\AllocationSwapControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\CalculateProrataUIViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\CommissionFeesBulkChangeControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\CommissionRuleFormViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\CurrentSymbolStateControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\EditPreferenceControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\AccountStrategyControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\TradeAttributeBulkChangeControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\Views\ExternalTransactionID.xaml.cs">
+      <DependentUpon>ExternalTransactionID.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\AllocationFiltersControl.xaml.cs">
+      <DependentUpon>AllocationFiltersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\CalculateProrataUI.xaml.cs">
+      <DependentUpon>CalculateProrataUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\CommissionRuleForm.xaml.cs">
+      <DependentUpon>CommissionRuleForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\CurrentSymbolStateControl.xaml.cs">
+      <DependentUpon>CurrentSymbolStateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\EditPreferenceControl.xaml.cs">
+      <DependentUpon>EditPreferenceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\AccountStrategyControl.xaml.cs">
+      <DependentUpon>AccountStrategyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Behaviours\AccountAndStartegyGridBehavior.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\AccountAndStrategyGridControlViewModel.cs" />
+    <Compile Include="Controls\Common\ViewModels\AllocationFilterCommonControlViewModel.cs" />
+    <Compile Include="Controls\Common\Views\AllocationFilterCommonControl.xaml.cs">
+      <DependentUpon>AllocationFilterCommonControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Behaviours\CalculatedPreferenceGridBehavior.cs" />
+    <Compile Include="Controls\Preferences\Behaviours\GeneralRuleXamComboEditorBehavior.cs" />
+    <Compile Include="Controls\Preferences\Behaviours\GeneralRuleXamDatGridBehavior.cs" />
+    <Compile Include="Controls\Preferences\Behaviours\AllocationFixedPreferencesGridBehavior.cs" />
+    <Compile Include="Controls\Preferences\Behaviours\GeneralPreferencesComboBehavior.cs" />
+    <Compile Include="Controls\Preferences\Behaviours\PreferenceAccountStrategyGridBehavior.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\AttributeRenamingControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\AutoGroupRulesControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\BulkChangeControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\CalculatedAllocationPreferenceControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\CalculatedPreferenceDefaultRuleControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\CalculatedPreferenceGeneralRuleControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\CalculatedPreferencesListControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\CompanyWisePreferenceControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\FixedAllocationPreferenceControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\GeneralPreferencesViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\MasterFundRatioControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\PreferenceAccountStrategyControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\ViewModels\UserWisePreferenceControlViewModel.cs" />
+    <Compile Include="Controls\Preferences\Views\CalculatedAllocationPreferenceControl.xaml.cs">
+      <DependentUpon>CalculatedAllocationPreferenceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\CalculatedPreferenceDefaultRuleControl.xaml.cs">
+      <DependentUpon>CalculatedPreferenceDefaultRuleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\CommissionPreferencesControl.xaml.cs">
+      <DependentUpon>CommissionPreferencesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\FixedAllocationPreferenceControl.xaml.cs">
+      <DependentUpon>FixedAllocationPreferenceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\GeneralPreferences.xaml.cs">
+      <DependentUpon>GeneralPreferences.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\CalculatedPreferenceGeneralRuleControl.xaml.cs">
+      <DependentUpon>CalculatedPreferenceGeneralRuleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\MasterFundRatioControl.xaml.cs">
+      <DependentUpon>MasterFundRatioControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\PreferenceAccountStrategyControl.xaml.cs">
+      <DependentUpon>PreferenceAccountStrategyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Behaviours\AllocationClientDockManagerBehavior.cs" />
+    <Compile Include="Forms\Behaviours\AllocationClientDockPanelBehavior.cs" />
+    <Compile Include="Forms\ViewModels\AllocationClientViewModel.cs" />
+    <Compile Include="Forms\ViewModels\AllocationPreferencesUIViewModel.cs" />
+    <Compile Include="Forms\ViewModels\EditAllocationPreferencesUIViewModel.cs" />
+    <Compile Include="Forms\Views\AllocationClient.xaml.cs">
+      <DependentUpon>AllocationClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AllocationClientManager.cs" />
+    <Compile Include="Helper\GridCustomizationHelper.cs" />
+    <Compile Include="Forms\Views\AllocationPreferencesUI.xaml.cs">
+      <DependentUpon>AllocationPreferencesUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\ViewModels\AllocationGridControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\ViewModels\EditTradeControlViewModel.cs" />
+    <Compile Include="Controls\Allocation\Views\AllocationGridControl.xaml.cs">
+      <DependentUpon>AllocationGridControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\AllocationSwapControl.xaml.cs">
+      <DependentUpon>AllocationSwapControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\CommissionFeesBulkChangeControl.xaml.cs">
+      <DependentUpon>CommissionFeesBulkChangeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\EditTradeControl.xaml.cs">
+      <DependentUpon>EditTradeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\TradeAttributeBulkChangeControl.xaml.cs">
+      <DependentUpon>TradeAttributeBulkChangeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\ViewModels\DefaultRuleControlViewModel.cs" />
+    <Compile Include="Controls\Common\Views\DefaultRuleControl.xaml.cs">
+      <DependentUpon>DefaultRuleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Allocation\Views\AccountAndStartegyGridControl.xaml.cs">
+      <DependentUpon>AccountAndStartegyGridControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\AttributeRenamingControl.xaml.cs">
+      <DependentUpon>AttributeRenamingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\AutoGroupRulesControl.xaml.cs">
+      <DependentUpon>AutoGroupRulesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\CalculatedPreferencesListControl.xaml.cs">
+      <DependentUpon>CalculatedPreferencesListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\BulkChangeControl.xaml.cs">
+      <DependentUpon>BulkChangeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\CompanyWisePreferenceControl.xaml.cs">
+      <DependentUpon>CompanyWisePreferenceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\Views\UserWisePrefControl.xaml.cs">
+      <DependentUpon>UserWisePrefControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Views\EditAllocationPreferencesUI.xaml.cs">
+      <DependentUpon>EditAllocationPreferencesUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\SnapshotHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Summary\RemainingPercentageOperand.cs" />
+    <Compile Include="Summary\RemainingQuantityOperand.cs" />
+    <Compile Include="Summary\StrategyPercentageOperand.cs" />
+    <Compile Include="Summary\RemainingValueCalc.cs" />
+    <Compile Include="Summary\StrategyPercentageValueCalc.cs" />
+    <Compile Include="Summary\StringOperand.cs" />
+    <Compile Include="Summary\StringValueCalc.cs" />
+    <Compile Include="Summary\TotalPercentageOperand.cs" />
+    <Compile Include="Summary\TotalQuantityOperand.cs" />
+    <Compile Include="ValueConvertor\BooleanToInvertedVisibilityConverter.cs" />
+    <Compile Include="ValueConvertor\DictionaryToEnumConverter.cs" />
+    <Compile Include="ValueConvertor\EnumToStringConverter.cs" />
+    <Compile Include="ValueConvertor\IntegerToStringConverter.cs" />
+    <Compile Include="ValueConvertor\UnboundColumnsConverter.cs" />
+    <Compile Include="ValueConvertor\BooleanToVisbilityConverterLocal.cs" />
+    <Compile Include="ValueConvertor\DictionaryValueToKeyConverter.cs" />
+    <Compile Include="ValueConvertor\CaptionButtonRectToMarginConverter.cs" />
+    <Compile Include="ValueConvertor\IntToKeyValuePairValueConverter.cs" />
+    <Compile Include="ValueConvertor\PrecisionFormatDisplayConverter.cs" />
+    <Compile Include="ValueConvertor\StringToKeyValuePairValueConverter.cs" />
+    <Compile Include="ValueConvertor\DictionaryToListConverter.cs" />
+    <Compile Include="ValueConvertor\EnumToEnumerationValueConverter.cs" />
+    <Compile Include="ValueConvertor\KeyValuePairToIntConverter.cs" />
+    <Compile Include="ValueConvertor\MultipleParameterConverter.cs" />
+    <Compile Include="ValueConvertor\SelectorToEnabledConverter.cs" />
+    <Compile Include="ValueConvertor\TextToListConverter.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\Allocation\Views\AllocationOTCControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\CFDView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\ConvertibleBondView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\EquitySwapView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\ExternalTransactionID.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\AllocationFiltersControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\CalculateProrataUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\CommissionRuleForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\CurrentSymbolStateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\EditPreferenceControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\AccountStrategyControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\ShowCustomTemplateView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Common\Views\AllocationFilterCommonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\UpdatePreferenceUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\CalculatedAllocationPreferenceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\CalculatedPreferenceDefaultRuleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\CommissionPreferencesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\FixedAllocationPreferenceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\GeneralPreferences.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\CalculatedPreferenceGeneralRuleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\MasterFundPreferencesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\PreferenceAccountStrategyControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\Views\AllocationClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Views\AllocationPreferencesUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\AllocationGridControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\AllocationSwapControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\CommissionFeesBulkChangeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\EditTradeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Allocation\Views\TradeAttributeBulkChangeControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Common\Views\DefaultRuleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Allocation\Views\AccountAndStartegyGridControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Preferences\Views\AttributeRenamingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\AutoGroupRulesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\MasterFundRatioControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\CalculatedPreferencesListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\BulkChangeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\CompanyWisePreferenceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preferences\Views\UserWisePrefControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Views\EditAllocationPreferencesUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Views\HideCloseBtnDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NirvanaSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterGeneric.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterGeneric_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterGeneric_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterIGTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterIGTheme_Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\DataPresenterIGTheme_Express.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamComboEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamDataPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamDockManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamEditors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\IG.xamMultiColumnCombo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\IG\Theme.Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\IG\Images\AndGroupIcon.png" />
+    <Resource Include="Themes\IG\Images\Filter.png" />
+    <Resource Include="Themes\IG\Images\FilterClearButton.png" />
+    <Resource Include="Themes\IG\Images\FilterClearMenu.png" />
+    <Resource Include="Themes\IG\Images\FixedButtonWhenFixed.png" />
+    <Resource Include="Themes\IG\Images\FixedButtonWhenUnfixed.png" />
+    <Resource Include="Themes\IG\Images\IconAdd.png" />
+    <Resource Include="Themes\IG\Images\IconSubtract.png" />
+    <Resource Include="Themes\IG\Images\MagnifyingGlass.png" />
+    <Resource Include="Themes\IG\Images\OrGroupIcon.png" />
+    <Resource Include="Themes\IG\Images\summary.png" />
+    <Resource Include="Themes\IG\Images\ToggleCardCollapsedState_Collapsed.png" />
+    <Resource Include="Themes\IG\Images\ToggleCardCollapsedState_NotCollapsed.png" />
+    <Resource Include="Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_Collapsed.png" />
+    <Resource Include="Themes\IG\Images\ToggleEmptyCardCellsCollapsedState_NotCollapsed.png" />
+    <Resource Include="Themes\IG\Images\ToggleGroupIcon.png" />
+    <Resource Include="Themes\IG\Images\UngroupGroupIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{BE2A9463-08F3-46C5-B230-165C3056718D}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Microsoft.Windows.Shell\Microsoft.Windows.Shell.csproj">
+      <Project>{55d5297c-f1df-4b76-a3c1-d82cc294eebb}</Project>
+      <Name>Microsoft.Windows.Shell</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Allocation.ClientLibrary\Prana.Allocation.ClientLibrary.csproj">
+      <Project>{7c2711ed-3c85-473d-bc01-06b640744889}</Project>
+      <Name>Prana.Allocation.ClientLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{db822308-7562-4404-8d85-e1de6f5a317d}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{a28ae507-104b-45c5-bcb1-ce51394e3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.Import\Prana.Import.csproj">
+      <Project>{A7618CC8-DF0E-4D12-AB7B-EE3269DC854D}</Project>
+      <Name>Prana.Import</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.LiveFeedProvider\Prana.LiveFeedProvider.csproj">
+      <Project>{188CA486-DEC3-4BB2-B335-4BCAB1C0D76C}</Project>
+      <Name>Prana.LiveFeedProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.SM.OTC\Prana.SM.OTC.csproj">
+      <Project>{e689f137-e3b0-431a-a41b-b073d1a89e1b}</Project>
+      <Name>Prana.SM.OTC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{ABB4950F-DEF1-4095-8E93-1EB3292C69F5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CustomChromeLibrary\Prana.CustomChromeLibrary.csproj">
+      <Project>{25990f61-a27b-4edf-a402-b31bf952153f}</Project>
+      <Name>Prana.CustomChromeLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ExposurePnlCache\Prana.ExposurePnlCache.csproj">
+      <Project>{704A1960-D9CC-4702-9FFB-D82C6E872047}</Project>
+      <Name>Prana.ExposurePnlCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Client\Prana.MvvmDialogs\Prana.MvvmDialogs.csproj">
+      <Project>{29051b6f-74c5-4ef6-a792-4e382ce233fa}</Project>
+      <Name>Prana.MvvmDialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Rebalancer\Prana.Rebalancer.csproj">
+      <Project>{0E2E40E8-8E6D-4730-9A00-E6FD1DECE9BC}</Project>
+      <Name>Prana.Rebalancer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ShortLocate\Prana.ShortLocate.csproj">
+      <Project>{9b6487ce-d331-4387-9585-1b3c1b1a4cfe}</Project>
+      <Name>Prana.ShortLocate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TaskManagement.Definition\Prana.TaskManagement.Definition.csproj">
+      <Project>{5FB30912-0851-40EE-A312-9FB67D33AF3F}</Project>
+      <Name>Prana.TaskManagement.Definition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.UIEventAggregator\Prana.UIEventAggregator.csproj">
+      <Project>{A00A7A0B-2B49-4905-A043-DA6C7A012FE4}</Project>
+      <Name>Prana.UIEventAggregator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\edit_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\edit_disable_icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)System.Windows.Interactivity.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)XSLT\PM_AllocationScheme_Prorata.xslt" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\PMImportXSLT\" /E /I /F /Y
+
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Calculations.XamCalculationManager.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Controls.Editors.XamComboEditor.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Controls.Editors.XamSlider.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Controls.Grids.XamGrid.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Controls.Menus.XamMenu.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.DataManager.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.DataPresenter.CalculationAdapter.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.DataPresenter.ExcelExporter.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.DataPresenter.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.DockManager.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Documents.Core.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Documents.Excel.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Editors.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.Persistence.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)Infragistics Dll\InfragisticsWPF4.v15.2.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

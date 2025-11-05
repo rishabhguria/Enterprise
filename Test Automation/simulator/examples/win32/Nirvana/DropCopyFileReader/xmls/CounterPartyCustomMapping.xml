@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Counterparties>
+	<!--<CounterParty ID="1" Name="MS">
+
+		--><!--<Rule1 >
+			--><!--<Condition Direction="0"  ConditionString="" FromTags="11" ToTags="37" />--><!--
+		</Rule1>
+
+		<Rule2>
+			<Condition Direction="0"  ConditionString="55=@@@@@" ToTags="55" ToTagsValues="AAPL"  ExecuteOnReloadRule ="1"/>
+		--><!--<Condition Direction="0"  ConditionString="" ToTags="100014" ToTagsValues="11"  ExecuteOnReloadRule ="1"/>--><!--
+		</Rule2>
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59" ToTagsValues="11,1,17,1,1,1" Name="TradingAccount,venueID,UserID,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<DllRule>
+			--><!--<Condition Direction="0" ConditionString="55=MSFT"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="100014='11'"></Condition>--><!--
+		</DllRule>--><!--
+
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<Rule1 >
+			<Condition Direction="0"  ConditionString="" FromTags="11" ToTags="37" />
+			<Condition Direction="0"  ConditionString="39=6" FromTags="150" ToTags="39" />
+			--><!--<Condition Direction="0"  ConditionString="" FromTags="150" ToTags="39" />--><!--		
+		
+		</Rule1>
+
+		<Rule3 >
+			--><!--<Condition Direction="0" ConditionString="39!=5 AND 39!=6" DeleteTags="41" />--><!--
+		</Rule3>
+
+		<DllRule>
+
+		</DllRule>
+		<Rule2>
+			--><!--<Condition Direction="1"  ConditionString="100009==17" ToTags="116"  ToTagsValues="BK"/>--><!--
+			--><!--<Condition Direction="1"  ConditionString="100009==17" ToTags="116"  ToTagsValues="BK"/>--><!--
+			--><!--<Condition Direction="0"  ConditionString="" ToTags="100014" ToTagsValues="24"/>--><!--
+		--><!--<Condition Direction="0"  ConditionString="39=3" ToTags="151" ToTagsValues="0"/>--><!--
+		</Rule2>
+
+	</CounterParty>-->
+
+	<CounterParty ID="1" Name="SAGE">
+		<DefaultRule>
+			<!--<Condition Direction="0" ConditionString ="" ToTags="100001,100003,21,18,59,40,205" ToTagsValues="11,1,1,1,1,2,20" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>-->
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+		<Rule1 >
+			<!--<Condition Direction="0"  ConditionString="" FromTags="41" ToTags="37" />-->
+		</Rule1>
+		<Rule3 >
+
+		</Rule3>
+
+		<Rule2 >
+			
+			<!--Symbol Mapping-->
+			<Condition Direction="0" ConditionString ="55=ALPpPCL" ToTags="55" ToTagsValues="ALP/PP"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=RBSpPCL" ToTags="55" ToTagsValues="RBS/PP"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=ALPpNCL" ToTags="55" ToTagsValues="ALP/PN"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=FCHpCCL" ToTags="55" ToTagsValues="FCH/PC"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=PFGpBCL" ToTags="55" ToTagsValues="PFG/PB"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=MRHpACL" ToTags="55" ToTagsValues="MRH/PA"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=HUSIpDCL" ToTags="55" ToTagsValues="HUSI/PD"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=MSJcl" ToTags="55" ToTagsValues="MSJCL"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=IDGcl" ToTags="55" ToTagsValues="IDG.CL"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=TLNi" ToTags="55" ToTagsValues="TLN/I"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=ENRi" ToTags="55" ToTagsValues="ENR/I"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=PPLi" ToTags="55" ToTagsValues="PPL/I"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=BAXi" ToTags="55" ToTagsValues="BAX/I"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=TCCcl" ToTags="55" ToTagsValues="TCC.CL"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=SRGri" ToTags="55" ToTagsValues="SRG/I/R"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=TCC*" ToTags="55" ToTagsValues="TCCB"  ></Condition>
+
+			<!--Commented as handled in the Dll rules-->
+			<!--<Condition Direction="0" ConditionString ="55=BAC+A" ToTags="55" ToTagsValues="BAC"  ></Condition>-->
+
+
+			<Condition Direction="0" ConditionString ="55=ENHpACL" ToTags="55" ToTagsValues="ENH/PA"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=WFC.WS" ToTags="55" ToTagsValues="WFC"  ></Condition>
+
+
+			<Condition Direction="0" ConditionString ="55=METpBCL" ToTags="55" ToTagsValues="MET/PB"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=BIRpACL" ToTags="55" ToTagsValues="BIR/PA"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=UBSpD" ToTags="55" ToTagsValues="UBS/PD"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=MERpFCL" ToTags="55" ToTagsValues="MER/PF"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=PSAp/W" ToTags="55" ToTagsValues="PSA/PW"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="55=HUSIpFCL" ToTags="55" ToTagsValues="HUSIF"  ></Condition>
+			<Condition Direction="0" ConditionString ="55=HUSIpGCL" ToTags="55" ToTagsValues="HUSI/PF"  ></Condition>
+
+			<Condition Direction="0" ConditionString="55=BAC/ws/a" ToTags="55" ToTagsValues="BAC/WA" />
+			<Condition Direction="0" ConditionString="55=JPM//Ws" ToTags="55" ToTagsValues="JPM/W" />
+			<Condition Direction="0" ConditionString="55=JPM.WS" ToTags="55" ToTagsValues="JPM/W" />
+			<Condition Direction="0" ConditionString="55=PNC.WS" ToTags="55" ToTagsValues="PNC/W" />
+			<Condition Direction="0" ConditionString="55=HLS.WS" ToTags="55" ToTagsValues="HLS/W" />
+			<Condition Direction="0" ConditionString="55=VNOpJCL" ToTags="55" ToTagsValues="VNO/PJ" />
+			<condition direction="0" conditionstring="55=gm+b" totags="55" totagsvalues="gm" />
+
+
+		</Rule2>
+
+		<DllRule>
+
+
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G'BAC)(?'G1'.)(?'G2'A)$" ReplaceWith="${G}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.+)(?'G2'[i])$" ReplaceWith="${G1}/I" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.+)(?'G2'[p])$" ReplaceWith="${G1}/P" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.+)(?'G2'[w])$" ReplaceWith="${G1}/W" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.+)(?'G2'[r])$" ReplaceWith="${G1}/R" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+
+			<!--<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{4})(?'G2'p)$" ReplaceWith="${G1}/P" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{3})(?'G2'p)$" ReplaceWith="${G1}/P" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{2})(?'G2'p)$" ReplaceWith="${G1}/P" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>-->
+
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.+)(?'G2'[w])(?'G3'.{1})$" ReplaceWith="${G1}/W${G3}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.+)(?'G2'[p])(?'G3'.{1})$" ReplaceWith="${G1}/P${G3}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<!--<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{4})(?'G2'p)(?'G2'.{1})$" ReplaceWith="${G1}/P${G2}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{3})(?'G2'p)(?'G2'.{1})$" ReplaceWith="${G1}/P${G2}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{2})(?'G2'p)(?'G2'.{1})$" ReplaceWith="${G1}/P${G2}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString="" RegularExpression="^(?'G1'.{1})(?'G2'p)(?'G2'.{1})$" ReplaceWith="${G1}/P${G2}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>-->
+
+
+			<Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G'.{2})$"  ReplaceWith=" ${G}"  Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+			<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=37+' '+100108"></Condition>
+			<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+' '+100108"></Condition>
+			<Condition Direction="0" ConditionString="65? AND 65=CT ."  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'-TC'"></Condition>
+
+			<!--<Condition Direction="0" ConditionString="15=AUD AND 207=AX"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'-ASX'"></Condition>-->
+
+
+			<Condition Direction="1" ConditionString="55=MSFT"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+			<Condition Direction="0" ConditionString="55=BRK AND 65=B"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+			<Condition Direction="0" ConditionString="55=BRK AND 65=A"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="55=55+'.'+65"></Condition>
+			<Condition Direction="0" ConditionString="65=WI" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="55=55+'-W'" />
+
+			<!--New Option symbology rule-->
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="311"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<!--<Condition Direction="0" ConditionString="167=CS"  TagToRoundOff="6" RoundOffFactor="4" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.ValueRoundOffRule"  ConditionToApply=""></Condition>-->
+
+		</DllRule>
+	</CounterParty>
+</Counterparties>

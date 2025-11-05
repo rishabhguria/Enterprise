@@ -1,0 +1,33 @@
+<rule>
+                                      <name>Rule2</name>
+                                      <modelVersion>1.0</modelVersion>
+                                      <attributes>
+                                        <attribute>
+                                          <attributeName>enabled</attributeName>
+                                          <value>false</value>
+                                        </attribute>
+                                      </attributes>
+                                      <metadataList/>
+                                      <lhs />
+                                      <rhs>
+                                        <assertLogical>
+                                          <fieldValues>
+                                            <fieldValue>
+                                              <field>Summary</field>
+                                                <value>Enter Summary</value>
+                                              <nature>1</nature>
+                                              <type>String</type>
+                                            </fieldValue>
+                                            <fieldValue>
+                                              <field>Violated</field>
+                                              <value>true</value>
+                                              <nature>1</nature>
+                                              <type>Boolean</type>
+                                            </fieldValue>
+                                          </fieldValues>
+                                          <factType>Alert</factType>
+                                          <isBound>false</isBound>
+                                        </assertLogical>
+                                      </rhs>
+                                      <isNegated>false</isNegated>
+                                    </rule>

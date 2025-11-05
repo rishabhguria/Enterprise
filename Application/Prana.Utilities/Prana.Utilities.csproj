@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Utilities</RootNamespace>
+    <AssemblyName>Prana.Utilities</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>..\..\Nuget DLLs\BCrypt.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Prana.BusinessObjects\Dlls\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\ExcelLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Nuget DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\Prana.BusinessObjects\Dlls\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\Prana.BusinessObjects\Dlls\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\Prana.BusinessObjects\Dlls\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\Prana.BusinessObjects\Dlls\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Quartz, Version=1.0.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WinSCPnet, Version=1.1.4.3839, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>MiscUtilities\FTPUtility\SupportingFiles\WinSCPnet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommissionEnumHelper.cs" />
+    <Compile Include="DateTimeUtilities\Scheduler.cs" />
+    <Compile Include="ExtensionMethod.cs" />
+    <Compile Include="FTP\FTPUpload.cs" />
+    <Compile Include="IO\CSVFileFormatter.cs" />
+    <Compile Include="MiscUtilities\CAHelperClass.cs" />
+    <Compile Include="MiscUtilities\ChunkingManager.cs" />
+    <Compile Include="DateTimeUtilities\DateTimeHelper.cs" />
+    <Compile Include="DateTimeUtilities\CentralTimer.cs" />
+    <Compile Include="MiscUtilities\DataReconciler.cs" />
+    <Compile Include="MiscUtilities\DataTableExpressionHelper.cs" />
+    <Compile Include="MiscUtilities\EmailSender.cs" />
+    <Compile Include="MiscUtilities\EnumHelper.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MiscUtilities\FTPUtility\FTPHelper.cs" />
+    <Compile Include="MiscUtilities\FTPUtility\NirvanaWinSCPUtility.cs" />
+    <Compile Include="MiscUtilities\GeneralUtilities.cs" />
+    <Compile Include="MiscUtilities\GnuPGWrapper.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\FileNameParser.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\FileReaderFactory.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\NpoiCommonHelper.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\NpoiXlsxReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\NpoiXlsReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\CustomRASImportReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\MessageFormatter.cs" />
+    <Compile Include="MiscUtilities\TimeFormatter.cs" />
+    <Compile Include="MiscUtilities\WTSUtility\NativeMethods.cs" />
+    <Compile Include="MiscUtilities\WTSUtility\WTSUtility.cs" />
+    <Compile Include="MiscUtilities\PranaExtensionHelper.cs" />
+    <Compile Include="StringUtilities\BCryptEncryption.cs" />
+    <Compile Include="StringUtilities\SHA256Encryption.cs" />
+    <Compile Include="StringUtilities\StringUtilities.cs" />
+    <Compile Include="StringUtilities\TripleDESEncryptDecrypt.cs" />
+    <Compile Include="MiscUtilities\RetryHelper.cs" />
+    <Compile Include="MiscUtilities\EmailsHelper.cs" />
+    <Compile Include="MiscUtilities\SqlParser.cs" />
+    <Compile Include="PredicateHelper\PredicateBuilder.cs" />
+    <Compile Include="PredicateHelper\SubstExpressionVisitor.cs" />
+    <Compile Include="IO\CSVFileHealper.cs" />
+    <Compile Include="IO\DataInput.cs" />
+    <Compile Include="IO\DataInputStream.cs" />
+    <Compile Include="IO\DataOutputStream.cs" />
+    <Compile Include="IO\File.cs" />
+    <Compile Include="IO\FileInputStream.cs" />
+    <Compile Include="IO\FileOutputStream.cs" />
+    <Compile Include="IO\FileStoreImpl.cs" />
+    <Compile Include="IO\FileSystemWatcher.cs" />
+    <Compile Include="IO\IInputStream.cs" />
+    <Compile Include="IO\InputStream.cs" />
+    <Compile Include="IO\IOutputStream.cs" />
+    <Compile Include="IO\MemoryCacheImpl.cs" />
+    <Compile Include="IO\OutputStream.cs" />
+    <Compile Include="IO\RandomAccessFile.cs" />
+    <Compile Include="IO\Session.cs" />
+    <Compile Include="IO\StreamAdaptor.cs" />
+    <Compile Include="IO\StringByteConversion.cs" />
+    <Compile Include="MiscUtilities\CompressionHelper.cs" />
+    <Compile Include="MiscUtilities\DataTableToListConverter.cs" />
+    <Compile Include="MiscUtilities\DeliveryFactory.cs" />
+    <Compile Include="MiscUtilities\FTPDelivery.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\DefaultReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\FileFormatStrategy.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\Excel\Core.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\Excel\ExcelDataReader.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\FormattingAttribute.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\CsvReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\ExcelReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\ImportExportUtilities\TextReadingStrategy.cs" />
+    <Compile Include="MiscUtilities\MailDelivery.cs" />
+    <Compile Include="MiscUtilities\PranaBinaryFormatter.cs" />
+    <Compile Include="MiscUtilities\SingletonProvider.cs" />
+    <Compile Include="IO\NetworkFolderFinder.cs" />
+    <Compile Include="MiscUtilities\FtpClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Win32Utilities\WinUtilities.cs" />
+    <Compile Include="XMLUtilities\Config.cs" />
+    <Compile Include="XMLUtilities\CustomXmlSerializer.cs" />
+    <Compile Include="XMLUtilities\DsDateFilterXmlTextWriter.cs" />
+    <Compile Include="XMLUtilities\XMLUtilities.cs" />
+    <Compile Include="XMLUtilities\XslTransformer.cs" />
+    <Compile Include="XMLUtilities\XSLTReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MiscUtilities\FTPUtility\SupportingFiles\WinSCP.exe" />
+    <Content Include="MiscUtilities\FTPUtility\SupportingFiles\WinSCPnet.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MiscUtilities\SupportFiles\gpg.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)MiscUtilities\FTPUtility\SupportingFiles\WinSCP.exe"  "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2Host\$(OutDir)" /E /I /F /Y
+xcopy "$(ProjectDir)MiscUtilities\FTPUtility\SupportingFiles\WinSCPnet.dll"  "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2Host\$(OutDir)" /I /F /Y
+
+xcopy "$(ProjectDir)MiscUtilities\FTPUtility\SupportingFiles\WinSCP.exe" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /F /Y
+xcopy "$(ProjectDir)MiscUtilities\FTPUtility\SupportingFiles\WinSCPnet.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /F /Y
+xcopy "$(ProjectDir)MiscUtilities\SupportFiles\gpg.exe"  "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MiscUtilities\SupportFiles\" /F /Y
+
+xcopy "$(ProjectDir)MiscUtilities\FTPUtility\SupportingFiles\WinSCP.exe" "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceHost\$(OutDir)" /F /Y
+xcopy "$(ProjectDir)MiscUtilities\FTPUtility\SupportingFiles\WinSCPnet.dll" "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceHost\$(OutDir)" /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

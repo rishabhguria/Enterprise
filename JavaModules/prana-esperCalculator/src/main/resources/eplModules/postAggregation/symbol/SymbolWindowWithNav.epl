@@ -1,0 +1,195 @@
+module eplModules.postAggregation.symbol.SymbolWindowWithNav;
+
+
+uses eplModules.postAggregation.symbol.SymbolIntermediate;
+
+
+
+
+@Name('SymbolWindowWithNav')
+@Description('Named window which collects all data for symbol compression level.')
+Create window SymbolWithNav.std:unique(symbol,assetId)
+(
+	taxlotType String,
+	compressionLevel String,
+	
+	symbol String,
+	
+	underlyingSymbol String,
+	exchange String,
+	currency String,	
+	sector String,
+	subSector String,
+	udaAsset string,
+	udaSecurityType string,
+	//udaSymbol string,
+	udaCountry string,
+	underlyingCountry string,
+	assetId int,
+	asset String,
+	underlyingAsset String,
+	putOrCall String,
+	strikePrice double,	
+	
+	riskCurrency string,
+	issuer string,
+	countryOfRisk string,
+	region string,
+	analyst string,
+	ucitsEligibleTag string,
+	liquidTag string,
+	marketCap string,
+	customUDA1 string,
+	customUDA2 string,
+	customUDA3 string,
+	customUDA4 string,
+	customUDA5 string,
+	customUDA6 string,
+	customUDA7 string,
+	
+	todayAbsTradeQuantity double,
+	todayLongTradeQuantity double,
+	todayShortTradeQuantity double,
+	todayNetNotionalBase double,
+	todayLongNotionalBase double,
+	todayShortNotionalBase double,	
+	
+	quantity double,
+	netMarketValueLocal double,
+		
+	yesterdayMarketValueLocal double,	
+	grossMarketValueLocal double,	
+	notionalLocal double,	
+	equityHaircutLocal double,
+	indexHaircutLocal double,
+	equityHaircutBase double,
+	indexHaircutBase double,
+	
+	cashImpactLocal double,
+	cashInflowLocal double,
+	cashOutflowLocal double,
+	costBasisPnLLocal double,
+	dayPnLLocal double,
+	netExposureLocal double,
+	grossExposureLocal double,
+	betaAdjustedExposureLocal double,
+
+	deltaAdjPosition double,
+	liquidationPnlLocal double,
+	liquidationPnlBase double,
+	
+	underlyingValueForOptionsLocal double,
+
+	
+	notionalBase double,
+	cashImpactBase double,
+	cashInflowBase double,
+	cashOutflowBase double,
+	netMarketValueBase double,
+	yesterdayMarketValueBase double,
+	grossMarketValueBase double,
+	costBasisPnLBase double,
+	dayPnLBase double,
+	netExposureBase double,
+	grossExposureBase double,
+	betaAdjustedExposureBase double,
+
+	underlyingValueForOptionsBase double,
+	
+	
+	currentFxRate double,
+	yesterdayFxRate double,
+	fxConversionMethod string,	
+	askPrice double,
+	bidPrice double,
+	lowPrice double,
+	highPrice double,
+	openPrice double,
+	closePrice double,
+	lastPrice double,
+	markPrice double,	
+	delta double,
+	leveragedFactor double,
+	beta5YearMonthly double,
+	selectedFeedPrice double,
+	openInterest double,
+	underlyingPrice double,
+	avgVolume20Days double,
+	percentAvgVolume double,
+	sharesOutstanding BigDecimal,
+	expirationDate java.util.Date,
+	underlyingSharesOutstanding BigDecimal,
+	marketCapitalization BigDecimal,
+	underlyingMarketCapitalization BigDecimal,
+	avgVolume double,
+	
+	businessDaysToExpire int,
+	actualDaysToExpire int,
+	
+	equivalent double,
+	multiplier double,
+	
+	defaultPositionSide String,
+	exposurePositionSide String,
+	
+	longNotionalBase double,
+	shortNotionalBase double,
+	shortMarketValueBase double,
+	longMarketValueBase double,
+	shortExposureBase double,
+	longExposureBase double,
+	
+	dayInterestBase double,
+	totalInterestBase double,	
+	dayInterestLocal double,
+	totalInterestLocal double,
+
+	globalNav double,	
+	startOfDayNavGlobal double,
+	grossExposureBaseGlobal double,
+	grossMarketValueBaseGlobal double,
+	netExposureBaseGlobal double,
+	currentCash double,
+	accrual double,
+	
+	percentNetMarketValueGlobal double,
+	percentLongExposureGlobal double,
+	percentShortExposureGlobal double,
+	percentNetExposureGlobal double,
+	percentBetaAdjustedExposureGlobal double,
+	percentGrossExposureGlobal double,
+	percentLongMarketValueGlobal double,
+	percentShortMarketValueGlobal double,
+	percentGrossMarketValueGlobal double,
+	percentLongNotionalGlobal double,
+	percentShortNotionalGlobal double,
+	percentNetNotionalGlobal double,
+	pnlContributionGlobal double,
+	percentCostBasisPnlGlobal double,
+	dayReturnGlobal double,
+	parentWindowStream string,
+	
+	customUDA8 string,
+	customUDA9 string,
+	customUDA10 string,
+	customUDA11 string,
+	customUDA12 string
+	
+);
+
+@Name('SymbolWindowWithNavAssetIndex')
+@Description('Create index for SymbolWindowWithNavAssetIndex with assetId as constraint.')
+create index SymbolWindowWithNavAssetIndex on SymbolWithNav(assetId);
+
+@Name('SymbolWindowWithNavSubSectorIndex')
+@Description('Create index for SymbolWindowWithNavAssetIndex with subSector as constraint.')
+create index SymbolWindowWithNavSubSectorIndex on SymbolWithNav(subSector);
+
+@Name('SymbolWindowWithNavSectorIndex')
+@Description('Create index for SymbolWindowWithNavAssetIndex with sector as constraint.')
+create index SymbolWindowWithNavSectorIndex on SymbolWithNav(sector);
+
+@Name('SymbolWindowWithNavUSymbolIndex')
+@Description('Create index for SymbolWindowWithNavAssetIndex with underlyingSymbol as constraint.')
+create index SymbolWindowWithNavUSymbolIndex on SymbolWithNav(underlyingSymbol);
+

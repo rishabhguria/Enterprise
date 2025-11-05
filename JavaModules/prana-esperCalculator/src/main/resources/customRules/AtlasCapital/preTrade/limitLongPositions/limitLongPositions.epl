@@ -1,0 +1,63 @@
+
+module customRules.nirvana.preTrade.limitLongPositions.limitLongPositions;
+
+
+
+@Name('CheckLimitLongInWhatIf')
+@Description('Stores the number of long positions.')
+on BasketEOM as B
+insert into CheckLimitLongInWhatIf
+select
+distinct
+	W.userId as userId,
+	B.basketId as basketId,
+	count(*) as WhatIfLongPositions,
+	W.accountShortName as accountShortName,
+	W.taxlotId as taxlotId,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from
+	WhatIfAccountSymbolWithNav as W
+where
+	W.defaultPositionSide = 'long' and W.basketId = B.basketId and W.userId is not null
+group by accountId;
+
+@Name('CheckLimitLongInWhatIfNOT')
+@Description('This will trigger if there are no long positions')
+on BasketEOM as B
+insert into CheckLimitLongInWhatIf
+select
+distinct
+	W.userId as userId,
+	B.basketId as basketId,
+	0L as WhatIfLongPositions,
+	W.accountShortName as accountShortName,
+	W.taxlotId as taxlotId,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from
+	WhatIfAccountSymbolWithNav as W
+where
+	not exists(select * from WhatIfAccountSymbolWithNav where defaultPositionSide = 'long' and basketId = B.basketId and W.userId is not null)
+group by accountId;
+
+
+
+
+@Name('CheckLimitLongFinal')
+@Description('Checks if limits are breached.')
+insert into CheckLimitLongFinal
+select
+distinct
+	R.userId as userId,
+	R.basketId as basketId,
+	R.taxlotId as taxlotId,
+	cast(LongPositionLimit, string) as threshold,
+	cast(R.WhatIfLongPositions, string) as actualResult,
+	'Long positions' as constraintField,
+	R.WhatIfLongPositions < LongPositionLimit as isViolated,
+	current_timestamp as validationTime,
+	'Total long positions are less than ' || cast(LongPositionLimit, string) as summary,
+	R.accountShortName as dimension,
+	'Total long positions : ' || cast(R.WhatIfLongPositions, string) || ' Account Name : ' || R.accountShortName as parameters
+from
+	CheckLimitLongInWhatIf as R;	
+	

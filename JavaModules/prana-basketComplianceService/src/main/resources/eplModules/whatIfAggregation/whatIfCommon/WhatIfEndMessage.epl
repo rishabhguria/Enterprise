@@ -1,0 +1,181 @@
+module eplModules.whatIfAggregation.whatIfCommon.WhatIfEndMessage;
+
+uses eplModules.rowCalculation.RowCalculationWindow;
+uses eplModules.whatIfAggregation.asset.WhatIfAggregationAsset;
+uses eplModules.whatIfAggregation.sector.WhatIfSectorWindowWithNav;
+uses eplModules.whatIfAggregation.subSector.WhatIfAggregationSubSector;
+uses eplModules.whatIfAggregation.sector.WhatIfAggregationSector;
+uses eplModules.whatIfAggregation.global.WhatIfAggregationGlobal;
+uses eplModules.whatIfAggregation.account.WhatIfAggregationAccount;
+uses eplModules.whatIfAggregation.masterFund.WhatIfAggregationMasterFund;
+uses eplModules.whatIfAggregation.masterFundSymbol.WhatIfAggregationMasterFundSymbol;
+uses eplModules.whatIfAggregation.customMF.WhatIfAggregationCustomMasterFundSymbol;
+uses eplModules.dataWindow.TaxlotFeeder;
+uses  eplModules.rowCalculation.RowCalculationWhatIfUpsert;
+
+uses eplModules.whatIfAggregation.asset.WhatIfAssetWindowWithNav;
+uses eplModules.whatIfAggregation.underlyingSymbol.WhatIfAggregationUnderlyingSymbol;
+uses eplModules.whatIfAggregation.accountSymbol.WhatIfAggregationAccountSymbol;
+uses eplModules.whatIfAggregation.symbol.WhatIfAggregationSymbol;
+uses eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAggregationAccountUnderlyingSymbol;
+uses eplModules.whatIfAggregation.masterFundSymbol.WhatIfAggregationMasterFundSymbol;
+uses eplModules.whatIfAggregation.masterFundUnderlyingSymbol.WhatIfAggregationMasterFundUnderlyingSymbol;
+uses eplModules.whatIfAggregation.masterFundSymbol.WhatIfMasterFundSymbolWithNav;
+
+uses eplModules.whatIfAggregation.trade.WhatIfTrade;
+uses  eplModules.whatIfAggregation.global.WhatIfGlobalWindowWithNav;
+
+uses eplModules.whatIfAggregation.symbol.WhatIfSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.underlyingSymbol.WhatIfUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.masterFundUnderlyingSymbol.WhatIfMasterFundUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.accountSymbol.WhatIfAccountSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.masterFund.WhatIfMasterFundWindowWithNav;
+uses eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.account.WhatIfAccountWindowWithNav;
+uses eplModules.whatIfAggregation.subSector.WhatIfSubSectorWindowWithNav;
+
+@Priority(10)
+@Name('WhatIfEndMessage')
+@Description('This statement Sends message when all required streams has been triggered')
+create schema WhatIfEndMessage
+(
+	basketId string,
+	compressionLevel string,
+	parentWindowStream string
+);
+
+@Priority(10)
+@Name('WhatIfCustomRuleEndMessage')
+@Description('This statement Sends message when all required streams has been triggered')
+create schema WhatIfCustomRuleEndMessage
+(
+	basketId string,
+	compressionLevel string,
+	parentWindowStream string
+);
+ 
+@Priority(10)
+@Name('WhatIfFinalEndMessage')
+@Description('This statement Sends message when all required streams has been triggered')
+Insert into WhatIfFinalEndMessage
+ select distinct
+	'EomBasket' as compressionLevel,
+    WC.basketId as basketIdCustom,
+    WE.basketId as basketId,
+	"WhatIfEndMessage,WhatIfCustomRuleEndMessage" as parentWindowStream
+from pattern
+[every
+	(WE = WhatIfEndMessage -> WC = WhatIfCustomRuleEndMessage(WC.basketId = WE.basketId)) where timer:within(EventResetTimeout Seconds)	
+];
+
+@Priority(10)
+@Name('WhatIfFinalEndMessageInvert')
+@Description('This statement Sends message when all required streams has been triggered')
+Insert into WhatIfFinalEndMessage
+ select distinct
+	'EomBasket' as compressionLevel,
+    WC.basketId as basketId,
+    WE.basketId as basketIdCustom,
+	"WhatIfEndMessage,WhatIfCustomRuleEndMessage" as parentWindowStream
+from pattern
+[every
+	(WE = WhatIfCustomRuleEndMessage -> WC = WhatIfEndMessage(WC.basketId = WE.basketId)) where timer:within(EventResetTimeout Seconds)	
+];
+     
+@Priority(10)
+@Name('WhatIfRowCalculationBaseWindowDeleteAfterEOM')
+@Description('Select  delete from WhatIfRowCalculationBaseWindow')
+on WhatIfFinalEndMessage as D
+delete from RowCalculationBaseWindow as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('TaxlotWindowDeleteAfterEOM')
+@Description('Select  delete from WhatIfRowCalculationBaseWindow')
+on WhatIfFinalEndMessage as D
+delete from TaxlotWindow as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfAccountSymbolWindowDeleteAfterEOM')
+@Description('delete from WhatIfAccountSymbolWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfAccountSymbolWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfSymbolWindowDeleteAfterEOM')
+@Description('delete from WhatIfSymbolWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfSymbolWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfMasterFundSymbolWindowDeleteAfterEOM')
+@Description('delete from WhatIfMasterFundSymbolWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfMasterFundSymbolWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfAccountUnderlyingSymbolDeleteAfterEOM')
+@Description('delete from WhatIfAccountUnderlyingSymbolWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfAccountUnderlyingSymbolWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfMasterFundUnderlyingSymbolDeleteAfterEOM')
+@Description('delete from WhatIfMasterFundUnderlyingSymbolWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfMasterFundUnderlyingSymbolWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfUnderlyingSymbolDeleteAfterEOM')
+@Description('delete from WhatIfUnderlyingSymbolWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfUnderlyingSymbolWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfMasterFundWithNavDeleteAfterEOM')
+@Description('delete from WhatIfMasterFundWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfMasterFundWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfGlobalWithNavDeleteAfterEOM')
+@Description('delete from WhatIfGlobalWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfGlobalWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfAccountWithNavDeleteAfterEOM')
+@Description('delete from WhatIfAccountWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfAccountWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfAssetWithNavDeleteAfterEOM')
+@Description('delete from WhatIfAssetWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfAssetWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfSubSectorWithNavDeleteAfterEOM')
+@Description('delete from WhatIfSubSectorWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfSubSectorWithNav as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('WhatIfSectorWithNavDeleteAfterEOM')
+@Description('delete from WhatIfSectorWithNav')
+on WhatIfFinalEndMessage as D
+delete from WhatIfSectorWithNav as C
+where D.basketId  = C.basketId;

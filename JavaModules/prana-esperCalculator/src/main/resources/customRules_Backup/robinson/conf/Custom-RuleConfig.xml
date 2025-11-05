@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="Robinson">
+		<rule id="custom-rule-Robinson1">
+			<name>Check Side Rule (Fund)</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/CheckSideAccount/</eplPath>
+			<description/>
+			<compressionLevel>AccountSymbol</compressionLevel>
+			<validationCompletedEventName>CheckSideAccount</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="CheckSideAccount"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="CheckSideAccount"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList/>
+		</rule>
+	</rules>
+</ruleConfig>

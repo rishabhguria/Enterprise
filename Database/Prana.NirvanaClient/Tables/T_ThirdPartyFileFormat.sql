@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[T_ThirdPartyFileFormat] (
+    [FileFormatId]                                  INT          IDENTITY (1, 1) NOT NULL,
+    [FileFormatName]                                VARCHAR (50) NOT NULL,
+    [ThirdPartyId]                                  INT          NOT NULL,
+    [NirvanaToThirdPartyID]                         INT          NULL,
+    [HeaderFileID]                                  INT          NULL,
+    [FooterFileID]                                  INT          NULL,
+    [ExportOnly]                                    BIT          NULL,
+    [Delimiter]                                     VARCHAR (5)  NULL,
+    [DelimiterName]                                 VARCHAR (20) NULL,
+    [FileExtension]                                 VARCHAR (20) NULL,
+    [FileDisplayName]                               VARCHAR (50) NULL,
+    [SPName]                                        VARCHAR (50) NULL,
+    [DoNotShowFileOpenDialogue]                     BIT          NULL,
+    [ClearExternalTransID]                          BIT          CONSTRAINT [DF_T_ThirdPartyFileFormat] DEFAULT ((0)) NOT NULL,
+    [IncludeExercisedAssignedTransaction]           BIT          CONSTRAINT [DF_T_ThirdPartyFileFormat_IncludeExercisedAssignedTransaction] DEFAULT ((0)) NOT NULL,
+    [IncludeExercisedAssignedUnderlyingTransaction] BIT          CONSTRAINT [DF_T_ThirdPartyFileFormat_IncludeExercisedAssignedUnderlyingTransaction] DEFAULT ((0)) NOT NULL,
+    [IncludeCATransaction]                          BIT          CONSTRAINT [DF_T_ThirdPartyFileFormat_IncludeCATransaction] DEFAULT ((0)) NOT NULL,
+	[GenerateCancelNewForAmend] [bit] NOT NULL CONSTRAINT [DF_T_ThirdPartyFileFormat_GenerateCancelNewForAmend]  DEFAULT ((0)),
+    [FIXEnabled] BIT NOT NULL DEFAULT 0, 
+    [FileEnabled] BIT NOT NULL DEFAULT 1, 
+    [FIXStorProc] VARCHAR(50) NULL, 
+    [TimeBatchesEnabled] BIT NOT NULL DEFAULT 0,
+    CONSTRAINT [PK_T_ThirdPartyFileFormat] PRIMARY KEY CLUSTERED ([FileFormatId] ASC)
+);
+

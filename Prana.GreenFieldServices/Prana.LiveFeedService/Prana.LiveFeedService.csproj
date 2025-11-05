@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD7AC0B3-DAFF-4F79-95DC-509CCC61226F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.LiveFeedService</RootNamespace>
+    <AssemblyName>Prana.LiveFeedService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2">
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel">
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LiveFeedConstants.cs" />
+    <Compile Include="LiveFeedService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Prana.Authentication.Common\Prana.Authentication.Common.csproj">
+      <Project>{e24d23e5-1ab0-4588-a7f8-03492c524b62}</Project>
+      <Name>Prana.Authentication.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.LiveFeedProvider\Prana.LiveFeedProvider.csproj">
+      <Project>{188ca486-dec3-4bb2-b335-4bcab1c0d76c}</Project>
+      <Name>Prana.LiveFeedProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CoreService.Interfaces\Prana.CoreService.Interfaces.csproj">
+      <Project>{79A6B4BD-7843-477B-A6D2-980BEDAB9F86}</Project>
+      <Name>Prana.CoreService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.KafkaWrapper.Extension\Prana.KafkaWrapper.Extension.csproj">
+      <Project>{195A90C1-7401-4A4C-B959-F18F7F75A323}</Project>
+      <Name>Prana.KafkaWrapper.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.KafkaWrapper\Prana.KafkaWrapper.csproj">
+      <Project>{6bcf524a-2fab-40f5-8162-d1e2c92904b9}</Project>
+      <Name>Prana.KafkaLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026B8-A7E0-4BFA-AC4F-C43DAA2A4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.WindowsService.Common\Prana.WindowsService.Common.csproj">
+      <Project>{fd555ddd-faa3-4fdd-86c5-1367c359270c}</Project>
+      <Name>Prana.WindowsService.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.GreenfieldServices.Common\Prana.GreenfieldServices.Common.csproj">
+      <Project>{181416fe-752b-4223-bdcf-9b9b978ebbca}</Project>
+      <Name>Prana.GreenfieldServices.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)*.*"  "$(SolutionDir)Prana.GreenFieldServices\Prana.LiveFeedServiceHost\$(OutDir)" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

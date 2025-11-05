@@ -1,0 +1,45 @@
+module eplModules.postAggregation.subSector.AggregationSubSectorUpsertOnDivisor;
+
+
+uses eplModules.postAggregation.subSector.AggregationSubSectorIntermediate;
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+uses eplModules.postAggregation.subSector.AggregationSubSectorWindow;
+
+
+
+@Name('AggregationSubSectorWithNavGlobalDivisorUpsert')
+@Description('Update SubSectorWithNav whenever GlobalDivisorUpdateEvent event occurs.')
+on GlobalDivisorUpdateEvent as F 
+merge SubSectorWithNav as W// where F.masterFundId = W.masterFundId
+when matched and 
+	(
+		W.globalNav <> F.shadowNavG 
+		or W.startOfDayNavGlobal <> F.startOfDayNavG 
+		or W.grossExposureBaseGlobal <> F.grossExposureBaseG
+		or W.netExposureBaseGlobal <> F.netExposureBaseG
+		or W.grossMarketValueBaseGlobal <> F.grossMarketValueBaseG
+	)
+	then update set
+		W.globalNav = F.shadowNavG,
+		W.startOfDayNavGlobal = F.startOfDayNavG,
+		W.grossExposureBaseGlobal = F.grossExposureBaseG,
+		W.netExposureBaseGlobal = F.netExposureBaseG,
+		W.grossMarketValueBaseGlobal = F.grossMarketValueBaseG,
+		W.percentNetMarketValueGlobal = percent(W.netMarketValueBase, F.shadowNavG),
+		W.percentLongExposureGlobal = percent(W.longExposureBase,F.shadowNavG),
+		W.percentShortExposureGlobal = percent(W.shortExposureBase,F.shadowNavG),
+		W.percentNetExposureGlobal = percent(W.netExposureBase,F.shadowNavG),
+		W.percentBetaAdjustedExposureGlobal = percent(W.betaAdjustedExposureBase,F.shadowNavG),
+		W.percentGrossExposureGlobal = percent(W.grossExposureBase,F.shadowNavG),
+		W.percentLongMarketValueGlobal = percent(W.longMarketValueBase,F.shadowNavG),
+		W.percentShortMarketValueGlobal = percent(W.shortMarketValueBase,F.shadowNavG),
+		W.percentGrossMarketValueGlobal = percent(W.grossMarketValueBase,F.shadowNavG),
+		W.percentLongNotionalGlobal = percent(W.longNotionalBase,F.shadowNavG),
+		W.percentShortNotionalGlobal = percent(W.shortNotionalBase,F.shadowNavG),
+		W.percentNetNotionalGlobal = percent(W.notionalBase,F.shadowNavG),
+		W.pnlContributionGlobal = percent(W.dayPnLBase,F.shadowNavG),
+		W.percentCostBasisPnlGlobal = percent(W.costBasisPnLBase,F.shadowNavG),
+		W.dayReturnGlobal = percent(W.dayPnLBase,F.startOfDayNavG),
+		W.parentWindowStream = "GlobalDivisorUpdateEvent,SubSectorWithNav";
+
+

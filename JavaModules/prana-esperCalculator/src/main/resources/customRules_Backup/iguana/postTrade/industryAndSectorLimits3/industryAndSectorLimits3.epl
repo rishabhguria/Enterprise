@@ -1,0 +1,38 @@
+module customRules.iguana.postTrade.industryAndSectorLimits3.industryAndSectorLimits3;
+
+
+@Name('AggregationGrossExposureAccountSectorBiotech')
+@Description('Calculates and stores gross exposure for Whitney Capital-JPM account in Biotech sector.')
+on pattern[every R=AccountSymbolWithNavUpdated]
+insert into AggregationGrossExposureAccountSectorBiotech
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.sector as sector,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId	
+from
+AccountSymbolWithNav as T
+where T.accountShortName='Whitney Capital-JPM' and T.sector = 'Biotech'
+group by T.accountShortName,T.sector;
+
+
+@Name('IndustryAndSectorLimits3')
+@Description('Aggregates data whenever gross exposure exceeds 60 percent of client Gross Market Value.')
+on pattern[every T=AggregationGrossExposureAccountSectorBiotech]
+insert into IndustryAndSectorLimits3
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'60' || ValueSeparator || T.accountShortName || ValueSeparator || 'N/A'  as threshold,
+	doubleFormat(0.6*R.grossMarketValueBase) || ValueSeparator || T.accountShortName || ValueSeparator || T.sector as actualResult,
+	'Gross exposure %' || ValueSeparator || 'Account' || ValueSeparator || 'Sector' as constraintField,
+	true as isViolated,
+	'Gross Exposure: '||doubleFormat(T.grossExposureBase) || ', Account: '||T.accountShortName || ', Sector: '||T.sector || ', 60% of Account Gross Market Value: '||doubleFormat(0.6*R.grossMarketValueBase) as parameters,
+	current_timestamp as validationTime,
+	'The gross exposure of Biotech, in Whitney Capital-JPM exceeded 60% of a client Gross Market Value.' as summary,
+	T.accountShortName || '-' || T.sector as dimension
+from
+AccountWithNav as R
+where T.grossExposureBase > 0.60*R.grossMarketValueBase and R.accountId=T.accountId;

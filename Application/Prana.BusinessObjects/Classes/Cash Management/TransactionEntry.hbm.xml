@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Prana.BusinessObjects" assembly="Prana.BusinessObjects">
+
+	<class name="TransactionEntry" table="T_Journal">		
+		<id name="TransactionEntryID"  column="TransactionEntryID"></id>
+		<property name="TaxLotId"  column="TaxLotID" />
+		<property name="ActivityId_FK"/>
+		<property name="AccountID" column="FundID"/>
+		<property name="SubAcID" column="SubAccountID"/>		
+		<property name="CurrencyID" column="CurrencyID"/>		
+		<property name="Symbol" column="Symbol"/>
+		<property name="Description" column="PBDesc"/>
+		<property name="TransactionDate" column="TransactionDate"/>
+		<property name="TransactionID" column="TransactionID"/>		
+		<property name="DR" column="DR" type="decimal(28,12)"/>
+		<property name="CR" column="CR" type="decimal(28,12)"/>
+		<property name="TransactionSource" column="TransactionSource"/>
+		<property name="TransactionNumber" column="TransactionNumber"/>
+		<property name="EntryAccountSide" column="AccountSide"/>
+		<property name="ActivitySource"/>
+    <property name="FxRate" column="FxRate"/>
+		<property name="FXConversionMethodOperator" column="FXConversionMethodOperator"/>
+		<!--PRANA-9777-->
+    <property name="ModifyDate" column="ModifyDate"/>
+    <property name="EntryDate" column="EntryDate"/>
+    <!--PRANA-9776-->
+    <property name="UserId" />
+    <!--<property name="AcName" formula="(select a.Name from T_Accounts as a where a.AccountID=(select s.AccountID from T_SubAccounts as s where s.SubAccountID=SubAcID))" type="String"/>-->
+	</class>
+
+</hibernate-mapping>

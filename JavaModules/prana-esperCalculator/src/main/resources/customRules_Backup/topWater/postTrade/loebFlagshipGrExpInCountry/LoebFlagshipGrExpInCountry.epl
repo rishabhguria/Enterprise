@@ -1,0 +1,80 @@
+module customRules.postTrade.loebFlagshipGrExpInCountry.LoebFlagshipGrExpInCountry;
+
+/* Constant Variable region starts here*/
+
+create constant variable double LOEB_FLAGSHIP_GRS_EXPOSURE_COUNTRY_COEFFICIENT = 0.1;
+
+/* Constant Variable region ends here*/
+
+
+
+@Name('AggregationAccountCountryPost')
+@Description('Calculates gross exposure of investments in Brazil, Chile, Iceland, India, Mexico, South Africa and South Korea by Loeb Flagship.')
+insert into AggregationAccountCountryPost
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	//T.udaCountry as country,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(udaCountry in('Brazil', 'Chile', 'Iceland', 'India','Mexico', 'South Africa','South Korea')) as T 
+where T.accountShortName='Loeb Flagship'
+group by T.accountShortName;
+
+//TODO: This rule states the combined effect of all mentioned countries, not their individual contribution.
+//Although we may confirm it with Alex/Gennaro. But as my understanding we should remove T.udaCountry from group by clause.
+//And if their individual effect is required then we might think to add a new compression Account-Country which might solve 
+//some more alert requirement (but only after confirming)//,T.udaCountry
+
+
+
+@Name('AccountPercentExposurePost')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationAccountCountryPost]
+insert into AccountPercentExposurePost
+select distinct
+	coalesce(T.grossExposureBase*100/(LOEB_FLAGSHIP_GRS_EXPOSURE_COUNTRY_COEFFICIENT * coalesce(F.accountNav,1)),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	//T.country as country,
+	T.accountShortName as accountShortName,
+	"AggregationAccountCountryPost" as parentWindowStream
+	
+from 
+AccountWithNav as F
+where F.accountId=T.accountId;
+
+
+
+@Name('RuleName13FinalPost')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName13FinalPost
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '10'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	//case when R.percentageExposure > 10 then true
+	//		else false
+	//end
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 10% of Loeb Flagship may be invested in Brazil, Chile, Iceland, India, Mexico, South Africa, and South Korea.' as summary,
+	R.accountShortName as dimension,
+	"AccountPercentExposurePost" as parentWindowStream
+from
+AccountPercentExposurePost as R
+where R.percentageExposure > 10;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+//TODO: we can move this case statement into where clause as this is post trade		
+
+ 

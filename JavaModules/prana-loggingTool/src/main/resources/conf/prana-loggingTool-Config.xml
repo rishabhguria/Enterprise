@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<appConfig>
+  <configSections>
+    <!-- This section contains the settings of configuration file. It is mandatory 
+			to include a section tag if any new section is included -->
+    <section key="AppSettings" value="appSettings.appSetting" />
+    <section key="Exchanges" value="amqpMedia.exchanges.exchange" />
+    <section key="Queues" value="amqpMedia.queues.queue" />
+  </configSections>
+  <appSettings>
+    <!-- Basic application settings -->
+    <appSetting key="AmqpServer" value="localhost" />
+    <appSetting key="Vhost" value="Dev" />
+    <appSetting key="UserId" value="nirvana" />
+    <appSetting key="Password" value="PRana888" />
+    <!-- To enable logging permission is required in config of both esperCalculator and loggingTool -->
+    <appSetting key="EventsLogging" value="false" />
+    <!-- A port lock will be taken on this so that multiple instances should 
+			not run -->
+    <appSetting key="SocketLockPort" value="5043" />
+  </appSettings>
+  <amqpMedia>
+    <!-- List of all amqp media -->
+    <exchanges>
+      <exchange key="PreTradeExchangeName" value="Nirvana.LoggingData" />
+    </exchanges>
+  </amqpMedia>
+</appConfig>

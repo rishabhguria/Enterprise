@@ -1,0 +1,88 @@
+module eplModules.whatIfAggregation.subSector.WhatIfSubSectorAggregator;
+
+uses eplModules.whatIfAggregation.symbol.WhatIfSymbolMerge;
+uses eplModules.whatIfAggregation.whatIfCommon.WhatIfAggregationStart;
+uses eplModules.whatIfAggregation.symbol.WhatIfSymbolWindowWithNav;
+
+@Priority(10)
+@Name('WhatIfAggregationSubSectorIntermidiate')
+@Description('Insert data into WhatIfAggregationSubSectorIntermidiate from WhatIfSymbolWithNav whenever WhatIfSymbolUpdated is updated.')
+on pattern [every (A=WhatIfAggregationStart(IsSubSectorCompressionEnabled = true) -> W=WhatIfSymbolUpdated(A.basketId = W.basketId))]
+insert into WhatIfAggregationSubSectorIntermidiate
+select distinct
+	
+	T.symbol as symbol,
+	T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,	
+	T.userId as userId,
+	T.subSector as subSector,
+	'SubSector' as compressionLevel,
+    		
+	'WhatIf' as taxlotType,	
+	
+	sum(T.equityHaircutBase) as equityHaircutBase,
+	sum(T.indexHaircutBase) as indexHaircutBase,
+	sum(T.liquidationPnlBase) as liquidationPnlBase,
+	
+	
+	sum(T.notionalBase)  as notionalBase,
+	sum(T.cashImpactBase)  as cashImpactBase,
+	sum(T.cashInflowBase)  as cashInflowBase,
+	sum(T.cashOutflowBase) as cashOutflowBase,
+	sum(T.netMarketValueBase) as netMarketValueBase,
+	
+	sum(T.grossMarketValueBase) as grossMarketValueBase,
+	sum(T.costBasisPnLBase) as costBasisPnLBase,
+	sum(T.dayPnLBase) as dayPnLBase,
+	sum(T.netExposureBase) as netExposureBase,
+	sum(T.grossExposureBase) as grossExposureBase,
+	sum(T.betaAdjustedExposureBase) as betaAdjustedExposureBase,
+	sum(T.underlyingValueForOptionsBase) as underlyingValueForOptionsBase,
+	
+	sum(T.dayInterestBase) as dayInterestBase,
+	sum(T.totalInterestBase) as totalInterestBase,
+		
+	T.globalNav as globalNav,
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	T.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	T.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)),coalesce(T.globalNav,0)) as pnlContributionGlobal,
+	percent(sum(coalesce(T.longExposureBase,0)) ,coalesce(T.globalNav,0)) as percentLongExposureGlobal,
+	percent(sum(coalesce(T.shortExposureBase,0)) ,coalesce(T.globalNav,0)) as percentShortExposureGlobal,
+	percent(sum(coalesce(T.netExposureBase,0)) ,coalesce(T.globalNav,0)) as percentNetExposureGlobal,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)) ,coalesce(T.globalNav,0)) as percentBetaAdjustedExposureGlobal,
+	percent(sum(coalesce(T.grossExposureBase,0)) ,coalesce(T.globalNav,0)) as percentGrossExposureGlobal,
+	percent(sum(coalesce(T.longMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentLongMarketValueGlobal,
+	percent(sum(coalesce(T.shortMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentShortMarketValueGlobal,
+	percent(sum(coalesce(T.netMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentNetMarketValueGlobal,
+	percent(sum(coalesce(T.grossMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentGrossMarketValueGlobal,
+	percent(sum(coalesce(T.longNotionalBase,0)) ,coalesce(T.globalNav,0)) as percentLongNotionalGlobal,
+	percent(sum(coalesce(T.shortNotionalBase,0)) ,coalesce(T.globalNav,0)) as percentShortNotionalGlobal,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.globalNav,0)) as percentNetNotionalGlobal,
+	percent(sum(coalesce(T.costBasisPnLBase,0)) ,coalesce(T.globalNav,0)) as percentCostBasisPnlGlobal,
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavGlobal,0)) as dayReturnGlobal,
+		
+	sum(T.longNotionalBase)  as longNotionalBase,
+	sum(T.shortNotionalBase)  as shortNotionalBase,
+	sum(T.shortMarketValueBase)  as shortMarketValueBase,
+	sum(T.longMarketValueBase)  as longMarketValueBase,
+	sum(T.shortExposureBase) as shortExposureBase,
+	sum(T.longExposureBase) as longExposureBase,
+	
+	sum(T.yesterdayMarketValueBase) as yesterdayMarketValueBase,
+	
+	sum(coalesce(T.todayAbsTradeQuantity,0)) as todayAbsTradeQuantity,
+	sum(coalesce(T.todayLongTradeQuantity,0)) as todayLongTradeQuantity,
+	sum(coalesce(T.todayShortTradeQuantity,0)) as todayShortTradeQuantity,
+	sum(coalesce(T.todayNetNotionalBase,0)) as todayNetNotionalBase,
+	sum(coalesce(T.todayLongNotionalBase,0)) as todayLongNotionalBase,
+	sum(coalesce(T.todayShortNotionalBase,0)) as todayShortNotionalBase,
+	"WhatIfSymbolWithNav" as parentWindowStream
+	
+from 
+WhatIfSymbolWithNav as T
+where W.basketId = T.basketId 
+group by T.subSector;

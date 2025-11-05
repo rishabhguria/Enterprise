@@ -1,0 +1,80 @@
+module eplModules.whatIfAggregation.asset.WhatIfAssetWindowWithNav;
+
+
+@Name('WhatIfAssetWindowWithNav')
+@Description('Named Window which holds asset-wise trade data.')
+Create window WhatIfAssetWithNav.std:unique(basketId,assetId)
+(
+	basketId String,
+	isEomSent bool,
+	taxlotType String,
+	taxlotId String,
+	userId int,
+	assetId int,
+	asset String,
+	compressionLevel String,
+	
+	equityHaircutBase double,
+	indexHaircutBase double,
+    liquidationPnlBase double,
+	
+
+	notionalBase double,
+	cashImpactBase double,
+	cashInflowBase double,
+	cashOutflowBase double,
+	netMarketValueBase double,
+	
+	grossMarketValueBase double,
+	costBasisPnLBase double,
+	dayPnLBase double,
+	netExposureBase double,
+	grossExposureBase double,
+	betaAdjustedExposureBase double,
+	underlyingValueForOptionsBase double,
+	
+	dayInterestBase double,
+	totalInterestBase double,
+
+	globalNav double,	
+	startOfDayNavGlobal double,
+	grossMarketValueBaseGlobal double,
+	grossExposureBaseGlobal double,
+	netExposureBaseGlobal double,
+	
+	pnlContributionGlobal double,
+	percentShortExposureGlobal double,
+	percentLongExposureGlobal double,	
+	percentNetExposureGlobal double,	
+	percentBetaAdjustedExposureGlobal double,
+	percentGrossExposureGlobal double,
+	percentLongMarketValueGlobal double,
+	percentShortMarketValueGlobal double,		
+	percentNetMarketValueGlobal double,	
+	percentGrossMarketValueGlobal double,
+	percentLongNotionalGlobal double,
+	percentShortNotionalGlobal double,	
+	percentNetNotionalGlobal double,
+	percentCostBasisPnlGlobal double,
+	dayReturnGlobal double,
+	
+	longNotionalBase double,
+	shortNotionalBase double,
+	shortMarketValueBase double,
+	longMarketValueBase double,
+	shortExposureBase double,
+	longExposureBase double,
+
+    yesterdayMarketValueBase double,	
+	
+	todayAbsTradeQuantity double,
+	todayLongTradeQuantity double,
+	todayShortTradeQuantity double,
+	todayNetNotionalBase double,
+	todayLongNotionalBase double,
+	todayShortNotionalBase double,
+	parentWindowStream string
+		
+	
+);
+

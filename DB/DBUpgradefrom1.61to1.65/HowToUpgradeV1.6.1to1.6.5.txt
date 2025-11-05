@@ -1,0 +1,15 @@
+---------------------------
+--Security Master Upgrade--
+---------------------------
+
+Step1: Compare and Upgrade Security master database.
+Step2: Run 'SMfrom1.6to1.65QA_ChangesForNewAssetForward.sql' script in Security Master Database.
+
+------------------
+--Client Upgrade--
+------------------
+
+Step3: Run 'step0from1.6to1.65_RunBeforeUpgrade.sql'in client database.
+Step4: Run 'step1from1.6to1.65_FundDefaultTable_RunBeforeUpgrade.sql'in Client Database.
+Step5: Compare and Upgrade Database.
+Step6: Run 'SMfrom1.6to1.65QA_ChangesForNewAssetForward.sql' in Client Database.

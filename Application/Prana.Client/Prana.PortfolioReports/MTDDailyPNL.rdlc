@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="PranaClientConnectionString">
+      <ConnectionProperties>
+        <ConnectString>Data Source=VS20052K3E;Initial Catalog=PranaClient;Persist Security Info=True;User ID=sa;Password=Prana2@@6</ConnectString>
+        <DataProvider>SQL</DataProvider>
+      </ConnectionProperties>
+      <rd:DataSourceID>8eb94428-1994-489c-921f-7097081437cb</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ReportItems>
+      <Image Name="image1">
+        <Sizing>AutoSize</Sizing>
+        <Left>0.5in</Left>
+        <MIMEType>image/jpeg</MIMEType>
+        <Top>0.125in</Top>
+        <ZIndex>1</ZIndex>
+        <Width>2.75in</Width>
+        <Source>Database</Source>
+        <Style />
+        <Height>1.5in</Height>
+        <Value>=First(Fields!Logo.Value, "DataSetMonthlySummary_PMGetMonthlySummaryValues")</Value>
+      </Image>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1.875in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <Left>0.5in</Left>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.875in</Width>
+            <StaticRows>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox13">
+                    <rd:DefaultName>textbox13</rd:DefaultName>
+                    <ZIndex>11</ZIndex>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Begin Equity Value</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox15">
+                    <rd:DefaultName>textbox15</rd:DefaultName>
+                    <ZIndex>9</ZIndex>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>White</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Current Equity Value</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox17">
+                    <rd:DefaultName>textbox17</rd:DefaultName>
+                    <ZIndex>7</ZIndex>
+                    <Style>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>MTDPercent Change</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox19">
+                    <rd:DefaultName>textbox19</rd:DefaultName>
+                    <ZIndex>5</ZIndex>
+                    <Style>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>White</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Accrual Value</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox21">
+                    <rd:DefaultName>textbox21</rd:DefaultName>
+                    <ZIndex>3</ZIndex>
+                    <Style>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Accrual Percent</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox2">
+                    <rd:DefaultName>textbox2</rd:DefaultName>
+                    <ZIndex>1</ZIndex>
+                    <Style>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>White</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Month Net Return</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+            </StaticRows>
+          </RowGrouping>
+        </RowGroupings>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <DynamicColumns>
+              <ReportItems>
+                <Textbox Name="textbox12">
+                  <rd:DefaultName>textbox12</rd:DefaultName>
+                  <ZIndex>12</ZIndex>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value />
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix1_ColumnGroup1">
+                <GroupExpressions>
+                  <GroupExpression />
+                </GroupExpressions>
+              </Grouping>
+            </DynamicColumns>
+            <Height>0.5625in</Height>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <DataSetName>DataSetMonthlySummary_PMGetMonthlySummaryValues</DataSetName>
+        <Top>1.68in</Top>
+        <Width>3.75in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox10">
+              <rd:DefaultName>textbox10</rd:DefaultName>
+              <ZIndex>13</ZIndex>
+              <Style>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingBottom>2pt</PaddingBottom>
+                <BackgroundColor>White</BackgroundColor>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+              </Style>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <Style>
+          <BackgroundColor>Black</BackgroundColor>
+          <Color>White</Color>
+        </Style>
+        <Height>3.9375in</Height>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.5625in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="BeginValue_1">
+                    <rd:DefaultName>BeginValue_1</rd:DefaultName>
+                    <ZIndex>10</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>$#,###</Format>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Fields!BeginValue.Value &lt;= 0, "$0.00" , "$" &amp; Fields!BeginValue.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.5625in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="CurrentValue_1">
+                    <rd:DefaultName>CurrentValue_1</rd:DefaultName>
+                    <ZIndex>8</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>$#,###</Format>
+                      <BackgroundColor>White</BackgroundColor>
+                      <Color>=iif(Fields!CurrentValue.Value &lt; 0, "Red","Black")</Color>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Fields!CurrentValue.Value &lt; 0, "($" &amp; (Fields!CurrentValue.Value * -1) &amp; ")", "$" &amp; Fields!CurrentValue.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.5625in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="MTDPercentChange_1">
+                    <rd:DefaultName>MTDPercentChange_1</rd:DefaultName>
+                    <ZIndex>6</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <Color>=iif(Fields!MTDPercentChange.Value &lt; 0, "Red","Black")</Color>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Fields!MTDPercentChange.Value &lt; 0, "(" &amp; (Fields!MTDPercentChange.Value * -1) &amp; " %)", Fields!MTDPercentChange.Value &amp; " %")</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.5625in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="AccrualValue_1">
+                    <rd:DefaultName>AccrualValue_1</rd:DefaultName>
+                    <ZIndex>4</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>$#,###</Format>
+                      <BackgroundColor>White</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Fields!AccrualValue.Value &lt;= 0, "$0.00" , "$" &amp; Fields!AccrualValue.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.5625in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="MonthNetReturn_1">
+                    <rd:DefaultName>MonthNetReturn_1</rd:DefaultName>
+                    <ZIndex>2</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>#%</Format>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <Color>=iif(Fields!AccrualPercent.Value &lt; 0, "Red","Black")</Color>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Fields!AccrualPercent.Value &lt; 0, "(" &amp; (Fields!AccrualPercent.Value * -1) &amp; " %)", Fields!AccrualPercent.Value &amp; " %")</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.5625in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="MonthNetReturn">
+                    <rd:DefaultName>MonthNetReturn</rd:DefaultName>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>#CO</Format>
+                      <BackgroundColor>White</BackgroundColor>
+                      <Color>=iif(Fields!MonthNetReturn.Value &lt; 0, "Red","Black")</Color>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Fields!MonthNetReturn.Value &lt; 0, "(" &amp; (Fields!MonthNetReturn.Value * -1) &amp; " %)", Fields!MonthNetReturn.Value &amp; " %")</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+    </ReportItems>
+    <Height>5.75in</Height>
+    <Style>
+      <BackgroundColor>White</BackgroundColor>
+    </Style>
+  </Body>
+  <rd:ReportID>1e51906b-9857-4f18-a4bd-bde9133b9790</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="DataSetMTDDailyPNL_PMGetMTDDailyPNL">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>DataSetMTDDailyPNL</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>PMGetMTDDailyPNLTableAdapter</rd:TableAdapterName>
+        <rd:TableName>PMGetMTDDailyPNL</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.PMGetMTDDailyPNL</CommandText>
+        <DataSourceName>PranaClientConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="ApplicationRealizedPNL">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ApplicationRealizedPNL</DataField>
+        </Field>
+        <Field Name="ApplicationUnrealizedPNL">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>ApplicationUnrealizedPNL</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSetMonthlySummary_PMGetMonthlySummaryValues">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>DataSetMonthlySummary</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>PMGetMonthlySummaryValuesTableAdapter</rd:TableAdapterName>
+        <rd:TableName>PMGetMonthlySummaryValues</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetMonthlySummaryValues</CommandText>
+        <DataSourceName>PranaClientConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="BeginValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>BeginValue</DataField>
+        </Field>
+        <Field Name="CurrentValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>CurrentValue</DataField>
+        </Field>
+        <Field Name="MTDPercentChange">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>MTDPercentChange</DataField>
+        </Field>
+        <Field Name="AccrualValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>AccrualValue</DataField>
+        </Field>
+        <Field Name="MonthNetReturn">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>MonthNetReturn</DataField>
+        </Field>
+        <Field Name="Logo">
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+          <DataField>Logo</DataField>
+        </Field>
+        <Field Name="AccrualPercent">
+          <rd:TypeName>System.Decimal</rd:TypeName>
+          <DataField>AccrualPercent</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>10.83335in</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

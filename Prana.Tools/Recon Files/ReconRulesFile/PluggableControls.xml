@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CompareToolConfig>
+
+	<PluggableControls>
+
+		<!--Prana Position Viewer-->
+		<PluggableControl Name="Application Data" Dll="Prana.Tools.dll" ClassName="Prana.Tools.PranaPositionViewer"/>
+
+		<!--Generic control-->
+		<PluggableControl Name="Application Data" Dll="Prana.Tools.dll" ClassName="Prana.Tools.DataImportCtrl"/>
+
+		<!--Security Master data-->
+		<!--<PluggableControl Name="Broker Data" Dll="Prana.Tools.dll" ClassName="Prana.Tools.SecmasterDbDataCtrl"/>-->
+
+		<!--Xignite Data Import-->
+		<!--<PluggableControl Name="Application Data" Dll="Prana.Tools.dll" ClassName="Prana.Tools.DataImportCtrl_Tag_XSLT"/>-->
+
+		<PluggableControl Name="Broker Matched Data" Dll="Prana.Tools.dll" ClassName="Prana.Tools.DataImportCtrl"/>
+
+		<PluggableControl Name="Application Matched Data" Dll="Prana.Tools.dll" ClassName="Prana.Tools.DataImportCtrl"/>
+
+	</PluggableControls>
+
+
+	<!--Make sure that names are same as in DB. Order them as needed in grid. --><!--
+	<LeftGridColumns>
+
+		<Column Name ="FundName" IsSelected="True"/>
+		<Column Name ="Symbol" IsSelected="True"/>
+		<Column Name ="Side" IsSelected="True"/>
+		<Column Name ="Quantity" IsSelected="True"/>
+		<Column Name ="AvgPX" IsSelected="True"/>
+		<Column Name ="MarkPrice" IsSelected="True"/>
+		<Column Name ="Commission" IsSelected="True"/>
+		<Column Name ="Fees" IsSelected="True"/>
+		<Column Name ="MarketValue" IsSelected="True"/>
+		<Column Name ="MarketValueBase" IsSelected="True"/>
+		<Column Name ="GrossNotionalValue" IsSelected="True"/>
+		<Column Name ="NetNotionalValue" IsSelected="True"/>
+		<Column Name ="Mismatch" IsSelected="True"/>
+		<Column Name ="CompanyName" IsSelected="True"/>
+		<Column Name ="Reason" IsSelected="True"/>
+
+
+	</LeftGridColumns>
+
+	--><!--Make sure that names are same as in XSLT. Order them as needed in grid. --><!--
+	<RightGridColumns>
+
+		<Column Name ="FundName" IsSelected="True"/>
+		<Column Name ="Symbol" IsSelected="True"/>
+		<Column Name ="Side" IsSelected="True"/>
+		<Column Name ="Quantity" IsSelected="True"/>
+		<Column Name ="AvgPX" IsSelected="True"/>
+		<Column Name ="MarkPrice" IsSelected="True"/>
+		<Column Name ="Commission" IsSelected="True"/>
+		<Column Name ="Fees" IsSelected="True"/>
+		<Column Name ="MarketValue" IsSelected="True"/>
+		<Column Name ="MarketValueBase" IsSelected="True"/>
+		<Column Name ="GrossNotionalValue" IsSelected="True"/>
+		<Column Name ="NetNotionalValue" IsSelected="True"/>
+		<Column Name ="Mismatch" IsSelected="True"/>
+		<Column Name ="PBAssetName" IsSelected="True"/>
+		<Column Name ="PBSymbol" IsSelected="True"/>
+		<Column Name ="CompanyName" IsSelected="True"/>
+		<Column Name ="Reason" IsSelected="True"/>
+
+		--><!--Column Name ="SideTagValue"/--><!--
+
+	</RightGridColumns>-->
+
+</CompareToolConfig>

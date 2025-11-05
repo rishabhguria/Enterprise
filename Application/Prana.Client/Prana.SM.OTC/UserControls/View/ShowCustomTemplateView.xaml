@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="Prana.SM.OTC.View.ShowCustomTemplateView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:ig="http://schemas.infragistics.com/xaml"
+            xmlns:themes="http://infragistics.com/Themes"
+            xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+            xmlns:viewModels="clr-namespace:Prana.SM.OTC"
+            mc:Ignorable="d" 
+             
+            xmlns:Behaviours="clr-namespace:Prana.SM.OTC.Behaviours" 
+            xmlns:Custom="http://infragistics.com/Editors"
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+            xmlns:Core="clr-namespace:System;assembly=mscorlib" 
+            xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+             
+            d:DesignHeight="350" d:DesignWidth="520" Width="650" Height="536"
+            xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+            md:DialogServiceViews.IsRegistered="True" 
+            DataContext="{DynamicResource ShowCustomTemplateViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/NirvanaSkin.xaml" />
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:ShowCustomTemplateViewModel x:Key="ShowCustomTemplateViewModel"/>
+            <Style x:Key="ButtonStyleAdd" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+            <Style x:Key="NumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="5,5,5,5"/>
+            </Style>
+            <ObjectDataProvider x:Key="BooleanEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="viewModels:BooleanValue"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <GroupBox BorderBrush="Black" Grid.Row="0" Grid.Column="0" BorderThickness="2" Width="640" Height="530" HorizontalAlignment="Left" Margin="0,0,0,0">
+        <GroupBox.Header>
+            <Span FontWeight="Bold" FontSize="14">Custom Field Tags</Span>
+        </GroupBox.Header>
+        <Grid   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="#FFE7E8E9">
+            <Grid.RowDefinitions>
+                <!--<RowDefinition Height="30"/>-->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Label Content="Custom Field Tags"  Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Stretch"  Foreground="White" Background="Gray" HorizontalAlignment="Stretch"  />-->
+            <Grid Grid.Column="0" Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Background="#FFE7E8E9">
+                    <ListView x:Name="MyListView"  Foreground="#FFE7E8E9"  ForceCursor="False" ItemsSource="{Binding Path=CustomFields,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="495" Width="400" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#FFE7E8E9" BorderBrush="#FFE7E8E9">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="2"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="#FFE7E8E9"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" Background="#FFE7E8E9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <WrapPanel Background="#FFE7E8E9" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <Grid Background="#FFE7E8E9">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="190"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox Grid.Column="0" VerticalAlignment="Center" IsChecked="{Binding Selected}"/>
+                                            <Label    Grid.Column="1" Content="{Binding Name}" Width="150"/>
+                                            <Custom:XamNumericEditor   Grid.Column="2" Visibility="{Binding Path=IsVisibleInt,Mode=TwoWay}"  Width="140" ValueType="Core:Double" Value="{Binding Path=DefaultValue,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1.00000">
+                                                <i:Interaction.Behaviors>
+                                                    <Behaviours:XamNumericEditorBehaviour/>
+                                                </i:Interaction.Behaviors>
+                                            </Custom:XamNumericEditor>
+                                            <TextBox  Grid.Column="2"    Text="{Binding Path=DefaultValue,Mode=TwoWay}" Width="140" Visibility="{Binding Path=IsVisibleText,Mode=TwoWay}" />
+                                            <DatePicker Grid.Column="2" Text="{Binding Path=DefaultValue,Mode=TwoWay}"   Width="140" Visibility="{Binding Path=IsVisibleDateTime,Mode=TwoWay}"  Background="White" />
+                                            <ig:XamComboEditor x:Name="Boolean"   Grid.Column="2"  EmptyText="Select"   
+                                   Width="140" VerticalAlignment="Center" IsEditable="False"  Visibility="{Binding Path=IsVisibleBool,Mode=TwoWay}"
+                                   ItemsSource="{Binding Source={StaticResource BooleanEnum}}" SelectedItem="{Binding Path=DefaultBooleanValue}">
+                                            </ig:XamComboEditor>
+                                            <Label Grid.Column="3" Visibility="Hidden" Width="150" />
+                                        </Grid>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Button Content="Add Additional Fields"  Margin="10" Name="btnAddAdditionalFields" Style="{StaticResource ButtonStyleAdd}" HorizontalAlignment="Center" Command="{Binding btnAddAdditionalFieldsCommand}"  VerticalAlignment="Center" Height="30" Width="140" />
+                    <Button Content="Delete Fields"  Margin="10" Name="btnDeleteAdditionalFields" Style="{StaticResource ButtonStyleAdd}" HorizontalAlignment="Center" Command="{Binding btnDeleteCustomFieldsCommand}"  VerticalAlignment="Center" Height="30" Width="140" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </GroupBox>
+</UserControl>

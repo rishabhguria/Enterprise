@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RuleEngine>
+  <Rules>
+    <Rule name="CompanyOverallLimits" group="Company"  description="Rule to check Company OverallLimits">
+      <Condition><![CDATA[ ExposureLimit < CalculatedExposureLimit || NegativePnlLimit < CalculatedNegativePnlLimit || PositivePnlLimit < CalculatedPositivePnlLimit ]]></Condition>
+      <Actions>
+        <Action name="email" message="Email Message from Company OverAll Limits"></Action>
+        <Action name="sound" message="Sound Alert from Company Overall Limits"></Action>
+      </Actions>
+    </Rule>
+    <Rule name="CompanyAlerts" subject="Company"  description="Rule to send alerts">
+      <Condition><![CDATA[ CompanyExposureLimit + PositivePnlLimit + NegativePnlLimit - CalculatedCompanyExposureLimit > CalculatedCompanyExposureLimit  ]]></Condition>
+      <Actions>
+        <Action name="email" message="Email Message from Company Alerts"></Action>
+        <Action name="sound" message="Sound Alert from Company Alerts"></Action>
+      </Actions>
+    </Rule>
+  </Rules>
+  
+  <Facts>
+    <Fact id="ExposureLimit" ></Fact>
+    <Fact id="PositivePnlLimit" ></Fact>
+    <Fact id="NegativePnlLimit" ></Fact>
+    <Fact id="CalculatedExposureLimit" ></Fact>
+    <Fact id="CalculatedPositivePnlLimit" ></Fact>
+    <Fact id="CalculatedNegativePnlLimit" ></Fact>
+  </Facts>
+
+ <ActionMapper>
+    <Action id="email" porvider=""></Action>
+    <Action id="sound" provider=""></Action>
+  </ActionMapper>
+
+  <Groups>
+    <Group id="Company" CollectionClass="CompanyFactDataCollection" ItemClass="CompanyFactData" >
+      <GroupFactMapping FactId="ExposureLimit" PropertyName="ExposureLimit"></GroupFactMapping>
+      <GroupFactMapping FactId="PositivePnlLimit" PropertyName="PositivePnlLimit"></GroupFactMapping>
+      <GroupFactMapping FactId="NegativePnlLimit" PropertyName="NegativePnlLimit"></GroupFactMapping>
+      <GroupFactMapping FactId="CalculatedExposureLimit" PropertyName="CalculatedExposureLimit"></GroupFactMapping>
+      <GroupFactMapping FactId="CalculatedPositivePnlLimit" PropertyName="CalculatedPositivePnlLimit"></GroupFactMapping>
+      <GroupFactMapping FactId="CalculatedNegativePnlLimit" PropertyName="CalculatedNegativePnlLimit"></GroupFactMapping>
+    </Group>
+  </Groups>
+
+</RuleEngine>

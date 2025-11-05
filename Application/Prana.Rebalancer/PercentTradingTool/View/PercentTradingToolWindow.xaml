@@ -1,0 +1,1052 @@
+﻿<Window xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:viewModel="clr-namespace:Prana.Rebalancer.PercentTradingTool.ViewModel"
+	xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+	xmlns:Dialogs="clr-namespace:Prana.MvvmDialogs;assembly=Prana.MvvmDialogs"
+	xmlns:ig="http://schemas.infragistics.com/xaml"
+	xmlns:igEditors="http://infragistics.com/Editors"
+	xmlns:Theme="http://infragistics.com/Themes"	
+	xmlns:converter="clr-namespace:Prana.Rebalancer.Converters"
+	xmlns:behavior="clr-namespace:Prana.Rebalancer.PercentTradingTool.Behavior"
+    xmlns:commonBehaviour="clr-namespace:Prana.Rebalancer.CommonBehavior"    
+	xmlns:customControls="clr-namespace:Prana.Rebalancer.PercentTradingTool.CustomControls"
+	xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+	xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+	xmlns:classes="clr-namespace:Prana.Rebalancer.Classes"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:igComboEditor="http://schemas.infragistics.com/xaml"
+    xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:Enums="clr-namespace:Prana.BusinessObjects.AppConstants;assembly=Prana.BusinessObjects"
+    xmlns:local="clr-namespace:Prana.Rebalancer.PercentTradingTool" xmlns:behaviours="clr-namespace:Prana.Rebalancer.RebalancerNew.Behaviours"
+        mc:Ignorable="d"
+    x:Class="Prana.Rebalancer.PercentTradingToolWindow"
+    Dialogs:DialogServiceViews.IsRegistered="True"
+    x:Name="Window"
+	Title="% Trading Tool" Width="1280" Height="493" 
+	DataContext="{DynamicResource PercentTradingToolViewModel}" MinHeight="250" StateChanged="PercentTradingToolWindow_OnStateChanged" Closed="PercentTradingToolWindow_OnClosed">
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/generic.xaml" />
+				<ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/NirvanaSkin.xaml" />
+				<ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/NirvanaErrorTemplate.xaml" />
+				<Theme:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+					<Theme:ResourceWasher.SourceDictionary>
+						<ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/IG/IG.xamComboEditor.xaml" />
+					</Theme:ResourceWasher.SourceDictionary>
+				</Theme:ResourceWasher>
+				<Theme:ResourceWasher WashMode="HueSaturationReplacement">
+					<Theme:ResourceWasher.SourceDictionary>
+						<ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/IG/DataPresenterIGTheme_Express.xaml" />
+					</Theme:ResourceWasher.SourceDictionary>
+				</Theme:ResourceWasher>
+			</ResourceDictionary.MergedDictionaries>
+			<igWPF:DataPresenterExcelExporter x:Key="Exporter" />
+			<viewModel:PercentTradingToolViewModel x:Key="PercentTradingToolViewModel" />
+			<converter:BooleanToEnumerationConverter x:Key="BooleanToEnumerationConverter"/>
+			<converter:AccountIDToAccountNameConverter x:Key="AccountIDToAccountNameConverter" />
+			<converter:MasterFundIDToMasterFundNameConverter x:Key="MasterFundIDToMasterFundNameConverter" />
+			<converter:SummaryAlignmentConverter x:Key="SummaryAlignmentConverter" />
+			<converter:PrecisionFormatConverter x:Key="PrecisionFormatConverter" />
+			<converter:BooleanToVisbilityConverterLocal x:Key="BooleanToVisbilityConverterLocal" />
+			<converter:SystemColorToSolidBrushConverter x:Key="SystemColorToSolidBrushConverter" />
+			<converter:OrderSideIdToOrderSideNameConverter x:Key="OrderSideIdToOrderSideNameConverter" />
+			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+			<classes:DataContextProxy ProxiedObject="{Binding}" x:Key="proxy" />
+			<Style x:Key="NumericEditorStyle" TargetType="{x:Type igEditors:XamNumericEditor}">
+				<Setter Property="Mask" Value="{}{char:20:0-9.}" />
+				<Setter Property="HorizontalContentAlignment" Value="Right" />
+				<Setter Property="SpinButtonDisplayMode" Value="Never" />
+				<Setter Property="PromptChar" Value="" />
+				<Setter Property="BorderBrush" Value="#FFE8E8E8" />
+				<Setter Property="BorderThickness" Value="1" />
+				<Setter Property="Background" Value="#FFE8E8E8" />
+				<Setter Property="Foreground" Value="Black" />
+			</Style>
+			<Style x:Key="EditableXamNumericEditor" TargetType="{x:Type igEditors:XamNumericEditor}">
+				<Setter Property="Background" Value="White" />
+				<Setter Property="Foreground" Value="Black" />
+				<Style.Triggers>
+					<Trigger Property="IsInEditMode" Value="True">
+						<Setter Property="Background" Value="WhiteSmoke" />
+						<Setter Property="Foreground" Value="Black" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+        </ResourceDictionary>
+	</Window.Resources>
+	<shell:WindowChrome.WindowChrome>
+		<shell:WindowChrome
+			ResizeBorderThickness="6"
+			CaptionHeight="22"
+			CornerRadius="5"
+			GlassFrameThickness="0" />
+	</shell:WindowChrome.WindowChrome>
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=PTTUILoaded}" PassEventArgsToCommand="True" />
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
+	<i:Interaction.Behaviors>
+		<behavior:XamDataGridExporter ExportGrid="{Binding Path=ExportGrid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ExporterResource="{Binding Mode=OneWay, Source={StaticResource Exporter}}" />
+	</i:Interaction.Behaviors>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!--provide the background for the entire form.  In practice, this appears as the window's resize border, because the title and window content obscure the rest-->
+		<Border CornerRadius="2" Grid.RowSpan="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#FFD1D2D4" />
+
+		<!--title bar-->
+		<Border CornerRadius="2" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+			<!--Window Icon and Title-->
+			<StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+				<TextBlock Name="tbNirvana" Text="Nirvāna" FontFamily="Mulish" Height="22" Margin="5,0,0,0" FontSize="15" Foreground="#FFD1D2D4" VerticalAlignment="Center" />
+			</StackPanel>
+
+		</Border>
+
+		<StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock x:Name="tbPercentTradingTool" Text="% Trading Tool" Height="22" FontSize="15" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center" />
+			<customChromeLibrary:CaptionButtons  VerticalAlignment="Center" />
+		</StackPanel>
+		<!--min/max/close buttons-->
+
+		<!--Content-->
+        <ig:XamBusyIndicator FontSize="12" FontFamily="Tahoma" Grid.Row="3" IsBusy="{Binding InProgress}" BusyContent="{Binding InProgressMessage}" IsIndeterminate="False" Background="LightGray">
+			<ig:XamBusyIndicator.Animation>
+                <ig:SpinnerSegmentedBusyAnimation AnimationFill="#FF43A898"/>
+			</ig:XamBusyIndicator.Animation>
+			<Grid Grid.Row="3" x:Name="LayoutRoot" Margin="7">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Grid>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="2*" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource BooleanToVisbilityConverterLocal}}">
+                            <Label x:Name="lblSymbol" Content="{Binding Path=Symbol}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="{Binding Path=SymbolDescriptionColor,Converter={StaticResource SystemColorToSolidBrushConverter} }" />
+                            <Label x:Name="lblLIT_DASH" Content="{x:Static local:PTTConstants.LIT_DASH}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" />
+                            <Label x:Name="lblDescription" Content="{Binding Path=SymbolDescription}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontWeight="Bold" Foreground="{Binding Path=SymbolDescriptionColor,Converter={StaticResource SystemColorToSolidBrushConverter} }" />
+						</StackPanel>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal" Visibility="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource BooleanToVisbilityConverterLocal}}">
+                            <Label x:Name="lblLast" Content="{x:Static local:PTTConstants.LIT_LAST}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontStyle="Italic" />
+                            <Label x:Name="lblLastValue" Content="{Binding Path=Last}" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontSize="18" Foreground="{Binding Path=SymbolDescriptionColor,Converter={StaticResource SystemColorToSolidBrushConverter} }" />
+                            <Label x:Name="lblBid" Content="{x:Static local:PTTConstants.LIT_BID}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontStyle="Italic" />
+                            <Label x:Name="lblBidValue" Content="{Binding Path=Bid}" HorizontalAlignment="Center" FontStyle="Italic" VerticalAlignment="Center" FontSize="18" Foreground="{Binding Path=SymbolDescriptionColor,Converter={StaticResource SystemColorToSolidBrushConverter} }" />
+                            <Label x:Name="lblAsk" Content="{x:Static local:PTTConstants.LIT_ASK}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" FontStyle="Italic" />
+                            <Label x:Name="lblAskValue" Content="{Binding Path=Ask}" HorizontalAlignment="Center" FontStyle="Italic" VerticalAlignment="Center" FontSize="18" Foreground="{Binding Path=SymbolDescriptionColor,Converter={StaticResource SystemColorToSolidBrushConverter} }" />
+                            <Label x:Name="lblVWAP" Content="{x:Static local:PTTConstants.LIT_VWAP}" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" FontSize="18" />
+                            <Label x:Name="lblVWAPValue" Content="{Binding Path=VWAP}" HorizontalAlignment="Center" FontStyle="Italic" VerticalAlignment="Center" FontSize="18" Foreground="{Binding Path=SymbolDescriptionColor,Converter={StaticResource SystemColorToSolidBrushConverter} }" />
+						</StackPanel>
+						<StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
+						</StackPanel>
+					</Grid>
+				</Grid>
+                <GroupBox x:Name="gbInputParameters" Header="{x:Static local:PTTConstants.LIT_INPUT_PARAMETERS}" Grid.Row="1" BorderBrush="{DynamicResource GroupBoxBorder}">
+					<Grid Margin="0,0,-5,0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<igWPF:XamDataGrid Name="InputParameters" ScrollViewer.HorizontalScrollBarVisibility="Auto" AutoFit="True"  ScrollViewer.VerticalScrollBarVisibility="Auto" DataSource="{Binding Path=PTTRequestBindingListCollectionView, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true,
+					 ValidatesOnDataErrors=true, NotifyOnValidationError=true}" GroupByAreaLocation="None" IsSynchronizedWithCurrentItem="True" Background="{DynamicResource XamDataGridBackground}" d:IsHidden="True" Margin="0,0,3,0">
+							<i:Interaction.Behaviors>
+								<behavior:XamDataGridValidationErrorAggregator ViewModel="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" />
+								<behavior:XamDataGridTabSwitching CellTypeCollection="{Binding Path=DataContext.CellTypeCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" />
+							</i:Interaction.Behaviors>
+							<i:Interaction.Triggers>
+								<i:EventTrigger EventName="CellUpdated">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.RecalculationNeededCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+								</i:EventTrigger>
+								<i:EventTrigger EventName="DataValueChangedDirect">
+                                    <i:InvokeCommandAction Command="{Binding Path=DataContext.RecalculationNeededCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+								</i:EventTrigger>
+							</i:Interaction.Triggers>
+							<igWPF:XamDataGrid.FieldLayoutSettings>
+								<igWPF:FieldLayoutSettings AutoGenerateFields="False" SupportDataErrorInfo="RecordsAndCells" DataErrorDisplayMode="None" AllowFieldMoving="No"/>
+							</igWPF:XamDataGrid.FieldLayoutSettings>
+							<igWPF:XamDataGrid.FieldSettings>
+								<igWPF:FieldSettings CellClickAction="EnterEditModeIfAllowed" DataValueChangedNotificationsActive="True" />
+							</igWPF:XamDataGrid.FieldSettings>
+							<igWPF:XamDataGrid.FieldLayouts>
+								<igWPF:FieldLayout>
+									<igWPF:FieldLayout.Fields>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_SYMBOL}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.COL_SYMBOL}">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+													<igWPF:FieldSettings.CellValuePresenterStyle>
+														<Style TargetType="{x:Type igWPF:CellValuePresenter}">
+															<Style.Setters>
+																<Setter Property="Template">
+																	<Setter.Value>
+																		<ControlTemplate>
+                                                                            <igComboEditor:XamComboEditor Name="cboTickerSymbol" AllowDropDownResizing="False" CustomValueEnteredAction="Allow" 
+                                                                                  OpenDropDownOnTyping="True" AutoComplete="False" DropDownButtonDisplayMode="Never" Background="White" EditAreaBackground="White"
+                                                                                  ItemsSource="{Binding DataContext.LstSuggestedSymbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" Height="20" MaxDropDownHeight="200" MinDropDownWidth="160" Width="160"
+                                                                                  IsDropDownOpen="{Binding DataContext.IsSymbolDropDownOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" IsEditable="True" DisplayMemberPath="Symbol">
+                                                                                <i:Interaction.Behaviors>
+                                                                                    <commonBehaviour:CommonSymbolBehaviour
+                                                                                     SymbolList ="{Binding Path=LstSuggestedSymbol,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                                                                     />
+                                                                                </i:Interaction.Behaviors>
+                                                                                <igComboEditor:XamComboEditor.Resources>
+                                                                                    <Style TargetType="igPrim:SpecializedTextBox">
+                                                                                        <Setter Property="igPrim:SpecializedTextBox.Text" Value="{Binding Path=DataContext.SymbolUI, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"/>
+                                                                                        <Setter Property="igPrim:SpecializedTextBox.CharacterCasing" Value="Upper"/>
+                                                                                        <Setter Property="igPrim:SpecializedTextBox.Background" Value="White" />
+                                                                                    </Style>
+                                                                                </igComboEditor:XamComboEditor.Resources>
+                                                                                <i:Interaction.Triggers>
+                                                                                    <i:EventTrigger EventName="KeyUp">
+                                                                                        <i:InvokeCommandAction Command="{Binding DataContext.TickerKeyUpCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True"/>
+                                                                                    </i:EventTrigger>
+                                                                                    <i:EventTrigger EventName="LostFocus">
+                                                                                        <i:InvokeCommandAction Command="{Binding DataContext.ValidateSecurityCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"/>
+                                                                                    </i:EventTrigger>
+                                                                                    <i:EventTrigger EventName="DropDownOpened">
+                                                                                        <i:InvokeCommandAction Command="{Binding DataContext.DropDownOpenedCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"/>
+                                                                                    </i:EventTrigger>
+                                                                                </i:Interaction.Triggers>
+                                                                            </igComboEditor:XamComboEditor>
+                                                                        </ControlTemplate>
+																	</Setter.Value>
+																</Setter>
+															</Style.Setters>
+														</Style>
+													</igWPF:FieldSettings.CellValuePresenterStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_ADDORSET}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ADDORSET}">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+													<igWPF:FieldSettings.CellValuePresenterStyle>
+														<Style TargetType="{x:Type igWPF:CellValuePresenter}">
+															<Style.Setters>
+																<Setter Property="Template">
+																	<Setter.Value>
+																		<ControlTemplate>
+																			<ig:XamComboEditor Name="cboAddOrSet" IsEditable="False" AllowMultipleSelection="False" ItemsSource="{Binding Path=DataContext.PTTAddOrSetCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+																				   SelectedItem="{Binding DataItem.AddOrSet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true,NotifyOnValidationError=true}" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}">
+																				<i:Interaction.Triggers>
+																					<i:EventTrigger EventName="SelectionChanged">
+                                                                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.EnableEndTargetPercentageCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+																					</i:EventTrigger>
+																				</i:Interaction.Triggers>
+																			</ig:XamComboEditor>
+																		</ControlTemplate>
+																	</Setter.Value>
+																</Setter>
+															</Style.Setters>
+														</Style>
+													</igWPF:FieldSettings.CellValuePresenterStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_TYPE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_TYPE}">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+													<igWPF:FieldSettings.CellValuePresenterStyle>
+														<Style TargetType="{x:Type igWPF:CellValuePresenter}">
+															<Style.Setters>
+																<Setter Property="Template">
+																	<Setter.Value>
+																		<ControlTemplate>
+                                                                            <ig:XamComboEditor Name="cboType" IsEditable="False" AllowMultipleSelection="False" ItemsSource="{Binding Path=DataContext.TypeCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+																				   SelectedItem="{Binding DataItem.Type, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true,NotifyOnValidationError=true}" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}">
+																				   <i:Interaction.Triggers>
+																					<i:EventTrigger EventName="SelectionChanged">
+                                                                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.DisplayPercentageOrBasisPointCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+																					</i:EventTrigger>
+																				 </i:Interaction.Triggers>
+																			</ig:XamComboEditor>
+																		</ControlTemplate>
+																	</Setter.Value>
+																</Setter>
+															</Style.Setters>
+														</Style>
+													</igWPF:FieldSettings.CellValuePresenterStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field  Name="{x:Static local:PTTConstants.COL_TARGET}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_TARGET}" IsEnabled="{Binding ProxiedObject.IsSymbolValidated, Source={StaticResource proxy}}">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True" EditorType="{x:Type igEditors:XamNumericEditor}"  EditAsType="{x:Type sys:Decimal}">
+													<igWPF:FieldSettings.EditorStyle>
+                                                        <Style TargetType="{x:Type igEditors:XamNumericEditor}"  BasedOn="{StaticResource NumericEditorStyle}">
+                                                            <Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FixedField}}" />
+															<Setter Property="Mask" Value="{}nnn,nnn,nnn,nnn.nnnn"/>
+                                                            <Setter Property="SpinWrapBehavior" Value="NoWrapping" />
+                                                            <Setter Property="AutomationProperties.Name" Value="ibTarget"/>
+                                                            <Setter Property="AutomationProperties.AutomationId" Value="ibTarget"/>
+                                                        </Style>
+													</igWPF:FieldSettings.EditorStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field  Name="{x:Static local:PTTConstants.COL_SELECTEDFEEDPRICE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_SELECTEDFEEDPRICE}" IsReadOnly="False" IsEnabled="False">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True" EditorType="{x:Type igEditors:XamNumericEditor}"  EditAsType="{x:Type sys:Decimal}">
+													<igWPF:FieldSettings.EditorStyle>
+														<Style TargetType="{x:Type igEditors:XamNumericEditor}"  BasedOn="{StaticResource NumericEditorStyle}">
+															<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FixedField}}" />
+                                                            <Setter Property="Mask" Value="{}nnn,nnn,nnn,nnn.nnnn"/>
+                                                            <Setter Property="AutomationProperties.Name" Value="ibSelectedFeedPrice"/>
+                                                            <Setter Property="AutomationProperties.AutomationId" Value="ibSelectedFeedPrice"/>
+                                                        </Style>
+													</igWPF:FieldSettings.EditorStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_COMBINEDACCOUNTSTOTALVALUE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_COMBINED_ACCOUNT_TOTAL}">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+													<igWPF:FieldSettings.CellValuePresenterStyle>
+														<Style TargetType="{x:Type igWPF:CellValuePresenter}">
+															<Style.Setters>
+																<Setter Property="Template">
+																	<Setter.Value>
+																		<ControlTemplate>
+                                                                            <ig:XamComboEditor Name="cboCombinedAccountTotalValue" IsEditable="False" AllowMultipleSelection="False" ItemsSource="{Binding Path=DataContext.CombinedAccountsTotalValueCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+																				   SelectedItem="{Binding DataItem.CombineAccountEnumValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true,NotifyOnValidationError=true}" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}">
+																			</ig:XamComboEditor>
+																		</ControlTemplate>
+																	</Setter.Value>
+																</Setter>
+															</Style.Setters>
+														</Style>
+													</igWPF:FieldSettings.CellValuePresenterStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_MASTERFUNDORACCOUNT}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_MASTERFUNDORACCOUNT}">
+											<igWPF:Field.Settings>
+												<igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+													<igWPF:FieldSettings.CellValuePresenterStyle>
+														<Style TargetType="{x:Type igWPF:CellValuePresenter}">
+															<Style.Setters>
+																<Setter Property="Template">
+																	<Setter.Value>
+																		<ControlTemplate>
+																			<ig:XamComboEditor Name="cboMasterFundOrAccount" IsEditable="False" AllowMultipleSelection="False" ItemsSource="{Binding Path=DataContext.MasterFundOrAccount, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+																				   SelectedItem="{Binding DataItem.MasterFundOrAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true,NotifyOnValidationError=true}" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}">
+																				<i:Interaction.Triggers>
+																					<i:EventTrigger EventName="SelectionChanged">
+                                                                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.DisplayMasterFundOrAccountCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+																					</i:EventTrigger>
+																				</i:Interaction.Triggers>
+																			</ig:XamComboEditor>
+																		</ControlTemplate>
+																	</Setter.Value>
+																</Setter>
+															</Style.Setters>
+														</Style>
+													</igWPF:FieldSettings.CellValuePresenterStyle>
+												</igWPF:FieldSettings>
+											</igWPF:Field.Settings>
+										</igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_ACCOUNT}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.AccountText, Source={StaticResource proxy}}" BindingType="Unbound">
+                                            <igWPF:Field.Settings>
+                                                <igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+                                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                                            <Style.Setters>
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate>
+                                                                            <ig:XamComboEditor Name="cboAccount" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=DataContext.UserAccountCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" DisplayMemberPath="Name" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" EmptyText="Select">
+                                                                                <i:Interaction.Behaviors>
+                                                                                    <behavior:XamComboEditorSelectedItemsBehavior SelectedItems="{Binding DataItem.Account, Mode=TwoWay, ValidatesOnExceptions=true,UpdateSourceTrigger=PropertyChanged,  ValidatesOnDataErrors=true,NotifyOnValidationError=true}"/>
+                                                                                    <behavior:XamComboEditorSelectAllBehavior />
+                                                                                </i:Interaction.Behaviors>
+                                                                            </ig:XamComboEditor>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style.Setters>
+                                                        </Style>
+                                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                                </igWPF:FieldSettings>
+                                            </igWPF:Field.Settings>
+                                        </igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_ISCUSTODIANBROKER}" Visibility="{Binding ProxiedObject.IsCustodianColVisible, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_CUSTODIANBROKER}">
+                                            <igWPF:Field.Settings>
+                                                <igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+                                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                                            <Style.Setters>
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate>
+                                                                            <ig:XamComboEditor Name="cboIsCustodianBroker" IsEditable="False" AllowMultipleSelection="False" ItemsSource="{Binding Path=DataContext.CustodianBrokerPreferenceValueCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+																				   SelectedItem="{Binding DataItem.CustodianBrokerPreferenceEnumValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true,NotifyOnValidationError=true}" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}">
+                                                                                <i:Interaction.Triggers>
+                                                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.RecalculationNeededCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+                                                                                    </i:EventTrigger>
+                                                                                </i:Interaction.Triggers>
+                                                                            </ig:XamComboEditor>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style.Setters>
+                                                        </Style>
+                                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                                </igWPF:FieldSettings>
+                                            </igWPF:Field.Settings>
+                                        </igWPF:Field>
+                                        <igWPF:Field Name="{x:Static local:PTTConstants.COL_ISUSEROUNDLOT}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ROUNDLOT}">
+                                            <igWPF:Field.Settings>
+                                                <igWPF:FieldSettings DataValueChangedNotificationsActive="True">
+                                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                                            <Style.Setters>
+                                                                <Setter Property="Template">
+                                                                    <Setter.Value>
+                                                                        <ControlTemplate>
+                                                                            <ig:XamComboEditor Name="cboIsRoundLot" IsEditable="False" AllowMultipleSelection="False" ItemsSource="{Binding Path=DataContext.RoundLotPreferenceValueCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}"
+																				   SelectedItem="{Binding DataItem.RoundLotPreferenceEnumValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, ValidatesOnDataErrors=true,NotifyOnValidationError=true}" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}">
+                                                                                <i:Interaction.Triggers>
+                                                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                                                        <i:InvokeCommandAction Command="{Binding Path=DataContext.RecalculationNeededCommand, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" PassEventArgsToCommand="True" />
+                                                                                    </i:EventTrigger>
+                                                                                </i:Interaction.Triggers>
+                                                                            </ig:XamComboEditor>
+                                                                        </ControlTemplate>
+                                                                    </Setter.Value>
+                                                                </Setter>
+                                                            </Style.Setters>
+                                                        </Style>
+                                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                                </igWPF:FieldSettings>
+                                            </igWPF:Field.Settings>
+                                        </igWPF:Field>
+                                    </igWPF:FieldLayout.Fields>
+								</igWPF:FieldLayout>
+							</igWPF:XamDataGrid.FieldLayouts>
+						</igWPF:XamDataGrid>
+					</Grid>
+				</GroupBox>
+                <GroupBox x:Name="gbSymbolValidated" Grid.Row="2" Header="" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" Margin="-2,24.04,3,1" RenderTransformOrigin="0.5,0.5" BorderBrush="{DynamicResource GroupBoxBorder}">
+
+					<igWPF:XamDataGrid Name="CalculatedValues"  IsEnabled="{Binding Path=EnableGrid}" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" DataSource="{Binding Path=PTTResponseBindingListCollectionView, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" GroupByAreaLocation="None" IsSynchronizedWithCurrentItem="True" Background="{DynamicResource XamDataGridBackground}" Margin="0,0,0,0.04" ScrollingMode="Deferred" RecordContainerGenerationMode="PreLoad" >
+						<igWPF:XamDataGrid.Resources>
+							<Style TargetType="{x:Type igWPF:SummaryResultPresenter}">
+								<Setter Property="HorizontalAlignment"
+							Value="{Binding Path=SummaryResult.SourceField.EditAsTypeResolved, RelativeSource={RelativeSource Self}, Converter={StaticResource SummaryAlignmentConverter}}" />
+							</Style>
+						</igWPF:XamDataGrid.Resources>
+						<igWPF:XamDataGrid.FieldLayoutSettings>
+							<igWPF:FieldLayoutSettings 
+											   HighlightAlternateRecords="False"  AutoGenerateFields="False" ExpansionIndicatorDisplayMode="CheckOnDisplay" AllowFieldMoving="No" />
+						</igWPF:XamDataGrid.FieldLayoutSettings>
+						<igWPF:XamDataGrid.FieldSettings>
+							<igWPF:FieldSettings AllowSummaries="true"
+									SummaryUIType="MultiSelect"
+									SummaryDisplayArea="Bottom"
+									CellClickAction="EnterEditModeIfAllowed" />
+						</igWPF:XamDataGrid.FieldSettings>
+						<igWPF:XamDataGrid.ViewSettings>
+							<igWPF:GridViewSettings UseNestedPanels="False" Orientation="Vertical">
+							</igWPF:GridViewSettings>
+						</igWPF:XamDataGrid.ViewSettings>
+						<igWPF:XamDataGrid.FieldLayouts>
+							<igWPF:FieldLayout Key="ParentFieldLayout">
+								<igWPF:FieldLayout.Settings>
+									<igWPF:FieldLayoutSettings>
+										<igWPF:FieldLayoutSettings.DataRecordCellAreaStyle>
+											<Style TargetType="{x:Type igWPF:DataRecordCellArea}" BasedOn="{StaticResource DataRecordCellAreaStyle}"/>
+										</igWPF:FieldLayoutSettings.DataRecordCellAreaStyle>
+									</igWPF:FieldLayoutSettings>
+								</igWPF:FieldLayout.Settings>
+								<igWPF:FieldLayout.SummaryDefinitions>
+									<igWPF:SummaryDefinition
+												Key="Total Trade Quantity"
+												SourceFieldName="{x:Static local:PTTConstants.COL_TRADEQUANTITY}"
+												Calculator="Sum"
+												StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}" />
+									<igWPF:SummaryDefinition
+												Key="Total Account NAV"
+												SourceFieldName="{x:Static local:PTTConstants.COL_ACCOUNTNAV}"
+												Calculator ="Sum"
+												StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}" />
+									<igWPF:SummaryDefinition
+												Key="Total Current Position"
+												SourceFieldName="{x:Static local:PTTConstants.COL_STARTINGPOSITION}"
+												Calculator ="Sum"
+												StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}" />
+									<igWPF:SummaryDefinition
+												Key="Total Current Account Symbol Value"
+												SourceFieldName="{x:Static local:PTTConstants.COL_STARTINGVALUE}"
+												Calculator ="Sum"
+												StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}" />
+									<igWPF:SummaryDefinition
+												Key="Total End Position"
+												SourceFieldName="{x:Static local:PTTConstants.COL_ENDINGPOSITION}"
+												Calculator ="Sum"
+												StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}" />
+									<igWPF:SummaryDefinition
+												Key="Total End Account Symbol Value"
+												SourceFieldName="{x:Static local:PTTConstants.COL_ENDINGVALUE}"
+												Calculator ="Sum"
+												StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}" />
+								</igWPF:FieldLayout.SummaryDefinitions>
+								<igWPF:FieldLayout.Fields>
+									<igWPF:Field Name="ChildResponseObjectList" Visibility="Visible" IsExpandable="True"  IsSelected="True" IsPrimary="True" />
+									<igWPF:Field Width="*" AlternateBindingRetentionMode="Retain" BindingType="UseAlternateBinding" AlternateBinding="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource AccountIDToAccountNameConverter}}" Name="{x:Static local:PTTConstants.COL_ACCOUNTID}" Label="{x:Static local:PTTConstants.CAP_ACCOUNTID}"  AllowEdit="False" Visibility="{Binding ProxiedObject.IsAccountVisible, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamTextEditor}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamTextEditor}">
+														<Setter Property="Text" Value="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource AccountIDToAccountNameConverter}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Left" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" AlternateBindingRetentionMode="Retain" LabelTextAlignment="Center" BindingType="UseAlternateBinding" AlternateBinding="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource MasterFundIDToMasterFundNameConverter}}" Name="{x:Static local:PTTConstants.COL_MASTERFUND}" Label="{x:Static local:PTTConstants.CAP_MASTERFUNDID}"  AllowEdit="False" Visibility="{Binding ProxiedObject.IsMasterFundVisible, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamTextEditor}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamTextEditor}">
+														<Setter Property="Text" Value="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource MasterFundIDToMasterFundNameConverter}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="114" Name="{x:Static local:PTTConstants.COL_ACCOUNTNAV}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.MasterFundNavText, Source={StaticResource proxy}}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_STARTINGPOSITION}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_STARTINGPOSITION}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_STARTINGVALUE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_STARTINGVALUE}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_STARTINGPERCENTAGE}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.StartingPercentageOrBasisPointText, Source={StaticResource proxy}}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ORDERSIDEID}" LabelTextAlignment="Center" AlternateBindingRetentionMode="Retain" BindingType="UseAlternateBinding" AlternateBinding="{Binding DataItem.OrderSide, Mode=TwoWay,Converter={StaticResource OrderSideIdToOrderSideNameConverter}}"  Label="{x:Static local:PTTConstants.CAP_ORDERSIDE}"  AllowEdit="False">
+                                        <igWPF:Field.Settings>
+                                            <igWPF:FieldSettings EditorType="{x:Type igEditors:XamTextEditor}">
+                                                <igWPF:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type igEditors:XamTextEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.OrderSide, Mode=TwoWay,Converter={StaticResource OrderSideIdToOrderSideNameConverter}}" />
+                                                        <Setter Property="IsReadOnly" Value="True" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    </Style>
+                                                </igWPF:FieldSettings.EditorStyle>
+                                            </igWPF:FieldSettings>
+                                        </igWPF:Field.Settings>
+                                    </igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ROUNDLOT}"  LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ROUNDLOT}" AllowEdit="False" Visibility="{Binding ProxiedObject.IsRoundLotVisible, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <igWPF:Field.Settings>
+                                            <igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}">
+                                                <igWPF:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type igEditors:XamNumericEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.RoundLots, Mode=TwoWay}"/>
+                                                        <Setter Property="Format" Value="##########.##########"/>
+                                                        <Setter Property="Mask" Value="{}nnnnnnnnnn.nnnnnnnnnn"/>
+                                                        <Setter Property="IsReadOnly" Value="True" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    </Style>
+                                                </igWPF:FieldSettings.EditorStyle>
+                                            </igWPF:FieldSettings>
+                                        </igWPF:Field.Settings>
+                                    </igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_PERCENTAGETYPE}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.PercentageOrBasisPointChangeText, Source={StaticResource proxy}}" AllowEdit="{Binding ProxiedObject.PercentageTypeEnableDisable, Source={StaticResource proxy}}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}"  BasedOn="{StaticResource EditableXamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="Mask" Value="-nnnnnn.nnnnnnnn"/>
+														<Setter Property="PromptChar" Value="" />
+														<Setter Property="IsReadOnly" Value="False" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+                                                        <Setter Property="SpinWrapBehavior" Value="NoWrapping" />
+                                                    </Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ENDINGPERCENTAGE}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.EndingPercentageOrPointBasisText, Source={StaticResource proxy}}" AllowEdit="{Binding ProxiedObject.EndingPercentageEnableDisable, Source={StaticResource proxy}}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Decimal}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}"  BasedOn="{StaticResource EditableXamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="Mask" Value="{}nnn,nnn,nnn,nnn.nnnnnnnn"/>
+														<Setter Property="PromptChar" Value="" />
+														<Setter Property="IsReadOnly" Value="False" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+                                                        <Setter Property="SpinWrapBehavior" Value="NoWrapping" />
+                                                    </Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_TRADEQUANTITY}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_TRADEQUANTITY}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}"  BasedOn="{StaticResource EditableXamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="Mask" Value="{}nnn,nnn,nnn,nnn,nnn"/>
+														<Setter Property="PromptChar" Value="" />
+														<Setter Property="IsReadOnly" Value="False" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ENDINGPOSITION}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ENDINGPOSITION}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ENDINGVALUE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ENDINGVALUE}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_PERCENTAGEALLOCATION}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_PERCENTAGEALLOCATION}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_FXRATE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_FXRATE}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+								</igWPF:FieldLayout.Fields>
+							</igWPF:FieldLayout>
+							<igWPF:FieldLayout Key="TaxLots" ParentFieldName="ChildResponseObjectList" ParentFieldLayoutKey="ParentFieldLayout">
+								<igWPF:FieldLayout.Settings>
+									<igWPF:FieldLayoutSettings>
+										<igWPF:FieldLayoutSettings.DataRecordCellAreaStyle>
+											<Style TargetType="{x:Type igWPF:DataRecordCellArea}" BasedOn="{StaticResource DataRecordCellAreaStyle}">
+												<Setter Property="Background"  Value="{StaticResource NirvanaAlternateRowColor}" />
+											</Style>
+										</igWPF:FieldLayoutSettings.DataRecordCellAreaStyle>
+								</igWPF:FieldLayoutSettings>
+								</igWPF:FieldLayout.Settings>
+									<igWPF:FieldLayout.Fields>
+                                    <igWPF:Field Width="*" AlternateBindingRetentionMode="Retain" LabelTextAlignment="Center" BindingType="UseAlternateBinding" AlternateBinding="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource AccountIDToAccountNameConverter}}" Name="{x:Static local:PTTConstants.COL_ACCOUNTID}" Label="{x:Static local:PTTConstants.CAP_ACCOUNTID}"  AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamTextEditor}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamTextEditor}">
+														<Setter Property="Text" Value="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource AccountIDToAccountNameConverter}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="114" Name="{x:Static local:PTTConstants.COL_ACCOUNTNAV}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ACCOUNTNAV}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_STARTINGPOSITION}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_STARTINGPOSITION}" AllowEdit="False" >
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_STARTINGVALUE}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_STARTINGVALUE}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_STARTINGPERCENTAGE}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.StartingPercentageOrBasisPointText, Source={StaticResource proxy}}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ORDERSIDEID}" LabelTextAlignment="Center" AlternateBindingRetentionMode="Retain" BindingType="UseAlternateBinding" AlternateBinding="{Binding DataItem.OrderSide, Mode=TwoWay,Converter={StaticResource OrderSideIdToOrderSideNameConverter}}" Label="{x:Static local:PTTConstants.CAP_ORDERSIDE}"  AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamTextEditor}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamTextEditor}">
+														<Setter Property="Text" Value="{Binding DataItem.OrderSide, Mode=TwoWay,Converter={StaticResource OrderSideIdToOrderSideNameConverter}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ROUNDLOT}"  LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ROUNDLOT}" AllowEdit="False">
+                                        <igWPF:Field.Settings>
+                                            <igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}">
+                                                <igWPF:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type igEditors:XamNumericEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.RoundLots, Mode=TwoWay}"/>
+                                                        <Setter Property="Format" Value="##########.##########"/>
+                                                        <Setter Property="Mask" Value="{}nnnnnnnnnn.nnnnnnnnnn"/>
+                                                        <Setter Property="IsReadOnly" Value="True" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                    </Style>
+                                                </igWPF:FieldSettings.EditorStyle>
+                                            </igWPF:FieldSettings>
+                                        </igWPF:Field.Settings>
+                                    </igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_PERCENTAGETYPE}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.PercentageOrBasisPointChangeText, Source={StaticResource proxy}}" AllowEdit="{Binding ProxiedObject.PercentageTypeEnableDisable, Source={StaticResource proxy}}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}" BasedOn="{StaticResource EditableXamNumericEditor}">
+                                                        <Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+                                                        <Setter Property="Mask" Value="-nnnnnn.nnnnnnnn"/>
+                                                        <Setter Property="PromptChar" Value="" />
+                                                        <Setter Property="IsReadOnly" Value="False" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right" />
+                                                        <Setter Property="SpinButtonDisplayMode" Value="Never" />
+                                                    </Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ENDINGPERCENTAGE}" LabelTextAlignment="Center" Label="{Binding ProxiedObject.EndingPercentageOrPointBasisText, Source={StaticResource proxy}}" AllowEdit="{Binding ProxiedObject.EndingPercentageEnableDisable, Source={StaticResource proxy}}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Decimal}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}" BasedOn="{StaticResource EditableXamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="Mask" Value="{}nnn,nnn,nnn,nnn.nnnnnnnn"/>
+														<Setter Property="PromptChar" Value="" />
+														<Setter Property="IsReadOnly" Value="False" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_TRADEQUANTITY}"  LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_TRADEQUANTITY}">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}"  BasedOn="{StaticResource EditableXamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="Mask" Value="{}nnn,nnn,nnn,nnn,nnn"/>
+														<Setter Property="PromptChar" Value="" />
+														<Setter Property="IsReadOnly" Value="False" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ENDINGPOSITION}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ENDINGPOSITION}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_ENDINGVALUE}"  LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_ENDINGVALUE}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_PERCENTAGEALLOCATION}" LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_PERCENTAGEALLOCATION}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+                                    <igWPF:Field Width="*" Name="{x:Static local:PTTConstants.COL_FXRATE}"  LabelTextAlignment="Center" Label="{x:Static local:PTTConstants.CAP_FXRATE}" AllowEdit="False">
+										<igWPF:Field.Settings>
+											<igWPF:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}"
+								EditAsType="{x:Type sys:Double}">
+												<igWPF:FieldSettings.EditorStyle>
+													<Style TargetType="{x:Type igEditors:XamNumericEditor}">
+														<Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+														<Setter Property="IsReadOnly" Value="True" />
+														<Setter Property="HorizontalContentAlignment" Value="Right" />
+														<Setter Property="SpinButtonDisplayMode" Value="Never" />
+													</Style>
+												</igWPF:FieldSettings.EditorStyle>
+											</igWPF:FieldSettings>
+										</igWPF:Field.Settings>
+									</igWPF:Field>
+								</igWPF:FieldLayout.Fields>
+							</igWPF:FieldLayout>
+						</igWPF:XamDataGrid.FieldLayouts>
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="EditModeEnded">
+                                <i:InvokeCommandAction Command="{Binding RecalculateEditableCellCommand}" PassEventArgsToCommand="True" />
+							</i:EventTrigger>
+							<i:EventTrigger EventName="EditModeStarted">
+                                <i:InvokeCommandAction Command="{Binding RecordOldEditableCellValue}" PassEventArgsToCommand="True" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamDataGridExporterForRebalancer ExportFilePath="{Binding ExportFilePathForAutomation}" ExportGridData="{Binding ExportDataGridForAutomation}" ExporterResource="{StaticResource Exporter}"/>
+                        </i:Interaction.Behaviors>
+                    </igWPF:XamDataGrid>
+                </GroupBox>
+                <Grid Grid.Row="3" IsEnabled ="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Calculate" x:Name="btnCalculate" Grid.Column="1" IsEnabled="{Binding Path=DataContext.IsSymbolValidated, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" Margin="10" Template="{DynamicResource GreenButtonSkinTemplate}" Foreground="White" Style="{DynamicResource RedButtonSkin}" Height="27" Width="67">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CalculateButtonClicked}" PassEventArgsToCommand="True" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+					<Button Content="Check Compliance" x:Name="btnCheckCompliance" Grid.Column="3" Visibility="{Binding IsCheckComplianceAllowed, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="{Binding EnableButtons}" Margin="10" Style="{DynamicResource RedButtonSkin}" Template="{DynamicResource RedButtonSkinTemplate}" Foreground="White" Width="116" Height="27">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding Path=CheckComplianceButtonClicked}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+					<Button Content="Trade" Margin="10" x:Name="btnTrade" Grid.Column="4" IsEnabled="{Binding EnableButtons}" Template="{DynamicResource GreenButtonSkinTemplate}" Foreground="White" Width="80" Height="27">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding TradeClicked}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+					<Button Content="Create Order " Margin="10" x:Name="btnStage" Grid.Column="5" IsEnabled="{Binding EnableButtons}" Template="{DynamicResource ButtonControlTemplate}" Foreground="White" Width="80" Height="27">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+								<i:InvokeCommandAction Command="{Binding CreateOrderClicked}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+                    <Button Content="Export" Margin="10" x:Name="btnExport" Grid.Column="7" IsEnabled="{Binding EnableExport}" Template="{DynamicResource ButtonControlTemplate}" Foreground="White" Width="80" Height="27">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding ExportClicked}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+					<Button Content="Preferences" Margin="10" x:Name="btnPreferences" Grid.Column="6"  Template="{DynamicResource ButtonControlTemplate}" Foreground="White" Width="80" Height="27">
+						<i:Interaction.Triggers>
+							<i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding PreferenceClicked}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}" />
+							</i:EventTrigger>
+						</i:Interaction.Triggers>
+					</Button>
+				</Grid>
+				<DockPanel LastChildFill="False" Margin="0" Grid.Row="4" RenderTransformOrigin="0.5,0.5" Height="20">
+                    <StatusBar x:Name="StatusMessagesBar" Background="{DynamicResource StatusBarBackground}" Foreground="{DynamicResource StatusBarForeground}" Margin="0" RenderTransformOrigin="0.502,0.909" DockPanel.Dock="Bottom" Height="26">
+						<StatusBar.ItemsPanel>
+							<ItemsPanelTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="1000" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+								</Grid>
+							</ItemsPanelTemplate>
+						</StatusBar.ItemsPanel>
+						<StatusBarItem Grid.Column="0" Foreground="{DynamicResource StatusBarForeground}">
+                            <TextBlock x:Name="tbStatusMessage" Text="{Binding  StatusMessage}" />
+						</StatusBarItem>
+						<StatusBarItem Grid.Column="1" Foreground="{DynamicResource StatusBarForeground}" HorizontalAlignment="Right">
+                            <TextBlock x:Name="tbErrorMessage" Text="{Binding Path=ErrorObject.ErrorMsg, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true,  ValidatesOnDataErrors=true,NotifyOnValidationError=true}" Validation.ErrorTemplate="{StaticResource NirvanaErrorTemplate}" DockPanel.Dock="Right" />
+						</StatusBarItem>
+					</StatusBar>
+				</DockPanel>
+			</Grid>
+		</ig:XamBusyIndicator>
+	</Grid>
+</Window>

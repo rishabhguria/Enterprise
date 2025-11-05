@@ -1,0 +1,318 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+	xmlns:themes="http://infragistics.com/Themes"
+	xmlns:viewModel="clr-namespace:Prana.Rebalancer.PercentTradingTool.ViewModel"
+	xmlns:converter="clr-namespace:Prana.Rebalancer.Converters"
+    xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+    xmlns:dataPresenter="http://infragistics.com/DataPresenter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:editors="http://infragistics.com/Editors"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:Enums="clr-namespace:Prana.BusinessObjects.AppConstants;assembly=Prana.BusinessObjects"
+    xmlns:classes="clr-namespace:Prana.Rebalancer.Classes"
+    xmlns:local="clr-namespace:Prana.Rebalancer.PercentTradingTool" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors" xmlns:behaviours="clr-namespace:Prana.Rebalancer.RebalancerNew.Behaviours" xmlns:igWPF="http://infragistics.com/ExcelExporter"
+    mc:Ignorable="d"
+    x:Class="Prana.Rebalancer.ViewAllocationDetailsWindow"
+	x:Name="Window"
+	Title="View Allocation Details"
+     DataContext="{DynamicResource ViewAllocationDetailsViewModel}"
+	Width="1070" Height="380" StateChanged="ViewAllocationDetailsWindow_OnStateChanged">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/NirvanaSkin.xaml"/>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/NirvanaErrorTemplate.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/IG/IG.xamComboEditor.xaml"/>
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/IG/DataPresenterIGTheme_Express.xaml"/>
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <igWPF:DataPresenterExcelExporter x:Key="Exporter" />
+            <viewModel:ViewAllocationDetailsViewModel x:Key="ViewAllocationDetailsViewModel" />
+            <converter:AccountIDToAccountNameConverter x:Key="AccountIDToAccountNameConverter"/>
+            <converter:SummaryAlignmentConverter x:Key="SummaryAlignmentConverter"/>
+            <converter:PrecisionFormatConverter x:Key="PrecisionFormatConverter" />
+            <converter:OrderSideIdToOrderSideNameConverter x:Key="OrderSideIdToOrderSideNameConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <classes:DataContextProxy ProxiedObject="{Binding}" x:Key="proxy" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0"/>
+    </shell:WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--provide the background for the entire form.  In practice, this appears as the window's resize border, because the title and window content obscure the rest-->
+        <Border CornerRadius="2" Grid.RowSpan="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#FFD1D2D4"/>
+
+        <!--title bar-->
+        <Border CornerRadius="2" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <!--Window Icon and Title-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <TextBlock Name="tbNirvana" Text="Nirvāna" FontFamily="Mulish" Height="22" Margin="5,0,0,0" FontSize="15" Foreground="#FFD1D2D4" VerticalAlignment="Center"/>
+            </StackPanel>
+
+        </Border>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="% Trading Tool" Height="22" FontSize="15" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center"/>
+        </StackPanel>
+        <!--min/max/close buttons-->
+
+        <!--Content-->
+        <Grid x:Name="LayoutRoot" Grid.Row="3" Margin="7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Allocation Parameters" Grid.Row="0" BorderBrush="{DynamicResource GroupBoxBorder}">
+                <Grid Margin="0,0,-5,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <dataPresenter:XamDataGrid Name="AllocationParametersGrid" ScrollViewer.HorizontalScrollBarVisibility="Auto" AutoFit="True"  ScrollViewer.VerticalScrollBarVisibility="Auto" DataSource="{Binding Path=PTTRequestBindingListCollectionView, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=true, 
+                     ValidatesOnDataErrors=true, NotifyOnValidationError=true}" GroupByAreaLocation="None" IsSynchronizedWithCurrentItem="True" Background="{DynamicResource XamDataGridBackground}" d:IsHidden="True" Margin="0,0,3,0">
+                        <dataPresenter:XamDataGrid.FieldLayoutSettings>
+                            <dataPresenter:FieldLayoutSettings AutoGenerateFields="False" SupportDataErrorInfo="RecordsAndCells" DataErrorDisplayMode="None" />
+                        </dataPresenter:XamDataGrid.FieldLayoutSettings>
+                        <dataPresenter:XamDataGrid.FieldSettings>
+                            <dataPresenter:FieldSettings CellClickAction="SelectRecord"/>
+                        </dataPresenter:XamDataGrid.FieldSettings>
+                        <dataPresenter:XamDataGrid.FieldLayouts>
+                            <dataPresenter:FieldLayout>
+                                <dataPresenter:FieldLayout.Fields>
+                                    <dataPresenter:Field Name="{x:Static local:PTTConstants.COL_SYMBOL}" Label="{x:Static local:PTTConstants.CAP_SYMBOL}" AllowEdit="False">
+                                        <dataPresenter:Field.Settings>
+                                            <dataPresenter:FieldSettings EditorType="{x:Type editors:XamTextEditor}">
+                                                <dataPresenter:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type editors:XamTextEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.Symbol, Mode=TwoWay}" />
+                                                        <Setter Property="IsReadOnly" Value="True"/>
+                                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                    </Style>
+                                                </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                        </dataPresenter:Field.Settings>
+                                    </dataPresenter:Field>
+                                    <dataPresenter:Field Name="{x:Static local:PTTConstants.COL_TARGET}" Label="{x:Static local:PTTConstants.CAP_TARGET}" AllowEdit="False">
+                                        <dataPresenter:Field.Settings>
+                                            <dataPresenter:FieldSettings DataValueChangedNotificationsActive="True" EditorType="{x:Type editors:XamNumericEditor}">
+                                                <dataPresenter:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type editors:XamNumericEditor}">
+                                                        <Setter Property="IsReadOnly" Value="True"/>
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                                                        <Setter Property="SpinButtonDisplayMode" Value="Never"/>
+                                                    </Style>
+                                                    
+                                                </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                        </dataPresenter:Field.Settings>
+                                    </dataPresenter:Field>
+                                    <dataPresenter:Field Name="{x:Static local:PTTConstants.COL_TYPE}" Label="{x:Static local:PTTConstants.CAP_TYPE}" AllowEdit="False">
+                                       <dataPresenter:Field.Settings>
+                                            <dataPresenter:FieldSettings EditorType="{x:Type editors:XamTextEditor}">
+                                                <dataPresenter:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type editors:XamTextEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.Type, Mode=TwoWay}" />
+                                                        <Setter Property="IsReadOnly" Value="True"/>
+                                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                    </Style>
+                                                </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                        </dataPresenter:Field.Settings>
+                                    </dataPresenter:Field>
+                                    <dataPresenter:Field Name="{x:Static local:PTTConstants.COL_ADDORSET}" Label="{x:Static local:PTTConstants.CAP_ADDORSET}" AllowEdit="False">
+                                        <dataPresenter:Field.Settings>
+                                            <dataPresenter:FieldSettings EditorType="{x:Type editors:XamTextEditor}">
+                                                <dataPresenter:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type editors:XamTextEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.AddOrSet, Mode=TwoWay}" />
+                                                        <Setter Property="IsReadOnly" Value="True"/>
+                                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                    </Style>
+                                                </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                        </dataPresenter:Field.Settings>
+                                    </dataPresenter:Field>
+                                    <dataPresenter:Field Name="{x:Static local:PTTConstants.COL_MASTERFUNDORACCOUNT}" Label="{x:Static local:PTTConstants.CAP_MASTERFUNDORACCOUNT}" AllowEdit="False" Visibility="{Binding ProxiedObject.IsMasterFundOrAccountHidden, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <dataPresenter:Field.Settings>
+                                                <dataPresenter:FieldSettings EditorType="{x:Type editors:XamTextEditor}">
+                                                    <dataPresenter:FieldSettings.EditorStyle>
+                                                        <Style TargetType="{x:Type editors:XamTextEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.MasterFundOrAccount, Mode=TwoWay}" />
+                                                            <Setter Property="IsReadOnly" Value="True"/>
+                                                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                     </Style>
+                                                    </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                        </dataPresenter:Field.Settings>
+                                    </dataPresenter:Field>
+                                    <dataPresenter:Field Name="{x:Static local:PTTConstants.COL_SELECTEDFEEDPRICE}" Label="{x:Static local:PTTConstants.CAP_SELECTEDFEEDPRICE}" AllowEdit="False">
+                                        <dataPresenter:Field.Settings>
+                                            <dataPresenter:FieldSettings DataValueChangedNotificationsActive="True" EditorType="{x:Type editors:XamNumericEditor}">
+                                                <dataPresenter:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type editors:XamNumericEditor}">
+                                                        <Setter Property="IsReadOnly" Value="True"/>
+                                                        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                                                        <Setter Property="SpinButtonDisplayMode" Value="Never"/>
+                                                    </Style>
+                                                </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                        </dataPresenter:Field.Settings>
+                                    </dataPresenter:Field>
+                                </dataPresenter:FieldLayout.Fields>
+                            </dataPresenter:FieldLayout>
+                        </dataPresenter:XamDataGrid.FieldLayouts>
+                    </dataPresenter:XamDataGrid>
+                </Grid>
+            </GroupBox>
+            <GroupBox x:Name="gbTargetAllocation" Grid.Row="1" Header="Target Allocation" Margin="-2,24.04,3,1" RenderTransformOrigin="0.5,0.5" BorderBrush="{DynamicResource GroupBoxBorder}">
+                <dataPresenter:XamDataGrid x:Name="AllocationDetailsGrid" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" DataSource="{Binding Path=PTTResponseBindingListCollectionView, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" GroupByAreaLocation="None" IsSynchronizedWithCurrentItem="True" Background="{DynamicResource XamDataGridBackground}" Margin="0,0,0,0.04">
+                    <dataPresenter:XamDataGrid.Resources>
+                        <Style TargetType="{x:Type dataPresenter:SummaryResultPresenter}">
+                            <Setter Property="HorizontalAlignment" 
+                            Value="{Binding Path=SummaryResult.SourceField.EditAsTypeResolved, RelativeSource={RelativeSource Self}, Converter={StaticResource SummaryAlignmentConverter}}"/>
+                        </Style>
+                    </dataPresenter:XamDataGrid.Resources>
+                    <dataPresenter:XamDataGrid.FieldLayoutSettings>
+                        <dataPresenter:FieldLayoutSettings AutoGenerateFields="False"
+                                               HighlightAlternateRecords="True"/>
+                    </dataPresenter:XamDataGrid.FieldLayoutSettings>
+                    <dataPresenter:XamDataGrid.FieldSettings>
+                        <dataPresenter:FieldSettings AllowSummaries="true"
+                                    SummaryUIType="MultiSelect"
+                                    SummaryDisplayArea="Bottom"
+                                    CellClickAction="SelectRecord" />
+                    </dataPresenter:XamDataGrid.FieldSettings>
+                    <dataPresenter:XamDataGrid.FieldLayouts>
+                        <dataPresenter:FieldLayout>
+                            <dataPresenter:FieldLayout.Settings>
+                                <dataPresenter:FieldLayoutSettings>
+                                    <dataPresenter:FieldLayoutSettings.DataRecordCellAreaStyle>
+                                        <Style TargetType="{x:Type dataPresenter:DataRecordCellArea}" BasedOn="{StaticResource DataRecordCellAreaStyle}"/>
+                                    </dataPresenter:FieldLayoutSettings.DataRecordCellAreaStyle>
+                                </dataPresenter:FieldLayoutSettings>
+                            </dataPresenter:FieldLayout.Settings>
+                            <dataPresenter:FieldLayout.SummaryDefinitions>
+                                <dataPresenter:SummaryDefinition 
+                                                Key="Total Trade Quantity"
+                                                SourceFieldName="{x:Static local:PTTConstants.COL_TRADEQUANTITY}"
+                                                Calculator="Sum" 
+                                                StringFormat="{Binding ProxiedObject.DecimalPrecision , Source={StaticResource proxy}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Summary}}"/>
+                            </dataPresenter:FieldLayout.SummaryDefinitions>
+                            <dataPresenter:FieldLayout.Fields>
+                                <dataPresenter:Field Width="*" Name="{x:Static local:PTTConstants.COL_ACCOUNTID}" Label="{x:Static local:PTTConstants.CAP_ACCOUNTID}" BindingType="Unbound" AllowEdit="False">
+                                    <dataPresenter:Field.Settings>
+                                            <dataPresenter:FieldSettings EditorType="{x:Type editors:XamTextEditor}">
+                                                <dataPresenter:FieldSettings.EditorStyle>
+                                                    <Style TargetType="{x:Type editors:XamTextEditor}">
+                                                        <Setter Property="Text" Value="{Binding DataItem.AccountId, Mode=TwoWay, Converter={StaticResource AccountIDToAccountNameConverter}}" />
+                                                        <Setter Property="IsReadOnly" Value="True"/>
+                                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                    </Style>
+                                                </dataPresenter:FieldSettings.EditorStyle>
+                                            </dataPresenter:FieldSettings>
+                                    </dataPresenter:Field.Settings>
+                                </dataPresenter:Field>
+                                <dataPresenter:Field Width="*" Name="{x:Static local:PTTConstants.COL_PERCENTAGETYPE}" Label="{Binding ProxiedObject.PercentageOrBasisPointChangeText, Source={StaticResource proxy}}" AllowEdit="False">
+                                    <dataPresenter:Field.Settings>
+                                        <dataPresenter:FieldSettings EditorType="{x:Type editors:XamNumericEditor}"
+                                EditAsType="{x:Type sys:Double}">
+                                            <dataPresenter:FieldSettings.EditorStyle>
+                                                <Style TargetType="{x:Type editors:XamNumericEditor}">
+                                                    <Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+                                                    <Setter Property="IsReadOnly" Value="True"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                                                    <Setter Property="SpinButtonDisplayMode" Value="Never"/>
+                                                </Style>
+                                            </dataPresenter:FieldSettings.EditorStyle>
+                                        </dataPresenter:FieldSettings>
+                                    </dataPresenter:Field.Settings>
+                                </dataPresenter:Field>
+
+                                <dataPresenter:Field Width="*" AlternateBindingRetentionMode="Retain" BindingType="UseAlternateBinding" AlternateBinding="{Binding DataItem.OrderSide, Mode=TwoWay,Converter={StaticResource OrderSideIdToOrderSideNameConverter}}" Name="{x:Static local:PTTConstants.COL_ORDERSIDEID}" Label="{x:Static local:PTTConstants.CAP_ORDERSIDE}"  AllowEdit="False">
+                                    <dataPresenter:Field.Settings>
+                                        <dataPresenter:FieldSettings EditorType="{x:Type editors:XamTextEditor}">
+                                            <dataPresenter:FieldSettings.EditorStyle>
+                                                <Style TargetType="{x:Type editors:XamTextEditor}">
+                                                    <Setter Property="Text" Value="{Binding DataItem.OrderSide, Mode=TwoWay,Converter={StaticResource OrderSideIdToOrderSideNameConverter}}" />
+                                                    <Setter Property="IsReadOnly" Value="True" />
+                                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                                </Style>
+                                            </dataPresenter:FieldSettings.EditorStyle>
+                                        </dataPresenter:FieldSettings>
+                                    </dataPresenter:Field.Settings>
+                                </dataPresenter:Field>
+
+                                <dataPresenter:Field Width="*" Name="{x:Static local:PTTConstants.COL_TRADEQUANTITY}" Label="{x:Static local:PTTConstants.CAP_TRADEQUANTITY}">
+                                    <dataPresenter:Field.Settings>
+                                        <dataPresenter:FieldSettings EditorType="{x:Type editors:XamNumericEditor}"
+                                EditAsType="{x:Type sys:Double}">
+                                            <dataPresenter:FieldSettings.EditorStyle>
+                                                <Style TargetType="{x:Type editors:XamNumericEditor}">
+                                                    <Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.Field}}" />
+                                                    <Setter Property="IsReadOnly" Value="False"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                                                    <Setter Property="SpinButtonDisplayMode" Value="Never"/>
+                                                </Style>
+                                            </dataPresenter:FieldSettings.EditorStyle>
+                                        </dataPresenter:FieldSettings>
+                                    </dataPresenter:Field.Settings>
+                                </dataPresenter:Field>
+                                <dataPresenter:Field Width="*" Name="{x:Static local:PTTConstants.COL_PERCENTAGEALLOCATION}" Label="{x:Static local:PTTConstants.CAP_PERCENTAGEALLOCATION}">
+                                    <dataPresenter:Field.Settings>
+                                        <dataPresenter:FieldSettings EditorType="{x:Type editors:XamNumericEditor}" EditAsType="{x:Type sys:Double}">
+                                            <dataPresenter:FieldSettings.EditorStyle>
+                                                <Style TargetType="{x:Type editors:XamNumericEditor}">
+                                                    <Setter Property="Format" Value="{Binding Path=DataContext.DecimalPrecision, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Converter={StaticResource PrecisionFormatConverter}, ConverterParameter={x:Static Enums:PTTValueType.FieldPercentage}}" />
+                                                    <Setter Property="IsReadOnly" Value="True"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                                                    <Setter Property="SpinButtonDisplayMode" Value="Never"/>
+                                                </Style>
+                                            </dataPresenter:FieldSettings.EditorStyle>
+                                        </dataPresenter:FieldSettings>
+                                    </dataPresenter:Field.Settings>
+                                </dataPresenter:Field>
+                            </dataPresenter:FieldLayout.Fields>
+                        </dataPresenter:FieldLayout>
+                    </dataPresenter:XamDataGrid.FieldLayouts>
+                    <i1:Interaction.Behaviors>
+                        <behaviours:XamDataGridExporterForRebalancer ExportFilePath="{Binding ExportFilePathForAutomation}" ExportGridData="{Binding ExportDataGridForAutomation}" ExporterResource="{StaticResource Exporter}"/>
+                    </i1:Interaction.Behaviors>
+                </dataPresenter:XamDataGrid>
+            </GroupBox>
+            <DockPanel LastChildFill="False" Margin="0" Grid.Row="4" RenderTransformOrigin="0.5,0.5" Height="20">
+                <StatusBar Name="ViewAllocationDetailsStatusBar" Background="{DynamicResource StatusBarBackground}" Foreground="{DynamicResource StatusBarForeground}" Margin="0" RenderTransformOrigin="0.502,0.909" DockPanel.Dock="Bottom" Height="26">
+                    <StatusBarItem Foreground="{DynamicResource StatusBarForeground}">
+                        <TextBlock x:Name="tbStatusMessage" Text="{Binding  StatusMessage}"/>
+                    </StatusBarItem>
+                </StatusBar>
+            </DockPanel>
+        </Grid>
+    </Grid>
+</Window>

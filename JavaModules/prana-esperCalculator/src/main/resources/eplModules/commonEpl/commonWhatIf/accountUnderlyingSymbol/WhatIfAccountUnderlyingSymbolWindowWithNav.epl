@@ -1,0 +1,171 @@
+module eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolWindowWithNav;
+
+
+@Name('WhatIfAccountUnderlyingSymbolWindowWithNav')
+@Description('Create named window which holds account-underlyingSymbol wise account data.')
+Create window WhatIfAccountUnderlyingSymbolWithNav.std:unique(basketId,accountId,underlyingSymbol)
+(
+	basketId String,
+	isEomSent bool,
+	taxlotType String,
+	taxlotId String,
+	userId int,	
+	
+	compressionLevel String,	
+	underlyingSymbol String,
+    accountId int,
+	accountShortName String,
+	accountLongName String,
+	masterFundId int,
+	masterFundName String,	
+	underlyingAsset String,
+	underlyingCountry String,
+	
+	underlyingSharesOutstanding BigDecimal,
+	underlyingMarketCapitalization BigDecimal,
+
+	equityHaircutBase double,
+	indexHaircutBase double,
+	liquidationPnlBase double,
+
+	notionalBase double,
+	cashImpactBase double,
+	cashInflowBase double,
+	cashOutflowBase double,
+	netMarketValueBase double,
+
+	grossMarketValueBase double,
+	costBasisPnLBase double,
+	dayPnLBase double,
+	netExposureBase double,
+	grossExposureBase double,
+	betaAdjustedExposureBase double,
+	underlyingValueForOptionsBase double,
+
+	dayInterestBase double,
+	totalInterestBase double,
+    equivalent double,
+	
+	grossExposureUnderlying double,
+	underlyingExposurePositionSide String,
+
+	shortExposureUnderlying double,
+	longExposureUnderlying double,
+
+	globalNav double,	
+	startOfDayNavGlobal double,
+	grossMarketValueBaseGlobal double,
+	grossExposureBaseGlobal double,
+	netExposureBaseGlobal double,
+	
+    accountNav double,	
+	accountNRA double,
+	startOfDayNavAccount double,
+	grossMarketValueBaseAccount double,
+	grossExposureBaseAccount double,
+	netExposureBaseAccount double,
+	currentCash double,
+	accrual double,
+	
+	masterFundNav double,
+	startOfDayNavMasterFund double,
+	grossMarketValueBaseMasterFund double,
+	grossExposureBaseMasterFund double,
+	netExposureBaseMasterFund double,
+	
+	pnlContributionAccount double,
+	percentNetExposureAccount double,	
+	percentBetaAdjustedExposureAccount double,	
+	percentGrossExposureAccount double,	
+	percentNetMarketValueAccount double,	
+	percentGrossMarketValueAccount double,
+	percentCostBasisPnlAccount double,	
+	percentNetNotionalAccount double,
+	percentGrossExposureUnderlyingAccount double,
+	dayReturnAccount double,
+	
+	pnlContributionMasterFund double,	
+	percentNetExposureMasterFund double,	
+	percentBetaAdjustedExposureMasterFund double,	
+	percentGrossExposureMasterFund double,	
+	percentNetMarketValueMasterFund double,
+	percentGrossMarketValueMasterFund double,	
+	percentNetNotionalMasterFund double,
+	percentCostBasisPnlMasterFund double,
+	percentGrossExposureUnderlyingMasterFund double,
+	dayReturnMasterFund double,
+
+	pnlContributionGlobal double,	
+	percentNetExposureGlobal double,	
+	percentBetaAdjustedExposureGlobal double,
+	percentGrossExposureGlobal double,		
+	percentNetMarketValueGlobal double,	
+	percentGrossMarketValueGlobal double,	
+	percentNetNotionalGlobal double,
+	percentCostBasisPnlGlobal double,
+	percentGrossExposureUnderlyingGlobal double,
+	dayReturnGlobal double,
+	
+	longNotionalBase double,
+	shortNotionalBase double,
+	shortMarketValueBase double,
+	longMarketValueBase double,
+	shortExposureBase double,
+	longExposureBase double,
+	yesterdayMarketValueBase double,
+	
+	
+	todayAbsTradeQuantity double,
+	todayLongTradeQuantity double,
+	todayShortTradeQuantity double,
+	todayNetNotionalBase double,
+	todayLongNotionalBase double,
+	todayShortNotionalBase double,
+	
+	longDebitBalance double,
+	shortCreditBalance double,
+	
+	betaAdjustedGrossExposureUnderlyingBase double,
+	betaAdjustedLongExposureUnderlyingBase double,
+	betaAdjustedShortExposureUnderlyingBase double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseGlobal double,
+	percentBetaAdjustedLongExposureUnderlyingBaseGlobal double,
+	percentBetaAdjustedShortExposureUnderlyingBaseGlobal double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseAccount double,
+	percentBetaAdjustedLongExposureUnderlyingBaseAccount double,
+	percentBetaAdjustedShortExposureUnderlyingBaseAccount double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund double,
+	percentBetaAdjustedLongExposureUnderlyingBaseMasterFund double,
+	percentBetaAdjustedShortExposureUnderlyingBaseMasterFund double,
+	deltaAdjPosition double,
+	
+	riskCurrency string,
+	issuer string,
+	countryOfRisk string,
+	region string,
+	analyst string,
+	ucitsEligibleTag string,
+	liquidTag string,
+	marketCap string,
+	customUDA1 string,
+	customUDA2 string,
+	customUDA3 string,
+	customUDA4 string,
+	customUDA5 string,
+	customUDA6 string,
+	customUDA7 string,
+	
+	exchange String,
+	udaCountry string,
+	parentWindowStream string,
+	customUDA8 string,
+	customUDA9 string,
+	customUDA10 string,
+	customUDA11 string,
+	customUDA12 string
+		
+);
+

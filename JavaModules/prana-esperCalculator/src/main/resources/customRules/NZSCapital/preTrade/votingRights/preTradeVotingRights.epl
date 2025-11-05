@@ -1,0 +1,56 @@
+module customRules.NZSCapital.preTrade.votingRights.preTradeVotingRights;
+
+@Name('VotingRightsCheckInAccount')
+@Description('Checks if trade done in set account or not.')
+on BasketEOM as B
+insert into VotingRightsCheckInAccount
+select distinct
+    B.basketId as basketId,
+	B.userId as userId,
+	R.accountId as accountId,
+	R.symbol as symbol,
+	R.accountShortName as accountShortName,
+	(case(valueExistsInCSV(R.accountShortName, Account_Name_To_Check))
+	when true then true else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfAccountVotingRightsCheck')
+@Description('Stores calculated value of total voting right for current trade.')
+on VotingRightsCheckInAccount as B
+insert into WhatIfAccountVotingRightsCheck
+select distinct
+    B.basketId as basketId,
+    B.userId as userId,
+    W.quantity as quantity,
+    W.accountId as accountId,
+    W.accountShortName as accountName,
+    B.validation as finalValidation,
+    W.symbol as symbol,
+    convertStrToInt(W.customUDA7) as totalVotingShares,
+    "WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId and B.symbol = W.symbol
+group by W.accountId;
+
+@Name('PreTradeVotingRightCheck')
+@Description('Final stream to check if condition is breached')
+insert into PreTradeVotingRightCheck
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+    Account_Name_To_Check || ValueSeparator || doubleFormat(VotingPercentage) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.quantity/A.totalVotingShares)*100,0))) as actualResult,
+    'Account' || ValueSeparator || 'Quantity ' || ValueSeparator || 'Total voting share ' as constraintField,
+    (case A.finalValidation is true
+    when true then ((A.totalVotingShares > 1) and (Math.abs(A.quantity) > A.totalVotingShares*(VotingPercentage/100)))
+    else false end) as isViolated,
+	'Account: ' || A.accountName ||', Symbol: '|| A.symbol || ', Quantity: ' || doubleFormat(A.quantity) || ', % Total voting share: ' || doubleFormat(Math.abs(coalesce((A.quantity/A.totalVotingShares)*100,0))) as parameters,
+	current_timestamp as validationTime,
+	'Quantity should be less than ' || doubleFormat(VotingPercentage) || '% of total voting shares.' as summary,
+	A.accountName as dimension
+  from  WhatIfAccountVotingRightsCheck as A
+  where A.userId is not null;

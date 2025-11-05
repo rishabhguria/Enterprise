@@ -1,0 +1,20 @@
+with member [Qty12]
+as
+(
+sum(
+      descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+              ,iif(Measures.[SideMultiplier]=1, [Measures].[TaxLotOpenQty],
+-[Measures].[TaxLotOpenQty])
+)
+)
+select {Qty12} on columns,
+{[PM Taxlots].[Symbol-TaxLotID].[Symbol].members} on rows
+
+FROM 
+( SELECT (null :
+ [Dim Time].[Date].&[3430] )
+ 
+ON columns FROM [Nirvana Client DW])

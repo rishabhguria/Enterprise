@@ -1,0 +1,399 @@
+<Version>V1.9.00</Version><?xml version="1.0" encoding="utf-8"?>
+<xamDataPresenter version="20.2.20202.38" formatVersion="2.1">
+  <fieldLayouts>
+    <fieldLayout key="AllocationGroup" orientation="Vertical" fieldList="NetAmountLocal;String;unbound, NetAmountBase;String;unbound, PrincipalAmountLocal;String;unbound, PrincipalAmountBase;String;unbound, CounterCurrency;String;unbound, CounterCurrencyAmount;String;unbound, ExecutionTime;String;unbound, FactSetSymbol, ActivSymbol, OrderSide, TransactionType, CounterPartyName, BorrowerBroker, Venue, FXConversionMethodOperator, TradeAttribute1, TradeAttribute2, TradeAttribute3, TradeAttribute4, TradeAttribute5, TradeAttribute6, SettlementCurrency;String;unbound, IsPreAllocated;Boolean, IsManualGroup;Boolean, IsAnotherTaxlotAttributesUpdated;Boolean, IsNDF;Boolean, GroupID, M2MProfitLoss;Decimal, PutOrCall;Int32, GroupStatus;Status, IsCommissionChanged;Boolean, IsManuallyModified;Boolean, IsSoftCommissionChanged;Boolean, IsRecalculateCommission;Boolean, OrderCount;Int32, TradeActionsList;List`1, OriginalGroupIDs;List`1, AllocatedQty;Double, UserID;Int32, ISProrataActive;Boolean, AutoGrouped;Boolean, StateID;Int32, IsOverbuyOversellAccepted;Boolean, AllocationDate;DateTime, IsSwapped;Boolean, TaxLots;List`1, Level1AllocationList;IList`1, OrdersH;IList`1, Orders;List`1, CommissionText, SwapParameters;SwapParameters, OTCParameters;OTCTradeData, Allocations;AllocationLevelList, SwapParametersH;IList`1, Updated;Boolean, ListID, UnAllocatedQty;Double, NotAllExecuted;Boolean, AllocatedEqualTotalQty;Boolean, State;ORDERSTATE_ALLOCATION, Commission;Double, SoftCommission;Double, OtherBrokerFees;Double, ClearingBrokerFee;Double, TotalCommissionandFees;Double, StampDuty;Double, TransactionLevy;Double, ClearingFee;Double, TaxOnCommissions;Double, MiscFees;Double, SecFee;Double, OccFee;Double, OrfFee;Double, OptionPremiumAdjustment;Double, CommSource;CommisionSource, SoftCommSource;CommisionSource, CommissionSource;Int32, SoftCommissionSource;Int32, PersistenceStatus;PersistenceStatus, CommissionCalculationTime;Boolean, StrikePrice;Double, PutCall;Int32, PranaMsgType;PranaMsgTypes, IntPranaMsgType;Int32, CorpActionID, PositionTagValue;Int32, TaxLotClosingId, ParentTaxlot_PK;Int64, LotId, ExternalTransId, TaxLotIdsWithAttributes, IsCommissionCalculated;Boolean, ErrorMessage, TotalCommission;Double, CommissionPerShare;Double, SoftCommissionPerShare;Double, TotalCommissionPerShare;Double, IsGroupAllocatedToOneTaxLot;Boolean, GroupAllocationStatus;GroupAllocationStatus, AccountID;Int32, StrategyID;Int32, ClosingStatus;ClosingStatus, ClosingAlgoText, AllocationSchemeID;Int32, AllocationSchemeName, NavLockStatus, IsSelected;Boolean, OrderSideTagValue, IsStageRequired;Boolean, IsPricingAvailable;Boolean, IsManualOrder;Boolean, ChangeComment, ModifiedUserId;Int32, OrderTypeTagValue, OrderType, Symbol, Quantity;Double, OriginalAllocationPreferenceID;Int32, AvgPrice;Double, AvgPriceBase;Double, AssetID;Int32, AssetName, UnderlyingID;Int32, UnderlyingName, ExchangeID;Int32, ExchangeName, CurrencyID;Int32, CurrencyName, AUECID;Int32, TradingAccountID;Int32, TradingAccountName, CompanyUserID;Int32, ActualCompanyUserID;Int32, CompanyUserName, ActualCompanyUserName, CounterPartyID;Int32, VenueID;Int32, CumQty;Double, OriginalCumQty;Double, CumQtyForSubOrder;Double, SettlementCurrencyID;Int32, ContractMultiplier;Double, CompanyName, WorkflowState;Int32, NirvanaProcessDate;DateTime, AUECLocalDate;DateTime, ProcessDate;DateTime, OriginalPurchaseDate;DateTime, ClosingDate;DateTime, SettlementDate;DateTime, ExpirationDate;DateTime, Description, UnderlyingSymbol, AccruedInterest;Double, AccrualBasis;AccrualBasis, BondType;SecurityType, Freq;CouponFrequency, IsZero;Boolean, FirstCouponDate;DateTime, MaturityDate;DateTime, IssueDate;DateTime, CouponRate;Double, Delta;Double, VsCurrencyID;Int32, LeadCurrencyID;Int32, FXRate;Double, IsModified;Boolean, RoundLot;Decimal, SharesOutstanding;Double, FixingDate;DateTime, BloombergSymbol, SEDOLSymbol, CusipSymbol, ISINSymbol, OSISymbol, IDCOSymbol, UnderlyingDelta;Double, CommissionAmt;Double, SoftCommissionAmt;Double, CommissionRate;Double, CalcBasis;CalculationBasis, SoftCommissionRate;Double, SoftCommissionCalcBasis;CalculationBasis, InternalComments, ProxySymbol, NotionalChange;Double, TransactionSource;TransactionSource, TransactionSourceTag;Int32, ReutersSymbol, ChangeType;Int32, IsCurrencyFuture;Boolean, OtherChkBox;Boolean, NirvanaLocateID;Int32, BorrowerID, ShortRebate;Double, ExecutionTimeLastFill, AvgPriceForCompliance;Double, AssetCategory;String;unbound, ImportFileName;String;unbound, MasterFundName;String;unbound">
+      <fields>
+        <field id="0" name="NetAmountLocal" extendedInfo="NetAmountLocal;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="1" name="NetAmountBase" extendedInfo="NetAmountBase;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="2" name="PrincipalAmountLocal" extendedInfo="PrincipalAmountLocal;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="3" name="PrincipalAmountBase" extendedInfo="PrincipalAmountBase;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="4" name="CounterCurrency" extendedInfo="CounterCurrency;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="5" name="CounterCurrencyAmount" extendedInfo="CounterCurrencyAmount;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="6" name="ExecutionTime" extendedInfo="ExecutionTime;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="7" name="FactSetSymbol" extendedInfo="FactSetSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="8" name="ActivSymbol" extendedInfo="ActivSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="9" name="OrderSide" extendedInfo="OrderSide" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="10" name="TransactionType" extendedInfo="TransactionType" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="11" name="CounterPartyName" extendedInfo="CounterPartyName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="12" name="BorrowerBroker" extendedInfo="BorrowerBroker" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="13" name="Venue" extendedInfo="Venue" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="14" name="FXConversionMethodOperator" extendedInfo="FXConversionMethodOperator" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="15" name="TradeAttribute1" extendedInfo="TradeAttribute1" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="16" name="TradeAttribute2" extendedInfo="TradeAttribute2" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="17" name="TradeAttribute3" extendedInfo="TradeAttribute3" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="18" name="TradeAttribute4" extendedInfo="TradeAttribute4" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="19" name="TradeAttribute5" extendedInfo="TradeAttribute5" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="20" name="TradeAttribute6" extendedInfo="TradeAttribute6" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="21" name="SettlementCurrency" extendedInfo="SettlementCurrency;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="22" name="IsPreAllocated" extendedInfo="IsPreAllocated;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="23" name="IsManualGroup" extendedInfo="IsManualGroup;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="24" name="IsAnotherTaxlotAttributesUpdated" extendedInfo="IsAnotherTaxlotAttributesUpdated;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="25" name="IsNDF" extendedInfo="IsNDF;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="26" name="GroupID" extendedInfo="GroupID" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="27" name="M2MProfitLoss" extendedInfo="M2MProfitLoss;Decimal" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="28" name="PutOrCall" extendedInfo="PutOrCall;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="29" name="GroupStatus" extendedInfo="GroupStatus;Status" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="30" name="IsCommissionChanged" extendedInfo="IsCommissionChanged;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="31" name="IsManuallyModified" extendedInfo="IsManuallyModified;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="32" name="IsSoftCommissionChanged" extendedInfo="IsSoftCommissionChanged;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="33" name="IsRecalculateCommission" extendedInfo="IsRecalculateCommission;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="34" name="OrderCount" extendedInfo="OrderCount;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="35" name="TradeActionsList" extendedInfo="TradeActionsList;List`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="36" name="OriginalGroupIDs" extendedInfo="OriginalGroupIDs;List`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="37" name="AllocatedQty" extendedInfo="AllocatedQty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="38" name="UserID" extendedInfo="UserID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="39" name="ISProrataActive" extendedInfo="ISProrataActive;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="40" name="AutoGrouped" extendedInfo="AutoGrouped;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="41" name="StateID" extendedInfo="StateID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="42" name="IsOverbuyOversellAccepted" extendedInfo="IsOverbuyOversellAccepted;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="43" name="AllocationDate" extendedInfo="AllocationDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="44" name="IsSwapped" extendedInfo="IsSwapped;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="45" name="TaxLots" extendedInfo="TaxLots;List`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="46" name="Level1AllocationList" extendedInfo="Level1AllocationList;IList`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="47" name="OrdersH" extendedInfo="OrdersH;IList`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="48" name="Orders" extendedInfo="Orders;List`1" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="49" name="CommissionText" extendedInfo="CommissionText" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="50" name="SwapParameters" extendedInfo="SwapParameters;SwapParameters" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="51" name="OTCParameters" extendedInfo="OTCParameters;OTCTradeData" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="52" name="Allocations" extendedInfo="Allocations;AllocationLevelList" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="53" name="SwapParametersH" extendedInfo="SwapParametersH;IList`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="54" name="Updated" extendedInfo="Updated;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="55" name="ListID" extendedInfo="ListID" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="56" name="UnAllocatedQty" extendedInfo="UnAllocatedQty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="57" name="NotAllExecuted" extendedInfo="NotAllExecuted;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="58" name="AllocatedEqualTotalQty" extendedInfo="AllocatedEqualTotalQty;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="59" name="State" extendedInfo="State;ORDERSTATE_ALLOCATION" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="60" name="Commission" extendedInfo="Commission;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="61" name="SoftCommission" extendedInfo="SoftCommission;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="62" name="OtherBrokerFees" extendedInfo="OtherBrokerFees;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="63" name="ClearingBrokerFee" extendedInfo="ClearingBrokerFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="64" name="TotalCommissionandFees" extendedInfo="TotalCommissionandFees;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="65" name="StampDuty" extendedInfo="StampDuty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="66" name="TransactionLevy" extendedInfo="TransactionLevy;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="67" name="ClearingFee" extendedInfo="ClearingFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="68" name="TaxOnCommissions" extendedInfo="TaxOnCommissions;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="69" name="MiscFees" extendedInfo="MiscFees;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="70" name="SecFee" extendedInfo="SecFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="71" name="OccFee" extendedInfo="OccFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="72" name="OrfFee" extendedInfo="OrfFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="73" name="OptionPremiumAdjustment" extendedInfo="OptionPremiumAdjustment;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="74" name="CommSource" extendedInfo="CommSource;CommisionSource" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="75" name="SoftCommSource" extendedInfo="SoftCommSource;CommisionSource" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="76" name="CommissionSource" extendedInfo="CommissionSource;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="77" name="SoftCommissionSource" extendedInfo="SoftCommissionSource;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="78" name="PersistenceStatus" extendedInfo="PersistenceStatus;PersistenceStatus" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="79" name="CommissionCalculationTime" extendedInfo="CommissionCalculationTime;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="80" name="StrikePrice" extendedInfo="StrikePrice;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="81" name="PutCall" extendedInfo="PutCall;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="82" name="PranaMsgType" extendedInfo="PranaMsgType;PranaMsgTypes" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="83" name="IntPranaMsgType" extendedInfo="IntPranaMsgType;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="84" name="CorpActionID" extendedInfo="CorpActionID" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="85" name="PositionTagValue" extendedInfo="PositionTagValue;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="86" name="TaxLotClosingId" extendedInfo="TaxLotClosingId" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="87" name="ParentTaxlot_PK" extendedInfo="ParentTaxlot_PK;Int64" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="88" name="LotId" extendedInfo="LotId" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="89" name="ExternalTransId" extendedInfo="ExternalTransId" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="90" name="TaxLotIdsWithAttributes" extendedInfo="TaxLotIdsWithAttributes" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="91" name="IsCommissionCalculated" extendedInfo="IsCommissionCalculated;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="92" name="ErrorMessage" extendedInfo="ErrorMessage" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="93" name="TotalCommission" extendedInfo="TotalCommission;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="94" name="CommissionPerShare" extendedInfo="CommissionPerShare;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="95" name="SoftCommissionPerShare" extendedInfo="SoftCommissionPerShare;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="96" name="TotalCommissionPerShare" extendedInfo="TotalCommissionPerShare;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="97" name="IsGroupAllocatedToOneTaxLot" extendedInfo="IsGroupAllocatedToOneTaxLot;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="98" name="GroupAllocationStatus" extendedInfo="GroupAllocationStatus;GroupAllocationStatus" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="99" name="AccountID" extendedInfo="AccountID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="100" name="StrategyID" extendedInfo="StrategyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="101" name="ClosingStatus" extendedInfo="ClosingStatus;ClosingStatus" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="102" name="ClosingAlgoText" extendedInfo="ClosingAlgoText" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="103" name="AllocationSchemeID" extendedInfo="AllocationSchemeID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="104" name="AllocationSchemeName" extendedInfo="AllocationSchemeName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="105" name="NavLockStatus" extendedInfo="NavLockStatus" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="106" name="IsSelected" extendedInfo="IsSelected;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="107" name="OrderSideTagValue" extendedInfo="OrderSideTagValue" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="108" name="IsStageRequired" extendedInfo="IsStageRequired;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="109" name="IsPricingAvailable" extendedInfo="IsPricingAvailable;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="110" name="IsManualOrder" extendedInfo="IsManualOrder;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="111" name="ChangeComment" extendedInfo="ChangeComment" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="112" name="ModifiedUserId" extendedInfo="ModifiedUserId;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="113" name="OrderTypeTagValue" extendedInfo="OrderTypeTagValue" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="114" name="OrderType" extendedInfo="OrderType" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="115" name="Symbol" extendedInfo="Symbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="116" name="Quantity" extendedInfo="Quantity;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="117" name="OriginalAllocationPreferenceID" extendedInfo="OriginalAllocationPreferenceID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="118" name="AvgPrice" extendedInfo="AvgPrice;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="119" name="AvgPriceBase" extendedInfo="AvgPriceBase;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="120" name="AssetID" extendedInfo="AssetID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="121" name="AssetName" extendedInfo="AssetName" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="122" name="UnderlyingID" extendedInfo="UnderlyingID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="123" name="UnderlyingName" extendedInfo="UnderlyingName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="124" name="ExchangeID" extendedInfo="ExchangeID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="125" name="ExchangeName" extendedInfo="ExchangeName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="126" name="CurrencyID" extendedInfo="CurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="127" name="CurrencyName" extendedInfo="CurrencyName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="128" name="AUECID" extendedInfo="AUECID;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="129" name="TradingAccountID" extendedInfo="TradingAccountID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="130" name="TradingAccountName" extendedInfo="TradingAccountName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="131" name="CompanyUserID" extendedInfo="CompanyUserID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="132" name="ActualCompanyUserID" extendedInfo="ActualCompanyUserID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="133" name="CompanyUserName" extendedInfo="CompanyUserName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="134" name="ActualCompanyUserName" extendedInfo="ActualCompanyUserName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="135" name="CounterPartyID" extendedInfo="CounterPartyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="136" name="VenueID" extendedInfo="VenueID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="137" name="CumQty" extendedInfo="CumQty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="138" name="OriginalCumQty" extendedInfo="OriginalCumQty;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="139" name="CumQtyForSubOrder" extendedInfo="CumQtyForSubOrder;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="140" name="SettlementCurrencyID" extendedInfo="SettlementCurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="141" name="ContractMultiplier" extendedInfo="ContractMultiplier;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="142" name="CompanyName" extendedInfo="CompanyName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="143" name="WorkflowState" extendedInfo="WorkflowState;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="144" name="NirvanaProcessDate" extendedInfo="NirvanaProcessDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="145" name="AUECLocalDate" extendedInfo="AUECLocalDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="146" name="ProcessDate" extendedInfo="ProcessDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="147" name="OriginalPurchaseDate" extendedInfo="OriginalPurchaseDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="148" name="ClosingDate" extendedInfo="ClosingDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="149" name="SettlementDate" extendedInfo="SettlementDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="150" name="ExpirationDate" extendedInfo="ExpirationDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="151" name="Description" extendedInfo="Description" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="152" name="UnderlyingSymbol" extendedInfo="UnderlyingSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="153" name="AccruedInterest" extendedInfo="AccruedInterest;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="154" name="AccrualBasis" extendedInfo="AccrualBasis;AccrualBasis" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="155" name="BondType" extendedInfo="BondType;SecurityType" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="156" name="Freq" extendedInfo="Freq;CouponFrequency" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="157" name="IsZero" extendedInfo="IsZero;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="158" name="FirstCouponDate" extendedInfo="FirstCouponDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="159" name="MaturityDate" extendedInfo="MaturityDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="160" name="IssueDate" extendedInfo="IssueDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="161" name="CouponRate" extendedInfo="CouponRate;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="162" name="Delta" extendedInfo="Delta;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="163" name="VsCurrencyID" extendedInfo="VsCurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="164" name="LeadCurrencyID" extendedInfo="LeadCurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="165" name="FXRate" extendedInfo="FXRate;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="166" name="IsModified" extendedInfo="IsModified;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="167" name="RoundLot" extendedInfo="RoundLot;Decimal" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="168" name="SharesOutstanding" extendedInfo="SharesOutstanding;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="169" name="FixingDate" extendedInfo="FixingDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="170" name="BloombergSymbol" extendedInfo="BloombergSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="171" name="SEDOLSymbol" extendedInfo="SEDOLSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="172" name="CusipSymbol" extendedInfo="CusipSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="173" name="ISINSymbol" extendedInfo="ISINSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="174" name="OSISymbol" extendedInfo="OSISymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="175" name="IDCOSymbol" extendedInfo="IDCOSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="176" name="UnderlyingDelta" extendedInfo="UnderlyingDelta;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="177" name="CommissionAmt" extendedInfo="CommissionAmt;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="178" name="SoftCommissionAmt" extendedInfo="SoftCommissionAmt;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="179" name="CommissionRate" extendedInfo="CommissionRate;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="180" name="CalcBasis" extendedInfo="CalcBasis;CalculationBasis" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="181" name="SoftCommissionRate" extendedInfo="SoftCommissionRate;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="182" name="SoftCommissionCalcBasis" extendedInfo="SoftCommissionCalcBasis;CalculationBasis" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="183" name="InternalComments" extendedInfo="InternalComments" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="184" name="ProxySymbol" extendedInfo="ProxySymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="185" name="NotionalChange" extendedInfo="NotionalChange;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="186" name="TransactionSource" extendedInfo="TransactionSource;TransactionSource" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="187" name="TransactionSourceTag" extendedInfo="TransactionSourceTag;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="188" name="ReutersSymbol" extendedInfo="ReutersSymbol" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="189" name="ChangeType" extendedInfo="ChangeType;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="190" name="IsCurrencyFuture" extendedInfo="IsCurrencyFuture;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="191" name="OtherChkBox" extendedInfo="OtherChkBox;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="192" name="NirvanaLocateID" extendedInfo="NirvanaLocateID;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="193" name="BorrowerID" extendedInfo="BorrowerID" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="194" name="ShortRebate" extendedInfo="ShortRebate;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="195" name="ExecutionTimeLastFill" extendedInfo="ExecutionTimeLastFill" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="196" name="AvgPriceForCompliance" extendedInfo="AvgPriceForCompliance;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" />
+        <field id="197" name="AssetCategory" extendedInfo="AssetCategory;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="198" name="ImportFileName" extendedInfo="ImportFileName;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+        <field id="199" name="MasterFundName" extendedInfo="MasterFundName;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" />
+      </fields>
+      <recordFilters />
+    </fieldLayout>
+    <fieldLayout key="AllocationGroup" orientation="Vertical" fieldList="NetAmountLocal;String;unbound, NetAmountBase;String;unbound, NetAmountSettlement;String;unbound, PrincipalAmountLocal;String;unbound, PrincipalAmountBase;String;unbound, AvgPriceBase;String;unbound, ExecutionTime;String;unbound, OrderSide, TransactionType, CounterPartyName, Venue, FXConversionMethodOperator, SettlCurrFxRateCalc, SettlementCurrency;String;unbound, TradeAttribute1, TradeAttribute2, TradeAttribute3, TradeAttribute4, TradeAttribute5, TradeAttribute6, IsPreAllocated;Boolean, IsManualGroup;Boolean, IsAnotherTaxlotAttributesUpdated;Boolean, IsNDF;Boolean, GroupID, M2MProfitLoss;Decimal, PutOrCall;Int32, IsCommissionChanged;Boolean, IsSoftCommissionChanged;Boolean, IsRecalculateCommission;Boolean, OrderCount;Int32, TradeActionsList;List`1, AllocatedQty;Double, UserID;Int32, ISProrataActive;Boolean, AutoGrouped;Boolean, StateID;Int32, AllocationDate;DateTime, IsSwapped;Boolean, TaxLots;List`1, Level1AllocationList;IList`1, OrdersH;IList`1, Orders;List`1, CommissionText, SwapParameters;SwapParameters, Allocations;AllocationLevelList, SwapParametersH;IList`1, Updated;Boolean, ListID, UnAllocatedQty;Double, NotAllExecuted;Boolean, AllocatedEqualTotalQty;Boolean, State;ORDERSTATE_ALLOCATION, Commission;Double, SoftCommission;Double, OtherBrokerFees;Double, ClearingBrokerFee;Double, TotalCommissionandFees;Double, StampDuty;Double, TransactionLevy;Double, ClearingFee;Double, TaxOnCommissions;Double, MiscFees;Double, SecFee;Double, OccFee;Double, OrfFee;Double, OptionPremiumAdjustment;Double, CommSource;CommisionSource, SoftCommSource;CommisionSource, CommissionSource;Int32, SoftCommissionSource;Int32, PersistenceStatus;PersistenceStatus, CommissionCalculationTime;Boolean, StrikePrice;Double, PutCall;Int32, PranaMsgType;PranaMsgTypes, IntPranaMsgType;Int32, CorpActionID, PositionTagValue;Int32, TaxLotClosingId, ParentTaxlot_PK;Int64, LotId, ExternalTransId, TaxLotIdsWithAttributes, IsCommissionCalculated;Boolean, ErrorMessage, TotalCommission;Double, CommissionPerShare;Double, SoftCommissionPerShare;Double, TotalCommissionPerShare;Double, IsGroupAllocatedToOneTaxLot;Boolean, GroupAllocationStatus;GroupAllocationStatus, AccountID;Int32, StrategyID;Int32, ClosingStatus;ClosingStatus, ClosingAlgoText, GroupStatus;Status, AllocationSchemeID;Int32, AllocationSchemeName, NavLockStatus, IsSelected;Boolean, OrderSideTagValue, ChangeComment, OrderTypeTagValue, OrderType, Symbol, Quantity;Double, PSTAllocationPreferenceID;Int32, AvgPrice;Double, AssetID;Int32, AssetName, UnderlyingID;Int32, UnderlyingName, ExchangeID;Int32, ExchangeName, CurrencyID;Int32, CurrencyName, AUECID;Int32, TradingAccountID;Int32, TradingAccountName, CompanyUserID;Int32, CompanyUserName, CounterPartyID;Int32, VenueID;Int32, CumQty;Double, OriginalCumQty;Double, CumQtyForLiveOrder;Double, SettlementCurrencyID;Int32, SettlCurrFxRate;Double, SettlCurrAmt;Double, AvgSettlCurrFxRate;Double, ForexReq;Boolean, ContractMultiplier;Double, CompanyName, WorkflowState;Int32, NirvanaProcessDate;DateTime, AUECLocalDate;DateTime, ProcessDate;DateTime, OriginalPurchaseDate;DateTime, ClosingDate;DateTime, SettlementDate;DateTime, ExpirationDate;DateTime, Description, UnderlyingSymbol, AccruedInterest;Double, AccrualBasis;AccrualBasis, BondType;SecurityType, Freq;CouponFrequency, IsZero;Boolean, FirstCouponDate;DateTime, MaturityDate;DateTime, IssueDate;DateTime, CouponRate;Double, Delta;Double, VsCurrencyID;Int32, LeadCurrencyID;Int32, FXRate;Double, IsModified;Boolean, RoundLot;Decimal, FixingDate;DateTime, BloombergSymbol, SedolSymbol, CusipSymbol, ISINSymbol, OSISymbol, IDCOSymbol, UnderlyingDelta;Double, CommissionAmt;Double, SoftCommissionAmt;Double, CommissionRate;Double, CalcBasis;CalculationBasis, SoftCommissionRate;Double, SoftCommissionCalcBasis;CalculationBasis, InternalComments, ProxySymbol, NotionalChange;Double, TransactionSource;TransactionSource, TransactionSourceTag;Int32, ReutersSymbol, ChangeType;Int32, IsCurrencyFuture;Boolean, OtherChkBox;Boolean, AssetCategory;String;unbound, ImportFileName;String;unbound" formatVersion="1.8">
+      <fields>
+        <field name="NetAmountLocal" extendedInfo="NetAmountLocal;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="40" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="NetAmountBase" extendedInfo="NetAmountBase;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="41" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="NetAmountSettlement" extendedInfo="NetAmountSettlement;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="39" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="PrincipalAmountLocal" extendedInfo="PrincipalAmountLocal;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="28" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="PrincipalAmountBase" extendedInfo="PrincipalAmountBase;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="29" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AvgPriceBase" extendedInfo="AvgPriceBase;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="89" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ExecutionTime" extendedInfo="ExecutionTime;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="55" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OrderSide" extendedInfo="OrderSide" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="3" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TransactionType" extendedInfo="TransactionType" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="84" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CounterPartyName" extendedInfo="CounterPartyName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="71" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="Venue" extendedInfo="Venue" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="0" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="FXConversionMethodOperator" extendedInfo="FXConversionMethodOperator" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="53" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SettlCurrFxRateCalc" extendedInfo="SettlCurrFxRateCalc" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="19" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SettlementCurrency" extendedInfo="SettlementCurrency;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="21" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradeAttribute1" extendedInfo="TradeAttribute1" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="10" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradeAttribute2" extendedInfo="TradeAttribute2" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="9" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradeAttribute3" extendedInfo="TradeAttribute3" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="8" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradeAttribute4" extendedInfo="TradeAttribute4" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="13" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradeAttribute5" extendedInfo="TradeAttribute5" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="12" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradeAttribute6" extendedInfo="TradeAttribute6" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="11" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsPreAllocated" extendedInfo="IsPreAllocated;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="43" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsManualGroup" extendedInfo="IsManualGroup;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="45" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsAnotherTaxlotAttributesUpdated" extendedInfo="IsAnotherTaxlotAttributesUpdated;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="47" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsNDF" extendedInfo="IsNDF;Boolean" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="44" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="GroupID" extendedInfo="GroupID" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="51" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="M2MProfitLoss" extendedInfo="M2MProfitLoss;Decimal" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="42" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="PutOrCall" extendedInfo="PutOrCall;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="25" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsCommissionChanged" extendedInfo="IsCommissionChanged;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="27" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IsSoftCommissionChanged" extendedInfo="IsSoftCommissionChanged;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="27" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IsRecalculateCommission" extendedInfo="IsRecalculateCommission;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="27" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="OrderCount" extendedInfo="OrderCount;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="27" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TradeActionsList" extendedInfo="TradeActionsList;List`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="27" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AllocatedQty" extendedInfo="AllocatedQty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="79" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="UserID" extendedInfo="UserID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="28" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ISProrataActive" extendedInfo="ISProrataActive;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="29" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AutoGrouped" extendedInfo="AutoGrouped;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="30" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="StateID" extendedInfo="StateID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="31" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AllocationDate" extendedInfo="AllocationDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="32" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IsSwapped" extendedInfo="IsSwapped;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="32" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TaxLots" extendedInfo="TaxLots;List`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="33" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="Level1AllocationList" extendedInfo="Level1AllocationList;IList`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="33" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="OrdersH" extendedInfo="OrdersH;IList`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="33" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="Orders" extendedInfo="Orders;List`1" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="33" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CommissionText" extendedInfo="CommissionText" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="33" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SwapParameters" extendedInfo="SwapParameters;SwapParameters" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="34" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="Allocations" extendedInfo="Allocations;AllocationLevelList" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="35" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SwapParametersH" extendedInfo="SwapParametersH;IList`1" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="35" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="Updated" extendedInfo="Updated;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="35" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ListID" extendedInfo="ListID" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="36" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="UnAllocatedQty" extendedInfo="UnAllocatedQty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="5" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="NotAllExecuted" extendedInfo="NotAllExecuted;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="37" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AllocatedEqualTotalQty" extendedInfo="AllocatedEqualTotalQty;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="38" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="State" extendedInfo="State;ORDERSTATE_ALLOCATION" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="39" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="Commission" extendedInfo="Commission;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="65" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SoftCommission" extendedInfo="SoftCommission;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="18" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OtherBrokerFees" extendedInfo="OtherBrokerFees;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="31" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ClearingBrokerFee" extendedInfo="ClearingBrokerFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="69" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TotalCommissionandFees" extendedInfo="TotalCommissionandFees;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="14" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="StampDuty" extendedInfo="StampDuty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="17" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TransactionLevy" extendedInfo="TransactionLevy;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="7" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ClearingFee" extendedInfo="ClearingFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="77" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TaxOnCommissions" extendedInfo="TaxOnCommissions;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="16" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="MiscFees" extendedInfo="MiscFees;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="76" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SecFee" extendedInfo="SecFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="24" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OccFee" extendedInfo="OccFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="37" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OrfFee" extendedInfo="OrfFee;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="34" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OptionPremiumAdjustment" extendedInfo="OptionPremiumAdjustment;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="36" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CommSource" extendedInfo="CommSource;CommisionSource" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="53" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SoftCommSource" extendedInfo="SoftCommSource;CommisionSource" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="54" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CommissionSource" extendedInfo="CommissionSource;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="55" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SoftCommissionSource" extendedInfo="SoftCommissionSource;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="56" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="PersistenceStatus" extendedInfo="PersistenceStatus;PersistenceStatus" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="57" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CommissionCalculationTime" extendedInfo="CommissionCalculationTime;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="57" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="StrikePrice" extendedInfo="StrikePrice;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="57" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="PutCall" extendedInfo="PutCall;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="57" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="PranaMsgType" extendedInfo="PranaMsgType;PranaMsgTypes" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="30" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IntPranaMsgType" extendedInfo="IntPranaMsgType;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="58" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CorpActionID" extendedInfo="CorpActionID" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="58" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="PositionTagValue" extendedInfo="PositionTagValue;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="58" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TaxLotClosingId" extendedInfo="TaxLotClosingId" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="58" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ParentTaxlot_PK" extendedInfo="ParentTaxlot_PK;Int64" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="59" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="LotId" extendedInfo="LotId" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="59" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ExternalTransId" extendedInfo="ExternalTransId" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="59" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TaxLotIdsWithAttributes" extendedInfo="TaxLotIdsWithAttributes" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="59" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IsCommissionCalculated" extendedInfo="IsCommissionCalculated;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="59" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ErrorMessage" extendedInfo="ErrorMessage" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="60" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TotalCommission" extendedInfo="TotalCommission;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="15" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CommissionPerShare" extendedInfo="CommissionPerShare;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="94" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SoftCommissionPerShare" extendedInfo="SoftCommissionPerShare;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="95" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TotalCommissionPerShare" extendedInfo="TotalCommissionPerShare;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="96" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsGroupAllocatedToOneTaxLot" extendedInfo="IsGroupAllocatedToOneTaxLot;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="65" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="GroupAllocationStatus" extendedInfo="GroupAllocationStatus;GroupAllocationStatus" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="65" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AccountID" extendedInfo="AccountID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="65" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="StrategyID" extendedInfo="StrategyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="65" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ClosingStatus" extendedInfo="ClosingStatus;ClosingStatus" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="66" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ClosingAlgoText" extendedInfo="ClosingAlgoText" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="67" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="GroupStatus" extendedInfo="GroupStatus;Status" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="52" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AllocationSchemeID" extendedInfo="AllocationSchemeID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="68" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AllocationSchemeName" extendedInfo="AllocationSchemeName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="78" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="NavLockStatus" extendedInfo="NavLockStatus" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="69" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IsSelected" extendedInfo="IsSelected;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="70" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="OrderSideTagValue" extendedInfo="OrderSideTagValue" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="71" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ChangeComment" extendedInfo="ChangeComment" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="70" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OrderTypeTagValue" extendedInfo="OrderTypeTagValue" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="73" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="OrderType" extendedInfo="OrderType" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="35" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="Symbol" extendedInfo="Symbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="83" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="Quantity" extendedInfo="Quantity;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="85" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="PSTAllocationPreferenceID" extendedInfo="PSTAllocationPreferenceID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="76" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AvgPrice" extendedInfo="AvgPrice;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="88" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AssetID" extendedInfo="AssetID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="77" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AssetName" extendedInfo="AssetName" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="77" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="UnderlyingID" extendedInfo="UnderlyingID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="78" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="UnderlyingName" extendedInfo="UnderlyingName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="4" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ExchangeID" extendedInfo="ExchangeID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="79" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ExchangeName" extendedInfo="ExchangeName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="56" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CurrencyID" extendedInfo="CurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="80" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CurrencyName" extendedInfo="CurrencyName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="60" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AUECID" extendedInfo="AUECID;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="75" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TradingAccountID" extendedInfo="TradingAccountID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="83" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TradingAccountName" extendedInfo="TradingAccountName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="87" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CompanyUserID" extendedInfo="CompanyUserID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="84" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CompanyUserName" extendedInfo="CompanyUserName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="92" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CounterPartyID" extendedInfo="CounterPartyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="85" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="VenueID" extendedInfo="VenueID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="85" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CumQty" extendedInfo="CumQty;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="86" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OriginalCumQty" extendedInfo="OriginalCumQty;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="86" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CumQtyForLiveOrder" extendedInfo="CumQtyForLiveOrder;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="61" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SettlementCurrencyID" extendedInfo="SettlementCurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="86" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SettlCurrFxRate" extendedInfo="SettlCurrFxRate;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="91" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SettlCurrAmt" extendedInfo="SettlCurrAmt;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="22" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AvgSettlCurrFxRate" extendedInfo="AvgSettlCurrFxRate;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="74" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ForexReq" extendedInfo="ForexReq;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="89" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ContractMultiplier" extendedInfo="ContractMultiplier;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="63" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CompanyName" extendedInfo="CompanyName" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="64" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="WorkflowState" extendedInfo="WorkflowState;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="92" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="NirvanaProcessDate" extendedInfo="NirvanaProcessDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="38" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AUECLocalDate" extendedInfo="AUECLocalDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="82" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ProcessDate" extendedInfo="ProcessDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="27" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OriginalPurchaseDate" extendedInfo="OriginalPurchaseDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="33" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ClosingDate" extendedInfo="ClosingDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="68" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SettlementDate" extendedInfo="SettlementDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="20" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ExpirationDate" extendedInfo="ExpirationDate;DateTime" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="54" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="Description" extendedInfo="Description" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="57" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="UnderlyingSymbol" extendedInfo="UnderlyingSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="1" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AccruedInterest" extendedInfo="AccruedInterest;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="80" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="AccrualBasis" extendedInfo="AccrualBasis;AccrualBasis" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="81" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="BondType" extendedInfo="BondType;SecurityType" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="72" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="Freq" extendedInfo="Freq;CouponFrequency" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="103" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IsZero" extendedInfo="IsZero;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="103" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="FirstCouponDate" extendedInfo="FirstCouponDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="103" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="MaturityDate" extendedInfo="MaturityDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="103" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="IssueDate" extendedInfo="IssueDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="103" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CouponRate" extendedInfo="CouponRate;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="62" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="Delta" extendedInfo="Delta;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="58" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="VsCurrencyID" extendedInfo="VsCurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="104" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="LeadCurrencyID" extendedInfo="LeadCurrencyID;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="105" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="FXRate" extendedInfo="FXRate;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="90" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsModified" extendedInfo="IsModified;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="107" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="RoundLot" extendedInfo="RoundLot;Decimal" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="107" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="FixingDate" extendedInfo="FixingDate;DateTime" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="107" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="BloombergSymbol" extendedInfo="BloombergSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="73" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="SedolSymbol" extendedInfo="SedolSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="23" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CusipSymbol" extendedInfo="CusipSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="59" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ISINSymbol" extendedInfo="ISINSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="46" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="OSISymbol" extendedInfo="OSISymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="32" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IDCOSymbol" extendedInfo="IDCOSymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="50" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="UnderlyingDelta" extendedInfo="UnderlyingDelta;Double" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="2" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="CommissionAmt" extendedInfo="CommissionAmt;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="114" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SoftCommissionAmt" extendedInfo="SoftCommissionAmt;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="115" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CommissionRate" extendedInfo="CommissionRate;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="116" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="CalcBasis" extendedInfo="CalcBasis;CalculationBasis" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="117" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SoftCommissionRate" extendedInfo="SoftCommissionRate;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="118" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="SoftCommissionCalcBasis" extendedInfo="SoftCommissionCalcBasis;CalculationBasis" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="119" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="InternalComments" extendedInfo="InternalComments" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="48" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ProxySymbol" extendedInfo="ProxySymbol" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="26" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="NotionalChange" extendedInfo="NotionalChange;Double" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="122" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="TransactionSource" extendedInfo="TransactionSource;TransactionSource" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="6" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="TransactionSourceTag" extendedInfo="TransactionSourceTag;Int32" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="122" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ReutersSymbol" extendedInfo="ReutersSymbol" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="122" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="ChangeType" extendedInfo="ChangeType;Int32" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="97" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="IsCurrencyFuture" extendedInfo="IsCurrencyFuture;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="124" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="OtherChkBox" extendedInfo="OtherChkBox;Boolean" Visibility="Collapsed" IgnoreFieldVisibilityOverrides="false" row="0" column="124" rowSpan="1" columnSpan="1" isCollapsedInLayout="true" />
+        <field name="AssetCategory" extendedInfo="AssetCategory;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="93" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+        <field name="ImportFileName" extendedInfo="ImportFileName;String;unbound" Visibility="Visible" IgnoreFieldVisibilityOverrides="false" row="0" column="49" rowSpan="1" columnSpan="1" isCollapsedInLayout="false" />
+      </fields>
+      <recordFilters />
+    </fieldLayout>
+  </fieldLayouts>
+</xamDataPresenter>

@@ -1,0 +1,26 @@
+module eplModules.dataWindow.CurrencyFeeder;
+
+@Name('CurrencyWindow')
+@Description('Named window which stores the currency data.')
+create window CurrencyWindow.std:unique(currencyId)
+(
+			currencyId int,
+			currencyText string,
+			parentWindowStream string			
+);
+ 
+@Name('CurrencyWindowInsert')
+@Description('This updates the CurrencyWindow every time new Currency event occurs.')
+on Currency as s
+merge CurrencyWindow sw where sw.currencyId = s.currencyId
+	when matched and s.currencyText <> sw.currencyText			
+		then update 
+			set  
+				sw.currencyText = s.currencyText,
+				sw.parentWindowStream = "Currency"
+	when not matched
+		then insert 
+			select    	
+		   		s.currencyId as currencyId,
+				s.currencyText as currencyText,
+		   		"Currency" as parentWindowStream;

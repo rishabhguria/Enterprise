@@ -1,0 +1,22 @@
+module target.resources.monitoringEpl.MSDeletedTrade;
+
+
+
+
+@Name('MSDeletedTrade')
+@Description('')
+//RowCalculationBaseWindowModified as R
+insert into MSDeletedTrade
+select distinct
+	T.modificationId as taxlotId,
+	T.symbol as symbol,
+	T.accountId as accountId,
+	T.accountShortName as accountShortName,
+	'Deleted' as modificationType
+	
+from
+RowCalculationBaseWindowModified as T
+where T.taxlotState='Deleted' and IsLoggingEnabled = true;
+
+
+ 

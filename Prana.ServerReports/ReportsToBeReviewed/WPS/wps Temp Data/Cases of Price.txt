@@ -1,0 +1,117 @@
+-------------------Ending Position  when we need to consider the trade that started in between            
+CASE                   
+	WHEN DATEDIFF(d,@EndDate,Rundate)=0  AND Open_CloseTag = 'O'
+		then
+		CASE
+			WHEN Asset<>'CASH'
+			then
+				PNL.beginningquantity
+			else
+				PNL.EndingMarketValueBase	
+		END
+	ELSE 0
+END as EQ,
+
+-- Ending Price
+
+CASE
+	WHEN PNL.Asset<> 'CASH'
+		THEN
+			CASE 
+				WHEN DATEDIFF(d,@ENDDATE,Rundate)=0  AND Open_CloseTag = 'O'       
+				THEN 
+					PNL.EndingPriceBase
+				ELSE 
+					ClosingPriceBase
+			End
+		ELSE 
+			CASE 
+				WHEN DATEDIFF(d,@ENDDATE,Rundate)=0  AND Open_CloseTag = 'O'
+				THEN 
+					PNL.EndingFXRate	
+				ELSe 0
+			End
+End as EP,
+
+CASE                   
+	WHEN DATEDIFF(d,@EndDate,Rundate)=0  AND Open_CloseTag = 'O'
+		then
+		CASE
+			WHEN Asset<>'CASH'
+			then
+				PNL.beginningquantity
+			else
+				PNL.EndingMarketValueBase	
+		END
+	ELSE 0
+END as EP,
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------Beginning Position  when we need to consider the trade that started in between            
+CASE                   
+	WHEN (DATEDIFF(d,@StartDate,Rundate)=0 or DATEDIFF(d,Tradedate,Rundate)=0) AND Open_CloseTag = 'O' 
+		then
+		CASE
+			WHEN Asset<>'CASH'
+			then
+				beginningquantity
+			else
+				PNL.EndingMarketValueLocal
+		END
+	ELSE 0
+END as BQ,
+
+-------------------Beginning Price when we need to consider the trade that started in between
+CASE                   
+	WHEN DATEDIFF(d,@StartDate,Rundate)=0  AND Open_CloseTag = 'O'
+		then 
+			CASE
+				WHEN Asset<>'CASH'
+				then PNL.EndingPriceBase
+				else PNL.BeginningFXRate
+			END
+	WHEN DATEDIFF(d,Tradedate,Rundate)=0 AND Open_CloseTag = 'O' 
+		then                  
+			CASE
+				WHEN Asset<>'CASH'
+				then PNL.UnitCostBase
+				else PNL.BeginningFXRate
+			END
+	ELSE 0
+END as BP,
+
+-------------------Beginning Position  when we don't need to consider the trade that started in between            
+CASE                   
+	WHEN DATEDIFF(d,@StartDate,Rundate)=0  AND Open_CloseTag = 'O' 
+		then
+		CASE
+			WHEN Asset<>'CASH'
+			then
+				beginningquantity
+			else
+				PNL.EndingMarketValueLocal
+		END
+	ELSE 0
+END as BQ,                  
+ 
+-------------------Beginning Price when we don't need to consider the trade that started in between
+CASE                   
+	WHEN DATEDIFF(d,@StartDate,Rundate)=0  AND Open_CloseTag = 'O'
+		then 
+			CASE
+				WHEN Asset<>'CASH'
+				then PNL.EndingPriceBase
+				else PNL.BeginningFXRate
+			END
+	ELSE 0
+END as BP,

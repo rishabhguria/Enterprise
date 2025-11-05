@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CorporateActions>
+
+	<CorporateAction CorporateActionType="4" Name="NameChange">
+		<DllRule>
+			<Condition Direction="1" ConditionString="" OrigSymbolTag="100063" FinalSymbolTag="100064" TargetTag="55"  Operation="REPLACE" SymbologyCode="0" DllFullName="Prana.CorporateAction.NameChangeRule.dll" ClassName="Prana.CorporateAction.NameChangeRule.NameChange"></Condition>
+		</DllRule>
+	</CorporateAction>
+
+	<CorporateAction CorporateActionType="6" Name="Split">
+		<DllRule>
+			<Condition Direction="1" ConditionString="" FirstTag="100066" SecondTag="100067" NewSecQtyRatio="100062" OrigSecQtyRatio="100061" Operation="*" TargetTag="100066" DllFullName="Prana.CorporateAction.SplitRule.dll" ClassName="Prana.CorporateAction.SplitRule.Split"></Condition>
+			<!--<Condition Direction="1" ConditionString="" FirstTag="6" SecondTag="100067" NewSecQtyRatio="100062" OrigSecQtyRatio="100061" Operation="/" TargetTag="6" DllFullName="Prana.CorporateAction.SplitRule.dll" ClassName="Prana.CorporateAction.SplitRule.Split"></Condition>-->
+		</DllRule>
+	</CorporateAction>
+	
+</CorporateActions>

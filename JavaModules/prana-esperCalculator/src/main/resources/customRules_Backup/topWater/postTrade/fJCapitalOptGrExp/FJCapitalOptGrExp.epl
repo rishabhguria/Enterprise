@@ -1,0 +1,71 @@
+module customRules.postTrade.fJCapitalOptGrExp.FJCapitalOptGrExp;
+
+/* Constant Variable region starts here*/
+
+create constant variable double FJ_CAPITAL_MAX_GROSS_EXPOSURE_COEFFICIENT = 1.5;
+create constant variable double FJ_CAPITAL_OPT_GRS_EXPOSURE_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationOptionAccountAssetPostFJCapital')
+@Description('Calculates gross exposure of options for FJ Capital.')
+insert into AggregationOptionAccountAssetPostFJCapital
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(asset in ('EquityOption')) as T 
+
+where T.accountShortName='FJ Capital'
+// T.asset in 
+//('EquityOption')// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('OptionExopsurePostFJCapital')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationOptionAccountAssetPostFJCapital]
+insert into OptionExopsurePostFJCapital
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(FJ_CAPITAL_OPT_GRS_EXPOSURE_COEFFICIENT * coalesce(NF.accountNav,1) * FJ_CAPITAL_MAX_GROSS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationOptionAccountAssetPostFJCapital" as parentWindowStream
+from 
+AccountWithNav as NF
+where NF.accountId=T.accountId;
+
+@Name('RuleName15FinalPostFJCapital')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName15FinalPostFJCapital
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '20'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'If options make up 20% or more of FJ Capital, please advise' as summary,
+	R.accountShortName as dimension,
+	"OptionExopsurePostFJCapital" as parentWindowStream
+from
+OptionExopsurePostFJCapital as R
+where R.percentageExposure > 20;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

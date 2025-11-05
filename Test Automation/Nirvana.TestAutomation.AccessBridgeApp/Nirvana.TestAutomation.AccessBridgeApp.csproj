@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A6E1BD9-4975-43CD-8B7D-0445AF0574E7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.TestAutomation.AccessBridgeApp</RootNamespace>
+    <AssemblyName>Nirvana.TestAutomation.AccessBridgeApp</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestAutomationFX.Core, Version=2.6.65.0, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessBridgeService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulatorAccessBridge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimulatorAccessBridge.Designer.cs">
+      <DependentUpon>SimulatorAccessBridge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsAccessBridgeInterop\AccessBridge.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessBridgeNativeEvents.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessBridgeNativeEventsLegacy.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessBridgeNativeFunctions.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessBridgeNativeFunctionsLegacy.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleContextNode.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleJvm.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleNode.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleNodeExtensions.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleRectInfo.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleTextReader.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\AccessibleWindow.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\EnumerableExtensions.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\Generated.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\Generated.Internal.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\Generated.Internal.Legacy.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\JavaObjectHandle.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\JOBJECT32.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\JOBJECT64.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\Path.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\PathCursor.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\PropertyGroup.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\PropertyList.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\PropertyNode.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\PropertyOptions.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\TextReaderExtensions.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\VersionNumber.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\Win32\NativeMethods.cs" />
+    <Compile Include="WindowsAccessBridgeInterop\Win32\UnmanagedLibrary.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Interfaces\Nirvana.TestAutomation.Interfaces.csproj">
+      <Project>{85e56089-02d6-435a-ab82-dc828da19114}</Project>
+      <Name>Nirvana.TestAutomation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Utilities\Nirvana.TestAutomation.Utilities.csproj">
+      <Project>{1dc3644b-50a8-4fe8-9237-39e3f3ae563a}</Project>
+      <Name>Nirvana.TestAutomation.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

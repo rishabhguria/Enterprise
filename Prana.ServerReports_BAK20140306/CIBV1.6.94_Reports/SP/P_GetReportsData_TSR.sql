@@ -1,0 +1,472 @@
+      
+                
+-- -Main Script - Different                  
+                              
+/****************************************************                                    
+Created By : Bhupesh Bareja                                    
+Purpose : Get Trasanctions between 2 date ranges                                    
+Module Name: PortfolioReports/Trasanction Summary Report                                       
+Parameters: CompanyID Int,                                    
+   StartDate DateTime,                                    
+   EndDate DateTime                                                                                                                                                                                         
+                                                                                                  
+Date Modified:                                                       
+Description: FX related Changes                                                                                                                                                                                           
+Modified By:Sandeep Singh        
+      
+Date Modified:  13-APRIL-2012                                               
+Description:  Description field added                                                                                                                                                                                  
+Modified By:  Sandeep Singh       
+                                  
+Execution StateMent:                                      
+EXEC [P_GetReportsData_TSR] 6, '04-01-2012', '04-12-2012'   
+  
+Date Modified:  21-AUG-2012                                               
+Description:  ISIN field added                                                                                                                                                                                  
+Modified By:  Ankit Gupta                                         
+                                    
+*****************************************************/                                                   
+CREATE proc [dbo].[P_GetReportsData_TSR]                                                                                  
+(                                                                                
+ @companyID int,                                                                                
+ @startDate datetime,                                                                                
+ @enddate datetime                                                                                
+)                                                                                
+as                
+CREATE TABLE #TEMPGetNonZeroConversionFactorForDate                                                                                                                                                                          
+(                                                                                                                                               
+  FCID int,                                                                                                                                                      
+  TCID int,                                                                                                                                                                               
+  ConversionFactor float,                                                                                                                          
+  ConversionMethod int,                                                                                                                          
+  DateCC DateTime                                                                                                                                             
+)                                               
+INSERT INTO #TEMPGetNonZeroConversionFactorForDate                                                                                                                                              
+SELECT     
+ FromCurrencyID,                                                                         
+ ToCurrencyID,                                                                                                                          
+ RateValue,                                                                                                                          
+ ConversionMethod,                
+ Date                        
+FROM dbo.GetAllFXConversionRatesForGivenDateRange(@startDate, @enddate)                                              
+                          
+--Create temp table for report                                                           
+Create Table #TempReportTable                                                                  
+(                                       
+TradeDate datetime,                            
+SettlementDate datetime,                                                                                
+--2 relates to opening taxlots if it is closed else null                                    
+Symbol varchar(50),                                                                                
+AssetID int,                                                                           
+UnderLyingID int,                                              
+ExchangeID int,                                                                                
+AUECID int,                                                                    
+Multiplier float,                                                                                
+NotionalValue float,                                                                                
+TaxLotID varchar(50),                                                                                
+Price float,                                                                                
+Quantity float,                                                                                
+I1 float,                                                                                
+Commission float,                                                                                
+OtherBrokerFees float,                                                                                
+OtherFees float,                                                                        
+SideMultiplier int,                                                                              
+Side varchar(50),                                                               
+DC int,                                                                            
+--DayDiff int,                                                            
+ConversionRate float,                                                                                
+ConversionMethod int,                                                                          
+FxConversionRate float,                                                                                
+FxConversionMethod int,                                                                                
+OpeningTaxLotSideTagValue varchar(1),                                                                                
+OpeningTaxLot varchar(50),                                                                                
+OpeningTaxLotPrice float,                                                                                
+Q2 float,                                                                                
+I2 float,                                                                                
+OpeningTaxLotCommission float,                                                                
+OpeningTaxLotFees float,                                                                       
+OpeningTaxLotTradeDate datetime,                                                                         
+ClosingMode int,                                                                            
+ClosingDate datetime,                                                            
+ClosingQty float,                    
+FundName varchar(50),                                                                          
+MasterFundName varchar(50),                                                                          
+GroupParameter1 varchar(50),                                                                       
+GroupParameter2 varchar(50),                                                                          
+GroupParameter3 varchar(50),                                                                          
+GroupParameter4 varchar(50),                             
+TickerSymbol varchar(50),                                                                       
+AssetName varchar(50),                                                                          
+SecurityTypeName varchar(50),                                                                    
+SectorName varchar(50),                                                                          
+SubSectorName varchar(50),                                                                    
+CountryName varchar(50),                                            
+CurrencySymbol varchar(20),                                                                          
+LanguageName varchar(50),                                                                
+NotionalValueOpening float,                                                    
+StrategyID int,                                                                          
+StrategyName varchar(100),                                                  
+PrimeBrokerName varchar(50),                                               
+InternalAssetName varchar(50),                                                
+PutOrCall varchar(10) ,                              
+CounterParty varchar(100),                                
+CurrencyID int,                    
+MasterStrategyName varchar(50),                
+UnderlyingSymbol Varchar(100),      
+Description Varchar(100),    
+ BloombergSymbol Varchar(100),              
+  SedolSymbol Varchar(100),              
+  ISINSymbol Varchar(100),              
+  CusipSymbol Varchar(100),              
+  OSISymbol Varchar(100),              
+  IDCOSymbol Varchar(100)                                                               
+)                                                                                
+                                                                                                                                      
+-- insert TaxLotID details                                                                                
+insert into #TempReportTable                    
+(                               
+TradeDate,                                                                          
+SettlementDate,                                                                          
+Symbol,                                                                              
+AssetID,                                                                          
+UnderLyingID,                                                                          
+ExchangeID,                                                                          
+AUECID,                                                                     
+Multiplier,                                                                          
+NotionalValue,                                                                              
+TaxLotID,                                             
+Price,                                                                          
+Quantity,                                                                          
+SideMultiplier,                         
+Side,                                                                          
+I1,                                                                   
+DC,                                                                          
+Commission,                                                                          
+OtherBrokerFees,                         
+OtherFees,                                                                              
+ConversionRate,                                                                          
+ConversionMethod,                                                                          
+FxConversionRate,                                                                          
+FxConversionMethod,                          
+--DayDiff,                                                                            
+OpeningTaxLot,                                                                          
+OpeningTaxLotPrice ,                                                                          
+Q2,                                                                          
+I2,                                                                          
+OpeningTaxLotCommission,                                                                          
+OpeningTaxLotFees,                                               
+OpeningTaxLotTradeDate,                                                                    
+FundName,                                                     
+MasterFundName,                                                                          
+GroupParameter1,                                                                          
+GroupParameter2,                                                                          
+GroupParameter3,                                                                          
+GroupParameter4,                                                                          
+TickerSymbol,                                                                          
+AssetName,                                                           
+SecurityTypeName,                                                                     
+SectorName,                                                                          
+SubSectorName,                                                           
+CountryName,                                                                          
+CurrencySymbol,                                                                          
+LanguageName,                                                  
+StrategyID,                                                    
+StrategyName,                                         
+PrimeBrokerName,                                                  
+InternalAssetName,                                                
+PutOrCall ,                              
+CounterParty,                              
+CurrencyID,                    
+MasterStrategyName,                
+UnderlyingSymbol,      
+Description,    
+BloombergSymbol,              
+SedolSymbol,              
+ISINSymbol,              
+CusipSymbol,              
+OSISymbol,              
+IDCOSymbol                                                  
+)                                                                               
+                                                                               
+Select                                      
+VTL.AUECLocalDate,                                                                          
+VTL.SettlementDate,              
+Case           
+ When VTL.AssetID=2          
+ Then IsNull(SM.CompanyName,'') + ', ' + CONVERT(VARCHAR(10),SM.ExpirationDate,101)         
+ Else IsNull(SM.CompanyName,'')           
+End as Symbol,                                                                    
+--VTL.Symbol AS Symbol,                                                                              
+T_AUEC.AssetID,             
+T_AUEC.UnderLyingID,                                                                          
+T_AUEC.ExchangeID,                                                                          
+T_AUEC.AUECID,                                                                 
+ISNULL(SM.Multiplier, 0) AS Multiplier,                                                                          
+Case VTL.Quantity                   
+ When 0                   
+ Then 0                  
+Else isnull((isnull(VTL.NotionalValue, 0) * isnull(VTL.TaxlotQty, 0) / ISNULL(VTL.Quantity, 1)), 0)                    
+End as NotionalValue,                                             
+TaxLotID,                                                                            
+VTL.AvgPrice,                                                                            
+TaxLotQty,                                                                          
+dbo.GetSideMultiplier(VTL.OrderSideTagValue),                                                                          
+T_Side.Side,                                                                          
+isnull(BenchMarkRate+Differential,0) As I1,                                                                          
+isnull(DayCount,0) as DC,                                                                          
+isnull(Commission,0) as Commission,                                                                          
+isnull(OtherBrokerFees,0) as OtherBrokerFees,                                                                            
+isnull(StampDuty+TransactionLevy+ClearingFee+TaxOnCommissions+MiscFees,0) as OtherFees,                                                                              
+CASE C.BaseCurrencyID                                                          
+  WHEN VTL.CurrencyID                                                                          
+  THEN 1                                                              
+     ELSE                                                                        
+      CASE ISNULL(G.FXRate, 0)                                                          
+  WHEN 0                                                 
+  THEN ISNULL(TGNZCF.ConversionFactor, 0)                                                                        
+  ELSE G.FXRate                                      
+   END                                                           
+ END AS ConversionRate,                                                        
+                                  
+ CASE ISNULL(G.FXRate, 0)                                                          
+     WHEN 0                      
+     THEN ISNULL(TGNZCF.ConversionMethod, 0)                                                          
+     ELSE                                                          
+    CASE ISNULL(G.FXConversionMethodOperator, 'M')                                                          
+    WHEN 'M'                                                           
+    THEN 0                                                          
+    ELSE 1                                   
+    END                                                        
+  END AS ConversionMethod,                                                        
+                                                                          
+CASE C.BaseCurrencyID                                                          
+ WHEN SM.VsCurrencyID                                    
+    THEN 1                                                                        
+    ELSE                                     
+     CASE                                                           
+       WHEN G.FXRate > 0 And (C.BaseCurrencyID = SM.LeadCurrencyID OR C.BaseCurrencyID = SM.VsCurrencyID)                                                           
+       THEN G.FXRate                                                                   
+       ELSE ISNULL(FXConversionData.ConversionFactor, 0)                                           
+     END                                                           
+    END AS FXConversionRate,                                                        
+                                                       
+ CASE ISNULL(G.FXRate, 0)                                                          
+     WHEN 0                                                           
+     THEN ISNULL(FXConversionData.ConversionMethod, 0)                                                          
+     ELSE        
+        CASE                                                           
+    WHEN G.FXConversionMethodOperator = 'M' And (C.BaseCurrencyID = SM.LeadCurrencyID OR C.BaseCurrencyID = SM.VsCurrencyID)                                    
+    THEN 0                                  
+    WHEN G.FXConversionMethodOperator ='D' And (C.BaseCurrencyID = SM.LeadCurrencyID OR C.BaseCurrencyID = SM.VsCurrencyID)                                    
+ THEN 1                                             
+    ELSE ISNULL(FXConversionData.ConversionMethod, 0)                                                          
+       END                                                        
+   END AS FXConversionMethod,           
+0 As OpeningTaxlot,                                                                          
+0 As OpeningTaxlotPrice,                                                                          
+0 As Q2,                                                                          
+0 As I2,                                                                          
+0 OpeningTaxlotCommission,                                                                          
+0 OpeningTaxlotFees,                                                                    
+getDate(),    --Column Count 30                                                
+FundName,                                                                          
+IsNull(CMF.MasterFundName,'Unassigned') as  MasterFundName,                                           
+'' As GroupParameter1,                                                                          
+'' As GroupParameter2,                                                                          
+'' As GroupParameter3,                                                                          
+'' As GroupParameter4,                                                                          
+ISNULL(SM.TickerSymbol, 'Undefined'),                                  
+ISNULL(SM.AssetName, 'Undefined'),                                                                   
+ISNULL(SM.SecurityTypeName, 'Undefined'),                                                                          
+ISNULL(SM.SectorName, 'Undefined'),                                                                      
+ISNULL(SM.SubSectorName, 'Undefined'),                                                                          
+ISNULL(SM.CountryName, 'Undefined'),                         
+                                                                         
+SM.LeadCurrency AS CurrencySymbol,                                       
+ '' AS LanguageName,                                                    
+ Level2ID,                                                    
+ CS.StrategyName AS StrategyName,                                                  
+ TP.ThirdPartyName AS PrimeBrokerName,                                                  
+ A.AssetName AS AssetName,                                                
+ ISNULL(SM.PutOrCall,'-1') AS PutOrCall,                                
+ISNULL(CP.ShortName,'Undefined') as CounterParty,                              
+Case                            
+ When VTL.AssetID=5 Or VTL.AssetID=11                            
+ Then SM.VsCurrencyID                            
+ Else VTL.CurrencyID                            
+End as CurrencyID,                    
+IsNull(CMS.MasterStrategyName,'Unassigned') as MasterStrategyName,                
+IsNull(SM.UnderlyingSymbol,'') as UnderlyingSymbol,      
+VTL.Description,    
+IsNull(SM.BloombergSymbol,'') as BloombergSymbol,              
+ IsNull(SM.SedolSymbol,'') as SedolSymbol,              
+ IsNull(SM.ISINSymbol,'') as ISINSymbol,              
+ IsNull(SM.CusipSymbol,'') as CusipSymbol,         
+ IsNull(SM.OSISymbol,'') as OSISymbol,              
+ IsNull(SM.IDCOSymbol,'') as IDCOSymbol                                                     
+                                                                            
+ from V_TaxLots VTL join T_Side on T_Side.SidetagValue=VTL.OrderSidetagValue                            
+    INNER JOIN T_GROUP G ON VTL.GroupRefID = G.GroupRefID                                                        
+                                                                                
+join T_AUEC on VTL.AUECID=T_AUEC.AUECID                                                                                
+INNER JOIN T_Company C ON C.companyID = @companyID                                                                    
+INNER JOIN T_Asset A ON T_AUEC.AssetID = A.AssetID                                 
+Left Outer JOIN  T_CounterParty CP ON CP.CounterPartyID= VTL.CounterPartyID                                                       
+                                                                          
+--LEFT OUTER JOIN T_Currency Curr on VTL.CurrencyID = Curr.CurrencyID                                                                           
+--LEFT OUTER JOIN T_Currency FXCurr on VTL.TradedCurrencyID = FXCurr.CurrencyID                     
+                                                    
+LEFT JOIN T_CompanyStrategy CS               
+   ON VTL.Level2ID = CS.CompanyStrategyID                                                  
+                                                  
+LEFT JOIN T_CompanyThirdPartyMappingDetails CTPMD                                                         
+   ON VTL.FundID = CTPMD.InternalFundNameID_FK                                                  
+LEFT JOIN T_CompanyThirdParty CTP                                                   
+ ON CTPMD.CompanyThirdPartyID_FK = CTP.CompanyThirdPartyID                                                  
+LEFT JOIN T_ThirdParty TP                                                   
+ ON CTP.ThirdPartyID = TP.ThirdPartyID                                                  
+                                                          
+--left join SecurityMasterDB.dbo.V_GetSymbolUDAData as SM on VTL.Symbol=SM.TickerSymbol                                                                                                      
+left join V_SecMasterData as SM on VTL.Symbol=SM.TickerSymbol                                                
+                                                        
+LEFT JOIN #TEMPGetNonZeroConversionFactorForDate TGNZCF on VTL.CurrencyId = TGNZCF.FCID                                                                
+   AND C.BaseCurrencyID = TGNZCF.TCID                                                         
+ AND DATEDIFF(d, TGNZCF.DateCC, VTL.AUECLocalDate) = 0                                          
+                                                                                                      
+--LEFT OUTER JOIN #TEMPGetNonZeroConversionFactorForDate FXConversionData on                                                                                                       
+-- (FXConversionData.FCID = SM.LeadCurrencyID And FXConversionData.TCID = C.BaseCurrencyID)                                                                                                       
+-- and (DATEDIFF(d, FXConversionData.DateCC, VTL.AUECLocalDate) = 0)                                    
+                                    
+LEFT OUTER JOIN #TEMPGetNonZeroConversionFactorForDate FXConversionData                                    
+On (FXConversionData.FCID = SM.VsCurrencyID                                     
+And FXConversionData.TCID = C.BaseCurrencyID)                                                                 
+And (DATEDIFF(d, FXConversionData.DateCC, VTL.AUECLocalDate) = 0)                                                                                   
+                                                                          
+LEFT OUTER JOIN T_CompanyFunds CF ON VTL.FundID = CF.CompanyFundID                                                                          
+LEFT OUTER JOIN T_CompanyMasterFundSubAccountAssociation CMFSSAA ON CF.CompanyFundID = CMFSSAA.CompanyFundID                                                                              
+LEFT OUTER JOIN T_CompanyMasterFunds CMF ON CMFSSAA.CompanyMasterFundID = CMF.CompanyMasterFundID                                 
+                    
+LEFT OUTER JOIN T_CompanyMasterStrategySubAccountAssociation CMSSSAA ON CS.CompanyStrategyID = CMSSSAA.CompanyStrategyID                                                              
+LEFT OUTER JOIN T_CompanyMasterStrategy CMS ON CMSSSAA.CompanyMasterStrategyID = CMS.CompanyMasterStrategyID                      
+                                                                      
+                                                                        
+--LEFT OUTER JOIN T_FutureMultipliers FM ON SUBSTRING(VTL.Symbol, 0, CHARINDEX(' ', VTL.Symbol)) = FM.Symbol                                                                        
+                                                                                
+where datediff(d,VTL.AUECLocalDate,@startDate) <= 0                                                                                 
+and Datediff(d,VTL.AUECLocalDate,@endDate) >=0                              
+                                                                               
+                                     
+--update OpeningTaxLot details if any -- closing details                                                                
+update  #TempReportTable                                                                                
+set OpeningTaxLot=V_TaxLots.TaxLotID,                                                                           
+ OpeningTaxLotPrice=V_TaxLots.AvgPrice,                                                                                
+ Q2=V_TaxLots.Quantity,                                                                                
+I2 =V_TaxLots.BenchMarkRate+V_TaxLots.Differential,                                                                                
+OpeningTaxLotCommission =V_TaxLots.Commission,                                                                                
+OpeningTaxLotFees =V_TaxLots.OtherBrokerFees,                                                
+OpeningTaxLotTradeDate=V_TaxLots.AUECLocalDate,                                                                    
+ClosingMode=PM_TaxLotClosing.ClosingMode,                                                            
+ClosingQty=PM_TaxLotClosing.ClosedQty,                                                                          
+ClosingDate=PM_TaxLotClosing.AUECLocalDate,                                                                
+NotionalValueOpening = isnull((isnull(V_TaxLots.NotionalValue, 0) * isnull(PM_TaxLotClosing.ClosedQty, 0) / ISNULL(V_TaxLots.Quantity, 1)), 0)                                                            
+from PM_TaxLotClosing ,V_TaxLots                                                                                
+where PM_TaxLotClosing.ClosingTaxLotID=#TempReportTable.TaxLotID                                                                                
+and V_TaxLots.TaxLotID=PM_TaxLotClosing.PositionalTaxLotID                                                                                
+ and (PM_TaxLotClosing.ClosingMode !=5  and PM_TaxLotClosing.ClosingMode !=2 )                                                            
+                                                         
+                    
+                    
+update  #TempReportTable                                                                                
+set OpeningTaxLot=V_TaxLots.TaxLotID,                                                                                
+ OpeningTaxLotPrice=V_TaxLots.AvgPrice,                                                                        
+ Q2=V_TaxLots.Quantity,                                                                                
+I2 =V_TaxLots.BenchMarkRate+V_TaxLots.Differential,                                                                                
+OpeningTaxLotCommission =V_TaxLots.Commission,                                           
+OpeningTaxLotFees =V_TaxLots.OtherBrokerFees,                                                                  
+OpeningTaxLotTradeDate=V_TaxLots.AUECLocalDate,                                                                    
+  ClosingMode=PM_TaxLotClosing.ClosingMode,                                                            
+ClosingQty=PM_TaxLotClosing.ClosedQty,                                                                       
+ClosingDate=PM_TaxLotClosing.AUECLocalDate,                                                            
+                    
+NotionalValueOpening = isnull((isnull(V_TaxLots.NotionalValue, 0) * isnull(PM_TaxLotClosing.ClosedQty, 0) / ISNULL(V_TaxLots.Quantity, 1)), 0)                                                            
+                                                            
+from PM_TaxLotClosing ,V_TaxLots                                                                                
+where PM_TaxLotClosing.PositionalTaxLotID=#TempReportTable.TaxLotID                                                
+and V_TaxLots.TaxLotID=PM_TaxLotClosing.ClosingTaxLotID                                                         
+ and (PM_TaxLotClosing.ClosingMode =5   or PM_TaxLotClosing.ClosingMode=2)                                                            
+                                                                                                  
+                                                                                
+-- return values                                                                      
+select                                    
+TradeDate,                                                                                
+SettlementDate,                                                                                
+--2 relates to opening taxlots if it is closed else null                                                                                
+Symbol,                                               
+AssetID,                                                                        
+UnderLyingID,                                                                                
+ExchangeID,                    
+AUECID,                                                                                
+Multiplier,                                                                                
+NotionalValue,                                                                                
+TaxLotID,                                                                                
+Price,                                                                                
+Quantity,                                                                                
+I1,                                                                                
+Commission,                                                                                
+OtherBrokerFees,                                                                                
+OtherFees,                                                                        
+SideMultiplier,                                                                              
+Side,                                                                                 
+DC,   
+--DayDiff int,                                                               
+ConversionRate,                                                                                
+ConversionMethod,                                                                                
+FxConversionRate,                                   
+FxConversionMethod,                                                                                
+OpeningTaxLotSideTagValue,                                                                                
+OpeningTaxLot,                                                                                
+OpeningTaxLotPrice,                                                                                
+Q2,                            
+I2,                         
+OpeningTaxLotCommission,                                                                                
+OpeningTaxLotFees,                                              
+ISNULL(ClosingMode, 0) AS ClosingMode,                                                                            
+ISNULL(ClosingDate, getdate()) AS ClosingDate,                                                                          
+FundName,                                                                          
+MasterFundName,                                                                          
+GroupParameter1,                                                                          
+GroupParameter2,                                                    
+GroupParameter3,                                                                          
+GroupParameter4,                                                                          
+TickerSymbol,                                                                          
+AssetName,-- UDAAssetName,                                                                            
+SecurityTypeName,-- UDASecurityTypeName,                                                                            
+SectorName ,--UDASectorName,                                                            
+SubSectorName,-- UDASubSectorName,                                                                            
+CountryName,-- UDACountryName,                                                                            
+CurrencySymbol,                                                                          
+LanguageName,                   
+OpeningTaxLotTradeDate,                                                                
+NotionalValueOpening,                                                            
+ClosingQty,                                                    
+StrategyID,                                                    
+StrategyName,                                                  
+PrimeBrokerName,                                                  
+InternalAssetName,                                                
+PutOrCall ,                              
+CounterParty,                              
+CurrencyID,                    
+MasterStrategyName,                
+UnderlyingSymbol,      
+Replace(Description,'New Order Sent','') Description,    
+BloombergSymbol,              
+SedolSymbol,              
+ISINSymbol,              
+CusipSymbol,              
+OSISymbol,              
+IDCOSymbol           
+                                                                        
+ from #TempReportTable                                                                                
+-- drop the table                                         
+                                    
+drop table #TEMPGetNonZeroConversionFactorForDate ,#TempReportTable 

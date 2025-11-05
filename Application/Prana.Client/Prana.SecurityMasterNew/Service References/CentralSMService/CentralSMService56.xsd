@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.SecurityMasterBusinessObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.SecurityMasterBusinessObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:56343/CentralSMService?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:56343/CentralSMService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects" />
+  <xs:import schemaLocation="http://localhost:56343/CentralSMService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.AppConstants" />
+  <xs:complexType name="SecMasterRequestObj">
+    <xs:sequence>
+      <xs:element name="_date" type="xs:dateTime" />
+      <xs:element name="_hashCode" type="xs:int" />
+      <xs:element name="_symbolDataRowCollection" nillable="true" type="tns:ArrayOfSymbolDataRow" />
+      <xs:element name="_userID" nillable="true" type="xs:string" />
+      <xs:element name="_validatedSymbolCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SecMasterRequestObj" nillable="true" type="tns:SecMasterRequestObj" />
+  <xs:complexType name="ArrayOfSymbolDataRow">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SymbolDataRow" nillable="true" type="tns:SymbolDataRow" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSymbolDataRow" nillable="true" type="tns:ArrayOfSymbolDataRow" />
+  <xs:complexType name="SymbolDataRow">
+    <xs:sequence>
+      <xs:element name="_BBGID" nillable="true" type="xs:string" />
+      <xs:element name="_expirationDate" type="xs:dateTime" />
+      <xs:element name="_primarySymbology" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_symbolData" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element name="_symbol_PK" type="xs:long" />
+      <xs:element name="_underlyingSymbol" nillable="true" type="xs:string" />
+      <xs:element name="firstItem" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SymbolDataRow" nillable="true" type="tns:SymbolDataRow" />
+  <xs:complexType name="ArrayOfSecMasterBaseObj">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SecMasterBaseObj" nillable="true" type="tns:SecMasterBaseObj" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSecMasterBaseObj" nillable="true" type="tns:ArrayOfSecMasterBaseObj" />
+  <xs:complexType name="SecMasterBaseObj">
+    <xs:sequence>
+      <xs:element name="_BBGID" nillable="true" type="xs:string" />
+      <xs:element name="_approvalDate" type="xs:dateTime" />
+      <xs:element name="_approvedBy" nillable="true" type="xs:string" />
+      <xs:element name="_assetID" type="xs:int" />
+      <xs:element name="_auecID" type="xs:int" />
+      <xs:element name="_bloombergOptionRoot" nillable="true" type="xs:string" />
+      <xs:element name="_bloombergSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_comments" nillable="true" type="xs:string" />
+      <xs:element name="_createdBy" nillable="true" type="xs:string" />
+      <xs:element name="_creationDate" type="xs:dateTime" />
+      <xs:element name="_currencyID" type="xs:int" />
+      <xs:element name="_cusipSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_delta" type="xs:float" />
+      <xs:element name="_errorMessage" nillable="true" type="xs:string" />
+      <xs:element name="_esignalOptionRoot" nillable="true" type="xs:string" />
+      <xs:element name="_exchangeID" type="xs:int" />
+      <xs:element name="_idcoOptionSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_isSecApproved" type="xs:boolean" />
+      <xs:element name="_isinSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_longName" nillable="true" type="xs:string" />
+      <xs:element name="_modifiedBy" nillable="true" type="xs:string" />
+      <xs:element name="_modifiedDate" type="xs:dateTime" />
+      <xs:element name="_multiplier" type="xs:double" />
+      <xs:element name="_opraSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_osiOptionSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_primarySymbology" type="xs:int" />
+      <xs:element name="_proxySymbol" nillable="true" type="xs:string" />
+      <xs:element name="_requestedSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_requestedSymbology" type="xs:int" />
+      <xs:element name="_reutersSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_roundLot" type="xs:decimal" />
+      <xs:element name="_sector" nillable="true" type="xs:string" />
+      <xs:element name="_sedolSymbol" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects" name="_sourceOfData" type="q2:SecMasterConstants.SecMasterSourceOfData" />
+      <xs:element name="_sourceOfDataID" type="xs:int" />
+      <xs:element name="_strikePriceMultiplier" type="xs:double" />
+      <xs:element name="_symbolType" type="xs:int" />
+      <xs:element name="_symbolUDAData" nillable="true" type="tns:UDAData" />
+      <xs:element name="_symbol_PK" type="xs:long" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_symbologyMapping" nillable="true" type="q3:ArrayOfstring" />
+      <xs:element name="_underLyingSymbol" nillable="true" type="xs:string" />
+      <xs:element name="_underlyingID" type="xs:int" />
+      <xs:element name="_useUDAFromUnderlyingOrRoot" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SecMasterBaseObj" nillable="true" type="tns:SecMasterBaseObj" />
+  <xs:complexType name="UDAData">
+    <xs:sequence>
+      <xs:element name="_CountryID" type="xs:int" />
+      <xs:element name="_UDAAsset" nillable="true" type="xs:string" />
+      <xs:element name="_UDACountry" nillable="true" type="xs:string" />
+      <xs:element name="_UDASector" nillable="true" type="xs:string" />
+      <xs:element name="_UDASecurityType" nillable="true" type="xs:string" />
+      <xs:element name="_UDASubSector" nillable="true" type="xs:string" />
+      <xs:element name="_assetID" type="xs:int" />
+      <xs:element name="_companyName" nillable="true" type="xs:string" />
+      <xs:element name="_sectorID" type="xs:int" />
+      <xs:element name="_securityTypeID" type="xs:int" />
+      <xs:element name="_subSectorID" type="xs:int" />
+      <xs:element name="_symbol" nillable="true" type="xs:string" />
+      <xs:element name="_underlyingSymbol" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UDAData" nillable="true" type="tns:UDAData" />
+  <xs:complexType name="SecMasterFutObj">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterBaseObj">
+        <xs:sequence>
+          <xs:element name="_cutOffTime" nillable="true" type="xs:string" />
+          <xs:element name="_expirationDate" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterFutObj" nillable="true" type="tns:SecMasterFutObj" />
+  <xs:complexType name="SecMasterEquityObj">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterBaseObj">
+        <xs:sequence>
+          <xs:element name="_divDistributionDate" type="xs:dateTime" />
+          <xs:element name="_dividend" type="xs:float" />
+          <xs:element name="_dividendAmtRate" type="xs:float" />
+          <xs:element name="_dividendYield" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterEquityObj" nillable="true" type="tns:SecMasterEquityObj" />
+  <xs:complexType name="SecMasterFixedIncome">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterBaseObj">
+        <xs:sequence>
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.AppConstants" name="_accrualBasis" type="q4:AccrualBasis" />
+          <xs:element name="_accrualBasisID" type="xs:int" />
+          <xs:element name="_bondDescription" nillable="true" type="xs:string" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.AppConstants" name="_bondType" type="q5:SecurityType" />
+          <xs:element name="_bondTypeID" type="xs:int" />
+          <xs:element name="_countryCode" nillable="true" type="xs:string" />
+          <xs:element name="_coupon" type="xs:double" />
+          <xs:element name="_couponFrequencyID" type="xs:int" />
+          <xs:element name="_dateIssue" type="xs:dateTime" />
+          <xs:element name="_dateMaturity" type="xs:dateTime" />
+          <xs:element name="_daysToSettlement" type="xs:int" />
+          <xs:element name="_firstCouponDate" type="xs:dateTime" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.AppConstants" name="_frequency" type="q6:CouponFrequency" />
+          <xs:element name="_holdingValue" type="xs:double" />
+          <xs:element name="_isZero" type="xs:boolean" />
+          <xs:element name="_par" type="xs:double" />
+          <xs:element name="_price" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterFixedIncome" nillable="true" type="tns:SecMasterFixedIncome" />
+  <xs:complexType name="SecMasterFxObj">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterFutObj">
+        <xs:sequence>
+          <xs:element name="_fixingDate" type="xs:dateTime" />
+          <xs:element name="_isNDF" type="xs:boolean" />
+          <xs:element name="_leadCurrencyID" type="xs:int" />
+          <xs:element name="_vsCurrencyID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterFxObj" nillable="true" type="tns:SecMasterFxObj" />
+  <xs:complexType name="SecMasterOptObj">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterBaseObj">
+        <xs:sequence>
+          <xs:element name="_expirationDate" type="xs:dateTime" />
+          <xs:element name="_maturityDay" type="xs:int" />
+          <xs:element name="_maturityMonth" type="xs:int" />
+          <xs:element name="_putOrCall" type="xs:int" />
+          <xs:element name="_settlementdate" type="xs:int" />
+          <xs:element name="_strikePirce" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterOptObj" nillable="true" type="tns:SecMasterOptObj" />
+  <xs:complexType name="SecMasterFXForwardObj">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterFutObj">
+        <xs:sequence>
+          <xs:element name="_fixingDate" type="xs:dateTime" />
+          <xs:element name="_isNDF" type="xs:boolean" />
+          <xs:element name="_leadCurrencyID" type="xs:int" />
+          <xs:element name="_vsCurrencyID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterFXForwardObj" nillable="true" type="tns:SecMasterFXForwardObj" />
+  <xs:complexType name="SecMasterIndexObj">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:SecMasterBaseObj">
+        <xs:sequence>
+          <xs:element name="_shortName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SecMasterIndexObj" nillable="true" type="tns:SecMasterIndexObj" />
+</xs:schema>

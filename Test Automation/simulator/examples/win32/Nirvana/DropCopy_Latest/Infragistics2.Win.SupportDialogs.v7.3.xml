@@ -1,0 +1,437 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Infragistics2.Win.SupportDialogs.v7.3</name>
+    </assembly>
+    <members>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow">
+            <summary>
+            A row used to represent a <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.OperatorCondition"/>.
+            </summary>
+            <remarks>This is the base class from which all other condition rows derive.</remarks>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.#ctor(Infragistics.Win.ICondition,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="condition"></param>
+            <param name="isComplement"></param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.Condition">
+            <summary>
+            Returns the <see cref="T:Infragistics.Win.ICondition"/> associated with the row.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.DataValue">
+            <summary>
+            Gets/sets the value associated with the condition.
+            </summary>
+            <remarks>This property is only used with a <see cref="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow"/>.</remarks>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.IsCaseSensitive">
+            <summary>
+            Gets/sets whether the condition is case-sensitive.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.IsComplement">
+            <summary>
+            Gets/sets whether the condition returned should be a <see cref="T:Infragistics.Win.ComplementCondition"/>.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionRow.Operator">
+            <summary>
+            Gets/sets the <see cref="T:Infragistics.Win.ConditionOperator"/> associated with the condition.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionAppearanceRow">
+            <summary>
+            A row representing a default <see cref="T:Infragistics.Win.OperatorCondition"/> and its associated appearance.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionAppearanceRow.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionAppearanceRow.#ctor(Infragistics.Win.ICondition,Infragistics.Win.Appearance,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="condition">The associated <see cref="T:Infragistics.Win.ICondition"/>.</param>
+            <param name="appearance">The <see cref="T:Infragistics.Win.Appearance"/> that is mapped to the specified condition.</param>
+            <param name="isComplement">True if the condition is a <see cref="T:Infragistics.Win.ComplementCondition"/>.</param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionAppearanceRow.Appearance">
+            <summary>
+            Returns the <see cref="T:Infragistics.Win.Appearance"/> associated with the condition.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow">
+            <summary>
+            A row representing a <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.FormulaCondition"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.#ctor(Infragistics.Win.FormulaCondition,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="condition">The associated <see cref="T:Infragistics.Win.ICondition"/>.</param>
+            <param name="isComplement">True if the condition is a <see cref="T:Infragistics.Win.ComplementCondition"/>.</param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.Condition">
+            <summary>
+            Returns the <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.FormulaCondition"/> or its complement.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.Formula">
+            <summary>
+            Gets/sets the formula used by the <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.FormulaCondition"/>.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.FormulaCondition">
+            <summary>
+            Returns the underlying <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaRow.FormulaCondition"/> associated with the row.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaAppearanceRow">
+            <summary>
+            A row representing a <see cref="T:Infragistics.Win.FormulaCondition"/> and its associated appearance.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaAppearanceRow.#ctor(Infragistics.Win.FormulaCondition,Infragistics.Win.Appearance,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="condition">The associated <see cref="T:Infragistics.Win.ICondition"/>.</param>
+            <param name="appearance">The <see cref="T:Infragistics.Win.Appearance"/> that is mapped to the specified condition.</param>
+            <param name="isComplement">True if the condition is a <see cref="T:Infragistics.Win.ComplementCondition"/>.</param>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaAppearanceRow.#ctor(Infragistics.Win.FormulaCondition,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="condition">The associated <see cref="T:Infragistics.Win.ICondition"/>.</param>
+            <param name="isComplement">True if the condition is a <see cref="T:Infragistics.Win.ComplementCondition"/>.</param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.FormulaAppearanceRow.Appearance">
+            <summary>
+            Returns the <see cref="T:Infragistics.Win.Appearance"/> associated with the condition.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupRow">
+            <summary>
+            A row representing a <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupRow.ConditionGroup"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupRow.#ctor(Infragistics.Win.ConditionGroup,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="group">The associated <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupRow.ConditionGroup"/>.</param>
+            <param name="isComplement">True if the condition is a <see cref="T:Infragistics.Win.ComplementCondition"/>.</param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupRow.Condition">
+            <summary>
+            Returns the associated <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupRow.ConditionGroup"/> or its complement.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupAppearanceRow">
+            <summary>
+            A row representing a <see cref="T:Infragistics.Win.ConditionGroup"/> and its associated appearance.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupAppearanceRow.#ctor(Infragistics.Win.ConditionGroup,Infragistics.Win.Appearance,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="group">The associated <see cref="T:Infragistics.Win.ConditionGroup"/>.</param>
+            <param name="appearance">The <see cref="T:Infragistics.Win.Appearance"/> that is mapped to the specified condition.</param>
+            <param name="isComplement">True if the condition is a <see cref="T:Infragistics.Win.ComplementCondition"/>.</param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupAppearanceRow.Appearance">
+            <summary>
+            Returns the <see cref="T:Infragistics.Win.Appearance"/> associated with the condition.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.TrueConditionRow">
+            <summary>
+            A row representing a <see cref="T:Infragistics.Win.TrueCondition"/>.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.TrueConditionRow.Condition">
+            <summary>
+            Returns the associated <see cref="T:Infragistics.Win.TrueCondition"/>.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.TrueConditionAppearanceRow">
+            <summary>
+            A row representing a <see cref="T:Infragistics.Win.TrueCondition"/> and its associated appearance.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.TrueConditionAppearanceRow.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.TrueConditionAppearanceRow.#ctor(Infragistics.Win.Appearance)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="appearance">The <see cref="T:Infragistics.Win.Appearance"/> that is mapped to the specified condition.</param>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.TrueConditionAppearanceRow.Appearance">
+            <summary>
+            Returns the <see cref="T:Infragistics.Win.Appearance"/> associated with the condition.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm">
+            <summary>
+            Form for creating a <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.ConditionGroup"/>.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.#ctor(Infragistics.Win.UltraWinGrid.UltraGridColumn)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="column">The <see cref="T:Infragistics.Win.UltraWinGrid.UltraGridColumn"/> that the condition belongs to.</param>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.ConditionGroup">
+            <summary>
+            Returns the <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.ConditionGroup"/> generated by the form.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionGroupForm.DataType">
+            <summary>
+            Gets/sets the datatype of the value used for evaluating matches.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionValueAppearanceForm">
+            <summary>
+            Form used to edit condition/appearance mappings.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionValueAppearanceForm.#ctor(Infragistics.Win.UltraWinGrid.UltraGridColumn)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="column"></param>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionValueAppearanceForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionValueAppearanceForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionValueAppearanceForm.ConditionValueAppearance">
+            <summary>
+            Returns the <see cref="P:Infragistics.Win.SupportDialogs.ConditionalFormatting.ConditionValueAppearanceForm.ConditionValueAppearance"/> generated by the form.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.FormattedTextEditor.FormattedTextUIEditorForm">
+            <summary>
+            Summary description for FormattedTextUIEditorForm.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FormattedTextUIEditorForm.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FormattedTextUIEditorForm.#ctor(Infragistics.Win.FormattedLinkLabel.UltraFormattedTextEditorBase)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FormattedTextUIEditorForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">True if managed and unmanaged resources should be cleaned up.</param>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FormattedTextUIEditorForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.FormattedTextEditor.FormattedTextUIEditorForm.Value">
+            <summary>
+            Gets or sets the value that's being edited.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.FormattedTextEditor.FontDialog">
+            <summary>
+            Dialog for selecting font.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FontDialog.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FontDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FontDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.FontDialog.Infragistics#Win#FormattedLinkLabel#ISupportDialog#ShowDialog(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Dialog for selecting font.
+            </summary>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.FormattedTextEditor.FontDialog.FontTag">
+            <summary>
+            Builds and returns the modified FontTag based on the entered values. 
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.FormattedTextEditor.HyperLinkDialog">
+            <summary>
+            Dialog for entering a new hyperlink or modifying an existing one.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.HyperLinkDialog.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.HyperLinkDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">True if managed and unmanaged resources should be cleaned up.</param>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.HyperLinkDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.HyperLinkDialog.Infragistics#Win#FormattedLinkLabel#ISupportDialog#ShowDialog(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Dialog for entering a new hyperlink or modifying an existing one.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.FormattedTextEditor.ImageDialog">
+            <summary>
+            Summary description for ImageDialog.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.ImageDialog.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.ImageDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.ImageDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.ImageDialog.Infragistics#Win#FormattedLinkLabel#ISupportDialog#ShowDialog(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Summary description for ImageDialog.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.FormattedTextEditor.PropertyGridDialog">
+            <summary>
+            Summary description for PropertyGridDialog.
+            </summary>
+        </member>
+        <member name="F:Infragistics.Win.SupportDialogs.FormattedTextEditor.PropertyGridDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.PropertyGridDialog.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.PropertyGridDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">True if managed and unmanaged resources should be cleaned up.</param>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.FormattedTextEditor.PropertyGridDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Infragistics.Win.SupportDialogs.Resources">
+            <summary>
+            Exposes a <see cref="T:Infragistics.Shared.ResourceCustomizer"/> instance for this assembly. 
+            </summary>
+            <seealso cref="P:Infragistics.Win.SupportDialogs.Resources.Customizer"/> 
+            <seealso cref="T:Infragistics.Shared.ResourceCustomizer"/> 
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.Resources.GetString(System.String,System.Object[])">
+            <summary>
+            Returns the resource string using the specified name and default culture.
+            </summary>
+            <param name="name">Name of the string resource to return.</param>
+            <param name="args">Arguments supplied to the string.Format method when formatting the string.</param>
+            <returns>The resource string using the specified name and default culture.</returns>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.Resources.GetString(System.String)">
+            <summary>
+            Returns the resource string using the specified resource name and default culture. The string is then formatted using the arguments specified.
+            </summary>
+            <param name="name">Name of the string resource to return.</param>
+            <returns>The resource string using the specified name and default culture.</returns>
+        </member>
+        <member name="M:Infragistics.Win.SupportDialogs.Resources.GetObject(System.String)">
+            <summary>
+            Returns the resource object using the specified name.
+            </summary>
+            <param name="name">Name of the resource item</param>
+            <returns>An object containing the specified resource</returns>
+        </member>
+        <member name="P:Infragistics.Win.SupportDialogs.Resources.Customizer">
+            <summary>
+            Returns the <see cref="T:Infragistics.Shared.ResourceCustomizer"/> for this assembly.
+            </summary>
+            <seealso cref="T:Infragistics.Shared.ResourceCustomizer"/> 
+        </member>
+        <member name="M:Infragistics.Shared.LocalizedCategoryAttribute.GetLocalizedString(System.String)">
+            <summary>
+            Returns the localized category name
+            </summary>
+            <param name="value">Name of the category to retreive</param>
+            <returns>The localized string value</returns>
+        </member>
+    </members>
+</doc>

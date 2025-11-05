@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F015C504-985F-44AA-92EC-E6F8C8461F9C}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.Admin.BLL</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Prana.Admin.BLL</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccAuxPath>
+    </SccAuxPath>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Application\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AUEC\AUEC.cs" />
+    <Compile Include="AUEC\AUECs.cs" />
+    <Compile Include="AUEC\CVAuecs.cs" />
+    <Compile Include="AuthorizationManager.cs" />
+    <Compile Include="Calendar.cs" />
+    <Compile Include="Calendars.cs" />
+    <Compile Include="CommissionRule\CommissionRule.cs" />
+    <Compile Include="CommissionRule\CommissionRuleClearingFee.cs" />
+    <Compile Include="CommissionRule\CommissionRuleCriteria.cs" />
+    <Compile Include="CommissionRule\CommissionRuleCriteriasUp.cs" />
+    <Compile Include="CommissionRule\CommissionRuleCriteriaUp.cs" />
+    <Compile Include="CommissionRule\CommissionRules.cs" />
+    <Compile Include="CommonDataManager.cs" />
+    <Compile Include="Company\BrokerAccountAUECMappingManager.cs" />
+    <Compile Include="Company\EnableDisabledItemsDAL.cs" />
+    <Compile Include="Company\EnableDisabledItemsManager.cs" />
+    <Compile Include="Company\FeederFundDAL.cs" />
+    <Compile Include="Company\FeederFundItem.cs" />
+    <Compile Include="Company\FeederFundManager.cs" />
+    <Compile Include="Company\FundDetails.cs" />
+    <Compile Include="Company\FundFeederFundMappingDAL.cs" />
+    <Compile Include="Company\FundFeederFundMappingManager.cs" />
+    <Compile Include="Company\FundFeederMapItem.cs" />
+    <Compile Include="Company\FundGroupSetupManager.cs" />
+    <Compile Include="Company\FundGroupSetupMappingDAL.cs" />
+    <Compile Include="Company\FundMasterFundMappingManager.cs" />
+    <Compile Include="Company\FundSetupManager.cs" />
+    <Compile Include="Company\FundSetupDAL.cs" />
+    <Compile Include="Company\ImportTagDAL.cs" />
+    <Compile Include="Company\ImportTagManager.cs" />
+    <Compile Include="Company\MarketDataType.cs" />
+    <Compile Include="Company\MasterFundMappingDAL.cs" />
+    <Compile Include="Company\MasterStrategyMappingDAL.cs" />
+    <Compile Include="Company\NAVLockDAL.cs" />
+    <Compile Include="Company\NAVLockManager.cs" />
+    <Compile Include="Company\PricingRuleItem.cs" />
+    <Compile Include="Company\PricingRuleDAL.cs" />
+    <Compile Include="Company\PricingRuleManager.cs" />
+    <Compile Include="Company\ReleaseDetails.cs" />
+    <Compile Include="Company\ReleaseSetupDAL.cs" />
+    <Compile Include="Company\ReleaseSetupManager.cs" />
+    <Compile Include="Company\SetUpContract.cs" />
+    <Compile Include="Company\SetUpContracts.cs" />
+    <Compile Include="Company\StrategyMasterStrategyMappingManager.cs" />
+    <Compile Include="Company\UserPermissionDAL.cs" />
+    <Compile Include="Company\UserPermissionManager.cs" />
+    <Compile Include="Company\UserSetupMappingDAL.cs" />
+    <Compile Include="CounterPartyVenue\CompanyCVCMTAIdentifier.cs" />
+    <Compile Include="CounterPartyVenue\CompanyCVCMTAIdentifiers.cs" />
+    <Compile Include="CounterPartyVenue\CompanyCVGiveUpIdentifier.cs" />
+    <Compile Include="CounterPartyVenue\CompanyCVGiveUpIdentifiers.cs" />
+    <Compile Include="EMSImportExport\DataManager.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="ThirdParty\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Asset.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\AssetManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Assets.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\AUECManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Compliance.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Currencies.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Currency.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\CurrencyType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\CurrencyTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Exchange.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\ExchangeFee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\ExchangeManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Exchanges.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Flag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Flags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Identifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Identifiers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\MarketFee.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\UnderLying.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\UnderLyings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Unit.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AUEC\Units.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessLayerException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\AllCommissionRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\AllCommissionRules.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\AUECCommissionRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\AUECCommissionRules.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionCalculation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionCalculations.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionCriterias.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionRateType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionRateTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionRuleCriteriaold.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionRuleCriterias.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\CommissionRuleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\Operater.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\Operaters.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\Rule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommissionRule\Rules.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CompanyThirdParty\FileFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CompanyThirdParty\FileFormats.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClearingFirmPrimeBroker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClearingFirmsPrimeBrokers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Client.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClientFix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClientFixManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClientFixs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClientFund.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClientFundManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\ClientFunds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Clients.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Companies.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Company.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClient.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClientClearer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClientClearerManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClientClearers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClients.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClientTradingAccount.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClientTradingAccountManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyClientTradingAccounts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCounterPartyVenue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCounterPartyVenueDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCounterPartyVenueDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCounterPartyVenues.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCounterPartyVenueTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyCounterPartyVenueTags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\CompanyTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Fund.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Funds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\FundType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\FundTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\MPID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\MPIDCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\MPIDs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Strategies.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Strategy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Trader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\TraderManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\Traders.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\TradingAccount.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\TradingAccounts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterParties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterParty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyVenue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\CounterPartyVenues.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\Venue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\VenueManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\Venues.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\VenueType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CounterPartyVenue\VenueTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FIX\Fix.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FIX\FixCapabilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FIX\FixCapability.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FIX\Fixmanager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FIX\Fixs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Futures\ContractListingType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Futures\ContractListingTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Futures\FutureManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Futures\FutureMonthCode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Futures\FutureMonthCodes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\Countries.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\Country.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\Flag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\Flags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\GeneralManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\Logo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\Logos.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\State.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="General\States.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Module\Module.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Module\ModuleManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Module\Modules.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\AdvancedOrder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\AdvancedOrders.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\ExecutionInstruction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\ExecutionInstructions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\HandlingInstruction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\HandlingInstructions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\OrderManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\OrderType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\OrderTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\Side.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\Sides.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\TimeInForce.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Order\TimeInForces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Permissions\Permission.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Permissions\PermissionManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Permissions\Permissions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Permissions\PermissionType.cs" />
+    <Compile Include="Permissions\PermissionTypes.cs" />
+    <Compile Include="Permissions\Preferences.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RMAdmin\BLL\DataTypeValidation.cs" />
+    <Compile Include="RMAdmin\BLL\RMAdminBLL.cs" />
+    <Compile Include="RMAdmin\Business Objects\AlertType.cs" />
+    <Compile Include="RMAdmin\Business Objects\AlertTypes.cs" />
+    <Compile Include="RMAdmin\Business Objects\ClientOverallLimit.cs" />
+    <Compile Include="RMAdmin\Business Objects\ClientOverallLimits.cs" />
+    <Compile Include="RMAdmin\Business Objects\CompanyAlert.cs" />
+    <Compile Include="RMAdmin\Business Objects\CompanyAlerts.cs" />
+    <Compile Include="RMAdmin\Business Objects\CompanyOverallLimit.cs" />
+    <Compile Include="RMAdmin\Business Objects\CompanyOverallLimits.cs" />
+    <Compile Include="RMAdmin\Business Objects\DefaultAlert.cs" />
+    <Compile Include="RMAdmin\Business Objects\DefaultAlerts.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMAUEC.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMAUECs.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMCurrencyRate.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMCurrencyRates.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMFundAccount.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMFundAccounts.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMTrading Account.cs" />
+    <Compile Include="RMAdmin\Business Objects\RMTradingAccounts.cs" />
+    <Compile Include="RMAdmin\Business Objects\UserLevelOverallLimit.cs" />
+    <Compile Include="RMAdmin\Business Objects\UserLevelOverallLimits.cs" />
+    <Compile Include="RMAdmin\Business Objects\UserTradingAccount.cs" />
+    <Compile Include="RMAdmin\Business Objects\UserTradingAccounts.cs" />
+    <Compile Include="RMAdmin\Business Objects\UserUIControl.cs" />
+    <Compile Include="RMAdmin\Business Objects\UserUIControls.cs" />
+    <Compile Include="RMAdmin\RM_DAL\RiskAUECManager.cs" />
+    <Compile Include="RMAdmin\RM_DAL\RiskClientManager.cs" />
+    <Compile Include="RMAdmin\RM_DAL\RiskCompanyManager.cs" />
+    <Compile Include="RMAdmin\RM_DAL\RiskFundAccountManager.cs" />
+    <Compile Include="RMAdmin\RM_DAL\RiskTradingAccountManager.cs" />
+    <Compile Include="RMAdmin\RM_DAL\RiskUserLevelManager.cs" />
+    <Compile Include="Symbol\Symbol.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolConvention.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolConventions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolConversion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolConversions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolIdentifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolIdentifiers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolMapping.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\SymbolMappings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Symbol\Symbols.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TestGrid\Symbolic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyCVIdentifier.cs" />
+    <Compile Include="ThirdParty\ThirdPartyCVIdentifiers.cs" />
+    <Compile Include="ThirdParty\ThirdPartyFlatFileSaveDetails.cs" />
+    <Compile Include="ThirdParty\ThirdPartyFund.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyFundCommissionRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyFundCommissionRules.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyFunds.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ThirdParty\ThirdPartyManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\UserManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\Users.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Company\UserSetupManager.cs" />
+    <Compile Include="User\Vendor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\VendorManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User\Vendors.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RMAdmin\ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Prana.Authentication.Common\Prana.Authentication.Common.csproj">
+      <Project>{E24D23E5-1AB0-4588-A7F8-03492C524B62}</Project>
+      <Name>Prana.Authentication.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Auth\Prana.Auth.csproj">
+      <Project>{0f1b569f-3a60-4d7b-bde3-2803c218baac}</Project>
+      <Name>Prana.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.Admin.BLL.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.Admin.BLL.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

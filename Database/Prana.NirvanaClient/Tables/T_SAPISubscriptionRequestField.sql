@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[T_SAPISubscriptionRequestField]
+(
+	[NirvanaFields] VARCHAR (255) PRIMARY KEY NOT NULL,
+	[BBGMnemonic] VARCHAR (MAX) NOT NULL,
+	[Equity] BIT NOT NULL DEFAULT 0,
+	[EquityOption] BIT NOT NULL DEFAULT 0,
+	[Future] BIT NOT NULL DEFAULT 0,
+	[FutureOption] BIT NOT NULL DEFAULT 0,
+	[FX] BIT NOT NULL DEFAULT 0,
+	[FixedIncome] BIT NOT NULL DEFAULT 0,
+	[FXForward] BIT NOT NULL DEFAULT 0
+);

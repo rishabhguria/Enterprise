@@ -1,0 +1,31 @@
+Input,Output ,FunctionName,Individual_File,File_Function,havetoappend,createsubfolder,scriptname,callscript,extension,rename,renameconfig,arguments,SplitParameter
+Input_Files\VC GS,Intermediate_Files\VC GS,,TRUE,vcnstrde:ReplaceCommasWithBlanks,,,,,,TRUE,vcnstrde:vcnstrde,
+Intermediate_Files\VC GS,Intermediate_Files\1\VC GS,,TRUE,vcnstrde:ConvertexttoColInMemoryCSVFiles,,,,,,TRUE,vcnstrde:Trade_(MMdd),|
+Input_Files\VC GS,Intermediate_Files\VC GS,,TRUE,vcnspfap:ReplaceCommasWithBlanks,,,,,,TRUE,vcnspfap:vcnspfap,
+Intermediate_Files\VC GS,Intermediate_Files\1\VC GS,,TRUE,vcnspfap:ConvertexttoCol_Optimized,,,,,,TRUE,vcnspfap:Position_(MMdd),|
+Input_Files\VC GS,Intermediate_Files\VC GS,,TRUE,vcnspdiv:ReplaceCommasWithBlanks,,,,,,TRUE,vcnspdiv:vcnspdiv,
+Intermediate_Files\VC GS,Intermediate_Files\1\VC GS,,TRUE,vcnspdiv:ConvertexttoCol_Optimized,,,,,,TRUE,vcnspdiv:Div ex dtd file (MMdd),|
+Input_Files\VC GS,Intermediate_Files\VC GS,,TRUE,vcnscrbl:ReplaceCommasWithBlanks,,,,,,TRUE,vcnscrbl:vcnscrbl,
+Intermediate_Files\VC GS,Intermediate_Files\1\VC GS,,TRUE,vcnscrbl:ConvertexttoCol_Optimized,,,,,,TRUE,vcnscrbl:Client Cash (MMdd),|
+Intermediate_Files\1\VC GS,Output_Files\VC GS,,TRUE,Client Cash:clearformat,,,,,,,,
+Input_Files\VC GS,Intermediate_Files\VC GS,,TRUE,vcnscral:ReplaceCommasWithBlanks,,,,,,TRUE,vcnscral:vcnscral,
+Intermediate_Files\VC GS,Intermediate_Files\1\VC GS,,TRUE,vcnscral:ConvertexttoCol_Optimized,,,,,,TRUE,vcnscral:FX (MMdd),|
+Intermediate_Files\1\VC GS,Intermediate_Files\VC GS,,TRUE,Position:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Position:Position Header,4#POSITIONS#0#POSITIONS,
+Intermediate_Files\1\VC GS,Intermediate_Files\2\VC GS,,TRUE,Position:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Position:Pos imp. (MMdd),5#ADVENIO GLOBAL;ARAMAS;APPRENTICE;BACK NINE;CORSAIR;FAR VIEW PARTNERS;GOOSE HILL;INTL ASSOC;NUDGE CAPITAL;ODS CAPITAL;PLUMBERS;RED NECK;SANCTIONED BLOCKED;SCOTT'S COVE SPECIAL CREDITS;SMITH COVE CAPITAL DOMESTIC FU;LOCAL UNION#1,
+Intermediate_Files\1\VC GS,Intermediate_Files\2\VC GS,,TRUE,Position:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Position:Pos fth lan imp. (MMdd),5#FIFTH LANE#0,
+Intermediate_Files\1\VC GS,Intermediate_Files\2\VC GS,,TRUE,Trade:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Trade:Trade imp. (MMdd),5#ADVENIO GLOBAL;ARAMAS;APPRENTICE;BACK NINE;CORSAIR;FAR VIEW PARTNERS;GOOSE HILL;INTL ASSOC;NUDGE CAPITAL;ODS CAPITAL;PLUMBERS;RED NECK;SANCTIONED BLOCKED;SCOTT'S COVE SPECIAL CREDITS;SMITH COVE CAPITAL DOMESTIC FU;LOCAL UNION;FIFTH LANE#1,
+Intermediate_Files\VC GS,Output_Files\VC GS,,TRUE,Position Header:AppendDataToFile_Optimized,,,,,,TRUE,Position Header:Pos imp. (MMdd),Intermediate_Files\2\VC GS#Pos imp#1,
+Intermediate_Files\VC GS,Output_Files\VC GS,,TRUE,Position Header:AppendDataToFile_Optimized,,,,,,TRUE,Position Header:Pos fth lan imp. (MMdd),Intermediate_Files\2\VC GS#Pos fth lan#1,
+Intermediate_Files\2\VC GS,Intermediate_Files\3\VC GS,,TRUE,Trade:FilterAndDeleteArgumentRowsList_Optimized,,,,,,,,15#CCY#0,
+Intermediate_Files\3\VC GS,Output_Files\VC GS,,TRUE,Trade:FilterAndDeleteArgumentRowsList_Optimized,,,,,,,,201#FX CHARGES;EXPIRED OPTIONS;INTL CLEARING CHARGES#0,
+Output_Files\VC GS,Output_Files\VC GS,,TRUE,Trade:FilterAndDeleteArgumentRowsList_Optimized,,,,,,,,204#FNT#0,
+Intermediate_Files\2\VC GS,Intermediate_Files\2\VC GS,,TRUE,Trade:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Trade:CCY (MMdd),15#CCY#0,
+Intermediate_Files\2\VC GS,Intermediate_Files\2\VC GS,,TRUE,Trade:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Trade:ADC (MMdd),204#FNT;ADC#0,
+Intermediate_Files\2\VC GS,Intermediate_Files\2\VC GS,,TRUE,Trade:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,TRUE,Trade:INTL (MMdd),201#FX CHARGES;INTL CLEARING CHARGES#0,
+Intermediate_Files\2\VC GS,Intermediate_Files\2\VC GS,,TRUE,CCY:AppendDataToFile_Optimized,,,,,,TRUE,CCY:Non trade file,Intermediate_Files\2\VC GS#INTL#1,
+Intermediate_Files\2\VC GS,Intermediate_Files\3\VC GS,,TRUE,Non trade file:AppendDataToFile_Optimized,,,,,,,,Intermediate_Files\2\VC GS#ADC#1,
+Intermediate_Files\3\VC GS,Output_Files\VC GS,,TRUE,Non trade:FilterAndReplaceValueInColumnList_Optimized,,,,,,,,4#5519;1109;5119#0#1209;1209;1209,
+Intermediate_Files\1\VC GS,Intermediate_Files\2\VC GS,,TRUE,Div:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,,,5#ADVENIO GLOBAL;ARAMAS;APPRENTICE;BACK NINE;CORSAIR;FAR VIEW PARTNERS;GOOSE HILL;INTL ASSOC;NUDGE CAPITAL;ODS CAPITAL;PLUMBERS;RED NECK;SANCTIONED BLOCKED;SCOTT'S COVE SPECIAL CREDITS;SMITH COVE CAPITAL DOMESTIC FU;LOCAL UNION#0,
+Intermediate_Files\2\VC GS,Intermediate_Files\3\VC GS,,TRUE,Div:FilterAndDeleteArgumentRowsList_Optimized,,,,,,,,4#AVX0;AVX9;AVXW;AVXX;AVXY;AVXY;AVYE#0,
+Intermediate_Files\3\VC GS,Intermediate_Files\4\VC GS,,TRUE,Div:FilterAndDeleteRowsListIfContainsStartFromRow_Optimized,,,,,,,,47#(yyyyMMdd)#0,
+Intermediate_Files\4\VC GS,Output_Files\VC GS,,TRUE,Div:FilterAndReplaceValueInColumnList_Optimized,,,,,,TRUE,Div:Div ex dtd file imp. (MMdd),4#5519;1109;5119#0#1209;1209;1209,

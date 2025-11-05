@@ -1,0 +1,60 @@
+module eplModules.dataWindow.AccountFeeder;
+
+@Name('AccountWindow')
+@Description('Named window for storing the account details.')
+create window AccountWindow.std:unique(accountId)
+(
+			accountId int,
+			accountShortName string,	
+			accountLongName string,
+			companyId int,
+			masterFundId int,
+			masterFundName string,
+			baseCurrencyId int,
+			parentWindowStream string
+);
+
+@Name('AccountWindowInsert')
+@Description('This updates the AccountWindow everytime new AccountCollection event arrives.')
+on AccountCollection as s
+merge AccountWindow sw where sw.accountId = s.accountId
+	when matched and
+			(
+				s.accountShortName <> sw.accountShortName or
+				s.accountLongName <> sw.accountLongName or
+				s.companyId <> sw.companyId or
+				s.masterFundId <> sw.masterFundId or
+				s.masterFundName <>sw.masterFundName or
+				s.baseCurrencyId <> sw.baseCurrencyId
+ 		)
+		then 
+			update 
+				set  
+				sw.accountShortName = s.accountShortName,
+				sw.accountLongName = s.accountLongName,
+				sw.companyId = s.companyId,
+				sw.masterFundId = s.masterFundId,
+				sw.masterFundName = s.masterFundName,
+				sw.baseCurrencyId = s.baseCurrencyId,
+				sw.parentWindowStream = "AccountCollection"
+				
+	when not matched
+		then insert 
+			select    	
+		   	s.accountId as accountId,
+		   	s.accountShortName as accountShortName,
+			s.accountLongName as accountLongName,
+			s.companyId as companyId,
+			s.masterFundId as masterFundId,
+			s.masterFundName as masterFundName,
+			s.baseCurrencyId as baseCurrencyId,
+			"AccountCollection" as parentWindowStream			
+			then insert into NewAccountRecieved select
+				s.accountId as accountId,
+		   		s.accountShortName as accountShortName,
+				s.accountLongName as accountLongName,
+				s.companyId as companyId,
+				s.masterFundId as masterFundId,
+				s.masterFundName as masterFundName,
+				s.baseCurrencyId as baseCurrencyId,
+				"AccountCollection" as parentWindowStream;

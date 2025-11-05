@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="SecMasterConstants.SecMasterSourceOfData">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="ESignal" />
+      <xs:enumeration value="SymbolLookup" />
+      <xs:enumeration value="ImportData" />
+      <xs:enumeration value="YahooFinance" />
+      <xs:enumeration value="BloombergDLWS" />
+      <xs:enumeration value="Database" />
+      <xs:enumeration value="CorporateAction" />
+      <xs:enumeration value="Xignite" />
+      <xs:enumeration value="Others" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SecMasterConstants.SecMasterSourceOfData" nillable="true" type="tns:SecMasterConstants.SecMasterSourceOfData" />
+</xs:schema>

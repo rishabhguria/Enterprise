@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!--  	 	1. id is primary key.
+			    2. name and rule-Type should be unique in combination-->
+	<rules name="Iguana">	
+	
+		 <rule id="custom-ruleIG1">
+			<name>Concentration Limits-5</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/concentrationLimit5/</eplPath>
+			<description>The size of the top 5 long positions in Whitney Capital-JPM exceeded 30% of the client Gross Market Value.
+			</description>
+			<compressionLevel>Account</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="ConcentrationLimits5"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="ConcentrationLimits5"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG2">
+			<name>Concentration Limits-6</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/concentrationLimit6/</eplPath>
+			<description>The size of the top 5 short positions in Whitney Capital-JPM exceeded 15% of the client Gross Market Value.
+			</description>
+			<compressionLevel>Account</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="ConcentrationLimits6"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="ConcentrationLimits6"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG3">
+		<name>Concentration Limits-9c</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/concentrationLimit9c/</eplPath>
+			<description>An equity security holding in Whitney Capital-JPM and Iguana Healthcare-JPM exceeded 4.99% of the outstanding stock of the related company.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="ConcentrationLimits9c"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="ConcentrationLimits9c"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG4">
+		<name>Industry And Sector Limits-1</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/industryAndSectorLimits1/</eplPath>
+			<description>The gross exposure of a single sector in Whitney Capital-JPM exceeded 100% of a client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="IndustryAndSectorLimits1"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="IndustryAndSectorLimits1"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG5">
+		<name>Industry And Sector Limits-2</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/industryAndSectorLimits2/</eplPath>
+			<description>The net exposure of a single sector in Whitney Capital-JPM exceeded +/-12.5% of a client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="IndustryAndSectorLimits2"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="IndustryAndSectorLimits2"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG6">
+		<name>Industry And Sector Limits-3</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/industryAndSectorLimits3/</eplPath>
+			<description>The gross exposure of Biotech in Whitney Capital-JPM exceeded 60% of a client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="IndustryAndSectorLimits3"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="IndustryAndSectorLimits3"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG7">
+		<name>Industry And Sector Limits-4</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/industryAndSectorLimits4/</eplPath>
+			<description>The net exposure of Biotech in Whitney Capital-JPM exceeded 10% of a client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="IndustryAndSectorLimits4"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="IndustryAndSectorLimits4"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG8">
+		<name>Industry And Sector Limits-5</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/industryAndSectorLimits5/</eplPath>
+			<description>The Gross Exposure of a single Industry, not including Biotech, in Whitney Capital-JPM exceeded 87.5% of the client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="IndustryAndSectorLimits5"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="IndustryAndSectorLimits5"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG9">
+		<name>Industry And Sector Limits-6</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/industryAndSectorLimits6/</eplPath>
+			<description>The Net Exposure of a single Industry, not including Biotech, in Whitney Capital-JPM exceeded +/-12.5% of the client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Sector</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="IndustryAndSectorLimits6"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="IndustryAndSectorLimits6"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG10">
+		<name>Global Limits-3a</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/globalLimits3a/</eplPath>
+			<description>The gross exposure of an Equity in EU member States, in Whitney Capital-JPM exceeded 20% of the Client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="GlobalLimits3a"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="GlobalLimits3a"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG11">
+		<name>Global Limits-4a</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/globalLimits4a/</eplPath>
+			<description>The net exposure of an Equity in EU member States, in Whitney Capital-JPM exceeded +/-5% of the Client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="GlobalLimits4a"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="GlobalLimits4a"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG12">
+		<name>Global Limits-3b</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/globalLimits3b/</eplPath>
+			<description>The gross exposure of an Equity Option in EU member States, in Whitney Capital-JPM exceeded 20% of the Client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="GlobalLimits3b"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="GlobalLimits3b"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG13">
+		<name>Global Limits-4b</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/globalLimits4b/</eplPath>
+			<description>The net exposure of an Equity Option in EU member States, in Whitney Capital-JPM exceeded +/-5% of the Client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="GlobalLimits4b"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="GlobalLimits4b"/>
+			</windowFillerStatementList>	
+			<blocked>true</blocked>		
+		</rule> 
+		<rule id="custom-ruleIG14">
+		<name>Global Limits-3c</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/globalLimits3c/</eplPath>
+			<description>The gross exposure of an underlying security in EU member States, in Whitney Capital-JPM exceeded 20% of the Client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="GlobalLimits3c"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="GlobalLimits3c"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+		<rule id="custom-ruleIG15">
+		<name>Global Limits-4c</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PostTrade</ruleType>
+			<eplPath>/globalLimits4c/</eplPath>
+			<description>The net exposure of an underlying security in EU member States, in Whitney Capital-JPM exceeded +/-5% of the Client Gross Market Value.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName></validationCompletedEventName>
+			<outputStatementList>		
+				<outputStatementName name="GlobalLimits4c"/>
+			</outputStatementList>
+			<windowFillerStatementList>		
+				<windowFillerStatementName name="GlobalLimits4c"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>			
+		</rule> 
+	</rules>
+</ruleConfig>

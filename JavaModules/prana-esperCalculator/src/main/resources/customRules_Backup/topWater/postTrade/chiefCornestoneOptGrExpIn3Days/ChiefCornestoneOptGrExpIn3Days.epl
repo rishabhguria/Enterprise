@@ -1,0 +1,69 @@
+module customRules.postTrade.chiefCornestoneOptGrExpIn3Days.ChiefCornestoneOptGrExpIn3Days;
+
+
+/* Constant Variable region starts here*/
+
+create constant variable double CHIEF_CORNERSTONE1_OPT_GRS_EXPOSURE_3DAYS_COEFFICIENT = 0.05;
+
+/* Constant Variable region ends here*/
+
+@Name('AggregateAccountAssetPostChiefCornestone')
+@Description('Stores gross exposure for Chief Cornerstone1(TA)')
+insert into AggregateAccountAssetPostChiefCornestone
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	//T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(businessDaysToExpire <= 3) as T 
+
+where T.asset in 
+('EquityOption','FutureOption') and T.accountShortName='Chief Cornerstone1(TA)'// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('RuleConditionPostChiefCornestone')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregateAccountAssetPostChiefCornestone]
+insert into RuleConditionPostChiefCornestone
+select distinct
+	coalesce(T.grossExposureBase*100/(CHIEF_CORNERSTONE1_OPT_GRS_EXPOSURE_3DAYS_COEFFICIENT * coalesce(F.accountNav,1)),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregateAccountAssetPostChiefCornestone" as parentWindowStream
+	
+from 
+AccountWithNav as F
+where F.accountId=T.accountId;
+
+@Name('RuleName4FinalPostChiefCornestone')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName4FinalPostChiefCornestone
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '5'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 5% of Chief Cornerstone1(TA) exposure shall be used to purchase options that are expiring within 3 business days.' as summary,
+	R.accountShortName as dimension,
+	"RuleConditionPostChiefCornestone" as parentWindowStream
+from
+RuleConditionPostChiefCornestone as R
+where R.percentageExposure > 5;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

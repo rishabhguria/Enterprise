@@ -1,0 +1,262 @@
+﻿
+--CREATE VIEW [dbo].[V_PMSnapshot]
+--AS
+--SELECT T_PMDataDump_3.Fund_Symbol
+--	,T_PMDataDump_3.[Trade Date]
+--	,T_PMDataDump_3.[Asset Class]
+--	,T_PMDataDump_3.Fund
+--	,T_PMDataDump_3.Symbol
+--	,T_PMDataDump_3.[Security Name]
+--	,T_PMDataDump_3.[Order Side]
+--	,T_PMDataDump_3.Position
+--	,T_PMDataDump_3.Multiplier
+--	,T_PMDataDump_3.[Net Exposure (Base)]
+--	,T_PMDataDump_3.[Beta Adj Exposure (Base)]
+--	,T_PMDataDump_3.[Day P&L (Base)]
+--	,GlobalPNL.[Day P&L Base (Global)]
+--	,FundPNL.[Day P&L Base (Fund)]
+--	,CASE 
+--		WHEN (NULLIF(CAST(T_PMDataDump_3.[Global NAV] AS FLOAT), 0) - CAST(GlobalPNL.[Day P&L Base (Global)] AS FLOAT)) <> 0
+--			THEN 100 * ISNULL(CAST(GlobalPNL.[Day P&L Base (Global)] AS FLOAT) / (NULLIF(CAST(T_PMDataDump_3.[Global NAV] AS FLOAT), 0) - CAST(GlobalPNL.[Day P&L Base (Global)] AS FLOAT)), 0)
+--		ELSE 0
+--		END AS [% Day P&L Base (Global)]
+--	,CASE 
+--		WHEN (NULLIF(CAST(T_PMDataDump_3.[Fund NAV] AS FLOAT), 0) - CAST(FundPNL.[Day P&L Base (Fund)] AS FLOAT)) <> 0
+--			THEN 100 * ISNULL(CAST(FundPNL.[Day P&L Base (Fund)] AS FLOAT) / (NULLIF(CAST(T_PMDataDump_3.[Fund NAV] AS FLOAT), 0) - CAST(FundPNL.[Day P&L Base (Fund)] AS FLOAT)), 0)
+--		ELSE 0
+--		END AS [% Day P&L Base (Fund)]
+--	,T_PMDataDump_3.[Notional (Base)]
+--	,T_PMDataDump_3.[Closing Mark]
+--	,T_PMDataDump_3.[Px Ask] AS [Ask Price]
+--	,T_PMDataDump_3.[Px Bid] AS [Bid Price]
+--	,T_PMDataDump_3.[Px Last] AS [Last PX]
+--	,T_PMDataDump_3.[Px Mid] AS [Mid Price]
+--	,T_PMDataDump_3.[Closing Price]
+--	,T_PMDataDump_3.[% Change]
+--	,T_PMDataDump_3.Delta
+--	,T_PMDataDump_3.[Volatility (%)] AS [Implied Vol]
+--	,T_PMDataDump_3.[Underlying Symbol]
+--	,T_PMDataDump_3.[Cost Basis P&L (Base)]
+--	,T_PMDataDump_3.[User Asset]
+--	,T_PMDataDump_3.Country
+--	,T_PMDataDump_3.Sector
+--	,T_PMDataDump_3.[Security Type]
+--	,T_PMDataDump_3.[Sub Sector]
+--	,T_PMDataDump_3.MasterFund
+--	,T_PMDataDump_3.[Master Strategy]
+--	,T_PMDataDump_3.[Exposure (BP)(Base)]
+--	,T_PMDataDump_3.Beta
+--	,T_PMDataDump_3.[% P&L Contribution (Global)]
+--	,T_PMDataDump_3.[% P&L Contribution (Fund)]
+--	,T_PMDataDump_3.[% Net Exposure (Global NAV)] AS [% Net Exposure Base]
+--	,T_PMDataDump_3.[% Gross Exposure (Global NAV)] AS [% Exposure Global (Gross)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Gross Exposure (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[Fund NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Gross Exposure Base (Fund)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Global NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Gross Exposure (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[Global NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Gross Exposure Base (Global)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Net Exposure (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[Fund NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Exposure Base (Fund)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Global NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Net Exposure (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[Global NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Exposure Base (Global)]
+--	,T_PMDataDump_3.[Market Value (Base)]
+--	,T_PMDataDump_3.[% Asset (Global NAV)] AS [% Market Value Base (Global)]
+--	,T_PMDataDump_3.[% Asset (Fund NAV)] AS [% Market Value Base (Fund)]
+--	,ABS(CAST(T_PMDataDump_3.[Market Value (Base)] AS FLOAT)) AS [Gross Market Value Base]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Global NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(ABS(CAST(T_PMDataDump_3.[Market Value (Base)] AS FLOAT)) / NULLIF(CAST(T_PMDataDump_3.[Global NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Gross Market Value Base (Global)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(ABS(CAST(T_PMDataDump_3.[Market Value (Base)] AS FLOAT)) / NULLIF(CAST(T_PMDataDump_3.[Fund NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Gross Market Value Base (Fund)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[MasterFund NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(ABS(CAST(T_PMDataDump_3.[Market Value (Base)] AS FLOAT)) / NULLIF(CAST(T_PMDataDump_3.[MasterFund NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Gross Market Value Base (MasterFund)]
+--	,(
+--		CASE 
+--			WHEN [Position Side (Fund)] = 'Long'
+--				THEN CAST([Market Value (Base)] AS FLOAT)
+--			ELSE 0
+--			END
+--		) AS [Long Market Value Base]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Firm NAV] AS FLOAT) <> 0
+--			THEN 100 * (
+--					CASE 
+--						WHEN [Position Side (Portfolio)] = 'Long'
+--							THEN isnull(CAST([Market Value (Base)] AS FLOAT) / NULLIF(CAST([Global NAV] AS FLOAT), 0), 0)
+--						ELSE 0
+--						END
+--					)
+--		ELSE 0
+--		END AS [% Long Market Value Base (Global)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * (
+--					CASE 
+--						WHEN [Position Side (Fund)] = 'Long'
+--							THEN isnull(CAST([Market Value (Base)] AS FLOAT) / NULLIF(CAST([Fund NAV] AS FLOAT), 0), 0)
+--						ELSE 0
+--						END
+--					)
+--		ELSE 0
+--		END AS [% Long Market Value Base (Fund)]
+--	,(
+--		CASE 
+--			WHEN [Position Side (Fund)] = 'Short'
+--				THEN CAST([Market Value (Base)] AS FLOAT)
+--			ELSE 0
+--			END
+--		) AS [Short Market Value Base]
+--	,
+--	--        
+--	CASE 
+--		WHEN cast(T_PMDataDump_3.[Global NAV] AS FLOAT) <> 0
+--			THEN 100 * (
+--					CASE 
+--						WHEN [Position Side (Portfolio)] = 'Short'
+--							THEN isnull(CAST([Market Value (Base)] AS FLOAT) / NULLIF(CAST([Global NAV] AS FLOAT), 0), 0)
+--						ELSE 0
+--						END
+--					)
+--		ELSE 0
+--		END AS [% Short Market Value Base (Global)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * (
+--					CASE 
+--						WHEN [Position Side (Fund)] = 'Short'
+--							THEN isnull(CAST([Market Value (Base)] AS FLOAT) / NULLIF(CAST([Fund NAV] AS FLOAT), 0), 0)
+--						ELSE 0
+--						END
+--					)
+--		ELSE 0
+--		END AS [% Short Market Value Base (Fund)]
+--	,replace(T_PMDataDump_3.[Avg Volume 20 Day], ',', '') AS AverageVolume20Day
+--	,replace(T_PMDataDump_3.[Avg Volume 20 Day (Underlying Symbol)], ',', '') AS [AverageVolume20Day (Underlying)]
+--	,T_PMDataDump_3.[Gross Exposure (Base)] AS [Gross Exposure]
+--	,T_PMDataDump_3.[Position Side (Fund)]
+--	,T_PMDataDump_3.[Position Side (Portfolio)]
+--	,T_PMDataDump_3.[Position Side Exposure (Fund)]
+--	,T_PMDataDump_3.[Position Side Exposure (Portfolio)]
+--	,T_PMDataDump_3.[Fund NAV]
+--	,T_PMDataDump_3.Fund + '_' + T_PMDataDump_3.[Underlying Symbol] AS Fund_UnderlyingSymbol
+--	,T_PMDataDump_3.MasterFund + '_' + T_PMDataDump_3.Symbol AS MasterFund_Symbol
+--	,T_PMDataDump_3.MasterFund + '_' + T_PMDataDump_3.[Underlying Symbol] AS MasterFund_UnderlyingSymbol
+--	,T_PMDataDump_3.[% Avg Volume] AS [% Avg Volume]
+--	,T_PMDataDump_3.[Firm NAV]
+--	,T_PMDataDump_3.[Put/Call]
+--	,T_PMDataDump_3.[Strike Price]
+--	,T_PMDataDump_3.[Expiration Date]
+--	,T_PMDataDump_3.[Cost Basis]
+--	,T_PMDataDump_3.[Dividend Yield (%)] AS [Dividend Yield]
+--	,T_PMDataDump_3.CreatedOn
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Global NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Cost Basis P&L (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[Global NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Cost Basis P&L Contribution (Global)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Cost Basis P&L (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[Fund NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Cost Basis P&L Contribution (Fund)]
+--	,CASE 
+--		WHEN cast(T_PMDataDump_3.[MasterFund NAV] AS FLOAT) <> 0
+--			THEN 100 * ISNULL(CAST(T_PMDataDump_3.[Cost Basis P&L (Base)] AS FLOAT) / NULLIF(CAST(T_PMDataDump_3.[MasterFund NAV] AS FLOAT), 0), 0)
+--		ELSE 0
+--		END AS [% Cost Basis P&L Contribution (Master Fund)]
+--	,
+--	--100 * ISNULL(CAST(T_PMDataDump_3.[Delta Adj Position] AS float) / NULLIF (CAST(T_PMDataDump_3.[Avg Volume 20 Day] AS float), 0), 0) AS [% Avg Volume],          
+--	ISNULL(T_PMDataDump_3.[% Avg Vol (Delta Adj)], 0) AS [% Avg Vol(Delta Adj)]
+--	,(
+--		CASE 
+--			WHEN [Position Side Exposure (Fund)] = 'Long'
+--				THEN CAST([Net Exposure (Base)] AS FLOAT)
+--			ELSE 0
+--			END
+--		) AS [Long Exposure Base]
+--	,(
+--		CASE 
+--			WHEN [Position Side Exposure (Fund)] = 'Short'
+--				THEN CAST([Net Exposure (Base)] AS FLOAT)
+--			ELSE 0
+--			END
+--		) AS [Short Exposure Base]
+--	,CASE 
+--		WHEN cast([Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * (
+--					CASE 
+--						WHEN [Position Side Exposure (Fund)] = 'Long'
+--							THEN isnull(CAST([Net Exposure (Base)] AS FLOAT) / NULLIF(CAST([Fund NAV] AS FLOAT), 0), 0)
+--						ELSE 0
+--						END
+--					)
+--		ELSE 0
+--		END AS [% Long Exposure Base (Fund)]
+--	,CASE 
+--		WHEN cast([Fund NAV] AS FLOAT) <> 0
+--			THEN 100 * (
+--					CASE 
+--						WHEN [Position Side Exposure (Fund)] = 'Short'
+--							THEN isnull(CAST([Net Exposure (Base)] AS FLOAT) / NULLIF(CAST([Fund NAV] AS FLOAT), 0), 0)
+--						ELSE 0
+--						END
+--					)
+--		ELSE 0
+--		END AS [% Short Exposure Base (Fund)]
+--	,ISNULL(CAST(T_PMDataDump_3.[Underlying Value(Options)] AS FLOAT), 0) AS [Underlying Value(Options)]
+--	,T_PMDataDump_3.[MasterFund NAV]
+--	,T_PMDataDump_3.[% Gross Exposure (MasterFund NAV)] AS [% Gross Exposure Base (MasterFund)]
+--	,T_PMDataDump_3.[% Net Exposure (MasterFund NAV)] AS [% Exposure Base (MasterFund)]
+--	,T_PMDataDump_3.[% Asset (MasterFund NAV)]
+--	,T_PMDataDump_3.[Day Return (Fund)]
+--	,T_PMDataDump_3.[Day Return (Firm)]
+--	,T_PMDataDump_3.[Day Return (MasterFund)]
+--	,T_PMDataDump_3.[Px Selected Feed]
+--	,T_PMDataDump_3.[% P&L Contribution (MasterFund)]
+--	,T_PMDataDump_3.[Pricing Source]
+---- CASE WHEN (NULLIF (CAST(T_PMDataDump_3.[Fund NAV] AS float), 0) - CAST(T_PMDataDump_3.[Day P&L Base] AS float)) <> 0         
+----THEN            
+----100 * ISNULL(CAST(T_PMDataDump_3.[Day P&L Base] AS float)/ (NULLIF (CAST(T_PMDataDump_3.[Fund NAV] AS float), 0) - CAST(T_PMDataDump_3.[Day P&L Base] AS float)), 0)        
+----ELSE 0 END        
+---- AS [% Day P&L Base (Fund_Symbol)],               
+----         
+----CASE WHEN (NULLIF (CAST(T_PMDataDump_3.[Global NAV] AS float), 0) - CAST(T_PMDataDump_3.[Day P&L Base] AS float)) <> 0         
+----THEN            
+----100 * ISNULL(CAST(T_PMDataDump_3.[Day P&L Base] AS float) / (NULLIF (CAST(T_PMDataDump_3.[Global NAV] AS float), 0) - CAST(T_PMDataDump_3.[Day P&L Base] AS float)), 0)        
+----ELSE 0 END        
+---- AS [% Day P&L Base (Symbol)],             
+--FROM dbo.V_PMSnapshotGlobalDayPNL AS GlobalPNL
+--CROSS JOIN dbo.T_PMDataDump AS T_PMDataDump_3
+--INNER JOIN dbo.V_PMSnapshotFundDayPNL AS FundPNL ON T_PMDataDump_3.Fund = FundPNL.Fund
+--WHERE T_PMDataDump_3.[Pricing Source] <> 'NewOrder'
+--	AND (
+--		T_PMDataDump_3.CreatedOn = (
+--			SELECT MAX(CreatedOn) AS Expr1
+--			FROM dbo.T_PMDataDump AS T_PMDataDump_2
+--			WHERE (
+--					CreatedOn < (
+--						SELECT MAX(CreatedOn) AS Expr1
+--						FROM dbo.T_PMDataDump AS T_PMDataDump_1
+--						)
+--					)
+--			)
+--		)

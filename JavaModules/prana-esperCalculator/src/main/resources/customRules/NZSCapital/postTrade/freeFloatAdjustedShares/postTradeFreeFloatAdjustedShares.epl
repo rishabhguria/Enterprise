@@ -1,0 +1,37 @@
+module customRules.NZSCapital.postTrade.freeFloatAdjustedShares.postTradeFreeFloatAdjustedShares;
+
+@Name('AccountFreeFloatingSharesCheck')
+@Description('Stores calculated value of total free floating shares for post trade.')
+on DivisorEndMessage as B
+insert into AccountFreeFloatingSharesCheck
+select distinct
+    0 as userId,
+    '' as taxlotId,
+    W.quantity as quantity,
+    W.accountId as accountId,
+    W.accountShortName as accountName,
+    W.symbol as symbol,
+    convertStrToInt(W.customUDA8) as totalFreeFloatingShares,
+    (case(valueExistsInCSV(W.accountShortName, Account_Name_PostFloatingShares) and (convertStrToInt(W.customUDA8)>1))
+	when true then true else false end) as finalValidation,
+    "AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId;
+
+@Name('PostTradeFreeFloatingSharesCheck')
+@Description('Final stream to check if condition is breached')
+insert into PostTradeFreeFloatingSharesCheck
+select distinct 
+    A.userId as userId,
+    A.taxlotId as taxlotId,
+    Account_Name_PostFloatingShares || ValueSeparator || 'N/A'|| ValueSeparator || doubleFormat(FreeFloatingPercentagePostTrade) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(A.quantity) || ValueSeparator || doubleFormat(Math.abs(coalesce((A.quantity/A.totalFreeFloatingShares)*100,0))) as actualResult,
+    'Account' || ValueSeparator || 'Quantity ' || ValueSeparator || 'Total free floating shares ' as constraintField,
+    (case A.finalValidation is true
+    when true then ((A.totalFreeFloatingShares > 1) and (Math.abs(A.quantity) > A.totalFreeFloatingShares*(FreeFloatingPercentagePostTrade/100)))
+    else false end) as isViolated,
+	'Account: ' || A.accountName ||', Symbol: '||A.symbol || ', Quantity: ' || doubleFormat(A.quantity) || ', % Total free floating shares: ' || doubleFormat(Math.abs(coalesce((A.quantity/A.totalFreeFloatingShares)*100,0))) as parameters,
+	current_timestamp as validationTime,
+	'Quantity should be less than ' || doubleFormat(FreeFloatingPercentagePostTrade) || '% of total free floating shares.' as summary,
+	A.accountName || ValueSeparator || A.symbol as dimension
+ from  AccountFreeFloatingSharesCheck as A;

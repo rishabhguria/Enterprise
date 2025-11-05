@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PositionMaster">
+          <xs:complexType>
+            <xs:all>
+              	<xs:element name="UnderlyingID" type="xs:integer" minOccurs="0" />        		
+      			<xs:element name="CUSIP" type="xs:string" minOccurs="0" />
+       			<xs:element name="SEDOL" type="xs:string" minOccurs="0" />
+       			<xs:element name="ISIN" type="xs:string" minOccurs="0" />
+<xs:element name="IDCOOptionSymbol" type="xs:string" minOccurs="0" />
+        		<xs:element name="RIC" type="xs:string" minOccurs="0" />
+       			<xs:element name="Bloomberg" type="xs:string" minOccurs="0" />
+      			<xs:element name="Symbol" type="xs:string" minOccurs="0" />
+        		<xs:element name="AUECID" type="xs:integer" minOccurs="0" />
+               <xs:element name="ExchangeID" type="xs:integer" minOccurs="0" />
+        	   <xs:element name="SideTagValue" type="xs:string" minOccurs="1" />
+               <xs:element name="RowIndex" type="xs:integer" minOccurs="0" />
+               <xs:element name="VenueID" type="xs:integer" minOccurs="0" />
+               <xs:element name="Venue" type="xs:string" minOccurs="0" />
+               <xs:element name="CounterPartyID" type="xs:integer" minOccurs="0" />
+				<xs:element name="CounterParty" type="xs:string" minOccurs="0" />
+        		<xs:element name="Strategy" type="xs:string" minOccurs="0" />
+       			<xs:element name="NetPosition" type="xs:decimal" minOccurs="1" />       			
+       			<xs:element name="CostBasis" type="xs:decimal" minOccurs="1" />
+				<xs:element name="Commission" type="xs:decimal" minOccurs="0" />
+       			<xs:element name="Fees" type="xs:decimal" minOccurs="0" />
+				<xs:element name="StampDuty" type="xs:decimal" minOccurs="0" />
+				<xs:element name="TransactionLevy" type="xs:decimal" minOccurs="0" />
+				<xs:element name="ClearingFee" type="xs:decimal" minOccurs="0" />
+				<xs:element name="MiscFees" type="xs:decimal" minOccurs="0" />
+       			<xs:element name="FundName" type="xs:string" minOccurs="1" />
+       			<xs:element name="PBSymbol" type="xs:string" minOccurs="0" />
+       			<xs:element name="PBAssetType" type="xs:string" minOccurs="0" />
+       			<xs:element name="PositionStartDate" type="xs:string" minOccurs="0" />
+       			<xs:element name="CurrencyID" type="xs:integer" minOccurs="0" />
+       			<xs:element name="Description" type="xs:string" minOccurs="0" />
+				<xs:element name="FXConversionMethodOperator" type="xs:string" minOccurs="0" />
+				<xs:element name="FXRate" type="xs:decimal" minOccurs="0" />
+
+
+<xs:element name="ProcessDate" type="xs:string" minOccurs="0" />
+<xs:element name="OriginalPurchaseDate" type="xs:string" minOccurs="0" />
+
+ <xs:element name="PositionSettlementDate" type="xs:string" minOccurs="0" />
+		     <xs:element name="SMMappingReq" type="xs:string" minOccurs="0" />
+<xs:element name="Multiplier" type="xs:decimal" minOccurs="0" />
+<xs:element name="Expirationdate" type="xs:string" minOccurs="0" />
+
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

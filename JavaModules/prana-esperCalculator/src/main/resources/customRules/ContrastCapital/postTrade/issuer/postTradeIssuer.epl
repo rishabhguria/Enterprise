@@ -1,0 +1,49 @@
+module customRules.ContrastCapital.postTrade.issuer.postTradeIssuer;
+
+@Name('AccountIssuerPost')
+@Description('stores values of Empty ultimate list and account nav')
+on DivisorEndMessage as B
+insert into AccountIssuerPost
+select distinct
+   	0 as userId,
+	'' as taxlotId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	W.customUDA5 as issuer,
+	W.symbol as symbol,
+    sum(case when (valueExistsInCSV(W.customUDA5, EmptyUltimateListIssuer_post) is false  and 
+    valueExistsInCSV(W.udaAsset, AssetIssuer_post) is false and
+    valueExistsInCSV(W.accountShortName, AccountIssuer_post) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalNetMarketValueBase,
+	(case(valueExistsInCSV(W.accountShortName, AccountIssuer_post) is true and valueExistsInCSV(W.customUDA5, EmptyUltimateListIssuer_post) is false  and 
+    valueExistsInCSV(W.udaAsset, AssetIssuer_post) is false) 
+    when true then true else false end ) as validation,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W 
+group by W.accountId,W.customUDA5;
+
+@Name('PostTradeIssuer')
+@Description('Final stream to check condition is breached')
+insert into PostTradeIssuer
+select distinct
+	A.userId as userId,
+	A.taxlotId as taxlotId,
+  	AccountIssuer_post || ValueSeparator ||doubleFormat(PercentageIssuer_post) as threshold,
+	A.accountShortName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0))) as actualResult,
+    'Account '|| ValueSeparator || '% Total Nav'  as constraintField,
+	(case A.validation is true
+	when true then 
+		(Math.abs(coalesce(A.totalNetMarketValueBase/A.accountNav ,0)) > (PercentageIssuer_post / 100)) 
+	else 
+		false end) as isViolated,
+   'Account: ' || A.accountShortName 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0)))
+		|| ', Net Market Value: '  || doubleFormat(A.totalNetMarketValueBase)
+		|| ', Symbol: '  || A.symbol as parameters,
+    current_timestamp as validationTime,
+	'Max '||doubleFormat(PercentageIssuer_post)|| '% market value per single issuer exceeded' as summary,
+	A.accountShortName|| ValueSeparator ||A.issuer as dimension
+from AccountIssuerPost as A
+where A.userId is not null;

@@ -1,0 +1,254 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        x:Name="OTCTradeDetailsView1"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:Prana.SM.OTC.View"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+        xmlns:viewModels="clr-namespace:Prana.SM.OTC"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:behaviors="clr-namespace:Prana.SM.OTC.Behaviours"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+        xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+        xmlns:Core="clr-namespace:System;assembly=mscorlib" 
+        xmlns:Converters="clr-namespace:Prana.SM.OTC.ValueConvertor" 
+        xmlns:Themes="http://infragistics.com/Themes"
+        xmlns:Custom="http://infragistics.com/Editors"
+        x:Class="Prana.SM.OTC.View.OTCTradeDetailsView"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        Title="AddOTCTemplateView" Height="700" Width="660" MaxHeight="700" MaxWidth="660">
+    <!--DataContext="{DynamicResource AddCustomFieldViewModelRes}">-->
+    <!--xmlns:Converters="clr-namespace:Prana.SM.OTC.ValueConvertor"-->
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/NirvanaSkin.xaml" />
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamEditors.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamGrid.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMenu.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <!--<viewModels:AddCustomFieldViewModel x:Key="AddCustomFieldViewModelRes"/>-->
+
+
+            <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+
+            <Style x:Key="ButtonStyleSaveButton" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource GreenButtonSkinTemplate}"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+            <Converters:PrecisionFormatDisplayConverter x:Key="PrecisionFormatDisplayConverter"/>
+            <Style x:Key="NumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource PrecisionFormatDisplayConverter}"/>
+                <Setter Property="Tag" Value="{Binding Path=PrecisionFormat}"></Setter>
+                <Setter Property="Mask" Value="{}{char:15:0-9.}"/>
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="5,5,5,5"/>
+                <Setter Property="IsReadOnly" Value="{Binding IsReadOnly,Mode=TwoWay}"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0" />
+    </shell:WindowChrome.WindowChrome>
+
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border CornerRadius="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#58585A" Grid.RowSpan="2" />
+        <Border CornerRadius="2" Grid.Row="0" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock x:Name="tbNirvana" Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center" >
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Text" Value="Nirvana"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=OTCTradeDetailsView, Path=WindowState}" Value="Minimized">
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Text" Value="OTCTradeDetailsView"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="OTC Details" Height="22" FontSize="14" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center" />
+        </StackPanel>
+
+        <DockPanel Margin="5,0,5,5" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+            <Grid Background="#FFE7E8E9">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Row="0"   VerticalAlignment="Stretch"   HorizontalAlignment="Stretch" Visibility="{Binding IsShowHideOnnextButton}" >
+                    <GroupBox BorderBrush="Black" Grid.Row="0" Grid.Column="0" BorderThickness="2" Width="640" HorizontalAlignment="Left" Margin="0,0,0,0">
+                        <GroupBox.Header>
+                            <Span FontWeight="Bold" FontSize="14">Instrument OverView</Span>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Symbol" Grid.Row="0" Grid.Column="0"  Padding="0,10,10,5"  Width="100"/>
+                            <Label Content="Unique Identifier/Description" Grid.Row="0" Grid.Column="1" Padding="0,10,10,5"  Width="100"/>
+                            <Label Content="ISIN" Grid.Row="0" Grid.Column="3" Padding="0,10,10,5" Width="100" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="Sedol" Grid.Row="0" Grid.Column="2"  Padding="0,10,10,5"  Width="100" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="CUSIP" Grid.Row="0" Grid.Column="4" Padding="0,10,10,5" Width="100" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="Select Template" Grid.Row="2" Grid.Column="0" Padding="0,10,10,5"  Width="100"/>
+                            <Label Content="Days to Settle" Grid.Row="2" Grid.Column="1" Padding="0,10,10,5" Width="100"/>
+                            <Label Content="Effective Date" Grid.Row="2" Grid.Column="2" Padding="0,10,10,5" Width="100" />
+                            <Label Content="Expiration Date" Grid.Row="2" Grid.Column="3" Padding="0,10,10,5" Width="100"/>
+                            <Label Content="Currency" Grid.Row="2" Grid.Column="4"  Padding="0,10,10,5" Width="100" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBox Grid.Row="1" Grid.Column="2" Margin="10,0,10,7" Text="{Binding Path=TemplateData.Sedol,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" Margin="10,0,10,7" Text="{Binding Path=TemplateData.Isin,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="100" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Row="1" Grid.Column="4" Margin="10,0,10,7" Text="{Binding Path=TemplateData.Cusip,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Width="100"  Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBox Grid.Row="1" Grid.Column="1"   Margin="10,0,10,7" Text="{Binding Path=TemplateData.UniqueIdentifier}"  Width="100" IsReadOnly="True" />
+
+                            <ig:XamComboEditor x:Name="ComboTemplates" Margin="10,0,10,10" EmptyText="Select" Grid.Row="3" Grid.Column="0"  
+                                   Width="110"  IsEditable="False" 
+                                   ItemsSource="{Binding Path=Templates}" 
+                    DisplayMemberPath="Name" SelectedItem="{Binding Path=SelectedTemplate}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding TemplateSelectionChangedCommand}"  CommandParameter="{Binding ElementName=ComboTemplates, Path=SelectedItem}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ig:XamComboEditor>
+
+                            <TextBox Grid.Row="1" Grid.Column="0" Margin="10,0,10,7"  Text="{Binding Path=TemplateData.Symbol}"  Width="110"  IsReadOnly="True" RenderTransformOrigin="0.5,0.5" >
+                            </TextBox>
+
+                            <igWPF:XamDateTimeEditor   Grid.Row="3" Grid.Column="2"   Margin="10,0,10,10" Width="100" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" Text="{Binding Path=TemplateData.EffectiveDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            <igWPF:XamDateTimeEditor   Grid.Row="3" Grid.Column="3"   Margin="10,0,10,10" Width="100" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" Text="{Binding Path=TemplateData.EffectiveDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <ig:XamComboEditor x:Name="ComboCurrency" ItemsSource="{Binding  CurrencyList}" 
+								   SelectedItem="{Binding Path=TemplateData.Currency,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Margin="10,0,10,10" EmptyText="Select" Grid.Row="3" Grid.Column="4" Width="115"   VerticalAlignment="Center" IsEditable="False" Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+											 ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" />
+                          <Custom:XamNumericEditor  Grid.Row="3" Grid.Column="1" Margin="10,0,10,10" Width="110"  ValueType="Core:Int32" Value="{Binding Path=TemplateData.DaysToSettle,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1.00">
+                            </Custom:XamNumericEditor>
+
+
+
+                            <!--<Label Content="Symbol" Grid.Row="0" Grid.Column="0"  Padding="0,10,10,5"   Width="100" Margin="16,0,64,0"></Label>
+                            <Label Content="Unique Identifier/Description"  HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Padding="0,10,10,5"   Width="100" Margin="0,0,0,0" Height="31" VerticalAlignment="Top"/>
+                         
+                            
+                            <Label Content="Select Template:" Grid.Row="2" Grid.Column="0" Padding="0,10,10,5" Width="150" Margin="14,0,13,0"/>
+                            <Label Content="Days To Settle:" Grid.Row="2"  Padding="0,10,10,5"  Width="150" Margin="155,0,73,0" Grid.ColumnSpan="2"/>
+                            <Label Content="Effective Date" Grid.Row="2" Grid.Column="2" Padding="0,10,10,5" Width="110" Margin="0,0,0,0"/>
+
+                        -->
+
+
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <StackPanel Visibility="{Binding IsShowHideOnnextButton}"  >
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Visibility="{Binding Path=TemplateData.IsEquitySwapVisible}">
+                                <views:EquitySwapView  x:Name="EquitySwapView" DataContext="{Binding EquitySwapViewModel,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel Visibility="{Binding Path=TemplateData.IsEquityCFDVisible}">
+                            <views:CFDView x:Name="CFDView" DataContext="{Binding CFDViewModel,Mode=TwoWay}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                        <StackPanel Visibility="{Binding Path=TemplateData.IsConvertibleBondVisible,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <views:ConvertibleBondView x:Name="ConvertibleBondView" DataContext="{Binding ConvertibleBondViewModel,Mode=TwoWay}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Visibility="{Binding IsShowHideOnBackButton}">
+                        <views:ShowCustomTemplateView x:Name="ShowCustomTemplateView" DataContext="{Binding ShowCustomTemplateViewModel,Mode=TwoWay}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <DockPanel LastChildFill="True"  Grid.Row="2"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Content="Done" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" Command="{Binding SaveOTCTemplateButtonClickedCommand}" Width="75" CommandParameter="{Binding ElementName=OTCTradeDetailsView1}" Style="{StaticResource ButtonStyleSaveButton}" />
+                    <Label HorizontalAlignment="Right" Content="{Binding TextPageSwitch}" Grid.Row="0" Grid.Column="0"  Margin="5,5,5,0"/>
+                    <Button Content="Next" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Command="{Binding NextOTCTemplateButtonClickedCommand}" Width="75" Style="{StaticResource ButtonStyle}"/>
+                    <Button Content="Back" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center" Command="{Binding BackOTCTemplateButtonClickedCommand}" Width="75" Style="{StaticResource ButtonStyle}"/>
+                </DockPanel>
+
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>

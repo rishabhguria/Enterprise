@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DS_Reports">
+      <rd:DataSourceID>6fe815d6-a86d-4d66-b764-aac46318bc54</rd:DataSourceID>
+      <DataSourceReference>DS_Reports</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="StartDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>LastBusinessDay</DataSetName>
+          <ValueField>LastBusinessDay</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramUserID">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>17</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>paramUserID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFundID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=0</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramMasterFundID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramMasterFunds">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>paramMasterFunds</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetMasterFunds</DataSetName>
+          <ValueField>MasterFundID</ValueField>
+          <LabelField>MasterFundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="Funds">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Funds</DataSetName>
+          <ValueField>FundName</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Fund</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Funds</DataSetName>
+          <ValueField>FundName</ValueField>
+          <LabelField>FundName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="FutureMVType">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Unrealized P&amp;L on Cost</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Future MV Type</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Unrealized P&amp;L on Cost</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Day P&amp;L</Value>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>Market Value</Value>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:GridSpacing>0.05in</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>0.4in</RightMargin>
+  <LeftMargin>0.4in</LeftMargin>
+  <BottomMargin>0.5in</BottomMargin>
+  <rd:ReportID>ded70edf-aaf3-44bd-bfac-e7743dae1912</rd:ReportID>
+  <DataSets>
+    <DataSet Name="DataSetCompanyName">
+      <Fields>
+        <Field Name="Name">
+          <DataField>Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>Select Name From T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetCompanyLogoNew</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="LastBusinessDay">
+      <Fields>
+        <Field Name="LastBusinessDay">
+          <DataField>LastBusinessDay</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetLastBusinessDay</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="Funds">
+      <Fields>
+        <Field Name="FundName">
+          <DataField>Fundname</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>--P_GetCompanyFundsForUser_Updated
+
+select Fundname from t_companyfunds</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetPranaLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetPranaLogo</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetMasterFunds">
+      <Fields>
+        <Field Name="MasterFundID">
+          <DataField>MasterFundID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="MasterFundName">
+          <DataField>MasterFundName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetMasterFundByID</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@FundID">
+            <Value>=Parameters!paramMasterFundID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="MW">
+      <Fields>
+        <Field Name="Symbolt">
+          <DataField>Symbolt</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SecurityName">
+          <DataField>SecurityName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Asset">
+          <DataField>Asset</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TradeCurrency">
+          <DataField>TradeCurrency</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MV">
+          <DataField>MV</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="NewMV">
+          <DataField>NewMV</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="VSCurrencyIdt">
+          <DataField>VSCurrencyIdt</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="LeadCurrencyIDt">
+          <DataField>LeadCurrencyIDt</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FXrate">
+          <DataField>FXrate</DataField>
+          <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>declare @t table
+(
+ Symbolt varchar(max),
+ SecurityName varchar(max),
+ Asset varchar(max),
+ TradeCurrency varchar(max),
+ MV float,
+ NewMV float,
+ VSCurrencyIdt int,
+ LeadCurrencyIDt int,
+ FXrate float
+-- FromCurrencyIDt int
+)
+
+declare @T_entity table
+(
+ FundNames varchar(max),
+ FundNameID int
+)
+
+insert into @T_entity (FundNames)
+ select * from dbo.split(@Funds,',')
+
+update @T_entity set FundNameID=FundNameID from t_companyfunds where FundNames=FundName
+
+
+insert into @t (Symbolt,SecurityName,asset,tradecurrency,MV)
+select symbol, SecurityName, asset, tradecurrency,sum(endingMarketValueLocal) as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O'and Asset not in ('Future','FX')
+group by symbol, asset, tradecurrency,SecurityName
+
+insert into @t (Symbolt,SecurityName, asset,tradecurrency,MV)
+select symbol, SecurityName, asset, tradecurrency,sum(-Sidemultiplier*unitcostlocal*beginningquantity) as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O'and Asset = 'FX'
+group by symbol, asset, tradecurrency,SecurityName
+
+insert into @t (symbolt,SecurityName, asset,MV)
+select symbol, SecurityName, asset,sum(Sidemultiplier*beginningquantity) as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O'and Asset = 'FX'
+group by symbol, asset, tradecurrency,SecurityName
+
+
+if @FutureMVType='Unrealized P&amp;L on Cost'
+begin
+insert into @t (Symbolt,SecurityName, asset,tradecurrency,MV)
+select symbol, SecurityName, asset, tradecurrency,sum(UnrealizedtotalGainonCostD2_local)as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O' and Asset='Future'
+group by symbol, asset, tradecurrency,SecurityName
+end
+
+
+if @FutureMVType='Day P&amp;L' 
+begin
+insert into @t (Symbolt,SecurityName, asset,tradecurrency,MV)
+select symbol,SecurityName,  asset, tradecurrency,sum((endingpriceLocal-beginningpriceLocal)*beginningquantity*sidemultiplier*multiplier) as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O'and Asset='Future' and beginningpricelocal&lt;&gt;'0'
+group by symbol, asset, tradecurrency,SecurityName
+
+insert into @t (Symbolt,SecurityName, asset,tradecurrency,MV)
+select symbol, SecurityName, asset, tradecurrency,sum((endingpriceLocal-unitcostLocal)*beginningquantity*sidemultiplier*multiplier) as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O'and Asset='Future' and beginningpricelocal='0'
+group by symbol, asset, tradecurrency,SecurityName
+end
+
+
+
+if @FutureMVType='Market Value' 
+begin
+insert into @t (Symbolt,SecurityName, asset,tradecurrency,MV)
+select symbol, SecurityName, asset, tradecurrency,sum(EndingPricelocal*BeginningQuantity*sidemultiplier*Multiplier) as 'MV'
+from t_ts_genericpnl 
+where rundate=@StartDate and Fund in( select * from dbo.split(@Funds,',')) and open_closetag='O' and Asset='Future'
+group by symbol, asset, tradecurrency,SecurityName
+end
+
+---------------------------------------For FX---------------------------------------------------------------------
+
+update @t set 
+tradeCurrency =leadcurrency, VSCurrencyIDt=VSCurrencyID, LeadCurrencyIDt=LeadCurrencyID from dbo.V_SecMasterData_WithUnderlying  where tickersymbol=  Symbolt and tradecurrency is null and Asset='FX'
+
+
+insert into @t (asset,MV, LeadCurrencyIDT)
+select  'Cash',CashValueLocal,LocalCurrencyID from PM_CompanyFundCashCurrencyValue where date=@StartDate
+
+
+update @t set TradeCurrency=CurrencySymbol from T_Currency where CurrencyID=LeadCurrencyIDt
+
+
+select * from @t</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Funds">
+            <Value>=Parameters!Funds.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@StartDate">
+            <Value>=Parameters!StartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@FutureMVType">
+            <Value>=Parameters!FutureMVType.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>6.75in</Width>
+  <Body>
+    <ColumnSpacing>0.1in</ColumnSpacing>
+    <ReportItems>
+      <Textbox Name="Name">
+        <rd:DefaultName>Name</rd:DefaultName>
+        <Top>0.1in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>4</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.1in</Height>
+        <Value>=First(Fields!Name.Value, "DataSetCompanyName")</Value>
+      </Textbox>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1.25in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <ZIndex>3</ZIndex>
+        <DataSetName>MW</DataSetName>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1in</Width>
+            <DynamicRows>
+              <Grouping Name="matrix1_Asset">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Asset.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Subtotal>
+                <ReportItems>
+                  <Textbox Name="textbox6">
+                    <rd:DefaultName>textbox6</rd:DefaultName>
+                    <Style>
+                      <BackgroundColor>SteelBlue</BackgroundColor>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <FontWeight>700</FontWeight>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Total</Value>
+                  </Textbox>
+                </ReportItems>
+                <Style>
+                  <BackgroundColor>SteelBlue</BackgroundColor>
+                </Style>
+              </Subtotal>
+              <ReportItems>
+                <Textbox Name="Asset">
+                  <rd:DefaultName>Asset</rd:DefaultName>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>2</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Asset.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <Top>0.65in</Top>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <Height>0.2in</Height>
+            <DynamicColumns>
+              <Grouping Name="matrix1_TradeCurrency">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!TradeCurrency.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <ReportItems>
+                <Textbox Name="TradeCurrency">
+                  <rd:DefaultName>TradeCurrency</rd:DefaultName>
+                  <Style>
+                    <BorderWidth>
+                      <Top>1pt</Top>
+                      <Bottom>1pt</Bottom>
+                    </BorderWidth>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <FontWeight>700</FontWeight>
+                    <TextAlign>Right</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                  <ZIndex>3</ZIndex>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!TradeCurrency.Value</Value>
+                </Textbox>
+              </ReportItems>
+            </DynamicColumns>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <Width>2.25in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox1">
+              <rd:DefaultName>textbox1</rd:DefaultName>
+              <Style>
+                <BorderWidth>
+                  <Top>1pt</Top>
+                  <Bottom>1pt</Bottom>
+                </BorderWidth>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+              <ZIndex>4</ZIndex>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.2in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="textbox4">
+                    <rd:DefaultName>textbox4</rd:DefaultName>
+                    <Style>
+                      <Format> #,##0.00</Format>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                      <PaddingBottom>2pt</PaddingBottom>
+                    </Style>
+                    <ZIndex>1</ZIndex>
+                    <CanGrow>true</CanGrow>
+                    <Value>=Round(Sum(Fields!MV.Value),2)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+        <Height>0.6in</Height>
+      </Matrix>
+      <Textbox Name="textbox14">
+        <rd:DefaultName>textbox14</rd:DefaultName>
+        <Top>0.4in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.125in</Height>
+        <Value>="Report Date: " &amp; Parameters!StartDate.Value  &amp; "     " &amp;   "Rendered On: " &amp; Today()</Value>
+      </Textbox>
+      <Image Name="image2">
+        <Sizing>AutoSize</Sizing>
+        <MIMEType>image/jpeg</MIMEType>
+        <Source>Database</Source>
+        <Style />
+        <ZIndex>1</ZIndex>
+        <Height>0.05in</Height>
+        <Value>=First(Fields!Logo.Value, "DataSetPranaLogo")</Value>
+      </Image>
+      <Textbox Name="textbox9">
+        <Top>0.25in</Top>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.1125in</Height>
+        <Value>= "FX Exposure Report"</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>2.6in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>0.5in</TopMargin>
+</Report>

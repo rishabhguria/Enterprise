@@ -1,0 +1,1232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{77EDD942-555B-4D21-B68B-AFD0FBAB36B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Tools</RootNamespace>
+    <AssemblyName>Prana.Tools</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Excel.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinToolbars.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTree.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinPrintPreviewDialog.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinPrintPreviewDialog.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinListView.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinListView.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDock.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDock.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDataSource.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2.FormulaBuilder, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.SupportDialogs.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Accessibility" />
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Application\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\CentralDataManager.cs" />
+    <Compile Include="BLL\IPluggableUserControl.cs" />
+    <Compile Include="BLL\NewUtilities.cs" />
+    <Compile Include="BLL\OMIPrefManager.cs" />
+    <Compile Include="BLL\ReconOutputLayout.cs" />
+    <Compile Include="BLL\SecMasterHelper.cs" />
+    <Compile Include="BLL\SecReportTemplateManager.cs" />
+    <Compile Include="BLL\SMBatchDataCache.cs" />
+    <Compile Include="BLL\SMBatchManager.cs" />
+    <Compile Include="BLL\ZeroPositionAlert.cs" />
+    <Compile Include="DAL\OptionModelDataManager.cs" />
+    <Compile Include="DAL\PranaDataManager.cs" />
+    <Compile Include="DAL\PricingDataDAL.cs" />
+    <Compile Include="DAL\SecReportTemplateDAL.cs" />
+    <Compile Include="DAL\SMBatchDAL.cs" />
+    <Compile Include="PL\CompanyNameMapper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\CompanyNameMapper.Designer.cs">
+      <DependentUpon>CompanyNameMapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlManageCurrencyPair.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlManageCurrencyPair.Designer.cs">
+      <DependentUpon>ctrlManageCurrencyPair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconShowCAGeneratedTrades.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconShowCAGeneratedTrades.Designer.cs">
+      <DependentUpon>ctrlReconShowCAGeneratedTrades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSetForex.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSetForex.Designer.cs">
+      <DependentUpon>ctrlSetForex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSMBatchStatusReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSMBatchStatusReport.Designer.cs">
+      <DependentUpon>ctrlSMBatchStatusReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlAmendments.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlAmendments.Designer.cs">
+      <DependentUpon>ctrlAmendments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlAdHocRecon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlAdHocRecon.Designer.cs">
+      <DependentUpon>ctrlAdHocRecon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlApproveChanges.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlApproveChanges.Designer.cs">
+      <DependentUpon>ctrlApproveChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlExceptionReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlExceptionReport.Designer.cs">
+      <DependentUpon>ctrlExceptionReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconDashboard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconDashboard.Designer.cs">
+      <DependentUpon>ctrlReconDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconGroupByColumns.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconGroupByColumns.Designer.cs">
+      <DependentUpon>ctrlReconGroupByColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReport.Designer.cs">
+      <DependentUpon>ctrlReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlMarkPriceAppend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlMarkPriceAppend.Designer.cs">
+      <DependentUpon>ctrlMarkPriceAppend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlPBFundMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlPBFundMapping.Designer.cs">
+      <DependentUpon>ctrlPBFundMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconGeneralInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconGeneralInfo.Designer.cs">
+      <DependentUpon>ctrlReconGeneralInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconOutput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconOutput.Designer.cs">
+      <DependentUpon>ctrlReconOutput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconReportLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconReportLayout.Designer.cs">
+      <DependentUpon>ctrlReconReportLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlMasterColumns.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlMasterColumns.Designer.cs">
+      <DependentUpon>ctrlMasterColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlMatchingRules.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlMatchingRules.Designer.cs">
+      <DependentUpon>ctrlMatchingRules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconFilters.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconFilters.Designer.cs">
+      <DependentUpon>ctrlReconFilters.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconTemplate.Designer.cs">
+      <DependentUpon>ctrlReconTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconXSLTMapping.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReconXSLTMapping.Designer.cs">
+      <DependentUpon>ctrlReconXSLTMapping.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReportTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlReportTemplate.Designer.cs">
+      <DependentUpon>ctrlReportTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSMBatchCreator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSMBatchCreator.Designer.cs">
+      <DependentUpon>ctrlSMBatchCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSMBatchSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlSMBatchSetup.Designer.cs">
+      <DependentUpon>ctrlSMBatchSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\DynamicUDAAddControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\DynamicUDAAddControl.Designer.cs">
+      <DependentUpon>DynamicUDAAddControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\DynamicUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\DynamicUserControl.Designer.cs">
+      <DependentUpon>DynamicUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\UsrCtrlFileUpLoad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\UsrCtrlFileUpLoad.Designer.cs">
+      <DependentUpon>UsrCtrlFileUpLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\DataCompareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\DataCompareForm.Designer.cs">
+      <DependentUpon>DataCompareForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\DynamicUDAForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\DynamicUDAForm.Designer.cs">
+      <DependentUpon>DynamicUDAForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\FileUpLoadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\FileUpLoadForm.Designer.cs">
+      <DependentUpon>FileUpLoadForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\frmCustomColumn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\frmCustomColumn.Designer.cs">
+      <DependentUpon>frmCustomColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\frmAdHocRecon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\frmAdHocRecon.Designer.cs">
+      <DependentUpon>frmAdHocRecon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\frmFundLock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\frmFundLock.Designer.cs">
+      <DependentUpon>frmFundLock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\frmReconCancelAmend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\frmReconCancelAmend.Designer.cs">
+      <DependentUpon>frmReconCancelAmend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\MappingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\MappingForm.Designer.cs">
+      <DependentUpon>MappingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\MatchingRuleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\MatchingRuleForm.Designer.cs">
+      <DependentUpon>MatchingRuleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\MissingTradesUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\MissingTradesUI.Designer.cs">
+      <DependentUpon>MissingTradesUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\OptionInputs\Historical Vol InputsUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\OptionInputs\Historical Vol InputsUI.Designer.cs">
+      <DependentUpon>Historical Vol InputsUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\OptionInputs\ImportXslt\OptionModelInputs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OptionModelInputs.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PL\OptionInputs\OptionModelInputs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\OptionInputs\OptionModelInputs.Designer.cs">
+      <DependentUpon>OptionModelInputs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\OptionInputs\Pricing Inputs Preferences\PricingLayout.cs" />
+    <Compile Include="PL\OptionInputs\Pricing Inputs Preferences\PricingLayoutManager.cs" />
+    <Compile Include="PL\OptionInputs\Pricing Inputs Preferences\PricingPreference.cs" />
+    <Compile Include="PL\OptionInputs\Pricing Inputs Preferences\PricingPreferenceManager.cs" />
+    <Compile Include="PL\PluggableControls\DataImportCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\PluggableControls\DataImportCtrl.Designer.cs">
+      <DependentUpon>DataImportCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\PluggableControls\DuplicateDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\PluggableControls\DuplicateDataForm.Designer.cs">
+      <DependentUpon>DuplicateDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\PluggableControls\PranaPositionViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\PluggableControls\PranaPositionViewer.Designer.cs">
+      <DependentUpon>PranaPositionViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\PluggableControls\SecmasterDbDataCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\PluggableControls\SecmasterDbDataCtrl.Designer.cs">
+      <DependentUpon>SecmasterDbDataCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\ReconPrefForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\ReconPrefForm.Designer.cs">
+      <DependentUpon>ReconPrefForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\RuleUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\RuleUserControl.Designer.cs">
+      <DependentUpon>RuleUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\AdvSearchFilterUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\AdvSearchFilterUI.Designer.cs">
+      <DependentUpon>AdvSearchFilterUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\ctrlFundWiseUDA.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\ctrlFundWiseUDA.Designer.cs">
+      <DependentUpon>ctrlFundWiseUDA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlDynamicUDASymbol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\Controls\ctrlDynamicUDASymbol.Designer.cs">
+      <DependentUpon>ctrlDynamicUDASymbol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\FetchIndices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\FetchIndices.Designer.cs">
+      <DependentUpon>FetchIndices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\FutureRootSymbolUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\FutureRootSymbolUI.Designer.cs">
+      <DependentUpon>FutureRootSymbolUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\LiveFeedValidationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\LiveFeedValidationForm.Designer.cs">
+      <DependentUpon>LiveFeedValidationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\PricingDataLookUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\PricingDataLookUp.Designer.cs">
+      <DependentUpon>PricingDataLookUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\AUECMappingUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\AUECMappingUI.Designer.cs">
+      <DependentUpon>AUECMappingUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\SecurityMasterManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\SecurityMasterManagement.Designer.cs">
+      <DependentUpon>SecurityMasterManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\SymbolLookUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\SymbolLookUp.Designer.cs">
+      <DependentUpon>SymbolLookUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\UDAControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\UDAControl.designer.cs">
+      <DependentUpon>UDAControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\UDAUIForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\UDAUIForm.Designer.cs">
+      <DependentUpon>UDAUIForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\UsrControlUDA.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\UsrControlUDA.designer.cs">
+      <DependentUpon>UsrControlUDA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PL\SecMaster\ValidAUECs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\SecMaster\ValidAUECs.Designer.cs">
+      <DependentUpon>ValidAUECs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PL\ZeroPositionAlertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PL\ZeroPositionAlertForm.Designer.cs">
+      <DependentUpon>ZeroPositionAlertForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UIUtilities\MappingFormHelper.cs" />
+    <Compile Include="UIUtilities\ReconUIUtilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PL\OptionInputs\ImportXslt\UserOMIDataImport.xslt" />
+    <Content Include="Recon Files\ReconMappingXml\ActivityMapping.xml" />
+    <Content Include="Recon Files\ReconMappingXml\AssetMapping.xml" />
+    <Content Include="Recon Files\ReconMappingXml\ExecBrokerMapping.xml" />
+    <Content Include="Recon Files\ReconMappingXml\FundMapping.xml" />
+    <Content Include="Recon Files\ReconMappingXml\SymbolMapping.xml" />
+    <Content Include="Recon Files\ReconRulesFile\MasterColumns.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Recon Files\ReconRulesFile\PluggableControls.xml" />
+    <Content Include="Recon Files\ReconRulesFile\XmlMatchingRule.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Recon Files\ReconRulesFile\XSLTFileMapping.xml" />
+    <Content Include="Recon Files\ReconXSLT\Abundance\Recon_GS_Abundance_Positions_NewOpt.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aegis\Recon_Aegis_Position_Fidelity.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aegis\Recon_Aegis_Position_Pershing.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aegis\Recon_Aegis_Position_StateStreet.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agency Tarding\Recon_AgencyTrading_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agency Tarding\Recon_AgencyTrading_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_BTIG_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_BTIG_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_Position_BTIG.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_Position_Ecor.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_Position_Hyphen.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Agile\Recon_Agile_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aphellion\Recon_Aphellion_Logica_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aphellion\Recon_Aphellion_Logica_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aphellion\Recon_Aphellion_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Aphellion\Recon_Aphellion_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Arena Capital\Recon_ArenaCap_CorMark_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Argenta Capital\Recon_ArgentaCapital_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Argenta Capital\Recon_Argenta_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Argenta Capital\Recon_Argenta_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Augustus\Recon_Augustus_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Benchmark\Recon_BenchMark_Cash.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BostonProvident_EZE_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BostonProvident_GS_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BostonProvident_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BostonProvident_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BostonProvident_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BP_Eze_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BP_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Boston Provident\Recon_BP_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Cannon\Recon_Cannon_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Cannon\Recon_Cannon_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Celadon\Recon_Celadon_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Celadon\Recon_Celadon_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Celadon\Recon_Celadon_Trade_Fund.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Celadon\Recon_Celadon_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Citrine\Recon_Citrine_Jeff_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Citrine\Recon_Citrine_JPM_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Citrine\Recon_Citrine_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Citrine\RECON_Citrine_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\ConceptCapital\Recon_ConceptCapital_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Consector\Recon_Consector_CCAP_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\CrownCapital\Recon_CrownCapital_Citi_position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Custom House\Recon_CH_Paxus_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Custom House\Recon_CH_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Custom House\Recon_CH_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Custom House\Recon_CH_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Custom House\Recon_CustomHouse_ML_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Daric Capital\Recon_DC_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Daric Capital\Recon_DC_Position_Updated.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Daric Capital\Recon_DC_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Date Convert Function.xslt" />
+    <Content Include="Recon Files\ReconXSLT\DB\DB_CashImport.xslt" />
+    <Content Include="Recon Files\ReconXSLT\DB\DB_FXPrice.xslt" />
+    <Content Include="Recon Files\ReconXSLT\DB\Recon_DBSwap_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\DB\Recon_DB_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Destrier\Recon_Destrier_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Destrier\Recon_Destrier_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Destrier\Recon_Destrier_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Eleven11\Recon_11_MLP_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Emancipation\Recon_BNP_Emancipation_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Emancipation\Recon_BNP_Emancipation_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Emancipation\Recon_GSEC_Emancipation_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Emancipation\Recon_GSEC_Emancipation_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Englander_JPMorgan_Transaction_updated.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_Jefferies_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_Jefferies_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Englander_JPMorgan_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_JPMorgan_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_JPMorgan_Position_New.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_JPMorgan_Position_updated.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_ML_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Englander\Recon_Eng_ML_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Ermine\Recon_GSEC_Ermine_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FCS\Recon_FCS_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_DB_Freestone_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_DB_Freestone_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_DB_Freestone_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_DB_Freestone_Trade1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_FreeStone_PNL.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_FreeStone_PNL_Fargo.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_FreeStone_PNL_Wells.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_Freeston_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_FS_BAML_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_FS_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_FS_WF_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_GSEC_Freestone_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_GSEC_Freestone_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_GSEC_Freestone_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_GSEC_Freestone_Trade1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_GS_Freestone_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_GS_Freestone_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_Jefferies_Freestone_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_Jefferies_Freestone_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_Jefferies_Freestone_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\FreeStone\Recon_JEfferies_Freestone_Trade1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Galnet\Recon_Galet_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Galnet\Recon_Galnet_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Gardenia\Recon_Gardenia_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\GCapital\Recon_GCAP_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\GC\Recon_GC_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Abundance\Recon_GS_Abundance_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\GSEC\Recon_GSEC_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\GSEC\Recon_GSEC_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Guggenheim\Recon_Guggenheim_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Guggenheim\Recon_Guggenheim_Position_GS.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Guggenheim\Recon_Guggenheim_Trades.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Guggenheim\Recon_Guggenheim_Trade_GS.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Iguana\Recon_Iguana_Morcom_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Iguana\Recon_Iguana_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Iguana\Recon_Iguana_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Iguana\Recon_Iguana_Trade2.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JasinCap\Recon_Jasincap_Jefferies_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JasinCap\Recon_Jasincap_Jefferies_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JasinCap\Recon_Jasincap_Millenium_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JasinCap\Recon_Jasincap_Millennium_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JasinCap\Recon_Jasinkiewicz_JPM Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JCAP\Recon_JCAP_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JCAP\Recon_JCAP_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Jefferiers\Recon_Jefferiers_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JohnStreet\Recon_JohnStreet_FXForward_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\JohnStreet\Recon_JohnStreet_PNL.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Kinneret\Recon_Kinneret_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Kinneret\Recon_Kinneret_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lakehill\Recon_Lakehill_ML_Pos.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_CashRecon.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_CashRecon1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_PnL.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Position2.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Transaction1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Transaction2.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Transaction3.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Transaction4.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lazard\Recon_Lazard_Transaction5.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Leucadia\Recon_Leucadia_PNL.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_BOFA_Position_OptNew.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_GS_Positions_OptNew.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lyford\Recon_Lyford_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lyford\Recon_Lyford_Transcation.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lyrical\Recon_Lyrical_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MaerIsland\Recon_MaerIsland_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MaerIsland\Recon_MaerIsland_Trades.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MaerIsland\Recon_MaerIsland_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MaerIsland\Recon_MIsland_BNY_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MaerIsland\Recon_MIsland_GS_Trades.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MaerIsland\Recon_MIsland_Jeff_Trades.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_Barclays_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_Barclays_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_GSEC_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_GSEC_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_GSPWM_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_GSPWM_Transactions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_IB_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_IB_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\MBF\Recon_MBF_MS_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Misc\Recon_GS_CUTTONE_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Misc\Recon_GS_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_Barclays_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_Barclays_PositionsV2.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_Barclays_Position_ProdOld.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_BOFA_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Lucas\Recon_Lucas_GS_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Monarch\Recon_JPM_Monarch_TradeImport.xslt" />
+    <Content Include="Recon Files\ReconXSLT\M\Recon_M_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Newland\Recon_Newland_CreditSuisse_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Newland\Recon_Newland_CreditSuisse_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Newland\Recon_Newland_Goldman_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Newtyn\Recon_Newtyn_AXYS_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Newtyn\Recon_Newtyn_GS_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\OpesBridge\Recon_Opesbridge_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\OpesBridge\Recon_Opesbridge_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\PCS\Recon_PCS_Dunbar_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Position1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Position3.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Position4.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Trade1.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Trade3.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Prophecy\Recon_Prophecy_Trade4.xslt" />
+    <Content Include="Recon Files\ReconXSLT\QuadCap\Recon_QuadCap_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\QuadCap\Recon_QuanCap_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\RJO\RJOPositionRecon.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sansato\CashImport\GS_Custody_CashImport.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sansato\Recon\Recon_SansatoMaster_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sansato\Recon\Recon_Sansato_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sansato\Recon\Recon_Sensato.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sansato\Recon\Recon_SRBP_Custody_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Saxis\Recon_Saxis_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Saxis\Recon_Saxis_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Seafarer\Recon_Seafarer_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Seafarer\ThirdParty_Seafarer.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Seafarer\ThirdParty_Seafarer_Second.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Second Curve\Recon_SecondCurve_MS_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Second Curve\Recon_SecondCurve_MS_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Second Curve\Recon_SecondCurve_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Second Curve\Recon_SecondCurve_UBS_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Second Curve\Recon_SecondCurve_UBS_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\Recon_Sansato_DBSWAP_Tran.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\Recon_Sansato_DB_Tran.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\Recon_Sansato_GS_EqTran.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\Recon_Sansato_GS_SwapPosition.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\Recon_Sansato_GS_SwapTran.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\Recon_Sansato_UBS_Tran.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sensato Investor\RECON_Sensato_DB_Position_Equity.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Shoreline\Recon_Shoreline_Goldman_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Shoreline\Recon_Shoreline_Goldman_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Misc\Recon_UBS_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Misc\Recon_UBS_Transaction_New.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sibilla\Recon_Sibilla_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sibilla\Recon_Sibilla_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Sonoma\Recon_Sonoma_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\SS\Recon_SS_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\T3\Recon_T3_Taxlots.xslt" />
+    <Content Include="Recon Files\ReconXSLT\T3\Recon_T3_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_GSEC_Topwater_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_GS_Topwater_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_Jefferies_Topwater_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_JPM_TW_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_ML_Topwater_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_Topwater_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_Topwater_Position_Updated.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Topwater\Recon_TW_Position_Cumulative.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Trade Station\Recon_Tradestation_Sungard_position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Wedbush\Recon_Wedbush_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Wedbush\Recon_Wedbush_Transaction.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_WFF_Trade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_BNY_Position_Equity_.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_CustodyTrade.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_Dividend.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_FixedIncome.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_FXFWD_.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_GS_Position_Equity_.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_Position.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_Positions.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_Position_CFD.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_Position_FXForward.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Winton_Transaction_FXForward.xslt" />
+    <Content Include="Recon Files\ReconXSLT\Winton\Recon_Wnton_Position.xslt" />
+    <None Include="Resources\unlock.png" />
+    <None Include="Resources\_lock.png" />
+    <None Include="Recon Files\ReconRulesFile\CheckToUpdateReconPreferences.xsc">
+      <DependentUpon>CheckToUpdateReconPreferences.xsd</DependentUpon>
+    </None>
+    <None Include="Recon Files\ReconRulesFile\CheckToUpdateReconPreferences.xss">
+      <DependentUpon>CheckToUpdateReconPreferences.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PL\CompanyNameMapper.resx">
+      <DependentUpon>CompanyNameMapper.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlManageCurrencyPair.resx">
+      <DependentUpon>ctrlManageCurrencyPair.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconShowCAGeneratedTrades.resx">
+      <DependentUpon>ctrlReconShowCAGeneratedTrades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlSetForex.resx">
+      <DependentUpon>ctrlSetForex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlSMBatchStatusReport.resx">
+      <DependentUpon>ctrlSMBatchStatusReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlAmendments.resx">
+      <DependentUpon>ctrlAmendments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlAdHocRecon.resx">
+      <DependentUpon>ctrlAdHocRecon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlApproveChanges.resx">
+      <DependentUpon>ctrlApproveChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlExceptionReport.resx">
+      <DependentUpon>ctrlExceptionReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconDashboard.resx">
+      <DependentUpon>ctrlReconDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconGroupByColumns.resx">
+      <DependentUpon>ctrlReconGroupByColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReport.resx">
+      <DependentUpon>ctrlReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlMarkPriceAppend.resx">
+      <DependentUpon>ctrlMarkPriceAppend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlMasterColumns.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlMasterColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlMatchingRules.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlMatchingRules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlPBFundMapping.resx">
+      <DependentUpon>ctrlPBFundMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconFilters.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlReconFilters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconGeneralInfo.resx">
+      <DependentUpon>ctrlReconGeneralInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconOutput.resx">
+      <DependentUpon>ctrlReconOutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconReportLayout.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlReconReportLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconTemplate.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlReconTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReconXSLTMapping.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlReconXSLTMapping.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlReportTemplate.resx">
+      <DependentUpon>ctrlReportTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlSMBatchCreator.resx">
+      <DependentUpon>ctrlSMBatchCreator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlSMBatchSetup.resx">
+      <DependentUpon>ctrlSMBatchSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\DynamicUDAAddControl.resx">
+      <DependentUpon>DynamicUDAAddControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\DynamicUserControl.resx">
+      <DependentUpon>DynamicUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\UsrCtrlFileUpLoad.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UsrCtrlFileUpLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\DataCompareForm.resx">
+      <DependentUpon>DataCompareForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\DynamicUDAForm.resx">
+      <DependentUpon>DynamicUDAForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\FileUpLoadForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FileUpLoadForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\frmCustomColumn.resx">
+      <DependentUpon>frmCustomColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\frmAdHocRecon.resx">
+      <DependentUpon>frmAdHocRecon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\frmFundLock.resx">
+      <DependentUpon>frmFundLock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\frmReconCancelAmend.resx">
+      <DependentUpon>frmReconCancelAmend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\MappingForm.resx">
+      <DependentUpon>MappingForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\MatchingRuleForm.resx">
+      <DependentUpon>MatchingRuleForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\MissingTradesUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MissingTradesUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\OptionInputs\Historical Vol InputsUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Historical Vol InputsUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\OptionInputs\OptionModelInputs.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OptionModelInputs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\PluggableControls\DataImportCtrl.resx">
+      <DependentUpon>DataImportCtrl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\PluggableControls\DuplicateDataForm.resx">
+      <DependentUpon>DuplicateDataForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\PluggableControls\PranaPositionViewer.resx">
+      <DependentUpon>PranaPositionViewer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\PluggableControls\SecmasterDbDataCtrl.resx">
+      <DependentUpon>SecmasterDbDataCtrl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\ReconPrefForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ReconPrefForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\RuleUserControl.resx">
+      <DependentUpon>RuleUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\AdvSearchFilterUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AdvSearchFilterUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\ctrlFundWiseUDA.resx">
+      <DependentUpon>ctrlFundWiseUDA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\Controls\ctrlDynamicUDASymbol.resx">
+      <DependentUpon>ctrlDynamicUDASymbol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\FetchIndices.resx">
+      <DependentUpon>FetchIndices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\FutureRootSymbolUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FutureRootSymbolUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\LiveFeedValidationForm.resx">
+      <DependentUpon>LiveFeedValidationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\PricingDataLookUp.resx">
+      <DependentUpon>PricingDataLookUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\AUECMappingUI.resx">
+      <DependentUpon>AUECMappingUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\SecurityMasterManagement.resx">
+      <DependentUpon>SecurityMasterManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\SymbolLookUp.resx">
+      <DependentUpon>SymbolLookUp.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\UDAControl.resx">
+      <DependentUpon>UDAControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\UDAUIForm.resx">
+      <DependentUpon>UDAUIForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\UsrControlUDA.resx">
+      <DependentUpon>UsrControlUDA.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\SecMaster\ValidAUECs.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ValidAUECs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PL\ZeroPositionAlertForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ZeroPositionAlertForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.AuditTrail\Prana.AuditTrail.csproj">
+      <Project>{4c0cbecd-f6fc-4b55-94e2-2ed811c2db85}</Project>
+      <Name>Prana.AuditTrail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{db822308-7562-4404-8d85-e1de6f5a317d}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.AlgoStrategyControls\Prana.AlgoStrategyControls.csproj">
+      <Project>{22605932-14d9-48cc-a46f-2e918dcc69bc}</Project>
+      <Name>Prana.AlgoStrategyControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.Analytics\Prana.Analytics.csproj">
+      <Project>{F8EE7E38-74ED-4F8D-8095-B19EF19CD479}</Project>
+      <Name>Prana.Analytics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{a28ae507-104b-45c5-bcb1-ce51394e3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.InstanceCreator\Prana.InstanceCreator.csproj">
+      <Project>{3f5cfa1b-ea85-4eff-9ffb-0564b801dc10}</Project>
+      <Name>Prana.InstanceCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.ReconciliationNew\Prana.ReconciliationNew.csproj">
+      <Project>{a6b366d0-2376-48ce-a7c7-dbfffccea694}</Project>
+      <Name>Prana.ReconciliationNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.SecurityMasterNew\Prana.SecurityMasterNew.csproj">
+      <Project>{8237c28a-ee49-4a68-a89a-1f1f6a939fc4}</Project>
+      <Name>Prana.SecurityMasterNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.SM.OTC\Prana.SM.OTC.csproj">
+      <Project>{e689f137-e3b0-431a-a41b-b073d1a89e1b}</Project>
+      <Name>Prana.SM.OTC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Client\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{abb4950f-def1-4095-8e93-1eb3292c69f5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Fix.FixDictionary\Prana.Fix.FixDictionary.csproj">
+      <Project>{08AD82EF-9FC2-4225-8014-A030A9B1B356}</Project>
+      <Name>Prana.Fix.FixDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Server\Prana.CustomMapper\Prana.CustomMapper.csproj">
+      <Project>{618EA226-74BF-46BE-8345-65BED17E26BB}</Project>
+      <Name>Prana.CustomMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.TaskManagement.Definition\Prana.TaskManagement.Definition.csproj">
+      <Project>{5fb30912-0851-40ee-a312-9fb67d33af3f}</Project>
+      <Name>Prana.TaskManagement.Definition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.TaskManagement.Execution\Prana.TaskManagement.Execution.csproj">
+      <Project>{4a035762-7313-4316-b3d3-d4ca11e303f5}</Project>
+      <Name>Prana.TaskManagement.Execution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientPreferences\Prana.ClientPreferences.csproj">
+      <Project>{87409B83-E284-40A0-8DAF-40B58413449C}</Project>
+      <Name>Prana.ClientPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PM\Prana.PM.BLL\Prana.PM.BLL.csproj">
+      <Project>{F3EB40AF-D2B7-44C9-A7ED-FD54F4D95A3D}</Project>
+      <Name>Prana.PM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PM\Prana.PM.Common\Prana.PM.Common.csproj">
+      <Project>{CA3F44AC-2814-4E5E-84B7-DCAF8F42A026}</Project>
+      <Name>Prana.PM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.SocketCommunication\Prana.SocketCommunication.csproj">
+      <Project>{F221A266-01C2-4ECA-ADED-0717573BCC2E}</Project>
+      <Name>Prana.SocketCommunication</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PL\OptionInputs\ImportXslt\OptionModelInputs.xsc">
+      <DependentUpon>OptionModelInputs.xsd</DependentUpon>
+    </None>
+    <None Include="PL\OptionInputs\ImportXslt\OptionModelInputs.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OptionModelInputs.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="PL\OptionInputs\ImportXslt\OptionModelInputs.xss">
+      <DependentUpon>OptionModelInputs.xsd</DependentUpon>
+    </None>
+    <None Include="Recon Files\ReconRulesFile\MasterColumns.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Recon Files\ReconRulesFile\XmlMatchingRule.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Recon Files\ReconRulesFile\CheckToUpdateReconPreferences.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)Recon Files\ReconXSD\*.xsd" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\ReconXSD\" /E /I /F /Y
+xcopy "$(ProjectDir)Recon Files\ReconRulesFile\*.xml" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\ReconRulesFile\" /E /I /F /Y
+xcopy "$(ProjectDir)Recon Files\ReconRulesFile\*.xsd" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\ReconRulesFile\" /E /I /F /Y
+xcopy "$(ProjectDir)Recon Files\ReconMappingXml\ActivityMapping.xml" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\ReconMappingXml\" /E /I /F /Y
+xcopy "$(ProjectDir)Recon Files\ReconMappingXml\CounterPartyMapping.xml" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\ReconMappingXml\" /E /I /F /Y
+xcopy "$(TargetDir)Prana.Tools.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.Tools.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+
+xcopy "$(TargetDir)Prana.Tools.dll" "$(SolutionDir)ApplicationAdmin\PranaSuperAdmin\Prana.Admin\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.Tools.pdb" "$(SolutionDir)ApplicationAdmin\PranaSuperAdmin\Prana.Admin\$(OutDir)Modules\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

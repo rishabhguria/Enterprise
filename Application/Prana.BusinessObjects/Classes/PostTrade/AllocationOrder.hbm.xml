@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Prana.BusinessObjects" assembly="Prana.BusinessObjects">
+	<class name="AllocationOrder" table="T_TradedOrders">
+		<id name="ClOrderID" column="CLOrderID">
+			<!--<generator class="native" />-->
+		</id>
+	<property name="ParentClOrderID"/>
+		<property name="GroupID"/>
+		<property name="CumQty"/>
+    <property name="Quantity"/>
+		<property name="AvgPrice"/>
+		<property name="PranaMsgType" column="NirvanaMsgType" />
+		<!--<property name="IntPranaMsgType"  column="MsgType" />-->
+		<property name="FXRate"/>
+		<property name="AccountID"   column="FundID"/>
+		<property name="StrategyID"/>
+    <property name="OriginalPurchaseDate"/>
+		<property name="ProcessDate"/>
+		<property name="AUECLocalDate"/>
+    <property name="IsModified"/>
+		<property name="OrderSideTagValue"/>
+		<property name="VenueID"/>
+		<property name="CounterPartyID"/>
+		<property name="TradingAccountID"/>
+		<property name="SettlementDate"/>
+		<property name="FXConversionMethodOperator"/>
+		<property name="MultiTradeName"/>
+		<many-to-one name="ImportFileLogObj" column="ImportFileID" class="Prana.BusinessObjects.ImportFileLog" cascade="all" not-null="false" /><!--not-found="ignore"-->
+		<!--<property name="Symbol"/>
+		<property name="OrderTypeTagValue"/>
+		<property name="CounterPartyID"/>
+		<property name="VenueID"/>
+		<property name="TradingAccountID"/>
+		<property name="FundID"/>
+		<property name="StrategyID"/>		
+		<property name="AUECID"/>
+		<property name="AveragePrice"/>		
+		<property name="Quantity"/>
+		<property name="CumQty"/>
+		<property name="Price1" column="Price"/>		
+		<property name="NirvanaSeqNumber"/>
+		<property name="InsertionTime"/>
+		<property name="AvgPrice"/>
+		<property name="MsgType"/>		
+		<property name="OrderStatus"/>		
+		<property name="ExecType"/>
+		<property name="LeavesQty"/>
+		<property name="LastPx"/>		
+		<property name="LastShares"/>
+		<property name="CompanyUserID" column="UserID"/>		
+		<property name="OrigClOrderID"/>
+		<property name="ParentClOrderID"/>
+		<property name="ClientOrderID"/>
+		<property name="ParentClientOrderID"/>
+		<property name="OrderStatusTagValue"/>
+		<property name="TransactTime"/>		
+		<property name="OpenClose"/>
+		<property name="NirvanaMsgType"/>
+		<property name="OrderID"/>
+		<property name="SettlementDate"/>
+		<property name="AlgoStrategyID"/>
+		<property name="AlgoParameters"/>
+		<property name="ExecutionInst"/>
+		<property name="TimeInForce"/>
+		<property name="HandlingInst"/>
+		<property name="AUECLocalDate"/>
+		<property name="Text"/>
+		<property name="Expr1"/>
+
+		<property name="AvgFxRateForTrade"/>
+		<property name="SenderSubID"/>
+		<property name="IsInternal"/>
+		<property name="StrikePrice"/>
+		<property name="PutOrCall"/>
+		
+		<property name="FXRate"/>
+		<property name="FXConversionMethodOperator"/>		
+		<property name="ExpirationDate"/>
+
+		<property name="PranaMsgType" column="NirvanaMsgType" />
+		<property name="IntPranaMsgType"  column="MsgType" />-->
+		<property name="CompanyUserID" column="UserID"/>
+    <property name="TradeAttribute1"/>
+    <property name="TradeAttribute2"/>
+    <property name="TradeAttribute3"/>
+    <property name="TradeAttribute4"/>
+    <property name="TradeAttribute5"/>
+    <property name="TradeAttribute6"/>
+    <property name="Description" column="Text" />
+    <property name="InternalComments"/>
+    <!--<Settlement currency fields>-->
+    <property name="SettlementCurrencyID" column="SettlCurrency"/>
+	<property name ="OriginalAllocationPreferenceID"/>
+	<property name="TransactionSource"/>
+    <property name="TransactionSourceTag" column="TransactionSource"/>
+	</class>
+</hibernate-mapping>	

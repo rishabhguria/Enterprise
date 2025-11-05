@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="Nirvana">
+ 		<!-- <rule id="custom-ruleNirvana1">
+			<name>Check Side Account Symbol</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+			<description>Pre-Trade Alerts For OrderSide Violation on Account-Symbol Level</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideAccountSymbol" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+		</rule> 
+		<rule id="custom-ruleNirvana3">
+			<name>Check Side Symbol</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideSymbol/</eplPath>
+			<description>Pre-Trade Alerts For OrderSide Violation on Symbol Level</description>
+			<compressionLevel>Symbol</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideSymbol" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideSymbol" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+		</rule> -->
+		<rule id="custom-ruleNirvana4">
+			<name>Holiday Alert</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/holidayAlert/</eplPath>
+			<description>Pre-Trade Alerts For Trades whose settlement date will be delayed due to Holidays.</description>
+			<compressionLevel>Custom</compressionLevel>
+			<validationCompletedEventName>HolidayAlert</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="HolidayAlert" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="HolidayAlert" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+		</rule>
+		<rule id="custom-ruleNirvana5">
+			<name>Limit Long positions</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/limitLongPositions/</eplPath>
+			<description>Pre-Trade Alerts For breach in number of long positions.</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>CheckLimitLongFinal</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="CheckLimitLongFinal" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="CheckLimitLongFinal" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="LongPositionLimit" type="int" value="7" displayName="Long Positions Limit" />
+			</constantList>
+		</rule>
+		<rule id="custom-ruleNirvana6">
+			<name>Limit Short positions</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/limitShortPositions/</eplPath>
+			<description>Pre-Trade Alerts For breach in number of short positions.</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>CheckLimitShortFinal</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="CheckLimitShortFinal" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="CheckLimitShortFinal" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="ShortPositionLimit" type="int" value="7" displayName="Short Positions Limit" />
+			</constantList>
+		</rule>
+	</rules>
+</ruleConfig>

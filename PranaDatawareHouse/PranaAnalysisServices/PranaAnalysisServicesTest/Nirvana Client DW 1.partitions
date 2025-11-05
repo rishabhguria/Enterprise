@@ -1,0 +1,365 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="9e9809f8-0ff4-4a3b-9304-9893c54ec4dc" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Nirvana Client DW 1</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>PM Taxlots</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="d072412d-9e93-45c6-a5c3-82f1e002e45f">
+          <ID>PM Taxlots</ID>
+          <Name>PM Taxlots</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="6d7db277-734b-47d1-9bd9-80031e2661e2">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_PM_Taxlots</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Mark Price</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="657df6d7-c8f2-4a0e-823a-8439fc0f0b7c">
+          <ID>Fact Mark Price</ID>
+          <Name>Fact Mark Price</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="5824ec74-d230-482c-ac35-3cca2f39a9a8">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_MarkPrice</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>T Base Currency Conversion Rates</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="100b7e84-e48e-4c77-9fdb-5724255909bf">
+          <ID>T Base Currency Conversion Rates</ID>
+          <Name>T Base Currency Conversion Rates</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="39389b56-29df-4832-a711-24fce1a3f554">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_T_BaseCurrencyConversionRates</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Sub Account Cash</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="cc44e808-5a85-4563-8a45-1ce29540c8e1">
+          <ID>Fact Sub Account Cash</ID>
+          <Name>Fact Sub Account Cash</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="56d8ddac-1363-4bbc-b9f2-5291171742f1">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_SubAccountCash</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Accrued Cash</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="8dc607c9-f997-42a8-962a-fe75b2dd3d79">
+          <ID>Fact Accrued Cash</ID>
+          <Name>Fact Accrued Cash</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="e71d523c-0097-4e5a-b065-b881af5caf8d">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_AccruedCash</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>T DW Account Sub Account</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="13fd2f34-b4a6-4c87-a903-57bf6bb1516d">
+          <ID>T DW Account Sub Account</ID>
+          <Name>T DW Account Sub Account</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="027d7419-851f-46c3-8958-b6323744ca51">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_T_DWAccount_SubAccount</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Tax Lot Details</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="877e142c-2ed1-4bb2-beaf-97c4efe1bc9c">
+          <ID>Fact Tax Lot Details</ID>
+          <Name>Fact Tax Lot Details</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="0a9aa57b-d757-434b-a051-2cc5d24cf219">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_TaxLotDetails</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>PM Tax Lot Closing Temp</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="8c506f1a-553d-4f17-bfcd-4a438fe98748">
+          <ID>PM Tax Lot Closing Temp</ID>
+          <Name>PM Tax Lot Closing Temp</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="000c76d2-92b2-4b9e-b9ed-8d8208a46cfe">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Beta</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="b0cfb124-68bc-4cdb-a6e4-47a9c34c994a">
+          <ID>Fact Beta</ID>
+          <Name>Fact Beta</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="60ce5a9a-8674-4984-b41a-64c7287c204e">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_Beta</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Delta</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="e750cd2e-a7af-4fdc-bf3f-cde1c5f680be">
+          <ID>Fact Delta</ID>
+          <Name>Fact Delta</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="eb3a81d2-746c-42be-9158-ed005c20faa2">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_Delta</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Outstandings</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="b803239a-bce6-4bd6-b0f9-f8a555125e93">
+          <ID>Fact Outstandings</ID>
+          <Name>Fact Outstandings</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="9b16128e-82aa-4629-b454-009c8e789355">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_Outstandings</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Trading Vol</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="251ae843-79de-4037-af63-b13efa9ee395">
+          <ID>Fact Trading Vol</ID>
+          <Name>Fact Trading Vol</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="4d0b10f1-a27e-4aa6-9e94-b42bb1ead4af">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_TradingVol</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>PM Open Position Snap Shots</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="1e84e6c8-ee6f-4ed5-8508-7f51446335b1">
+          <ID>PM Open Position Snap Shots</ID>
+          <Name>PM Open Position Snap Shots</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="eebc1a5a-d354-441c-80e8-299a7bfa72c4">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact Index Benchmark</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="a822cc7d-c2ac-496a-a728-6614fe32b17a">
+          <ID>Fact Index Benchmark</ID>
+          <Name>Fact Index Benchmark</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="80110520-9ed3-481e-a6f6-7ebaf68951a7">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_IndexBenchmark</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Fact IRR</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="8e733cfc-2439-4388-bbed-e3232e138c3a">
+          <ID>Fact IRR</ID>
+          <Name>Fact IRR</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="cb27a217-3139-4700-9f4e-56ae57778e55">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_Fact_IRR</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>T Custom Date Types</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="9b674251-5bfa-4956-8e1c-a6da51c0b7f0">
+          <ID>T Custom Date Types</ID>
+          <Name>T Custom Date Types</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="cc18330d-c0da-4a4f-b067-b343d5cffe22">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_T_CustomDateTypes</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>T MTMPNL</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="4a097052-856e-42f8-9e30-77d1e44040c6">
+          <ID>T MTMPNL</ID>
+          <Name>T MTMPNL</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="30fa9755-9e3a-4bcb-8127-ac1e7d119c8a">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_T_MTMPNL</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>T Reports Param</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="4df64a3e-5d96-4a1a-b35b-55abe20f0c62">
+          <ID>T Reports Param</ID>
+          <Name>T Reports Param</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="5ff0a846-1915-4d6d-8860-0c21fe8eda2a">
+            <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+            <TableID>dbo_T_ReportsParam</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>

@@ -1,0 +1,30 @@
+﻿CREATE TABLE [dbo].[T_ThirdPartyAllocationBlocks]
+(
+	[BlockId] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+	[JobId] INT NOT NULL,
+	[MsgType] varchar(3) NOT NULL,
+	[AvgPx] FLOAT (53) NULL,
+	[Currency] INT NULL,
+	[ISIN] VARCHAR(20) NULL,
+	[Cusip] VARCHAR(20) NULL,
+	[Sedol] VARCHAR(20) NULL,
+	[Quantity] FLOAT (53)    NULL,
+	[SideID] VARCHAR (3)   NULL, 
+    [Symbol] VARCHAR(100) NULL, 
+    [TransactTime] DATETIME NULL, 
+    [SettlDate] DATETIME NULL, 
+    [AllocID] NVARCHAR(50) NULL, 
+    [AllocTransType] VARCHAR(3) NULL, 
+    [TradeDate] DATETIME NULL, 
+    [AllocStatus] VARCHAR(3) NULL, 
+    [NetMoney] FLOAT (53) NOT NULL DEFAULT(0),
+    [Commission] FLOAT (53) NOT NULL DEFAULT(0),
+	[GrossTradeAmt]  FLOAT (53) NOT NULL DEFAULT(0),
+	[SubStatus] NVARCHAR(MAX) NULL,
+	[Text] VARCHAR(MAX) NULL,
+	[AllocReportId] VARCHAR(MAX) NULL,
+	[TransmissionTime] DATETIME NULL,
+	[JBlockId] INT NULL,
+	CONSTRAINT [FK_JobId_T_ThirdPartyAllocationBlocks] FOREIGN KEY ([JobId]) REFERENCES [dbo].[T_ThirdPartyDailyJobs] ([JobId])
+
+)

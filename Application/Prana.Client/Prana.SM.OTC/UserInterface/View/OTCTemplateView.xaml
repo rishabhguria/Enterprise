@@ -1,0 +1,220 @@
+﻿<Window x:Name="OTCTemplatesUI"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+       
+      
+        xmlns:custom="http://infragistics.com/Windows"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Prana.SM.OTC.View"
+        xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+     
+        mc:Ignorable="d"
+        x:Class="Prana.SM.OTC.View.OTCTemplateView"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+            
+            xmlns:Themes="http://infragistics.com/Themes"
+            xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+            md:DialogServiceViews.IsRegistered="True" 
+        Title="OTC Templates View"  Width="700" Height="550">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/NirvanaSkin.xaml" />
+                <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/OTCTemplatesTheme.xaml" />
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/DataPresenterIGTheme_Express.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamEditors.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamGrid.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMenu.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+                <Themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </Themes:ResourceWasher.SourceDictionary>
+                </Themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="buttonInCellStyle" TargetType="{x:Type igWPF:CellValuePresenter}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type igWPF:CellValuePresenter}">
+                            <Button HorizontalAlignment="Center" Content="View" Name="ViewTemplate" Style="{StaticResource ButtonStyle}"   Margin="0"  Width="90"  Height="25"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type igWPF:XamDataGrid}}, Path=DataContext.ViewButtonClickedCommand}"
+                                     CommandParameter="{Binding DataItem}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="buttonDeleteInCellStyle" TargetType="{x:Type igWPF:CellValuePresenter}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type igWPF:CellValuePresenter}">
+                            <Button HorizontalAlignment="Center" Content="Delete" Name="DeleteTemplate" Style="{StaticResource ButtonStyle}"   Margin="0"  Width="90"  Height="25"
+                                    Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type igWPF:XamDataGrid}}, Path=DataContext.DeleteButtonClickedCommand}"
+                                     CommandParameter="{Binding DataItem}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+            <Style x:Key="ButtonStyleAdd" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+            <Image x:Key="EditIcon" Height="20" Stretch="Uniform">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEditMode, Mode=TwoWay}" Value="True">
+                                <Setter Property="Source" Value="..\..\Resources\edit_icon.jpg" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsEditMode, Mode=TwoWay}" Value="False">
+                                <Setter Property="Source" Value="..\..\Resources\edit_disable_icon.jpg" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </ResourceDictionary>
+    </Window.Resources>
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0" />
+    </shell:WindowChrome.WindowChrome>
+
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Path=FormCloseButton}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding Path=FormClosed}" PassEventArgsToCommand="False"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border CornerRadius="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#58585A" Grid.RowSpan="2" />
+        <Border CornerRadius="2" Grid.Row="0" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock x:Name="tbNirvana" Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center" >
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Text" Value="Nirvana"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=OTCTemplatesUI, Path=WindowState}" Value="Minimized">
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Text" Value="OTCTemplatesUI"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="OTC Templates" Height="22" FontSize="14" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center" />
+        </StackPanel>
+
+        <DockPanel Margin="5,0,5,5" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid Background="#FFE7E8E9">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <!--<ScrollViewer   VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="0"  HorizontalScrollBarVisibility="Auto" >-->
+                <igWPF:XamDataGrid Name="MasterFundRatioDataGrid"  Grid.Row="0" 
+                           DataSource="{Binding Path=SecMasterOTCData,Mode=TwoWay}" 
+                           GroupByAreaLocation="None" ScrollingMode="Immediate" 
+                           VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFE7E8E9">
+                    <igWPF:XamDataGrid.FieldLayouts>
+                        <igWPF:FieldLayout  >
+                            <igWPF:Field AllowEdit="False" Name="Name" Label="Name"  Height="30" />
+                            <igWPF:Field AllowEdit="False" Name="InstrumentType" Label="Instrument Type"/>
+                            <igWPF:Field AllowEdit="False" Name="CreatedBy" Label="Created By" />
+                            <igWPF:Field AllowEdit="False" Name="Description" Label="Description"/>
+                            <igWPF:Field AllowEdit="False" Name="View" Label="View">
+                                <igWPF:Field.Settings>
+                                    <igWPF:FieldSettings CellValuePresenterStyle="{StaticResource buttonInCellStyle}" />
+                                </igWPF:Field.Settings>
+                            </igWPF:Field>
+
+                            <igWPF:Field AllowEdit="False" Name="Delete" Label="Delete" Visibility="{Binding IsDeleteButtonVisible}">
+                                <igWPF:Field.Settings>
+                                    <igWPF:FieldSettings CellValuePresenterStyle="{StaticResource buttonDeleteInCellStyle}" />
+                                </igWPF:Field.Settings>
+                            </igWPF:Field>
+
+                        </igWPF:FieldLayout>
+                    </igWPF:XamDataGrid.FieldLayouts>
+                    <igWPF:XamDataGrid.FieldLayoutSettings>
+                        <igWPF:FieldLayoutSettings AutoGenerateFields="False" HighlightAlternateRecords="True" RecordSelectorLocation="None" AllowFieldMoving="No" AutoFitMode="Always" />
+                    </igWPF:XamDataGrid.FieldLayoutSettings>
+                </igWPF:XamDataGrid>
+                <!--</ScrollViewer>-->
+                <StackPanel Grid.Row="1"  >
+                    <WrapPanel HorizontalAlignment="Center">
+                        <Button  Margin="10" HorizontalAlignment="Center" Content="Add Template" Name="AddTemplate" Style="{StaticResource ButtonStyle}" Command="{Binding AddOTCTemplateButtonClickedCommand}"/>
+                        <Button  Margin="10" HorizontalAlignment="Center" Content="Refresh Template" Name="Refresh" Style="{StaticResource ButtonStyle}" Command="{Binding RefreshOTCTemplateButtonClickedCommand}"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+
+</Window>

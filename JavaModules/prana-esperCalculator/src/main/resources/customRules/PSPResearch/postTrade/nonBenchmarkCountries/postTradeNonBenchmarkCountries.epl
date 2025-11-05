@@ -1,0 +1,60 @@
+module customRules.PSPResearch.postTrade.nonBenchmarkCountries.postTradeNonBenchmarkCountries;
+
+@Name('PostAssetAndCountryCheckInAccount')
+@Description('PostAccountNavCheckInAccount window is updated if condition satisfies for given account, asset class and country.')
+on DivisorEndMessage  as B
+insert into PostAssetAndCountryCheckInAccount
+select distinct
+	0 as userId,
+    '' as taxlotId,
+    W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	(case(valueExistsInCSV(W.accountShortName, Post_Account_Name) is true and 
+	valueExistsInCSV(W.udaCountry, PostBenchMarkCountry_Name) is false  and 
+    valueExistsInCSV(W.udaAsset, Post_Asset_Name) is false)
+	when true then concatValues(W.accountId, 'NonBenchmarkCountries', W.udaCountry)
+	else concatValues(W.accountId, 'NonBenchmarkCountries', '') end) as country,
+	sum(case
+		(valueExistsInCSV(W.accountShortName, Post_Account_Name) is true and 
+		valueExistsInCSV(W.udaCountry, PostBenchMarkCountry_Name) is false  and 
+    	valueExistsInCSV(W.udaAsset, Post_Asset_Name) is false) 
+  		when true then coalesce(W.netMarketValueBase,0) 
+    	else 0 end) as totalMarketValueBase,
+    (case(valueExistsInCSV(W.accountShortName, Post_Account_Name) is true and valueExistsInCSV(W.udaCountry, PostBenchMarkCountry_Name) is false and valueExistsInCSV(W.udaAsset, Post_Asset_Name) is false)
+	when true then true else false end) as validation,
+   "AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId;
+
+
+@Name('PostTradeNonBenchMarkCountries')
+@Description('Final stream to check condition is breached')
+insert into PostTradeNonBenchMarkCountries
+select distinct
+	A.userId as userId,
+	A.taxlotId as taxlotId,
+	Post_Account_Name || ValueSeparator || doubleFormat(Post_Nav_Percentage) as threshold,
+	A.accountShortName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0))) as actualResult,
+	'Account' || ValueSeparator || '% Total Nav' as constraintField,
+	(case A.validation is true
+	when true then (Math.abs(coalesce(A.totalMarketValueBase/A.accountNav ,0)) >= (Post_Nav_Percentage / 100)) 
+    else false end) as isViolated,
+   'Account: ' || A.accountShortName 
+	|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0)))
+	|| ', Net Market Value: '  || doubleFormat(A.totalMarketValueBase)
+	|| ', BenchMark Countries: ' || getConcatValues(A.accountId, 'NonBenchmarkCountries') as parameters,
+    current_timestamp as validationTime,
+	'Max ' || doubleFormat(Nav_Percentage) || '% in Non-Benchmark Countries exceeded' as summary,
+	A.accountShortName as dimension
+from PostAssetAndCountryCheckInAccount as A;
+
+@Name('PostTradeNonBenchmarkCountriesResetEvent')
+@Description('PostTradeNonBenchmarkCountriesResetEvent resets the benchmark Countries.')
+on PostTradeNonBenchMarkCountries as B
+insert into PostTradeNonBenchmarkCountriesResetEvent
+select distinct
+	W.accountId as accountId,
+	resetConcatValues(W.accountId, 'NonBenchmarkCountries') as resetVal
+from AccountSymbolWithNav as W
+group by W.accountId;

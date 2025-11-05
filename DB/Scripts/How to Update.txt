@@ -1,0 +1,14 @@
+Note:
+
+To upgrade Database from 1.4.25 to Corporate Action compatible DB follow below steps: -
+
+Step 1: Run "Initial Script.sql" on target trade database
+Step 2: Use xSQL object to compare and upgarde target database with latest corporate DB. REMEMBER TO UNCHECK "tmp_PM_TaxlotClosing"  "tmp_T_ThirdPartyFileFormat" TABLES OTHERWISE THEY WILL BE DELETED FROM TARGET DATABASE
+Step 3: Run "Final Script.sql" on target trade database
+Step 4: Correct SecurityMaster DB name in Trade DB and Trade DB name in SecurityMaster DB
+Step 5: Run ClosingScript.sql
+Step 6: Check PM Import files setup. 
+Step 7: If needed correct report links in PM_Report Table
+
+** No special steps are needed for SecurityMaster DB upgrade. Just Use xSQl Objects to upgrade.
+** First five steps are mandatory for upgrade; rest should be performed on need basis.

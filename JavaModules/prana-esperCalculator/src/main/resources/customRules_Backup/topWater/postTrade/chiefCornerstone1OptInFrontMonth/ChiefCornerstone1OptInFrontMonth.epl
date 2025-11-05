@@ -1,0 +1,76 @@
+module customRules.postTrade.chiefCornerstone1OptInFrontMonth.ChiefCornerstone1OptInFrontMonth;
+
+
+/* Constant Variable region starts here*/
+
+create constant variable double CHIEF_CORNERSTONE1_OPT_GRS_EXPOSURE_FRONT_MONTH_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationAccountOptionPostChiefCornerstone1')
+@Description('Stores gross exposure for Chief Cornerstone1(TA)')
+insert into AggregationAccountCountryPostChiefCornerstone1
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	//T.udaCountry as country,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(actualDaysToExpire <= 30 and defaultPositionSide = 'long' and asset in ('EquityOption')) as T 
+
+where T.accountShortName='Chief Cornerstone1(TA)'
+group by T.accountShortName;
+
+//TODO: This rule states the combined effect of all mentioned countries, not their individual contribution.
+//Although we may confirm it with Alex/Gennaro. But as my understanding we should remove T.udaCountry from group by clause.
+//And if their individual effect is required then we might think to add a new compression Account-Country which might solve 
+//some more alert requirement (but only after confirming)//,T.udaCountry
+
+
+
+@Name('AccountPercentExposurePostChiefCornerstone1')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationAccountCountryPostChiefCornerstone1]
+insert into AccountPercentExposurePostChiefCornerstone1
+select distinct
+	coalesce(T.grossExposureBase*100/(CHIEF_CORNERSTONE1_OPT_GRS_EXPOSURE_FRONT_MONTH_COEFFICIENT * coalesce(F.accountNav,1)),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationAccountCountryPostChiefCornerstone1" as parentWindowStream
+from 
+AccountWithNav as F
+where F.accountId=T.accountId;
+
+
+
+@Name('RuleName3FinalPostChiefCornerstone1')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName3FinalPostChiefCornerstone1
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '20'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 20% of long call long put options in the front-month in Chief Cornerstone1(TA).' as summary,
+	R.accountShortName as dimension,
+	"AccountPercentExposurePostChiefCornerstone1" as parentWindowStream
+from
+AccountPercentExposurePostChiefCornerstone1 as R
+where R.percentageExposure > 20;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+//TODO: we can move this case statement into where clause as this is post trade		
+
+ 

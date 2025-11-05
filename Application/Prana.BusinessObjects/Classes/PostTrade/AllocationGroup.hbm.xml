@@ -1,0 +1,101 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Prana.BusinessObjects"
+                   assembly="Prana.BusinessObjects">
+  <class name="AllocationGroup" table="T_Group">
+    <id name="GroupID"/>
+    <property name="OrderSideTagValue" column="OrderSideTagValue"/>
+    <property name="Symbol"/>
+    <property name="OrderTypeTagValue"/>
+    <property name="CounterPartyID"/>
+    <property name="VenueID"/>
+    <property name="TradingAccountID"/>
+    <property name="AUECID"/>
+    <property name="CumQty"/>
+    <property name="AllocatedQty"/>
+    <property name="Quantity"/>
+    <property name="AvgPrice"/>
+    <property name="IsPreAllocated"/>
+    <property name="ListID"/>
+    <property name="CompanyUserID" column ="UserID"/>
+    <property name="ISProrataActive"/>
+    <property name="AutoGrouped"/>
+    <property name="StateID"/>
+    <property name="IsManualGroup"/>
+    <property name="AllocationDate"/>
+    <property name="SettlementDate"/>
+    <property name="AssetID"/>
+    <property name="UnderlyingID"/>
+    <property name="ExchangeID"/>
+    <property name="CurrencyID"/>
+    <property name="Description"/>
+    <property name="AUECLocalDate"/>
+    <property name="IsSwapped"/>
+    <property name="FXRate"/>
+    <property name="FXConversionMethodOperator"/>
+    <property name="TaxLotClosingId" column="TaxlotClosingID_Fk"/>
+    <property name="Commission"/>
+    <property name="SoftCommission"/>
+    <property name="OtherBrokerFees"/>
+    <property name="ClearingBrokerFee"/>
+    <property name="StampDuty"/>
+    <property name="TransactionLevy"/>
+    <property name="ClearingFee"/>
+    <property name="TaxOnCommissions"/>
+    <property name="MiscFees"/>
+    <property name="SecFee"/>
+    <property name="OccFee"/>
+    <property name="OrfFee"/>
+    <property name="AccruedInterest"/>
+    <property name="ProcessDate"/>
+    <property name="OriginalPurchaseDate"/>
+    <property name="CommissionSource"/>
+    <property name="IsModified"/>
+    <property name="AllocationSchemeID"/>
+    <property name="TaxLotIdsWithAttributes"/>
+    <property name="TradeAttribute1"/>
+    <property name="TradeAttribute2"/>
+    <property name="TradeAttribute3"/>
+    <property name="TradeAttribute4"/>
+    <property name="TradeAttribute5"/>
+    <property name="TradeAttribute6"/>
+    <property name="TransactionType"/>
+    <property name="NirvanaProcessDate"/>
+    <property name="TransactionSource"/>
+    <property name="TransactionSourceTag" column="TransactionSource"/>
+    <property name="InternalComments"/>
+    <!--<Settlement currency fields>-->
+    <property name="SettlementCurrencyID" column="SettlCurrency"/>
+    <property name="OptionPremiumAdjustment"/>
+    <property name="ChangeType"/>
+    <property name="IsCommissionChanged"/>
+    <property name="IsSoftCommissionChanged"/>
+    <property name="OriginalAllocationPreferenceID"/>
+    <property name="BorrowerID"/>
+    <property name="BorrowerBroker" column="BorrowBroker"/>
+    <property name="ShortRebate"/>
+    <!--<bag name="TaxLotsH" cascade="all-delete-orphan" lazy="false">
+			<key column="GroupID"/>
+			<one-to-many class="TaxLot" />			
+		</bag>-->
+    <!--<bag name="Level1AllocationList" cascade="all-delete-orphan" lazy="false">-->
+    <bag name="Level1AllocationList" cascade="all-delete-orphan" inverse="false"  fetch="join" lazy="false">
+      <key column="GroupID"/>
+      <one-to-many class="Level1Allocation" />
+    </bag>
+    <!--<bag name="OrdersH" cascade="all-delete-orphan" lazy="false">-->
+    <bag name="OrdersH" cascade="all-delete-orphan" inverse="false"  fetch="join" lazy="false">
+      <key column="GroupID"/>
+      <one-to-many class="AllocationOrder" />
+    </bag>
+
+    <!--<many-to-one name="SwapParameters" class="SwapParameters" column="GroupID" not-null="true" cascade="all" unique="true" />-->
+
+    <bag name="SwapParametersH" cascade="all-delete-orphan" inverse="false"  fetch="join" lazy="false">
+      <key column="GroupID"/>
+      <one-to-many class="SwapParameters" />
+    </bag>
+
+
+  </class>
+</hibernate-mapping>

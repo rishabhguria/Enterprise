@@ -1,0 +1,37 @@
+module customRules.PSPResearch.postTrade.votingRights.postTradeVotingRights;
+
+@Name('AccountVotingRightsCheck')
+@Description('Stores calculated value of total voting right for post trade.')
+on DivisorEndMessage as B
+insert into AccountVotingRightsCheck
+select distinct
+	0 as userId,
+	'' as taxlotId,
+    W.quantity as quantity,
+    W.accountId as accountId,
+    W.symbol as Symbol,
+    W.accountShortName as accountName,
+    convertStrToInt(W.customUDA7) as totalVotingShares,
+    (case(valueExistsInCSV(W.accountShortName, Account_Name_PostTrade) and (convertStrToInt(W.customUDA7)>1))
+	when true then true else false end) as finalValidation,
+    "AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId;
+
+@Name('PostTradeVotingRightCheck')
+@Description('Final stream to check if condition is breached')
+insert into PostTradeVotingRightCheck
+select distinct 
+    A.userId as userId,
+    A.taxlotId as taxlotId,
+    Account_Name_PostTrade || ValueSeparator || 'N/A' || ValueSeparator || doubleFormat(VotingPercentagePostTrade) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(A.quantity) || ValueSeparator  || doubleFormat(Math.abs(coalesce((A.quantity/A.totalVotingShares)*100,0))) as actualResult,
+    'Account' || ValueSeparator || 'Quantity ' || ValueSeparator || 'Total voting shares ' as constraintField,
+    (case A.finalValidation is true
+    when true then ((A.totalVotingShares > 1) and (Math.abs(A.quantity) > A.totalVotingShares*(VotingPercentagePostTrade/100)))
+    else false end) as isViolated,
+	'Account: ' || A.accountName ||', Symbol: '|| A.Symbol || ', Quantity: ' || doubleFormat(A.quantity) || ', % Total voting share: ' || doubleFormat(Math.abs(coalesce((A.quantity/A.totalVotingShares)*100,0))) as parameters,
+	current_timestamp as validationTime,
+	'Quantity should be less than ' || doubleFormat(VotingPercentagePostTrade) || '% of total voting shares.' as summary,
+	A.accountName || ValueSeparator || A.Symbol as dimension
+from  AccountVotingRightsCheck as A;

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<appConfig>
+  <configSections>
+    <!-- This section contains the settings of configuration file. It is mandatory 
+			to include a section tag if any new section is included -->
+    <section key="AppSettings" value="appSettings.appSetting" />
+    <section key="Exchanges" value="amqpMedia.exchanges.exchange" />
+    <section key="Queues" value="amqpMedia.queues.queue" />
+    <section key="StatementsToExchange" value="outStatements.toExchange.statement" />
+    <section key="StatementsToQueue" value="outStatements.toQueue.statement" />
+    <section key="StatementsToLog" value="loggingStatements.statement" />
+    <section key="NamedWindowList" value="namedWindows.window" />
+    <section key="DivisorMemoryMonitor" value="divisorMemoryMonitor.setting" />
+  </configSections>
+  <divisorMemoryMonitor>
+    <setting key="MemoryCheckInterval" value="10" />
+    <setting key="UsedMemoryPercentage" value="85" />
+    <setting key="TimerIncrement" value="2" />
+    <setting key="PercentageIncrement" value="0.5" />
+    <setting key="MaxIncrementLimit" value="5" />
+    <setting key="TimeToPercentageRatio" value="3" />
+  </divisorMemoryMonitor>
+  <appSettings>
+    <!-- Basic application settings -->
+    <appSetting key="SleepPostOnWhatIf" value="3" />
+    <appSetting key="EventsLogging" value="false" />
+    <appSetting key="SleepPostOnWhatIf" value="3" />
+    <appSetting key="AmqpServer" value="localhost" />
+    <appSetting key="Vhost" value="Dev" />
+    <appSetting key="UserId" value="nirvana" />
+    <appSetting key="Password" value="PRana888" />
+    <appSetting key="StartStatementMonitor" value="true" />
+    <appSetting key="MonitoringEpl" value="target/resources/monitoringEpl/" />
+    <appSetting key="BasketComplianceConfigFile" value="target/resources/conf/BasketComplianceEngine.config.xml" />
+    <appSetting key="EplDirectory" value="target/resources/eplModules/" />
+    <!-- Referring to Esper directory path, we are using common files from Esper. -->
+    <appSetting key="CommonEplDirectory" value="target/resources/eplModules/commonEpl/" />
+    <appSetting key="EplDirectoryExpressions" value="target/resources/eplModules/expressions/" />
+    <appSetting key="RELEASE_FOLDER_NAME_ESPER" value="EsperCalculator" />
+    <appSetting key="RELEASE_FOLDER_NAME_BASKET" value="BasketComplianceService" />
+    <appSetting key="EsperCalculation" value="prana-esperCalculator" />
+    <appSetting key="BasketCompliance" value="prana-basketComplianceService" />
+    <appSetting key="SocketLockPort" value="5044" />
+    <appSetting key="WindowDumpDirectory" value="dump" />
+    <appSetting key="PricingTimeout" value="30000" />
+    <!-- HeartBeatTimer value is in milliseconds -->
+    <appSetting key="HeartBeatTimer" value="5000" />
+    <!-- Keep IsSymbolDataEOMRequiredOnStalePrices true if User have compliance permission. -->
+    <!-- Set IsSymbolDataEOMRequiredOnStalePrices false only if-
+    	1. User doesn't have compliance permission.
+    	2. Post trade compliance permission is disabled.
+		3. Post trade compliance permission is enabled but all post trade rule is disabled.-->
+    <appSetting key="IsSymbolDataEOMRequiredOnStalePrices" value="true" />
+    <!-- Set true if EPL compilation is required else false -->
+    <appSetting key="IsEPLCompilationRequired" value="false" />
+    <!-- Set period of time after which to compiler EPL's again -->
+    <appSetting key="NoOfDaysToCompileEPLAfter" value="1" />
+    <!--Set precision after decimal for Order Side Rule Quantity -->
+    <appSetting key="PrecisionAfterDecimal" value="10" />
+    <!-- This setting is to enable or disable email notification of error occurred 
+			in prana-esperCalculator project -->
+    <appSetting key="EmailErrorNotificationPermission" value="false" />
+    <!-- This setting is to set the time window(in seconds) within which same 
+			errors should not be notified on email more than once -->
+    <appSetting key="EmailErrorNotificationTimeoutSeconds" value="300" />
+    <!-- A threshold value is time interval at which if pst request come, then fresh market snashot fr esper is not required. -->
+    <appSetting key="ThresholdTimeIntervalForMarketSnapshotInSecs" value="40" />
+  </appSettings>
+  <amqpMedia>
+    <!-- List of all amqp media -->
+    <exchanges>
+      <exchange key="BasketComplianceRequestExchangeName" value="Nirvana.BasketComplianceExchange" />
+      <exchange key="BasketComplianceRequestSymbolExchangeName" value="Nirvana.BasketComplianceSymbolExchange" />
+      <exchange key="EsperRequestExchangeName" value="Nirvana.EsperRequest" />
+      <exchange key="PortfolioExchangeName" value="Nirvana.Portfolio" />
+      <exchange key="WhatIfPortfolioExchangeName" value="Nirvana.WhatIfPortfolio" />
+      <exchange key="OtherEventStreams" value="Nirvana.OtherEventStreams" />
+      <exchange key="NotificationExchangeName" value="Nirvana.Notification" />
+      <exchange key="LoggingExchangeName" value="Nirvana.LoggingData" />
+    </exchanges>
+    <queues>
+      <queue key="BasketComplianceQueueName" value="Nirvana.BasketComplianceQueue" />
+    </queues>
+  </amqpMedia>
+  <outStatements>
+    <!-- Statements list which will be output to AmqpMedia -->
+    <toExchange>
+      <!-- Statement listed here will be output to given exchange (Key is represented 
+				here) -->
+      <statement key="WhatIfAggregationTrade" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfSymbol" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfUnderlyingSymbol" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfAccountSymbol" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfAccountUnderlyingSymbol" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfMasterFundSymbol" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfMasterFundUnderlyingSymbol" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfMasterFund" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfAccount" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfGlobal" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfSector" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfSubSector" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfAsset" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfFinalEndMessage" value="BasketComplianceRequestExchangeName" />
+      <statement key="WhatIfFinalEndMessageInvert" value="BasketComplianceRequestExchangeName" />
+    </toExchange>
+    <toQueue>
+      <!-- Statement listed here will be output to given queue (Key is represented 
+				here) -->
+    </toQueue>
+  </outStatements>
+  <namedWindows>
+    <!-- List of all named windows which will be dump to specified WindowDumpDirectory 
+			in app settings -->
+    <window key="AuecWindow" value="AuecWindow" />
+    <window key="AccountWindow" value="AccountWindow" />
+    <window key="SecurityWindow" value="SecurityWindow" />
+    <window key="StrategyWindow" value="StrategyWindow" />
+    <window key="SymbolDataWindow" value="SymbolDataWindow" />
+    <window key="TaxlotWindow" value="TaxlotWindow" />
+    <window key="AggregationTaxlotWindow" value="AggregationTaxlotWindow" />
+    <window key="RowCalculationBaseWindow" value="RowCalculationBaseWindow" />
+    <window key="PmCalculationPreferenceWindow" value="PmCalculationPreferenceWindow" />
+    <window key="AccountDivisorWindow" value="AccountDivisorWindow" />
+    <window key="MasterFundDivisorWindow" value="MasterFundDivisorWindow" />
+    <window key="GlobalDivisorWindow" value="GlobalDivisorWindow" />
+    <window key="CashFlowWindow" value="CashFlowWindow" />
+    <window key="CashFlowMasterFundWindow" value="CashFlowMasterFundWindow" />
+    <window key="WeeklyHolidaysWindow" value="WeeklyHolidaysWindow" />
+    <window key="YearlyHolidaysWindow" value="YearlyHolidaysWindow" />
+    <window key="DayEndCashAccountWindow" value="DayEndCashAccountWindow" />
+    <window key="AccountNavPreferenceWindow" value="AccountNavPreferenceWindow" />
+    <window key="AccrualForAccountWindow" value="AccrualForAccountWindow" />
+    <window key="AccountSymbolDivisorWindow" value="AccountSymbolDivisorWindow" />
+    <window key="DbNavWindow" value="DbNavWindow" />
+  </namedWindows>
+  <loggingStatements>
+    <statement key="WhatIfMasterFundUnderlyingSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfMasterFundSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfMasterFundLog" value="LoggingExchangeName" />
+    <statement key="WhatIfGlobalLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAssetLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAccountUnderlyingSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAccountSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAccountLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAggregationTradeLog" value="LoggingExchangeName" />
+    <statement key="WhatIfUnderlyingSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfSubSectorLog" value="LoggingExchangeName" />
+    <statement key="WhatIfSectorLog" value="LoggingExchangeName" />
+    <statement key="WhatIfFinalEndMessageLog" value="LoggingExchangeName" />
+    <statement key="WhatIfFinalEndMessageInvertLog" value="LoggingExchangeName" />
+  </loggingStatements>
+</appConfig>

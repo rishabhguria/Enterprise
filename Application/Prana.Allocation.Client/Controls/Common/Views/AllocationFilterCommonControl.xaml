@@ -1,0 +1,221 @@
+﻿<UserControl xmlns:igWPF="http://schemas.infragistics.com/xaml"  x:Class="Prana.Allocation.Client.Controls.Common.Views.AllocationFilterCommonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Common.ViewModels"
+             xmlns:commonBehaviors="clr-namespace:Prana.Allocation.Client.Behaviours"
+             xmlns:symbolBehavior="clr-namespace:Prana.Allocation.Client.Controls.Common.Behaviors"
+             xmlns:ig="http://infragistics.com/Themes"
+             xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
+             mc:Ignorable="d"
+              DataContext="{DynamicResource AllocationFilterCommonControlViewModel}" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>-->
+            <viewModels:AllocationFilterCommonControlViewModel x:Key="AllocationFilterCommonControlViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Background="{DynamicResource UserControlBackGround}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{Binding Path=FundsComboHeading}" Margin="5,5,5,5" Grid.Column="0" Grid.Row="0" Visibility="{Binding Path=FundsComboVisibility, Mode=OneWay}"/>
+            <Label Content="Symbol" Margin="5,5,5,5" Grid.Column="0" Grid.Row="1"/>
+            <Label Content="Asset" Margin="5,5,5,5" Grid.Column="0" Grid.Row="2"/>
+            <Label Content="Side" Margin="5,5,5,5" Grid.Column="0" Grid.Row="3"/>
+            <Label Content="Account" Margin="5,5,5,5" Grid.Column="0" Grid.Row="4" Visibility="{Binding Path=AccountComboVisibility, Mode=OneWay}"/>
+            <Label Content="Broker" Margin="5,5,5,5" Grid.Column="0" Grid.Row="5"/>
+            <Label Content="Currency" Margin="5,5,5,5" Grid.Column="0" Grid.Row="6"/>
+            <Label Content="Exchange" Margin="5,5,5,5" Grid.Column="0" Grid.Row="7"/>
+            <Label Content="Strategy Name" Margin="5,5,5,5" Grid.Column="0" Grid.Row="8" Visibility="{Binding Path=AccountComboVisibility, Mode=OneWay}"/>
+            <Label Content="Underlying" Margin="5,5,5,5" Grid.Column="0" Grid.Row="9"/>
+            <Label Content="Venue" Margin="5,5,5,5" Grid.Column="0" Grid.Row="10"/>
+            <Label Content="Trading Account" Margin="5,5,5,5" Grid.Column="0" Grid.Row="11"/>
+            <Label Content="PreAllocated" Margin="5,5,5,5" Grid.Column="0" Grid.Row="12"/>
+            <Label Content="Manual Group" Margin="5,5,5,5" Grid.Column="0" Grid.Row="13"/>
+            <igWPF:XamComboEditor x:Name="cbFilterMasterFund" Margin="5,5,5,5" Grid.Column="1" Grid.Row="0" MinWidth="100" Visibility="{Binding Path=FundsComboVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SelectedValues, ElementName=FundsBehavior}" SelectedItems ="{Binding Path=SelectedFilterFund, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Funds,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath="Name" IsEnabled="True" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" ToolTip="{Binding Name}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="FundsBehavior" SelectedItems ="{Binding Path=SelectedFilterFund, Mode=TwoWay}"/>
+                    <commonBehaviors:XamComboEditorSelectAllBehavior />
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor  Margin="5,7,0,7"   Grid.Column="1" Grid.Row="1" MinWidth="100"  x:Name="cmbboxsymbol" IsEditable="True" HorizontalAlignment="Left"  VerticalAlignment="Center" SelectedValuePath="Value" SelectedValues="{Binding SelectedSymbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DropDownButtonDisplayMode="Never" Width="140" ItemsSource="{Binding SymbolList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" MultiSelectValueDelimiter="," AllowMultipleSelection="True" CheckBoxVisibility="Visible" CustomValueEnteredAction="Allow" AutoComplete="False">
+                <i:Interaction.Behaviors>
+                    <symbolBehavior:AllocationSymbolFilterBehavior 
+                        SymbolList="{Binding Path=SymbolList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedSymbol="{Binding Path=SelectedSymbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        />
+                </i:Interaction.Behaviors>
+                <igWPF:XamComboEditor.Resources>
+                    <Style TargetType="igPrim:SpecializedTextBox">
+                        <Setter Property="CharacterCasing" Value="Upper"></Setter>
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu/>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </igWPF:XamComboEditor.Resources>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterAsset" Margin="5,5,5,5" Grid.Column="1" Grid.Row="2" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=AssetBehavior}" SelectedItems ="{Binding Path=SelectedFilterAsset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Asset}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="AssetBehavior" SelectedItems ="{Binding Path=SelectedFilterAsset, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterSide" Margin="5,5,5,5" Grid.Column="1" Grid.Row="3" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=SideBehavior}" SelectedItems ="{Binding Path=SelectedFilterSide, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Side}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="SideBehavior" SelectedItems ="{Binding Path=SelectedFilterSide, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterAccount" Margin="5,5,5,5" Grid.Column="1" Grid.Row="4" MinWidth="100" Visibility="{Binding Path=AccountComboVisibility, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="{Binding SelectedValues, ElementName=AccountBehavior}" SelectedItems ="{Binding Path=SelectedFilterAccount, Mode=TwoWay}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Account}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="AccountBehavior" SelectedItems ="{Binding Path=SelectedFilterAccount, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterBroker" Margin="5,5,5,5" Grid.Column="1" Grid.Row="5" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=BrokerBehavior}" SelectedItems ="{Binding Path=SelectedBroker, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Broker}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="BrokerBehavior" SelectedItems ="{Binding Path=SelectedBroker, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterCurrency" Margin="5,5,5,5" Grid.Column="1" Grid.Row="6" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=CurrencyBehavior}" SelectedItems ="{Binding Path=SelectedCurrency, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Currency}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="CurrencyBehavior" SelectedItems ="{Binding Path=SelectedCurrency, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterExchange" Margin="5,5,5,5" Grid.Column="1" Grid.Row="7" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=ExchangeBehavior}" SelectedItems ="{Binding Path=SelectedExchange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Exchange}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="ExchangeBehavior" SelectedItems ="{Binding Path=SelectedExchange, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterStrategy" Margin="5,5,5,5" Grid.Column="1" Grid.Row="8" Visibility="{Binding Path=AccountComboVisibility, Mode=OneWay}" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=StrategyBehavior}" SelectedItems ="{Binding Path=SelectedStrategy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Strategy}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="StrategyBehavior" SelectedItems ="{Binding Path=SelectedStrategy, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterUnderlying" Margin="5,5,5,5" Grid.Column="1" Grid.Row="9" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=UnderlyingBehavior}" SelectedItems ="{Binding Path=SelectedUnderlying, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Underlying}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="UnderlyingBehavior" SelectedItems ="{Binding Path=SelectedUnderlying, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterVenue" Margin="5,5,5,5" Grid.Column="1" Grid.Row="10" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=VenueBehavior}" SelectedItems ="{Binding Path=SelectedVenue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=Venue}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="VenueBehavior" SelectedItems ="{Binding Path=SelectedVenue, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterTradingAccount" Margin="5,5,5,5" Grid.Column="1" Grid.Row="11" MinWidth="100" ToolTip="{Binding SelectedValues, ElementName=TradingAccountBehavior}" SelectedItems ="{Binding Path=SelectedTradingAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" ItemsSource="{Binding Path=TradingAccount}" DisplayMemberPath="Value" EmptyText="Select">
+                <igWPF:XamComboEditor.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                    </DataTemplate>
+                </igWPF:XamComboEditor.ItemTemplate>
+                <i:Interaction.Behaviors>
+                    <commonBehaviors:XamComboEditorBehavior x:Name="TradingAccountBehavior" SelectedItems ="{Binding Path=SelectedTradingAccount, Mode=TwoWay}"/>
+                </i:Interaction.Behaviors>
+            </igWPF:XamComboEditor>
+            <igWPF:XamComboEditor x:Name="cbFilterPreAllocated" Margin="5,5,5,5" Grid.Column="1" Grid.Row="12" MinWidth="100" ToolTip="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" IsEditable="False" SelectedItem="{Binding Path=IsPreAllocated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=PreAllocated}" EmptyText="Select"/>
+            <igWPF:XamComboEditor x:Name="cbFilterManualGroup" Margin="5,5,5,5" Grid.Column="1" Grid.Row="13" MinWidth="100" ToolTip="{Binding SelectedItem, RelativeSource={RelativeSource Self}}" IsEditable="False" SelectedItem="{Binding Path=IsManualGroup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Path=ManualGroup}" EmptyText="Select"/>
+        </Grid>
+    </Grid>
+</UserControl>

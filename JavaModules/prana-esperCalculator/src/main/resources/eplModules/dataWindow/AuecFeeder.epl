@@ -1,0 +1,85 @@
+module eplModules.dataWindow.AuecFeeder;
+
+@Name('AuecWindow')
+@Description('Named window which stores the AUEC details.')
+create window AuecWindow.std:unique(auecId)
+(
+			
+			auecId int,
+			yesterDay java.util.Date,
+			today java.util.Date,
+			assetId int,
+			asset string,
+			exchangeId int,
+			exchangeName string,
+			underlyingId int,
+			underlying string,
+			currencyId int,
+			currency string,
+			fxSymbol string,
+			isEsperStarted boolean,
+			parentWindowStream string
+);
+
+@Name('AuecWindowInsert')
+@Description('This updates the AuecWindow every time new AuecDetails event occurs.
+              Also inserts data into AuecWindowUpdated stream.')
+on AuecDetails as s
+merge AuecWindow sw where sw.auecId = s.auecId
+	when matched and
+			(
+				s.yesterDay.withTime(0,0,0,0) <> sw.yesterDay.withTime(0,0,0,0) or 
+				s.today.withTime(0,0,0,0) <> sw.today.withTime(0,0,0,0) or
+				s.assetId <>sw.assetId or
+				s.asset <> sw.asset or 
+				s.exchangeId <> sw.exchangeId or 
+				s.exchangeName <> sw.exchangeName or 
+				s.underlyingId <> sw.underlyingId or 
+				s.underlying <> sw.underlying or 
+				s.currencyId <> sw.currencyId or 
+				s.isEsperStarted <> sw.isEsperStarted or
+				s.currency <> sw.currency 
+			)
+		then 
+			update 
+				set  
+				sw.yesterDay = s.yesterDay, 
+				sw.today = s.today, 
+				sw.assetId =s.assetId,
+				sw.asset = s.asset, 
+				sw.exchangeId = s.exchangeId, 
+				sw.exchangeName = s.exchangeName, 
+				sw.underlyingId = s.underlyingId, 
+				sw.underlying = s.underlying, 
+				sw.currencyId = s.currencyId, 
+				sw.currency = s.currency,
+				sw.fxSymbol = s.currency||'-'||CompanyBaseCurrency,
+				sw.isEsperStarted = s.isEsperStarted,
+				sw.parentWindowStream = "AuecDetails-Update"
+			then insert into AuecWindowUpdated
+				select
+				 s.uuid as modificationId,
+				 s.auecId as auecId,
+				 "AuecDetails-Upate" as parentWindowStream				 
+	when not matched
+		then insert 
+			select    	
+		   	s.auecId as auecId,
+			s.yesterDay as yesterDay, 
+			s.today as today, 
+			s.assetId as assetId,
+			s.asset as asset, 
+			s.exchangeId as exchangeId, 
+			s.exchangeName as exchangeName, 
+			s.underlyingId as underlyingId, 
+			s.underlying as underlying, 
+			s.currencyId as currencyId, 
+			s.currency as currency,
+			s.currency||'-'||CompanyBaseCurrency as fxSymbol,
+			s.isEsperStarted as isEsperStarted,
+			"AuecDetails-Insert" as parentWindowStream
+			then insert into AuecWindowUpdated
+				select
+				 s.uuid as modificationId,
+				 s.auecId as auecId,
+				 "AuecDetails-Insert" as parentWindowStream;

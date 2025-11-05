@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<appConfig>
+  <configSections>
+    <!-- This section contains the settings of configuration file. It is mandatory 
+			to include a section tag if any new section is included -->
+    <section key="AppSettings" value="appSettings.appSetting" />
+    <section key="CustomRuleConfigPaths" value="customRuleConfigPaths.customRuleConfigPath" />
+    <section key="Exchanges" value="amqpMedia.exchanges.exchange" />
+    <section key="Queues" value="amqpMedia.queues.queue" />
+    <section key="StatementsToExchange" value="outStatements.toExchange.statement" />
+    <section key="StatementsToQueue" value="outStatements.toQueue.statement" />
+    <section key="NamedWindowList" value="namedWindows.window" />
+    <section key="StatementsToLog" value="loggingStatements.statement" />
+    <section key="DivisorMemoryMonitor" value="divisorMemoryMonitor.setting" />
+    <section key="StatementsForDetection" value="detectionStatements.statement" />
+  </configSections>
+  <divisorMemoryMonitor>
+    <setting key="MemoryCheckInterval" value="10" />
+    <setting key="UsedMemoryPercentage" value="85" />
+    <setting key="TimerIncrement" value="2" />
+    <setting key="PercentageIncrement" value="0.5" />
+    <setting key="MaxIncrementLimit" value="5" />
+    <setting key="TimeToPercentageRatio" value="3" />
+  </divisorMemoryMonitor>
+  <appSettings>
+    <!-- Basic application settings -->
+    <appSetting key="AmqpServer" value="localhost" />
+    <appSetting key="Vhost" value="Dev" />
+    <appSetting key="UserId" value="nirvana" />
+    <appSetting key="Password" value="PRana888" />
+    <appSetting key="StartStatementMonitor" value="true" />
+    <!-- To enable logging permission is required in config of both esperCalculator 
+			and loggingTool -->
+    <appSetting key="EventsLogging" value="false" />
+    <appSetting key="EsperConfigFile" value="target/resources/conf/EsperEngine.config.xml" />
+    <appSetting key="MonitoringEpl" value="target/resources/monitoringEpl/" />
+    <appSetting key="DetectionEpl" value="target/resources/detectionEPL" />
+    <appSetting key="EplDirectory" value="target/resources/eplModules/" />
+    <appSetting key="InterceptorDirectory" value="target/resources/interceptor/" />
+    <appSetting key="WindowValidatorDirectory" value="target/resources/windowValidator" />
+    <appSetting key="TTLForLiveFeedQueue" value="10000" />
+    <!-- If SymbolDataUpdateLogging is true, then Symbol Update messages of each symbol will be logged  -->
+    <appSetting key="SymbolDataUpdateLogging" value="false" />
+    <!-- A port lock will be taken on this so that multiple instances should 
+			not run -->
+    <appSetting key="SocketLockPort" value="5041" />
+    <appSetting key="WindowDumpDirectory" value="dump" />
+    <appSetting key="WindowDetectionDumpDirectory" value="detection_dumps" />
+    <!-- list of assets whose prices will be received from live feed, use '/' 
+			to separate the assets -->
+    <appSetting key="PricingRequired" value="Equity/EquityOption/Future/FutureOption/FX/Indices/FixedIncome/PrivateEquity/FXOption/FXForward/Forex/ConvertibleBond/CreditDefaultSwap" />
+    <appSetting key="SymbolsRequireLogging" value="" />
+    <appSetting key="DumpIntervalForDetection" value="300" />
+    <appSetting key="TaxlotHelperDelay" value="1" />
+    <appSetting key="SymbolDataHelperDelay" value="2" />
+    <appSetting key="SleepPostOnWhatIf" value="3" />
+    <!-- If IsLiveMode config value is true, then calculation will be done 
+			on actual live prices If IsLiveMode config value is false, then calculation 
+			will be done on manual prices (According to +2 and -2 logic) -->
+    <appSetting key="IsLiveMode" value="true" />
+    <appSetting key="RELEASE_FOLDER_NAME_ESPER" value="EsperCalculator" />
+    <appSetting key="RELEASE_FOLDER_NAME_BASKET" value="BasketComplianceService" />
+    <appSetting key="EsperCalculation" value="prana-esperCalculator" />
+    <appSetting key="BasketCompliance" value="prana-basketComplianceService" />
+    <appSetting key="SecurityRetryCount" value="10" />
+    <!-- Email settings -->
+    <appSetting key="HostName" value="smtp.nirvanasolutions.com" />
+    <appSetting key="SMTPPort" value="2525" />
+    <appSetting key="MailUserName" value="alerts1@nirvanasolutions.com" />
+    <appSetting key="MailPassword" value="nirvana888" />
+    <appSetting key="SenderName" value="Compliance Helper" />
+    <!-- Use '/' character for multiple email ids to define in RecieverTo, 
+			RecieverCC and RecieverBCC -->
+    <appSetting key="RecieverTo" value="shagoon.gurtata@nirvanasolutions.com" />
+    <appSetting key="RecieverCC" value="shagoon.gurtata@nirvanasolutions.com" />
+    <appSetting key="RecieverBCC" value="shagoon.gurtata@nirvanasolutions.com" />
+    <!-- This should be only a single email id -->
+    <appSetting key="BounceAddress" value="rajat.tandon@nirvanasolutions.com" />
+    <!-- Email settings -->
+    <!-- HeartBeatTimer value is in milliseconds -->
+    <appSetting key="HeartBeatTimer" value="5000" />
+    <appSetting key="PricingTimeout" value="30000" />
+    <appSetting key="MissingInformationRequired" value="false" />
+    <!-- Keep IsSymbolDataEOMRequiredOnStalePrices true if User have compliance permission. -->
+    <!-- Set IsSymbolDataEOMRequiredOnStalePrices false only if-
+    	1. User doesn't have compliance permission.
+    	2. Post trade compliance permission is disabled.
+		3. Post trade compliance permission is enabled but all post trade rule is disabled.-->
+    <appSetting key="IsSymbolDataEOMRequiredOnStalePrices" value="true" />
+    <!-- Set true if EPL compilation is required else false -->
+    <appSetting key="IsEPLCompilationRequired" value="false" />
+    <!-- Set period of time after which to compiler EPL's again -->
+    <appSetting key="NoOfDaysToCompileEPLAfter" value="1" />
+    <!--Set precision after decimal for Order Side Rule Quantity -->
+    <appSetting key="PrecisionAfterDecimal" value="10" />
+    <!-- This setting is to enable or disable email notification of error occurred 
+			in prana-esperCalculator project -->
+    <appSetting key="EmailErrorNotificationPermission" value="false" />
+    <!-- This setting is to set the time window(in seconds) within which same 
+			errors should not be notified on email more than once -->
+    <appSetting key="EmailErrorNotificationTimeoutSeconds" value="300" />
+    <appSetting key="InterceptorFileName" value="symbol.csv" />
+  </appSettings>
+  <customRuleConfigPaths>
+    <!-- Path of custom rule for each client -->
+    <!-- <customRuleConfigPath key="ICBC" value="target/resources/customRules/icbc/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="Resonate" value="target/resources/customRules/resonate/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="Nirvana" value="target/resources/customRules/nirvana/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="telsey" value="target/resources/customRules/telsey/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="Telemark" value="target/resources/customRules/Telemark/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="OctahedronCapital" value="target/resources/customRules/OctahedronCapital/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="NirvanaDemo" value="target/resources/customRules/NirvanaDemo/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="Maplerock" value="target/resources/customRules/mapleRock/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="180Degree" value="target/resources/customRules/180Degree/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="octa" value="target/resources/customRules/octa/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="325Capital" value="target/resources/customRules/325Capital/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="StamosCapitalPartners" value="target/resources/customRules/StamosCapitalPartners/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="PromethosCapital" value="target/resources/customRules/PromethosCapital/conf/Custom-RuleConfig.xml" 
+			/> <customRuleConfigPath key="NZSCapital" value="target/resources/customRules/NZSCapital/conf/Custom-RuleConfig.xml" />
+			-->
+    <customRuleConfigPath key="SpecialSituation" value="target/resources/customRules/SpecialSituation/conf/Custom-RuleConfig.xml" />
+  </customRuleConfigPaths>
+  <amqpMedia>
+    <!-- List of all amqp media -->
+    <exchanges>
+      <exchange key="EsperRequestExchangeName" value="Nirvana.EsperRequest" />
+      <exchange key="BasketComplianceRequestExchangeName" value="Nirvana.BasketComplianceExchange" />
+      <exchange key="BasketComplianceRequestSymbolExchangeName" value="Nirvana.BasketComplianceSymbolExchange" />
+      <exchange key="PreTradeValidation16B" value="Nirvana.PreTradeValidation16B" />
+      <exchange key="PortfolioExchangeName" value="Nirvana.Portfolio" />
+      <exchange key="WhatIfPortfolioExchangeName" value="Nirvana.WhatIfPortfolio" />
+      <exchange key="OtherEventStreams" value="Nirvana.OtherEventStreams" />
+      <exchange key="LiveFeedExchangeName" value="Nirvana.LiveFeed" />
+      <exchange key="NotificationExchangeName" value="Nirvana.Notification" />
+      <exchange key="LoggingExchangeName" value="Nirvana.LoggingData" />
+      <exchange key="RtpnlCompressionsExchangeName" value="Nirvana.RealTimePortfolio" />
+    </exchanges>
+    <queues>
+      <queue key="OrderQueueName" value="Nirvana.Order" />
+      <queue key="EsperLiveFeedQueue" value="Nirvana.EsperLiveFeedQueue" />
+      <queue key="HistoricalPositionExchangeName" value="Nirvana.HistoricalPosition" />
+      <queue key="SymbolDataQueueName" value="Nirvana.ValidatedSymbolData" />
+      <queue key="SecurityDetailsQueueName" value="Nirvana.SecurityDetails" />
+      <queue key="WhatIfTaxlotQueueName" value="Nirvana.WhatIfTaxlot" />
+      <queue key="RuleFeedSixteenBQueue" value="Nirvana.RuleFeedSixteenB" />
+      <queue key="MarkPriceExchangeName" value="Nirvana.MarkPrice" />
+      <queue key="PreTradeValidation16B" value="Nirvana.RuleResponseSixteenB" />
+    </queues>
+  </amqpMedia>
+  <outStatements>
+    <!-- Statements list which will be output to AmqpMedia -->
+    <toExchange>
+      <!-- Statement listed here will be output to given exchange (Key is represented 
+				here) -->
+      <statement key="WhatIfAggregationTrade" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfSymbol" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfUnderlyingSymbol" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfAccountSymbol" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfAccountUnderlyingSymbol" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfMasterFundSymbol" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfMasterFundUnderlyingSymbol" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfMasterFund" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfAccount" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfGlobal" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfSector" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfSubSector" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfAsset" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfFinalEndMessage" value="WhatIfPortfolioExchangeName" />
+      <statement key="WhatIfFinalEndMessageInvert" value="WhatIfPortfolioExchangeName" />
+      <statement key="AggregationTrade" value="PortfolioExchangeName" />
+      <statement key="AssetWindowInitial" value="PortfolioExchangeName" />
+      <statement key="AccountWindowInitial" value="PortfolioExchangeName" />
+      <statement key="AccountSymbolWindowInitial" value="PortfolioExchangeName" />
+      <statement key="AccountUnderlyingWindowInitial" value="PortfolioExchangeName" />
+      <statement key="GlobalWindowInitial" value="PortfolioExchangeName" />
+      <statement key="MasterFundWindowInitial" value="PortfolioExchangeName" />
+      <statement key="MasterFundSymbolWindowInitial" value="PortfolioExchangeName" />
+      <statement key="MasterFundUnderlyingWindowInitial" value="PortfolioExchangeName" />
+      <statement key="SectorWindowInitial" value="PortfolioExchangeName" />
+      <statement key="SubSectorWindowInitial" value="PortfolioExchangeName" />
+      <statement key="SymbolWindowInitial" value="PortfolioExchangeName" />
+      <statement key="UnderlyingSymbolWindowInitial" value="PortfolioExchangeName" />
+      <statement key="ExtendedAccountSymbolWithNavInitial" value="RtpnlCompressionsExchangeName" />
+    </toExchange>
+    <toQueue>
+      <!-- Statement listed here will be output to given queue (Key is represented 
+				here) -->
+    </toQueue>
+  </outStatements>
+  <namedWindows>
+    <!-- List of all named windows which will be dump to specified WindowDumpDirectory 
+			in app settings -->
+    <window key="AuecWindow" value="AuecWindow" />
+    <window key="CounterPartyWindow" value="CounterPartyWindow" />
+    <window key="DayEndCashAccountWindow" value="DayEndCashAccountWindow" />
+    <window key="DbNavWindow" value="DbNavWindow" />
+    <window key="AccountWindow" value="AccountWindow" />
+    <window key="BetaWindow" value="BetaWindow" />
+    <window key="AccountNavPreferenceWindow" value="AccountNavPreferenceWindow" />
+    <window key="OrderSideWindow" value="OrderSideWindow" />
+    <window key="OrderTypeWindow" value="OrderTypeWindow" />
+    <window key="SecurityWindow" value="SecurityWindow" />
+    <window key="StrategyWindow" value="StrategyWindow" />
+    <window key="SymbolDataWindow" value="SymbolDataWindow" />
+    <window key="TaxlotWindow" value="TaxlotWindow" />
+    <window key="AggregationTaxlotWindow" value="AggregationTaxlotWindow" />
+    <window key="VenueWindow" value="VenueWindow" />
+    <window key="CustomSymbolDataWindow" value="CustomSymbolDataWindow" />
+    <window key="RowCalculationBaseWindow" value="RowCalculationBaseWindow" />
+    <window key="AggregationAssetWithNav" value="AssetWithNav" />
+    <window key="AggregationAccountWithNav" value="AccountWithNav" />
+    <window key="AggregationAccountSymbolWithNav" value="AccountSymbolWithNav" />
+    <window key="AggregationAccountUnderlyingSymbolWithNav" value="AccountUnderlyingSymbolWithNav" />
+    <window key="AggregationGlobalWithNav" value="GlobalWithNav" />
+    <window key="AggregationMasterFundWithNav" value="MasterFundWithNav" />
+    <window key="AggregationMasterFundSymbolWithNav" value="MasterFundSymbolWithNav" />
+    <window key="AggregationMasterFundUnderlyingSymbolWithNav" value="MasterFundUnderlyingSymbolWithNav" />
+    <window key="AggregationSectorWithNav" value="SectorWithNav" />
+    <window key="AggregationSubSectorWithNav" value="SubSectorWithNav" />
+    <window key="AggregationSymbolWithNav" value="SymbolWithNav" />
+    <window key="AggregationUnderlyingSymbolWithNav" value="UnderlyingSymbolWithNav" />
+    <window key="WeeklyHolidaysWindow" value="WeeklyHolidaysWindow" />
+    <window key="YearlyHolidaysWindow" value="YearlyHolidaysWindow" />
+    <window key="PmCalculationPreferenceWindow" value="PmCalculationPreferenceWindow" />
+    <window key="AvgVolumeCustomDaysWindow" value="AvgVolumeCustomDaysWindow" />
+    <window key="AccountDivisorWindow" value="AccountDivisorWindow" />
+    <window key="MasterFundDivisorWindow" value="MasterFundDivisorWindow" />
+    <window key="GlobalDivisorWindow" value="GlobalDivisorWindow" />
+    <window key="AccountSymbolDivisorWindow" value="AccountSymbolDivisorWindow" />
+    <window key="MasterFundSymbolDivisorWindow" value="MasterFundSymbolDivisorWindow" />
+    <window key="SymbolDivisorWindow" value="SymbolDivisorWindow" />
+    <window key="AccrualForAccountWindow" value="AccrualForAccountWindow" />
+    <window key="ExtendedAccountSymbolWithNav" value="ExtendedAccountSymbolWithNav" />
+  </namedWindows>
+  <loggingStatements>
+    <statement key="WhatIfMasterFundUnderlyingSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfMasterFundSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfMasterFundLog" value="LoggingExchangeName" />
+    <statement key="WhatIfGlobalLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAssetLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAccountUnderlyingSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAccountSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAccountLog" value="LoggingExchangeName" />
+    <statement key="WhatIfAggregationTradeLog" value="LoggingExchangeName" />
+    <statement key="WhatIfUnderlyingSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfSymbolLog" value="LoggingExchangeName" />
+    <statement key="WhatIfSubSectorLog" value="LoggingExchangeName" />
+    <statement key="WhatIfSectorLog" value="LoggingExchangeName" />
+    <statement key="WhatIfFinalEndMessageLog" value="LoggingExchangeName" />
+    <statement key="WhatIfFinalEndMessageInvertLog" value="LoggingExchangeName" />
+    <statement key="MSDeletedTrade" value="LoggingExchangeName" />
+  </loggingStatements>
+  <detectionStatements>
+    <!--<statement key="GlobalLevelDetection" value="GlobalLevelDetection" 
+			/> <statement key="AccountLevelDetection" value="AccountLevelDetection" /> 
+			<statement key="SectorLevelDetection" value="SectorLevelDetection" /> <statement 
+			key="SubSectorLevelDetection" value="SubSectorLevelDetection" /> <statement 
+			key="AssetLevelDetection" value="AssetLevelDetection" /> <statement key="AccountUnderlyingSymbolLevelDetection" 
+			value="AccountUnderlyingSymbolLevelDetection" /> <statement key="MasterFundLevelDetection" 
+			value="MasterFundLevelDetection" /> <statement key="MasterFundUnderlyingSymbolLevelDetection" 
+			value="MasterFundUnderlyingSymbolLevelDetection" /> <statement key="UnderlyingSymbolLevelDetection" 
+			value="UnderlyingSymbolLevelDetection" /> -->
+  </detectionStatements>
+</appConfig>

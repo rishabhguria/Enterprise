@@ -1,0 +1,146 @@
+﻿<UserControl xmlns:ig="http://schemas.infragistics.com/xaml"  
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+             x:Class="Prana.Allocation.Client.Controls.Preferences.Views.CompanyWisePreferenceControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Preferences.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Core="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviours="clr-namespace:Prana.Allocation.Client.Behaviours" 
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Constants"
+             mc:Ignorable="d"
+             DataContext="{DynamicResource CompanyWisePreferenceControlViewModel}" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <viewModels:CompanyWisePreferenceControlViewModel x:Key="CompanyWisePreferenceControlViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox Name="gboxCompanyWisePrefControl" Header="Company Wise Preference" Margin="5,5,5,5" BorderBrush="{DynamicResource GroupBoxBorder}">
+            <StackPanel Name="stackPanelCompanyWisePrefControl" Margin="5,5,5,5">
+                <CheckBox Name="chkboxDoCheckside" Content="Validate Checkside While Allocation" Margin="5,5,5,5" IsChecked="{Binding Path=IsDoCheckSideChecked, Mode=TwoWay}" />
+                <CheckBox Name="chkboxAllowEditPref" Content="Edit Preferences during Allocation" Margin="5,5,5,5" Visibility="Collapsed" IsChecked="{Binding Path=IsAllowEditPrefChecked, Mode=TwoWay}"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Name="lblDisableCheckSideForAssets" Content="Disable Checkside for Assets" Grid.Row="0" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ig:XamComboEditor Name="cmbboxDisableCheckSideForAssets" ToolTip="{Binding SelectedValues, ElementName=ComboEditorBehavior}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" IsEnabled="{Binding Path=IsControlEnabled}" ItemsSource="{Binding Path=AssetClassCollection}" DisplayMemberPath="Value" EmptyText="Select">
+                        <ig:XamComboEditor.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="100"/>
+                            </DataTemplate>
+                        </ig:XamComboEditor.ItemTemplate>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamComboEditorBehavior x:Name="ComboEditorBehavior" SelectedItems ="{Binding Path=SelectedAssetClassCheckSide, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>
+                    </ig:XamComboEditor>
+                    <Label Name="lblDisableCheckSideForAccounts" Content="Disable Checkside for Accounts" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ig:XamComboEditor Name="cmbboxDisableCheckSideForAccounts" ToolTip="{Binding SelectedValues, ElementName=ComboEditorBehavior}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" Grid.Row="1" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" IsEnabled="{Binding Path=IsControlEnabled}" ItemsSource="{Binding Path=AccountsCollection}" DisplayMemberPath="Value" EmptyText="Select">
+                        <ig:XamComboEditor.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="100"/>
+                            </DataTemplate>
+                        </ig:XamComboEditor.ItemTemplate>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamComboEditorBehavior x:Name="ComboEditorBehavior1" SelectedItems ="{Binding Path=SelectedAccountsCheckSide, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>
+                    </ig:XamComboEditor>
+                    <Label Name="lblDisableCheckSideForCounterParty" Content="Disable Checkside for Counter Parties" Grid.Row="2" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ig:XamComboEditor Name="cmbboxDisableCheckSideForCounterParty" ToolTip="{Binding SelectedValues, ElementName=ComboEditorBehavior}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" IsEnabled="{Binding Path=IsControlEnabled}" ItemsSource="{Binding Path=CounterPartyCollection}" DisplayMemberPath="Value" EmptyText="Select">
+                        <ig:XamComboEditor.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="100"/>
+                            </DataTemplate>
+                        </ig:XamComboEditor.ItemTemplate>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamComboEditorBehavior x:Name="ComboEditorBehavior2" SelectedItems ="{Binding Path=SelectedCounterPartiesCheckSide, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>
+                    </ig:XamComboEditor>
+                    <Label Name="lblPrecisionDigit" Content="Set Precision Value" Grid.Row="3" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <igWPF:XamNumericEditor Name="txtboxPrecisionDigit" Grid.Row="3" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" SpinButtonDisplayMode="Always" PromptChar=" " ValueType="Core:Int32" Value="{Binding Path=PrecisionValue, Mode=TwoWay}" Mask="{x:Static Constants:AllocationClientConstants.INTEGER_MASK}">
+                        <igWPF:XamNumericEditor.ValueConstraint>
+                            <igWPF:ValueConstraint MaxInclusive="15" MinInclusive="1" Nullable="False" ValidateAsType="Integer32"/>
+                        </igWPF:XamNumericEditor.ValueConstraint>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamNumericEditorBehaviour/>
+                        </i:Interaction.Behaviors>
+                    </igWPF:XamNumericEditor>
+                    <Label Name="lblCommissionInNetAmount" Content="Use Commission in Net Amount" Grid.Row="4" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ig:XamComboEditor Name="cmbboxCommissionInNetAmount" ToolTip="{Binding SelectedValues, ElementName=XamComboEditorBehavior}" IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" Grid.Row="4" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" ItemsSource="{Binding Path=AssetClassCollection}" DisplayMemberPath="Value" EmptyText="Select">
+                        <ig:XamComboEditor.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="100"/>
+                            </DataTemplate>
+                        </ig:XamComboEditor.ItemTemplate>
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamComboEditorBehavior x:Name="XamComboEditorBehavior" SelectedItems ="{Binding Path=SelectedAssetClassCommission, Mode=TwoWay}"/>
+                        </i:Interaction.Behaviors>
+                    </ig:XamComboEditor>
+                    <Label Name="lblProrateSchemeName" Content="Prorata Scheme Name" Grid.Row="5" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ig:XamComboEditor Name="cmbboxProrateSchemeName" ToolTip="{Binding SelectedValue}" IsEditable="True" Grid.Row="5" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" ItemsSource="{Binding Path=ProrataSchemeNameCollection, Mode=TwoWay}" CustomValueEnteredAction="Add" SelectedItem="{Binding Path=SelectedProrataSchemeName, Mode=TwoWay}">
+                        <i:Interaction.Behaviors>
+                            <behaviours:CustomValueXamComboEditorBehavior />
+                        </i:Interaction.Behaviors>
+                    </ig:XamComboEditor>
+                    <Label Name="lblProrataAllocationSchemeBasis" Content="Prorata Allocation Scheme Basis" Grid.Row="6" Grid.Column="0" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cmbboxProrataAllocationSchemeBasis" ToolTip="{Binding SelectedValues}" IsEditable="True" IsReadOnly="True" Grid.Row="6" Grid.Column="1" Margin="5,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" ItemsSource="{Binding Path=ProrataSchemeBasisCollection}" SelectedItem="{Binding Path=SelectedProrataSchemeBasis, Mode=TwoWay}" Template="{DynamicResource ComboBoxEditableTemplate}">
+                        <i:Interaction.Behaviors>
+                            <behaviours:CustomValueComboBoxBehavior />
+                        </i:Interaction.Behaviors>
+                    </ComboBox>
+                </Grid>
+                <CheckBox Name="chkboxSetSchemeGenerationAttributesProrata" Content="Show advanced Prorata UI" Margin="5,5,5,5" IsChecked="{Binding Path=SetSchemeGenerationAttributesProrata, Mode=TwoWay}" />
+                <CheckBox Name="chkboxEnableMasterFund" Content="Enable Master Fund Ratio Allocation" Margin="5,5,5,5" IsChecked="{Binding Path=IsMasterFundAllocation, Mode=TwoWay}" />
+                <CheckBox Name="chkbox1MasterFund1Symbol" Content="1MasterFund/1Symbol" Margin="25,5,5,5" IsEnabled="{Binding Path=IsMasterFundAllocation}" IsChecked="{Binding Path=OneMasterFund_1Symbol}"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

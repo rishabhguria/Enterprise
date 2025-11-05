@@ -1,0 +1,20 @@
+module target.resources.monitoringEpl.MSAvgVolume90Days;
+
+
+
+
+@Name('MSAvgVolume90Days')
+@Description('')
+
+insert into MSAvgVolume90Days
+select distinct
+	
+	T.symbol as symbol,
+	T.avgVolume as avgVolume
+	
+from
+AvgVolumeCustomDaysWindowUpdated as T
+where T.avgVolume=0 and IsLoggingEnabled = true;
+
+
+ 

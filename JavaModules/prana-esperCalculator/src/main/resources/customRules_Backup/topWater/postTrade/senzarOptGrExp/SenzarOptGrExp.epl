@@ -1,0 +1,71 @@
+module customRules.postTrade.senzarOptGrExp.SenzarOptGrExp;
+
+/* Constant Variable region starts here*/
+
+create constant variable double SENZAR_MAX_GROSS_EXPOSURE_COEFFICIENT = 1.0;
+create constant variable double SENZAR_OPT_GRS_EXPOSURE_COEFFICIENT = 0.2;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationOptionAccountAssetPostSenzar')
+@Description('Calculates gross exposure of investments in options by Senzar.')
+insert into AggregationOptionAccountAssetPostSenzar
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.asset as asset,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(asset in ('EquityOption')) as T 
+
+where T.accountShortName='Senzar'
+// T.asset in 
+//('EquityOption')// and T.taxlotType='Post'
+group by T.accountShortName,T.asset;
+
+
+@Name('OptionExopsurePostSenzar')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationOptionAccountAssetPostSenzar]
+insert into OptionExopsurePostSenzar
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(SENZAR_OPT_GRS_EXPOSURE_COEFFICIENT * coalesce(NF.accountNav,1) * SENZAR_MAX_GROSS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationOptionAccountAssetPostSenzar" as parentWindowStream
+from 
+AccountWithNav as NF
+where NF.accountId=T.accountId;
+
+@Name('RuleName15FinalPostSenzar')
+@Description('Checks if limits are breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName15FinalPostSenzar
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '50'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'If options make up 50% or more of Senzar, please advise' as summary,
+	R.accountShortName as dimension,
+	"OptionExopsurePostSenzar" as parentWindowStream
+from
+OptionExopsurePostSenzar as R
+where R.percentageExposure > 50;
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+		
+
+ 

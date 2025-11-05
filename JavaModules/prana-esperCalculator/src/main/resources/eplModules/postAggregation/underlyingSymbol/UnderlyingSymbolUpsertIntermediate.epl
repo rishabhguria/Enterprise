@@ -1,0 +1,106 @@
+module eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolUpsertIntermediate;
+
+uses eplModules.postAggregation.symbol.SymbolIntermediate;
+uses eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolWindowWithNav;
+uses eplModules.postAggregation.symbol.SymbolWindowWithNav;
+uses eplModules.postAggregation.symbol.SymbolUpsert;
+uses eplModules.expressions.BaseExpression;
+
+
+@Name('UnderlyingSymbolWithNavIntermediate')
+@Description('Insert data into UnderlyingSymbolWithNavIntermediate from SymbolWithNav whenever SymbolWithNavUpdated event occurs.')
+on pattern [every (T = SymbolWithNavUpdated)]
+insert into UnderlyingSymbolWithNavIntermediate
+select distinct
+
+	T.modifiedBy as modifiedBy,
+	
+	'Post' as taxlotType,
+	'UnderlyingSymbol' as compressionLevel,
+
+	T.underlyingSymbol as underlyingSymbol,
+	F.underlyingAsset as underlyingAsset,	
+	F.underlyingCountry as underlyingCountry,
+	
+	sum(coalesce(F.equityHaircutBase,0)) as equityHaircutBase,
+	sum(coalesce(F.indexHaircutBase,0)) as indexHaircutBase,
+	
+	sum(coalesce(F.liquidationPnlBase,0)) as liquidationPnlBase,
+	F.underlyingSharesOutstanding as underlyingSharesOutstanding,
+	F.underlyingMarketCapitalization as underlyingMarketCapitalization,
+
+	
+	sum(coalesce(F.notionalBase,0)) as notionalBase,
+	sum(coalesce(F.cashImpactBase,0)) as cashImpactBase,
+	sum(coalesce(F.cashInflowBase,0)) as cashInflowBase,
+	sum(coalesce(F.cashOutflowBase,0)) as cashOutflowBase,
+	sum(coalesce(F.netMarketValueBase,0)) as netMarketValueBase,
+	sum(coalesce(F.yesterdayMarketValueBase,0)) as yesterdayMarketValueBase,
+	sum(coalesce(F.grossMarketValueBase,0)) as grossMarketValueBase,
+	sum(coalesce(F.costBasisPnLBase,0)) as costBasisPnLBase,
+	sum(coalesce(F.dayPnLBase,0)) as dayPnLBase,
+	sum(coalesce(F.netExposureBase,0)) as netExposureBase,
+	sum(coalesce(F.grossExposureBase,0)) as grossExposureBase,
+	Math.abs(sum(coalesce(F.netExposureBase,0))) as grossExposureUnderlying,
+	sum(coalesce(F.betaAdjustedExposureBase,0)) as betaAdjustedExposureBase,
+
+	sum(coalesce(F.underlyingValueForOptionsBase,0)) as underlyingValueForOptionsBase,
+	sum(coalesce(F.dayInterestBase,0)) as dayInterestBase,
+	sum(coalesce(F.totalInterestBase,0)) as totalInterestBase,
+	sum(exprEquivalent(F)) as equivalent,
+	
+	sum(coalesce(F.longNotionalBase,0)) as longNotionalBase,
+	sum(coalesce(F.shortNotionalBase,0)) as shortNotionalBase,
+	sum(coalesce(F.shortMarketValueBase,0)) as shortMarketValueBase,
+	sum(coalesce(F.longMarketValueBase,0)) as longMarketValueBase,
+	sum(coalesce(F.shortExposureBase,0)) as shortExposureBase,
+	sum(coalesce(F.longExposureBase,0)) as longExposureBase,
+	F.globalNav as globalNav,
+	F.startOfDayNavGlobal as startOfDayNavGlobal,
+	F.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	F.netExposureBaseGlobal as netExposureBaseGlobal,
+	F.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	
+	sum(coalesce(F.todayAbsTradeQuantity,0)) as todayAbsTradeQuantity,
+	sum(coalesce(F.todayLongTradeQuantity,0)) as todayLongTradeQuantity,
+	sum(coalesce(F.todayShortTradeQuantity,0)) as todayShortTradeQuantity,
+	sum(coalesce(F.todayNetNotionalBase,0)) as todayNetNotionalBase,
+	sum(coalesce(F.todayLongNotionalBase,0)) as todayLongNotionalBase,
+	sum(coalesce(F.todayShortNotionalBase,0)) as todayShortNotionalBase,
+	sum(coalesce(F.deltaAdjPosition,0)) as deltaAdjPosition,
+	
+	F.currentCash as currentCash,
+	F.accrual as accrual,
+	
+	Math.abs(sum(coalesce(F.betaAdjustedExposureBase,0))) as betaAdjustedGrossExposureUnderlyingBase,
+	
+	getUnderlyingDynamicUda(F.underlyingSymbol,"riskCurrency",F.riskCurrency) as riskCurrency,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"issuer",F.issuer) as issuer,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"countryOfRisk",F.countryOfRisk) as countryOfRisk,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"region",F.region) as region,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"analyst",F.analyst) as analyst,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"ucitsEligibleTag",F.ucitsEligibleTag) as ucitsEligibleTag,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"liquidTag",F.liquidTag) as liquidTag,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"marketCap",F.marketCap) as marketCap,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA1",F.customUDA1) as customUDA1,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA2",F.customUDA2) as customUDA2,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA3",F.customUDA3) as customUDA3,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA4",F.customUDA4) as customUDA4,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA5",F.customUDA5) as customUDA5,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA6",F.customUDA6) as customUDA6,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA7",F.customUDA7) as customUDA7,
+	
+	F.exchange as exchange,
+	F.udaCountry as udaCountry,
+	"SymbolWithNavUpdated,SymbolWithNav" as parentWindowStream,
+	
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA8",F.customUDA8) as customUDA8,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA9",F.customUDA9) as customUDA9,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA10",F.customUDA10) as customUDA10,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA11",F.customUDA11) as customUDA11,
+	getUnderlyingDynamicUda(F.underlyingSymbol,"customUDA12",F.customUDA12) as customUDA12
+
+from 
+SymbolWithNav as F 
+where T.underlyingSymbol = F.underlyingSymbol;
+

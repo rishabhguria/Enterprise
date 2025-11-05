@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ruleConfig>
+     <rules name="180Degree">
+          <rule id="custom-rule-180Degree1">
+               <name>Order Side Check</name>
+               <enabled>true</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+               <description>Pre-Trade Alerts For OrderSide Violation on Account-Symbol Level</description>
+               <compressionLevel>Custom</compressionLevel>
+               <validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+               </windowFillerStatementList>
+               <constantList/>
+               <blocked>true</blocked>
+          </rule>
+     </rules>
+</ruleConfig>

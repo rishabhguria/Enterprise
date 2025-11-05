@@ -1,0 +1,71 @@
+module customRules.EpicenterCapital.preTrade.singleEmergingMarketExposure.preTradeSingleEmergingMarketExposure;
+
+@Name('AccountCheckInEmergingMarket')
+@Description('checks if trade done in set account, asset and Emerging Market countries or not')
+on BasketEOM  as B 
+insert into AccountCheckInEmergingMarket
+select distinct
+  B.basketId as basketId,
+  B.userId as userId,
+  R.accountId as accountId,
+  R.accountShortName as accountName,
+  R.udaCountry as udaCountry,
+  R.udaAsset as udaAsset,
+ (case(valueExistsInCSV(R.accountShortName, Account_SingleEmergingMarket) is true and 
+ valueExistsInCSV(R.udaCountry, emergingMarketCountriesSingle) is true  and 
+    valueExistsInCSV(R.udaAsset, Asset_SingleEmergingMarket) is false) 
+  when true then true else false end ) as validation,
+   "RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfAccountCheckInEmergingMarket')
+@Description('the values of Emerging Market countries and account nav')
+on AccountCheckInEmergingMarket as B
+insert into WhatIfAccountCheckInEmergingMarket
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountName,
+	W.udaCountry as udaCountry,
+    B.validation as finalValidation,
+ 	sum(case when (valueExistsInCSV(W.udaCountry, emergingMarketCountriesSingle) is true  and 
+    valueExistsInCSV(W.udaAsset, Asset_SingleEmergingMarket) is false and
+    valueExistsInCSV(W.accountShortName, Account_SingleEmergingMarket) is true)
+	 then coalesce(W.netExposureBase,0)
+	else 0 end) as totalNetExposureBase,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId and B.udaCountry=W.udaCountry
+group by W.accountId;
+
+@Name('PreTradeSingleEmergingMarketCountries')
+@Description('Final stream to check condition is breached')
+insert into PreTradeSingleEmergingMarketCountries
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+  	Account_SingleEmergingMarket || ValueSeparator || emergingMarketCountriesSingle || ValueSeparator ||doubleFormat(Percentage_SingleEmergingMarket) as threshold,
+	A.accountName || ValueSeparator || A.udaCountry || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetExposureBase / A.accountNav)*100,0))) as actualResult,
+	'Account' || ValueSeparator ||'Emerging Country' ||  ValueSeparator || '% Total Nav' as constraintField,
+	(case A.finalValidation is true
+	when true then 
+		(Math.abs(coalesce(A.totalNetExposureBase/ A.accountNav, 0)) > (Percentage_SingleEmergingMarket / 100))
+	else 
+		false end) as isViolated,
+   'Account: ' || A.accountName 
+		|| ', % Total Exposure: ' ||doubleFormat(Math.abs(coalesce((A.totalNetExposureBase / A.accountNav)*100,0)))
+		|| ', Net Exposure: '  || doubleFormat(A.totalNetExposureBase)
+		|| ', Emerging Market Country : ' || A.udaCountry as parameters,
+    current_timestamp as validationTime,
+	'Max' || doubleFormat(Percentage_SingleEmergingMarket) || '% exposure in Emerging Market Countries exceeded' as summary,
+	A.accountName as dimension
+from
+WhatIfAccountCheckInEmergingMarket as A
+where A.userId is not null;
+
+

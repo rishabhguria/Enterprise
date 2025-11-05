@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl"
+>
+	<xsl:output method="xml" indent="yes"/>
+
+	<xsl:template match="/NewDataSet">
+
+		<ThirdPartyFlatFileDetailCollection>
+			<!--<xsl:attribute name="xsi:noNamespaceSchemaLocation">C:/UpdatedTP/Prana_Final.xsd</xsl:attribute>-->
+
+			<xsl:for-each select="ThirdPartyFlatFileDetail">
+				<!--<if	test="CounterParty !='CCMB' and not(contains(PRANA_FUND_NAME, 'KH'))">-->
+				<ThirdPartyFlatFileDetail>
+
+					<RowHeader>
+						<xsl:value-of select ="'true'"/>
+					</RowHeader>
+
+					<TaxLotState>
+						<xsl:value-of select="TaxLotState"/>
+					</TaxLotState>
+
+
+					<Symbol>
+						<xsl:choose>
+							<xsl:when test ="Symbol!=''">
+								<xsl:value-of select="Symbol"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</Symbol>
+
+
+					<Quantity>
+						<xsl:choose>
+							<xsl:when test="number(Quantity)">
+								<xsl:value-of select="Quantity"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</Quantity>
+
+
+
+					<AvragePrice>
+						<xsl:choose>
+							<xsl:when test="number(AvgPX)">
+								<xsl:value-of select="AvgPX"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</AvragePrice>
+
+					<MarkPrice>
+						<xsl:choose>
+							<xsl:when test="number(MarkPrice)">
+								<xsl:value-of select="MarkPrice"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</MarkPrice>
+
+					<MarkPriceBase>
+						<xsl:choose>
+							<xsl:when test="number(MarkPriceBase)">
+								<xsl:value-of select="MarkPriceBase"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</MarkPriceBase>
+
+					<MarketValue>
+						<xsl:choose>
+							<xsl:when test="number(MarketValue)">
+								<xsl:value-of select="MarketValue"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</MarketValue>
+
+					<MarketValueBase>
+						<xsl:choose>
+							<xsl:when test="number(MarketValueBase)">
+								<xsl:value-of select="MarketValueBase"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</MarketValueBase>
+					
+					
+					<Multiplier>
+						<xsl:choose>
+							<xsl:when test="number(Multiplier)">
+								<xsl:value-of select="Multiplier"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</Multiplier>
+					
+					
+					<Currency>
+						<xsl:value-of select="CurrencySymbol"/>
+					</Currency>
+
+					<xsl:variable name="varORMonth">
+						<xsl:value-of select="substring-before(substring-after(OriginalPurchaseDate,'-'),'-')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varORDay">
+						<xsl:value-of select="substring-before(substring-after(substring-after(OriginalPurchaseDate,'-'),'-'),'T')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varORYear">
+						<xsl:value-of select="substring-before(OriginalPurchaseDate,'-')"/>
+					</xsl:variable>
+
+					<OriginalPurchaseDate>
+						<xsl:value-of select="concat($varORMonth,'/',$varORDay,'/',$varORYear)"/>
+					</OriginalPurchaseDate>
+					
+					
+					<xsl:variable name="varMonth">
+						<xsl:value-of select="substring-before(substring-after(TradeDate,'-'),'-')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varDay">
+						<xsl:value-of select="substring-before(substring-after(substring-after(TradeDate,'-'),'-'),'T')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varYear">
+						<xsl:value-of select="substring-before(TradeDate,'-')"/>
+					</xsl:variable>
+
+					<Tradedate>
+						<!--<xsl:value-of select="concat($varMonth,'/',$varDay,'/',$varYear)"/>-->
+						<xsl:value-of select="TradeDate"/>
+					</Tradedate>
+
+
+					<xsl:variable name="varPMonth">
+						<xsl:value-of select="substring-before(substring-after(ProcessDate,'-'),'-')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varPDay">
+						<xsl:value-of select="substring-before(substring-after(substring-after(ProcessDate,'-'),'-'),'T')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varPYear">
+						<xsl:value-of select="substring-before(ProcessDate,'-')"/>
+					</xsl:variable>
+
+					<ProcessDate>
+						<xsl:value-of select="concat($varPMonth,'/',$varPDay,'/',$varPYear)"/>
+					</ProcessDate>
+					
+					<!--<xsl:variable name="varMonth2">
+						<xsl:value-of select="substring-before(substring-after(SettlementDate,'-'),'-')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varDay2">
+						<xsl:value-of select="substring-before(substring-after(substring-after(SettlementDate,'-'),'-'),'T')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varYear2">
+						<xsl:value-of select="substring-before(SettlementDate,'-')"/>
+					</xsl:variable>
+					<Settledate>
+						<xsl:value-of select="concat($varMonth2,'/',$varDay2,'/',$varYear2)"/>
+
+					</Settledate>-->
+
+
+					<xsl:variable name="varEMonth">
+						<xsl:value-of select="substring-before(substring-after(ExpirationDate,'-'),'-')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varEDay">
+						<xsl:value-of select="substring-before(substring-after(substring-after(ExpirationDate,'-'),'-'),'T')"/>
+					</xsl:variable>
+
+					<xsl:variable name="varEYear">
+						<xsl:value-of select="substring-before(ExpirationDate,'-')"/>
+					</xsl:variable>
+
+					<ExpirationDate>
+						<xsl:value-of select="concat($varEMonth,'/',$varEDay,'/',$varEYear)"/>
+					</ExpirationDate>
+
+					<PutORCall>
+						<xsl:choose>
+							<xsl:when test="number(PutOrCall)">
+								<xsl:value-of select="PutOrCall"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</PutORCall>
+					
+					
+					<Fxrate>
+						<xsl:choose>
+							<xsl:when test="number(FxRate)">
+								<xsl:value-of select="FxRate"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="'1'"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</Fxrate>
+
+					<StrikePrice>
+						<xsl:choose>
+							<xsl:when test="number(StrikePrice)">
+								<xsl:value-of select="StrikePrice"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</StrikePrice>
+
+					
+
+					<Description>
+						<xsl:value-of select="CompanyName"/>
+					</Description>
+
+
+					<UnderlyingSymbol>
+						<xsl:value-of select="UnderlyingSymbol"/>
+					</UnderlyingSymbol>
+
+
+					<xsl:variable name="PB_NAME">
+						<xsl:value-of select="'BNP'"/>
+					</xsl:variable>
+
+					<xsl:variable name="PRANA_FUND_NAME" select="AccountName"/>
+
+					<xsl:variable name="THIRDPARTY_FUND_NAME">
+						<xsl:value-of select="document('../ReconMappingXml/AccountMapping.xml')/FundMapping/PB[@Name=$PB_NAME]/FundData[@PranaFund=$PRANA_FUND_NAME]/@PBFundCode"/>
+					</xsl:variable>
+
+					<xsl:variable name="AccountId">
+						<xsl:choose>
+							<xsl:when test="$THIRDPARTY_FUND_NAME!=''">
+								<xsl:value-of select="$THIRDPARTY_FUND_NAME"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$PRANA_FUND_NAME"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+
+
+					<AccountName>
+						<xsl:value-of select="$AccountId"/>
+					</AccountName>
+
+				
+
+					<IDCOSymbol>
+						<xsl:choose>
+							<xsl:when test ="IDCO!=''">
+								<xsl:value-of select="IDCO"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					
+					</IDCOSymbol>
+
+					<SEDOL>
+						<xsl:choose>
+							<xsl:when test ="SEDOL!=''">
+								<xsl:value-of select="SEDOL"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</SEDOL>
+					
+					<OSISymbol>
+						<xsl:choose>
+							<xsl:when test ="OSI!=''">
+								<xsl:value-of select="OSI"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</OSISymbol>
+
+					
+					<CUSIP>
+						<xsl:choose>
+							<xsl:when test ="CUSIP!=''">
+								<xsl:value-of select="CUSIP"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</CUSIP>
+
+					<Bloomberg>
+						<xsl:choose>
+							<xsl:when test ="Bloomberg!=''">
+								<xsl:value-of select="Bloomberg"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</Bloomberg>
+
+
+					<ISINSymbol>
+						<xsl:choose>
+							<xsl:when test ="ISINSymbol!=''">
+								<xsl:value-of select="ISINSymbol"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="''"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</ISINSymbol>
+
+					<ReutersSymbol>
+						<xsl:value-of select="ReutersSymbol"/>
+					</ReutersSymbol>
+
+
+					<Side>
+						<xsl:value-of select="Side"/>
+					</Side>
+
+
+					<AssetType>
+						<xsl:value-of select="Asset"/>
+					</AssetType>
+
+
+
+					<xsl:variable name="PRANA_COUNTERPARTY_NAME" select="CounterParty"/>
+
+					<xsl:variable name="THIRDPARTY_COUNTERPARTY_NAME">
+						<xsl:value-of select="document('../ReconMappingXml/ThirdParty_ExecBrokerMapping.xml')/BrokerMapping/PB[@Name=$PB_NAME]/BrokerData[@PranaBroker=$PRANA_COUNTERPARTY_NAME]/@ThirdPartyBrokerID"/>
+					</xsl:variable>
+
+					<xsl:variable name="Broker">
+						<xsl:choose>
+							<xsl:when test="$THIRDPARTY_COUNTERPARTY_NAME!=''">
+								<xsl:value-of select="$THIRDPARTY_COUNTERPARTY_NAME"/>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="$PRANA_COUNTERPARTY_NAME"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:variable>
+
+					<Executingbroker>
+						<xsl:value-of select="$Broker"/>
+					</Executingbroker>
+
+					<GrossNotionalValue>
+						<xsl:choose>
+							<xsl:when test="number(GrossNotionalValue)">
+								<xsl:value-of select="GrossNotionalValue"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</GrossNotionalValue>
+
+					<GrossNotionalValueBase>
+						<xsl:choose>
+							<xsl:when test="number(GrossNotionalValueBase)">
+								<xsl:value-of select="GrossNotionalValueBase"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</GrossNotionalValueBase>
+
+					<NetNotionalValue>
+						<xsl:choose>
+							<xsl:when test="number(NetNotionalValue)">
+								<xsl:value-of select="NetNotionalValue"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</NetNotionalValue>
+
+					<NetNotionalValueBase>
+						<xsl:choose>
+							<xsl:when test="number(NetNotionalValueBase)">
+								<xsl:value-of select="NetNotionalValueBase"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</NetNotionalValueBase>
+
+
+
+					<Transition>
+						<xsl:value-of select="TransactionType"/>
+					</Transition>
+
+					<UnitCost>
+					
+						<xsl:choose>
+							<xsl:when test="number(UnitCost)">
+								<xsl:value-of select="UnitCost"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</UnitCost>
+
+
+					<BaseCurrency>
+						<xsl:value-of select="BaseCurrency"/>
+					</BaseCurrency>
+
+					<SettlCurrency>
+						<xsl:value-of select="SettlCurrency"/>
+					</SettlCurrency>
+					
+					<xsl:variable name="varFXRate">
+<xsl:choose>
+<xsl:when test="SettlCurrency != CurrencySymbol">
+<xsl:value-of select="FXRate_Taxlot"/>
+</xsl:when>
+<xsl:otherwise>
+<xsl:value-of select="1"/>
+</xsl:otherwise>
+</xsl:choose>
+</xsl:variable>
+
+					<SettlFxRate>
+						<xsl:choose>
+							<xsl:when test="number($varFXRate)">
+								<xsl:value-of select="$varFXRate"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+					</SettlFxRate>
+
+					<SettleCrrFxRate>
+						<xsl:choose>
+                      <xsl:when test="number($varFXRate)">
+								<xsl:value-of select="$varFXRate"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+						
+						
+					</SettleCrrFxRate>
+
+
+					<SettlPrice>
+						<xsl:choose>
+							<xsl:when test="number(SettlPrice)">
+								<xsl:value-of select="SettlPrice"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					
+					</SettlPrice>
+
+					<SettmentCurrencyMarkPrice>
+						<xsl:choose>
+							<xsl:when test="number(SettmentCurrencyMarkPrice)">
+								<xsl:value-of select="SettmentCurrencyMarkPrice"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</SettmentCurrencyMarkPrice>
+
+					<SettmentCurrencyCostBasis>
+						<xsl:choose>
+							<xsl:when test="number(SettmentCurrencyCostBasis)">
+								<xsl:value-of select="SettmentCurrencyCostBasis"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</SettmentCurrencyCostBasis>
+
+					<SettmentCurrencyMarketValue>
+						<xsl:choose>
+							<xsl:when test="number(SettmentCurrencyMarketValue)">
+								<xsl:value-of select="SettmentCurrencyMarketValue"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</SettmentCurrencyMarketValue>
+
+					<SettmentCurrencyTotalCost>
+						<xsl:choose>
+							<xsl:when test="number(SettmentCurrencyTotalCost)">
+								<xsl:value-of select="SettmentCurrencyTotalCost"/>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:value-of select="0"/>
+							</xsl:otherwise>
+						</xsl:choose>
+
+					</SettmentCurrencyTotalCost>
+
+
+					<EntityID>
+						<xsl:value-of select="EntityID"/>
+					</EntityID>
+
+				</ThirdPartyFlatFileDetail>
+
+			</xsl:for-each>
+
+		</ThirdPartyFlatFileDetailCollection>
+
+	</xsl:template>
+</xsl:stylesheet>

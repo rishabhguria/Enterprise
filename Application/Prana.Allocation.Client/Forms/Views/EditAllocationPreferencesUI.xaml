@@ -1,0 +1,192 @@
+﻿<Window x:Name="EditAllocationPreferenceWindow"
+        xmlns:Views="clr-namespace:Prana.Allocation.Client.Controls.Preferences.Views"  
+        x:Class="Prana.Allocation.Client.Forms.Views.EditAllocationPreferencesUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Forms.ViewModels"
+        xmlns:converters="clr-namespace:Prana.Allocation.Client.ValueConvertor"
+        DataContext="{DynamicResource EditAllocationPreferencesUIViewModel}"
+        xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:ig="http://infragistics.com/Themes"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False" 
+        WindowState="{Binding Path=BringToFront, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        Title="Edit Allocation Preferences" MinHeight="576" MinWidth="1047"
+        md:DialogServiceViews.IsRegistered="True" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+                <ig:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <ig:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </ig:ResourceWasher.SourceDictionary>
+                </ig:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:EditAllocationPreferencesUIViewModel x:Key="EditAllocationPreferencesUIViewModel"/>
+            <converters:BooleanToVisbilityConverterLocal x:Key="BooleanToVisbilityConverterLocal"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path=EditAllocationPreferencesUILoaded }"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction  Command="{Binding Path=FormCloseButton}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction  Command="{Binding Path=FormClosed}" PassEventArgsToCommand="False"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0">
+        </shell:WindowChrome>
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--provide the background for the entire form.  In practice, this appears as the window's resize border, because the title and window content obscure the rest-->
+        <Border CornerRadius="2" Grid.RowSpan="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#FFD1D2D4"/>
+
+        <!--title bar-->
+        <Border CornerRadius="2" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <!--Window Icon and Title-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Text" Value="Nirvāna"/>
+                            <Setter Property="FontFamily" Value="Mulish"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding BringToFront}" Value="Minimized">
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Text" Value="Edit Allocation Preferences"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+
+        </Border>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="Edit Allocation Preferences" Height="22" FontSize="15" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding BringToFront}" Value="Minimized">
+                                <Setter Property="Text" Value=""/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center"/>
+        </StackPanel>
+        <!--min/max/close buttons-->
+
+        <!--Content-->
+        <Grid Grid.Row="1" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TabControl Grid.Row="0" SelectedIndex="{Binding Path=SelectedIndex}">
+                
+                <TabItem Name="CalculatedPreferences"  Header="Calculated Preferences" Margin="-2,0,-2,-1" Height="20" VerticalAlignment="Bottom" Visibility="{Binding Path=SetVisibileCalculatedPref, Mode=OneWay, Converter={StaticResource BooleanToVisbilityConverterLocal}}">
+                <Grid Background="#FFE5E5E5">
+                    <Views:CalculatedAllocationPreferenceControl x:Name="CalculatedAllocationPreferenceControl" DataContext="{Binding Path=CalculatedAllocationPreferenceControlViewModel}"/>                    
+                </Grid>
+                    </TabItem>
+                <TabItem Name="MasterFundPreferences" Header="{Binding Path=SetNameOfNewMF}" Visibility="{Binding Path=IsNewMFEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisbilityConverterLocal}}">
+                    <Grid Background="#FFE5E5E5">
+                        <Views:MasterFundPreferencesControl x:Name="MasterFundPreferencesControl" DataContext="{Binding Path=MasterFundPreferencesControlViewModel}"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Name="FixedPreferences" Header="Fixed Preferences">
+                        <Grid Background="#FFE5E5E5">
+                            <Views:FixedAllocationPreferenceControl x:Name="FixedAllocationPreferenceGrid" DataContext="{Binding Path=FixedAllocationPreferenceControlViewModel}"/>
+                        </Grid>
+                    </TabItem>
+               
+                <TabItem Header="MasterFund Preferences" Visibility="{Binding Path=IsOldMFEnabled, Mode=OneWay, Converter={StaticResource BooleanToVisbilityConverterLocal}}">
+                    <Grid Background="#FFE5E5E5">
+                        <Views:MasterFundRatioControl x:Name="MasterFundRatio" DataContext="{Binding Path=MasterFundRatioControlViewModel}"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnSave" Content="Save"  Grid.Column="1" Margin="5,5,5,5" Width="75" Template="{DynamicResource ButtonControlTemplate}" Foreground="{DynamicResource ButtonForeground}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding Path=SaveEditAllocationPreferenceData}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button x:Name="btnClose" Content="Close" Grid.Column="2" Margin="5,5,5,5" Width="75" Template="{DynamicResource RedButtonSkinTemplate}" Foreground="{DynamicResource ButtonForeground}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding CloseEditAllocationPreferences}" CommandParameter="{Binding ElementName=EditAllocationPreferenceWindow}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            <StatusBar Name="EditAllocationPreferencesStatusBar" Grid.Row="2" Background="{DynamicResource StatusBarBackground}" Foreground="{DynamicResource StatusBarForeground}">
+                    <StatusBarItem Foreground="{DynamicResource StatusBarForeground}">
+                        <TextBlock Text="{Binding StatusBarText}"/>
+                    </StatusBarItem>
+                </StatusBar>
+        </Grid>
+    </Grid>
+</Window>

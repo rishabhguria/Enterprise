@@ -1,0 +1,278 @@
+module eplModules.divisorCalculators.AccountDivisorWindow;
+
+uses eplModules.dataWindow.DayEndCashFeeder;
+uses eplModules.dataWindow.AccountNavPreferenceFeeder;
+uses eplModules.dataWindow.DbNavFeeder;
+uses eplModules.divisorCalculators.BaseFieldsCalculator;//spelling mistake??
+uses eplModules.dataWindow.AccrualForAccount;
+
+@Priority(10)
+@Name('UpdateNavOnAccrual')
+@Description('Inserts data into AccountNavInsertedWithoutTaxlots from AccrualForAccountWindowUpdated,DayEndCashAccountWindow,AccountNavPreferenceWindow which were created in dataWindow folder.')
+insert into AccountNavInsertedWithoutTaxlots
+select distinct
+	A.accountId as accountId,
+	D.masterFundId as masterFundId,
+	P.isNavSaved as isNavSaved,
+	coalesce(D.cashAmount,0) + coalesce(D.nonTradingCashAmount,0) + coalesce(A.dayAccrual,0) + coalesce(A.startOfDayAccrual,0) as shadowNav,
+	coalesce(D.cashAmount,0) + coalesce(A.startOfDayAccrual,0) as startOfDayNav,
+	coalesce(D.cashAmount,0) + coalesce(D.nonTradingCashAmount,0) as cash,
+	coalesce(A.startOfDayAccrual,0) + coalesce(A.dayAccrual,0) as accrual,
+	"AccrualForAccountWindowUpdated,DayEndCashAccountWindow,AccountNavPreferenceWindow" as parentWindowStream	
+from AccrualForAccountWindowUpdated as A unidirectional left outer join
+	DayEndCashAccountWindow as D on D.accountId=A.accountId left outer join 
+	AccountNavPreferenceWindow as P on P.accountId = D.accountId
+where P.isNavSaved = false
+group by D.accountId;
+
+@Priority(10)
+@Name('UpdateNavOnCash')
+@Description('Inserts data into AccountNavInsertedWithoutTaxlots from DayEndCashWindowUpdated,AccrualForAccountWindow and AccountNavPreferenceWindow.')
+insert into AccountNavInsertedWithoutTaxlots
+select distinct
+	D.accountId as accountId,
+	D.masterFundId as masterFundId,
+	P.isNavSaved as isNavSaved,
+	coalesce(D.cashAmount,0) + coalesce(D.nonTradingCashAmount,0) + coalesce(A.dayAccrual,0) + coalesce(A.startOfDayAccrual,0) as shadowNav,
+	coalesce(D.cashAmount,0) + coalesce(A.startOfDayAccrual,0) as startOfDayNav,
+	coalesce(D.cashAmount,0) + coalesce(D.nonTradingCashAmount,0) as cash,
+	coalesce(A.startOfDayAccrual,0) + coalesce(A.dayAccrual,0) as accrual,
+	"DayEndCashWindowUpdated,AccrualForAccountWindow,AccountNavPreferenceWindow" as parentWindowStream
+from DayEndCashWindowUpdated as D unidirectional left outer join
+	AccrualForAccountWindow as A on D.accountId=A.accountId left outer join 
+	AccountNavPreferenceWindow as P on P.accountId = D.accountId
+where P.isNavSaved = false
+group by D.accountId;
+
+@Priority(10)
+@Name('UpdateNavOnCash')
+@Description('Inserts data into AccountNavInsertedWithoutTaxlots from AccountNavInsertedWithoutTaxlots and AccountSymbolDivisorWindow.')
+insert into AccountNavInserted
+select distinct
+	D.accountId as accountId,
+	D.masterFundId as masterFundId,
+	D.isNavSaved as isNavSaved,
+	sum(coalesce(R.netMarketValueBase,0)) + sum(coalesce(R.cashImpactBase,0)) + coalesce(D.shadowNav,0) as shadowNav,
+	sum(coalesce(R.yesterdayMarketValueBase,0)) + coalesce(D.startOfDayNav,0) as startOfDayNav,
+	sum(coalesce(R.grossMarketValueBase,0)) as grossMarketValueBase,
+	sum(coalesce(R.grossExposureBase,0)) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	coalesce(D.cash,0) + sum(coalesce(R.cashImpactBase,0)) as currentCash,
+	coalesce(D.accrual,0) as accrual,
+	"AccountNavInsertedWithoutTaxlots,AccountSymbolDivisorWindow" as parentWindowStream	
+from AccountNavInsertedWithoutTaxlots as D unidirectional left outer join 
+	AccountSymbolDivisorWindow as R on R.accountId = D.accountId
+group by D.accountId;
+
+@Priority(10)
+@Name('AccountNavCalculated')
+@Description('Inserts data into AccountNavInserted.')
+insert into AccountNavInserted
+select distinct
+	U.accountId as accountId,
+	U.masterFundId as masterFundId,
+	P.isNavSaved as isNavSaved,
+	sum(coalesce(R.netMarketValueBase,0)) + sum(coalesce(R.cashImpactBase,0)) + coalesce(D.cashAmount,0) + coalesce(D.nonTradingCashAmount,0) + coalesce(A.dayAccrual,0) + coalesce(A.startOfDayAccrual,0) as shadowNav,
+	sum(coalesce(R.yesterdayMarketValueBase,0)) + coalesce(D.cashAmount,0) + coalesce(A.startOfDayAccrual,0) as startOfDayNav,
+	sum(coalesce(R.grossMarketValueBase,0)) as grossMarketValueBase,
+	sum(coalesce(R.grossExposureBase,0)) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	coalesce(D.cashAmount,0) + sum(coalesce(R.cashImpactBase,0)) + coalesce(D.nonTradingCashAmount,0) as currentCash,
+	coalesce(A.startOfDayAccrual,0)  + coalesce(A.dayAccrual,0) as accrual,
+	"AccountSymbolDivisorUpdate,AccountSymbolDivisorWindow,DayEndCashAccountWindow,AccrualForAccountWindow,AccountNavPreferenceWindow" as parentWindowStream
+from 
+	AccountSymbolDivisorUpdate as U unidirectional left outer join 
+	AccountSymbolDivisorWindow as R on R.accountId = U.accountId left outer join
+	DayEndCashAccountWindow as D on D.accountId = U.accountId left outer join
+	AccrualForAccountWindow as A on U.accountId=A.accountId left outer join 
+	AccountNavPreferenceWindow as P on P.accountId = U.accountId
+where P.isNavSaved = false
+group by R.accountId;
+
+@Priority(10)
+@Name('AccountNavSaved')
+@Description('Inserts data into AccountNavInserted.')
+insert into AccountNavInserted
+select distinct	
+	U.accountId as accountId,
+	U.masterFundId as masterFundId,
+	P.isNavSaved as isNavSaved,
+	coalesce(D.shadowNav,0) as shadowNav,
+	coalesce(D.startOfDayNav,0) as startOfDayNav,
+	sum(coalesce(R.grossMarketValueBase,0)) as grossMarketValueBase,
+	sum(coalesce(R.grossExposureBase,0)) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	coalesce(E.cashAmount,0) + sum(coalesce(R.cashImpactBase,0)) + coalesce(E.nonTradingCashAmount,0) as currentCash,
+	coalesce(A.startOfDayAccrual,0)  + coalesce(A.dayAccrual,0) as accrual,
+	"AccountSymbolDivisorUpdate,AccountSymbolDivisorWindow,DayEndCashAccountWindow,DbNavWindow,AccrualForAccountWindow,AccountNavPreferenceWindow" as parentWindowStream	
+from 
+	AccountSymbolDivisorUpdate as U unidirectional left outer join 
+	AccountSymbolDivisorWindow as R on R.accountId = U.accountId left outer join
+	DayEndCashAccountWindow as E on E.accountId = U.accountId left outer join
+	DbNavWindow as D on D.accountId = U.accountId left outer join
+	AccrualForAccountWindow as A on U.accountId=A.accountId left outer join 
+	AccountNavPreferenceWindow as P on P.accountId = U.accountId
+where P.isNavSaved = true
+group by R.accountId;
+
+@Priority(10)
+@Name('AccountDivisorWindow')
+@Description('Nav field for each account')
+create window AccountDivisorWindow.std:unique(accountId)
+(		
+	accountId int,
+	masterFundId int,
+	accountName string,	
+	masterFundName string,
+	shadowNav double,
+	startOfDayNav double,
+	accountWiseNRA double,
+	grossMarketValueBase double,
+	grossExposureBase double,
+	netExposureBase double,
+    currentCash double,
+    accrual double,
+	parentWindowStream string
+);	
+
+@Priority(10)
+@Name('AccountCollection')
+@Description('Updates the AccountDivisorWindow whenever AccountCollection event occurs.')
+on AccountCollection as s
+merge AccountDivisorWindow as W where W.accountId = s.accountId
+when not matched  and s.accountId is not null
+	then insert
+		select 
+			s.accountId as accountId,
+			s.masterFundId as masterFundId,
+			s.accountShortName as accountName,	
+			s.masterFundName as masterFundName,
+			0.0 as shadowNav,
+			0.0 as startOfDayNav,
+			0.0 as accountWiseNRA,
+			0.0 as grossMarketValueBase,
+			0.0 as grossExposureBase,
+			0.0 as netExposureBase,
+			0.0 as currentCash,
+			0.0 as accrual,
+		   	"AccountCollection" as parentWindowStream
+			
+			then insert into AccountDivisorWindowUpdate
+			select 
+				s.accountId as accountId,
+				s.masterFundId as masterFundId,
+				0.0 as shadowNav,
+				0.0 as startOfDayNav,
+				0.0 as grossMarketValueBase,
+				0.0 as accountWiseNRA,
+				'Initial insert' as updateType,
+				0.0 as grossExposureBase,
+				0.0 as netExposureBase,
+				0.0 as currentCash,
+				0.0 as accrual,
+		   		"AccountCollection" as parentWindowStream;
+				
+@Priority(10)
+@Name('AccountDivisorWindowContinuousUpsert')
+@Description('Updates the AccountDivisorWindow whenever AccountNavInserted event occurs.')
+on AccountNavInserted as s
+merge AccountDivisorWindow as W where W.accountId=s.accountId
+when matched and s.accountId is not null and
+		(
+			s.shadowNav <> W.shadowNav or
+			s.startOfDayNav <> W.startOfDayNav or
+			s.grossMarketValueBase <> W.grossMarketValueBase or
+			s.grossExposureBase <> W.grossExposureBase or
+			s.netExposureBase <> W.netExposureBase or
+			s.currentCash <> W.currentCash or
+			s.accrual <> W.accrual
+		)
+		then update
+			set
+			W.shadowNav = s.shadowNav,
+			W.startOfDayNav = s.startOfDayNav,
+			W.grossMarketValueBase = s.grossMarketValueBase,
+			W.grossExposureBase = s.grossExposureBase,
+			W.netExposureBase = s.netExposureBase,
+			W.currentCash=s.currentCash,
+			W.accrual = s.accrual,
+			W.parentWindowStream = "AccountNavInserted"
+			then insert into AccountDivisorWindowUpdate
+			select 
+				s.accountId as accountId,
+				s.masterFundId as masterFundId,
+				s.shadowNav as shadowNav,
+				s.startOfDayNav as startOfDayNav,
+				s.grossMarketValueBase as grossMarketValueBase,
+				W.accountWiseNRA as accountWiseNRA,
+				'continuous update' as updateType,
+				s.grossExposureBase as grossExposureBase,
+				s.netExposureBase as netExposureBase,
+				s.currentCash as currentCash,
+				s.accrual as accrual,
+		   		"AccountNavInserted" as parentWindowStream
+				
+when not matched and s.accountId is not null
+		then insert
+		select 
+			s.accountId as accountId,
+			s.masterFundId as masterFundId,
+			coalesce(s.shadowNav,0) as shadowNav,
+			coalesce(s.startOfDayNav,0) as startOfDayNav,
+			0.0 as accountWiseNRA,
+			coalesce(s.grossMarketValueBase,0) as grossMarketValueBase,
+			coalesce(s.grossExposureBase,0) as grossExposureBase,
+			coalesce(s.netExposureBase,0) as netExposureBase,
+		    coalesce(s.currentCash,0) as currentCash,
+		    coalesce(s.accrual,0) as accrual,
+		    "AccountNavInserted" as parentWindowStream
+		    then insert into AccountDivisorWindowUpdate
+			select 
+				s.accountId as accountId,
+				s.masterFundId as masterFundId,
+				s.shadowNav as shadowNav,
+				s.startOfDayNav as startOfDayNav,
+				s.grossMarketValueBase as grossMarketValueBase,
+				0.0 as accountWiseNRA,
+				'continuous insert' as updateType,
+				s.grossExposureBase as grossExposureBase,
+				s.netExposureBase as netExposureBase,
+				s.currentCash as currentCash,
+				s.accrual as accrual,
+		   		"AccountNavInserted" as parentWindowStream;
+
+@Priority(10)
+@Name('AccountDivisorNRAWindowContinuousUpsert')
+@Description('Updates the AccountDivisorWindow whenever AccountWiseNRA event occurs.')
+on AccountWiseNRA as s
+merge AccountDivisorWindow as W where W.accountId=s.accountId
+when matched and s.accountId is not null and
+	(
+		s.accountNRA <> W.accountWiseNRA
+	)
+	then update
+	set
+		W.accountWiseNRA = s.accountNRA,
+		W.parentWindowStream = "AccountWiseNRA";
+		
+@Priority(10)
+@Name('AccountDivisorWindowTimerUpdate')
+@Description('Inserts data into AccountDivisorUpdateEvent whenever SymbolDataEndEvent occurs.')
+on pattern [every (E = SymbolDataEndEvent)]
+insert into AccountDivisorUpdateEvent
+select 
+			E.cycleId as cycleId,
+			R.accountId as accountId,
+			R.masterFundId as masterFundId,
+			R.accountName as accountName,	
+			R.masterFundName as masterFundName,
+			R.shadowNav as shadowNav,
+			R.startOfDayNav as startOfDayNav,
+			R.grossMarketValueBase as grossMarketValueBase,
+			R.accountWiseNRA as accountWiseNRA,
+			R.grossExposureBase as grossExposureBase,
+			R.netExposureBase as netExposureBase,
+			R.currentCash as currentCash,
+			R.accrual as accrual,
+		   	"SymbolDataEndEvent,AccountDivisorWindow" as parentWindowStream
+from AccountDivisorWindow as R;

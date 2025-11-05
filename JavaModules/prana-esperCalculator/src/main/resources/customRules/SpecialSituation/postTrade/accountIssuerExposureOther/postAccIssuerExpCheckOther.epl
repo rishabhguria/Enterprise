@@ -1,0 +1,37 @@
+module customRules.specialSituations.postTrade.accountIssuerExposureOther.postTradeAccountIssuerExposureCheckOther;
+
+@Name('AccountIssuerExposureCheckAccountsOther')
+@Description('AccountIssuerExposureCheckAccountsOther')
+on DivisorEndMessage as B
+insert into AccountIssuerExposureAggregatorOther
+select distinct
+	W.accountId as accountId,
+	(case valueExistsInCSV(W.accountShortName, Account_Name2)
+	when true then (case Variable6 is 'Net Exposure' when true then sum(coalesce(W.netExposureBase,0)) else sum(coalesce(W.netMarketValueBase,0)) end)
+	else 0.0 end) as calculationField,
+	W.accountNav as accountNav,
+	W.issuer as issuer,
+	W.accountShortName as accountShortName,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId,W.issuer;
+
+@Name('PostTradeAccountIssuerExposureCheckOther')
+@Description('Checks if limit is breached')
+insert into PostTradeAccountIssuerExposureCheckOther
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Exposure_Percentage2) as threshold,
+	doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as actualResult,
+	'Investment limit' as constraintField,
+	(Math.abs(coalesce(A.calculationField/ A.accountNav, 0)) > (Exposure_Percentage2/100)) as isViolated,
+	'Account: ' || A.accountShortName || ', Issuer: ' || A.issuer
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| (case Variable6 is 'Net Exposure' when true then ', Net Exposure: ' else ', Net Market Value: ' end) || doubleFormat(A.calculationField)
+		|| ', % Investment: ' || doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	('No issuer can be > ' || doubleFormat(Exposure_Percentage2) ||  '% of total assets') as summary,
+	A.accountShortName || '-' || A.issuer as dimension
+from
+AccountIssuerExposureAggregatorOther as A;

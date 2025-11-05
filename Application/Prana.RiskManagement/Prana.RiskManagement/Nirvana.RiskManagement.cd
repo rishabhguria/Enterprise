@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Comment CommentText="RuleEngine's Run method will call following in a sequence starting from :&#xD;&#xA;CompanyLevel&#xD;&#xA;Trading / Fund Level and&#xD;&#xA;User Level">
+    <Position X="0.5" Y="1.781" Height="1.062" Width="1.908" />
+  </Comment>
+  <Comment CommentText="ExposureAndPnlCacheManager will provide data in a DataTable so that it would be easy for Data Consolidator to fetch them according to different levels of queries.">
+    <Position X="0.5" Y="0.552" Height="0.812" Width="2.262" />
+  </Comment>
+  <Comment CommentText="Data Consolidator will start it's operation by :&#xD;&#xA;1. Loading RM rule collection(s)&#xD;&#xA;2. Fetching data from data table provided by ExposureAndPnlCalculationEngine&#xD;&#xA;3. Performing Conversion to RM Base Currency.&#xD;&#xA;4. Notifying Risk Manager about the status when done.">
+    <Position X="0.5" Y="5.676" Height="1.104" Width="3.109" />
+  </Comment>
+  <Class Name="Nirvana.RiskManagement.Program">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Program.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.AlertType" Collapsed="true">
+    <Position X="3.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.AlertTypes" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="9.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.ClientOverallLimit" Collapsed="true">
+    <Position X="7.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.ClientOverallLimits" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="9.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.221" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.CompanyAlert">
+    <Position X="11.5" Y="9.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.CompanyAlerts" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.CompanyOverallLimit">
+    <Position X="13.75" Y="9.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.CompanyOverallLimits" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="10.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.DefaultAlert" Collapsed="true">
+    <Position X="9.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.DefaultAlerts" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RM_AUEC" Collapsed="true">
+    <Position X="3.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMAUECs" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="11.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMCurrencyRate" Collapsed="true">
+    <Position X="7.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMCurrencyRates" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMFundAccount" Collapsed="true">
+    <Position X="11.75" Y="12.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMFundAccounts" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMTradingAccount" Collapsed="true">
+    <Position X="5.5" Y="12.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.RMTradingAccounts" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="12.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.UserLevelOverallLimit" Collapsed="true">
+    <Position X="9.5" Y="12.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.UserLevelOverallLimits" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="13.5" Width="2" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.UserTradingAccount" Collapsed="true">
+    <Position X="3.5" Y="13.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.UserTradingAccounts" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.5" Y="13.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.UserUIControl" Collapsed="true">
+    <Position X="7.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Nirvana.Admin.BLL.UserUIControls" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Nirvana.RiskManagement.RiskRuleEngine">
+    <Position X="6.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>RiskRuleEngine.cs</FileName>
+      <HashCode>AAAEAAAAAAAAAgAAAAAEAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nirvana.RiskManagement.RiskRules" Collapsed="true">
+    <Position X="3.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>RiskRules.cs</FileName>
+      <NewMemberFileName>RiskRule.cs</NewMemberFileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nirvana.RiskManagement.RiskRule">
+    <Position X="3.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>RiskRule.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Nirvana.RiskManagement.CompanyFactData">
+    <Position X="8.5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <FileName>CompanyDataMapper.cs</FileName>
+      <HashCode>AAASCAIAAAAAAABAAAAAAAAAAAAAAAAAQQAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RiskManagement.UserFactData">
+    <Position X="6.5" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <FileName>UserDataMapper.cs</FileName>
+      <HashCode>AAACAAAAAAAAAABAAIAAAAAAAAAAAAAAAQAAAAACAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RiskManagement.TradingAccountFactData">
+    <Position X="10.75" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>TradingAccountDataMapper.cs</FileName>
+      <HashCode>AAASCAIAAAAAAABAAAAAAAAAAAAAAAAAQQAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RiskManagement.UserFactDataCollection" Collapsed="true">
+    <Position X="13.25" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>UserDataMappings.cs</FileName>
+      <HashCode>AGIAAEAAAAAAABAQCAAABAQAAAAAAAAACAAAAABQIAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RiskManagement.CompanyFactDataCollection" Collapsed="true">
+    <Position X="13.25" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <FileName>CompanyDataMappings.cs</FileName>
+      <HashCode>AGIAAEAAAAAAABAQCAAABAQAAAAAAAAACAAAAABQIAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RiskManagement.TradingAccountFactDataCollection" Collapsed="true">
+    <Position X="13.25" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <FileName>TradingAccountDataMappings.cs</FileName>
+      <HashCode>AGIAAEAAAAAAABAQCAAABAQAAAAAAAAACAAAAABQIAA=</HashCode>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RuleEngine.Core.RuleEngine">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Nirvana.RuleEngine.Core.Rule">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Nirvana.RuleEngine.Core.IRuleEngine">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Nirvana.RuleEngine.Core.IRule">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+</ClassDiagram>

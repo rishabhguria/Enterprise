@@ -1,0 +1,236 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- dev
+
+pool:
+  name: Default
+  demands:
+  - agent.name -equals BHARATWIN-10
+
+variables:
+  buildConfiguration: 'Release'
+  msBuildVersion: "4.0"
+
+steps:
+- task: Assembly-Info-NetFramework@3
+  displayName: 'Update Assembly Info'
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    FileNames: '**\AssemblyInfo.cs'
+    InsertAttributes: false
+    FileEncoding: 'auto'
+    WriteBOM: false
+    VersionNumber: '$(RELEASE_NAME).$(REV_NUMBER)'
+    FileVersionNumber: '$(RELEASE_NAME).$(REV_NUMBER)'
+    LogLevel: 'verbose'
+    FailOnWarning: false
+    DisableTelemetry: false
+    UpdateBuildNumber: 'Rev Number #$(REV_NUMBER)'
+
+- task: CmdLine@2
+  displayName: 'Update DB Version'
+  inputs:
+    script: |
+      cd Database
+      call UpdateDBVersion.bat Demo 123
+
+- task: MSBuild@1
+  name: 'BuildPricing'
+  displayName: 'Building Pricing Service2'
+  inputs:
+    solution: 'Prana.PricingService2.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildPricingUI'
+  displayName: 'Building Pricing Service2 UI'
+  inputs:
+    solution: 'Prana.PricingService2UI.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildTradeService'
+  displayName: 'Building Trade Service'
+  inputs:
+    solution: 'Prana.TradeService.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildTradeUI'
+  displayName: 'Building Trade Service UI'
+  inputs:
+    solution: 'Prana.TradeServiceUI.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildExPNL'
+  displayName: 'Building Expnl Service'
+  inputs:
+    solution: 'Prana.ExpnlService.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildExPNLUI'
+  displayName: 'Building Expnl Service UI'
+  inputs:
+    solution: 'Prana.ExpnlServiceUI.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildClient'
+  displayName: 'Building Client'
+  inputs:
+    solution: 'Prana.Client.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildAdmin'
+  displayName: 'Building Admin'
+  inputs:
+    solution: 'Prana.SuperAdmin.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildInstaller'
+  displayName: 'Building Installer'
+  inputs:
+    solution: 'Prana.Installer.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildDataBase'
+  displayName: 'Building DataBase'
+  inputs:
+    solution: 'Prana.Database.sln'
+    msbuildVersion: "17.0"
+    configuration: '$(buildConfiguration)'
+
+- task: MSBuild@1
+  name: 'BuildTA'
+  displayName: 'Building Test Automation'
+  inputs:
+    solution: 'Prana.TestAutomation.sln'
+    msbuildVersion: "4.0"
+    configuration: '$(buildConfiguration)'
+
+- task: Maven@4
+  displayName: 'Building Compliance Utility'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-utility\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+- task: Maven@4
+  displayName: 'Building Compliance Business Objects'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-businessObjects\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+    
+- task: Maven@4
+  displayName: 'Building Compliance AMQP Adapter'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-amqpAdapter\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+- task: Maven@4
+  displayName: 'Building Compliance Rule Engine Mediator'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-esperCalculator\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+    
+- task: Maven@4
+  displayName: 'Building Compliance Esper Calculator'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-ruleEngineMediator\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+- task: Maven@4
+  displayName: 'Building Compliance Logging Tool'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-loggingTool\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+    
+- task: Maven@4
+  displayName: 'Building Basket Compliance Service'
+  inputs:
+    mavenPomFile: 'JavaModules\prana-basketComplianceService\pom.xml'
+    goals: 'install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+- task: CmdLine@2
+  displayName: Publish Database
+  inputs:
+    script: |
+      SqlPackage.exe /Action:Publish /SourceFile:"Database\Prana.NirvanaClient\bin\Release\Prana.SecurityMaster.dacpac" /TargetConnectionString:"Database=DevSecurityMaster;Server=localhost\MSSQLSERVER14;Integrated Security=SSPI;" /p:BlockOnPossibleDataLoss=False
+      
+      SqlPackage.exe /Action:Publish /SourceFile:"Database\Prana.NirvanaClient\bin\Release\Prana.NirvanaClient.dacpac" /TargetConnectionString:"Database=DevNirvanaClient;Server=localhost\MSSQLSERVER14;Integrated Security=SSPI;" /p:BlockOnPossibleDataLoss=False /Variables:SecurityMaster=DevSecurityMaster
+
+- task: CmdLine@2
+  displayName: 'Deploying build'
+  inputs:
+    script: |
+      RD /S /Q "C:\Nirvana\Continuous Integration\Release Builds\Dev_Prana\$(RELEASE_NAME) [$(REV_NUMBER)]"
+      
+      cd Installer
+      call BuildInstaller.bat
+      xcopy /s /e "..\SetUp" "C:\Nirvana\Continuous Integration\Release Builds\Dev_Prana\$(RELEASE_NAME) [$(REV_NUMBER)]\"

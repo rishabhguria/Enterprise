@@ -1,0 +1,1400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C38BB01-A351-4E6E-89FC-A169BFE25EFB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.PM.Client.UI</RootNamespace>
+    <AssemblyName>Prana.PM.Client.UI</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile></DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile></DocumentationFile>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinInkProvider.Ink17.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinToolbars.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinSchedule.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDock.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDock.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDataSource.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDataSource.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinChart.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinChart.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2.FormulaBuilder, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinCalcManager.v20.2.FormulaBuilder.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinCalcManager.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinCalcManager.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Excel.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTree.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinStatusBar.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinPrintPreviewDialog.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.SupportDialogs.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.AppStylistSupport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Application\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Ink, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_64\Microsoft.Ink\6.1.0.0__31bf3856ad364e35\Microsoft.Ink.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\AmendmentsHelper.cs" />
+    <Compile Include="Classes\ClosingConstants.cs" />
+    <Compile Include="Classes\clsAccrual.cs" />
+    <Compile Include="Classes\clsAccruals.cs" />
+    <Compile Include="Classes\ColumnMapping.cs" />
+    <Compile Include="Classes\CopyAccountData.cs" />
+    <Compile Include="Classes\CopyAccountDataFactory.cs" />
+    <Compile Include="Classes\CustomSummariesFactory.cs" />
+    <Compile Include="Classes\EquityBaseDataManager.cs" />
+    <Compile Include="Classes\clsBaseEquityValues.cs" />
+    <Compile Include="Classes\ForexConversionCopyAccountData.cs" />
+    <Compile Include="Classes\ForwardPointsCopyAccountData.cs" />
+    <Compile Include="Classes\MarkPriceCopyAccountData.cs" />
+    <Compile Include="Classes\PMConstantsHelper.cs" />
+    <Compile Include="Classes\PostReconLayoutManager.cs" />
+    <Compile Include="Classes\SummaryHelper.cs" />
+    <Compile Include="Controls\ctrlCloseTradefromAllocation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlCloseTradefromAllocation.Designer.cs">
+      <DependentUpon>ctrlCloseTradefromAllocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlCopyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlCopyView.Designer.cs">
+      <DependentUpon>CtrlCopyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlFormat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlFormat.Designer.cs">
+      <DependentUpon>CtrlFormat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlImportPreferences.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlImportPreferences.Designer.cs">
+      <DependentUpon>CtrlImportPreferences.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlPostReconAmendmend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlPostReconAmendmend.Designer.cs">
+      <DependentUpon>CtrlPostReconAmendmend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlProgress.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlProgress.Designer.cs">
+      <DependentUpon>ctrlProgress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ctrlReImport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ctrlReImport.Designer.cs">
+      <DependentUpon>ctrlReImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PMUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PMUserControl.Designer.cs">
+      <DependentUpon>PMUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\PMAppearanceManager.cs" />
+    <Compile Include="Controls\Preferences\GridColumnFilterDetails.cs" />
+    <Compile Include="Controls\Preferences\PMAppearances.cs" />
+    <Compile Include="Classes\PMConstants.cs" />
+    <Compile Include="Classes\PMDatabaseManager.cs" />
+    <Compile Include="Classes\PMPreferenceData.cs" />
+    <Compile Include="Controls\CtrlAppearance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlAppearance.Designer.cs">
+      <DependentUpon>CtrlAppearance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlExpiryandSettlementNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlExpiryandSettlementNew.designer.cs">
+      <DependentUpon>CtrlExpiryandSettlementNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlMarkPriceAndForexConversion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlMarkPriceAndForexConversion.Designer.cs">
+      <DependentUpon>CtrlMarkPriceAndForexConversion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlRunDownload.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlRunDownload.designer.cs">
+      <DependentUpon>CtrlRunDownload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlSplit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlSplit.Designer.cs">
+      <DependentUpon>CtrlSplit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlTabularUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlTabularUI.Designer.cs">
+      <DependentUpon>CtrlTabularUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OptionBookSummaryDashboard.cs">
+    </Compile>
+    <Compile Include="Controls\OptionBookSummaryDashboard.Designer.cs">
+      <DependentUpon>OptionBookSummaryDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\GridColumn.cs" />
+    <Compile Include="Controls\Preferences\PMPreferenceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Preferences\PMPreferenceControl.Designer.cs">
+      <DependentUpon>PMPreferenceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddAccountWiseCurrenyPair.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddAccountWiseCurrenyPair.Designer.cs">
+      <DependentUpon>AddAccountWiseCurrenyPair.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddPositions.cs">
+    </Compile>
+    <Compile Include="Forms\AddPositions.Designer.cs">
+      <DependentUpon>AddPositions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlMainConsolidationViewSummary.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlMainConsolidationViewSummary.Designer.cs">
+      <DependentUpon>CtrlMainConsolidationViewSummary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlCloseTrade.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlCloseTrade.Designer.cs">
+      <DependentUpon>CtrlCloseTrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlCloseTradeMatchedTradeReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlCloseTradeMatchedTradeReport.Designer.cs">
+      <DependentUpon>CtrlCloseTradeMatchedTradeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlCreateAndImportPosition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlCreateAndImportPosition.Designer.cs">
+      <DependentUpon>CtrlCreateAndImportPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlMainConsolidationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CtrlMainConsolidationView.Designer.cs">
+      <DependentUpon>CtrlMainConsolidationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlManualEntry.cs">
+    </Compile>
+    <Compile Include="Controls\CtrlManualEntry.Designer.cs">
+      <DependentUpon>CtrlManualEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlManualEntryPassword.cs">
+    </Compile>
+    <Compile Include="Controls\CtrlManualEntryPassword.Designer.cs">
+      <DependentUpon>CtrlManualEntryPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlOptionBooks.cs">
+    </Compile>
+    <Compile Include="Controls\CtrlOptionBooks.Designer.cs">
+      <DependentUpon>CtrlOptionBooks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlSourceName.cs">
+    </Compile>
+    <Compile Include="Controls\CtrlSourceName.Designer.cs">
+      <DependentUpon>CtrlSourceName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CtrlTransactionReport.cs">
+    </Compile>
+    <Compile Include="Controls\CtrlTransactionReport.Designer.cs">
+      <DependentUpon>CtrlTransactionReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preferences\CustomViewPreferences.cs" />
+    <Compile Include="Controls\Preferences\CustomViewPreferencesList.cs" />
+    <Compile Include="Controls\Preferences\PMPrefrenceManager.cs" />
+    <Compile Include="Forms\Appearance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Appearance.Designer.cs">
+      <DependentUpon>Appearance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseEquityValue.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseEquityValue.Designer.cs">
+      <DependentUpon>BaseEquityValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CloseTrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CloseTrade.Designer.cs">
+      <DependentUpon>CloseTrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CloseTradeMatchedTradeReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CloseTradeMatchedTradeReport.Designer.cs">
+      <DependentUpon>CloseTradeMatchedTradeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImportData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportData.Designer.cs">
+      <DependentUpon>ImportData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImportPositionsDisplayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportPositionsDisplayForm.Designer.cs">
+      <DependentUpon>ImportPositionsDisplayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CounterParty.cs">
+    </Compile>
+    <Compile Include="Forms\CounterParty.Designer.cs">
+      <DependentUpon>CounterParty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreatePosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreatePosition.Designer.cs">
+      <DependentUpon>CreatePosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Desk.cs">
+    </Compile>
+    <Compile Include="Forms\Desk.Designer.cs">
+      <DependentUpon>Desk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ImportTradesDisplayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ImportTradesDisplayForm.Designer.cs">
+      <DependentUpon>ImportTradesDisplayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManualEntry.cs">
+    </Compile>
+    <Compile Include="Forms\ManualEntry.Designer.cs">
+      <DependentUpon>ManualEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ManualEntryPassword.cs">
+    </Compile>
+    <Compile Include="Forms\ManualEntryPassword.Designer.cs">
+      <DependentUpon>ManualEntryPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MarkPriceAndForexConversion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MarkPriceAndForexConversion.Designer.cs">
+      <DependentUpon>MarkPriceAndForexConversion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OptionSimulator.cs">
+    </Compile>
+    <Compile Include="Forms\OptionSimulator.Designer.cs">
+      <DependentUpon>OptionSimulator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PM.Designer.cs">
+      <DependentUpon>PM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PMTaxLotsDisplayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PMTaxLotsDisplayForm.Designer.cs">
+      <DependentUpon>PMTaxLotsDisplayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PostReconAmendments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PostReconAmendments.Designer.cs">
+      <DependentUpon>PostReconAmendments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ScrollabletPopUpMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ScrollabletPopUpMessage.Designer.cs">
+      <DependentUpon>ScrollabletPopUpMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Split.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Split.Designer.cs">
+      <DependentUpon>Split.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\CtrlAppearance.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlAppearance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlCloseTradefromAllocation.resx">
+      <DependentUpon>ctrlCloseTradefromAllocation.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlCopyView.resx">
+      <DependentUpon>CtrlCopyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlExpiryandSettlementNew.resx">
+      <DependentUpon>CtrlExpiryandSettlementNew.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlFormat.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlFormat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlMarkPriceAndForexConversion.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlMarkPriceAndForexConversion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlImportPreferences.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlImportPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlPostReconAmendmend.resx">
+      <DependentUpon>CtrlPostReconAmendmend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlProgress.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlProgress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ctrlReImport.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ctrlReImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlRunDownload.resx">
+      <DependentUpon>CtrlRunDownload.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlSplit.resx">
+      <DependentUpon>CtrlSplit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlTabularUI.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlTabularUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OptionBookSummaryDashboard.resx">
+      <DependentUpon>OptionBookSummaryDashboard.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlMainConsolidationViewSummary.resx">
+      <DependentUpon>CtrlMainConsolidationViewSummary.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlCloseTrade.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlCloseTrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlCloseTradeMatchedTradeReport.resx">
+      <DependentUpon>CtrlCloseTradeMatchedTradeReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlCreateAndImportPosition.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlCreateAndImportPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlMainConsolidationView.resx">
+      <DependentUpon>CtrlMainConsolidationView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlManualEntry.resx">
+      <DependentUpon>CtrlManualEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlManualEntryPassword.resx">
+      <DependentUpon>CtrlManualEntryPassword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlOptionBooks.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlOptionBooks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlSourceName.resx">
+      <DependentUpon>CtrlSourceName.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CtrlTransactionReport.resx">
+      <DependentUpon>CtrlTransactionReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PMUserControl.resx">
+      <DependentUpon>PMUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Preferences\PMPreferenceControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PMPreferenceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddAccountWiseCurrenyPair.resx">
+      <DependentUpon>AddAccountWiseCurrenyPair.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddPositions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AddPositions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Appearance.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Appearance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BaseEquityValue.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BaseEquityValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CloseTrade.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CloseTrade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CloseTradeMatchedTradeReport.resx">
+      <DependentUpon>CloseTradeMatchedTradeReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportData.resx">
+      <DependentUpon>ImportData.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportPositionsDisplayForm.resx">
+      <DependentUpon>ImportPositionsDisplayForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CounterParty.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CounterParty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreatePosition.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CreatePosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Desk.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Desk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ImportTradesDisplayForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ImportTradesDisplayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManualEntry.resx">
+      <DependentUpon>ManualEntry.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ManualEntryPassword.resx">
+      <DependentUpon>ManualEntryPassword.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MarkPriceAndForexConversion.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MarkPriceAndForexConversion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionSimulator.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OptionSimulator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PM.resx">
+      <DependentUpon>PM.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PMTaxLotsDisplayForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PMTaxLotsDisplayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PostReconAmendments.resx">
+      <DependentUpon>PostReconAmendments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ScrollabletPopUpMessage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScrollabletPopUpMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Split.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Split.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Images\Thumbs.db" />
+    <None Include="PMXSD\ImportCollateralPrice.xsc">
+      <DependentUpon>ImportCollateralPrice.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportCollateralPrice.xsd">
+      <LastGenOutput>ImportCollateralPrice.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportCollateralPrice.xss">
+      <DependentUpon>ImportCollateralPrice.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportSettlementDateCash.xsc">
+      <DependentUpon>ImportSettlementDateCash.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportSettlementDateCash.xsd">
+      <LastGenOutput>ImportSettlementDateCash.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportSettlementDateCash.xss">
+      <DependentUpon>ImportSettlementDateCash.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportShortLocate.xsc">
+      <DependentUpon>ImportShortLocate.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportShortLocate.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportShortLocate.xss">
+      <DependentUpon>ImportShortLocate.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportVWAPValues.xsc">
+      <DependentUpon>ImportVWAPValues.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportVWAPValues.xsd">
+      <LastGenOutput>ImportVWAPValues.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportVWAPValues.xss">
+      <DependentUpon>ImportVWAPValues.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\MultilegJournalImport.xsc">
+      <DependentUpon>MultilegJournalImport.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\MultilegJournalImport.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\MultilegJournalImport.xss">
+      <DependentUpon>MultilegJournalImport.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.AlgoStrategyControls\Prana.AlgoStrategyControls.csproj">
+      <Project>{22605932-14d9-48cc-a46f-2e918dcc69bc}</Project>
+      <Name>Prana.AlgoStrategyControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.CashManagement\Prana.CashManagement.csproj">
+      <Project>{64BF192C-6525-4901-B648-985DEE4B875F}</Project>
+      <Name>Prana.CashManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{A28AE507-104B-45C5-BCB1-CE51394E3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.Import\Prana.Import.csproj">
+      <Project>{a7618cc8-df0e-4d12-ab7b-ee3269dc854d}</Project>
+      <Name>Prana.Import</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.InstanceCreator\Prana.InstanceCreator.csproj">
+      <Project>{3F5CFA1B-EA85-4EFF-9FFB-0564B801DC10}</Project>
+      <Name>Prana.InstanceCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.LiveFeedProvider\Prana.LiveFeedProvider.csproj">
+      <Project>{188CA486-DEC3-4BB2-B335-4BCAB1C0D76C}</Project>
+      <Name>Prana.LiveFeedProvider</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.SecurityMasterNew\Prana.SecurityMasterNew.csproj">
+      <Project>{8237c28a-ee49-4a68-a89a-1f1f6a939fc4}</Project>
+      <Name>Prana.SecurityMasterNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Client\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{abb4950f-def1-4095-8e93-1eb3292c69f5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.ExposurePnlCache\Prana.ExposurePnlCache.csproj">
+      <Project>{704A1960-D9CC-4702-9FFB-D82C6E872047}</Project>
+      <Name>Prana.ExposurePnlCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Application\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ClientPreferences\Prana.ClientPreferences.csproj">
+      <Project>{87409B83-E284-40A0-8DAF-40B58413449C}</Project>
+      <Name>Prana.ClientPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.SocketCommunication\Prana.SocketCommunication.csproj">
+      <Project>{F221A266-01C2-4ECA-ADED-0717573BCC2E}</Project>
+      <Name>Prana.SocketCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PM.BLL\Prana.PM.BLL.csproj">
+      <Project>{F3EB40AF-D2B7-44C9-A7ED-FD54F4D95A3D}</Project>
+      <Name>Prana.PM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.PM.Common\Prana.PM.Common.csproj">
+      <Project>{CA3F44AC-2814-4E5E-84B7-DCAF8F42A026}</Project>
+      <Name>Prana.PM.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Classes\AdditionalColumns.xml" />
+    <Content Include="Classes\PMDefaultPreferences.xml" />
+    <None Include="Resources\PM_my.ico" />
+    <Content Include="XSLT\Abundance\PM_Abundance_TradeImport.xslt" />
+    <Content Include="XSLT\ADM\PM_ADM_MarkPrice.xslt" />
+    <Content Include="XSLT\ADM\PM_ADM_Position Import.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_CashImport.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_CashImport1.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_MarkPriceImport1.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_MarkPriceImport2.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_MarkPriceImport3.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_MarkPriceImport4.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_PositionImport.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_PositionImport1.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_PositionImport2.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_PositionImport3.xslt" />
+    <Content Include="XSLT\Aegis\PM_Aegis_PositionImport4.xslt" />
+    <Content Include="XSLT\Agile\PM_Agile_BTIG_Trade_Import.xslt" />
+    <Content Include="XSLT\Agile\PM_Agile_BTIG_Trade_Import_2.xslt" />
+    <Content Include="XSLT\Agile\PM_Agile_Ecor_MarkPrice_Import.xslt" />
+    <Content Include="XSLT\AlphaCoop\PM_AlphaCoop_SMImport.xslt" />
+    <Content Include="XSLT\AlphaCoop\PM_AlphaCoop_TradeImport_Historical.xslt" />
+    <Content Include="XSLT\AlphaCoop\PM_AlphaCoop_TradeImport_LoremIpsum.xslt" />
+    <Content Include="XSLT\Apex\PM_Apex_CashJournalImport1.xslt" />
+    <Content Include="XSLT\Apex\PM_Apex_CashJournalImport2.xslt" />
+    <Content Include="XSLT\Apex\PM_Apex_DividendImport.xslt" />
+    <Content Include="XSLT\Apex\PM_Apex_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Apex\PM_Apex_OMI_PriceImport.xslt" />
+    <Content Include="XSLT\Baker Avenue\PM_AllocationScheme_BK.xslt" />
+    <Content Include="XSLT\Baker Avenue\PM_BakerAvenue_SMImport.xslt" />
+    <Content Include="XSLT\Baker Avenue\PM_Baker_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Baker Avenue\PM_Baker_PositionImport1.xslt" />
+    <Content Include="XSLT\Boston Provident\PM_BostonProvident_TradeImport.xslt" />
+    <Content Include="XSLT\Boston Provident\PM_Boston_TradeImport1.xslt" />
+    <Content Include="XSLT\Cash Transaction Import\PM_Cash_Transactions_Dividend_Import.xslt" />
+    <Content Include="XSLT\Cash Transaction Import\PM_Cash_Transactions_Import.xslt" />
+    <Content Include="XSLT\Celadon\PM_Celadon_CashJournalImport.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Altis_GSFuture_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Altis_Newedge_FX_SecImport.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Altis_NewEdge_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Aspetuck_FX_SecImport.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Aspetuck_IB_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Global_CICC_CFD_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\CHMW_Global_IB_Equity_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\JPM_CFD_mak.xslt" />
+    <Content Include="XSLT\CHMW\PM_Auriel_CFD_TradeImport_Updated.xslt" />
+    <Content Include="XSLT\CHMW\PM_Auriel_Owan_TradeImport_Updated.xslt" />
+    <Content Include="XSLT\CHMW\PM_CHMW_Alphacore_BAML_CFD_TradeImport.xslt" />
+    <Content Include="XSLT\CHMW\PM_CHMW_Alphacore_BAML_Equity_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\PM_CHMW_Earth_Element_Newedge_TradeImport.xslt" />
+    <Content Include="XSLT\CHMW\PM_CH_Aspetuck_BAML_Trade_Import_Updated.xslt" />
+    <Content Include="XSLT\CHMW\PM_CH_UBS_FX_Trade_Import_Updated.xslt" />
+    <Content Include="XSLT\CHMW\PM_GSFuture_Middleware_Trade_Import.xslt" />
+    <Content Include="XSLT\CHMW\PM_GS_MAK_TradeImport_New %281%29.xslt" />
+    <Content Include="XSLT\CHMW\PM_JPM_TradeI_Import_Portal_Updated.xslt" />
+    <Content Include="XSLT\CHMW\PM_MAK Scotia_Trade_Import_Updated.xslt" />
+    <Content Include="XSLT\Citrine\PM_Citrine_OMIImport.xslt" />
+    <Content Include="XSLT\Citrine\PM_Citrine_OMI_VolImport.xslt" />
+    <Content Include="XSLT\Custom House\PM_CH_JPM_PositionImport.xslt" />
+    <Content Include="XSLT\Custom House\PM_CH_JPM_PositionImport1.xslt" />
+    <Content Include="XSLT\Custom House\PM_CH_MarkPrice_Import.xslt" />
+    <Content Include="XSLT\Custom House\PM_CH_Taxlot_Import.xslt" />
+    <Content Include="XSLT\Custom House\PM_ECM_SMImport.xslt" />
+    <Content Include="XSLT\Custom House\PM_Trans_ECM_TradeImport_46_Funds_XML.xslt" />
+    <Content Include="XSLT\DB_Old\PM_DeutscheBank_MarkPriceImport.xslt" />
+    <Content Include="XSLT\DB_Old\PM_DeutscheBank_TransactionImport.xslt" />
+    <Content Include="XSLT\DB_Old\PM_DuetscheBank_PositionImport.xslt" />
+    <Content Include="Images\accept.gif" />
+    <Content Include="Images\accept_application.gif" />
+    <Content Include="Images\accept_manual.gif" />
+    <Content Include="Images\accept_source.gif" />
+    <Content Include="Images\add_row.gif" />
+    <Content Include="Images\amend.gif" />
+    <Content Include="Images\arrow.gif" />
+    <Content Include="Images\btn_accept_application.gif" />
+    <Content Include="Images\btn_accept_manual.gif" />
+    <Content Include="Images\btn_accept_source.gif" />
+    <Content Include="Images\btn_add.jpg" />
+    <Content Include="Images\btn_addnew.jpg" />
+    <Content Include="Images\btn_addsub.jpg" />
+    <Content Include="Images\btn_all.jpg" />
+    <Content Include="Images\btn_cancel.jpg" />
+    <Content Include="Images\btn_clear.jpg" />
+    <Content Include="Images\btn_close.jpg" />
+    <Content Include="Images\btn_create.jpg" />
+    <Content Include="Images\btn_delete.jpg" />
+    <Content Include="Images\btn_edit.jpg" />
+    <Content Include="Images\btn_getData.gif" />
+    <Content Include="Images\btn_GetFilteredData.gif" />
+    <Content Include="Images\btn_get_datasource_file.gif" />
+    <Content Include="Images\btn_go.jpg" />
+    <Content Include="Images\btn_holiday.jpg" />
+    <Content Include="Images\btn_ImportFile.gif" />
+    <Content Include="Images\btn_importPositions.gif" />
+    <Content Include="Images\btn_login.jpg" />
+    <Content Include="Images\btn_map.gif" />
+    <Content Include="Images\btn_no.jpg" />
+    <Content Include="Images\btn_remove.gif" />
+    <Content Include="Images\btn_reset.jpg" />
+    <Content Include="Images\btn_revert.jpg" />
+    <Content Include="Images\btn_run_recon.gif" />
+    <Content Include="Images\btn_save.gif" />
+    <Content Include="Images\btn_save.jpg" />
+    <Content Include="Images\btn_saveas.jpg" />
+    <Content Include="Images\btn_select.gif" />
+    <Content Include="Images\btn_Send.gif" />
+    <Content Include="Images\btn_stage.jpg" />
+    <Content Include="Images\btn_trade.jpg" />
+    <Content Include="Images\btn_update.jpg" />
+    <Content Include="Images\btn_upload.gif" />
+    <Content Include="Images\btn_upload.jpg" />
+    <Content Include="Images\btn_uploadData.gif" />
+    <Content Include="Images\btn_view.gif" />
+    <Content Include="Images\btn_yes.jpg" />
+    <Content Include="Images\details.gif" />
+    <Content Include="Images\enter_dividents.gif" />
+    <Content Include="Images\enter_transactions.gif" />
+    <Content Include="Images\get_datasource_file.gif" />
+    <Content Include="Images\icon_down.ico" />
+    <Content Include="Images\import.gif" />
+    <Content Include="Images\manual_entry.gif" />
+    <Content Include="Images\map.gif" />
+    <Content Include="Images\ok.gif" />
+    <Content Include="Images\PM.ico" />
+    <Content Include="Images\refresh.gif" />
+    <Content Include="Images\remove.gif" />
+    <Content Include="Images\run.gif" />
+    <Content Include="Images\run_recon.gif" />
+    <Content Include="Images\select.gif" />
+    <Content Include="Images\upload.gif" />
+    <Content Include="Images\view.gif" />
+    <Content Include="Images\view_errors.gif" />
+    <Content Include="Images\view_exceptions.gif" />
+    <Content Include="Images\view_report.gif" />
+    <None Include="ClassDiagrams\ClosingDependencies.cd" />
+    <None Include="PMXSD\Cash_Dividend_Import.xsc">
+      <DependentUpon>Cash_Dividend_Import.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\Cash_Dividend_Import.xsd">
+      <LastGenOutput>Cash_Dividend_Import.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\Cash_Dividend_Import.xss">
+      <DependentUpon>Cash_Dividend_Import.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportActivities.xsc">
+      <DependentUpon>ImportActivities.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportActivities.xsd">
+      <LastGenOutput>ImportActivities.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportActivities.xss">
+      <DependentUpon>ImportActivities.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportAllocationScheme.xsc">
+      <DependentUpon>ImportAllocationScheme.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportAllocationScheme.xsd">
+      <LastGenOutput>ImportAllocationScheme.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportAllocationScheme.xss">
+      <DependentUpon>ImportAllocationScheme.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportBetaValues.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportCash.xsc">
+      <DependentUpon>ImportCash.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportCash.xsd">
+      <LastGenOutput>ImportCash.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportCash.xss">
+      <DependentUpon>ImportCash.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportForexPrice.xsd">
+      <LastGenOutput>ImportForexPrice.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportForexPrice.xss">
+      <DependentUpon>ImportForexPrice.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportMarkPrice.xsc">
+      <DependentUpon>ImportMarkPrice.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportMarkPrice.xsd">
+      <LastGenOutput>ImportMarkPrice.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportMarkPrice.xss">
+      <DependentUpon>ImportMarkPrice.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportSecMasterInsertAndUpdate.xsc">
+      <DependentUpon>ImportSecMasterInsertAndUpdate.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportSecMasterInsertAndUpdate.xsd">
+      <LastGenOutput>ImportSecMasterInsertAndUpdate.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportSecMasterInsertAndUpdate.xss">
+      <DependentUpon>ImportSecMasterInsertAndUpdate.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportCashTransactions.xsc">
+      <DependentUpon>ImportCashTransactions.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportCashTransactions.xsd">
+      <LastGenOutput>ImportCashTransactions.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="PMXSD\ImportCashTransactions.xss">
+      <DependentUpon>ImportCashTransactions.xsd</DependentUpon>
+    </None>
+    <None Include="Resources\btn_ImportFile.gif" />
+    <None Include="Resources\btn_uploadData.gif" />
+    <None Include="Resources\btn_getData.gif" />
+    <None Include="Resources\ClearFilter.jpg" />
+    <None Include="Resources\PMIconThemeOn.ico" />
+    <Content Include="XML\SecMasterMapping.xml" />
+    <Content Include="XML\SubAccountMapping.xml" />
+    <Content Include="XML\ActivityMapping.xml" />
+    <Content Include="XSLT\Abundance\PM_Abundance_Cash.xslt" />
+    <Content Include="XSLT\Abundance\PM_Abundance_CashDividends.xslt" />
+    <Content Include="XSLT\Abundance\PM_GS_Abundance_MarkPrice_1691.xslt" />
+    <Content Include="XSLT\Abundance\PM_GS_Abundance_MarkPrice.xslt" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_Cash.xslt" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_Cash_Dividend.xslt" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_PositonImport.xslt" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_PositonImport1.xslt" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_SubAccount_CashImport.XSLT" />
+    <Content Include="XSLT\Agency Trading\PM_AgencyTrading_TransactionImport.xslt" />
+    <Content Include="XSLT\Aldersgate\PM_Aldersgate_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Aldersgate\PM_Aldersgate_PositionImport.xslt" />
+    <Content Include="XSLT\AlphaCoop\PM_AlphaCoop_TradeImport.xslt" />
+    <Content Include="XSLT\ARBOR\ARBOR_Cash.xslt" />
+    <Content Include="XSLT\ARBOR\RBOR_MarkPrice.xslt" />
+    <Content Include="XSLT\ArenaCapital\PM_ArenaCap_CorMark_Cash.xslt" />
+    <Content Include="XSLT\ArenaCapital\PM_ArenaCap_CorMark_FXPrice.xslt" />
+    <Content Include="XSLT\ArenaCapital\PM_ArenaCap_CorMark_MarkPrice.xslt" />
+    <Content Include="XSLT\ArenaCapital\PM_ArenaCap_CorMark_Position.xslt" />
+    <Content Include="XSLT\Cash Transaction Import\PM_Cash_Transactions_Import.XSLT" />
+    <Content Include="XSLT\BAF\PM_BAF_Benchmark_FXPrice.xslt" />
+    <Content Include="XSLT\BAF\PM_BAF_Benchmark_MarkPriceImport.xslt" />
+    <Content Include="XSLT\BAF\PM_BAF_MarkPriceImport.xslt" />
+    <Content Include="XSLT\BAF\PM_BAF_Merlin_TransactionImport.xslt" />
+    <Content Include="XSLT\BAF\PM_BAF_TransactionImport.xslt" />
+    <Content Include="XSLT\Cannon\PM_Cannon_CashImport.xslt" />
+    <Content Include="XSLT\Cash Activity Import\PM_FreeStone_GSEC_SubAccount_Cash.XSLT" />
+    <Content Include="XSLT\Celadon\TradeImport.xslt" />
+    <Content Include="XSLT\Concept Capital\PM_ConceptCapital_Cash.xslt" />
+    <Content Include="XSLT\Concept Capital\PM_GS_ConceptCapital_MarkPrice.xslt" />
+    <Content Include="XSLT\Crown Capital\PM_CrownCapital_Citi_Forex.xslt" />
+    <Content Include="XSLT\Crown Capital\PM_CrownCapital_Citi_Markprice.xslt" />
+    <Content Include="XSLT\Crown Capital\PM_CrownCapital_Trade.xslt" />
+    <Content Include="XSLT\Custody\Custody_MarkPrice1.xslt" />
+    <Content Include="XSLT\Custom House\Import\PM_Trans_ECM_MarkPrice_46Funds.xslt" />
+    <Content Include="XSLT\Custom House\Import\PM_Trans_ECM_MarkPrice_46Funds_15-11-2011.xslt" />
+    <Content Include="XSLT\Custom House\Import\PM_Trans_ECM_TradeImport_46_Funds.xslt" />
+    <Content Include="XSLT\Custom House\Import\PM_Trans_ECM_TradeImport_46_Funds_15-11-2011.xslt" />
+    <Content Include="XSLT\Custom House\Import\PM_Trans_ECM_T_FXForward.xslt" />
+    <Content Include="XSLT\Custom House\PM_ECM_Sec.xslt" />
+    <Content Include="XSLT\Custom House\PM_Trans_ECM_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Custom House\PM_Trans_ECM_TradeImport.xslt" />
+    <Content Include="XSLT\Custom House\ThirdParty\ThirdParty_CustomHouse.xslt" />
+    <Content Include="XSLT\Custom House\ThirdParty\ThirdParty_CustomHouse_FXForward.xslt" />
+    <Content Include="XSLT\DB\PM_DeutscheBank_FXPrice.xslt" />
+    <Content Include="XSLT\DB\PM_DeutscheBank_MarkPriceImport.xslt" />
+    <Content Include="XSLT\DB\PM_DeutscheBank_TransactionImport.xslt" />
+    <Content Include="XSLT\DB\PM_DuetscheBank_PositionImport.xslt" />
+    <Content Include="XSLT\Div\Div_Import_GS_Lucas.XSLT" />
+    <Content Include="XSLT\Div\PM_FreeStone_GSEC_Cash_Dividend.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_CSFB_Cash.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_CSFB_ForexPricet.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_CSFB_MarkPrice.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_CSFB_TaxLot.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_MLP_Cash.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_MLP_ForexPricet.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_MLP_MarkPrice.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_MLP_Position.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_MLP_Taxlots.xslt" />
+    <Content Include="XSLT\Eleven11\PM_Eleven11_TradeImport.xslt" />
+    <Content Include="XSLT\Emancipation\PM_Emancipation_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Emancipation\PM_Emancipation_MarkPriceImport_New.xslt" />
+    <Content Include="XSLT\Emancipation\PM_Emancipation_TradeImport.xslt" />
+    <Content Include="XSLT\Emancipation\PM_Emancipation_TradeImport_New.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_CrossCourt_MarkPrice.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_CrossCourt_Positions.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_Jefferies_MarkPrice.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_Jefferies_Positions.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_Cash.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_Cash_Dividend.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_FXPrice.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_MarkPrice.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_MarkPrice_updated.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_Positions.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_PositionsImport.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_SubAccount_CashImport.XSLT" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_TradeImport.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_JPMorgan_TradeImport_Updated.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_ML_Cash.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_ML_MarkPrice.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_ML_Positions.xslt" />
+    <Content Include="XSLT\Englander\PM_Eng_Sampleport_Positions.xslt" />
+    <Content Include="XSLT\Englander\PM_Generic_Trade_Import.xslt" />
+    <Content Include="XSLT\FCS\PM_FCS_CashImport.xslt" />
+    <Content Include="XSLT\FCS\PM_FCS_FXPriceImport.xslt" />
+    <Content Include="XSLT\FCS\PM_FCS_MarkPriceImport.xslt" />
+    <Content Include="XSLT\FCS\PM_FCS_TradeImport.xslt" />
+    <Content Include="XSLT\Freestone\PM_Freestone_Cash.xslt" />
+    <Content Include="XSLT\Freestone\PM_Freestone_FXPrice.xslt" />
+    <Content Include="XSLT\gardenia\Gardenia_Cash_Dividend.xslt" />
+    <Content Include="XSLT\gardenia\Gardenia_Trade.xslt" />
+    <Content Include="XSLT\gardenia\Gardenia_Trade_Import.xslt" />
+    <Content Include="XSLT\gardenia\PM_Transaction_Gardenia_DB.XSLT" />
+    <Content Include="XSLT\Generic\PM_Generic_Trade_Import.xslt" />
+    <Content Include="XSLT\Generic\PM_Generic_Trade_Import_XLS file.xslt" />
+    <Content Include="XSLT\GPB DB\PM_GPB_Cash_Dividend.xslt" />
+    <Content Include="XSLT\GPB DB\PM_GPB_MarkPriceImport.xslt" />
+    <Content Include="XSLT\GPB DB\PM_GPB_TransactionImport.xslt" />
+    <Content Include="XSLT\GSEC\PM_GSEC_FXPrice.xslt" />
+    <Content Include="XSLT\GSEC\PM_GSEC_MarkPriceImport.xslt" />
+    <Content Include="XSLT\GSEC\PM_GSEC_PositionImport.xslt" />
+    <Content Include="XSLT\GSEC\PM_GSEC_TransactionImport.xslt" />
+    <Content Include="XSLT\HollandCap\HollandCapMarkPrice.xslt" />
+    <Content Include="XSLT\HollandCap\PM_HolandCap_Transcation.xslt" />
+    <Content Include="XSLT\HollandCap\PM_HollandCap_Cash.xslt" />
+    <Content Include="XSLT\HollandCap\PM_HollandCap_FXPrice.xslt" />
+    <Content Include="XSLT\HollandCap\Updated\HollandCapMark_Updated.xslt" />
+    <Content Include="XSLT\HollandCap\Updated\PM_HolandCap_Transcation_updated.xslt" />
+    <Content Include="XSLT\JasinCap\PM_Jasincap_Jefferies_Cash.xslt" />
+    <Content Include="XSLT\JasinCap\PM_Jasincap_Jefferies_ForexPricet.xslt" />
+    <Content Include="XSLT\JasinCap\PM_Jasincap_Jefferies_MarkPrice.xslt" />
+    <Content Include="XSLT\JasinCap\PM_Jasincap_Millennium_Cash.xslt" />
+    <Content Include="XSLT\JasinCap\PM_Jasincap_Millennium_ForexPricet.xslt" />
+    <Content Include="XSLT\JasinCap\PM_Jasincap_Millennium_MarkPrice.xslt" />
+    <Content Include="XSLT\JCAP\PM_JCAP_MarkPriceImport.xslt" />
+    <Content Include="XSLT\JCAP\PM_JCAP_PositionImport.xslt" />
+    <Content Include="XSLT\JCAP\PM_JCAP_TransactionImport.xslt" />
+    <Content Include="XSLT\JCAP\PM_JCAP_TransactionImport_New.xslt" />
+    <Content Include="XSLT\Jefferiers\PM_Jefferiers_Cash.xslt" />
+    <Content Include="XSLT\Jefferiers\PM_Jefferies_MarkPrice.xslt" />
+    <Content Include="XSLT\JPM\JPM Recon\Recon_Englander_JPMorgan_Transaction.xslt" />
+    <Content Include="XSLT\JPM\JPM Recon\Recon_Eng_JPMorgan_Position.xslt" />
+    <Content Include="XSLT\JPM\JPM ThirdParty\ThirdParty_Eng_JPMorgan_Footer_V2.xslt" />
+    <Content Include="XSLT\JPM\JPM ThirdParty\ThirdParty_Eng_JPMorgan_Header_V2.xslt" />
+    <Content Include="XSLT\JPM\JPM ThirdParty\ThirdParty_Eng_JPMorgan_V2.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_Cash.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_Cash_Dividend.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_FXPrice.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_MarkPrice.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_PositionsImport.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_SubAccount_CashImport.XSLT" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_TradeImport.xslt" />
+    <Content Include="XSLT\JPM\JPM XSLT\PM_Eng_JPMorgan_TradeImport_Cancel.xslt" />
+    <Content Include="XSLT\Kinneret\PM_DeutscheBank_MarkPriceImport_new.xslt" />
+    <Content Include="XSLT\Lakehill\PM_Lakehill_ML_Cash.xslt" />
+    <Content Include="XSLT\Lakehill\PM_Lakehill_ML_MarkPrice.xslt" />
+    <Content Include="XSLT\Lakehill\PM_Lakehill_ML_Pos.xslt" />
+    <Content Include="XSLT\Lakehill\PM_SubAccountJournal_Trans.xslt" />
+    <Content Include="XSLT\Lazard\PM_Lazard_MarkPrice.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_MarkPriceV2_OptNew.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Goldman_MarkPrice_OptNew.xslt" />
+    <Content Include="XSLT\Lyford\Lyford_MarkPrice_Import.xslt" />
+    <Content Include="XSLT\Lyford\Lyford_TradeImport.xslt" />
+    <Content Include="XSLT\Lyford\PM_Jefferiers_Cash.xslt" />
+    <Content Include="XSLT\Lyford\PM_Jefferies_MarkPrice.xslt" />
+    <Content Include="XSLT\Lyford\PM_Lyford_Cash.xslt" />
+    <Content Include="XSLT\Lyford\PM_Lyford_MarkPrice.xslt" />
+    <Content Include="XSLT\Lyford\PM_Lyford_Trade.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_Barclays_Cash.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_Barclays_Derivates_TaxLot.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_Barclays_Equity_TaxLot.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_Barclays_MarkPrice.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSEC_Future_TaxLot.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSEC_TaxLot.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSEC_TaxLotV2.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSPWM_ForexPricet.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSPWM_MarkPrice.xslt" />
+    <Content Include="XSLT\Lucas\BOFA.xslt" />
+    <Content Include="XSLT\Lucas\PM_GS_Cash_Winchester.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSPWM_Cash.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_GSPWM_TaxLot.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_IB_Cash.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_IB_MarkPrice.xslt" />
+    <Content Include="XSLT\MBF\PM_MBF_MS_Transaction.xslt" />
+    <Content Include="XSLT\Misc\PM_GS_CUTTONE_MarkPrice.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Barclays_MarkPrice.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_ForexPricet.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_MarkPrice.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_MarkPriceV2.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_MarkPrice_Test.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Goldman_MarkPrice.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Goldman_MarkPrice_V2.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_GS_CashV3.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_GS_Portfolio_CashV3_1.xslt" />
+    <Content Include="XSLT\Monarch Capital\PM_MonarchCapital_TransactionImport.xslt" />
+    <Content Include="XSLT\Newland\PM_Newland_CreditSuisse_Cash.xslt" />
+    <Content Include="XSLT\Newland\PM_Newland_CreditSuisse_ForexPricet.xslt" />
+    <Content Include="XSLT\Newland\PM_Newland_CreditSuisse_MarkPrice.xslt" />
+    <Content Include="XSLT\Newland\PM_Newland_Goldman_Cash.xslt" />
+    <Content Include="XSLT\Newland\PM_Newland_Goldman_TaxLot.xslt" />
+    <Content Include="XSLT\Newland\PM_Newland_Goldman_MarkPrice.xslt" />
+    <Content Include="XSLT\PCS DONBar\PM_PCS_GSEC_MarkPrice.xslt" />
+    <Content Include="XSLT\Proseum\PM_Proseum_GS_Cuttone_MarkPrice.xslt" />
+    <Content Include="XSLT\Proseum\PM_Prosium_GSEC_Cash.xslt" />
+    <Content Include="XSLT\Proseum\PM_Prosium_IB_ForexPricet.xslt" />
+    <Content Include="XSLT\RJO\RJOMarkPriceImport.xslt" />
+    <Content Include="XSLT\RJO\RJOTradeImport.xslt" />
+    <Content Include="XSLT\Sansato Investors\PM_AllocationScheme.xslt" />
+    <Content Include="XSLT\Sansato Investors\PM_Sansato_FXRate.xslt" />
+    <Content Include="XSLT\Sansato Investors\PM_Sansato_GS_MarkPrice_Swap.xslt" />
+    <Content Include="XSLT\Sansato Investors\PM_Sansato_Transaction.xslt" />
+    <Content Include="XSLT\Sansato Investors\Sensato_Cash_Import.xslt" />
+    <Content Include="XSLT\Sansato Investors\Sensato_MarkPrice_Import.xslt" />
+    <Content Include="XSLT\Saxis\PM_Saxis_CashImport.xslt" />
+    <Content Include="XSLT\Saxis\PM_Saxis_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Saxis\PM_Saxis_TradeImport.xslt" />
+    <Content Include="XSLT\Saxis\PM_Saxis_TransactionImport.xslt" />
+    <Content Include="XSLT\Seafarer\PM_Seafearer_Alps_FXPrice.xslt" />
+    <Content Include="XSLT\Seafarer\PM_Seafearer_Alps_MarkPriceImport.xslt" />
+    <Content Include="XSLT\Seafarer\Seafarer_MarkPrice_Import.xslt" />
+    <Content Include="XSLT\Second Curve\PM_SecondCurve_MS_Cash.xslt" />
+    <Content Include="XSLT\Second Curve\PM_SecondCurve_MS_MarkPrice.xslt" />
+    <Content Include="XSLT\Second Curve\PM_SecondCurve_UBS_Cash.xslt" />
+    <Content Include="XSLT\Second Curve\PM_SecondCurve_MS_Taxlots.xslt" />
+    <Content Include="XSLT\Sonoma\PM_Sonoma_Bloomberg_MarkPrice.xslt" />
+    <Content Include="XSLT\Sonoma\PM_Sonoma_Cash.xslt" />
+    <Content Include="XSLT\Sonoma\PM_Sonoma_Position_ForexPrice.xslt" />
+    <Content Include="XSLT\Sonoma\PM_Sonoma_Taxlots_MarkPrice.xslt" />
+    <Content Include="XSLT\Sonoma\PM_Sonoma_Position_MarkPrice.xslt" />
+    <Content Include="XSLT\Sonoma\PM_Sonoma_Taxlots.xslt" />
+    <Content Include="XSLT\Star Point\PM_MS_StarPoint_Positions_OneTime.xslt" />
+    <Content Include="XSLT\Star Point\PM_MS_StarPoint_Taxlots.xslt" />
+    <Content Include="XSLT\Proseum\PM_Proseum_IB_Positions.xslt" />
+    <Content Include="XSLT\Proseum\PM_Proseum_IB_MarkPrice.xslt" />
+    <Content Include="XSLT\Second Curve\PM_Second Curve_UBS_Taxlots.xslt" />
+    <Content Include="XSLT\Second Curve\PM_SecondCurve_UBS_MarkPrice.xslt" />
+    <Content Include="XSLT\Shoreline\PM_Shoreline_Goldman_Cash.xslt" />
+    <Content Include="XSLT\Shoreline\PM_Shoreline_Goldman_MarkPrice.xslt" />
+    <Content Include="XSLT\Shoreline\PM_Shoreline_Goldman_TaxLot.xslt" />
+    <Content Include="XSLT\Shoreline\PM_Shoreline_Goldman_Transaction.xslt" />
+    <Content Include="XSLT\Star Point\PM_StarPoint_BTIG_Taxlots.xslt" />
+    <Content Include="XSLT\Misc\ForexPrice_Test.xslt" />
+    <Content Include="XSLT\Misc\GS_Positions.xslt" />
+    <Content Include="XSLT\Misc\MarkPrice_Test1.xslt" />
+    <Content Include="XSLT\Misc\ImportTradesXSLTForGC.xslt" />
+    <Content Include="XSLT\Lucas\Import_Bofa_Lucas_Positions.xslt" />
+    <Content Include="XSLT\Lucas\Import_Bofa_Lucas_Taxlots.xslt" />
+    <Content Include="XSLT\Lucas\Import_Bofa_Lucas_Taxlots_old.xslt" />
+    <Content Include="XSLT\Lucas\Lucas_GS_Trade import.xslt" />
+    <Content Include="XSLT\Misc\MarkPrice_Test.xslt" />
+    <Content Include="XSLT\Misc\PM.xslt" />
+    <Content Include="XSLT\Abundance\PM_GS_Abundance_Cash.xslt" />
+    <Content Include="XSLT\Misc\PM_BAM_EquityTaxlot.xslt" />
+    <Content Include="XSLT\Misc\PM_BAM_OptionsTaxlot.xslt" />
+    <Content Include="XSLT\Concept Capital\PM_GS_ConceptCapital_Positions.xslt" />
+    <Content Include="XSLT\Misc\PM_GS_Cash_Winchester.xslt" />
+    <Content Include="XSLT\Concept Capital\PM_GS_ConceptCapital_Taxlots.xslt" />
+    <Content Include="XSLT\Concept Capital\PM_GS_ConceptCapital_Taxlots_HistoricalData.xslt" />
+    <Content Include="XSLT\LR\PM_LR_Cash_1.xslt" />
+    <Content Include="XSLT\LR\PM_LR_Cash_2.xslt" />
+    <Content Include="XSLT\LR\PM_LR_Cash_Position.xslt" />
+    <Content Include="XSLT\LR\PM_LR_Cash_PostedCash.xslt" />
+    <Content Include="XSLT\LR\PM_LR_TaxLot.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Barclays_Cash.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Barcap_Position.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Barcap_Taxlots_AlSafiMain.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_Cash.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_CashV2.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Bofa_CashV3.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Goldman_TradeBlotter.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_GS_CashV2.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_Goldman_TaxLot.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_GS_Cash.xslt" />
+    <Content Include="XSLT\Lucas\PM_Lucas_GS_Exposure_CashV3_2.xslt" />
+    <Content Include="XSLT\Misc\PM_MS_Cash.xslt" />
+    <Content Include="XSLT\Star Point\PM_MS_StarPoint_Cash.xslt" />
+    <Content Include="XSLT\Star Point\PM_MS_StarPoint_ForexPricet.xslt" />
+    <Content Include="XSLT\Star Point\PM_MS_StarPoint_MarkPrice.xslt" />
+    <Content Include="XSLT\Star Point\PM_MS_StarPoint_Positions.xslt" />
+    <Content Include="XSLT\Misc\PM_MS_Taxlot_N.xslt" />
+    <Content Include="XSLT\Misc\PM_MS_Taxlot.xslt" />
+    <Content Include="XSLT\Misc\ExportPositionsXSLTforTORA.xslt" />
+    <Content Include="XSLT\Misc\ImportTradesXSLTforTORA.xslt" />
+    <Content Include="XSLT\Misc\PM_MS.xslt" />
+    <Content Include="XSLT\TopWater\PM_Topwater_MarkPriceImport.xslt" />
+    <Content Include="XSLT\TopWater\PM_Topwater_PositionImport.xslt" />
+    <Content Include="XSLT\Trade Station\PM_Sungard_TradeStation_SubAccountCash.xslt" />
+    <Content Include="XSLT\Trade Station\PM_TradeStation_Mixit_Trade.xslt" />
+    <Content Include="XSLT\Trade Station\PM_TradeStation_SUNGARD_cash.xslt" />
+    <Content Include="XSLT\Trade Station\PM_Tradestation_Sungard_Markprice.xslt" />
+    <Content Include="XSLT\Trade Station\PM_TradeStation_Sungard_Trade.xslt" />
+    <Content Include="XSLT\TTT\PM_TTT_TransactionImport.xslt" />
+    <Content Include="XSLT\TW\PM_TW_CashImport.xslt" />
+    <None Include="Resources\LeftArrow3.JPG" />
+    <None Include="Resources\LeftArrow2.JPG" />
+    <None Include="Resources\RightArrow1.JPG" />
+    <None Include="Resources\UpArrow1.JPG" />
+    <None Include="Resources\DownArrow1.JPG" />
+    <None Include="Resources\LeftArrow1.JPG" />
+    <None Include="Resources\LeftArrow.JPG" />
+    <None Include="Resources\RightArrow.JPG" />
+    <None Include="Resources\UpArrow.JPG" />
+    <None Include="Resources\DownArrow.JPG" />
+    <None Include="Resources\HorizontalArrow.jpg" />
+    <None Include="Resources\ico_plus_minus.gif" />
+    <None Include="Resources\pixcel.png" />
+    <None Include="Resources\Gear.png" />
+    <None Include="Resources\GroupBy.gif" />
+    <None Include="Resources\chain_small.gif" />
+    <None Include="Resources\chain.gif" />
+    <None Include="Resources\chart_icon.gif" />
+    <None Include="Resources\stage.jpg" />
+    <None Include="Resources\trade.jpg" />
+    <None Include="Resources\Save.jpg" />
+    <None Include="PMXSD\ImportPositions.xsc">
+      <DependentUpon>ImportPositions.xsd</DependentUpon>
+    </None>
+    <None Include="PMXSD\ImportPositions.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ImportPositions.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="PMXSD\ImportPositions.xss">
+      <DependentUpon>ImportPositions.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.PM.Client.UI.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.PM.Client.UI.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(SolutionDir)Prana.PM\Prana.PM.Client.UI\Classes\PMDefaultPreferences.xml"  "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Prana Preferences\" /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,47 @@
+module customRules.resonate.preTrade.InvestmentOutsideTheCountry.InvestmentOutsideTheCountry;
+								     						  
+
+@Name('InvestmentOutsideTheCountryResonateWhatIfAggregator')
+@Description('Transaction will result in breach of this rule resulting in more than 50% investment outside the country')
+on BasketEOM as B
+insert into InvestmentOutsideTheCountryResonateWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	sum(case (W.udaCountry = COUNTRY_NAME_RESONATE or W.udaCountry = 'Undefined')
+		when true then 0.0
+		else W.notionalBase end) as notionalBase,
+	W.accountNav as accountNav,
+	W.udaCountry as udaCountry,
+	W.accountShortName as accountShortName,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId;
+
+
+@Name('InvestmentOutsideTheCountryResonate')
+@Description('Checks if limits are breached.')
+insert into InvestmentOutsideTheCountryResonate
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(INVESTMENT_LIMIT_RESONATE) || ValueSeparator || FUND_NAME_RESONATE || ValueSeparator || COUNTRY_NAME_RESONATE  as threshold,
+	doubleFormat(coalesce((A.notionalBase / A.accountNav)*100,0)) || ValueSeparator || A.accountShortName || ValueSeparator || COUNTRY_NAME_RESONATE as actualResult,
+	'Investment Limit' || ValueSeparator || 'Account' || ValueSeparator || 'Country' as constraintField,
+	(case A.udaCountry is not 'Undefined'
+	when true then
+	(((coalesce(A.notionalBase/ A.accountNav, 0)) > ((INVESTMENT_LIMIT_RESONATE)/100)) and valueExistsInCSV(A.accountShortName, FUND_NAME_RESONATE)) 
+	else false end)
+	as isViolated,
+	'Account: ' || A.accountShortName ||', Investment outside the country: ' || COUNTRY_NAME_RESONATE
+		|| ',Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ',  Notional: ' || doubleFormat(A.notionalBase)
+		|| ', % Investment: ' || doubleFormat(coalesce((A.notionalBase / A.accountNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Transaction will result in breach of this rule resulting in more than ' || doubleFormat(INVESTMENT_LIMIT_RESONATE) ||  '% investment outside the' || COUNTRY_NAME_RESONATE as summary,
+	A.accountShortName as dimension
+from
+InvestmentOutsideTheCountryResonateWhatIfAggregator as A
+where A.userId is not null;

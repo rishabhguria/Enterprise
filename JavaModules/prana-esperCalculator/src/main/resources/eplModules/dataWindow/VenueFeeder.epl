@@ -1,0 +1,30 @@
+module eplModules.dataWindow.VenueFeeder;
+
+@Name('VenueWindow')
+@Description('Named window which stores the data of venue.')
+create window VenueWindow.std:unique(venueId)
+(
+			venueId int,
+			venue string,
+			parentWindowStream string
+);
+
+@Name('VenueWindowInsert')
+@Description('This updates the VenueWindow every time new Venue event occurs.')
+on Venue as s
+merge VenueWindow sw where sw.venueId = s.venueId
+	when matched and
+			(
+				s.venue <> sw.venue
+			)
+		then 
+			update 
+				set  
+				sw.venue = s.venue,
+				sw.parentWindowStream = "Venue"
+	when not matched
+		then insert 
+			select    	
+		   	s.venueId as venueId,
+		   	s.venue as venue,
+		   	"Venue" as parentWindowStream;

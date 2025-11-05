@@ -1,0 +1,76 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:AutomationStartupClass="clr-namespace:Nirvana.TestAutomation.TestExecutor"
+        xmlns:beh="Nirvana.TestAutomation.TestExecutor.Behaviour"
+        xmlns:Class="Nirvana.TestAutomation.TestExecutor.AddTestIDViewModel"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+        xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+        xmlns:Theme="http://infragistics.com/Themes"
+        xmlns:Custom="http://infragistics.com/Editors"
+        xmlns:Custom1="http://infragistics.com/DataPresenter"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:bindingProxy="clr-namespace:Nirvana.TestAutomation.TestExecutor"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        Name="SelectTestCases"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Nirvana.TestAutomation.TestExecutor.TestIDWindow"
+    DataContext="{DynamicResource AddTestIDViewModel}"
+        Title="Window1" Height="100" Width="275">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <Theme:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <Theme:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="Themes/xamComboEditor.xaml"/>
+                    </Theme:ResourceWasher.SourceDictionary>
+                </Theme:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ControlTemplate x:Key="ButtonControlTemplate" TargetType="{x:Type Button}">
+                <Grid Background="#00000000" Height="Auto">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="MouseOver">
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="BtnBackground">
+                                        <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#FF315385" />
+                                        <EasingColorKeyFrame KeyTime="0:0:0.7" Value="#FF2E5A9B" />
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <Storyboard>
+                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="BtnBackground">
+                                        <EasingColorKeyFrame KeyTime="0" Value="#FF353D49" />
+                                    </ColorAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <Rectangle x:Name="BtnBackground" Fill="#FF3A4E6C" HorizontalAlignment="Stretch" Height="Auto" Margin="0" VerticalAlignment="Stretch" Width="Auto" RadiusY="4" StrokeThickness="1" RadiusX="4" Stroke="Black" />
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" OpacityMask="White" Margin="2" />
+                </Grid>
+            </ControlTemplate>
+            <AutomationStartupClass:AddTestIDViewModel x:Key="AddTestIDViewModel" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Path=FormClosingButton}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Label Content="Select Test IDS" FontFamily="Tahoma"/>
+        <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" HorizontalAlignment="Left" Width="140" Height="25"
+                           ItemsSource="{Binding TestCases, Mode=TwoWay}" EmptyText="-Select-" SelectedItems="{Binding Path=ItemsSelected, Mode=TwoWay}">            
+        </ig:XamComboEditor>
+        <Button Margin="150,10,5,10" Height="28" Content="Select" Foreground="#FFECE1E1" Template="{StaticResource ButtonControlTemplate}" RenderTransformOrigin="1.139,-1.346">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <command:EventToCommand Command="{Binding SelectID}" CommandParameter="{Binding ElementName=SelectTestCases}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+    </Grid>
+</Window>

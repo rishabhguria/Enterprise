@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="PortfolioBenchmark">
+      <ConnectionProperties>
+        <IntegratedSecurity>true</IntegratedSecurity>
+        <ConnectString>Data Source=192.168.1.19;Initial Catalog=PranaAnalysisServices</ConnectString>
+        <DataProvider>OLEDB-MD</DataProvider>
+      </ConnectionProperties>
+      <rd:DataSourceID>0557dd68-ee77-4385-afd3-742148996dcf</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
+  <ReportParameters>
+    <ReportParameter Name="FirstDimTime">
+      <DataType>DateTime</DataType>
+      <Prompt>FirstDimTime</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <ZIndex>1</ZIndex>
+        <Width>5in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontFamily>Tahoma</FontFamily>
+          <FontWeight>700</FontWeight>
+          <FontSize>20pt</FontSize>
+          <Color>SteelBlue</Color>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.36in</Height>
+        <Value>PortfolioIndexBenchmark</Value>
+      </Textbox>
+      <Table Name="table1">
+        <DataSetName>PortfolioBenchmark</DataSetName>
+        <Top>0.36in</Top>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="Index_Symbol">
+                      <rd:DefaultName>Index_Symbol</rd:DefaultName>
+                      <ZIndex>4</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=Fields!Index_Symbol.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="DailyReturn">
+                      <rd:DefaultName>DailyReturn</rd:DefaultName>
+                      <ZIndex>3</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(Fields!DailyReturn.Value=0,"N/A",Fields!DailyReturn.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="MonthlyReturn">
+                      <rd:DefaultName>MonthlyReturn</rd:DefaultName>
+                      <ZIndex>2</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(Fields!MonthlyReturn.Value=0,"N/A",Fields!MonthlyReturn.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="QuarterlyReturn">
+                      <rd:DefaultName>QuarterlyReturn</rd:DefaultName>
+                      <ZIndex>1</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(Fields!QuarterlyReturn.Value=0,"N/A",Fields!QuarterlyReturn.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox7">
+                      <rd:DefaultName>textbox7</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(Fields!YearlyReturn.Value=0,"N/A",Fields!YearlyReturn.Value)</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.21in</Height>
+            </TableRow>
+          </TableRows>
+        </Details>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <rd:DefaultName>textbox2</rd:DefaultName>
+                      <ZIndex>9</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontWeight>700</FontWeight>
+                        <FontSize>11pt</FontSize>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <Color>White</Color>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Index Symbol</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox3">
+                      <rd:DefaultName>textbox3</rd:DefaultName>
+                      <ZIndex>8</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontWeight>700</FontWeight>
+                        <FontSize>11pt</FontSize>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <Color>White</Color>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Daily Return</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox4">
+                      <rd:DefaultName>textbox4</rd:DefaultName>
+                      <ZIndex>7</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontWeight>700</FontWeight>
+                        <FontSize>11pt</FontSize>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <Color>White</Color>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Monthly Return </Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox5">
+                      <rd:DefaultName>textbox5</rd:DefaultName>
+                      <ZIndex>6</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontWeight>700</FontWeight>
+                        <FontSize>11pt</FontSize>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <Color>White</Color>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Quarterly Return </Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox6">
+                      <rd:DefaultName>textbox6</rd:DefaultName>
+                      <ZIndex>5</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontWeight>700</FontWeight>
+                        <FontSize>11pt</FontSize>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <Color>White</Color>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Yearly Return</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.22in</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>1in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>1.875in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.125in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2in</Width>
+          </TableColumn>
+        </TableColumns>
+      </Table>
+    </ReportItems>
+    <Height>0.79in</Height>
+  </Body>
+  <rd:ReportID>cef46316-9715-4cc3-9bc2-6d7324eaaff2</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="PortfolioBenchmark">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText> 
+With
+set [FirstDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Lag(10):strtomember(@FirstDimTime,                CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+set [PrevDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).PrevMember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).PrevMember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+set[MonthMarkDate] as 
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Parent.FirstChild.Prevmember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).Parent.FirstChild.Prevmember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+set[QuarterMarkDate] as 
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Parent.Parent.FirstChild.FirstChild.Prevmember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).Parent.Parent.FirstChild.FirstChild.Prevmember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+set[YearMarkDate] as 
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.Prevmember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.Prevmember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+
+member [DailyReturn] as
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (PrevDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(PrevDate.item(0),[Measures].[Last Value]))
+/(PrevDate.item(0),[Measures].[Last Value]),0)*100
+)
+member [MonthlyReturn] as
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (MonthMarkDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(MonthMarkDate.item(0),[Measures].[Last Value]))/(MonthMarkDate.item(0),[Measures].[Last Value])*100
+,0)
+)
+member [QuarterlyReturn] as 
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (QuarterMarkDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(QuarterMarkDate.item(0),[Measures].[Last Value]))/(QuarterMarkDate.item(0),[Measures].[Last Value]),0)*100
+)
+member [YearlyReturn] as 
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (YearMarkDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(YearMarkDate.item(0),[Measures].[Last Value]))/(YearMarkDate.item(0),[Measures].[Last Value]),0)*100
+)
+
+
+
+SELECT NON EMPTY { [Measures].[DailyReturn],[Measures].[MonthlyReturn],[Measures].[QuarterlyReturn],[Measures].[YearlyReturn] } ON COLUMNS ,
+{[Fact Index Benchmark].[Index Symbol].children} ON Rows
+FROM [Nirvana Client DW] CELL PROPERTIES VALUE</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="FirstDimTime">
+            <Value>"[Dim Time].[Calender].[Year].&amp;[" &amp; Year(Parameters!FirstDimTime.Value) &amp; "].&amp;[" &amp; CInt(Format(Month(Parameters!FirstDimTime.Value), "00")/3) &amp; "].&amp;[" &amp; Format(Month(Parameters!FirstDimTime.Value), "00") &amp; "].[" &amp; Year(Parameters!FirstDimTime.Value) &amp; "-" &amp; Format(Month(Parameters!FirstDimTime.Value), "00") &amp; "-" &amp; Format(Day(Parameters!FirstDimTime.Value),"00") &amp; " 00:00:00]"</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <DataSourceName>PortfolioBenchmark</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>Fact Index Benchmark</DimensionName><HierarchyName>Index Symbol</HierarchyName><HierarchyUniqueName>[Fact Index Benchmark].[Index Symbol]</HierarchyUniqueName><LevelName>Index Symbol</LevelName><UniqueName>[Fact Index Benchmark].[Index Symbol].[Index Symbol]</UniqueName></ID><ItemCaption>Index Symbol</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>DailyReturn</MeasureName><UniqueName>[Measures].[DailyReturn]</UniqueName></ID><ItemCaption>DailyReturn</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>MonthlyReturn</MeasureName><UniqueName>[Measures].[MonthlyReturn]</UniqueName></ID><ItemCaption>MonthlyReturn</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>QuarterlyReturn</MeasureName><UniqueName>[Measures].[QuarterlyReturn]</UniqueName></ID><ItemCaption>QuarterlyReturn</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>YearlyReturn</MeasureName><UniqueName>[Measures].[YearlyReturn]</UniqueName></ID><ItemCaption>YearlyReturn</ItemCaption></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement> 
+With
+set [FirstDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Lag(10):strtomember(@FirstDimTime,                CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+set [PrevDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).PrevMember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).PrevMember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+set[MonthMarkDate] as 
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Parent.FirstChild.Prevmember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).Parent.FirstChild.Prevmember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+set[QuarterMarkDate] as 
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Parent.Parent.FirstChild.FirstChild.Prevmember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).Parent.Parent.FirstChild.FirstChild.Prevmember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+set[YearMarkDate] as 
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime, CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.Prevmember.Lag(10):
+strtomember(@FirstDimTime,CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.Prevmember
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+)
+)
+
+member [DailyReturn] as
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (PrevDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(PrevDate.item(0),[Measures].[Last Value]))
+/(PrevDate.item(0),[Measures].[Last Value]),0)*100
+)
+member [MonthlyReturn] as
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (MonthMarkDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(MonthMarkDate.item(0),[Measures].[Last Value]))/(MonthMarkDate.item(0),[Measures].[Last Value])*100
+,0)
+)
+member [QuarterlyReturn] as 
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (QuarterMarkDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(QuarterMarkDate.item(0),[Measures].[Last Value]))/(QuarterMarkDate.item(0),[Measures].[Last Value]),0)*100
+)
+member [YearlyReturn] as 
+(
+IIF((FirstDate.item(0),[Measures].[Last Value])&gt;0 and (YearMarkDate.item(0),[Measures].[Last Value])&gt;0,
+((FirstDate.item(0),[Measures].[Last Value])-(YearMarkDate.item(0),[Measures].[Last Value]))/(YearMarkDate.item(0),[Measures].[Last Value]),0)*100
+)
+
+
+
+SELECT NON EMPTY { [Measures].[DailyReturn],[Measures].[MonthlyReturn],[Measures].[QuarterlyReturn],[Measures].[YearlyReturn] } ON COLUMNS ,
+{[Fact Index Benchmark].[Index Symbol].children} ON Rows
+FROM [Nirvana Client DW] CELL PROPERTIES VALUE</Statement><ParameterDefinitions><ParameterDefinition><Name>FirstDimTime</Name><DefaultValues><DefaultValue>[Dim Time].[Calender].[Year].&amp;[2009].&amp;[2].&amp;[5].&amp;[3430]</DefaultValue></DefaultValues><Caption>FirstDimTime</Caption><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery></ParameterDefinition></ParameterDefinitions></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="Index_Symbol">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Fact Index Benchmark].[Index Symbol].[Index Symbol]" /&gt;</DataField>
+        </Field>
+        <Field Name="DailyReturn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[DailyReturn]" /&gt;</DataField>
+        </Field>
+        <Field Name="MonthlyReturn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[MonthlyReturn]" /&gt;</DataField>
+        </Field>
+        <Field Name="QuarterlyReturn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[QuarterlyReturn]" /&gt;</DataField>
+        </Field>
+        <Field Name="YearlyReturn">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[YearlyReturn]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FirstDimTime">
+      <Query>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>PortfolioBenchmark</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FirstDimTime1">
+      <Query>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>PortfolioBenchmark</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FirstDimTime2">
+      <Query>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>PortfolioBenchmark</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="ParameterValue">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>9in</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0EC40C3-11D8-4F1C-B6A7-7FC8674274EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.LogManager.EnterpriseLibrary</RootNamespace>
+    <AssemblyName>Prana.LogManager.EnterpriseLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51206.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
+    <Reference Include="System.Security.Cryptography.Algorithms" />
+    <Reference Include="System.Security.Cryptography.Encoding" />
+    <Reference Include="System.Security.Cryptography.Primitives" />
+    <Reference Include="System.Security.Cryptography.X509Certificates" />
+    <Reference Include="System.ValueTuple" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EnterpriseLibraryLogging.cs" />
+    <Compile Include="MessageReportingExceptionHandler.cs" />
+    <Compile Include="PopupMessageExceptionHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Dlls\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="Dlls\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll" />
+    <Content Include="Dlls\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll" />
+    <Content Include="Dlls\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+    <Content Include="Dlls\Microsoft.Practices.ObjectBuilder.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+		xcopy "$(ProjectDir)Dlls\*.dll" "$(TargetDir)" /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2Host\$(OutDir)" /E /I /F /Y
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2UI\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceHost\$(OutDir)" /E /I /F /Y
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceUI\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.ExpnlServiceHost\$(OutDir)" /E /I /F /Y
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.ExpnlServiceUI\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.TradingServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.SecurityValidationServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.LiveFeedServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.CalculationServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.CommonDataServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.WatchlistDataServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.BlotterDataServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.AllocationServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)ApplicationAdmin\PranaSuperAdmin\Prana.Admin\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Application\Prana.MonitoringServices\PranaMonitoringMainForm\PranaMonitoringMainForm\$(OutDir)" /E /I /F /Y
+
+        xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.AuthServiceHost\$(OutDir)" /E /I /F /Y
+
+		xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.ComplianceAlertsServiceHost\$(OutDir)" /E /I /F /Y
+
+                                xcopy "$(TargetDir)*.*" "$(SolutionDir)Prana.GreenFieldServices\Prana.LayoutServiceHost\$(OutDir)" /E /I /F /Y
+	</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

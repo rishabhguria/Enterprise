@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Prana.Allocation.Client.Controls.Allocation.Views.ShowCustomTemplateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ig="http://schemas.infragistics.com/xaml"
+             xmlns:Themes="http://infragistics.com/Themes"
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Allocation.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="520" Width="650" Height="538"
+             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             md:DialogServiceViews.IsRegistered="True" 
+             DataContext="{DynamicResource ShowCustomTemplateViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/NirvanaSkin.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:ShowCustomTemplateViewModel x:Key="ShowCustomTemplateViewModel"/>
+            <Style x:Key="ButtonStyleAdd" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <GroupBox BorderBrush="Black" Grid.Row="0" Grid.Column="0" BorderThickness="2" Width="640" Height="530" HorizontalAlignment="Left" Margin="0,0,0,0">
+        <GroupBox.Header>
+            <Span FontWeight="Bold" FontSize="14">Custom Field Tags</Span>
+        </GroupBox.Header>
+        <Grid   VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="#FFE7E8E9">
+            <Grid.RowDefinitions>
+                <!--<RowDefinition Height="30"/>-->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--<Label Content="Custom Field Tags"  Grid.Column="0" Grid.Row="0" FontWeight="Bold" FontSize="14" VerticalAlignment="Stretch"  Foreground="White" Background="Gray" HorizontalAlignment="Stretch"  />-->
+            <Grid Grid.Column="0" Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Background="#FFE7E8E9">
+                    <ListView x:Name="MyListView"  Foreground="#FFE7E8E9"  ForceCursor="False" ItemsSource="{Binding Path=CustomFields,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="495" Width="400" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="#FFE7E8E9" BorderBrush="#FFE7E8E9">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Margin" Value="2"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="#FFE7E8E9"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical" Background="#FFE7E8E9">
+                                    <WrapPanel Background="#FFE7E8E9">
+                                        <Grid Background="#FFE7E8E9">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="190"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label    Grid.Column="0" Content="{Binding Name}" Width="200"/>
+                                            <TextBox  Grid.Column="1" Text="{Binding DefaultValue}" Width="150"  Visibility="{Binding IsVisibleBool}"/>
+                                            <TextBox  Grid.Column="1" Text="{Binding DefaultValue}" Width="150"  Visibility="{Binding IsVisibleInt}" />
+                                            <TextBox  Grid.Column="1" Text="{Binding DefaultValue}" Width="150" Visibility="{Binding IsVisibleText}" />
+                                            <DatePicker Grid.Column="1" Text="{Binding DefaultValue}"   Width="150" Visibility="{Binding IsVisibleDateTime}"  Background="White" />
+                                            <!--<igWPF:XamDateTimeEditor Grid.Column="1" Width="150" Validation.ErrorTemplate="{x:Null}" AutoFillDate="MonthAndYear" Visibility="{Binding IsVisibleDateTime}" Text="{Binding Path=DefaultValue,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>-->
+                                            <Label Grid.Column="0" Visibility="Collapsed" Content="{Binding DataType}" />
+                                        </Grid>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <!--<StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <Button Content="Add Additional Fields"  Margin="10" Name="btnAddAdditionalFields" Style="{StaticResource ButtonStyleAdd}" HorizontalAlignment="Center" Command="{Binding btnAddAdditionalFieldsCommand}"  VerticalAlignment="Center" Height="45" Width="140" />
+                </StackPanel>-->
+            </Grid>
+        </Grid>
+    </GroupBox>
+</UserControl>

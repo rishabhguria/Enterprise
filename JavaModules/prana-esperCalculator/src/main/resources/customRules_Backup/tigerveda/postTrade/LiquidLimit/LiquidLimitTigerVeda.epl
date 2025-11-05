@@ -1,0 +1,38 @@
+module customRules.tigerveda.preTrade.LiquidLimit.LiquidLimitTigerVeda;
+
+@Name('LiquidLimitTigerVedaWhatIfAggregatorPostTrade')
+@Description('Transaction results in investment in IlLiquid Securities to fall above the 90% threshold')
+on pattern[every R=MasterFundUnderlyingSymbolUpdated]
+insert into LiquidLimitTigerVedaWhatIfAggregatorPostTrade
+select distinct
+	sum(case W.liquidTag='Yes'
+			when true then W.grossExposureUnderlying
+			else 0.0
+		end) as grossExposureUnderlying,
+	W.masterFundNav as masterFundNav,
+	W.masterFundName as masterFundName,
+	"MasterFundUnderlyingSymbolWithNav" as parentWindowStream
+from MasterFundUnderlyingSymbolWithNav as W  
+group by W.masterFundId;
+
+
+@Name('LiquidLimitTigerVedaPostTrade')
+@Description('')
+insert into LiquidLimitTigerVedaPostTrade
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Liquid_Securities_Percentage_PT) || ValueSeparator || Fund_Name1_PT  as threshold,
+	doubleFormat(coalesce((A.grossExposureUnderlying / A.masterFundNav)*100,0)) || ValueSeparator || A.masterFundName as actualResult,
+	'Liquid Securities Percentage' || ValueSeparator || 'MasterFund' as constraintField,
+	(((coalesce(A.grossExposureUnderlying/ A.masterFundNav, 0)) < ((Liquid_Securities_Percentage_PT)/100)) and valueExistsInCSV(A.masterFundName, Fund_Name1_PT)) as isViolated,
+	'Master Fund: ' || A.masterFundName
+		|| ',Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0))
+		|| ',  Gross Exposure of Liquid assets: ' || doubleFormat(A.grossExposureUnderlying)
+		|| ', % Gross Exposure of Liquid Assets: ' || doubleFormat(coalesce((A.grossExposureUnderlying / A.masterFundNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Transaction results in investment in Liquid Securities to fall below the ' || doubleFormat(Liquid_Securities_Percentage_PT) ||  '% threshold' as summary,
+	A.masterFundName as dimension,
+	"LiquidLimitTigerVedaWhatIfAggregatorPostTrade" as parentWindowStream
+from
+LiquidLimitTigerVedaWhatIfAggregatorPostTrade as A;

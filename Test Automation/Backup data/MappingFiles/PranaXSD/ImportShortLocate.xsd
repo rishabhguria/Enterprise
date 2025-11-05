@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PositionMaster">
+          <xs:complexType>
+            <xs:all>
+	<xs:element name="Ticker" type="xs:string" minOccurs="0" />
+	<xs:element name="StatusSource" type="xs:string" minOccurs="0" />
+	<xs:element name="TradeQuantity" type="xs:string" minOccurs="0"/>
+	<xs:element name="BorrowSharesAvailable" type="xs:string" minOccurs="0"/>
+	<xs:element name="BorrowRate" type="xs:string" minOccurs="0"/>
+	<xs:element name="BorrowerId" type="xs:string" minOccurs="0"/>
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

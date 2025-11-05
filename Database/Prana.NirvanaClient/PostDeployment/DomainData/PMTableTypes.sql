@@ -1,0 +1,29 @@
+﻿--SET IDENTITY_INSERT PM_TableTypes ON;
+--
+--
+--EXEC sp_msforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT ALL";
+--delete from PM_TableTypes
+--
+--
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(1,'Transaction','Transaction');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(2,'Net Position','NetPosition');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(3,'Cash','Cash');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(4,'Mark Price','MarkPrice');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(5,'Forex Price','ForexPrice');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(8,'Option Model Inputs','OMI');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(9,'SMInsert','SecMasterInsert');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(10,'SMUpdate','SecMasterUpdate');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(11,'Allocation Scheme','AllocationScheme');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(12,'Allocation Scheme AppPositions','AllocationScheme_AppPositions');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(13,'Activities','Activities');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(14,'Staged Order','StagedOrder');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(15,'Generic Import','GenericImport');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(16,'Credit Limit','CreditLimit');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(18,'DailyBeta','DailyBeta');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(19,'Double Entry Cash','DoubleEntry');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(20,'Daily Volatility','DailyVolatility');
+--Insert Into PM_TableTypes(TableTypeID, TableTypeName, Acronym) Values(21,'Daily Dividend Yield','DialyDividendYield');
+--INSERT INTO PM_TableTypes(TableTypeID, TableTypeName, Acronym) VALUES(22,'Interest Rate BenchMark','InterestRateBenchMark')
+--
+--EXEC sp_msforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL";
+--SET IDENTITY_INSERT PM_TableTypes OFF;

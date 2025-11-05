@@ -1,0 +1,49 @@
+﻿<Window x:Class="Prana.Installer.DatabasePublisher"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Update Database" ResizeMode="NoResize"
+        Height="360" Width="700" Background="Transparent" AllowsTransparency="True"
+        WindowStyle="None" Loaded="Window_Loaded" WindowStartupLocation="CenterOwner">
+    <Border CornerRadius="10" Background="#212c39" BorderThickness="5" BorderBrush="DimGray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="White" Text="Prana Installer - Only Update Database" FontSize="18" Margin="5,5,0,0" FontWeight="ExtraBold" Grid.ColumnSpan="2" />
+
+            <Label Content="Database Server:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Foreground="White" Margin="20,0,0,0"/>
+            <TextBox Margin="5,5,50,5" Grid.Row="1" Grid.Column="1" Name="serverIp" />
+
+            <Label Content="Client Database:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Foreground="White" Margin="20,0,0,0"/>
+            <TextBox Margin="5,5,50,5" Grid.Row="2" Grid.Column="1" Name="clientDBName" />
+
+            <Label Content="SM Database:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Foreground="White" Margin="20,0,0,0" />
+            <TextBox Margin="5,5,50,5" Grid.Row="3" Grid.Column="1" Name="smDBName" />
+
+            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="Publish" Width="75" Margin="5" Name="Publish" Click="Publish_Click"/>
+            </StackPanel>
+
+            <Label Content="Backup Folder:" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" Foreground="White" Margin="20,0,0,0" />
+            <TextBox Margin="5,5,150,5" TextWrapping="Wrap" Text="" Name="backupFolder" Grid.Row="7" Grid.Column="1" Height="23" LostFocus="backupFolder_LostFocus" />
+            <Button Content="Browse" Margin="425,5,50,5" x:Name="Browse" Click="Browse_Click" IsDefault="true" Height="24" Grid.Row="7" Grid.Column="1"  />
+            <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="BackUp" Width="75" Margin="5" Name="BackUp" Click="BackUp_Click" />
+                <Button Content="Cancel" Width="75" Margin="5" IsCancel="True"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

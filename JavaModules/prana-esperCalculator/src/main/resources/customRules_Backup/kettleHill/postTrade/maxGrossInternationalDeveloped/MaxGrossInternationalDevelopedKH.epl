@@ -1,0 +1,34 @@
+module customRules.kettleHill.postTrade.maxGrossInternationalDeveloped.maxGrossInternationalDevelopedKH;
+
+@Name('AggregationGrossExposureMFCountryKHPostTrade')
+@Description('Contains current Exposure for master-fund country compression')
+on pattern[every R = DivisorEndMessage]
+insert into AggregationGrossExposureMFCountryKHPostTrade
+select distinct
+    sum(coalesce(T.grossExposureBase, 0)) as grossExposureBase,
+	T.udaCountry as country,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav,
+	"MasterFundSymbolWithNav" as parentWindowStream
+from
+MasterFundSymbolWithNav as T
+group by T.masterFundId,T.udaCountry;
+
+
+@Name('MFCountryConcentrationKHPostTrade')
+@Description('Checks if limit is breached')
+insert into MFCountryConcentrationKHPostTrade
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Percentage_GrossExposure_KH7_PT) || ValueSeparator || MasterFund_Name_KH7_PT || ValueSeparator || Country_KH7_PT as threshold,
+	doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ValueSeparator || A.masterFundName || ValueSeparator || A.country as actualResult,
+	'% Gross Exposure' || ValueSeparator || 'MasterFund' || ValueSeparator || 'Country' as constraintField,
+	coalesce(A.grossExposureBase / A.masterFundNav, 0) > ((Percentage_GrossExposure_KH7_PT)/100) and valueExistsInCSV(A.masterFundName, MasterFund_Name_KH7_PT) and valueExistsInCSV(A.country, Country_KH7_PT) as isViolated,
+	'Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0)) || ', Gross Exposure: '||doubleFormat(A.grossExposureBase) || ', Master Fund: '||A.masterFundName || ', Country: '||A.country || ', Country Concentration: '||doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The Master-Fund Country concentration is above 10%' as summary,
+	A.masterFundName || '-' || A.country as dimension,
+	"AggregationGrossExposureMFCountryKHPostTrade" as parentWindowStream
+	
+from AggregationGrossExposureMFCountryKHPostTrade as A;

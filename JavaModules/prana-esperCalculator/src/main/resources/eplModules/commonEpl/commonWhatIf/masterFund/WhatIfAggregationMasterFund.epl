@@ -1,0 +1,123 @@
+module eplModules.whatIfAggregation.masterFund.WhatIfAggregationMasterFund;
+
+uses eplModules.whatIfAggregation.masterFund.WhatIfMasterFundWindowWithNav;
+
+@Priority(10)
+@Name('WhatIfMasterFund')
+@Description('Insert data into WhatIfAggregationMasterFund from WhatIfMasterFundWithNav whenever BasketEOM is received.')
+on BasketEOM as E
+insert into WhatIfAggregationMasterFund
+ select distinct
+	
+	T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,
+	E.userId as userId,
+	T.masterFundId as masterFundId,
+	T.masterFundName as masterFundName,
+	
+	T.taxlotType as taxlotType,
+	T.compressionLevel as compressionLevel,
+
+	T.equityHaircutBase as equityHaircutBase,
+	T.indexHaircutBase as indexHaircutBase,	
+	T.liquidationPnlBase as liquidationPnlBase,
+	
+	T.notionalBase as notionalBase,
+	T.cashImpactBase as cashImpactBase,
+	T.cashInflowBase as cashInflowBase,
+	T.cashOutflowBase as cashOutflowBase,
+	T.netMarketValueBase as netMarketValueBase,
+
+        T.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	T.costBasisPnLBase as costBasisPnLBase,
+	T.dayPnLBase as dayPnLBase,
+	T.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	T.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	T.dayInterestBase as dayInterestBase,
+	T.totalInterestBase as totalInterestBase,	
+	
+	T.longNotionalBase as longNotionalBase,
+	T.shortNotionalBase as shortNotionalBase,
+	T.shortMarketValueBase as shortMarketValueBase,
+	T.longMarketValueBase as longMarketValueBase,
+	T.shortExposureBase as shortExposureBase,
+	T.longExposureBase as longExposureBase,
+
+	T.grossExposureUnderlying as grossExposureUnderlying,	
+	
+        T.shortExposureUnderlying as shortExposureUnderlying,
+        T.longExposureUnderlying as longExposureUnderlying,
+	
+	T.globalNav as globalNav,
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	T.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	T.netExposureBaseGlobal as netExposureBaseGlobal,
+		
+	T.masterFundNav as masterFundNav,
+	T.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	T.grossMarketValueBase as grossMarketValueBase,
+	T.grossExposureBase as grossExposureBase,
+	T.netExposureBase as netExposureBase,
+	T.currentCash as currentCash,
+	T.accrual as accrual,	
+	
+	T.pnlContributionMasterFund as pnlContributionMasterFund,
+	T.percentLongExposureMasterFund as percentLongExposureMasterFund,
+	T.percentShortExposureMasterFund as percentShortExposureMasterFund,
+	T.percentNetExposureMasterFund as percentNetExposureMasterFund,
+	T.percentBetaAdjustedExposureMasterFund as percentBetaAdjustedExposureMasterFund,
+	T.percentGrossExposureMasterFund as percentGrossExposureMasterFund,
+	T.percentLongMarketValueMasterFund as percentLongMarketValueMasterFund,
+	T.percentShortMarketValueMasterFund as percentShortMarketValueMasterFund,
+	T.percentNetMarketValueMasterFund as percentNetMarketValueMasterFund,
+	T.percentGrossMarketValueMasterFund as percentGrossMarketValueMasterFund,
+	T.percentLongNotionalMasterFund as percentLongNotionalMasterFund,
+	T.percentShortNotionalMasterFund as percentShortNotionalMasterFund,
+	T.percentNetNotionalMasterFund as percentNetNotionalMasterFund,
+	T.percentCostBasisPnlMasterFund as percentCostBasisPnlMasterFund,
+	T.percentGrossExposureUnderlyingMasterFund as percentGrossExposureUnderlyingMasterFund,
+	T.dayReturnMasterFund as dayReturnMasterFund,
+	
+	T.pnlContributionGlobal as pnlContributionGlobal,
+	T.percentLongExposureGlobal as percentLongExposureGlobal,
+	T.percentShortExposureGlobal as percentShortExposureGlobal,
+	T.percentNetExposureGlobal as percentNetExposureGlobal,
+	T.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	T.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	T.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	T.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	T.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	T.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	T.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	T.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	T.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	T.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	T.percentGrossExposureUnderlyingGlobal as percentGrossExposureUnderlyingGlobal,
+	T.dayReturnGlobal as dayReturnGlobal,
+	
+	T.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	T.todayLongTradeQuantity as todayLongTradeQuantity,
+	T.todayShortTradeQuantity as todayShortTradeQuantity,
+	T.todayNetNotionalBase as todayNetNotionalBase,
+	T.todayLongNotionalBase as todayLongNotionalBase,
+	T.todayShortNotionalBase as todayShortNotionalBase,
+	
+	T.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	T.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	T.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	T.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	T.percentBetaAdjustedLongExposureUnderlyingBaseGlobal as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	T.percentBetaAdjustedShortExposureUnderlyingBaseGlobal as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	
+	T.percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	T.percentBetaAdjustedLongExposureUnderlyingBaseMasterFund as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	T.percentBetaAdjustedShortExposureUnderlyingBaseMasterFund as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	"WhatIfMasterFundWithNav,BasketEOM" as parentWindowStream
+	
+from WhatIfMasterFundWithNav as T where T.basketId = E.basketId and
+T.masterFundId in (select distinct R.masterFundId from RowCalculationBaseWindow as R where R.basketId = E.basketId)
+and IsMasterFundCompressionEnabled = true;

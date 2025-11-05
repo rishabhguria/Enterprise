@@ -1,0 +1,176 @@
+module eplModules.whatIfAggregation.global.WhatIfGlobalMerge;
+
+uses eplModules.whatIfAggregation.global.WhatIfGlobalWindowWithNav;
+uses eplModules.whatIfAggregation.global.WhatIfGlobalAggregator;
+
+@Priority(10)
+@Name('WhatIfAggregationGlobalMerge')
+@Description('Update WhatIfGlobalWithNav whenever WhatIfAggregationGlobalIntermediate is updated.')
+on WhatIfAggregationGlobalIntermediate as T
+merge WhatIfGlobalWithNav sw where sw.basketId=T.basketId
+when not matched
+	then insert select 
+	
+	T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	
+	T.taxlotType as taxlotType,
+	T.compressionLevel as compressionLevel,
+
+	T.equityHaircutBase as equityHaircutBase,
+	T.indexHaircutBase as indexHaircutBase,	
+	T.liquidationPnlBase as liquidationPnlBase,
+	
+	T.notionalBase as notionalBase,
+	T.cashImpactBase as cashImpactBase,
+	T.cashInflowBase as cashInflowBase,
+	T.cashOutflowBase as cashOutflowBase,
+	T.netMarketValueBase as netMarketValueBase,
+
+        T.yesterdayMarketValueBase as yesterdayMarketValueBase,
+	T.costBasisPnLBase as costBasisPnLBase,
+	T.dayPnLBase as dayPnLBase,
+	T.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	T.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	T.dayInterestBase as dayInterestBase,
+	T.totalInterestBase as totalInterestBase,	
+	
+	T.longNotionalBase as longNotionalBase,
+	T.shortNotionalBase as shortNotionalBase,
+	T.shortMarketValueBase as shortMarketValueBase,
+	T.longMarketValueBase as longMarketValueBase,
+	T.shortExposureBase as shortExposureBase,
+	T.longExposureBase as longExposureBase,
+
+	T.grossExposureUnderlying as grossExposureUnderlying,	
+	
+        T.shortExposureUnderlying as shortExposureUnderlying,
+        T.longExposureUnderlying as longExposureUnderlying,
+	
+	T.globalNav as globalNav,
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBase as grossMarketValueBase,
+	T.grossExposureBase as grossExposureBase,
+	T.netExposureBase as netExposureBase,
+	T.currentCash as currentCash,
+	T.accrual as accrual,
+	
+	T.pnlContributionGlobal as pnlContributionGlobal,
+	T.percentLongExposureGlobal as percentLongExposureGlobal,
+	T.percentShortExposureGlobal as percentShortExposureGlobal,
+	T.percentNetExposureGlobal as percentNetExposureGlobal,
+	T.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,
+	T.percentGrossExposureGlobal as percentGrossExposureGlobal,
+	T.percentLongMarketValueGlobal as percentLongMarketValueGlobal,
+	T.percentShortMarketValueGlobal as percentShortMarketValueGlobal,
+	T.percentNetMarketValueGlobal as percentNetMarketValueGlobal,
+	T.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	T.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	T.percentShortNotionalGlobal as percentShortNotionalGlobal,
+	T.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	T.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	T.percentGrossExposureUnderlyingGlobal as percentGrossExposureUnderlyingGlobal,
+	T.dayReturnGlobal as dayReturnGlobal,
+	
+	T.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	T.todayLongTradeQuantity as todayLongTradeQuantity,
+	T.todayShortTradeQuantity as todayShortTradeQuantity,
+	T.todayNetNotionalBase as todayNetNotionalBase,
+	T.todayLongNotionalBase as todayLongNotionalBase,
+	T.todayShortNotionalBase as todayShortNotionalBase,
+	
+	T.betaAdjustedGrossExposureUnderlyingBase as betaAdjustedGrossExposureUnderlyingBase,
+	T.betaAdjustedLongExposureUnderlyingBase as betaAdjustedLongExposureUnderlyingBase,
+	T.betaAdjustedShortExposureUnderlyingBase as betaAdjustedShortExposureUnderlyingBase,
+	
+	T.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	T.percentBetaAdjustedLongExposureUnderlyingBaseGlobal as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	T.percentBetaAdjustedShortExposureUnderlyingBaseGlobal as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	"WhatIfAggregationGlobalIntermediate" as parentWindowStream
+
+		
+when matched 
+then update set
+
+	sw.basketId = T.basketId,
+	sw.isEomSent = T.isEomSent,
+	sw.taxlotId = T.taxlotId,
+	sw.userId = T.userId,
+	
+	sw.taxlotType = T.taxlotType,
+	sw.compressionLevel = T.compressionLevel,
+
+	sw.equityHaircutBase = T.equityHaircutBase,
+	sw.indexHaircutBase = T.indexHaircutBase,	
+	sw.liquidationPnlBase = T.liquidationPnlBase,
+	
+	sw.notionalBase = T.notionalBase,
+	sw.cashImpactBase = T.cashImpactBase,
+	sw.cashInflowBase = T.cashInflowBase,
+	sw.cashOutflowBase = T.cashOutflowBase,
+	sw.netMarketValueBase = T.netMarketValueBase,
+
+        sw.yesterdayMarketValueBase = T.yesterdayMarketValueBase,
+	sw.costBasisPnLBase = T.costBasisPnLBase,
+	sw.dayPnLBase = T.dayPnLBase,
+	sw.betaAdjustedExposureBase = T.betaAdjustedExposureBase,
+	sw.underlyingValueForOptionsBase = T.underlyingValueForOptionsBase,
+	
+	sw.dayInterestBase = T.dayInterestBase,
+	sw.totalInterestBase = T.totalInterestBase,	
+	
+	sw.longNotionalBase = T.longNotionalBase,
+	sw.shortNotionalBase = T.shortNotionalBase,
+	sw.shortMarketValueBase = T.shortMarketValueBase,
+	sw.longMarketValueBase = T.longMarketValueBase,
+	sw.shortExposureBase = T.shortExposureBase,
+	sw.longExposureBase = T.longExposureBase,
+
+	sw.grossExposureUnderlying = T.grossExposureUnderlying,	
+	
+        sw.shortExposureUnderlying = T.shortExposureUnderlying,
+        sw.longExposureUnderlying = T.longExposureUnderlying,
+	
+	sw.globalNav = T.globalNav,
+	sw.startOfDayNavGlobal = T.startOfDayNavGlobal,
+	sw.grossMarketValueBase = T.grossMarketValueBase,
+	sw.grossExposureBase = T.grossExposureBase,
+	sw.netExposureBase = T.netExposureBase,		
+	sw.currentCash = T.currentCash,
+	sw.accrual = T.accrual,
+	
+	sw.pnlContributionGlobal = T.pnlContributionGlobal,
+	sw.percentLongExposureGlobal = T.percentLongExposureGlobal,
+	sw.percentShortExposureGlobal = T.percentShortExposureGlobal,
+	sw.percentNetExposureGlobal = T.percentNetExposureGlobal,
+	sw.percentBetaAdjustedExposureGlobal = T.percentBetaAdjustedExposureGlobal,
+	sw.percentGrossExposureGlobal = T.percentGrossExposureGlobal,
+	sw.percentLongMarketValueGlobal = T.percentLongMarketValueGlobal,
+	sw.percentShortMarketValueGlobal = T.percentShortMarketValueGlobal,
+	sw.percentNetMarketValueGlobal = T.percentNetMarketValueGlobal,
+	sw.percentGrossMarketValueGlobal = T.percentGrossMarketValueGlobal,
+	sw.percentLongNotionalGlobal = T.percentLongNotionalGlobal,
+	sw.percentShortNotionalGlobal = T.percentShortNotionalGlobal,
+	sw.percentNetNotionalGlobal = T.percentNetNotionalGlobal,
+	sw.percentCostBasisPnlGlobal = T.percentCostBasisPnlGlobal,
+	sw.percentGrossExposureUnderlyingGlobal = T.percentGrossExposureUnderlyingGlobal,
+	sw.dayReturnGlobal = T.dayReturnGlobal,
+	
+	sw.todayAbsTradeQuantity = T.todayAbsTradeQuantity,
+	sw.todayLongTradeQuantity = T.todayLongTradeQuantity,
+	sw.todayShortTradeQuantity = T.todayShortTradeQuantity,
+	sw.todayNetNotionalBase = T.todayNetNotionalBase,
+	sw.todayLongNotionalBase = T.todayLongNotionalBase,
+	sw.todayShortNotionalBase = T.todayShortNotionalBase,
+	
+	sw.betaAdjustedGrossExposureUnderlyingBase = T.betaAdjustedGrossExposureUnderlyingBase,
+	sw.betaAdjustedLongExposureUnderlyingBase = T.betaAdjustedLongExposureUnderlyingBase,
+	sw.betaAdjustedShortExposureUnderlyingBase = T.betaAdjustedShortExposureUnderlyingBase,
+	
+	sw.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal = T.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	sw.percentBetaAdjustedLongExposureUnderlyingBaseGlobal = T.percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	sw.percentBetaAdjustedShortExposureUnderlyingBaseGlobal = T.percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	sw.parentWindowStream = "WhatIfAggregationGlobalIntermediate"

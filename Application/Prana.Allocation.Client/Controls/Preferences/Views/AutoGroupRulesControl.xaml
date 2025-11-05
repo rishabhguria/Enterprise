@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Prana.Allocation.Client.Controls.Preferences.Views.AutoGroupRulesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Preferences.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:themes="http://infragistics.com/Themes"
+             mc:Ignorable="d" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:AutoGroupRulesControlViewModel x:Key="AutoGroupRulesControlViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer x:Name="GroupingPreferenceScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="5,5,5,5" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Name="chkboxAutoGroup" Margin="5,5,5,5" Grid.Row="0" Grid.Column="0" IsChecked="True" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Name="lblDefaultAutoGroup" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" Content="Auto AllocationGroup Orders with Same Side, Same Symbol And Same Settlement Currency" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            </Grid>
+        	<Grid Grid.Row="1" Margin="5,5,5,5" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Name="chkboxBroker" Margin="5,5,5,5" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsBrokerChecked}"/>
+                <Label Name="lblBroker" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" Content="Broker" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeDate" Margin="5,5,5,5" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeDateChecked}"/>
+                <Label Name="lblTradeDate" Margin="5,5,5,5" Grid.Row="0" Grid.Column="3" Content=" And Trade Date" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxVenue" Margin="5,5,5,5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsVenueChecked}"/>
+                <Label Name="lblVenue" Margin="5,5,5,5" Grid.Row="1" Grid.Column="1" Content="And Same Venue" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxProcessDate" Margin="5,5,5,5" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsProcessDateChecked}"/>
+                <Label Name="lblProcessDate" Margin="5,5,5,5" Grid.Row="1" Grid.Column="3" Content="And Process Date" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradingAccount" Margin="5,5,5,5" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradingAccountChecked}"/>
+                <Label Name="lblTradingAccount" Margin="5,5,5,5" Grid.Row="2" Grid.Column="1" Content="And Same Trading A/C" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxAssetClass" Margin="5,5,5,5" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsAssetClassChecked}" IsEnabled="False"/>
+                <Label Name="lblAssetClass" Margin="5,5,5,5" Grid.Row="2" Grid.Column="3" Content="And Same Asset Class" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeAttribute1" Margin="5,5,5,5" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeAttribute1Checked}"/>
+                <Label Name="lblTradeAttribute1" Margin="5,5,5,5" Grid.Row="3" Grid.Column="1" Content="And Trade Attribute 1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeAttribute2" Margin="5,5,5,5" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeAttribute2Checked}"/>
+                <Label Name="lblTradeAttribute2" Margin="5,5,5,5" Grid.Row="3" Grid.Column="3" Content="And Trade Attribute 2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeAttribute3" Margin="5,5,5,5" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeAttribute3Checked}"/>
+                <Label Name="lblTradeAttribute3" Margin="5,5,5,5" Grid.Row="4" Grid.Column="1" Content="And Trade Attribute 3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeAttribute4" Margin="5,5,5,5" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeAttribute4Checked}"/>
+                <Label Name="lblTradeAttribute4" Margin="5,5,5,5" Grid.Row="4" Grid.Column="3" Content="And Trade Attribute 4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeAttribute5" Margin="5,5,5,5" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeAttribute5Checked}"/>
+                <Label Name="lblTradeAttribute5" Margin="5,5,5,5" Grid.Row="5" Grid.Column="1" Content="And Trade Attribute 5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="chkboxTradeAttribute6" Margin="5,5,5,5" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="{Binding Path=IsTradeAttribute6Checked}"/>
+                <Label Name="lblTradeAttribute6" Margin="5,5,5,5" Grid.Row="5" Grid.Column="3" Content="And Trade Attribute 6" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <ItemsControl ItemsSource="{Binding AdditionalTradeAttributeList[0]}" Grid.Row="6" Grid.ColumnSpan="2">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox AutomationProperties.Name="{Binding ChkBoxAutomationName}" AutomationProperties.AutomationId="{Binding ChkBoxAutomationName}" Margin="5,5,5,5" IsChecked="{Binding IsChecked}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                <Label AutomationProperties.Name="{Binding LblAutomationName}" AutomationProperties.AutomationId="{Binding LblAutomationName}" Content="{Binding Label}"  Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl ItemsSource="{Binding AdditionalTradeAttributeList[1]}" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox AutomationProperties.Name="{Binding ChkBoxAutomationName}" AutomationProperties.AutomationId="{Binding ChkBoxAutomationName}" Margin="5,5,5,5" IsChecked="{Binding IsChecked}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                <Label AutomationProperties.Name="{Binding LblAutomationName}" AutomationProperties.AutomationId="{Binding LblAutomationName}" Content="{Binding Label}"  Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

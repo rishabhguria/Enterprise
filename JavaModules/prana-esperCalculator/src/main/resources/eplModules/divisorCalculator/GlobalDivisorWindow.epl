@@ -1,0 +1,145 @@
+module eplModules.divisorCalculators.GlobalDivisorWindow;
+
+uses eplModules.divisorCalculators.BaseFieldsCalculator;
+uses eplModules.divisorCalculators.AccountDivisorWindow;
+uses eplModules.divisorCalculators.MasterFundDivisorWindow;
+
+@Priority(10)
+@Name('GlobalNavInserted')
+@Description('This inserts data into GlobalNavInserted from AccountDivisorWindow.')
+on pattern [every (U=AccountDivisorWindowUpdate)]
+insert into GlobalNavInserted
+select distinct
+	sum(coalesce(R.shadowNav,0)) as shadowNavG,
+	sum(coalesce(R.startOfDayNav,0)) as startOfDayNavG,
+	sum(coalesce(R.currentCash,0)) as currentCash,
+	sum(coalesce(R.accrual,0)) as accrual,
+	'Global' as navLevel,
+	"AccountDivisorWindow" as parentWindowStream
+from 
+AccountDivisorWindow as R; 
+
+@Priority(10)
+@Name('GlobalFieldsInserted')
+@Description('This inserts data into GlobalNavInserted from SymbolDivisorWindow whenever SymbolDivisorUpdate event occurs.')
+on pattern [every (U=SymbolDivisorUpdate)]
+insert into GlobalFieldsInserted
+select distinct	
+	sum(W.grossMarketValueBase) as grossMarketValueBaseG,
+	sum(W.grossExposureBase) as grossExposureBaseG,
+	sum(W.netExposureBase) as netExposureBaseG,
+	'Global' as navLevel,
+	"SymbolDivisorWindow" as parentWindowStream
+from
+SymbolDivisorWindow as W ;
+
+@Priority(10)
+@Name('GlobalDivisorWindowContinuous')
+@Description('This named window stores the Global divisor window data.')
+create window GlobalDivisorWindow.std:lastevent()
+(		
+	shadowNavG double,
+	startOfDayNavG double,
+	grossMarketValueBaseG double,
+	navLevel String,
+	grossExposureBaseG double,
+	netExposureBaseG double,
+	currentCash double,
+	accrual double,
+	parentWindowStream string
+);
+
+@Priority(10)
+@Name('GlobalDivisorWindowContinuousUpsertNav')
+@Description('This updates the GlobalDivisorWindow whenever GlobalNavInserted occurs.')
+on GlobalNavInserted as s
+merge GlobalDivisorWindow as W where s.navLevel=W.navLevel
+when matched and
+		(
+			s.shadowNavG <> W.shadowNavG or
+			s.startOfDayNavG <> W.startOfDayNavG or	
+			s.currentCash <> W.currentCash or
+			s.accrual <> W.accrual
+		)
+		then update
+			set
+			W.shadowNavG = s.shadowNavG,
+			W.startOfDayNavG = s.startOfDayNavG,		
+			W.currentCash = s.currentCash,
+			W.accrual = s.accrual,
+			W.parentWindowStream = "GlobalNavInserted"
+			
+when not matched
+		then insert
+		select 
+			coalesce(s.shadowNavG,0) as shadowNavG,
+			coalesce(s.startOfDayNavG,0) as startOfDayNavG,
+			0.0 as grossMarketValueBaseG,
+			s.navLevel as navLevel,
+			0.0 as grossExposureBaseG,
+			0.0 as netExposureBaseG,
+			0.0 as currentCash,
+			0.0 as accrual,
+		   	"GlobalNavInserted" as parentWindowStream;
+
+@Priority(10)
+@Name('GlobalDivisorWindowContinuousUpsertFields')
+@Description('This updates the GlobalDivisorWindow whenever GlobalFieldsInserted event occurs.')
+on GlobalFieldsInserted as s
+merge GlobalDivisorWindow as W where s.navLevel=W.navLevel
+when matched and
+		(		
+			s.grossMarketValueBaseG <> W.grossMarketValueBaseG or
+			s.grossExposureBaseG <> W.grossExposureBaseG or
+			s.netExposureBaseG <> W.netExposureBaseG
+	    )
+		then update set
+			W.grossMarketValueBaseG = s.grossMarketValueBaseG,
+			W.grossExposureBaseG = s.grossExposureBaseG,
+			W.netExposureBaseG = s.netExposureBaseG,
+			W.parentWindowStream = "GlobalFieldsInserted"
+
+when not matched
+		then insert
+		select 
+			0.0 as shadowNavG,
+			0.0 as startOfDayNavG,
+			coalesce(s.grossMarketValueBaseG,0) as grossMarketValueBaseG,
+			s.navLevel as navLevel,
+			coalesce(s.grossExposureBaseG,0) as grossExposureBaseG,
+			coalesce(s.netExposureBaseG,0) as netExposureBaseG,
+			0.0 as currentCash,
+			0.0 as accrual,
+		   	"GlobalFieldsInserted" as parentWindowStream;
+				
+@Priority(10)
+@Name('GlobalDivisorWindowTimerUpdate')
+@Description('This inserts data into GlobalDivisorUpdateEvent from GlobalDivisorWindow.')
+on pattern [every (E = SymbolDataEndEvent)]
+insert into GlobalDivisorUpdateEvent
+select
+			E.cycleId as cycleId,
+			R.shadowNavG as shadowNavG,
+			R.startOfDayNavG as startOfDayNavG,
+			R.grossMarketValueBaseG as grossMarketValueBaseG,
+			R.grossExposureBaseG as grossExposureBaseG,
+			R.netExposureBaseG as netExposureBaseG,
+			R.currentCash as currentCash,
+			R.accrual as accrual,
+		   	"GlobalDivisorWindow" as parentWindowStream
+from GlobalDivisorWindow as R;			
+
+@Priority(10)
+@Name('DivisorEndMessage')
+@Description('Creates end message for GlobalDivisorWindow.')
+Insert into DivisorEndMessage
+    Select
+    SDEE.cycleId as cycleId    
+    from pattern
+    [
+    	every-distinct(SDEE.cycleId,ADU.cycleId,MDU.cycleId,GDU.cycleId)
+    	(SDEE = SymbolDataEndEvent
+    	and ADU = AccountDivisorUpdateEvent
+    	and MDU = MasterFundDivisorUpdateEvent
+    	and GDU = GlobalDivisorUpdateEvent)
+    ];

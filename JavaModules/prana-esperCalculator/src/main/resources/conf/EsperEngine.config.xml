@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- Configuration file for Esper -->
+<esper-configuration
+	xmlns="http://www.espertech.com/schema/esper"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="esper-configuration-8.0.xsd">
+	<!-- "PostWithInMarketInStage": 1 for 'Post', 2 for 'InTradeMarket' and 
+		'Post', 3 for Post + InTradeMarket + InTradeStage -->
+	<!-- Detection frequency is in seconds. 3rd level stream will be validated 
+		at 1*DetectionFrequency while 2nd level data windows will be validaed at 
+		2*DetectionFrequency -->
+	<!-- Error tolerance in ratio so 0.001 means 0.1% -->
+	<common>
+		<event-type name="SymbolData">
+			<objectarray>
+				<!-- <objectarray-property name="uuid" class="string" /> -->
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="string"
+					name="underlyingSymbol" />
+				<objectarray-property class="double"
+					name="askPrice" />
+				<objectarray-property class="double"
+					name="bidPrice" />
+				<objectarray-property class="double"
+					name="lowPrice" />
+				<objectarray-property class="double"
+					name="highPrice" />
+				<objectarray-property class="double"
+					name="openPrice" />
+				<objectarray-property class="double"
+					name="closePrice" />
+				<objectarray-property class="double"
+					name="lastPrice" />
+				<objectarray-property class="double"
+					name="selectedFeedPrice" />
+				<objectarray-property class="string"
+					name="conversionMethod" />
+				<objectarray-property class="double"
+					name="markPrice" />
+				<!-- <objectarray-property name="earnedDividendLocal" class="double"/> -->
+				<objectarray-property class="double"
+					name="delta" />
+				<objectarray-property class="double"
+					name="beta5YearMonthly" />
+				<objectarray-property class="int"
+					name="assetId" />
+				<objectarray-property class="double"
+					name="openInterest" />
+				<objectarray-property class="double"
+					name="avgVolume20Days" />
+				<objectarray-property
+					class="java.math.BigDecimal" name="sharesOutstanding" />
+				<objectarray-property class="int"
+					name="pricingStatus" />
+				<!-- Symboldata for fx special handling for fxrates -->
+				<!-- <objectarray-property name="m2MIncludedInCash" class="boolean"/> -->
+			</objectarray>
+		</event-type>
+		<event-type name="CustomSymbolData">
+			<objectarray>
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="string"
+					name="underlyingSymbol" />
+				<objectarray-property class="double"
+					name="askPrice" />
+				<objectarray-property class="double"
+					name="bidPrice" />
+				<objectarray-property class="double"
+					name="lowPrice" />
+				<objectarray-property class="double"
+					name="highPrice" />
+				<objectarray-property class="double"
+					name="openPrice" />
+				<objectarray-property class="double"
+					name="closePrice" />
+				<objectarray-property class="double"
+					name="lastPrice" />
+				<objectarray-property class="double"
+					name="selectedFeedPrice" />
+				<objectarray-property class="string"
+					name="conversionMethod" />
+				<objectarray-property class="double"
+					name="markPrice" />
+				<objectarray-property class="double"
+					name="delta" />
+				<objectarray-property class="double"
+					name="beta5YearMonthly" />
+				<objectarray-property class="int"
+					name="assetId" />
+				<objectarray-property class="double"
+					name="openInterest" />
+				<objectarray-property class="double"
+					name="avgVolume20Days" />
+				<objectarray-property
+					class="java.math.BigDecimal" name="sharesOutstanding" />
+			</objectarray>
+		</event-type>
+		<event-type name="ClearCustomSymbolData">
+			<objectarray />
+		</event-type>
+		<event-type name="Taxlot">
+			<objectarray>
+				<objectarray-property class="string"
+					name="basketId" />
+				<objectarray-property class="string"
+					name="taxlotId" />
+				<objectarray-property class="string"
+					name="clOrderId" />
+				<objectarray-property class="string"
+					name="taxlotType" />
+				<objectarray-property class="string"
+					name="taxlotState" />
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="string"
+					name="underlyingSymbol" />
+				<objectarray-property class="double"
+					name="quantity" />
+				<objectarray-property class="double"
+					name="avgPrice" />
+				<objectarray-property class="string"
+					name="orderSideTagValue" />
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="int"
+					name="counterPartyId" />
+				<objectarray-property class="int"
+					name="venueId" />
+				<objectarray-property class="java.util.Date"
+					name="auecLocalDate" />
+				<objectarray-property class="java.util.Date"
+					name="settlementDate" />
+				<objectarray-property class="string"
+					name="userId" />
+				<objectarray-property class="int"
+					name="strategyId" />
+				<objectarray-property class="string"
+					name="orderTypeTagValue" />
+				<objectarray-property class="double"
+					name="benchMarkRate" />
+				<objectarray-property class="double"
+					name="differential" />
+				<objectarray-property class="double"
+					name="swapNotional" />
+				<objectarray-property class="double"
+					name="dayCount" />
+				<objectarray-property class="boolean"
+					name="isSwapped" />
+				<objectarray-property class="double"
+					name="avgFxRateForTrade" />
+				<objectarray-property class="string"
+					name="conversionMethodOperator" />
+				<objectarray-property class="string" name="tif" />
+				<objectarray-property class="string"
+					name="orderSide" />
+				<objectarray-property class="string"
+					name="counterParty" />
+				<objectarray-property class="string"
+					name="venue" />
+				<objectarray-property class="int"
+					name="sideMultiplier" />
+				<objectarray-property class="string"
+					name="orderType" />
+				<objectarray-property class="string"
+					name="underlyingAsset" />
+				<objectarray-property class="double"
+					name="limitPrice" />
+				<objectarray-property class="double"
+					name="stopPrice" />
+				<objectarray-property class="boolean"
+					name="isWhatIfTradeStreamRequired" />
+				<objectarray-property class="int"
+					name="assetId" />
+				<objectarray-property class="string"
+					name="asset" />
+				<objectarray-property class="int" 
+					name="auecId" />
+				<objectarray-property class="double"
+					name="multiplier" />
+				<objectarray-property class="string"
+					name="tradeAttribute1" />
+				<objectarray-property class="string"
+					name="tradeAttribute2" />
+				<objectarray-property class="string"
+					name="tradeAttribute3" />
+				<objectarray-property class="string"
+					name="tradeAttribute4" />
+				<objectarray-property class="string"
+					name="tradeAttribute5" />
+				<objectarray-property class="string"
+					name="tradeAttribute6" />
+			</objectarray>
+		</event-type>
+		<event-type name="AccountCollection">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="string"
+					name="accountLongName" />
+				<objectarray-property class="string"
+					name="accountShortName" />
+				<objectarray-property class="int"
+					name="companyId" />
+				<objectarray-property class="int"
+					name="masterFundId" />
+				<objectarray-property class="string"
+					name="masterFundName" />
+				<objectarray-property class="int"
+					name="baseCurrencyId" />
+			</objectarray>
+		</event-type>
+		<event-type name="StrategyCollection">
+			<objectarray>
+				<objectarray-property class="int"
+					name="strategyId" />
+				<objectarray-property class="string"
+					name="strategyFullName" />
+				<objectarray-property class="string"
+					name="strategyName" />
+				<objectarray-property class="int"
+					name="companyId" />
+				<objectarray-property class="int"
+					name="masterStrategyId" />
+				<objectarray-property class="string"
+					name="masterStrategyName" />
+			</objectarray>
+		</event-type>
+		<event-type name="OrderSide">
+			<objectarray>
+				<objectarray-property class="string"
+					name="orderSideTagValue" />
+				<objectarray-property class="string"
+					name="orderSide" />
+				<objectarray-property class="int"
+					name="sideMultiplier" />
+			</objectarray>
+		</event-type>
+		<event-type name="OrderType">
+			<objectarray>
+				<objectarray-property class="string"
+					name="orderTypeTagValue" />
+				<objectarray-property class="string"
+					name="orderType" />
+			</objectarray>
+		</event-type>
+		<event-type name="CounterParty">
+			<objectarray>
+				<objectarray-property class="int"
+					name="counterPartyId" />
+				<objectarray-property class="string"
+					name="counterParty" />
+			</objectarray>
+		</event-type>
+		<event-type name="Currency">
+			<objectarray>
+				<objectarray-property class="int"
+					name="currencyId" />
+				<objectarray-property class="string"
+					name="currencyText" />
+			</objectarray>
+		</event-type>
+		<event-type name="Venue">
+			<objectarray>
+				<objectarray-property class="int"
+					name="venueId" />
+				<objectarray-property class="string"
+					name="venue" />
+			</objectarray>
+		</event-type>
+		<event-type name="Security">
+			<objectarray>
+				<objectarray-property class="int"
+					name="assetId" />
+				<objectarray-property class="string"
+					name="uuid" />
+				<objectarray-property class="string"
+					name="tickerSymbol" />
+				<objectarray-property class="int" name="auecId" />
+				<objectarray-property class="string"
+					name="underlyingSymbol" />
+				<objectarray-property class="double"
+					name="delta" />
+				<objectarray-property class="string"
+					name="longName" />
+				<objectarray-property class="double"
+					name="multiplier" />
+				<objectarray-property class="int"
+					name="currencyId" />
+				<objectarray-property class="java.util.Date"
+					name="expirationDate" />
+				<objectarray-property class="string"
+					name="putOrCall" />
+				<objectarray-property class="double"
+					name="strikePrice" />
+				<objectarray-property class="int"
+					name="leadCurrencyId" />
+				<objectarray-property class="int"
+					name="vsCurrencyId" />
+				<objectarray-property class="boolean"
+					name="isCurrencyFuture" />
+				<objectarray-property class="string"
+					name="udaAsset" />
+				<objectarray-property class="string"
+					name="udaSecurityType" />
+				<objectarray-property class="string"
+					name="udaSector" />
+				<objectarray-property class="string"
+					name="udaSubSector" />
+				<objectarray-property class="string"
+					name="udaCountry" />
+				<objectarray-property class="string"
+					name="riskCurrency" />
+				<objectarray-property class="string"
+					name="issuer" />
+				<objectarray-property class="string"
+					name="countryOfRisk" />
+				<objectarray-property class="string"
+					name="region" />
+				<objectarray-property class="string"
+					name="analyst" />
+				<objectarray-property class="string"
+					name="ucitsEligibleTag" />
+				<objectarray-property class="string"
+					name="liquidTag" />
+				<objectarray-property class="string"
+					name="marketCap" />
+				<objectarray-property class="string"
+					name="customUDA1" />
+				<objectarray-property class="string"
+					name="customUDA2" />
+				<objectarray-property class="string"
+					name="customUDA3" />
+				<objectarray-property class="string"
+					name="customUDA4" />
+				<objectarray-property class="string"
+					name="customUDA5" />
+				<objectarray-property class="string"
+					name="customUDA6" />
+				<objectarray-property class="string"
+					name="customUDA7" />
+				<objectarray-property class="double"
+					name="roundLot" />
+				<objectarray-property
+					class="java.math.BigDecimal" name="sharesOutstanding" />
+				<objectarray-property class="boolean"
+					name="isEsperStarted" />
+				<objectarray-property class="string"
+					name="customUDA8" />
+				<objectarray-property class="string"
+					name="customUDA9" />
+				<objectarray-property class="string"
+					name="customUDA10" />
+				<objectarray-property class="string"
+					name="customUDA11" />
+				<objectarray-property class="string"
+					name="customUDA12" />
+				<objectarray-property class="string"
+					name="bloombergSymbol" />
+				<objectarray-property class="string"
+					name="activSymbol" />
+				<objectarray-property class="string"
+					name="factSetSymbol" />
+				<objectarray-property class="string"
+					name="bloombergSymbolWithExchangeCode" />
+			</objectarray>
+		</event-type>
+		<event-type name="AuecDetails">
+			<objectarray>
+				<objectarray-property class="string"
+					name="uuid" />
+				<objectarray-property class="int" name="auecId" />
+				<objectarray-property class="java.util.Date"
+					name="yesterDay" />
+				<objectarray-property class="java.util.Date"
+					name="today" />
+				<objectarray-property class="int"
+					name="assetId" />
+				<objectarray-property class="string"
+					name="asset" />
+				<objectarray-property class="int"
+					name="exchangeId" />
+				<objectarray-property class="string"
+					name="exchangeName" />
+				<objectarray-property class="int"
+					name="underlyingId" />
+				<objectarray-property class="string"
+					name="underlying" />
+				<objectarray-property class="int"
+					name="currencyId" />
+				<objectarray-property class="string"
+					name="currency" />
+				<objectarray-property class="boolean"
+					name="isEsperStarted" />
+			</objectarray>
+		</event-type>
+		<event-type name="YesterdayFxRates">
+			<objectarray>
+				<objectarray-property class="string"
+					name="currencySymbol" />
+				<objectarray-property class="double"
+					name="conversionRate" />
+				<objectarray-property class="string"
+					name="conversionMethodOperator" />
+				<objectarray-property class="java.util.Date"
+					name="rateTime" />
+			</objectarray>
+		</event-type>
+		<event-type name="MarkPrice">
+			<objectarray>
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="double"
+					name="markPrice" />
+				<objectarray-property class="int"
+					name="assetId" />
+			</objectarray>
+		</event-type>
+		<event-type name="BetaForSymbol">
+			<objectarray>
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="double"
+					name="beta5YearMonthly" />
+			</objectarray>
+		</event-type>
+		<event-type name="DbNav">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="startOfDayNav" />
+				<objectarray-property class="double"
+					name="shadowNav" />
+			</objectarray>
+		</event-type>
+		<event-type name="AccountNavPreference">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="boolean"
+					name="isNavSaved" />
+			</objectarray>
+		</event-type>
+		<event-type name="CashEventBaseCurrency">
+			<objectarray>
+				<objectarray-property class="double"
+					name="cashAmount" />
+				<objectarray-property class="java.util.Date"
+					name="date" />
+				<objectarray-property class="string"
+					name="accountShortName" />
+			</objectarray>
+		</event-type>
+		<event-type name="DayEndCash">
+			<objectarray>
+				<objectarray-property class="double"
+					name="cashAmount" />
+				<objectarray-property class="java.util.Date"
+					name="today" />
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="nonTradingCashAmount" />
+			</objectarray>
+		</event-type>
+		<event-type name="YearlyHolidaysEvent">
+			<objectarray>
+				<objectarray-property class="int" name="auecId" />
+				<objectarray-property class="java.util.Date"
+					name="holiday" />
+			</objectarray>
+		</event-type>
+		<event-type name="WeeklyHolidaysEvent">
+			<objectarray>
+				<objectarray-property class="int" name="auecId" />
+				<objectarray-property class="int"
+					name="holiday" />
+			</objectarray>
+		</event-type>
+		<event-type name="InitComplete">
+			<objectarray>
+				<objectarray-property class="boolean"
+					name="initComplete" />
+				<objectarray-property class="string"
+					name="action" />
+			</objectarray>
+		</event-type>
+		<event-type name="PMCalculationPrefs">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="highWaterMark" />
+				<objectarray-property class="double"
+					name="stopOut" />
+				<objectarray-property class="double"
+					name="traderPayoutPercent" />
+			</objectarray>
+		</event-type>
+		<event-type name="StartOfMonthCapitalAccount">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="capital" />
+			</objectarray>
+		</event-type>
+		<event-type name="UserDefinedMTDPnl">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="mtdPnl" />
+			</objectarray>
+		</event-type>
+		<event-type name="AccountWiseNRA">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="accountNRA" />
+			</objectarray>
+		</event-type>
+		<event-type name="AvgVolCustomDays">
+			<objectarray>
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="double"
+					name="avgVolume" />
+			</objectarray>
+		</event-type>
+		<event-type name="AccrualForAccount">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="startOfDayAccrual" />
+				<objectarray-property class="double"
+					name="dayAccrual" />
+			</objectarray>
+		</event-type>
+		<event-type name="StartOfDayAccrualForAccount">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="startOfDayAccrual" />
+				<objectarray-property class="double"
+					name="dayAccrual" />
+			</objectarray>
+		</event-type>
+		<event-type name="DayAccrualForAccount">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="startOfDayAccrual" />
+				<objectarray-property class="double"
+					name="dayAccrual" />
+			</objectarray>
+		</event-type>
+		<event-type name="DailyCreditLimits">
+			<objectarray>
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="double"
+					name="longDebitBalance" />
+				<objectarray-property class="double"
+					name="longDebitLimit" />
+				<objectarray-property class="double"
+					name="shortCreditBalance" />
+				<objectarray-property class="double"
+					name="shortCreditLimit" />
+			</objectarray>
+		</event-type>
+		<event-type name="BasketEOM">
+			<objectarray>
+				<objectarray-property class="string"
+					name="basketId" />
+				<objectarray-property class="int" name="userId" />
+			</objectarray>
+		</event-type>
+		<event-type name="BasketAggreation">
+			<objectarray>
+				<objectarray-property class="string"
+					name="basketId" />
+				<objectarray-property class="int" name="userId" />
+			</objectarray>
+		</event-type>
+		<event-type name="SymbolDataEndEvent">
+			<objectarray>
+				<!-- Cycle id is incrementing after the one cycle has been completed 
+					of symbol data for all the symbols in cache. And on the basis of distinct 
+					cycle id we are raising Divisor End Message -->
+				<objectarray-property class="int"
+					name="cycleId" />
+			</objectarray>
+		</event-type>
+		<event-type name="SymbolDataCycleCompleted">
+			<objectarray>
+				<!-- Cycle id is incrementing after the one cycle has been completed 
+					of symbol data for all the symbols in cache. And on the basis of distinct 
+					cycle id we are raising Divisor End Message -->
+				<objectarray-property class="int"
+					name="cycleId" />
+			</objectarray>
+		</event-type>
+		<event-type name="EsperStartEOM">
+			<objectarray>
+				<objectarray-property class="string"
+					name="basketId" />
+			</objectarray>
+		</event-type>
+		<event-type name="StartNavCalculationsForPreTrade">
+			<objectarray>
+				<objectarray-property class="string"
+					name="symbol" />
+				<objectarray-property class="int"
+					name="accountId" />
+				<objectarray-property class="int"
+					name="masterFundId" />
+				<objectarray-property class="int"
+					name="strategyId" />
+				<objectarray-property class="string"
+					name="taxlotState" />
+			</objectarray>
+		</event-type>
+		<auto-import
+			import-name="com.espertech.esper.dataflow.interfaces.*" />
+		<auto-import import-name="com.espertech.esperio.amqp.*" />
+		<variable initialization-value="true"
+			name="IsM2MIncludedInCash" type="boolean" />
+		<variable initialization-value="false"
+			name="IsCreditLimitBoxPositionAllowed" type="boolean" />
+		<variable initialization-value="false"
+			name="EquitySwapsMarketValueAsEquity" type="boolean" />
+		<variable initialization-value="USD"
+			name="CompanyBaseCurrency" type="string" />
+		<variable initialization-value="false" name="SetFxToZero"
+			type="boolean" />
+		<variable initialization-value="1"
+			name="PostWithInMarketInStage" type="int" />
+		<variable initialization-value="false"
+			name="IsBasketComplianceEnabled" type="boolean" />
+		<variable initialization-value="false"
+			name="IsBasketComplianceStarted" type="boolean" />
+		<variable initialization-value="false"
+			name="CalculateFxGainLossOnForexForwards" type="boolean" />
+		<variable initialization-value="false"
+			name="CalculateFxGainLossOnSwaps" type="boolean" />
+		<variable initialization-value="false"
+			name="GetBetaFromLiveFeed" type="boolean" />
+		<variable initialization-value="-2147483648"
+			name="GlobalAccountId" type="int" />
+		<variable initialization-value="StartOfDayNav"
+			name="SelectedNav" type="string" />
+		<variable initialization-value="0.02" name="PercentageChange"
+			type="double" />
+		<variable initialization-value="10" name="TimerChange"
+			type="double" />
+		<variable initialization-value="false" name="DataLoaded"
+			type="boolean" />
+		<variable initialization-value="false" name="IsEsperStarted"
+			type="boolean" />
+		<variable initialization-value="100"
+			name="DetectionFrequency" type="int" />
+		<variable initialization-value="0.001" name="ErrorTolerance"
+			type="double" />
+		<variable initialization-value="true" name="IsLoggingEnabled"
+			type="boolean" />
+		<variable initialization-value="30" name="EventResetTimeout"
+			type="int" />
+		<variable initialization-value="~" name="ValueSeparator"
+			type="string" />
+		<variable initialization-value="false" name="IsTradeCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsAccountSymbolCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsAccountUnderlyingSymbolCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsAccountCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsMasterFundSymbolCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsMasterFundUnderlyingSymbolCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsMasterFundCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsSymbolCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsUnderlyingSymbolCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsSectorCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsSubSectorCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsAssetCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsGlobalCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="AnyMasterFundFlowCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="AnySymbolFlowCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="AnyGroupFlowCompressionEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsCustomMasterFundSymbolEnabled"
+			type="boolean" />
+		<variable initialization-value="false" name="IsSymbolDataChanged"
+			type="boolean" />
+		<execution />
+	</common>
+	<compiler>
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="calculatePercentage" name="percent" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.CurrencyHelper"
+			function-method="reverseCurrencyPair" name="reverseCurrencyPair" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="valueExistsInCSV" name="valueExistsInCSV" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="concatValues" name="concatValues" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="resetConcatValues" name="resetConcatValues" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="getConcatValues" name="getConcatValues" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="MultiplyDoubleToBigDecimal"
+			name="MultiplyDoubleToBigDecimal" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.CurrencyHelper"
+			function-method="isBaseAndLeadCurrencyEqual"
+			name="isBaseAndLeadCurrencyEqual" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="getNoOfDays" name="getNoOfDays" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="getNoOfDaysNew" name="getNoOfDaysNew" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="getOnlyDate" name="getOnlyDate" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="getNoOfBusinessDays" name="getNoOfBusinessDays" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="dateExistsInWeeklyHolidayForAuecId"
+			name="dateExistsInWeeklyHolidayForAuecId" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="getNoOfWeeklyHolidaysBetweenForAuec"
+			name="getNoOfWeeklyHolidaysBetweenForAuec" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.DateTimeHelper"
+			function-method="getNoOfYearlyHolidaysBetweenForAuec"
+			name="getNoOfYearlyHolidaysBetweenForAuec" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="format" name="doubleFormat" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="formatBigDecimal" name="formatBigDecimal" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="RoundOffDouble" name="RoundOffDouble" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="convertStrToInt" name="convertStrToInt" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="convertStrToDouble" name="convertStrToDouble" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="isValueDefined" name="isValueDefined" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="isConvertibleToDouble" name="isConvertibleToDouble" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="getValue" name="getValue" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="setSymbolDataChangedValue" name="setSymbolDataChangedValue" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="isFxForwardSymbolAvailable" name="isFxForwardSymbolAvailable" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="getUnderlyingDynamicUda" name="getUnderlyingDynamicUda" />
+		<plugin-singlerow-function
+			function-class="prana.esperCalculator.esperUDF.Misc"
+			function-method="getUniqueKeyExtendedAccountSymbolWithNav" name="getUniqueKeyExtendedAccountSymbolWithNav" />
+		<execution />
+		<expression division-by-zero-is-null="true"
+			integer-division="false" />
+		<stream-selection>
+			<stream-selector value="irstream" />
+		</stream-selection>
+	</compiler>
+	<runtime>
+		<execution prioritized="true" />
+		<exceptionHandling>
+			<handlerFactory
+				class="prana.esperCalculator.esperCEP.EsperExceptionHandlerFactory" />
+		</exceptionHandling>
+		<expression />
+	</runtime>
+</esper-configuration>

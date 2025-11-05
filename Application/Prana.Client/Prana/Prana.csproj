@@ -1,0 +1,931 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{172F7D68-B0D1-4579-A252-BEB24EEDEC37}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>AppIconDefaultON_32.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Prana</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>Prana.Program</StartupObject>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <PublishUrl>http://192.168.1.16/NirvanaUpdate/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>NirvanaClient</ProductName>
+    <PublisherName>Ashish</PublisherName>
+    <WebPage>default.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>1591</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>none</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ExportDataServiceBehaviour\ExportDataServiceBehaviour.csproj">
+      <Project>{A22B6965-1FE4-4CA2-9CDE-A1046F0872A6}</Project>
+      <Name>ExportDataServiceBehaviour</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ClientPreferences\Prana.ClientPreferences.csproj">
+      <Project>{87409B83-E284-40A0-8DAF-40B58413449C}</Project>
+      <Name>Prana.ClientPreferences</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CoreService.Interfaces\Prana.CoreService.Interfaces.csproj">
+      <Project>{79A6B4BD-7843-477B-A6D2-980BEDAB9F86}</Project>
+      <Name>Prana.CoreService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Authentication.Common\Prana.Authentication.Common.csproj">
+      <Project>{E24D23E5-1AB0-4588-A7F8-03492C524B62}</Project>
+      <Name>Prana.Authentication.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35b3fd76-9aa5-424b-9e04-b7ff1ef1bfc2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.LiveFeed.UI\Prana.LiveFeed.UI.csproj">
+      <Project>{bc6595d1-c281-42bf-a560-c7f634ad332c}</Project>
+      <Name>Prana.LiveFeed.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TradeManager.Extension\Prana.TradeManager.Extension.csproj">
+      <Project>{7CADBFE3-8E3E-4C3B-A6DD-F3764519E6C2}</Project>
+      <Name>Prana.TradeManager.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.WashSale\Prana.WashSale.csproj">
+      <Project>{a815c2b0-db39-44fc-8a76-1452e794b2da}</Project>
+      <Name>Prana.WashSale</Name>
+    </ProjectReference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDataSource.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDataSource.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDock.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDock.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinListBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinListBar.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinPrintPreviewDialog.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinPrintPreviewDialog.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinStatusBar.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinToolbars.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTree.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinListView.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinListView.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinExplorerBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinExplorerBar.v20.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Infragistics4.Win.AppStylistSupport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.AppStylistSupport.v20.2.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ComplianceEngine\Prana.ComplianceEngine.csproj">
+      <Project>{CCE11E0D-2CF9-4EA1-9CCC-B86747687129}</Project>
+      <Name>Prana.ComplianceEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ShortLocate\Prana.ShortLocate.csproj">
+      <Project>{9b6487ce-d331-4387-9585-1b3c1b1a4cfe}</Project>
+      <Name>Prana.ShortLocate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.WatchList\Prana.WatchList.csproj">
+      <Project>{33813047-bfb8-4434-b9c6-ca85b173646f}</Project>
+      <Name>Prana.WatchList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.User\Prana.User.csproj">
+      <Project>{c60cbc5a-199e-4516-857d-fa9873c067e8}</Project>
+      <Name>Prana.User</Name>
+    </ProjectReference>
+    <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.Vsa">
+      <Name>Microsoft.VisualBasic.Vsa</Name>
+    </Reference>
+    <Reference Include="Oehm.Nirvana.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Quartz, Version=2.2.2.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install">
+      <Name>System.Configuration.Install</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Name>System.EnterpriseServices</Name>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting">
+      <Name>System.Runtime.Remoting</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+      <Name>System.Runtime.Serialization.Formatters.Soap</Name>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10DD56D7-73F5-4213-9F65-74ABCCA49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{F015C504-985F-44AA-92EC-E6F8C8461F9C}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Client\Prana.Allocation.Client.csproj">
+      <Project>{6352b192-fc82-45ad-b543-10982f67df4f}</Project>
+      <Name>Prana.Allocation.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Rebalancer\Prana.Rebalancer.csproj">
+      <Project>{0e2e40e8-8e6d-4730-9a00-e6fd1dece9bc}</Project>
+      <Name>Prana.Rebalancer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ShortcutMonitor\Prana.ShortcutMonitor.csproj">
+      <Project>{f52aa97e-180a-40ed-8f2b-09080171d6c7}</Project>
+      <Name>Prana.ShortcutMonitor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.UIEventAggregator\Prana.UIEventAggregator.csproj">
+      <Project>{a00a7a0b-2b49-4905-a043-da6c7a012fe4}</Project>
+      <Name>Prana.UIEventAggregator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.QualityChecker\Prana.QualityChecker.csproj">
+      <Project>{bc4533c6-f705-48ad-b850-e3297d1942fe}</Project>
+      <Name>Prana.QualityChecker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ReconciliationNew\Prana.ReconciliationNew.csproj">
+      <Project>{a6b366d0-2376-48ce-a7c7-dbfffccea694}</Project>
+      <Name>Prana.ReconciliationNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.SocketCommunication\Prana.SocketCommunication.csproj">
+      <Project>{F221A266-01C2-4ECA-ADED-0717573BCC2E}</Project>
+      <Name>Prana.SocketCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Auth\Prana.Auth.csproj">
+      <Project>{0f1b569f-3a60-4d7b-bde3-2803c218baac}</Project>
+      <Name>Prana.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Name>Prana.BusinessObjects</Name>
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Package>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ExposurePnlCache\Prana.ExposurePnlCache.csproj">
+      <Project>{704A1960-D9CC-4702-9FFB-D82C6E872047}</Project>
+      <Name>Prana.ExposurePnlCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Fix.FixDictionary\Prana.Fix.FixDictionary.csproj">
+      <Project>{08AD82EF-9FC2-4225-8014-A030A9B1B356}</Project>
+      <Name>Prana.Fix.FixDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Name>Prana.Global</Name>
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Package>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Name>Prana.Interfaces</Name>
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Package>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PostTradeServices\Prana.PostTradeServices.csproj">
+      <Project>{E185F480-B1EA-4AD6-8A69-4F8CD6708D0D}</Project>
+      <Name>Prana.PostTradeServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Server\Prana.QueueManager\Prana.QueueManager.csproj">
+      <Project>{D3D605FA-45B0-41B6-ABC6-12CB49A81815}</Project>
+      <Name>Prana.QueueManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.TaskManagement.Definition\Prana.TaskManagement.Definition.csproj">
+      <Project>{5fb30912-0851-40ee-a312-9fb67d33af3f}</Project>
+      <Name>Prana.TaskManagement.Definition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.TaskManagement.Execution\Prana.TaskManagement.Execution.csproj">
+      <Project>{4a035762-7313-4316-b3d3-d4ca11e303f5}</Project>
+      <Name>Prana.TaskManagement.Execution</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{A28AE507-104B-45C5-BCB1-CE51394E3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.DropCopyClient\Prana.DropCopyClient.csproj">
+      <Project>{20319BEC-1798-4A21-9BC4-28481DC5BACE}</Project>
+      <Name>Prana.DropCopyClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Import\Prana.Import.csproj">
+      <Project>{a7618cc8-df0e-4d12-ab7b-ee3269dc854d}</Project>
+      <Name>Prana.Import</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.InstanceCreator\Prana.InstanceCreator.csproj">
+      <Project>{3F5CFA1B-EA85-4EFF-9FFB-0564B801DC10}</Project>
+      <Name>Prana.InstanceCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Preferences\Prana.Preferences.csproj">
+      <Name>Prana.Preferences</Name>
+      <Project>{8F145D78-4EA1-487E-8BE7-0CBCB764D934}</Project>
+      <Package>{8F145D78-4EA1-487E-8BE7-0CBCB764D934}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.SecurityMasterNew\Prana.SecurityMasterNew.csproj">
+      <Project>{8237C28A-EE49-4A68-A89A-1F1F6A939FC4}</Project>
+      <Name>Prana.SecurityMasterNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.TradeManager\Prana.TradeManager.csproj">
+      <Project>{ABB4950F-DEF1-4095-8E93-1EB3292C69F5}</Project>
+      <Name>Prana.TradeManager</Name>
+    </ProjectReference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AmqpPlugin\AlertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AmqpPlugin\AlertForm.Designer.cs">
+      <DependentUpon>AlertForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AmqpPlugin\AmqpPluginManager.cs" />
+    <Compile Include="AmqpPlugin\BlockedAlertsViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AmqpPlugin\BlockedAlertsViewer.Designer.cs">
+      <DependentUpon>BlockedAlertsViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\CF.cs" />
+    <Compile Include="Classes\Constants.cs" />
+    <Compile Include="Classes\SessionServices.cs" />
+    <Compile Include="Classes\WhiteLabelTheme.cs" />
+    <Compile Include="HelpAndSupport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NirvanaDisclaimerUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBrokerConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBrokerConnection.Designer.cs">
+      <DependentUpon>FormBrokerConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CounterPartyDownForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CounterPartyDownForm.Designer.cs">
+      <DependentUpon>CounterPartyDownForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LicenseAggrement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LicenseAggrement.Designer.cs">
+      <DependentUpon>LicenseAggrement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NirvanaHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NirvanaMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="notifyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PMDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PMDashboard.Designer.cs">
+      <DependentUpon>PMDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PranaShortcuts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="QueuedOrdersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueuedOrdersForm.Designer.cs">
+      <DependentUpon>QueuedOrdersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UsrCtrlConnectionStatus.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UsrCtrlConnectionStatus.Designer.cs">
+      <DependentUpon>UsrCtrlConnectionStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UsrCtrlCounterPartyStatusDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UsrCtrlCounterPartyStatusDetails.Designer.cs">
+      <DependentUpon>UsrCtrlCounterPartyStatusDetails.cs</DependentUpon>
+    </Compile>
+    <None Include="Themes\Nirvana\password.PNG" />
+    <None Include="Themes\Nirvana\StyleLibrary\Aero.isl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Themes\Nirvana\username.PNG" />
+    <None Include="Themes\Nirvana\DefaultSplash.png" />
+    <EmbeddedResource Include="AmqpPlugin\AlertForm.resx">
+      <DependentUpon>AlertForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AmqpPlugin\BlockedAlertsViewer.resx">
+      <DependentUpon>BlockedAlertsViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App.ico" />
+    <EmbeddedResource Include="HelpAndSupport.resx">
+      <DependentUpon>HelpAndSupport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NirvanaDisclaimerUI.resx">
+      <DependentUpon>NirvanaDisclaimerUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBrokerConnection.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FormBrokerConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CounterPartyDownForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CounterPartyDownForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LicenseAggrement.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LicenseAggrement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NirvanaHelp.resx">
+      <DependentUpon>NirvanaHelp.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NirvanaMain.resx">
+      <DependentUpon>NirvanaMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="notifyForm.resx">
+      <DependentUpon>notifyForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PMDashboard.resx">
+      <DependentUpon>PMDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PranaShortcuts.resx">
+      <DependentUpon>PranaShortcuts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueuedOrdersForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>QueuedOrdersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsrCtrlConnectionStatus.resx">
+      <DependentUpon>UsrCtrlConnectionStatus.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsrCtrlCounterPartyStatusDetails.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>UsrCtrlCounterPartyStatusDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="AppIconDefaultON_32.ico" />
+    <Content Include="CopyAllFiles.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="CleanSecDB.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Themes\ConceptOne\DefaultTheme.isl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Themes\Custom House\DefaultTheme.isl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Themes\cuttoneCompass\DefaultTheme.isl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Themes\Nirvana\StyleLibrary\DefaultTheme.isl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="UserPreference.config" />
+    <None Include="Resources\chain.gif" />
+    <None Include="Resources\chain_small.gif" />
+    <None Include="Resources\chart_icon.gif" />
+    <None Include="Resources\GroupBy.gif" />
+    <None Include="Resources\pixcel.png" />
+    <None Include="Resources\allocation copy.bmp" />
+    <EmbeddedResource Include="Resources\PranaIcon2_NewUI.ico" />
+    <None Include="Resources\16x16tooltray-off.ico" />
+    <None Include="Resources\1Splash.bmp" />
+    <None Include="Resources\2Splash.bmp" />
+    <None Include="Resources\2About.bmp" />
+    <None Include="Resources\1About.bmp" />
+    <None Include="Resources\AppIconDefaultOFF_32.ico" />
+    <None Include="Resources\AppIconDefaultON_32.ico" />
+    <None Include="PlugIns\Oehm.Nirvana.AlertCommon.dll" />
+    <None Include="PlugIns\Oehm.Nirvana.AlertManagement.dll" />
+    <None Include="PlugIns\Oehm.Nirvana.AlertPopups.dll" />
+    <None Include="PlugIns\Oehm.Nirvana.Interfaces.dll" />
+    <Content Include="Resources\BackgroundAboutBox1.bmp" />
+    <None Include="Resources\basket copy.bmp" />
+    <None Include="Resources\blotter copy.bmp" />
+    <None Include="Resources\Cash copy.bmp" />
+    <None Include="Resources\CCLogingForm.bmp" />
+    <None Include="Resources\CCExit.bmp" />
+    <None Include="Resources\CCLogin.bmp" />
+    <None Include="Resources\CCLoginForm.bmp" />
+    <None Include="Resources\CC16x16ON.ico" />
+    <None Include="Resources\CC16x16OFF.ico" />
+    <None Include="Resources\CashMgmt.ico" />
+    <Content Include="Resources\CCExit.jpg" />
+    <Content Include="Resources\CCLogin.jpg" />
+    <Content Include="Resources\Chat.JPG" />
+    <None Include="Resources\depth copy.bmp" />
+    <None Include="Resources\conceptSPLASH.bmp" />
+    <None Include="Resources\cuttone16x16on.ico" />
+    <None Include="Resources\cuttone16x16off.ico" />
+    <None Include="Resources\connecttoserver.bmp" />
+    <None Include="Resources\DefaultSplash.bmp" />
+    <None Include="Resources\DefaultAbout.bmp" />
+    <None Include="Resources\Exit.PNG" />
+    <Content Include="Resources\Close.png" />
+    <Content Include="Resources\Close_Hover.png" />
+    <Content Include="Resources\ExitButton.jpg" />
+    <None Include="Resources\L1 copy.bmp" />
+    <None Include="Resources\L2 copy copy.bmp" />
+    <None Include="Resources\fix copy.bmp" />
+    <None Include="Resources\live-trading-ticket.png" />
+    <None Include="Resources\Login.PNG" />
+    <None Include="Resources\ExitButton.PNG" />
+    <None Include="Resources\ExitButton1.PNG" />
+    <None Include="Resources\ExitButton2.PNG" />
+    <Content Include="Resources\Loginbkgrnd2.jpg" />
+    <Content Include="Resources\Loginbkgrnd3.jpg" />
+    <Content Include="Resources\LoginButton.jpg" />
+    <None Include="Resources\o copy.bmp" />
+    <None Include="Resources\pb copy.bmp" />
+    <None Include="Resources\PM copy.bmp" />
+    <None Include="Resources\LoginButton_NewUI.bmp" />
+    <None Include="Resources\LoginExit_NewUI.bmp" />
+    <None Include="Resources\password.bmp" />
+    <None Include="Resources\LoginButton.PNG" />
+    <None Include="Resources\Password.PNG" />
+    <None Include="Resources\LoginMinimized.png" />
+    <None Include="Resources\LoginButton1.PNG" />
+    <None Include="Resources\Password1.PNG" />
+    <None Include="Resources\Password2.PNG" />
+    <None Include="Resources\Login_black_form.png" />
+    <Content Include="Resources\LoginButton_NewUI.png" />
+    <Content Include="Resources\LoginButton_NewUIHover.png" />
+    <Content Include="Resources\LoginExit_NewUI.png" />
+    <Content Include="Resources\LoginExit_NewUIHover.png" />
+    <Content Include="Resources\Minimise.png" />
+    <Content Include="Resources\Minimise_Hover.png" />
+    <Content Include="Resources\PM.gif" />
+    <None Include="Resources\pricing-server-hover.png" />
+    <None Include="Resources\pricing-server.png" />
+    <None Include="Resources\portfolio-management.png" />
+    <None Include="Resources\view-counter-party.png" />
+    <None Include="Resources\pricing-server-red.png" />
+    <Content Include="Resources\PricingSeverConnected.gif" />
+    <Content Include="Resources\PricingSeverDicconnected.gif" />
+    <None Include="Resources\username.PNG" />
+    <None Include="Resources\username1.PNG" />
+    <Content Include="Resources\SaveLayout.png" />
+    <Content Include="Resources\SaveLayout_Hover.png" />
+    <Content Include="Resources\UserProfile.png" />
+    <Content Include="Resources\UserProfile_Hover.png" />
+    <Content Include="Themes\AlgoIcons\GSCO.png" />
+    <Content Include="Themes\AlgoIcons\MSCO.png" />
+    <Content Include="Themes\ConceptOne\AppIconDefaultOFF.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\ConceptOne\AppIconDefaultON.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\ConceptOne\DefaultAbout.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\ConceptOne\DefaultSplash.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\ConceptOne\password.bmp" />
+    <Content Include="Themes\ConceptOne\username.bmp" />
+    <Content Include="Themes\Custom House\AppIconDefaultOFF.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Custom House\AppIconDefaultON.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Custom House\DefaultAbout.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Custom House\DefaultSplash.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Custom House\password.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Custom House\username.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\cuttoneCompass\AppIconDefaultOFF.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\cuttoneCompass\AppIconDefaultON.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\cuttoneCompass\DefaultAbout.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\cuttoneCompass\DefaultSplash.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\cuttoneCompass\password.bmp" />
+    <Content Include="Themes\cuttoneCompass\username.bmp" />
+    <Content Include="Themes\Nirvana\AppIconDefaultOFF.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\AppIconDefaultON.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\DefaultAbout.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\DefaultSplash.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Allocation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Allocation_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\BackOffice.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\BackOffice_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\CashMgmt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\CashMgmt_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\ComplianceIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\ComplianceIcon_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\HelpAndSupport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\HelpAndSupport_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\missing.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\PM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\PM_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\PranaBlotter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\PranaBlotter_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\PST.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\PST_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\ReBalancer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\ReBalancer_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Reports.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Reports_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\RiskAnalysis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\RiskAnalysis_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\SecurityMaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\SecurityMaster_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\ThirdParty.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\ThirdParty_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Tools.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Tools_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\TT.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\TT_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Watchlist.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\FormIcons\Watchlist_Hover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Themes\Nirvana\password.bmp" />
+    <Content Include="Themes\Nirvana\username.bmp" />
+    <None Include="Resources\titlebar_background.png" />
+    <None Include="Resources\username.bmp" />
+    <None Include="Resources\PranaIcon_NewUI.ico" />
+    <None Include="Resources\tt copy.bmp" />
+    <EmbeddedResource Include="Resources\PranaIcon.ico" />
+    <EmbeddedResource Include="Resources\Loginbkgrnd.jpg" />
+    <None Include="Resources\stage.jpg" />
+    <None Include="Resources\Save.jpg" />
+    <None Include="Resources\trade.jpg" />
+    <None Include="Resources\Gear.png" />
+    <None Include="Resources\server_connected.png" />
+    <None Include="Resources\server_disconnected.png" />
+    <None Include="Resources\server_unknown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dlls\AlgoStrategyDlls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy "$(ProjectDir)Dlls\AlgoStrategyDlls\*.dll" "$(TargetDir)AlgoStrategyControls\" /I /F /Y
+xcopy "$(ProjectDir)Dlls\AlgoStrategyDlls\*.pdb" "$(TargetDir)AlgoStrategyControls\" /I /F /Y
+xcopy "$(ProjectDir)PlugIns\*.*"  "$(TargetDir)PlugIns\" /E /I /F /Y
+xcopy "$(ProjectDir)Themes\*.*" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Themes\" /E /I /F /Y
+xcopy "$(ProjectDir)TermsAndConditions\*.*" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)TermsAndConditions\" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

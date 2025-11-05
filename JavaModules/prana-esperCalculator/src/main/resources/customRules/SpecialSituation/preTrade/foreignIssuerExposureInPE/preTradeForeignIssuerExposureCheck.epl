@@ -1,0 +1,61 @@
+module customRules.specialSituations.preTrade.foreignIssuerExposureInPE.preTradeForeignIssuerExposureCheck;
+
+@Name('ForeignIssuerCheck')
+@Description('ForeignIssuerCheck window is updated if condition satifies for given account and country of risk.')
+on WhatIfAggregationTrade  as W 
+insert into ForeignIssuerCheck
+select distinct
+	W.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.accountShortName as accountShortName,
+	(case(valueExistsInCSV(W.accountShortName, Account_Name_To_Monitor) and valueExistsInCSV(W.countryOfRisk, Self_Currency) is false)
+	when true then true else false end) as validation,
+	"WhatIfAggregationTrade" as parentWindowStream
+from RowCalculationBaseWindow as T
+where W.basketId = T.basketId and T.taxlotType='WhatIf';
+
+@Name('ForeignIssuerExposureWhatIfAggregator')
+@Description('ForeignIssuerExposureWhatIfAggregator')
+on ForeignIssuerCheck as B
+insert into ForeignIssuerExposureWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	cast(sum(case (B.validation is true and valueExistsInCSV(W.accountShortName, Account_Name_To_Monitor) and valueExistsInCSV(W.countryOfRisk, Self_Currency) is false)
+	when true then
+		(case Variable2 is 'Net Exposure' when true then W.netExposureBase else W.netMarketValueBase end)
+	else
+		0 end),Long) as calculationField,
+	cast(W.accountNav,Long) as accountNav,
+	W.accountShortName as accountShortName,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId and
+	W.accountId in (select distinct R.accountId from RowCalculationBaseWindow as R where R.basketId = B.basketId)
+group by W.accountId;
+
+@Name('PreTradeForeignIssuerExposureCheck')
+@Description('Restriction on having total Assets in the securities of foreign issuers')
+insert into PreTradeForeignIssuerExposureCheck
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(Exposure_Percentage_To_Monitor) as threshold,
+	doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as actualResult,
+	'Investment limit' as constraintField,
+	(case valueExistsInCSV(A.accountShortName, Account_Name_To_Monitor)
+	when true then
+		((coalesce(A.calculationField/ A.accountNav, 0)) > (Exposure_Percentage_To_Monitor/100))
+	else
+		false end ) as isViolated,
+	'Account: ' || A.accountShortName || ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+	|| (case Variable2 is 'Net Exposure' when true then ', Net Exposure: ' else ', Net Market Value: ' end) || doubleFormat(A.calculationField)
+	|| ', % Investment: ' || doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'Exposure to foreign issuers cannot be more than ' || doubleFormat(Exposure_Percentage_To_Monitor) ||'% of its total assets in ' || Account_Name_To_Monitor as summary,
+	A.accountShortName as dimension
+from
+ForeignIssuerExposureWhatIfAggregator as A
+where A.userId is not null;

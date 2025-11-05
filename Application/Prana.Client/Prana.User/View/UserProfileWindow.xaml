@@ -1,0 +1,211 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:Prana.User.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:Custom="http://infragistics.com/Windows"
+        x:Class="Prana.User.View.UserProfile"
+    xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+    xmlns:themes="http://infragistics.com/Themes"
+    xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+    xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+     ResizeMode="NoResize"
+    Title="User Profile" Height="700" Width="510"
+        DataContext="{DynamicResource UserProfileViewModel}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/NirvanaSkin.xaml"/>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/NirvanaErrorTemplate.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/PercentTradingTool/Themes/IG/DataPresenterIGTheme_Express.xaml"/>
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <viewModel:UserProfileViewModel x:Key="UserProfileViewModel" />
+            <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
+                <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Gray"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                    <ScrollViewer x:Name="PART_ContentHost"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    </Trigger>
+                    <Trigger Property="Width" Value="Auto">
+                        <Setter Property="MinWidth" Value="100"/>
+                    </Trigger>
+                    <Trigger Property="Height" Value="Auto">
+                        <Setter Property="MinHeight" Value="20"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+            <ControlTemplate x:Key="PasswordBoxBaseControlTemplate" TargetType="{x:Type PasswordBox}">
+                <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="Gray"
+                BorderThickness="{TemplateBinding BorderThickness}">
+                    <ScrollViewer x:Name="PART_ContentHost"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    </Trigger>
+                    <Trigger Property="Width" Value="Auto">
+                        <Setter Property="MinWidth" Value="100"/>
+                    </Trigger>
+                    <Trigger Property="Height" Value="Auto">
+                        <Setter Property="MinHeight" Value="20"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </ResourceDictionary>
+        
+    </Window.Resources>
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="80"
+            CornerRadius="5"
+            GlassFrameThickness="0"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding UserProfileUILoaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--provide the background for the entire form.  In practice, this appears as the window's resize border, because the title and window content obscure the rest-->
+        <Border CornerRadius="0" Grid.RowSpan="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#FFD1D2D4" Margin="0,0,0,0"/>
+        <!--title bar-->
+        <Border Grid.Row="0" CornerRadius="2" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <!--Window Icon and Title-->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <TextBlock Name="TbNirvana" Text="Nirvāna" FontFamily="Mulish" Height="22" Margin="5,0,0,0" FontSize="15" Foreground="#FFD1D2D4" VerticalAlignment="Center"/>
+            </StackPanel>
+
+        </Border>
+        <StackPanel Grid.Row="0" Orientation="Horizontal"  VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="User Profile" Height="22" FontSize="15" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <Custom:XamTabControl  Grid.Row="3" HorizontalAlignment="Left" Height="630" Margin="10,10,0,0" VerticalAlignment="Top" Width="480" Background="#FFD1D2D4" >
+            <Custom:TabItemEx x:Name="UserDescription" Header="User Description" Margin="-2,0,-141,0" Height="30">
+
+                <Grid Margin="10,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1.2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1.5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Name="LblUpdateDetail" Content="Update Detail" FontWeight="Bold" Margin="3,1" Grid.Column="0" Grid.Row="0"></Label>
+                    <Label Name="LblFirstName" Content="First Name" Margin="20,3" Grid.Column="0" Grid.Row="1"></Label>
+                    <TextBox Name="TxtFirstName" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding FirstName}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="1"></TextBox>
+                    <Label Name="LblLastName" Content="Last Name" Margin="20,3" Grid.Column="0" Grid.Row="2"></Label>
+                    <TextBox Name="TxtLastName" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding LastName}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="2"></TextBox>
+                    <Label Name="LblMail" Content="E-Mail" Margin="20,3" Grid.Column="0" Grid.Row="3"></Label>
+                    <TextBox Name="TxtMail" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding Mail}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="3"></TextBox>
+                    <Label Name="LblAddressLine1" Content="Address Line 1" Margin="20,3" Grid.Column="0" Grid.Row="4"></Label>
+                    <TextBox Name="TxtAddressLine1" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding AddressLine1}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="4"></TextBox>
+                    <Label Name="LblAddressLine2" Content="Address Line 2" Margin="20,3" Grid.Column="0" Grid.Row="5"></Label>
+                    <TextBox Name="TxtAddressLine2" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding AddressLine2}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="5"></TextBox>
+                    <Label Name="LblCountry" Content="Country" Margin="20,1" Grid.Column="0" Grid.Row="6"></Label>
+                    <!--<TextBox Name="TxtCountry" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding Country}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="6"></TextBox>-->
+                    <ComboBox IsEditable="False" Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="6" DisplayMemberPath="Name" SelectedIndex="{Binding Path=SelectedCountryIndex}" ItemsSource="{Binding Path=DataContext.CountryCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" SelectedItem="{Binding Path=Country ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CountrySelectionChange}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                    <Label Name="LblState" Content="State" Margin="20,1" Grid.Column="0" Grid.Row="7"></Label>
+                    <ComboBox IsEditable="False" Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="7" BorderBrush="Black" DisplayMemberPath="StateName" SelectedIndex="{Binding Path=SelectedStateIndex}" ItemsSource="{Binding Path=DataContext.StateCollection, RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" SelectedItem="{Binding Path=State,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                    </ComboBox>
+                    <Label Name="LblZip" Content="Zip" Margin="20,3" Grid.Column="0" Grid.Row="8"></Label>
+                    <TextBox Name="TxtZip" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding Zip}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="8"></TextBox>
+                    <Label Name="LblWork" Content="Work #" Margin="20,3" Grid.Column="0" Grid.Row="9"></Label>
+                    <TextBox Name="TxtWork" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding Work}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="9"></TextBox>
+                    <Label Name="LblCell" Content="Cell #" Margin="20,3" Grid.Column="0" Grid.Row="10"></Label>
+                    <TextBox Name="TxtCell" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding Cell}"  Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="10"></TextBox>
+
+                    <Button Content="Save Detail" Template="{DynamicResource GreenButtonSkinTemplate}" Foreground="White" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="11"  Height="25" Width="120" RenderTransformOrigin="0.938,0.6" Margin="107,10,0,4">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SaveButtonClicked}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+
+                    <Label Name="LblUpdatePassword" Content="Update Password" FontWeight="Bold" Margin="3,1" Grid.Column="0" Grid.Row="12"></Label>
+                    <!--<TextBox Name="TxtOldPassword" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding OldPassword}"  Margin="50,3,50,2" Padding="3,3" Grid.Column="1" Grid.Row="11"></TextBox>-->
+                    <PasswordBox Name="TxtOldPassword" Template="{StaticResource PasswordBoxBaseControlTemplate}" PasswordChar="*" Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="13">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding OldPasswordChange}" CommandParameter="{Binding ElementName=TxtOldPassword}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                    <Label Name="LblOldPassword" Content="Old Password" Margin="20,3" Grid.Column="0" Grid.Row="13"></Label>
+
+                    <Label Name="LblNewPassword" Content="New Password" Margin="20,3" Grid.Column="0" Grid.Row="14"></Label>
+                    <!--<TextBox Name="TxtNewPassword" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding NewPassword}"  Margin="50,3,50,2" Padding="3,3" Grid.Column="1" Grid.Row="12"></TextBox>-->
+                    <PasswordBox Name="TxtNewPassword" Template="{StaticResource PasswordBoxBaseControlTemplate}" PasswordChar="*" Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="14">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding NewPasswordChange}" CommandParameter="{Binding ElementName=TxtNewPassword}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                    <Label Name="LblConfirmPassword" Content="Confirm Password" Margin="20,3,1,1" Grid.Column="0" Grid.Row="15"></Label>
+                    <!--<TextBox Name="TxtConfirmPassword" Template="{StaticResource TextBoxBaseControlTemplate}" Text ="{Binding ConfirmPassword}"  Margin="50,3,50,2" Padding="3,3" Grid.Column="1" Grid.Row="13"></TextBox>-->
+                    <PasswordBox Name="TxtConfirmPassword" Template="{StaticResource PasswordBoxBaseControlTemplate}" PasswordChar="*" Margin="6,3,70,2" Padding="3,3" Grid.Column="1" Grid.Row="15">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding ConfirmPasswordChange}" CommandParameter="{Binding ElementName=TxtConfirmPassword}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                    <Button Name='BtnSavePassword' Template="{DynamicResource GreenButtonSkinTemplate}" Foreground="White" Content="Save Password" Margin="107,10,80,14" Grid.Column="1" Grid.Row="16" Height="25" Width="120">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SavePasswordChangeButtonClicked}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </Custom:TabItemEx>
+        </Custom:XamTabControl>
+    </Grid>
+</Window>

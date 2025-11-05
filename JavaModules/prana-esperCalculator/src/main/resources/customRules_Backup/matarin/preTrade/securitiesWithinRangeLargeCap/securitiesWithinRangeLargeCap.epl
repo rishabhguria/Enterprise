@@ -1,0 +1,43 @@
+module customRules.matarin.preTrade.securitiesWithinRangeLargeCap.securitiesWithinRangeLargeCap;
+
+@Name('SecuritiesWithinRangeLargeCapMatarinWhatIfAggregator')
+@Description('Picking up the market value of the what if trades that have capitalization within the said range')
+on BasketEOM as B
+insert into SecuritiesWithinRangeLargeCapMatarinWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	sum(case W.marketCapitalization >= MINIMUM_MARKET_LARGECAP_GLOBAL AND
+			W.marketCapitalization <= MAXIMUM_MARKET_LARGECAP_GLOBAL
+		when true then coalesce(W.netMarketValueBase,0)
+		else 0.0
+		end) as netMarketValueBase,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId;
+
+
+@Name('SecuritiesWithinRangeLargeCapMatarin')
+@Description('Checks if specified limits are within the range.')
+insert into SecuritiesWithinRangeLargeCapMatarin
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	'0' || ValueSeparator || '80' || ValueSeparator || LARGECAPACCOUNT_NAME_MATARIN as threshold,
+	doubleFormat(A.netMarketValueBase) || ValueSeparator || doubleFormat(coalesce((100*A.netMarketValueBase / A.accountNav),0)) || ValueSeparator || A.accountShortName as actualResult,
+	'Market LargeCap Global' || ValueSeparator ||'SecuritiesWithinRangeLargeCap' || ValueSeparator || 'Large Cap Account Name' as constraintField,
+	coalesce(A.netMarketValueBase, 0) is not 0.0 and coalesce((A.netMarketValueBase / A.accountNav),0) <= 0.8
+	and valueExistsInCSV(A.accountShortName, LARGECAPACCOUNT_NAME_MATARIN) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', net market value in range: ' || doubleFormat(A.netMarketValueBase)
+		|| ', %age contribution: ' || doubleFormat(coalesce((100*A.netMarketValueBase / A.accountNav),0)) as parameters,
+	current_timestamp as validationTime,
+	'Less than 80% of the securities are within the specified range.' as summary,
+	A.accountShortName as dimension
+from
+SecuritiesWithinRangeLargeCapMatarinWhatIfAggregator as A
+where A.userId is not null;

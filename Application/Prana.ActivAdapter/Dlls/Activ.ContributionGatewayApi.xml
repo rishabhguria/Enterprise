@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Activ.ContributionGatewayApi</name>
+    </assembly>
+    <members>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.UserType">
+            <summary>
+            User type
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.UserId">
+            <summary>
+            user id
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.Password">
+            <summary>
+            password
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.ApiInfo">
+            <summary>
+            eg, version of api
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.InfoString">
+            <summary>
+            String to pass to the ContenGateway for informational purposes
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.CurrentLogonVersion">
+            <summary>
+            this is incremented when format of logon (or logon response) changes.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonRequest.CurrentProtocolVersion" -->
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.LogonResponse.ProtocolVersion">
+            <summary>
+            protocol version
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PermissionInfo.FlagAllPermissionIds">
+            <summary>
+            All permision ids
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PermissionInfo.FlagAllTableNumbers">
+            <summary>
+            All table numbers
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PermissionInfo.FlagAllExchangeCodes">
+            <summary>
+            All exchange codes
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishingGatewayInfoMessage.Deserialize(ActivFinancial.Middleware.ActivBase.MessageValidator,ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayInfo)">
+            <summary>
+            Deserialize.
+            </summary>
+            <param name="messageValidator"></param>
+            <param name="publishingGatewayInfo"></param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum">
+            <summary>
+            List of response status values.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum.StatusSuccess">
+            <summary>
+            success
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum.StatusSuccessWithErrors">
+            <summary>
+            success with errors
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum.StatusFailure">
+            <summary>
+            failure
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum.StatusFailureWithErrors">
+            <summary>
+            failure with errors
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum.StatusInvalidTable">
+            <summary>
+            invalid table
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.StatusEnum.StatusNotPermissioned">
+            <summary>
+            not permissioned
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError">
+            <summary>
+            Field error class.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError.FieldStatusEnum">
+            <summary>
+            List of response block status values.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError.FieldStatusEnum.FieldStatusInvalidType">
+            <summary>
+            invalid type
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError.FieldStatusEnum.FieldStatusInvalidLength">
+            <summary>
+            invalid length
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError.FieldStatusEnum.FieldStatusNotFound">
+            <summary>
+            not found
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError.FieldStatusEnum.FieldStatusFailure">
+            <summary>
+            failure
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters.FieldError.FieldStatusEnum.FieldStatusNotPermissioned">
+            <summary>
+            not permissioned
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters">
+            <summary>
+            Connect parameters for the connection request.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters.ServiceId">
+            <summary>
+            Service id of the service to connect to
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters.Url">
+            <summary>
+            Url of the service
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters.UserId">
+            <summary>
+            User id
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters.Password">
+            <summary>
+            Password of the service
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters.ProxyConnectionParameters">
+            <summary>
+            proxy parameters
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient">
+            <summary>
+            this class supports connection to the Publishing Gateway server.
+            provides methods for:
+             - connecting to Publishing Gateways and connection management;
+            - making interactive requests (via helper classes);
+             - receiving asynchronous data and notifications;
+             - validating and decoding asynchronous responses;
+             The PublishingGatewayClient uses helper classes to implement interactive request functionality.
+             PublishingGatewayClient is seldom used directly. Instead application programmers 
+             usually derive their own class from PublishingGatewayClient and implement callback 
+             interfaces to receive asynchronous notifications. 
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.ServiceLocation">
+            <summary>
+            service location Url.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.Connect(ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters)">
+            <summary>
+            Connect to the PG using synch connect.
+            </summary>
+            <param name="connectParameters">parameters for connect.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.Connect(ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters,System.Int32)">
+            <summary>
+            Connect to the PG.
+            If timeoutPeriod is 0, use asynch connect, otherwise synch connect.
+            </summary>
+            <param name="connectParameters">parameters for connect.</param>
+            <param name="timeoutPeriod">timeiout in milliseconds</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.Disconnect">
+            <summary>
+            disconnect from the PG. onDisconnect will be invoked on successful disconnect
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.SendGetRequest``1(System.Int32,ActivFinancial.Middleware.System.SyncRequestId,``0)">
+            <summary>
+            used to send synch non blocking request.
+            </summary>
+            <typeparam name="RequestParameters"></typeparam>
+            <param name="messageType"></param>
+            <param name="syncRequestId"></param>
+            <param name="requestParameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.IsValidResponse(ActivFinancial.Middleware.System.HeapMessage)">
+            <summary>
+            returns true if HeapMessage's StatusCode returns StatusCodeSuccess or StatusCodePending
+            </summary>
+            <param name="message">a heap message</param>
+            <returns>true if HeapMessage's getStatusCode() returns StatusCodeSuccess or StatusCodePending</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.IsCompleteResponse(ActivFinancial.Middleware.System.HeapMessage)">
+            <summary>
+            returns true is response is complete
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.GetPublishingGatewayInfo(ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayInfo)">
+            <summary>
+             Get information about the PublishingGatewayInfo the API is connected to.
+            </summary>
+            <param name="contentGatewayInfo">to receive info about the ContentGateway.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.GetPermissionInfo(ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PermissionInfo)">
+            <summary>
+            returns permission info
+            </summary>
+            <param name="permissionInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.GetApiInfo">
+            <summary>
+            returns Api information, including build time and version.
+            </summary>
+            <returns>ApiInfo</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient.ReconnectPolicy">
+            <summary>
+            reconnect policy
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayInfo.#ctor">
+            <summary>
+            constuctor
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayInfo.SystemInfo">
+            <summary>
+            info about the CG machine
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.MessageType">
+            <summary>
+            Message type of this request type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.SendRequest(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,`0,ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters,System.Int32)">
+            <summary>
+            Get items synchronously.
+            </summary>
+            <param name="client">reference to ContentGatewayClient.</param>
+            <param name="requestParameters">parameters describing the request.</param>
+            <param name="responseParameters">to receive the returned data.</param>
+            <param name="timeoutPeriod">timeout in ms.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.SendRequest(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,`0,ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters)">
+            <summary>
+            Get items synchronously.
+            </summary>
+            <param name="client">reference to ContentGatewayClient.</param>
+            <param name="requestParameters">parameters describing the request.</param>
+            <param name="responseParameters">to receive the returned data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.SendRequest(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,ActivFinancial.Middleware.System.SyncRequestId,`0)">
+            <summary>
+            Get items synchronously without blocking.
+            </summary>
+            <param name="client">reference to ContentGatewayClient.</param>
+            <param name="syncRequestId">reference to a SyncRequestId object that can be used to poll for responses after this call.</param>
+            <param name="requestParameters">parameters describing the request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.PostRequest(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,ActivFinancial.Middleware.System.RequestId,`0)">
+            <summary>
+            Get items asynchronously.
+            </summary>
+            <param name="client">reference to ContentGatewayClient.</param>
+            <param name="requestId">request id.</param>
+            <param name="requestParameters">parameters describing the request.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.GetResponse(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,ActivFinancial.Middleware.System.SyncRequestId,ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters,System.Int32)">
+            <summary>
+            Wait or poll for a response message from a sync request id object.
+            </summary>
+            <param name="client">reference to ContentGatewayClient.</param>
+            <param name="syncRequestId">SyncRequestId object as returned by a successful \a send() call.</param>
+            <param name="responseParameters">to receive the returned data.</param>
+            <param name="timeoutPeriod">timeout in ms</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.PublishingGatewayRequestHelper`1.Deserialize(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,ActivFinancial.Middleware.System.HeapMessage,ActivFinancial.ContentPlatform.ContributionGatewayApi.Common.PublishRecordResponseParameters)">
+            <summary>
+            Deserialize a response.
+            This function should only be called if the received response is valid. This can be determined using
+            ContentGatewayClient.isValidResponse(). Note the response block list is not cleared down by this function,
+            so it is possible to build a complete ResponseBlockList from multiple partial responses.
+            </summary>
+            <param name="client">reference to ContentGatewayClient.</param>
+            <param name="response">HeapMessage as passed to ContentGatewayClient.on*Response() or returned by SyncRequestId.getResponse().</param>
+            <param name="responseParameters">reference to a ResponseParameters object to receive deserialized response blocks.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy">
+            <summary>
+            Reconnection policy interface
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.OnConnect">
+            <summary>
+            Invoked when connect to the data source is successful. This method will be invoked only for asynchronous login attempts.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.OnConnectFailed(ActivFinancial.Middleware.StatusCode)">
+            <summary>
+            Invoked when connect to the data source fails. This method will be invoked only for asynchronous login attempts.
+            </summary>
+            <param name="errorCode">connect failure status code</param>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.OnBreak">
+            <summary>
+            Invoked on unsolicited disconnect from the server.
+            </summary>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.ReconnectParameters">
+            <summary>
+            connection parameters for the reconnect.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.BreakReconnectTimeout">
+            <summary>
+            initial reconnect delay after disconnect occurs.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.ConnectFailedReconnectTimeout">
+            <summary>
+            reconnect delay after first reconnect attempt failed.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy.CurrentUrl">
+            <summary>
+            the current cached url.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectManager">
+            <summary>
+            Reconnection manager is responsible for the automatic reconnects to the gateway
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectManager.#ctor(ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.IReconnectPolicy,System.Int32,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="reconnectPolicy">connection selector</param>
+            <param name="breakReconnectTimeout">retry connect timeout after onBreak</param>
+            <param name="connectionFailedReconnectTimeout">retry connect timeout after onConnectFailed</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectManager.OnBreak(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient)">
+            <summary>
+            Invoked when connection to the gateway gets broken
+            </summary>
+            <param name="client">content gateway instance</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectManager.OnConnectFailed(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient,ActivFinancial.Middleware.StatusCode)">
+            <summary>
+            Invoked when connection attempt to the gateway fails
+            </summary>
+            <param name="client">content gateway instance</param>
+            <param name="statusCode">status code of the failure</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectManager.OnConnect(ActivFinancial.ContentPlatform.ContributionGatewayApi.ContributionGatewayClient)">
+            <summary>
+            Invoked when connection attempt to the gateway succeeds.
+            </summary>
+            <param name="client">content gateway instance</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative">
+            <summary>
+            Attempt to reconnect to the alternative gateway
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.#ctor(System.Collections.Generic.IList{ActivFinancial.Middleware.Service.ServiceInstance},ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters,System.Int32,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceInstanceList">service instance list</param>
+            <param name="reconnectParameters">connect parameters</param>
+            <param name="breakReconnectTimeout">initial reconnect delay after disconnect occurs.</param>
+            <param name="connectionFailedReconnectTimeout">reconnect delay after first reconnect attempt failed.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.#ctor(System.Collections.Generic.IList{ActivFinancial.Middleware.Service.ServiceInstance},ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters)">
+            <summary>
+            Constructor. Sets initial reconnect delay to 0. Sets reconnect delay after first reconnect attempt failed to 5 seconds.
+            </summary>
+            <param name="serviceInstanceList">service instance list</param>
+            <param name="connectParameters">connect parameters</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.OnConnect">
+            <summary>
+            invoked when connect to the data source is successful
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.OnConnectFailed(ActivFinancial.Middleware.StatusCode)">
+            <summary>
+            Invoked when connect to the data source fails. This method will be invoked only for asynchronous login attempts.
+            </summary>
+            <param name="errorCode">connect failure status code</param>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.OnBreak">
+            <summary>
+            Invoked on unsolicited disconnect from the server.
+            </summary>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.ReconnectParameters">
+            <summary>
+            connection parameters for the reconnect.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.BreakReconnectTimeout">
+            <summary>
+            initial reconnect delay after disconnect occurs.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.ConnectFailedReconnectTimeout">
+            <summary>
+            reconnect delay after first reconnect attempt failed.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindNextAlternative.CurrentUrl">
+            <summary>
+            the current cached url.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative">
+            <summary>
+            Attempt to reconnect to random gateway
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.#ctor(System.Collections.Generic.IList{ActivFinancial.Middleware.Service.ServiceInstance},ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters,System.Int32,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="serviceInstanceList">service instance list</param>
+            <param name="reconnectParameters">connect parameters</param>
+            <param name="breakReconnectTimeout">initial reconnect delay after disconnect occurs.</param>
+            <param name="connectionFailedReconnectTimeout">reconnect delay after first reconnect attempt failed.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.#ctor(System.Collections.Generic.IList{ActivFinancial.Middleware.Service.ServiceInstance},ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters)">
+            <summary>
+            Constructor. Sets initial reconnect delay to 0. Sets reconnect delay after first reconnect attempt failed to 5 seconds.
+            </summary>
+            <param name="serviceInstanceList">service instance list</param>
+            <param name="connectParameters">connect parameters</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.OnConnect">
+            <summary>
+            invoked when connect to the data source is successful
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.OnConnectFailed(ActivFinancial.Middleware.StatusCode)">
+            <summary>
+            Invoked when connect to the data source fails. This method will be invoked only for asynchronous login attempts.
+            </summary>
+            <param name="errorCode">connect failure status code</param>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.OnBreak">
+            <summary>
+            Invoked on unsolicited disconnect from the server.
+            </summary>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.ReconnectParameters">
+            <summary>
+            connection parameters for the reconnect.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.BreakReconnectTimeout">
+            <summary>
+            initial reconnect delay after disconnect occurs.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.ConnectFailedReconnectTimeout">
+            <summary>
+            reconnect delay after first reconnect attempt failed.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyFindRandomAlternative.CurrentUrl">
+            <summary>
+            the current cached url.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry">
+            <summary>
+            Attempt to reconnect to same gateway
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.#ctor(ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters,System.Int32,System.Int32)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="reconnectParameters">connect parameters</param>
+            <param name="onBreakReconnectTimeout">initial reconnect delay after disconnect occurs.</param>
+            <param name="onConnectionFailedReconnectTimeout">reconnect delay after first reconnect attempt failed.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.#ctor(ActivFinancial.ContentPlatform.ContributionGatewayApi.ConnectParameters)">
+            <summary>
+            Constructor. Sets initial reconnect delay to 0. Sets reconnect delay after first reconnect attempt failed to 5 seconds.
+            </summary>
+            <param name="connectParameters">connect parameters</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.OnConnect">
+            <summary>
+            invoked when connect to the data source is successful
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.OnConnectFailed(ActivFinancial.Middleware.StatusCode)">
+            <summary>
+            Invoked when connect to the data source fails. This method will be invoked only for asynchronous login attempts.
+            </summary>
+            <param name="errorCode">connect failure status code</param>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.OnBreak">
+            <summary>
+            Invoked on unsolicited disconnect from the server.
+            </summary>
+            <returns>true if reconnect should be attempted</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.ReconnectParameters">
+            <summary>
+            connection parameters for the reconnect.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.BreakReconnectTimeout">
+            <summary>
+            initial reconnect delay after disconnect occurs.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.ConnectFailedReconnectTimeout">
+            <summary>
+            reconnect delay after first reconnect attempt failed.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.Reconnects.ReconnectPolicyRetry.CurrentUrl">
+            <summary>
+            the current cached url.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishField">
+            <summary>
+            Publish field type. Used to to represent a field to be published to the Contribution Gateway.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishField.FieldId">
+            <summary>
+            Field id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishField.FieldType">
+            <summary>
+            Field type. When setting FieldType, if value is null, the FieldType field will be set to null, otherwise, FieldType filed will be cloned from the value.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishField.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishField.#ctor(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="fieldType">field type.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishField.Serialize(ActivFinancial.Middleware.ActivBase.MessageBuilder)">
+            <summary>
+            Serialize.
+            </summary>
+            <param name="messageBuilder">Message builder.</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters">
+            <summary>
+            Base parameters for publishing a record.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.FlagNone">
+            <summary>
+            Flag none.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.FlagBestEffort">
+            <summary>
+            Perform 'best effort' contribution
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.FlagDelete">
+            <summary>
+            Delete the record
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.FlagDoNotAdd">
+            <summary>
+            Do not add the record.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.EventType">
+            <summary>
+            Event type.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.UpdateId">
+            <summary>
+            Update id.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.PermissionId">
+            <summary>
+            Permission id.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.TableNumber">
+            <summary>
+            Table number.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.Flags">
+            <summary>
+            Flags.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.#ctor(System.Int32,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte)">
+            <summary>
+            Constructor. Defaults updateId to UPDATE_ID_COUNT_UNKNOWN
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordBaseParameters.#ctor(System.Int32,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+            <param name="updateId"></param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters">
+            <summary>
+            Parameters for publishing a record.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters.#ctor(System.Int32,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte)">
+            <summary>
+            Constructor. Defaults update id to UPDATE_ID_COUNT_UNKNOWN.
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters.#ctor(System.Int32,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+            <param name="updateId">update id</param>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters.FieldList">
+            <summary>
+            The list of fields in this update.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters.KeyFieldList">
+            <summary>
+            The list of key fields in the index of this record, must be in the same order as the table.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishRecordParameters.IndexNumber">
+            <summary>
+            The index number of this record update.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters">
+            <summary>
+            Parameters for publishing a symbol record.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.Field">
+            <summary>
+            Field class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.Field.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.Field.#ctor(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="fieldId">field id</param>
+            <param name="fieldType">field type</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.#ctor(System.Int32,System.String,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte,System.Int32,System.Byte)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="symbol">symbol</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+            <param name="updateId">update id</param>
+            <param name="defaultRuleSet">default rule set</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.#ctor(System.Int32,System.String,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Constructor. Defaults ruleSet to RULE_SET_NONE.
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="symbol">symbol</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+            <param name="updateId">update id</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.#ctor(System.Int32,System.String,ActivFinancial.ContentPlatform.ContentGatewayApi.Consts.EventTypeEnum,System.Int32,System.Byte)">
+            <summary>
+            Constructor. Defaults update id to UPDATE_ID_COUNT_UNKNOWN and ruleSet to RULE_SET_NONE.
+            </summary>
+            <param name="tableNumber">table number</param>
+            <param name="symbol">symbol</param>
+            <param name="eventType">event type</param>
+            <param name="permissionId">permission id</param>
+            <param name="flags">flags</param>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.FieldList">
+            <summary>
+            The list of fields in this update
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.Symbol">
+            <summary>
+            The symbol of the record to update/add
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContributionGatewayApi.RequestParameters.PublishSymbolRecordParameters.DefaultRuleSet">
+            <summary>
+            The default rule set to apply to this update
+            </summary>
+        </member>
+    </members>
+</doc>

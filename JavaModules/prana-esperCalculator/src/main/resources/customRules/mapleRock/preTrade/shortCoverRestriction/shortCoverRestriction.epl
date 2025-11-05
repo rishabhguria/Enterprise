@@ -1,0 +1,156 @@
+module customRules.mapleRock.preTrade.shortCoverRestriction.shortCoverRestriction;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock1')
+@Description('If the order side is Buy to close, Then check the trade of that symbol in row calculation with order side is equal to sell short. Then isViolated is True')
+on WhatIfAggregationTrade (orderSide in ('Buy to Close','Buy to Cover'))  as B 
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	true as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId <> T.basketId and B.symbol = T.symbol and T.orderSide in ('Sell short', 'Sell to Open') 
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock2')
+@Description('If the order side is Buy to close, Then check the trade of that symbol in row calculation with order side is equal to sell short. In case of multi trade. Then isViolated is True')
+on WhatIfAggregationTrade (orderSide in ('Buy to Close','Buy to Cover'))  as B 
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	true as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId = T.basketId and B.symbol = T.symbol and T.orderSide in ('Sell short', 'Sell to Open')
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock3')
+@Description('If the order side is Buy to close, Then check the trade of that symbol in row calculation with order side is not equal to sell short. Then isViolated is False')
+on WhatIfAggregationTrade (orderSide in ('Buy to Close','Buy to Cover'))  as B
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	false as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId <> T.basketId and B.symbol = T.symbol and T.orderSide not in ('Sell short', 'Sell to Open') 
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock4')
+@Description('If the order side is Buy to close, Then check the trade of that symbol in row calculation with order side is equal to sell short. In case of Multi Trade. Then isViolated is False')
+on WhatIfAggregationTrade (orderSide in ('Buy to Close','Buy to Cover'))  as B
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	false as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId = T.basketId and B.symbol = T.symbol and T.orderSide not in ('Sell short', 'Sell to Open') 
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock5')
+@Description('If the order side is Buy to close, Then check the trade of that symbol in row calculation not exist. Then isViolated is False')
+on WhatIfAggregationTrade (orderSide in ('Buy to Close','Buy to Cover'))  as B 
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	false as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId <> T.basketId and B.symbol <> T.symbol
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock6')
+@Description('If the order side is Buy to close, Then check the trade of that symbol in row calculation not exist. In case of Multi Trade. Then isViolated is False')
+on WhatIfAggregationTrade (orderSide in ('Buy to Close','Buy to Cover'))  as B 
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	false as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId = T.basketId and B.symbol <> T.symbol
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock7')
+@Description('If the order side is Buy to close, Then check the basket id is not equal in row calculation of that symbol. Then isViolated is False')
+on WhatIfAggregationTrade (orderSide not in ('Buy to Close','Buy to Cover'))  as B
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	false as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId <> T.basketId
+group by T.symbol;
+
+@Name('WhatIfAggregationShortCoverRestrictionMapleRock8')
+@Description('If the order side is Buy to close, Then check the basket id is equal in row calculation of that symbol. Then isViolated is False')
+on WhatIfAggregationTrade (orderSide not in ('Buy to Close','Buy to Cover'))  as B
+insert into WhatIfAggregationShortCoverRestrictionMapleRock
+select distinct
+ 	max(T.tradeDate) as sellShortTradeDate,
+ 	false as isViolated,
+ 	B.basketId as basketId,
+ 	B.userId as userId,
+ 	B.tradeDate as tradeDate,
+ 	B.symbol as symbol,
+ 	"WhatIfAggregationTrade,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as T
+where B.basketId = T.basketId
+group by T.symbol;
+
+@Name('ShortCoverRestrictionPreTrade')
+@Description('If the isViolated true then calculate the no of days of last sell short date and trade date. If no. of days is less that and equal to 5 then rule will trigger')
+insert into ShortCoverRestrictionPreTrade
+select distinct
+	A.userId as userId,
+	case A.isViolated
+	when true then
+	(getNoOfDaysNew(A.sellShortTradeDate, A.tradeDate) <= NoOfDays)
+	else
+	false end
+	as isViolated,
+	A.basketId as basketId,
+	A.basketId as taxlotId,
+	cast(NoOfDays,string) as threshold,
+	cast(getNoOfDaysNew(A.sellShortTradeDate, A.tradeDate),string) as actualResult,
+	'No of Days' as constraintField,
+	'Trade Date: ' || getOnlyDate(A.tradeDate)
+		|| ', Sell Short Date: ' ||  getOnlyDate(A.sellShortTradeDate)
+		|| ', Symbol: ' || A.symbol
+		|| ', No. of Days: ' || cast(getNoOfDaysNew(A.sellShortTradeDate, A.tradeDate),string) as parameters,
+	current_timestamp as validationTime,
+	'The cover happened within' || doubleFormat(NoOfDays) || '5 days of the last sell short of the symbol.'  as summary,
+	A.symbol as dimension
+from
+WhatIfAggregationShortCoverRestrictionMapleRock as A
+where A.userId is not null;

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="MasterColumns" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="MasterColumns" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+		<xs:element name="Recon">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" />
+                  <xs:attribute name="IsSelected" type="xs:boolean" />
+                  <xs:attribute name="FormulaExpression" type="xs:string" />
+                  <xs:attribute name="DataSourceType" type="xs:string" />
+				  <xs:attribute name="GroupType" type="xs:string" />
+				  <xs:attribute name="Summary" type="xs:string" />
+				   <xs:attribute name="IsEditable" type="xs:boolean" />
+                </xs:complexType>
+			  </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string" />
+            <xs:attribute name="ReconType" type="xs:string" />
+            <xs:attribute name="IsVisible" type="xs:boolean" />
+			<xs:attribute name="SortingColumnOrder" type="xs:string" />
+			<xs:attribute name="SortingOrder" type="xs:string" />
+          </xs:complexType>
+         </xs:element>
+        </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

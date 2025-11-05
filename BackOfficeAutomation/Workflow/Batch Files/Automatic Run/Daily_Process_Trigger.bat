@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File "C:\Nirvana\Backoffice Automation\Automatic_Run_Alta\Daily_Process_Request.ps1"

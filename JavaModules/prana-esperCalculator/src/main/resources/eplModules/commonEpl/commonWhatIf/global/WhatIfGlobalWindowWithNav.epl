@@ -1,0 +1,93 @@
+module eplModules.whatIfAggregation.global.WhatIfGlobalWindowWithNav;
+
+
+@Name('WhatIfGlobalWindowWithNav')
+@Description('Named window which holds trade data for global compression level.')
+Create window WhatIfGlobalWithNav.std:unique(basketId)
+(
+	basketId String,
+	isEomSent bool,	
+	taxlotId String,
+	userId int,	
+	
+    taxlotType String,
+	compressionLevel String,	
+	
+	equityHaircutBase double,
+	indexHaircutBase double,
+	liquidationPnlBase double,
+
+	notionalBase double,
+	cashImpactBase double,
+	cashInflowBase double,
+	cashOutflowBase double,
+	netMarketValueBase double,
+
+    yesterdayMarketValueBase double,
+	
+	costBasisPnLBase double,
+	dayPnLBase double,
+	
+	
+	betaAdjustedExposureBase double,
+	underlyingValueForOptionsBase double,
+
+	dayInterestBase double,
+	totalInterestBase double,
+	
+	longNotionalBase double,
+	shortNotionalBase double,
+	shortMarketValueBase double,
+	longMarketValueBase double,
+	shortExposureBase double,
+	longExposureBase double,
+
+	grossExposureUnderlying double,
+	
+	shortExposureUnderlying double,
+	longExposureUnderlying double,
+
+	globalNav double,	
+	startOfDayNavGlobal double,
+	grossMarketValueBase double,
+	grossExposureBase double,
+	netExposureBase double,
+	currentCash double,
+	accrual double,
+
+	pnlContributionGlobal double,	
+    percentLongExposureGlobal double,
+    percentShortExposureGlobal double,
+	percentNetExposureGlobal double,	
+	percentBetaAdjustedExposureGlobal double,
+	percentGrossExposureGlobal double,
+    percentLongMarketValueGlobal double,
+    percentShortMarketValueGlobal double,		
+	percentNetMarketValueGlobal double,	
+	percentGrossMarketValueGlobal double,
+	percentLongNotionalGlobal double,
+	percentShortNotionalGlobal double,	
+	percentNetNotionalGlobal double,
+	percentCostBasisPnlGlobal double,
+	percentGrossExposureUnderlyingGlobal double,
+	dayReturnGlobal double,	
+
+	todayAbsTradeQuantity double,
+	todayLongTradeQuantity double,
+	todayShortTradeQuantity double,
+	todayNetNotionalBase double,
+	todayLongNotionalBase double,
+	todayShortNotionalBase double,
+	
+	betaAdjustedGrossExposureUnderlyingBase double,
+	betaAdjustedLongExposureUnderlyingBase double,
+	betaAdjustedShortExposureUnderlyingBase double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseGlobal double,
+	percentBetaAdjustedLongExposureUnderlyingBaseGlobal double,
+	percentBetaAdjustedShortExposureUnderlyingBaseGlobal double,
+	parentWindowStream string
+		
+	
+);
+

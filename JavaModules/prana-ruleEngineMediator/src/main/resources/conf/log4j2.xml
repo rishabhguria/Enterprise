@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="terminal" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n" />
+        </Console>
+        <RollingFile name="asynch-file"
+                     fileName="Log/RuleMediator.log"
+                     filePattern="Log/RuleMediator-%d{dd-MM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="---------------------------------------- \n %nTimeStamp: %d{M/d/yyyy h:mm:ss a}{UTC} %nLevel: %p %nMessage: - %m%n" />
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches 2MB -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                        size="2MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100" />
+        </RollingFile>
+        <SMTP name="mailAppender" 
+        	to="a@a.com" 
+        	from="alerts@nirvanasolutions.com"
+        	smtpHost="smtp.gmail.com" 
+        	smtpPort="465"
+        	bufferSize="20"
+        	smtpUsername="alerts@nirvanasolutions.com"
+        	smtpPassword="nirvana888"
+        	smtpProtocol="smtps"
+        	smtpDebug="true"
+        	ignoreExceptions="false" 
+        	subject="Compliance Engine Error Notification">
+        	<PatternLayout pattern="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n" />
+        </SMTP>
+    </Appenders>
+    <Loggers>
+    	<Logger name="consoleprint" level="INFO" additivity="false">
+      		<AppenderRef ref="terminal"/>
+    	</Logger>
+    	<Logger name="file" level="INFO" additivity="false">
+      		<AppenderRef ref="asynch-file"/>
+    	</Logger>
+    	<Logger name="mailError" level="INFO" additivity="false">
+			<appender-ref ref="mailAppender" />
+		</Logger>
+        <Root level="INFO">
+            <AppenderRef ref="terminal" />
+            <AppenderRef ref="asynch-file"/>
+             <AppenderRef ref="mailAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

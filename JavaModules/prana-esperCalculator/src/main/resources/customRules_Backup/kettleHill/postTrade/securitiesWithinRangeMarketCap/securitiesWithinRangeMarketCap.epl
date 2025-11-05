@@ -1,0 +1,46 @@
+module customRules.kettleHill.postTrade.securitiesWithinRangeMarketCap.securitiesWithinRangeMarketCap;
+
+@Name('securitiesWithinRangeMarketCapKettleHillPostTradeAggregator')
+@Description('Picking up the gross exposure of the post trades that have capitalization within the said range')
+on pattern[every R=DivisorEndMessage]
+insert into securitiesWithinRangeMarketCapKettleHillPostTradeAggregator
+select distinct
+	0 as userId,
+        sum(case W.marketCapitalization >= MINIMUM_MARKET_CAP_KH13 AND
+			W.marketCapitalization <= MAXIMUM_MARKET_CAP_KH13
+		when true then coalesce(W.grossExposureBase,0)
+		else 0.0 end) as grossExposureBase,   
+         W.masterFundNav as masterfundnav,
+         W.masterFundName as masterFundName,
+         "MasterFundSymbolWithNav" as parentWindowStream
+from MasterFundSymbolWithNav as W
+			group by W.masterFundName;
+
+
+@Name('StreamSecuritiesWithinRangeMarketCapKH')
+@Description('')
+insert into StreamSecuritiesWithinRangeMarketCapKH
+select distinct
+	A.userId as userId,
+	'' as taxlotId,
+	'0' || ValueSeparator || cast(MINIMUM_MARKET_CAP_KH13,String) || ValueSeparator || MASTER_FUND_NAME_KH13 as threshold,
+	cast(coalesce(A.grossExposureBase, 0),String) || ValueSeparator || cast(case A.masterfundnav <>0
+		when true then (A.grossExposureBase / A.masterfundnav ) *100
+		else 0.0 end,String) || ValueSeparator || A.masterFundName as actualResult,
+	'Market Capitalization' || ValueSeparator || '% Gross Exposure' || ValueSeparator || 'MasterFund' as constraintField,
+	coalesce(A.grossExposureBase, 0) is not 0.0 and coalesce((A.grossExposureBase / A.masterfundnav),0) > (PERCENTAGE_GROSS_EXPOSURE_KH13/100) 
+	and valueExistsInCSV(A.masterFundName, MASTER_FUND_NAME_KH13) as isViolated,
+	'MasterFund: ' || A.masterFundName
+		|| ', MasterFund Nav: ' || doubleFormat(coalesce(A.masterfundnav, 0))
+		|| ', gross exposure in range: ' || doubleFormat(A.grossExposureBase)
+		|| ', gross Exposure %: ' || cast(case A.masterfundnav <>0
+		when true then (A.grossExposureBase / A.masterfundnav ) *100
+		else 0.0 end,String) as parameters,
+	current_timestamp as validationTime,
+MASTER_FUND_NAME_KH13 ||': Gross exposure exceeded ' || cast(PERCENTAGE_GROSS_EXPOSURE_KH13,String) || 
+	  'for securities with a market cap between ' || cast(MINIMUM_MARKET_CAP_KH13,String) || ' and ' || 
+	   cast(MAXIMUM_MARKET_CAP_KH13,String) ||  ' mm.' as summary,
+	A.masterFundName as dimension,
+	"securitiesWithinRangeMarketCapKettleHillPostTradeAggregator" as parentWindowStream
+from
+securitiesWithinRangeMarketCapKettleHillPostTradeAggregator as A;

@@ -1,0 +1,85 @@
+module eplModules.postAggregation.sector.AggregationSectorWindow;
+
+
+uses eplModules.postAggregation.symbol.SymbolIntermediate;
+
+
+
+
+
+@Name('SectorWithNavWindow')
+@Description('Named window which collects all data for sector compression level.')
+Create window SectorWithNav.std:unique(sector)
+(
+	sector String,
+	taxlotType String,
+	compressionLevel String,
+	
+	equityHaircutBase double,
+	indexHaircutBase double,
+	
+	liquidationPnlBase double,
+	
+
+	
+	notionalBase double,
+	cashImpactBase double,
+	cashInflowBase double,
+	cashOutflowBase double,
+	netMarketValueBase double,
+	yesterdayMarketValueBase double,
+	grossMarketValueBase double,
+	costBasisPnLBase double,
+	dayPnLBase double,
+	netExposureBase double,
+	grossExposureBase double,
+	betaAdjustedExposureBase double,
+	
+	underlyingValueForOptionsBase double,
+	
+	
+	longNotionalBase double,
+	shortNotionalBase double,
+	shortMarketValueBase double,
+	longMarketValueBase double,
+	shortExposureBase double,
+	longExposureBase double,
+	
+	dayInterestBase double,
+	totalInterestBase double,
+
+	globalNav double,
+	startOfDayNavGlobal double,
+	grossExposureBaseGlobal double,
+	netExposureBaseGlobal double,
+	grossMarketValueBaseGlobal double,
+		
+	percentLongExposureGlobal double,
+	percentShortExposureGlobal double,
+	percentNetExposureGlobal double,
+	percentBetaAdjustedExposureGlobal double,
+	percentGrossExposureGlobal double,
+	percentLongMarketValueGlobal double,
+	percentShortMarketValueGlobal double,
+	percentNetMarketValueGlobal double,
+	
+	percentGrossMarketValueGlobal double,
+	percentLongNotionalGlobal double,
+	percentShortNotionalGlobal double,
+	percentNetNotionalGlobal double,
+	pnlContributionGlobal double,
+	percentCostBasisPnlGlobal double,
+	dayReturnGlobal double,
+	
+	todayAbsTradeQuantity double,
+	todayLongTradeQuantity double,
+	todayShortTradeQuantity double,
+	todayNetNotionalBase double,
+	todayLongNotionalBase double,
+	todayShortNotionalBase double,
+	parentWindowStream string
+	
+
+);
+	
+	

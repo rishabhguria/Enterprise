@@ -1,0 +1,17 @@
+﻿CREATE TABLE [dbo].[T_CashJournalAudit] (
+    [AuditId]			INT				NOT NULL	IDENTITY, 
+    [TransactionDate]	DATETIME		NOT NULL	DEFAULT	(getdate()),
+    [Currency]			VARCHAR (100)	NOT NULL,   
+    [AccountID]			INT				NOT NULL,
+    [Comments]			VARCHAR (MAX)	NULL,
+    [IsProcessed]		INT				NOT NULL	DEFAULT 0, 
+    [ActionDate]		DATETIME		NOT NULL	DEFAULT (getdate()), 
+    [UserId]			INT				NULL, 
+	[CashAccountID]		INT				NULL,
+	[Symbol]			VARCHAR(100)	NULL,
+	[DR]				MONEY			NULL,
+	[CR]				MONEY			NULL,
+	[FXRate]			FLOAT			NULL,
+	[IsProcessedMW]     INT				NOT NULL	DEFAULT 0,
+    CONSTRAINT [PK_T_CashJournalAudit] PRIMARY KEY ([AuditId]), 
+);

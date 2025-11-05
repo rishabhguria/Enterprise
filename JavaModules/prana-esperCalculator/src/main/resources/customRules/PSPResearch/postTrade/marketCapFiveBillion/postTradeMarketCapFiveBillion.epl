@@ -1,0 +1,37 @@
+module customRules.PSPResearch.postTrade.marketCapFiveBillion.postTradeMarketCapFiveBillion;
+
+@Name('TenPercentWithMarketCapCheckInAccount')
+@Description('Stores calculated value of net market value for post trade.')
+on DivisorEndMessage as B
+insert into TenPercentWithMarketCapCheckInAccount
+select distinct
+   	0 as userId,
+	'' as taxlotId,
+    W.accountId as accountId,
+    W.accountShortName as accountName,
+    W.accountNav as accountNav,
+    sum(case( valueExistsInCSV(W.accountShortName, Account_MarketCap) is true and (case isConvertibleToDouble(W.marketCap) when true then convertStrToDouble(W.marketCap)<MarketCap_Post else false end))
+    when true then coalesce(W.netMarketValueBase,0) else 0 end) as totalNetMarketValueBase,
+   (case( valueExistsInCSV(W.accountShortName, Account_MarketCap) is true and isConvertibleToDouble(W.marketCap) is true)
+    when true then (convertStrToDouble(W.marketCap)<MarketCap_Post) else false end) as validation,
+    "AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId;
+
+@Name('PostTradeMaxTenPercentWithMarketCapCheck')
+@Description('Final stream to check if condition is breached')
+insert into PostTradeMaxTenPercentWithMarketCapCheck
+select distinct 
+    A.userId as userId,
+    A.taxlotId as taxlotId,
+    Account_MarketCap || ValueSeparator || doubleFormat(Percentage_MarketCap) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0)))  as actualResult,
+    'Account' || ValueSeparator ||' % Total Nav'  as constraintField,
+    (case A.validation is true when true
+    then (Math.abs(coalesce(A.totalNetMarketValueBase/ A.accountNav, 0)) > (Percentage_MarketCap/100))
+    else false end ) as isViolated,
+    'Account: ' || A.accountName || ', Net Market Value: ' || doubleFormat(Math.abs(A.totalNetMarketValueBase)) || ', % Total Nav: ' || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0))) as parameters,
+    current_timestamp as validationTime,
+    'Market value of the securities should be less than ' || doubleFormat(Percentage_MarketCap) || '% of Account NAV.' as summary,
+    A.accountName as dimension
+from  TenPercentWithMarketCapCheckInAccount as A;

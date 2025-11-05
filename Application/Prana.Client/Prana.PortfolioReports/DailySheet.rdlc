@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="PranaClientConnectionString">
+      <ConnectionProperties>
+        <ConnectString>Data Source=VS20052K3E;Initial Catalog=PranaClient;Persist Security Info=True;User ID=sa;Password=Prana2@@6</ConnectString>
+        <DataProvider>SQL</DataProvider>
+      </ConnectionProperties>
+      <rd:DataSourceID>1c26f4fc-00bb-4148-9150-702cb822639d</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox3">
+        <Left>0.5in</Left>
+        <Top>3.125in</Top>
+        <rd:DefaultName>textbox3</rd:DefaultName>
+        <ZIndex>3</ZIndex>
+        <Width>3.125in</Width>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.25in</Height>
+        <Value>Daily Performance by Strategy</Value>
+      </Textbox>
+      <Image Name="image1">
+        <Sizing>AutoSize</Sizing>
+        <Left>0.5in</Left>
+        <MIMEType>image/jpeg</MIMEType>
+        <Top>0.125in</Top>
+        <ZIndex>2</ZIndex>
+        <Width>2.75in</Width>
+        <Source>Database</Source>
+        <Style />
+        <Height>1.5in</Height>
+        <Value>=First(Fields!LogoImage.Value, "DataSetMTDDailyPNL_PMGetMTDDailyPNL")</Value>
+      </Image>
+      <Matrix Name="matrix2">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1.8125in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <Left>0.5in</Left>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.8125in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="StrategyName">
+                  <rd:DefaultName>StrategyName</rd:DefaultName>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontWeight>700</FontWeight>
+                    <BackgroundColor>= iif(RowNumber(Nothing) Mod 2, "White", "Gainsboro")</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!StrategyName.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix2_StrategyName">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!StrategyName.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+          <RowGrouping>
+            <Width>1.8125in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="textbox2">
+                  <rd:DefaultName>textbox2</rd:DefaultName>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <Format>#,###</Format>
+                    <BackgroundColor>= iif(RowNumber(Nothing) Mod 2, "White", "Gainsboro")</BackgroundColor>
+                    <Color>=iif(First(Fields!PNLGrossStrategy.Value) &lt; 0, "Red","Black")</Color>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=iif(First(Fields!PNLGrossStrategy.Value) &lt; 0, "($" &amp; (First(Fields!PNLGrossStrategy.Value) * -1) &amp; ")", "$" &amp; First(Fields!PNLGrossStrategy.Value))</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix2_RowGroup2">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!PNLGrossStrategy.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <DynamicColumns>
+              <ReportItems>
+                <Textbox Name="Date">
+                  <rd:DefaultName>Date</rd:DefaultName>
+                  <ZIndex>3</ZIndex>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
+                  <Style>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Date.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix2_Date">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Date.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicColumns>
+            <Height>0.25in</Height>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <DataSetName>DataSetMTDDailyPNL_PMGetMTDDailyPNL</DataSetName>
+        <Top>3.375in</Top>
+        <ZIndex>1</ZIndex>
+        <Width>5.4375in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox1">
+              <rd:DefaultName>textbox1</rd:DefaultName>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingBottom>2pt</PaddingBottom>
+                <BackgroundColor>White</BackgroundColor>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+              </Style>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Height>0.5875in</Height>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.3375in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="PNLGrossStrategy">
+                    <rd:DefaultName>PNLGrossStrategy</rd:DefaultName>
+                    <Visibility>
+                      <Hidden>true</Hidden>
+                    </Visibility>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=First(Fields!PNLGrossStrategy.Value)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>1.8125in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <Left>0.5in</Left>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>1.8125in</Width>
+            <StaticRows>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox5">
+                    <rd:DefaultName>textbox5</rd:DefaultName>
+                    <ZIndex>5</ZIndex>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Total Value</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox10">
+                    <rd:DefaultName>textbox10</rd:DefaultName>
+                    <ZIndex>3</ZIndex>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>White</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>PNLGross</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+              <StaticRow>
+                <ReportItems>
+                  <Textbox Name="textbox11">
+                    <rd:DefaultName>textbox11</rd:DefaultName>
+                    <ZIndex>1</ZIndex>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontWeight>700</FontWeight>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>Percent Change</Value>
+                  </Textbox>
+                </ReportItems>
+              </StaticRow>
+            </StaticRows>
+          </RowGrouping>
+        </RowGroupings>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <DynamicColumns>
+              <ReportItems>
+                <Textbox Name="Date_2">
+                  <rd:DefaultName>Date_2</rd:DefaultName>
+                  <ZIndex>6</ZIndex>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontWeight>700</FontWeight>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Date.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Grouping Name="matrix1_Date">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Date.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicColumns>
+            <Height>0.3375in</Height>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <DataSetName>DataSetMTDDailyPNL_PMGetMTDDailyPNL</DataSetName>
+        <Top>1.68in</Top>
+        <Width>3.625in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="PercentChange_2">
+              <rd:DefaultName>PercentChange_2</rd:DefaultName>
+              <ZIndex>7</ZIndex>
+              <Style>
+                <TextAlign>Right</TextAlign>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingBottom>2pt</PaddingBottom>
+                <BackgroundColor>White</BackgroundColor>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+              </Style>
+              <CanGrow>true</CanGrow>
+              <Value />
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+          <Color>White</Color>
+        </Style>
+        <Height>1.35in</Height>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.3375in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="TotalValue_1">
+                    <rd:DefaultName>TotalValue_1</rd:DefaultName>
+                    <ZIndex>4</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>$#,###</Format>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(First(Fields!TotalValue.Value) &lt;= 0, "$0.00" , "$" &amp; First(Fields!TotalValue.Value))</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.3375in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="PNLGross_2">
+                    <rd:DefaultName>PNLGross_2</rd:DefaultName>
+                    <ZIndex>2</ZIndex>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <Format>#,###</Format>
+                      <BackgroundColor>White</BackgroundColor>
+                      <Color>=iif(First(Fields!PNLGross.Value) &lt; 0, "Red","Black")</Color>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(First(Fields!PNLGross.Value) &lt; 0, "($" &amp; (First(Fields!PNLGross.Value) * -1) &amp; ")", "$" &amp; First(Fields!PNLGross.Value))</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+          <MatrixRow>
+            <Height>0.3375in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="PercentChange_3">
+                    <rd:DefaultName>PercentChange_3</rd:DefaultName>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <BackgroundColor>Gainsboro</BackgroundColor>
+                      <Color>=iif(First(Fields!PercentChange.Value) &lt; 0, "Red","Black")</Color>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(First(Fields!PercentChange.Value) &lt; 0, "(" &amp; (First(Fields!PercentChange.Value) * -1) &amp; " %)",First(Fields!PercentChange.Value) &amp; " %")</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+    </ReportItems>
+    <Height>5.75in</Height>
+    <Style>
+      <BackgroundColor>White</BackgroundColor>
+    </Style>
+  </Body>
+  <rd:ReportID>9dc37659-0b8c-4f4d-82cc-b770958b591f</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="PranaClientDataSet_P_GetHolidays">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>PranaClientDataSet</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>P_GetHolidaysTableAdapter</rd:TableAdapterName>
+        <rd:TableName>P_GetHolidays</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.P_GetHolidays</CommandText>
+        <DataSourceName>PranaClientConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="HolidayID">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>HolidayID</DataField>
+        </Field>
+        <Field Name="HolidayDate">
+          <rd:TypeName>System.DateTime</rd:TypeName>
+          <DataField>HolidayDate</DataField>
+        </Field>
+        <Field Name="Description">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Description</DataField>
+        </Field>
+        <Field Name="Column1">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>Column1</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PranaClientDataSet_PMGetMonthlySummaryValues">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>PranaClientDataSet</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>PMGetMonthlySummaryValuesTableAdapter</rd:TableAdapterName>
+        <rd:TableName>PMGetMonthlySummaryValues</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.PMGetMonthlySummaryValues</CommandText>
+        <DataSourceName>PranaClientConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="PrimeBrokerRealizedPL">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PrimeBrokerRealizedPL</DataField>
+        </Field>
+        <Field Name="PrimeBrokerUnrealizedPL">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PrimeBrokerUnrealizedPL</DataField>
+        </Field>
+        <Field Name="EquityValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EquityValue</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSetMonthlySummary_PMGetMonthlySummaryValues">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>DataSetMonthlySummary</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>PMGetMonthlySummaryValuesTableAdapter</rd:TableAdapterName>
+        <rd:TableName>PMGetMonthlySummaryValues</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.PMGetMonthlySummaryValues</CommandText>
+        <DataSourceName>PranaClientConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="PrimeBrokerRealizedPL">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PrimeBrokerRealizedPL</DataField>
+        </Field>
+        <Field Name="PrimeBrokerUnrealizedPL">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PrimeBrokerUnrealizedPL</DataField>
+        </Field>
+        <Field Name="EquityValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>EquityValue</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSetMTDDailyPNL_PMGetMTDDailyPNL">
+      <rd:DataSetInfo>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:DataSetName>DataSetMTDDailyPNL</rd:DataSetName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterName>PMGetMTDDailyPNLTableAdapter</rd:TableAdapterName>
+        <rd:TableName>PMGetMTDDailyPNL</rd:TableName>
+      </rd:DataSetInfo>
+      <Query>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.PMGetMTDDailyPNL</CommandText>
+        <DataSourceName>PranaClientConnectionString</DataSourceName>
+      </Query>
+      <Fields>
+        <Field Name="TotalValue">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>TotalValue</DataField>
+        </Field>
+        <Field Name="PNLGross">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PNLGross</DataField>
+        </Field>
+        <Field Name="PercentChange">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PercentChange</DataField>
+        </Field>
+        <Field Name="Date">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>Date</DataField>
+        </Field>
+        <Field Name="StrategyName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>StrategyName</DataField>
+        </Field>
+        <Field Name="PNLGrossStrategy">
+          <rd:TypeName>System.Double</rd:TypeName>
+          <DataField>PNLGrossStrategy</DataField>
+        </Field>
+        <Field Name="LogoImage">
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+          <DataField>LogoImage</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>14in</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

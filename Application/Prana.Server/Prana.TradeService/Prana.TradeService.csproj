@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4C528441-A605-41E6-AE07-805E8357E8CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.TradeService</RootNamespace>
+    <AssemblyName>Prana.TradeService</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.1.3.42154, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.DynamicProxy2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Services.Logging.NLogIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AmqpPluginManager.cs" />
+    <Compile Include="ServerDbManager.cs" />
+    <Compile Include="TradeService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10dd56d7-73f5-4213-9f65-74abcca49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CashManagement\Prana.CashManagement.csproj">
+      <Project>{a8098aa7-c314-4489-8e13-8dbc9ae0f8fc}</Project>
+      <Name>Prana.CashManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CommonDatabaseAccess\Prana.CommonDatabaseAccess.csproj">
+      <Project>{4d196202-276e-4b9d-a377-642cd133226d}</Project>
+      <Name>Prana.CommonDatabaseAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.PositionServices\Prana.PositionServices.csproj">
+      <Project>{19b8a1ee-92b5-4efd-9295-01be23f1f956}</Project>
+      <Name>Prana.PositionServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.MonitoringProcessor\Prana.MonitoringProcessor.csproj">
+      <Project>{43aabd95-3224-4cf7-bb1d-c77a73ea01fb}</Project>
+      <Name>Prana.MonitoringProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.CoreService.Interfaces\Prana.CoreService.Interfaces.csproj">
+      <Project>{79a6b4bd-7843-477b-a6d2-980bedab9f86}</Project>
+      <Name>Prana.CoreService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.SocketCommunication\Prana.SocketCommunication.csproj">
+      <Project>{f221a266-01c2-4eca-aded-0717573bcc2e}</Project>
+      <Name>Prana.SocketCommunication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ThirdPartyManager\Prana.ThirdPartyManager.csproj">
+      <Project>{6011A10D-51E9-436B-BB73-4104303A8BE2}</Project>
+      <Name>Prana.ThirdPartyManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Core\Prana.Allocation.Core.csproj">
+      <Project>{cac3f752-5b90-43b6-9844-9537f77a40a7}</Project>
+      <Name>Prana.Allocation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Authentication.Common\Prana.Authentication.Common.csproj">
+      <Project>{e24d23e5-1ab0-4588-a7f8-03492c524b62}</Project>
+      <Name>Prana.Authentication.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Authentication\Prana.Authentication.csproj">
+      <Project>{19629e0f-9ba3-49a0-8837-dd38fc20d9fe}</Project>
+      <Name>Prana.Authentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CAServices\Prana.CAServices.csproj">
+      <Project>{d5265a7b-ac92-4110-ab8f-2500ab7a7a69}</Project>
+      <Name>Prana.CAServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Client\Prana.SecurityMasterNew\Prana.SecurityMasterNew.csproj">
+      <Project>{8237c28a-ee49-4a68-a89a-1f1f6a939fc4}</Project>
+      <Name>Prana.SecurityMasterNew</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Fix.FixDictionary\Prana.Fix.FixDictionary.csproj">
+      <Project>{08ad82ef-9fc2-4225-8014-a030a9b1b356}</Project>
+      <Name>Prana.Fix.FixDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PostTradeServices\Prana.PostTradeServices.csproj">
+      <Project>{e185f480-b1ea-4ad6-8a69-4f8cd6708d0d}</Project>
+      <Name>Prana.PostTradeServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PostTrade\Prana.PostTrade.csproj">
+      <Project>{efbc7e5a-dee4-45fa-8fb4-f9dfe5e5c120}</Project>
+      <Name>Prana.PostTrade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PreTrade\Prana.PreTrade.csproj">
+      <Project>{18c250a9-9f66-45f2-a4f4-cea3b8fc5f87}</Project>
+      <Name>Prana.PreTrade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35B3FD76-9AA5-424B-9E04-B7FF1EF1BFC2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService\Prana.PubSubService.csproj">
+      <Project>{80fa0efa-0b1f-495e-bdfa-590c7c9686d3}</Project>
+      <Name>Prana.PubSubService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ActivityHandler\Prana.ActivityHandler.csproj">
+      <Project>{4656ce74-09e3-4c3c-a9c2-9a8be3be34e4}</Project>
+      <Name>Prana.ActivityHandler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.AllocationProcessor\Prana.AllocationProcessor.csproj">
+      <Project>{c1cec71e-c83d-4a14-a77c-5589370210fe}</Project>
+      <Name>Prana.AllocationProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CustomMapper\Prana.CustomMapper.csproj">
+      <Project>{618ea226-74bf-46be-8345-65bed17e26bb}</Project>
+      <Name>Prana.CustomMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.DataManager\Prana.DataManager.csproj">
+      <Project>{48ea3ff6-21c7-40aa-b4d5-b2a84158b287}</Project>
+      <Name>Prana.DataManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.DropCopyProcessor_PostTRade\Prana.DropCopyProcessor_PostTrade.csproj">
+      <Project>{2fbec067-b634-46e1-b28f-1ff9e5fefcf8}</Project>
+      <Name>Prana.DropCopyProcessor_PostTrade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.FixAdapters\Prana.FixAdapters.csproj">
+      <Project>{745ff555-e0ce-4815-9129-62a535981f6c}</Project>
+      <Name>Prana.FixAdapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.FixEngineConnectionManager\Prana.FixEngineConnectionManager.csproj">
+      <Project>{3626e4aa-2eea-44d8-ba81-bf2543b4dc95}</Project>
+      <Name>Prana.FixEngineConnectionManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.MessageProcessor\Prana.MessageProcessor.csproj">
+      <Project>{fbcb260f-9cd4-4236-8630-2efa5aeb93a0}</Project>
+      <Name>Prana.MessageProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.OrderProcessor\Prana.OrderProcessor.csproj">
+      <Project>{21df5908-ad41-4954-ba09-149e5a04b7b3}</Project>
+      <Name>Prana.OrderProcessor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.QueueManager\Prana.QueueManager.csproj">
+      <Project>{d3d605fa-45b0-41b6-abc6-12cb49a81815}</Project>
+      <Name>Prana.QueueManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.RebalancerBL\Prana.RebalancerBL.csproj">
+      <Project>{54e0e97e-cb88-4c8e-85ee-2591da59408d}</Project>
+      <Name>Prana.RebalancerBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ServerCommon\Prana.ServerCommon.csproj">
+      <Project>{944563bb-88a0-45c2-861c-562c94776983}</Project>
+      <Name>Prana.ServerCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SoftVestFinLib\SoftVestFinLib.csproj">
+      <Project>{6cacb3d2-aa05-4dbe-8a66-a85aadf23f30}</Project>
+      <Name>SoftVestFinLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppSettings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)AppSettings.xml" "$(TargetDir)" /I /F /Y
+xcopy "$(TargetDir)*.*"  "$(SolutionDir)Application\Prana.Server\Prana.TradeServiceHost\$(OutDir)" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

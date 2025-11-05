@@ -1,0 +1,72 @@
+module customRules.postTrade.cogniosAvgPxLess5GrExp.CogniosAvgPxLess5GrExp;
+
+
+/* Constant Variable region starts here*/
+
+create constant variable double COGNIOS_MAX_GRS_EXPOSURE_COEFFICIENT = 1.75;
+
+/* Constant Variable region ends here*/
+
+
+@Name('AggregationPricePostCognios')
+@Description('Calculates gross exposure for Cognios')
+insert into AggregationPricePostCognios
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"RowCalculationBaseWindow" as parentWindowStream
+	
+from
+
+RowCalculationBaseWindow(avgPrice < 5 and currency = 'USD') as T 
+where T.accountShortName='Cognios' and T.taxlotType='Post'
+group by T.accountShortName;
+
+
+
+
+
+@Name('AccountPricePercentExposurePostCognios')
+@Description('Calculates percentage gross exposure.')
+on pattern[every T=AggregationPricePostCognios]
+insert into AccountPricePercentExposurePostCognios
+select distinct
+	coalesce(T.grossExposureBase*100/(coalesce(F.accountNav,1) * COGNIOS_MAX_GRS_EXPOSURE_COEFFICIENT),0) as percentageExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationPricePostCognios" as parentWindowStream
+	
+from 
+AccountWithNav as F
+where F.accountId=T.accountId;
+
+
+
+@Name('RuleName5FinalCognios')
+@Description('Checks if limit is breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName5FinalCognios
+select distinct
+	R.taxlotId as taxlotId,
+	R.userId as userId,
+	'N/A' || ValueSeparator || '2'  as threshold,
+	R.accountShortName || ValueSeparator || cast(R.percentageExposure,String) as actualResult,
+	'Account' || ValueSeparator || '% Exposure Account' as constraintField,
+	true as isViolated,
+	'% Exposure Account: '||cast(R.percentageExposure,String) || ', Account: '||R.accountShortName|| ', Gross Exposure: '|| R.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'No more than 2% of Cognios exposure shall be invested in stocks and Average Price less than $5.' as summary,
+	R.accountShortName as dimension,
+	"AccountPricePercentExposurePostCognios" as parentWindowStream
+from
+AccountPricePercentExposurePostCognios as R
+where R.percentageExposure > 2;
+
+
+ 

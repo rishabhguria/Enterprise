@@ -1,0 +1,43 @@
+module customRules.PSPResearch.postTrade.singleOpenEndFunds.postTradeSingleOpenEndFunds;
+
+@Name('PostTradeFundsCheckInAccount')
+@Description('Stores the calculated value of net market value')
+on DivisorEndMessage as B
+insert into PostTradeFundsCheckInAccount
+select distinct
+   0 as userId,
+    '' as taxlotId,
+	W.accountId as accountId,
+	W.accountShortName as accountShortName,
+	W.customUDA1 as fundName,
+	W.symbol as symbol,
+	W.accountNav as accountNav,
+	W.netMarketValueBase as netMarketValueBase,
+	(case(valueExistsInCSV(W.accountShortName, PostAccountNameToVerify) and 
+	valueExistsInCSV(W.customUDA1, Post_Fund_to_check))
+	when true then true else false end) as finalValidation,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W;
+
+@Name('PostTradeMaxFundCheck')
+@Description('Check if condition is breached')
+insert into PostTradeMaxFundCheck
+select distinct 
+    A.userId as userId,
+    A.taxlotId as taxlotId,
+	PostAccountNameToVerify || ValueSeparator || Post_Fund_to_check || ValueSeparator || doubleFormat(Post_Maximum_Percentage) as threshold,
+	A.accountShortName || ValueSeparator || A.fundName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.netMarketValueBase/ A.accountNav)*100, 0))) as actualResult,
+	'Account' || ValueSeparator || 'Open End Fund' || ValueSeparator || '% Total Nav' as constraintField,
+	(case A.finalValidation is true
+    when true then (Math.abs(coalesce(A.netMarketValueBase/ A.accountNav, 0)) > (Post_Maximum_Percentage/100))
+    else false end) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Net Market Value:' || doubleFormat(Math.abs(A.netMarketValueBase))
+		|| ', Fund Name : ' || A.fundName  
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.netMarketValueBase/ A.accountNav)*100, 0))) as parameters,
+    current_timestamp as validationTime,
+    'The market value in fund - ' || A.fundName ||' exceeded ' || doubleFormat(Maximum_Percentage) || '% of Account NAV.'  as summary,
+    A.accountShortName|| ValueSeparator ||A.fundName|| ValueSeparator ||A.symbol as dimension
+from PostTradeFundsCheckInAccount as A;
+  

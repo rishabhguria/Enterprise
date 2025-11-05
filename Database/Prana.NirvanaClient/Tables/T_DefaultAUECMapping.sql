@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[T_DefaultAUECMapping]
+(
+	[ID] INT IDENTITY(1,1) PRIMARY KEY,
+	[CountryID] INT NOT NULL ,
+	[CurrencyID] INT NOT NULL,
+	[AUECID] INT NOT NULL
+)

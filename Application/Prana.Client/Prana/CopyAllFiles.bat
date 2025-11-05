@@ -1,0 +1,1 @@
+xcopy . ..\..\..\..\..\Installers\Prana.Client\Prana.Installer\PranaClient\. /Y/S/R/G/H/Q/E/C 

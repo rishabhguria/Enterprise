@@ -1,0 +1,32 @@
+module customRules.PanoramicCapital.preTrade.basketQuantityLimit.preTradeBasketQuantityLimit;
+
+@Name('BasketQuantityCheck')
+@Description('Calculate total WhatIf quantity per basket.')
+on BasketEOM as B
+insert into BasketQuantityCheck
+select
+    B.userId as userId,
+    B.basketId as basketId,
+    sum(coalesce(R.quantity, 0)) as basketQuantity,
+    "RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where R.basketId = B.basketId
+  and R.taxlotType = 'WhatIf'
+group by B.basketId,B.userId;
+
+@Name('PreTradeBasketQuantityLimit')
+@Description('Final stream to flag when basket quantity exceeds threshold.')
+insert into PreTradeBasketQuantityLimit
+select distinct
+    BQ.basketId as basketId,
+    BQ.userId as userId,
+    0 as taxlotId,
+    doubleFormat(MaxBasketQuantity) as threshold,
+    doubleFormat(BQ.basketQuantity) as actualResult,
+    'Quantity' as constraintField,
+    (case when BQ.basketQuantity > MaxBasketQuantity then true else false end) as isViolated,
+    'Total Quantity: ' || doubleFormat(BQ.basketQuantity) as parameters,
+    current_timestamp as validationTime,
+    'Trade quantity limit of ' || doubleFormat(MaxBasketQuantity) || ' exceeded' as summary,
+    BQ.basketId as dimension
+from BasketQuantityCheck as BQ;

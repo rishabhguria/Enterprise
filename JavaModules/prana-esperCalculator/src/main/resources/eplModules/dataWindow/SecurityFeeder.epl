@@ -1,0 +1,341 @@
+module eplModules.dataWindow.SecurityFeeder;
+
+uses eplModules.dataWindow.CurrencyFeeder;
+
+@Name('SecurityWindow')
+@Description('Named window which stores the data related to security for each tickerSymbol.')
+create window SecurityWindow.std:unique(tickerSymbol)
+(
+			tickerSymbol string,
+			assetId int,
+			auecId int,
+			underlyingSymbol string,
+			leveragedFactor double,
+			longName string,
+			multiplier double,
+			udaAsset string,
+			udaSecurityType string,
+			udaSector string,
+			udaSubSector string,
+			udaCountry string,
+			currencyId int,
+			currencyText string,
+			fxSymbol string,
+			expirationDate java.util.Date,
+			putOrCall string,
+			strikePrice double,
+			leadCurrencyId int,
+			vsCurrencyId int,
+			riskCurrency string,
+			issuer string,
+			countryOfRisk string,
+			region string,
+			analyst string,
+			ucitsEligibleTag string,
+			liquidTag string,
+			marketCap string,
+			isCurrencyFuture boolean,
+			customUDA1 string,
+			customUDA2 string,
+			customUDA3 string,
+			customUDA4 string,
+			customUDA5 string,
+			customUDA6 string,
+			customUDA7 string,
+			roundLot double,
+			sharesOutstanding BigDecimal,
+			isEsperStarted boolean,
+			parentWindowStream string,
+			customUDA8 string,
+			customUDA9 string,
+			customUDA10 string,
+			customUDA11 string,
+			customUDA12 string,
+			bloombergSymbol string,
+			activSymbol string,
+			factSetSymbol string,
+			bloombergSymbolWithExchangeCode string
+);
+
+@Name('SecurityWindowInsert')
+@Description('This inserts the data from Security into SecurityWindowInsert on the basis of currency Id.')
+Insert into SecurityWindowInsert
+Select 
+	S.assetId as assetId,
+	S.uuid as uuid,
+	S.tickerSymbol as tickerSymbol,
+	S.auecId as auecId,
+	S.underlyingSymbol as underlyingSymbol,
+	S.delta as leveragedFactor,
+	S.longName as longName,
+	S.multiplier as multiplier,
+	S.udaAsset as udaAsset,
+	S.udaSecurityType as udaSecurityType,
+	S.udaSector as udaSector,
+	S.udaSubSector as udaSubSector,
+	S.udaCountry as udaCountry,
+	C.currencyId as currencyId,
+	C.currencyText as currencyText, 
+	C.currencyText||'-'||CompanyBaseCurrency as fxSymbol,
+	S.expirationDate as expirationDate,
+	S.putOrCall as putOrCall,
+	S.strikePrice as strikePrice,
+	S.leadCurrencyId as leadCurrencyId,
+	S.vsCurrencyId as vsCurrencyId,
+	S.riskCurrency as riskCurrency,
+	S.issuer as issuer,
+	S.countryOfRisk as countryOfRisk,
+	S.region as region,
+	S.analyst as analyst,
+	S.ucitsEligibleTag as ucitsEligibleTag,
+	S.liquidTag as liquidTag,
+	S.marketCap as marketCap,
+	S.isCurrencyFuture as isCurrencyFuture,
+	S.customUDA1 as customUDA1,
+	S.customUDA2 as customUDA2,
+	S.customUDA3 as customUDA3,
+	S.customUDA4 as customUDA4,
+	S.customUDA5 as customUDA5,
+	S.customUDA6 as customUDA6,
+	S.customUDA7 as customUDA7,
+	S.roundLot as roundLot,
+	coalesce(S.sharesOutstanding, BigDecimal.ZERO) as sharesOutstanding,
+	S.isEsperStarted as isEsperStarted,
+	"Security,CurrencyWindow" as parentWindowStream,
+	S.customUDA8 as customUDA8,
+	S.customUDA9 as customUDA9,
+	S.customUDA10 as customUDA10,
+	S.customUDA11 as customUDA11,
+	S.customUDA12 as customUDA12,
+	S.bloombergSymbol as bloombergSymbol,
+	S.activSymbol as activSymbol,
+	S.factSetSymbol as factSetSymbol,
+	S.bloombergSymbolWithExchangeCode as bloombergSymbolWithExchangeCode
+from Security.std:unique(tickerSymbol) as S left outer join
+CurrencyWindow as C on C.currencyId = S.currencyId where not (S.assetId in (5, 11) and S.leadCurrencyId in (8, 4, 14, 36));
+
+@Name('SecurityWindowInsert')
+@Description('This inserts the data from Security into SecurityWindowInsert on the basis of lead Currency Id.')
+Insert into SecurityWindowInsert
+Select 
+	S.assetId as assetId,
+	S.uuid as uuid,
+	S.tickerSymbol as tickerSymbol,
+	S.auecId as auecId,
+	S.underlyingSymbol as underlyingSymbol,
+	S.delta as leveragedFactor,
+	S.longName as longName,
+	S.multiplier as multiplier,
+	S.udaAsset as udaAsset,
+	S.udaSecurityType as udaSecurityType,
+	S.udaSector as udaSector,
+	S.udaSubSector as udaSubSector,
+	S.udaCountry as udaCountry,
+	S.currencyId as currencyId,
+	CompanyBaseCurrency as currencyText, 
+	C.currencyText || '-' || CompanyBaseCurrency as fxSymbol,
+	S.expirationDate as expirationDate,
+	S.putOrCall as putOrCall,
+	S.strikePrice as strikePrice,
+	S.leadCurrencyId as leadCurrencyId,
+	S.vsCurrencyId as vsCurrencyId,
+	S.riskCurrency as riskCurrency,
+	S.issuer as issuer,
+	S.countryOfRisk as countryOfRisk,
+	S.region as region,
+	S.analyst as analyst,
+	S.ucitsEligibleTag as ucitsEligibleTag,
+	S.liquidTag as liquidTag,
+	S.marketCap as marketCap,
+	S.isCurrencyFuture as isCurrencyFuture,
+	S.customUDA1 as customUDA1,
+	S.customUDA2 as customUDA2,
+	S.customUDA3 as customUDA3,
+	S.customUDA4 as customUDA4,
+	S.customUDA5 as customUDA5,
+	S.customUDA6 as customUDA6,
+	S.customUDA7 as customUDA7,
+	S.roundLot as roundLot,
+	coalesce(S.sharesOutstanding, BigDecimal.ZERO) as sharesOutstanding,
+	S.isEsperStarted as isEsperStarted,
+	"Security,CurrencyWindow" as parentWindowStream,
+	S.customUDA8 as customUDA8,
+	S.customUDA9 as customUDA9,
+	S.customUDA10 as customUDA10,
+	S.customUDA11 as customUDA11,
+	S.customUDA12 as customUDA12,
+	S.bloombergSymbol as bloombergSymbol,
+	S.activSymbol as activSymbol,
+	S.factSetSymbol as factSetSymbol,
+	S.bloombergSymbolWithExchangeCode as bloombergSymbolWithExchangeCode
+from Security.std:unique(tickerSymbol) as S left outer join
+CurrencyWindow as C on C.currencyId = S.leadCurrencyId where (S.assetId in (5, 11) and S.leadCurrencyId in (8, 4, 14, 36));
+
+@Name('SecurityWindowUpsert')
+@Description('This updates the SecurityWindow every time new SecurityWindowInsert event occurs.')
+on SecurityWindowInsert as s
+merge SecurityWindow sw where sw.tickerSymbol = s.tickerSymbol
+	when matched and
+			(
+				s.assetId <> sw.assetId or
+				s.auecId <> sw.auecId or
+				s.underlyingSymbol <> sw.underlyingSymbol or
+				s.leveragedFactor <> sw.leveragedFactor or
+				s.longName <> sw.longName or
+				s.multiplier <> sw.multiplier or
+				s.udaAsset <> sw.udaAsset or
+				s.udaSecurityType <> sw.udaSecurityType or
+				s.udaSector <> sw.udaSector or
+				s.udaSubSector <> sw.udaSubSector or
+				s.udaCountry <> sw.udaCountry or
+				s.currencyId <> sw.currencyId or
+				s.currencyText <> sw.currencyText or
+				s.fxSymbol <> sw.fxSymbol or 
+				s.putOrCall <> sw.putOrCall	or
+				s.strikePrice <> sw.strikePrice or 
+				s.leadCurrencyId <> sw.leadCurrencyId or
+				s.vsCurrencyId <> sw.vsCurrencyId or
+				s.expirationDate <> sw.expirationDate or
+				s.riskCurrency <> sw.riskCurrency or
+				s.issuer <> sw.issuer or
+				s.countryOfRisk <> sw.countryOfRisk or
+				s.region <> sw.region or
+				s.analyst <> sw.analyst or
+				s.ucitsEligibleTag <> sw.ucitsEligibleTag or
+				s.liquidTag <> sw.liquidTag or
+				s.marketCap <> sw.marketCap or
+				s.isCurrencyFuture <> sw.isCurrencyFuture or
+				s.customUDA1 <> sw.customUDA1 or
+				s.customUDA2 <> sw.customUDA2 or
+				s.customUDA3 <> sw.customUDA3 or
+				s.customUDA4 <> sw.customUDA4 or
+				s.customUDA5 <> sw.customUDA5 or
+				s.customUDA6 <> sw.customUDA6 or
+				s.customUDA7 <> sw.customUDA7 or
+				s.roundLot <> sw.roundLot or
+				s.isEsperStarted <> sw.isEsperStarted or
+				s.sharesOutstanding <> sw.sharesOutstanding or
+				s.customUDA8 <> sw.customUDA8 or
+				s.customUDA9 <> sw.customUDA9 or
+				s.customUDA10 <> sw.customUDA10 or
+				s.customUDA11 <> sw.customUDA11 or
+				s.customUDA12 <> sw.customUDA12 or
+				s.bloombergSymbol <> sw.bloombergSymbol or
+				s.activSymbol <> sw.activSymbol or
+				s.factSetSymbol <> sw.factSetSymbol or 
+				s.bloombergSymbolWithExchangeCode<> sw.bloombergSymbolWithExchangeCode
+			)
+		then 
+			update 
+				set
+				sw.assetId = s.assetId,
+				sw.auecId = s.auecId,
+				sw.underlyingSymbol = s.underlyingSymbol,
+				sw.leveragedFactor = s.leveragedFactor,
+				sw.longName = s.longName,
+				sw.multiplier = s.multiplier,
+				sw.udaAsset = s.udaAsset,
+				sw.udaSecurityType = s.udaSecurityType,
+				sw.udaSector = s.udaSector,
+				sw.udaSubSector = s.udaSubSector,
+				sw.udaCountry = s.udaCountry,
+				sw.currencyId = s.currencyId,
+				sw.currencyText = s.currencyText,
+				sw.fxSymbol = s.fxSymbol,
+				sw.putOrCall = s.putOrCall,
+				sw.strikePrice = s.strikePrice,
+				sw.leadCurrencyId = s.leadCurrencyId,
+				sw.vsCurrencyId = s.vsCurrencyId,
+				sw.expirationDate = s.expirationDate,
+				sw.riskCurrency = s.riskCurrency,
+				sw.issuer = s.issuer,
+				sw.countryOfRisk = s.countryOfRisk,
+				sw.region = s.region,
+				sw.analyst = s.analyst,
+				sw.ucitsEligibleTag = s.ucitsEligibleTag,
+				sw.liquidTag = s.liquidTag,
+				sw.marketCap = s.marketCap,
+				sw.isCurrencyFuture = s.isCurrencyFuture,
+				sw.customUDA1 = s.customUDA1,
+				sw.customUDA2 = s.customUDA2,
+				sw.customUDA3 = s.customUDA3,
+				sw.customUDA4 = s.customUDA4,
+				sw.customUDA5 = s.customUDA5,
+				sw.customUDA6 = s.customUDA6,
+				sw.customUDA7 = s.customUDA7,
+				sw.roundLot = s.roundLot,
+				sw.sharesOutstanding = s.sharesOutstanding,
+				sw.isEsperStarted = s.isEsperStarted,
+				sw.parentWindowStream = "SecurityWindowInsert-Upate",
+				sw.customUDA8 = s.customUDA8,
+				sw.customUDA9 = s.customUDA9,
+				sw.customUDA10 = s.customUDA10,
+				sw.customUDA11 = s.customUDA11,
+				sw.customUDA12 = s.customUDA12,		
+				sw.bloombergSymbol = s.bloombergSymbol,
+				sw.activSymbol = s.activSymbol,
+				sw.factSetSymbol = s.factSetSymbol	,
+				sw.bloombergSymbolWithExchangeCode=s.bloombergSymbolWithExchangeCode	
+		then insert into SecurityWindowUpdated
+			Select
+				s.uuid as modificationId,
+				s.tickerSymbol as tickerSymbol,
+		   		"SecurityWindowInsert-Upate" as parentWindowStream			
+				
+	when not matched
+		then insert 
+			select    	
+				s.assetId as assetId,
+				s.tickerSymbol as tickerSymbol,
+				s.auecId as auecId,
+				s.underlyingSymbol as underlyingSymbol,
+				s.leveragedFactor as leveragedFactor,
+				s.longName as longName,
+				s.multiplier as multiplier,
+				s.udaAsset as udaAsset,
+				s.udaSecurityType as udaSecurityType,
+				s.udaSector as udaSector,
+				s.udaSubSector as udaSubSector,
+				s.udaCountry as udaCountry,
+				s.currencyId as currencyId,
+				s.currencyText as currencyText,
+				s.fxSymbol as fxSymbol,
+				s.expirationDate as expirationDate,
+				s.putOrCall as putOrCall,
+				s.strikePrice as strikePrice,
+				s.leadCurrencyId as leadCurrencyId,
+				s.vsCurrencyId as vsCurrencyId,
+				s.riskCurrency as riskCurrency,
+				s.issuer as issuer,
+				s.countryOfRisk as countryOfRisk,
+				s.region as region,
+				s.analyst as analyst,
+				s.ucitsEligibleTag as ucitsEligibleTag,
+				s.liquidTag as liquidTag,
+				s.marketCap as marketCap,
+				s.isCurrencyFuture as isCurrencyFuture,
+				s.customUDA1 as customUDA1,
+				s.customUDA2 as customUDA2,
+				s.customUDA3 as customUDA3,
+				s.customUDA4 as customUDA4,
+				s.customUDA5 as customUDA5,
+				s.customUDA6 as customUDA6,
+				s.customUDA7 as customUDA7,
+				s.roundLot as roundLot,
+				s.sharesOutstanding as sharesOutstanding,
+				s.isEsperStarted as isEsperStarted,
+		   		"SecurityWindowInsert-Insert" as parentWindowStream,
+		   		s.customUDA8 as customUDA8,
+		   		s.customUDA9 as customUDA9,
+		   		s.customUDA10 as customUDA10,
+		   		s.customUDA11 as customUDA11,
+		   		s.customUDA12 as customUDA12,
+				s.bloombergSymbol as bloombergSymbol,
+				s.activSymbol as activSymbol,
+				s.factSetSymbol as factSetSymbol,
+				s.bloombergSymbolWithExchangeCode as bloombergSymbolWithExchangeCode
+		then insert into SecurityWindowUpdated
+			Select
+				s.uuid as modificationId,
+				s.tickerSymbol as tickerSymbol,
+		   		"SecurityWindowInsert-Insert" as parentWindowStream;

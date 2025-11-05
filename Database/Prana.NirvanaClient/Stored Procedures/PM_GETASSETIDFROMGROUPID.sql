@@ -1,0 +1,7 @@
+﻿--exec PM_GETASSETIDFROMGROUPID 80915165856
+CREATE PROCEDURE PM_GETASSETIDFROMGROUPID
+(
+	@groupID varchar(50)
+)
+AS
+    Select Top 1 AssetID from T_Group WHERE GroupID = @groupID

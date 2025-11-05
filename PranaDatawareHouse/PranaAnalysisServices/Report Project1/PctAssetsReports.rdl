@@ -1,0 +1,762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <DataSourceReference>DataSource1</DataSourceReference>
+      <rd:DataSourceID>325d1cd5-91c1-4d83-bd44-93ca5cf1df0f</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <BottomMargin>1in</BottomMargin>
+  <RightMargin>1in</RightMargin>
+  <ReportParameters>
+    <ReportParameter Name="asset">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>asset</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Asset</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>asset</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+          <LabelField>ParameterCaption</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="ToDimTimeDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>LastBusinessDays</DataSetName>
+          <ValueField>LastBusinessDate_Calc</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Grouping">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>="Asset_Name"</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Grouping</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>="Asset_Name"</Value>
+            <Label>="Asset"</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="Sector_Name"</Value>
+            <Label>="Sector"</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="sector">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>sector</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Sector</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>sector</DataSetName>
+          <ValueField>ParameterValue</ValueField>
+          <LabelField>ParameterCaption</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="IncludeCash_Param">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=true</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>IncludeCash</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ReportItems>
+      <Image Name="image1">
+        <Sizing>Fit</Sizing>
+        <MIMEType />
+        <ZIndex>1</ZIndex>
+        <Source>External</Source>
+        <Style />
+        <Height>0.96875in</Height>
+        <Value>header.jpg</Value>
+      </Image>
+      <Matrix Name="matrix1">
+        <MatrixColumns>
+          <MatrixColumn>
+            <Width>0.5in</Width>
+          </MatrixColumn>
+        </MatrixColumns>
+        <RowGroupings>
+          <RowGrouping>
+            <Width>0.875in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="textbox4">
+                  <rd:DefaultName>textbox4</rd:DefaultName>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <BorderColor>
+                      <Default>LightGrey</Default>
+                    </BorderColor>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields(Parameters!Grouping.Value).Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Sorting>
+                <SortBy>
+                  <SortExpression>=Fields(Parameters!Grouping.Value).Value</SortExpression>
+                  <Direction>Ascending</Direction>
+                </SortBy>
+              </Sorting>
+              <Grouping Name="Sector">
+                <GroupExpressions>
+                  <GroupExpression>=Fields(Parameters!Grouping.Value).Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+          <RowGrouping>
+            <Width>1.125in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="textbox1">
+                  <rd:DefaultName>textbox1</rd:DefaultName>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <BorderColor>
+                      <Default>LightGrey</Default>
+                    </BorderColor>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Symbol.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Visibility>
+                <ToggleItem>textbox4</ToggleItem>
+                <Hidden>true</Hidden>
+              </Visibility>
+              <Sorting>
+                <SortBy>
+                  <SortExpression>=Fields!Symbol.Value</SortExpression>
+                  <Direction>Ascending</Direction>
+                </SortBy>
+              </Sorting>
+              <Grouping Name="Symbol_Grp">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Symbol.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+          <RowGrouping>
+            <Width>2.375in</Width>
+            <DynamicRows>
+              <ReportItems>
+                <Textbox Name="textbox5">
+                  <rd:DefaultName>textbox5</rd:DefaultName>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>7pt</FontSize>
+                    <BorderColor>
+                      <Default>LightGrey</Default>
+                    </BorderColor>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Symbol_LongName.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Visibility>
+                <ToggleItem>textbox4</ToggleItem>
+                <Hidden>true</Hidden>
+              </Visibility>
+              <Grouping Name="LongName_Grp">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Symbol_LongName.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicRows>
+          </RowGrouping>
+        </RowGroupings>
+        <ColumnGroupings>
+          <ColumnGrouping>
+            <DynamicColumns>
+              <ReportItems>
+                <Textbox Name="Fund_Name">
+                  <rd:DefaultName>Fund_Name</rd:DefaultName>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <BorderStyle>
+                      <Default>Solid</Default>
+                    </BorderStyle>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingBottom>2pt</PaddingBottom>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontWeight>700</FontWeight>
+                    <FontSize>7pt</FontSize>
+                    <BorderColor>
+                      <Default>LightGrey</Default>
+                    </BorderColor>
+                    <BackgroundColor>White</BackgroundColor>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                  </Style>
+                  <CanGrow>true</CanGrow>
+                  <Value>=Fields!Fund_Name.Value</Value>
+                </Textbox>
+              </ReportItems>
+              <Sorting>
+                <SortBy>
+                  <SortExpression>=Fields!Fund_Name.Value</SortExpression>
+                  <Direction>Ascending</Direction>
+                </SortBy>
+              </Sorting>
+              <Grouping Name="matrix1_Fund_Name">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Fund_Name.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+            </DynamicColumns>
+            <Height>0.21in</Height>
+          </ColumnGrouping>
+        </ColumnGroupings>
+        <DataSetName>DataSource1</DataSetName>
+        <Filters>
+          <Filter>
+            <Operator>NotEqual</Operator>
+            <FilterValues>
+              <FilterValue>Cash</FilterValue>
+            </FilterValues>
+            <FilterExpression>=iif(Parameters!IncludeCash_Param.Value,"Allow",Fields!Symbol.Value)</FilterExpression>
+          </Filter>
+          <Filter>
+            <Operator>NotEqual</Operator>
+            <FilterValues>
+              <FilterValue>=0</FilterValue>
+            </FilterValues>
+            <FilterExpression>=iif( 
+	Math.Abs(
+			iif(
+				Cdbl(Fields!FundMarketValue.Value)=0,
+				0,
+				iif(
+					Parameters!IncludeCash_Param.Value,
+
+					(100*Cdbl(Fields!SymbolMarketValue.Value))/
+					(Cdbl(Fields!FundMarketValue.Value)+Cdbl(Fields!FundCashValue.Value)),
+
+					(100*Cdbl(Fields!SymbolMarketValue.Value))/
+					(Cdbl(Fields!FundMarketValue.Value))
+				)
+			)
+	) &lt; 0.001,
+	0,
+	CDbl(Fields!SymbolMarketValue.Value)
+)</FilterExpression>
+          </Filter>
+        </Filters>
+        <Top>1in</Top>
+        <Width>4.875in</Width>
+        <Corner>
+          <ReportItems>
+            <Textbox Name="textbox3">
+              <rd:DefaultName>textbox3</rd:DefaultName>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingBottom>2pt</PaddingBottom>
+                <FontFamily>Verdana</FontFamily>
+                <BorderColor>
+                  <Default>LightGrey</Default>
+                </BorderColor>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+              </Style>
+              <CanGrow>true</CanGrow>
+              <Value>
+              </Value>
+            </Textbox>
+          </ReportItems>
+        </Corner>
+        <MatrixRows>
+          <MatrixRow>
+            <Height>0.21in</Height>
+            <MatrixCells>
+              <MatrixCell>
+                <ReportItems>
+                  <Textbox Name="textbox2">
+                    <rd:DefaultName>textbox2</rd:DefaultName>
+                    <Style>
+                      <BorderStyle>
+                        <Default>Solid</Default>
+                      </BorderStyle>
+                      <PaddingLeft>2pt</PaddingLeft>
+                      <PaddingBottom>2pt</PaddingBottom>
+                      <FontFamily>Verdana</FontFamily>
+                      <FontSize>7pt</FontSize>
+                      <Format>0.000</Format>
+                      <BorderColor>
+                        <Default>LightGrey</Default>
+                      </BorderColor>
+                      <PaddingRight>2pt</PaddingRight>
+                      <PaddingTop>2pt</PaddingTop>
+                    </Style>
+                    <CanGrow>true</CanGrow>
+                    <Value>=iif(Cdbl(Fields!FundMarketValue.Value)=0,
+
+0,
+iif(Parameters!IncludeCash_Param.Value,
+
+(100*Sum(Fields!SymbolMarketValue.Value))/
+(Cdbl(Fields!FundMarketValue.Value)+Cdbl(Fields!FundCashValue.Value)),
+
+(100*Sum(Fields!SymbolMarketValue.Value))/
+(Cdbl(Fields!FundMarketValue.Value)))
+)</Value>
+                  </Textbox>
+                </ReportItems>
+              </MatrixCell>
+            </MatrixCells>
+          </MatrixRow>
+        </MatrixRows>
+      </Matrix>
+    </ReportItems>
+    <Height>1.42in</Height>
+  </Body>
+  <rd:ReportID>91f16893-bcd2-4106-9a0d-aa38e7c8f060</rd:ReportID>
+  <LeftMargin>1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="DataSource1">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>with 
+
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):strtomember(@ToDimTimeDate,CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+member FundCashValue as 
+(
+([Measures].[Cash Value],EndDate.item(0))
+)
+
+member SymbolMarketValue as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+([Measures].[Cash Value],EndDate.item(0)),
+([Measures].[SymbolQuantity])
+*([Measures].[Final Mark Price],EndDate.item(0))
+*([Measures].[CurrencyConversionRate],EndDate.item(0))
+*[Measures].[Multiplier]
+)
+)
+
+member FundMarketValue as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+sum(
+[PM Open Position Snap Shots].[Fund Name].currentmember*
+[PM Open Position Snap Shots].[Fund-Symbol].[Symbol]
+
+,
+([Measures].[SymbolQuantity])
+*([Measures].[Final Mark Price],EndDate.item(0))
+*([Measures].[CurrencyConversionRate],EndDate.item(0))
+*[Measures].[Multiplier]
+)
+,
+
+
+Sum(
+[PM Open Position Snap Shots].[Fund-Symbol].[Symbol],
+([Measures].[SymbolQuantity])
+*([Measures].[Final Mark Price],EndDate.item(0))
+*([Measures].[CurrencyConversionRate],EndDate.item(0))
+*[Measures].[Multiplier]
+)
+
+)
+
+)
+member Asset_Name as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+"Cash",
+[PM Open Position Snap Shots].[Symbol].Properties("Asset Name"))
+)
+member Sector_Name as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+"Cash",
+[PM Open Position Snap Shots].[Symbol].Properties("Sector")
+)
+)
+member Symbol_LongName as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+"Cash",
+[PM Open Position Snap Shots].[Symbol].Properties("Long Name")
+)
+)
+member [PM Open Position Snap Shots].[Symbol].[Cash] as 
+(
+[PM Open Position Snap Shots].[Symbol].[All]
+)
+select {
+[T Company Funds].[Fund Name].Children*
+
+{[PM Open Position Snap Shots].[Symbol].children
+,[PM Open Position Snap Shots].[Symbol].[Cash]
+}
+} on rows,
+{FundMarketValue,
+SymbolMarketValue,
+Asset_Name,
+Sector_Name,
+Symbol_LongName,
+FundCashValue
+} on columns from 
+(SELECT ( STRTOSET(@asset, CONSTRAINED) )on columns from
+( SELECT ( null : STRTOmember(@ToDimTimeDate) ) ON COLUMNS FROM 
+(SELECT ( STRTOSET(@sector, CONSTRAINED) )on columns from
+
+[Nirvana Client DW])))</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="asset">
+            <Value>=Parameters!asset.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="ToDimTimeDate">
+            <Value>="[Dim Time].[Calender].[Year].&amp;[" &amp; Year(Parameters!ToDimTimeDate.Value) &amp; "].&amp;[" &amp; Ceiling(Format(Month(Parameters!ToDimTimeDate.Value), "00")/3) &amp; "].&amp;[" &amp; Format(Month(Parameters!ToDimTimeDate.Value), "00") &amp; "].[" &amp; Year(Parameters!ToDimTimeDate.Value) &amp; "-" &amp; Format(Month(Parameters!ToDimTimeDate.Value), "00") &amp; "-" &amp; Format(Day(Parameters!ToDimTimeDate.Value),"00") &amp; " 00:00:00]"</Value>
+          </QueryParameter>
+          <QueryParameter Name="sector">
+            <Value>=Parameters!sector.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>T Company Funds</DimensionName><HierarchyName>Fund Name</HierarchyName><HierarchyUniqueName>[T Company Funds].[Fund Name]</HierarchyUniqueName><LevelName>Fund Name</LevelName><UniqueName>[T Company Funds].[Fund Name].[Fund Name]</UniqueName></ID><ItemCaption>Fund Name</ItemCaption></Item><Item><ID xsi:type="Level"><DimensionName>PM Open Position Snap Shots</DimensionName><HierarchyName>Symbol</HierarchyName><HierarchyUniqueName>[PM Open Position Snap Shots].[Symbol]</HierarchyUniqueName><LevelName>Symbol</LevelName><UniqueName>[PM Open Position Snap Shots].[Symbol].[Symbol]</UniqueName></ID><ItemCaption>Symbol</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>FundMarketValue</MeasureName><UniqueName>[Measures].[FundMarketValue]</UniqueName></ID><ItemCaption>FundMarketValue</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SymbolMarketValue</MeasureName><UniqueName>[Measures].[SymbolMarketValue]</UniqueName></ID><ItemCaption>SymbolMarketValue</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>Asset_Name</MeasureName><UniqueName>[Measures].[Asset_Name]</UniqueName></ID><ItemCaption>Asset_Name</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>Sector_Name</MeasureName><UniqueName>[Measures].[Sector_Name]</UniqueName></ID><ItemCaption>Sector_Name</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>Symbol_LongName</MeasureName><UniqueName>[Measures].[Symbol_LongName]</UniqueName></ID><ItemCaption>Symbol_LongName</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>FundCashValue</MeasureName><UniqueName>[Measures].[FundCashValue]</UniqueName></ID><ItemCaption>FundCashValue</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>with 
+
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):strtomember(@ToDimTimeDate,CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+member FundCashValue as 
+(
+([Measures].[Cash Value],EndDate.item(0))
+)
+
+member SymbolMarketValue as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+([Measures].[Cash Value],EndDate.item(0)),
+([Measures].[SymbolQuantity])
+*([Measures].[Final Mark Price],EndDate.item(0))
+*([Measures].[CurrencyConversionRate],EndDate.item(0))
+*[Measures].[Multiplier]
+)
+)
+
+member FundMarketValue as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+sum(
+[PM Open Position Snap Shots].[Fund Name].currentmember*
+[PM Open Position Snap Shots].[Fund-Symbol].[Symbol]
+
+,
+([Measures].[SymbolQuantity])
+*([Measures].[Final Mark Price],EndDate.item(0))
+*([Measures].[CurrencyConversionRate],EndDate.item(0))
+*[Measures].[Multiplier]
+)
+,
+
+
+Sum(
+[PM Open Position Snap Shots].[Fund-Symbol].[Symbol],
+([Measures].[SymbolQuantity])
+*([Measures].[Final Mark Price],EndDate.item(0))
+*([Measures].[CurrencyConversionRate],EndDate.item(0))
+*[Measures].[Multiplier]
+)
+
+)
+
+)
+member Asset_Name as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+"Cash",
+[PM Open Position Snap Shots].[Symbol].Properties("Asset Name"))
+)
+member Sector_Name as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+"Cash",
+[PM Open Position Snap Shots].[Symbol].Properties("Sector")
+)
+)
+member Symbol_LongName as 
+(
+iif([PM Open Position Snap Shots].[Symbol] is 
+[PM Open Position Snap Shots].[Symbol].[Cash],
+"Cash",
+[PM Open Position Snap Shots].[Symbol].Properties("Long Name")
+)
+)
+member [PM Open Position Snap Shots].[Symbol].[Cash] as 
+(
+[PM Open Position Snap Shots].[Symbol].[All]
+)
+select {
+[T Company Funds].[Fund Name].Children*
+
+{[PM Open Position Snap Shots].[Symbol].children
+,[PM Open Position Snap Shots].[Symbol].[Cash]
+}
+} on rows,
+{FundMarketValue,
+SymbolMarketValue,
+Asset_Name,
+Sector_Name,
+Symbol_LongName,
+FundCashValue
+} on columns from 
+(SELECT ( STRTOSET(@asset, CONSTRAINED) )on columns from
+( SELECT ( null : STRTOmember(@ToDimTimeDate) ) ON COLUMNS FROM 
+(SELECT ( STRTOSET(@sector, CONSTRAINED) )on columns from
+
+[Nirvana Client DW])))</Statement><ParameterDefinitions><ParameterDefinition><Name>asset</Name><DefaultValues><DefaultValue>[T Asset].[Asset Name].&amp;[Cash]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[EquityOption]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[Equity]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[FixedIncome]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[Forward]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[Future]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[FutureOption]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[FX]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[FXOption]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[Indices]</DefaultValue><DefaultValue>[T Asset].[Asset Name].&amp;[PrivateEquity]</DefaultValue></DefaultValues><Caption>asset</Caption><HierarchyUniqueName>[T Asset].[Asset Name]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[T Asset].[Asset Name].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T Asset].[Asset Name].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T Asset].[Asset Name].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T Asset].[Asset Name].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery><MultipleValues>true</MultipleValues></ParameterDefinition><ParameterDefinition><Name>ToDimTimeDate</Name><DefaultValues><DefaultValue>[Dim Time].[Calender].[Year].&amp;[2009].&amp;[3].&amp;[8].&amp;[3520]</DefaultValue></DefaultValues><Caption>ToDimTimeDate</Caption><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery></ParameterDefinition><ParameterDefinition><Name>sector</Name><DefaultValues><DefaultValue>[T SM Data].[Sector].&amp;[Undefined]</DefaultValue><DefaultValue>[T SM Data].[Sector].&amp;[Technology]</DefaultValue><DefaultValue>[T SM Data].[Sector].&amp;[Fixed Income]</DefaultValue><DefaultValue>[T SM Data].[Sector].&amp;[Index]</DefaultValue></DefaultValues><Caption>sector</Caption><HierarchyUniqueName>[T SM Data].[Sector]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[T SM Data].[Sector].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T SM Data].[Sector].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T SM Data].[Sector].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T SM Data].[Sector].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery><MultipleValues>true</MultipleValues></ParameterDefinition></ParameterDefinitions></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="Fund_Name">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[T Company Funds].[Fund Name].[Fund Name]" /&gt;</DataField>
+        </Field>
+        <Field Name="Symbol">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[PM Open Position Snap Shots].[Symbol].[Symbol]" /&gt;</DataField>
+        </Field>
+        <Field Name="FundMarketValue">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[FundMarketValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="SymbolMarketValue">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SymbolMarketValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="Asset_Name">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[Asset_Name]" /&gt;</DataField>
+        </Field>
+        <Field Name="Sector_Name">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[Sector_Name]" /&gt;</DataField>
+        </Field>
+        <Field Name="Symbol_LongName">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[Symbol_LongName]" /&gt;</DataField>
+        </Field>
+        <Field Name="FundCashValue">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[FundCashValue]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="asset">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[T Asset].[Asset Name].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T Asset].[Asset Name].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T Asset].[Asset Name].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T Asset].[Asset Name].children ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>T Asset</DimensionName><HierarchyName>Asset Name</HierarchyName><HierarchyUniqueName>[T Asset].[Asset Name]</HierarchyUniqueName><LevelName>Asset Name</LevelName><UniqueName>[T Asset].[Asset Name].[Asset Name]</UniqueName></ID><ItemCaption>Asset Name</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterCaption</MeasureName><UniqueName>[Measures].[ParameterCaption]</UniqueName></ID><ItemCaption>ParameterCaption</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterValue</MeasureName><UniqueName>[Measures].[ParameterValue]</UniqueName></ID><ItemCaption>ParameterValue</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterLevel</MeasureName><UniqueName>[Measures].[ParameterLevel]</UniqueName></ID><ItemCaption>ParameterLevel</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[T Asset].[Asset Name].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T Asset].[Asset Name].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T Asset].[Asset Name].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T Asset].[Asset Name].children ON ROWS FROM [Nirvana Client DW]</Statement><ParameterDefinitions /></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="Asset_Name">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[T Asset].[Asset Name].[Asset Name]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterValue">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="ToDimTimeDate">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items /></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterDefinitions /></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+    </DataSet>
+    <DataSet Name="sector">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[T SM Data].[Sector].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T SM Data].[Sector].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T SM Data].[Sector].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T SM Data].[Sector].children ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:AutoGenerated>true</rd:AutoGenerated>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>T SM Data</DimensionName><HierarchyName>Sector</HierarchyName><HierarchyUniqueName>[T SM Data].[Sector]</HierarchyUniqueName><LevelName>Sector</LevelName><UniqueName>[T SM Data].[Sector].[Sector]</UniqueName></ID><ItemCaption>Sector</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterCaption</MeasureName><UniqueName>[Measures].[ParameterCaption]</UniqueName></ID><ItemCaption>ParameterCaption</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterValue</MeasureName><UniqueName>[Measures].[ParameterValue]</UniqueName></ID><ItemCaption>ParameterValue</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterLevel</MeasureName><UniqueName>[Measures].[ParameterLevel]</UniqueName></ID><ItemCaption>ParameterLevel</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[T SM Data].[Sector].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[T SM Data].[Sector].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[T SM Data].[Sector].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [T SM Data].[Sector].children ON ROWS FROM [Nirvana Client DW]</Statement><ParameterDefinitions /></Query></QueryDefinition></rd:MdxQuery>
+        <rd:Hidden>true</rd:Hidden>
+      </Query>
+      <Fields>
+        <Field Name="Sector">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[T SM Data].[Sector].[Sector]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterValue">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="LastBusinessDays">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>with member [LastBusinessDate_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("Last Business Day",TYPED)
+)
+member [FirstDateMonth_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("First Day Month",TYPED)
+)
+select {LastBusinessDate_Calc,FirstDateMonth_Calc} on columns,
+{[T Reports Param].[T Reports Param].children} on rows from [Nirvana Client DW]</CommandText>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>T Reports Param</DimensionName><HierarchyName>T Reports Param</HierarchyName><HierarchyUniqueName>[T Reports Param].[T Reports Param]</HierarchyUniqueName><LevelName>T Reports Param</LevelName><UniqueName>[T Reports Param].[T Reports Param].[T Reports Param]</UniqueName></ID><ItemCaption>T Reports Param</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>LastBusinessDate_Calc</MeasureName><UniqueName>[Measures].[LastBusinessDate_Calc]</UniqueName></ID><ItemCaption>LastBusinessDate_Calc</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>FirstDateMonth_Calc</MeasureName><UniqueName>[Measures].[FirstDateMonth_Calc]</UniqueName></ID><ItemCaption>FirstDateMonth_Calc</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>with member [LastBusinessDate_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("Last Business Day",TYPED)
+)
+member [FirstDateMonth_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("First Day Month",TYPED)
+)
+select {LastBusinessDate_Calc,FirstDateMonth_Calc} on columns,
+{[T Reports Param].[T Reports Param].children} on rows from [Nirvana Client DW]</Statement><ParameterDefinitions /></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="T_Reports_Param">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[T Reports Param].[T Reports Param].[T Reports Param]" /&gt;</DataField>
+        </Field>
+        <Field Name="LastBusinessDate_Calc">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LastBusinessDate_Calc]" /&gt;</DataField>
+        </Field>
+        <Field Name="FirstDateMonth_Calc">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[FirstDateMonth_Calc]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Width>6.5in</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>1in</TopMargin>
+</Report>

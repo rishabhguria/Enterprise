@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="Matarin">
+		<rule id="custom-rule-Matarin1">
+			<name>80% Securities Within Range - Account</name>
+			<enabled>false</enabled>
+			<isDeleted>true</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/securitiesWithinRange/</eplPath>
+			<description>No less than 80% is to be invested in Small  Cap issuers with a market capitalization in the range of the specified indices. </description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>SecuritiesWithinRangeMatarin</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="SecuritiesWithinRangeMatarin" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="SecuritiesWithinRangeMatarin" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="MINIMUM_MARKET_CAP" type="double" value="65813405" displayName="Minimum Market Capitalization" />
+				<constantValue name="MAXUMUM_MARKET_CAP" type="double" value="4632737111" displayName="Maximum Market Capitalization" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Matarin2">
+			<name>80% Securities Within Range - Global</name>
+			<enabled>false</enabled>
+			<isDeleted>true</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/securitiesWithinRangeGlobal/</eplPath>
+			<description>No less than 80% is to be invested in Small  Cap issuers with a market capitalization in the range of the specified indices (Global Level) </description>
+			<compressionLevel>Symbol</compressionLevel>
+			<validationCompletedEventName>SecuritiesWithinRangeMatarinGlobal</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="SecuritiesWithinRangeMatarinGlobal" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="SecuritiesWithinRangeMatarinGlobal" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="MINIMUM_MARKET_CAP_GLOBAL" type="double" value="65813405" displayName="Minimum Market Capitalization" />
+				<constantValue name="MAXUMUM_MARKET_CAP_GLOBAL" type="double" value="4632737111" displayName="Maximum Market Capitalization" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Matarin3">
+			<name>Account Sector Concentration Matarin</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/accountSectorConcentration/</eplPath>
+			<description>Pre-Trade Alert when account sector concentration goes above limit.</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>AccountSectorConcentrationPreTrade</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="AccountSectorConcentrationPreTrade" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="AccountSectorConcentrationPreTrade" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="ACCOUNT_SECTOR_CONC_PRE_TRADE" type="double" value="25" displayName="Account-Sector Concentration Limit (%)" />
+				<constantValue name="ACCOUNT_NAME_MATARIN" type="string" value="Large Cap Prudential Vailsburg Fund,Small Cap Prudential Vailsburg Fund" displayName="Account Name" />
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Matarin4">
+			<name>80% of Securities within Range - Large Cap</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/securitiesWithinRangeLargeCap/</eplPath>
+			<description>No less than 80% is to be invested in Large  Cap issuers with a market capitalization in the range of the specified indices. </description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>SecuritiesWithinRangeLargeCapMatarin</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="SecuritiesWithinRangeLargeCapMatarin" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="SecuritiesWithinRangeLargeCapMatarin" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="MINIMUM_MARKET_LARGECAP_GLOBAL" type="double" value="65813405" displayName="Minimum Market Capitalization" />
+				<constantValue name="MAXIMUM_MARKET_LARGECAP_GLOBAL" type="double" value="4632737111" displayName="Maximum Market Capitalization" />
+				<constantValue name="LARGECAPACCOUNT_NAME_MATARIN" type="string" value="Large Cap Prudential Vailsburg Fund" displayName="Large Cap Account Name"></constantValue>
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Matarin5">
+			<name>80% of Securities within Range - Small Cap</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/securitiesWithinRangeSmallCap/</eplPath>
+			<description>No less than 80% is to be invested in Small Cap issuers with a market capitalization in the range of the specified indices.</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>SecuritiesWithinRangeSmallCapMatarin</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="SecuritiesWithinRangeSmallCapMatarin" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="SecuritiesWithinRangeSmallCapMatarin" />
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue name="MINIMUM_MARKET_SMALLCAP_GLOBAL" type="double" value="65813405" displayName="Minimum Market Capitalization" />
+				<constantValue name="MAXIMUM_MARKET_SMALLCAP_GLOBAL" type="double" value="4632737111" displayName="Maximum Market Capitalization" />
+				<constantValue name="SMALLCAPACCOUNT_NAME_MATARIN" type="string" value="Small Cap Prudential Vailsburg Fund" displayName="Small Cap Account Name"></constantValue>
+			</constantList>
+		</rule>
+	</rules>
+</ruleConfig>

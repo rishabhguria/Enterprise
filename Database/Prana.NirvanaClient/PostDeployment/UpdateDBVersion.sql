@@ -1,0 +1,1 @@
+﻿INSERT INTO T_DBVersion(revision,Version,Product) values('-','Default Release','Nirvana Enterprise')

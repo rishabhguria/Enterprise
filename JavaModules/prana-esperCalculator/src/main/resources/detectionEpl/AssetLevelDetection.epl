@@ -1,0 +1,42 @@
+module detectionEpl.AssetLevelDetection;
+
+
+@Name('AssetSummation')
+@Description('This statement validates fund compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency*2 sec)]
+insert into AssetSummation
+select
+	sum(coalesce(F.netExposureBase, 0)) as netExposureBase,
+	F.assetId as assetId
+	
+from SymbolWithNav as F
+group by F.assetId;
+
+
+@Name('AssetLevelDetection')
+@Description('This statement validates fund compliance level with margin 1%')
+on pattern[every D = AssetSummation]
+insert into AssetLevelDetection
+select distinct
+	'netExposureBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'Asset' as compressionLevel,
+	
+	G.asset as asset, 	
+	D.netExposureBase as actualnetExposureBase,
+	G.netExposureBase as fundUnderlyingSymbolnetExposureBase,
+	D.netExposureBase - G.netExposureBase as difference, 
+	case 
+		when 
+			Math.abs(D.netExposureBase) < (1 - ErrorTolerance)*Math.abs(G.netExposureBase) 
+			or Math.abs(D.netExposureBase) > (1 + ErrorTolerance)*Math.abs(G.netExposureBase)
+			then true
+		else false
+	end as detectionResult 
+from AssetWithNav as G
+where G.assetId = D.assetId
+having
+(
+	Math.abs(D.netExposureBase) < (1 - ErrorTolerance)*Math.abs(G.netExposureBase) 
+	or Math.abs(D.netExposureBase) > (1 + ErrorTolerance)*Math.abs(G.netExposureBase)
+);

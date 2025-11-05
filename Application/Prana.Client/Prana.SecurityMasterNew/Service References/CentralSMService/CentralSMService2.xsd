@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.AppConstants" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Prana.BusinessObjects.AppConstants" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="AccrualBasis">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Actual_365" />
+      <xs:enumeration value="Actual_360" />
+      <xs:enumeration value="Accrual_30_360" />
+      <xs:enumeration value="Accrual_30E_360" />
+      <xs:enumeration value="Actual_Actual" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AccrualBasis" nillable="true" type="tns:AccrualBasis" />
+  <xs:simpleType name="SecurityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Treasury" />
+      <xs:enumeration value="Municipal" />
+      <xs:enumeration value="Agency" />
+      <xs:enumeration value="Corporate" />
+      <xs:enumeration value="Other_Government" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SecurityType" nillable="true" type="tns:SecurityType" />
+  <xs:simpleType name="CouponFrequency">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Monthly" />
+      <xs:enumeration value="Quarterly" />
+      <xs:enumeration value="SemiAnnually" />
+      <xs:enumeration value="Annually" />
+      <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CouponFrequency" nillable="true" type="tns:CouponFrequency" />
+</xs:schema>

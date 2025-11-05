@@ -1,0 +1,104 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="d5274481-1d49-4ec1-95c5-860b246912ff" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>T Reports Param</ID>
+  <Name>T Reports Param</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="30cd0bd4-f202-4bad-b9a3-a925f8d07f93">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="fe0363c1-5a49-4175-bc8b-4d9f82e1edc5">
+      <ID>T Reports Param</ID>
+      <Name>T Reports Param</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="220d75af-7971-48b2-a163-4839ec729f6d">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="c24e8951-ef08-4f31-97f8-3acf011c40ed">
+            <TableID>dbo_T_ReportsParam</TableID>
+            <ColumnID>ID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="0e08d3e5-fdbd-4efb-b3ae-81cca82e317f">
+          <AttributeID>Last Business Day</AttributeID>
+          <Name>Last Business Day</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="d708db7a-f1ef-4ce2-b531-ac72e1e80853">
+          <AttributeID>First Day Month</AttributeID>
+          <Name>First Day Month</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+    </Attribute>
+    <Attribute dwd:design-time-name="88d9e3b6-4f2d-4e94-8cb0-b120e9b8a89e">
+      <ID>Last Business Day</ID>
+      <Name>Last Business Day</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="48aa973a-6ee5-4f8e-9afd-1543ca31bc7a">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="d795a7bc-46d9-45ee-9096-38f5ec347234">
+            <TableID>dbo_T_ReportsParam</TableID>
+            <ColumnID>LastBusinessDay</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+    </Attribute>
+    <Attribute dwd:design-time-name="09d8b7ee-6078-4fa2-9ff3-7a51f002695b">
+      <ID>First Day Month</ID>
+      <Name>First Day Month</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="a37c7a5c-c37a-400e-af16-08ba2e6a4e5b">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a4691e55-9479-4847-976d-1732807a485d">
+            <TableID>dbo_T_ReportsParam</TableID>
+            <ColumnID>FirstDayMonth</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+    </Attribute>
+  </Attributes>
+</Dimension>

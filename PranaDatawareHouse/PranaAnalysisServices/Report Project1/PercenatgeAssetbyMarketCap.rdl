@@ -1,0 +1,1110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <DataSourceReference>DataSource1</DataSourceReference>
+      <rd:DataSourceID>3fb4ae8d-4f4e-4951-96f6-b7dcebda1bd8</rd:DataSourceID>
+    </DataSource>
+    </DataSources>
+  <BottomMargin>0.5in</BottomMargin>
+  <RightMargin>0.4in</RightMargin>
+  <ReportParameters>
+    <ReportParameter Name="FirstDimTime">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>LastBusinessDay</DataSetName>
+          <ValueField>LastBusinessDate_Calc</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <Body>
+    <ColumnSpacing>0.01in</ColumnSpacing>
+    <ReportItems>
+      <Image Name="image1">
+        <Sizing>Fit</Sizing>
+        <ZIndex>2</ZIndex>
+        <Source>External</Source>
+        <Style />
+        <Height>0.96875in</Height>
+        <Value>HEADER.jpg</Value>
+      </Image>
+      <Textbox Name="textbox1">
+        <Top>1in</Top>
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingBottom>2pt</PaddingBottom>
+          <FontFamily>Verdana</FontFamily>
+          <FontWeight>700</FontWeight>
+          <FontSize>7pt</FontSize>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.36in</Height>
+        <Value>="% Asset"  &amp; vbCRLF &amp; 
+"For Date :"&amp;Parameters!FirstDimTime.Value &amp; vbCRLF &amp; 
+"Report Run Date :" &amp;Today.Now()</Value>
+      </Textbox>
+      <Table Name="table1">
+        <DataSetName>performancereporttest</DataSetName>
+        <Top>1.375in</Top>
+        <Details>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <rd:DefaultName>textbox2</rd:DefaultName>
+                      <ZIndex>14</ZIndex>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>&gt;$5B</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox5">
+                      <rd:DefaultName>textbox5</rd:DefaultName>
+                      <ZIndex>13</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumLong.Value)=0,0.0, CDBL(Fields!LG5B.Value)*100/CDBL(Fields!SumLong.Value))</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox7">
+                      <rd:DefaultName>textbox7</rd:DefaultName>
+                      <ZIndex>12</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumShort.Value)=0,0.0, CDBL(Fields!SG5B.Value)/CDBL(Fields!SumShort.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.21in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox8">
+                      <rd:DefaultName>textbox8</rd:DefaultName>
+                      <ZIndex>11</ZIndex>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>$1B-$5B</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox9">
+                      <rd:DefaultName>textbox9</rd:DefaultName>
+                      <ZIndex>10</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumLong.Value)=0,0.0, CDBL(Fields!LG1B.Value)/CDBL(Fields!SumLong.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox10">
+                      <rd:DefaultName>textbox10</rd:DefaultName>
+                      <ZIndex>9</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumShort.Value)=0,0.0, CDBL(Fields!SG1B.Value)/CDBL(Fields!SumShort.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox11">
+                      <rd:DefaultName>textbox11</rd:DefaultName>
+                      <ZIndex>8</ZIndex>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>$500MN-$1B</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox12">
+                      <rd:DefaultName>textbox12</rd:DefaultName>
+                      <ZIndex>7</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumLong.Value)=0,0.0, CDBL(Fields!LG500MM.Value)/CDBL(Fields!SumLong.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox13">
+                      <rd:DefaultName>textbox13</rd:DefaultName>
+                      <ZIndex>6</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumShort.Value)=0,0.0, CDBL(Fields!SG500MM.Value)/CDBL(Fields!SumShort.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox14">
+                      <rd:DefaultName>textbox14</rd:DefaultName>
+                      <ZIndex>5</ZIndex>
+                      <Style>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>$50MN-$500MN</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox15">
+                      <rd:DefaultName>textbox15</rd:DefaultName>
+                      <ZIndex>4</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumLong.Value)=0,0.0, CDBL(Fields!LG50MM.Value)/CDBL(Fields!SumLong.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox16">
+                      <rd:DefaultName>textbox16</rd:DefaultName>
+                      <ZIndex>3</ZIndex>
+                      <Style>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumShort.Value)=0,0.0, CDBL(Fields!SG50MM.Value)/CDBL(Fields!SumShort.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox17">
+                      <rd:DefaultName>textbox17</rd:DefaultName>
+                      <ZIndex>2</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>&lt;$50MN</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox18">
+                      <rd:DefaultName>textbox18</rd:DefaultName>
+                      <ZIndex>1</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumLong.Value)=0,0.0, CDBL(Fields!LL50MM.Value)/CDBL(Fields!SumLong.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox19">
+                      <rd:DefaultName>textbox19</rd:DefaultName>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <Format>F4</Format>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>=IIF(CDBL(Fields!SumShort.Value)=0,0.0, CDBL(Fields!SL50MM.Value)/CDBL(Fields!SumShort.Value))*100</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.25in</Height>
+            </TableRow>
+          </TableRows>
+          <Grouping Name="table1_Details_Group">
+            <GroupExpressions>
+              <GroupExpression>=""</GroupExpression>
+            </GroupExpressions>
+          </Grouping>
+        </Details>
+        <Style>
+          <FontFamily>Verdana</FontFamily>
+          <FontSize>7pt</FontSize>
+        </Style>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox3">
+                      <rd:DefaultName>textbox3</rd:DefaultName>
+                      <ZIndex>17</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <TextAlign>Left</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Market Cap</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox4">
+                      <rd:DefaultName>textbox4</rd:DefaultName>
+                      <ZIndex>16</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Long </Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox6">
+                      <rd:DefaultName>textbox6</rd:DefaultName>
+                      <ZIndex>15</ZIndex>
+                      <Style>
+                        <BorderStyle>
+                          <Bottom>Solid</Bottom>
+                          <Top>Solid</Top>
+                        </BorderStyle>
+                        <TextAlign>Right</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <FontFamily>Verdana</FontFamily>
+                        <FontSize>7pt</FontSize>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Short </Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.22in</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>2.54032in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.79435in</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>2.54032in</Width>
+          </TableColumn>
+        </TableColumns>
+        <Height>1.43in</Height>
+      </Table>
+    </ReportItems>
+    <Height>3.055in</Height>
+  </Body>
+  <rd:ReportID>8a2f55d9-5efa-482d-b272-3679aa76e382</rd:ReportID>
+  <LeftMargin>0.1in</LeftMargin>
+  <DataSets>
+    <DataSet Name="performancereporttest">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>with 
+set [FirstDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime).Lag(10):strtomember(@FirstDimTime)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+{(null)
+:
+(FirstDate.item(0))}*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+
+member MarketCapTest as
+(
+
+([Measures].[Last Outstandings],FirstDate.item(0))*
+(FirstDate.item(0),[Measures].[Final Mark Price])
+*[Measures].[Multiplier]
+*[Measures].[CurrencyConversionRate]
+)
+
+
+
+
+
+member MarketValue as
+(
+           
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+
+member SumLong as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 SymbolLastQuantity&gt;0
+                
+),MarketValue
+)
+)
+
+member SumShort as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 SymbolLastQuantity&lt;0
+                
+),MarketValue
+)
+)
+
+
+member LG5B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SG5B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                 and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+
+member LG1B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and   MarketCapTest &gt;1000000000 
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+
+member SG1B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and   MarketCapTest &gt;1000000000 
+                 and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+member LG500MM as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest &lt;=1000000000 and MarketCapTest
+                  &gt;500000000
+                 and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SG500MM as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest &lt;=1000000000 and MarketCapTest
+                  &gt;500000000
+                  and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+member LG50MM as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=500000000 and  MarketCapTest &gt;50000000 
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SG50MM as 
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=500000000 and  MarketCapTest &gt;50000000 
+                  and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+member LL50MM as 
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=50000000  
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SL50MM as 
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=50000000  
+                 and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+
+select {SumLong,SumShort,LG5B,SG5B,LG1B,SG1B,LG500MM,SG500MM,LG50MM,SG50MM,LL50MM,SL50MM
+} on columns,
+
+
+{
+ ([Dim Sub Accounts].[AccountName].&amp;[Realized Unrealized Gain/(Loss) on Securities])
+
+} on rows from 
+( SELECT ( null: strtomember(@FirstDimTime,CONSTRAINED))
+ ON COLUMNS FROM
+[Nirvana Client DW] )
+</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="FirstDimTime">
+            <Value>="[Dim Time].[Calender].[Year].&amp;[" &amp; Year(Parameters!FirstDimTime.Value) &amp; "].&amp;[" &amp; Ceiling(Format(Month(Parameters!FirstDimTime.Value), "00")/3) &amp; "].&amp;[" &amp; Format(Month(Parameters!FirstDimTime.Value), "00") &amp; "].[" &amp; Year(Parameters!FirstDimTime.Value) &amp; "-" &amp; Format(Month(Parameters!FirstDimTime.Value), "00") &amp; "-" &amp; Format(Day(Parameters!FirstDimTime.Value),"00") &amp; " 00:00:00]"</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>Dim Sub Accounts</DimensionName><HierarchyName>AccountName</HierarchyName><HierarchyUniqueName>[Dim Sub Accounts].[AccountName]</HierarchyUniqueName><LevelName>AccountName</LevelName><UniqueName>[Dim Sub Accounts].[AccountName].[AccountName]</UniqueName></ID><ItemCaption>AccountName</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>SumLong</MeasureName><UniqueName>[Measures].[SumLong]</UniqueName></ID><ItemCaption>SumLong</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SumShort</MeasureName><UniqueName>[Measures].[SumShort]</UniqueName></ID><ItemCaption>SumShort</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LG5B</MeasureName><UniqueName>[Measures].[LG5B]</UniqueName></ID><ItemCaption>LG5B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SG5B</MeasureName><UniqueName>[Measures].[SG5B]</UniqueName></ID><ItemCaption>SG5B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LG1B</MeasureName><UniqueName>[Measures].[LG1B]</UniqueName></ID><ItemCaption>LG1B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SG1B</MeasureName><UniqueName>[Measures].[SG1B]</UniqueName></ID><ItemCaption>SG1B</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LG500MM</MeasureName><UniqueName>[Measures].[LG500MM]</UniqueName></ID><ItemCaption>LG500MM</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SG500MM</MeasureName><UniqueName>[Measures].[SG500MM]</UniqueName></ID><ItemCaption>SG500MM</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LG50MM</MeasureName><UniqueName>[Measures].[LG50MM]</UniqueName></ID><ItemCaption>LG50MM</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SG50MM</MeasureName><UniqueName>[Measures].[SG50MM]</UniqueName></ID><ItemCaption>SG50MM</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>LL50MM</MeasureName><UniqueName>[Measures].[LL50MM]</UniqueName></ID><ItemCaption>LL50MM</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>SL50MM</MeasureName><UniqueName>[Measures].[SL50MM]</UniqueName></ID><ItemCaption>SL50MM</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>with 
+set [FirstDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@FirstDimTime).Lag(10):strtomember(@FirstDimTime)
+   } ,{[Dim Time].[Is Holiday].&amp;[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+{(null)
+:
+(FirstDate.item(0))}*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+
+member MarketCapTest as
+(
+
+([Measures].[Last Outstandings],FirstDate.item(0))*
+(FirstDate.item(0),[Measures].[Final Mark Price])
+*[Measures].[Multiplier]
+*[Measures].[CurrencyConversionRate]
+)
+
+
+
+
+
+member MarketValue as
+(
+           
+                (FirstDate.item(0),[Measures].[Final Mark Price])*
+				[Measures].[CurrencyConversionRate]
+			    *[Measures].[Multiplier]
+				*[Measures].[SymbolLastQuantity]	
+)
+
+member SumLong as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 SymbolLastQuantity&gt;0
+                
+),MarketValue
+)
+)
+
+member SumShort as
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 SymbolLastQuantity&lt;0
+                
+),MarketValue
+)
+)
+
+
+member LG5B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SG5B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &gt;5000000000
+                 and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+
+member LG1B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and   MarketCapTest &gt;1000000000 
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+
+member SG1B as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                 MarketCapTest
+                  &lt;=5000000000 and   MarketCapTest &gt;1000000000 
+                 and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+member LG500MM as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest &lt;=1000000000 and MarketCapTest
+                  &gt;500000000
+                 and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SG500MM as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest &lt;=1000000000 and MarketCapTest
+                  &gt;500000000
+                  and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+member LG50MM as 
+(
+sum(
+
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=500000000 and  MarketCapTest &gt;50000000 
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SG50MM as 
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=500000000 and  MarketCapTest &gt;50000000 
+                  and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+member LL50MM as 
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=50000000  
+                  and SymbolLastQuantity&gt;0)
+,MarketValue
+)
+)
+member SL50MM as 
+(
+sum(
+Filter(
+      
+     [PM Open Position Snap Shots].[Symbol].children
+                  ,
+                    MarketCapTest
+                  &lt;=50000000  
+                 and SymbolLastQuantity&lt;0)
+,MarketValue
+)
+)
+
+select {SumLong,SumShort,LG5B,SG5B,LG1B,SG1B,LG500MM,SG500MM,LG50MM,SG50MM,LL50MM,SL50MM
+} on columns,
+
+
+{
+ ([Dim Sub Accounts].[AccountName].&amp;[Realized Unrealized Gain/(Loss) on Securities])
+
+} on rows from 
+( SELECT ( null: strtomember(@FirstDimTime,CONSTRAINED))
+ ON COLUMNS FROM
+[Nirvana Client DW] )
+</Statement><ParameterDefinitions><ParameterDefinition><Name>FirstDimTime</Name><DefaultValues><DefaultValue>[Dim Time].[Calender].[Year].&amp;[2009].&amp;[3].&amp;[7].&amp;[3486]</DefaultValue></DefaultValues><Caption>FirstDimTime</Caption><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><ParameterValuesQuery><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterizedStatement><ReferencedParameters /></ParameterizedStatement></ParameterValuesQuery></ParameterDefinition></ParameterDefinitions></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="AccountName">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Sub Accounts].[AccountName].[AccountName]" /&gt;</DataField>
+        </Field>
+        <Field Name="SumLong">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SumLong]" /&gt;</DataField>
+        </Field>
+        <Field Name="SumShort">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SumShort]" /&gt;</DataField>
+        </Field>
+        <Field Name="LG5B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LG5B]" /&gt;</DataField>
+        </Field>
+        <Field Name="SG5B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SG5B]" /&gt;</DataField>
+        </Field>
+        <Field Name="LG1B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LG1B]" /&gt;</DataField>
+        </Field>
+        <Field Name="SG1B">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SG1B]" /&gt;</DataField>
+        </Field>
+        <Field Name="LG500MM">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LG500MM]" /&gt;</DataField>
+        </Field>
+        <Field Name="SG500MM">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SG500MM]" /&gt;</DataField>
+        </Field>
+        <Field Name="LG50MM">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LG50MM]" /&gt;</DataField>
+        </Field>
+        <Field Name="SG50MM">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SG50MM]" /&gt;</DataField>
+        </Field>
+        <Field Name="LL50MM">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LL50MM]" /&gt;</DataField>
+        </Field>
+        <Field Name="SL50MM">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[SL50MM]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="FirstDimTime">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</CommandText>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Year</LevelName><UniqueName>[Dim Time].[Calender].[Year]</UniqueName></ID><ItemCaption>Year</ItemCaption></Item><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Quarter</LevelName><UniqueName>[Dim Time].[Calender].[Quarter]</UniqueName></ID><ItemCaption>Quarter</ItemCaption></Item><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Month</LevelName><UniqueName>[Dim Time].[Calender].[Month]</UniqueName></ID><ItemCaption>Month</ItemCaption></Item><Item><ID xsi:type="Level"><DimensionName>Dim Time</DimensionName><HierarchyName>Calender</HierarchyName><HierarchyUniqueName>[Dim Time].[Calender]</HierarchyUniqueName><LevelName>Date</LevelName><UniqueName>[Dim Time].[Calender].[Date]</UniqueName></ID><ItemCaption>Date</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterCaption</MeasureName><UniqueName>[Measures].[ParameterCaption]</UniqueName></ID><ItemCaption>ParameterCaption</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterValue</MeasureName><UniqueName>[Measures].[ParameterValue]</UniqueName></ID><ItemCaption>ParameterValue</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>ParameterLevel</MeasureName><UniqueName>[Measures].[ParameterLevel]</UniqueName></ID><ItemCaption>ParameterLevel</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>WITH MEMBER [Measures].[ParameterCaption] AS '[Dim Time].[Calender].CURRENTMEMBER.MEMBER_CAPTION' MEMBER [Measures].[ParameterValue] AS '[Dim Time].[Calender].CURRENTMEMBER.UNIQUENAME' MEMBER [Measures].[ParameterLevel] AS '[Dim Time].[Calender].CURRENTMEMBER.LEVEL.ORDINAL' SELECT {[Measures].[ParameterCaption], [Measures].[ParameterValue], [Measures].[ParameterLevel]} ON COLUMNS , [Dim Time].[Calender].ALLMEMBERS ON ROWS FROM [Nirvana Client DW]</Statement><ParameterDefinitions /></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="Year">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Year]" /&gt;</DataField>
+        </Field>
+        <Field Name="Quarter">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Quarter]" /&gt;</DataField>
+        </Field>
+        <Field Name="Month">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Month]" /&gt;</DataField>
+        </Field>
+        <Field Name="Date">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Calender].[Date]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterCaption">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterCaption]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterValue">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterValue]" /&gt;</DataField>
+        </Field>
+        <Field Name="ParameterLevel">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[ParameterLevel]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="LastBusinessDay">
+      <Query>
+        <rd:SuppressAutoUpdate>true</rd:SuppressAutoUpdate>
+        <CommandText>with member [LastBusinessDate_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("Last Business Day",TYPED)
+)
+member [FirstDateMonth_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("First Day Month",TYPED)
+)
+select {LastBusinessDate_Calc,FirstDateMonth_Calc} on columns,
+{[T Reports Param].[T Reports Param].children} on rows from [Nirvana Client DW]</CommandText>
+        <DataSourceName>DataSource1</DataSourceName>
+        <rd:MdxQuery><QueryDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition"><CommandType>MDX</CommandType><Type>Query</Type><QuerySpecification xsi:type="MDXQuerySpecification"><Select><Items><Item><ID xsi:type="Level"><DimensionName>T Reports Param</DimensionName><HierarchyName>T Reports Param</HierarchyName><HierarchyUniqueName>[T Reports Param].[T Reports Param]</HierarchyUniqueName><LevelName>T Reports Param</LevelName><UniqueName>[T Reports Param].[T Reports Param].[T Reports Param]</UniqueName></ID><ItemCaption>T Reports Param</ItemCaption></Item><Item><ID xsi:type="Measure"><MeasureName>LastBusinessDate_Calc</MeasureName><UniqueName>[Measures].[LastBusinessDate_Calc]</UniqueName></ID><ItemCaption>LastBusinessDate_Calc</ItemCaption><FormattedValue>true</FormattedValue></Item><Item><ID xsi:type="Measure"><MeasureName>FirstDateMonth_Calc</MeasureName><UniqueName>[Measures].[FirstDateMonth_Calc]</UniqueName></ID><ItemCaption>FirstDateMonth_Calc</ItemCaption><FormattedValue>true</FormattedValue></Item></Items></Select><From>Nirvana Client DW</From><Filter><FilterItems /></Filter><Calculations /><Aggregates /><QueryProperties /></QuerySpecification><Query><Statement>with member [LastBusinessDate_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("Last Business Day",TYPED)
+)
+member [FirstDateMonth_Calc] as
+(
+[T Reports Param].[T Reports Param].CurrentMember.Properties("First Day Month",TYPED)
+)
+select {LastBusinessDate_Calc,FirstDateMonth_Calc} on columns,
+{[T Reports Param].[T Reports Param].children} on rows from [Nirvana Client DW]</Statement><ParameterDefinitions /></Query></QueryDefinition></rd:MdxQuery>
+      </Query>
+      <Fields>
+        <Field Name="T_Reports_Param">
+          <rd:TypeName>System.String</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[T Reports Param].[T Reports Param].[T Reports Param]" /&gt;</DataField>
+        </Field>
+        <Field Name="LastBusinessDate_Calc">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[LastBusinessDate_Calc]" /&gt;</DataField>
+        </Field>
+        <Field Name="FirstDateMonth_Calc">
+          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Measure" UniqueName="[Measures].[FirstDateMonth_Calc]" /&gt;</DataField>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>7.875in</Width>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <Language>en-US</Language>
+  <TopMargin>0.5in</TopMargin>
+</Report>

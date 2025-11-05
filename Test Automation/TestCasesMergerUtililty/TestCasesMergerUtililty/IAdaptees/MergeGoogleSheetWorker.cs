@@ -1,0 +1,3055 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestCasesMergerUtililty.IFileTypeMergeProcessing;
+using System.Drawing;
+using System.Data;
+using System.Diagnostics;
+using System.Configuration;
+using System.Net.Mail;
+using System.Web;
+using System.Timers;
+using System.Threading;
+using System.Windows;
+using System.IO;
+using System.IO.Compression;
+using System.Xml;
+using Color = System.Drawing.Color;
+using System.Reflection;
+using TestCasesMergerUtililty.HelperClasses;
+using System.Net;
+using System.Net.Sockets;
+using OfficeOpenXml;
+using OfficeOpenXml.Drawing.Chart;
+using OfficeOpenXml.Style;
+using OfficeOpenXml.Drawing;
+using Newtonsoft.Json;
+using TestCasesMergerUtililty.LogAction;
+
+namespace TestCasesMergerUtililty.IAdaptees
+{
+    public class MergeGoogleSheetWorker : MergeGoogleSheets
+    {
+       static DateTime minModifiedDate = DateTime.MaxValue;
+        /// <summary>
+        /// The dictionary module tc details
+        /// </summary>
+        Dictionary<string, ModuleTCDetails> _dictModuleTCDetails = new Dictionary<string, ModuleTCDetails>();
+
+        /// <summary>
+        /// The dictionary module tc weight
+        /// </summary>
+        Dictionary<string, Dictionary<string, int>> _dictModuleTCWeight = null;
+
+        /// <summary>
+        /// The dictionary t cid meping
+        /// </summary>
+        Dictionary<string, string> _dictTCidMeping = new Dictionary<string, string>();
+        Dictionary<string, Dictionary<string, int>> lastFailedCases = new Dictionary<string, Dictionary<string, int>>();
+
+
+        /// <summary>
+        /// Gets or sets the dictionary t cid meping.
+        /// </summary>
+        /// <value>
+        /// The dictionary t cid meping.
+        /// </value>
+        public Dictionary<string, string> DictTCidMeping
+        {
+            get { return _dictTCidMeping; }
+            set { _dictTCidMeping = value; }
+        }
+        Dictionary<string, int> TestCasesResult = new Dictionary<string, int>();
+        Dictionary<string, Dictionary<string, int>> moduleStatus = new Dictionary<string, Dictionary<string, int>>();
+        public static Dictionary<string, TestCasesStatusKeeper> TestCasesRecordsKeeper = new Dictionary<string, TestCasesStatusKeeper>();
+
+        string CurrentDrive = Path.GetPathRoot(System.Reflection.Assembly.GetEntryAssembly().Location);
+        string CurrentResult;
+        string PreviousSheet;
+        string masterDirPath;
+        string localIP = string.Empty;
+        int countOfFiles;
+        static int masterRow;
+        static int masterRow1;
+        int slaveDataCounter = 18;
+        string _regressionTestCasesGId = ConfigurationManager.AppSettings["RegressionTestCasesGId"];
+        string _regressionTestCaseSheetPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + ConfigurationManager.AppSettings["RegressionTestCaseFileName"];
+        string _weeklyDashboardGId = ConfigurationManager.AppSettings["WeeklyDashboardGId"];
+        string _weeklyDashboardSheetPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + ConfigurationManager.AppSettings["WeeklyDashboardFileName"];
+        DirectoryInfo dir = null;
+        int TotalTestCases = 0;
+        ExcelBarChart moduleBarChart = null;
+        ExcelBarChart moduleBarChartMonth = null;
+        string tCName;
+        string mName;
+        ExcelRange range;
+        string latestfile = String.Empty;
+        string error1 = String.Empty;
+        int dataRowStart, dataRowEnd;
+        bool isSprintRelease = false;
+        string _releaseVersion = TestDataConstants.Release_VersionForCharts;
+        // Previously changes made for creating the Modules pie chart dynamic so that it will keep on expanding further Kth column 
+        //static String[] pieChartModules = ConfigurationManager.AppSettings["modulesToShow"].Split(',');
+        //static decimal ModulesCount = (Convert.ToDecimal(pieChartModules.Count()))/2;
+        //decimal ColCount = 5 + System.Math.Round(ModulesCount,0,MidpointRounding.AwayFromZero);
+
+
+        public void MergeWorkSheets()
+        {
+            try
+            {
+                if (_releaseVersion.Equals("Dev"))
+                {
+                    isSprintRelease = true;
+                }
+                Dictionary<string, string> ExcludeFilesDic = LoadExcludeFilesList();
+                bool DeleteBeforeCopy = false;
+                if (!string.IsNullOrEmpty(TestDataConstants.DELETEBEFORECOPY) && TestDataConstants.DELETEBEFORECOPY.Equals("true"))
+                {
+                    DeleteBeforeCopy = true;
+                }
+                CreateModuleTCObj();
+                //It will get file name with which we have to comapre the report
+                GetOldReport();
+                CurrentResult = CurrentDrive + "DistributedAutomation_SlaveWithWrite\\" + TestDataConstants.MASTER_TESTLOG_PATH + "\\TestResults_Current";
+                masterDirPath = CurrentResult + "\\" + "MasterLog";
+                System.IO.Directory.CreateDirectory(masterDirPath);
+                string masterSheetLogPath = CurrentResult + "\\" + "Master" + "(Distributed)-" + DateTime.Now.Date.ToString("yyyy-MM-dd") + ".xlsx";
+                Merge(ExcludeFilesDic, DeleteBeforeCopy);
+                UpdateCorrectStatus(CurrentResult);
+				ReviewSheet(CurrentResult);
+                if (ConfigurationManager.AppSettings["AllowMemberName"].ToString() != "false")
+                {
+                    UpdateMemberStatus(CurrentResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+        public string removeDigitsFromModule(string moduleName)
+        {
+            string onlyString = string.Empty;
+            int count = moduleName.Count(char.IsDigit);
+            if (moduleName.Substring(0, 1) == "*")
+            {
+                moduleName = moduleName.Substring(1);
+            }
+            // string modularName = string.Join("", moduleName.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));//to remove space inbetween
+            if (count > 0)
+            {
+
+                onlyString = new string(moduleName.Where(c => !char.IsDigit(c)).ToArray());
+                //onlyString = onlyString.Remove(onlyString.Length - 1);
+            }
+            else
+                onlyString = moduleName;
+            return onlyString;
+        }
+
+        public void UpdateCorrectStatus(string filePath)
+        {
+            try 
+            {
+                foreach (var sourceFile in Directory.GetFiles(filePath, "*.xlsx"))
+                {
+                  
+
+                    TestCasesResult.Add("Total Test Cases", 0);
+                    TestCasesResult.Add("Passed", 0);
+                    TestCasesResult.Add("Failed", 0);
+                    TestCasesResult.Add("Not Run", 0);
+                    
+                    FileInfo fileInfo = new FileInfo(sourceFile);
+                     using (ExcelPackage package = new ExcelPackage(fileInfo))
+                    {
+                        ExcelWorkbook workbook = package.Workbook;
+                       if (workbook != null)
+                       {
+                           //ExcelWorksheet worksheet = workbook.Worksheets.SingleOrDefault();
+                           ExcelWorksheet worksheet = workbook.Worksheets.FirstOrDefault();
+                           int rows = GetLastUsedRow(worksheet);
+                           int cols = GetLastUsedColumn(worksheet);
+
+                           int startIndex=0;
+                          
+
+                           for (int row = 1; row <= rows; row++)
+                           {
+                               if (worksheet.Cells[row, 4].Value != null && worksheet.Cells[row, 10].Value != null && worksheet.Cells[row, 12].Value != null)
+                               {
+                                   if (worksheet.Cells[row, 4].Value.ToString() == "Test Case Id" && worksheet.Cells[row, 10].Value.ToString() == "Result" && worksheet.Cells[row, 12].Value.ToString() == "Fail Count") 
+                                   {
+                                       startIndex = row;
+                                       break;
+                                   }
+                               }
+                           }
+
+                           for (int row = startIndex + 1; row <= rows; row++)
+                           {
+                               string status =worksheet.Cells[row, 10].Value.ToString();
+                               string moduleName=worksheet.Cells[row, 3].Value.ToString();
+                               moduleName = removeDigitsFromModule(moduleName);
+                               
+                               if (!moduleStatus.ContainsKey( moduleName))
+                               {
+                                   moduleStatus[moduleName] = new Dictionary<string, int>();
+                                   moduleStatus[moduleName]["Pass"] = 0;
+                                   moduleStatus[moduleName]["Fail"] = 0;
+                                   moduleStatus[moduleName]["Not Run"] = 0;
+                               }
+
+                               if (worksheet.Cells[row, 10].Value.ToString() == "Pass")
+                               {
+                                   if (worksheet.Cells[row, 8].Value != null && worksheet.Cells[row, 8].Value != "")
+                                   {
+                                       worksheet.Cells[row, 8].Value = null;
+                                   }
+                                  
+                                   TestCasesResult["Passed"] += 1;
+                                        moduleStatus[moduleName][status]++;
+                              
+                               }
+                               if (worksheet.Cells[row, 10].Value.ToString() == "Fail")
+                               {
+                                   //
+                                   string tCName = worksheet.Cells[row, 4].Value.ToString();
+                                   string realIDName = String.Empty;
+                                   if (tCName.Contains("*"))
+                                   {
+                                       realIDName = tCName.Substring(tCName.IndexOf("*") + 1);
+                                   }
+                                   else
+                                   {
+                                       realIDName = tCName;
+
+                                   }
+                                   worksheet.Cells[row, 8].Value = getRealErrorMessages(realIDName);
+
+
+                                   TestCasesResult["Failed"] += 1;
+                                        moduleStatus[moduleName][status]++;
+                               }
+                               if (worksheet.Cells[row, 10].Value.ToString() == "Not Run" || worksheet.Cells[row, 10].Value.ToString() == "Not able to run")
+                               {
+                                   TestCasesResult["Not Run"] += 1;
+                                        moduleStatus[moduleName]["Not Run"]++;
+                               }
+
+                               TestCasesResult["Total Test Cases"] += 1 ;
+                           }
+                        int TotalTestCases = CountTestCases();
+                    //   if (TestCasesResult["Total Test Cases"].Equals(TotalTestCases))
+                      // {
+                           worksheet.Cells[18, 3].Value = TestCasesResult["Passed"];
+                           worksheet.Cells[19, 3].Value = TestCasesResult["Failed"];
+                           worksheet.Cells[20, 3].Value = TestCasesResult["Not Run"];
+                       //}
+
+
+                           //  foreach (KeyValuePair<string, Dictionary<string, int>> module in moduleStatus)
+                           // {// foreach (KeyValuePair<string, int> result in module.Value)
+
+                           int rowno = 15;
+                           int col;
+                           if (isSprintRelease == true)
+                           {
+                               col = 8;
+                           }
+                           else
+                           {
+                               col = 6;
+                           }
+                           string[] moduleNames = ConfigurationManager.AppSettings["modulesToShow"].Split(',');
+                           foreach (string moduleName in moduleNames)
+                           {
+                               int z = 0;
+                               if (moduleStatus.ContainsKey(moduleName))
+                               {
+                                   foreach (KeyValuePair<string, int> result in moduleStatus[moduleName])
+                                   {
+
+
+                                       worksheet.Cells[rowno + z, col].Value = result.Value;
+                                       z++;
+
+                                   }
+                               }
+
+                                   if (col % 12 == 0)
+                                   {
+                                       if (isSprintRelease == true)
+                                       {
+                                           col = 8;
+                                       }
+                                       else
+                                       {
+                                           col = 6;
+                                       }
+                                       rowno += 4;
+                                   }
+                                   else
+                                       col += 1;
+                               }
+
+
+                           
+
+                       package.Save();
+                       package.Dispose();
+
+                       }
+                     
+                     }
+                   //if( )
+                    //then replace pass fail count
+                  
+
+                } 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+
+
+        internal void ReviewSheet(string path)
+        {
+            foreach (var sourceFile in Directory.GetFiles(path, "*.xlsx"))
+            {
+                FileInfo fileInfo = new FileInfo(sourceFile);
+                using (ExcelPackage package = new ExcelPackage(fileInfo))
+                {
+                    ExcelWorkbook workbook = package.Workbook;
+
+                    if (workbook != null)
+                    {
+                        //ExcelWorksheet worksheet = workbook.Worksheets.SingleOrDefault();
+                        ExcelWorksheet worksheet = workbook.Worksheets.FirstOrDefault();
+                        int rows = GetLastUsedRow(worksheet);
+                        int cols = GetLastUsedColumn(worksheet);
+
+                        // 10 result
+                        // 8 error
+                        // try
+                        //{
+                            for (int i = 0; i < rows; i++)
+                            {
+                                try
+                                {
+                           
+                                    if (worksheet.Cells[i, 10].Value.ToString().ToLower() == "pass")
+                                    {
+                                        range = worksheet.Cells[i, 2, i, 12];
+                                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        worksheet.Cells[i, 8].Value = "";
+                                        range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Green);
+                                        range.Style.Fill.BackgroundColor.SetColor(Color.PaleGreen);
+                                    }
+                                    else if (worksheet.Cells[i, 10].Value.ToString().ToLower() == "not run")
+                                    {
+                                        range = worksheet.Cells[i, 2, i, 12];
+                                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                        worksheet.Cells[i, 8].Value = "";
+                                        range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                                        range.Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+                                    }
+                                }
+                                catch { }
+                        }
+
+                    }
+                    package.Save();
+                }
+            }
+        }
+      
+        internal void UpdateMemberStatus(string path)
+        {
+            try
+            {
+                Dictionary<string, StatusType> memberStatusType = new Dictionary<string, StatusType>();
+                string[] allFolders = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
+
+
+                foreach (string folder in allFolders)
+                {
+                    string[] allsubFolders = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
+
+                    string[] allSubFolders = Directory.GetDirectories(folder, "*", SearchOption.TopDirectoryOnly);
+
+                    foreach (string subFolder in allSubFolders)
+                    {
+                        if (subFolder.Contains("TestLogs"))
+                        {
+                            Console.WriteLine("Found TestLogs folder: " + subFolder);
+                            string[] xlsxFiles = Directory.GetFiles(subFolder, "*.xlsx", SearchOption.TopDirectoryOnly);
+
+                            foreach (var sourceFile in xlsxFiles)
+                            {
+                                FileInfo fileInfo = new FileInfo(sourceFile);
+                                using (ExcelPackage package = new ExcelPackage(fileInfo))
+                                {
+                                    ExcelWorkbook workbook = package.Workbook;
+                                    if (workbook == null || workbook.Worksheets.Count == 0)
+                                        continue;
+
+                                    var worksheet = workbook.Worksheets.FirstOrDefault();
+                                    Dictionary<string, int> colToIndexMapping = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+                                    int headerRow = 17;
+                                    int totalCols = worksheet.Dimension.End.Column;
+                                    int totalRows = worksheet.Dimension.End.Row;
+
+                                    for (int i = 1; i <= totalCols; i++)
+                                    {
+                                        var cellValue = worksheet.Cells[headerRow, i].Value;
+
+                                        if (cellValue != null)
+                                        {
+                                            string colName = worksheet.Cells[headerRow, i].Text.Trim();
+
+                                            if (string.IsNullOrWhiteSpace(colName))
+                                            {
+
+                                                continue;
+                                            }
+
+                                            if (!colToIndexMapping.ContainsKey(colName))
+                                            {
+                                                colToIndexMapping[colName] = i;
+                                            }
+
+                                        }
+
+                                    }
+                                    if (!colToIndexMapping.ContainsKey("Test Case Id") || !colToIndexMapping.ContainsKey("Member"))
+                                    {
+                                        Console.WriteLine("Required columns missing in file: " + fileInfo.Name);
+                                        continue;
+                                    }
+
+                                    int testCaseCol = colToIndexMapping["Test Case Id"];
+                                    int memberCol = colToIndexMapping["Member"];
+
+                                    for (int row = headerRow + 1; row <= totalRows; row++)
+                                    {
+                                        string testCaseId = null;
+                                        string memberValue = null;
+
+                                        if (worksheet.Cells[row, testCaseCol].Value != null)
+                                            testCaseId = worksheet.Cells[row, testCaseCol].Text.Trim();
+
+                                        if (worksheet.Cells[row, memberCol].Value != null)
+                                            memberValue = worksheet.Cells[row, memberCol].Text.Trim();
+
+                                        if (string.IsNullOrEmpty(testCaseId) || string.IsNullOrEmpty(memberValue))
+                                            continue;
+
+                                        if (!memberStatusType.ContainsKey(testCaseId))
+                                        {
+                                            StatusType newStatus = new StatusType();
+                                            newStatus.Status = "Pending";
+                                            newStatus.Members = new List<string>();
+                                            newStatus.Members.Add(memberValue);
+
+                                            memberStatusType.Add(testCaseId, newStatus);
+                                        }
+                                        else
+                                        {
+                                            if (!memberStatusType[testCaseId].Members.Contains(memberValue))
+                                            {
+                                                memberStatusType[testCaseId].Members.Add(memberValue);
+                                            }
+                                        }
+                                    }
+
+                                    Console.WriteLine("Processed file: " + fileInfo.Name);
+
+
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+                //Dictionary<string, StatusType> memberStatusType = new Dictionary<string, StatusType>();
+                foreach (var sourceFile in Directory.GetFiles(path, "*.xlsx"))
+                {
+
+                    {
+                        FileInfo fileInfo = new FileInfo(sourceFile);
+
+                        // Check if file name contains "MasterLog_TestAutomation"
+                        if (!fileInfo.Name.Contains("MasterLog_TestAutomation"))
+                            continue;
+
+                        using (ExcelPackage package = new ExcelPackage(fileInfo))
+                        {
+                            ExcelWorkbook workbook = package.Workbook;
+                            if (workbook == null || workbook.Worksheets.Count == 0)
+                                continue;
+
+                            var worksheet = workbook.Worksheets.FirstOrDefault();
+                            if (worksheet == null || worksheet.Dimension == null)
+                                continue;
+
+                            int totalRows = worksheet.Dimension.End.Row;
+                            int totalCols = worksheet.Dimension.End.Column;
+                            int columnHeaderRow = -1;
+
+                            // Column mapping dictionary
+                            Dictionary<string, int> colToIndexMapping = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+
+                            // Step 1: Search for the header row
+                            for (int row = 1; row <= totalRows; row++)
+                            {
+                                int foundCount = 0;
+                                for (int col = 1; col <= totalCols; col++)
+                                {
+                                    var cellValue = worksheet.Cells[row, col].Value;
+                                    if (cellValue == null)
+                                        continue;
+
+                                    string text = worksheet.Cells[row, col].Text.Trim();
+                                    if (text == "Module Name" || text == "Test Case Id" || text == "Test Case Description" ||
+                                        text == "Category" || text == "Error" || text == "Result")
+                                    {
+                                        foundCount++;
+                                    }
+                                }
+
+                                if (foundCount >= 6)
+                                {
+                                    columnHeaderRow = row;
+                                    break;
+                                }
+                            }
+
+                            if (columnHeaderRow == -1)
+                            {
+                                Console.WriteLine("Header row not found in: " + fileInfo.Name);
+                                continue;
+                            }
+
+                            // Step 2: Build column index mapping
+                            int lastCol = worksheet.Dimension.End.Column;
+
+                            for (int col = 1; col <= lastCol; col++)
+                            {
+                                var val = worksheet.Cells[columnHeaderRow, col].Value;
+                                if (val != null)
+                                {
+                                    string colName = worksheet.Cells[columnHeaderRow, col].Text.Trim();
+                                    if (!string.IsNullOrEmpty(colName) && !colToIndexMapping.ContainsKey(colName))
+                                    {
+                                        colToIndexMapping[colName] = col;
+                                    }
+                                }
+                            }
+
+                            int newColIndex = colToIndexMapping.Values.Max() + 1;
+
+                            string newColName = ConfigurationManager.AppSettings["MemberNameColumnValue"];
+
+                            int prevColIndex = newColIndex - 1;
+                            var prevHeaderStyle = worksheet.Cells[columnHeaderRow, prevColIndex].StyleID;
+                            worksheet.Cells[columnHeaderRow, newColIndex].StyleID = prevHeaderStyle;
+
+                            worksheet.Cells[columnHeaderRow, newColIndex].Value = newColName;
+                            colToIndexMapping[newColName] = newColIndex;
+
+
+                            for (int row = columnHeaderRow + 1; row <= totalRows; row++)
+                            {
+                                string testCaseId = null;
+
+                                if (colToIndexMapping.ContainsKey("Test Case Id"))
+                                {
+                                    object cellVal = worksheet.Cells[row, colToIndexMapping["Test Case Id"]].Value;
+                                    if (cellVal != null)
+                                        testCaseId = worksheet.Cells[row, colToIndexMapping["Test Case Id"]].Text.Trim();
+                                }
+
+                                if (!string.IsNullOrEmpty(testCaseId) && memberStatusType.ContainsKey(testCaseId))
+                                {
+                                    List<string> members = memberStatusType[testCaseId].Members;
+                                    string memberStr = string.Join(", ", members);
+
+                                    worksheet.Cells[row, newColIndex].Value = memberStr;
+                                }
+                                worksheet.Cells[row, newColIndex].StyleID = worksheet.Cells[row, newColIndex-1].StyleID;
+                            }
+
+
+                            package.Save();
+                            Console.WriteLine("Updated file: " + fileInfo.Name);
+                        }
+                    }
+
+
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+           
+        }
+        public static string getRealErrorMessages(string realIDName)
+        {
+            StringBuilder errorMessageBuilder = new StringBuilder();
+            HashSet<string> uniqueErrors = new HashSet<string>();
+           
+            string errorMessage = string.Empty;
+            
+            if (TestCasesRecordsKeeper.ContainsKey(realIDName))
+            {
+                if (TestCasesRecordsKeeper[realIDName].Result == "Fail")
+                {
+                    if (realIDName == "BasketCompliance-0109")
+                    {
+                        Console.Write("");
+                    }
+
+                    List<List<string>> errorList = TestCasesRecordsKeeper[realIDName].ErrorList;
+                  
+
+                    foreach (List<string> error in errorList)
+                    {
+                        string combinedError = string.Join("", error);
+
+                        if (uniqueErrors.Contains(combinedError))
+                        {
+                            continue;
+                        }
+                        uniqueErrors.Add(combinedError);
+                        if (errorMessageBuilder.Length > 0)
+                        {
+                            errorMessageBuilder.AppendLine("-------------------------");
+                        }
+                        errorMessageBuilder.AppendLine(combinedError);
+
+                    }
+                    errorMessage = errorMessageBuilder.ToString();
+                    //Console.WriteLine(errorMessage);
+                   
+                }
+            }
+            return errorMessage;
+                            
+        }
+        public static Dictionary<string, string> LoadExcludeFilesList()
+        {
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            if (File.Exists(ConfigurationManager.AppSettings["ExcludeCasesFile"].ToString()))
+            {
+                using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(ConfigurationManager.AppSettings["ExcludeCasesFile"].ToString())))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets["Sheet1"];
+                    int value = worksheet.Dimension.End.Row;
+                    int rows = GetLastUsedRow(worksheet);
+                    int cols = GetLastUsedColumn(worksheet);
+
+                    int testCaseIDIndex = -1;
+                    int ModuleNameIndex = -1;
+                    for (int i = 1; i <= cols; i++)
+                    {
+                        if (worksheet.Cells[1, i].Value.ToString() != null && worksheet.Cells[1, i].Value.ToString() == "Module")
+                        {
+                            ModuleNameIndex = i;
+
+                        }
+                        if (worksheet.Cells[1, i].Value.ToString() != null && worksheet.Cells[1, i].Value.ToString() == "Testcase ID")
+                        {
+                            testCaseIDIndex = i;
+
+                        }
+
+
+                    }
+                    if (testCaseIDIndex == -1 || ModuleNameIndex == -1)
+                    {
+                        throw new Exception("Either TestCaseID or Module name in columns not found");
+                    }
+
+                    for (int i = 2; i <= rows; i++)
+                    {
+                        object valueobj = worksheet.Cells[i, testCaseIDIndex].Value;
+                        object valueobjModule = worksheet.Cells[i, ModuleNameIndex].Value;
+                        string testcaseID = String.Empty;
+                        string module = String.Empty;
+                        if (valueobj != null && valueobjModule != null)
+                        {
+                            testcaseID = valueobj.ToString();
+                            module = valueobjModule.ToString();
+                        }
+                        if (!string.IsNullOrEmpty(testcaseID) && !string.IsNullOrEmpty(module))
+                        {
+                            data.Add(testcaseID, module);
+                        }
+
+                    }
+                }
+            }
+            return data;
+
+
+        }
+        public void InternalMerge(int lengh)
+        {
+            Dictionary<string, Dictionary<string, string>> sheetdata = new Dictionary<string, Dictionary<string, string>>();   // testCaseName(PM-0002) ErrorMessage(blank if pass) status(pass)
+            Dictionary<string, int> reportFileCount = new Dictionary<string, int>();
+            DirectoryInfo info = new DirectoryInfo(masterDirPath);
+            FileInfo[] folders = info.GetFiles().OrderBy(p => p.LastWriteTime).ToArray();
+            Array.Reverse(folders);
+
+            foreach (var folder in folders)
+            {
+                if (folder.LastWriteTime < minModifiedDate)
+                {
+                    Console.WriteLine(folder.FullName);
+                    minModifiedDate = folder.LastWriteTime;
+                }
+                string name = folder.ToString().Substring(0, folder.ToString().Length - 29);
+                if (reportFileCount.ContainsKey(name))
+                    reportFileCount[name]++;
+                else
+                    reportFileCount[name] = 1;
+            }
+            List<string> files = new List<string>();
+            foreach (var folder in folders)
+            {
+
+                Dictionary<string, string> CasesStatus = new Dictionary<string, string>();
+                files.Add(folder.ToString());
+                string name = folder.ToString().Substring(0, folder.ToString().Length - 29);
+                if (reportFileCount[name] > 1)
+                {
+                    using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(folder.FullName.ToString())))
+                    {
+                        ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets[TestDataConstants.CAP_TEST_REPORT];
+                        if (worksheet == null)
+                            continue;
+                        int rowCount = worksheet.Dimension.Rows + 3;
+                        //update existing cases counts correctly
+                        Dictionary<string, int> TestCasesResult = new Dictionary<string, int>();
+                        TestCasesResult.Add("Total Test Cases", 0);
+                        TestCasesResult.Add("Passed", 0);
+                        TestCasesResult.Add("Failed", 0);
+                        TestCasesResult.Add("Not Run", 0);
+
+                        for (int i = 18; i < rowCount; i++)
+                        {
+                            // 3 6 7
+                            string testcaseId = worksheet.Cells[i, 3].Value.ToString();
+                            string ErrorMessage = worksheet.Cells[i, 6].Value.ToString();
+                            string status = worksheet.Cells[i, 7].Value.ToString();
+                            if (worksheet.Cells[i, 7].Value.ToString() == "Pass")
+                            {
+                                if (worksheet.Cells[i, 6].Value != null && worksheet.Cells[i,6].Value != "")
+                                {
+                                    worksheet.Cells[i,6].Value = null;
+                                }
+                                TestCasesResult["Passed"] += 1;
+                            }
+                            if (worksheet.Cells[i, 7].Value.ToString() == "Fail")
+                            {
+
+                                TestCasesResult["Failed"] += 1;
+                            }
+                            if (worksheet.Cells[i, 7].Value.ToString() == "Not Run" || worksheet.Cells[i, 7].Value.ToString().ToLower() == "not able to run")
+                            {
+                                TestCasesResult["Not Run"] += 1;
+                            }
+
+                            TestCasesResult["Total Test Cases"] += 1;
+
+                            worksheet.Cells[7, 3].Value = TestCasesResult["Total Test Cases"];
+                            worksheet.Cells[8, 3].Value = TestCasesResult["Passed"];
+                            worksheet.Cells[9, 3].Value = TestCasesResult["Failed"];
+                            worksheet.Cells[10, 3].Value = TestCasesResult["Not Run"];
+
+                            Dictionary<string, string> storeTempData = new Dictionary<string, string>();
+                            storeTempData[testcaseId + ErrorMessage] = status;
+                            sheetdata[testcaseId] = storeTempData;
+                            if (!CasesStatus.ContainsKey(testcaseId))
+                            {
+                                if (!status.ToLower().Contains("not able to run"))
+                                {
+                                    CasesStatus[testcaseId] = status;
+                                }
+                            }
+
+                        }
+                        int End = worksheet.Dimension.Rows + 3;
+                        int columncount = worksheet.Dimension.Columns;
+                        foreach (var f in folders)
+                        {
+                            if (files.Contains(f.FullName))
+                                continue;
+
+                            if (f.FullName.ToString().Contains(name))
+                            {
+
+                                using (ExcelPackage xlPackage1 = new ExcelPackage(new FileInfo(f.FullName.ToString())))
+                                {
+                                    ExcelWorksheet worksheet1 = xlPackage1.Workbook.Worksheets[TestDataConstants.CAP_TEST_REPORT];
+                                    int totalrow = worksheet1.Dimension.Rows + 2;
+
+                                    for (int i = 18; i <= totalrow; i++)
+                                    {
+                                        string testcaseid = worksheet1.Cells[i, 3].Value.ToString();
+                                        if (!CasesStatus.ContainsKey(testcaseid))
+                                        {
+                                            worksheet.Cells[7, 3].Value = Convert.ToInt32(worksheet.Cells[7, 3].Value) + 1;
+
+                                            if (worksheet1.Cells[i, 7].Value.ToString().Equals("Fail", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                worksheet.Cells[9, 3].Value = Convert.ToInt32(worksheet.Cells[9, 3].Value) + 1;
+                                            }
+                                            else if (worksheet1.Cells[i, 7].Value.ToString().Equals("Pass", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                worksheet.Cells[8, 3].Value = Convert.ToInt32(worksheet.Cells[8, 3].Value) + 1;
+                                            }
+                                            for (int j = 1; j <= columncount + 1; j++)
+                                            {
+                                                if (j == 7 && worksheet.Cells[End, j].Value == null)
+                                                {
+                                                    worksheet.Cells[End, j].Value = "00:00 m";
+                                                }
+                                                worksheet.Cells[End, j].Value = worksheet1.Cells[i, j].Value;
+                                            }
+                                            CasesStatus[testcaseid] = worksheet1.Cells[i, 7].Value.ToString();
+                                            End++;
+                                        }
+                                        else
+                                        {
+                                            if (CasesStatus[testcaseid].ToLower().Equals("fail"))
+                                            {
+                                                if (worksheet1.Cells[i, 7].Value.ToString().ToLower().Equals("pass"))
+                                                {
+                                                    worksheet.Cells[9, 3].Value = Convert.ToInt32(worksheet.Cells[9, 3].Value) - 1;
+                                                    worksheet.Cells[8, 3].Value = Convert.ToInt32(worksheet.Cells[8, 3].Value) + 1;
+                                                    for (int j = 1; j <= columncount + 1; j++)
+                                                    {
+                                                        if (j == 7 && worksheet.Cells[End, j].Value == null)
+                                                        {
+                                                            worksheet.Cells[End, j].Value = "00:00 m";
+                                                        }
+                                                        worksheet.Cells[End, j].Value = worksheet1.Cells[i, j].Value;
+                                                    }
+                                                    End++;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                }
+                                File.Delete(f.FullName.ToString());
+                                info = new DirectoryInfo(masterDirPath);
+                                folders = info.GetFiles().OrderBy(p => p.LastWriteTime).ToArray();
+                                Array.Reverse(folders);
+                            }
+                        }
+
+                        xlPackage.Save();
+                        sheetdata.Clear();
+                    }
+                }
+            }
+        }
+        private void CopyLatestFilesForTempMerge()
+        {
+            DirSearch(CurrentResult, masterDirPath);
+            dir = new DirectoryInfo(masterDirPath + "\\");
+
+
+        }
+        static List<string> MasterSheetCases = new List<string>();
+       
+        public void Merge(Dictionary<string, string> ExcludeCasesFile, bool deletebeforecopytoMaster)
+        {
+            try
+            {
+                int Pass = 0;
+                int Fail = 0;
+
+                DirSearch(CurrentResult, masterDirPath);
+                dir = new DirectoryInfo(masterDirPath + "\\");
+                if (deletebeforecopytoMaster == true)
+                {
+                    ExcludeCasesonReport(masterDirPath, ExcludeCasesFile);
+                      Console.WriteLine("ExcludeCasesonReport PROCEDURE ENDS ");
+                }
+
+                countOfFiles = Directory.GetDirectories(CurrentResult).Length - 1;
+                int countOfTextCase = dir.GetFiles("*.xlsx").Length;
+                InternalMerge(countOfTextCase);
+                string filePath = masterDirPath;
+                var StartTime = TimeSpan.Parse("00:00:00");
+                var EndTime = TimeSpan.Parse("00:00:00");
+                TotalTestCases = CountTestCases();
+                using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(filePath + "_" + TestDataConstants.MASTER_TESTLOG_PATH + "_" + "Master" + "(Distributed)-" + DateTime.Now.Date.ToString("yyyy-MM-dd") + ".xlsx")))
+                {
+                    ExcelWorksheet MasterWorkSheet = xlPackage.Workbook.Worksheets.Add("TEST REPORT" + DateTime.Now.ToShortDateString());
+                    FillMasterSheet(MasterWorkSheet, countOfFiles);
+if (isSprintRelease == true)
+                    {
+                        slaveDataCounter = GetSlaveDataCounter + 15;
+                    }
+                    else
+                    {
+                        slaveDataCounter = GetSlaveDataCounter + 11;
+                    }
+                    masterRow = MasterWorkSheet.Dimension.End.Row + 1;
+                    masterRow1 = MasterWorkSheet.Dimension.End.Row + 1;
+                    
+                        foreach (var file in dir.GetFiles("*.xlsx"))
+                        {
+                        if (file.LastWriteTime < minModifiedDate)
+                        {
+                            Console.WriteLine("New date is " + minModifiedDate.ToString() + " and File date " + file.LastWriteTime.ToString());
+                            minModifiedDate = file.LastWriteTime;
+                        }
+                        if (!file.Name.StartsWith("~$"))
+                            {
+                                if ((file.Name.Contains("(Distributed)") && !file.Name.Contains("Master") && !file.Name.Contains("$")) || file.Name.Contains("Prod"))
+                                    using (ExcelPackage childPackage = new ExcelPackage(new FileInfo(file.FullName)))
+                                    {
+                                        int childRow = 18;
+                                        int childTotalRow = 0;
+                                        ExcelWorksheet ChildWorkSheet = childPackage.Workbook.Worksheets["TestReport"];
+                                        try
+                                        {
+                                            childTotalRow = ChildWorkSheet.Dimension.End.Row;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.WriteLine(ex.StackTrace);
+                                            Console.WriteLine(ex.Message);
+                                            WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                                        }
+
+                                        if (ChildWorkSheet.Cells[13, 3].Value == null)
+                                        {
+                                            MasterWorkSheet.Cells[22, 3].Value = "11:59:59 PM";
+
+                                        }
+                                        else
+                                        {
+                                            //Minimum Start  Time workSheets Needed 
+                                            MasterWorkSheet.Cells[22, 3].Value = Min(DateTime.Parse(MasterWorkSheet.Cells[22, 3].Value.ToString()), DateTime.Parse(ChildWorkSheet.Cells[13, 3].Value.ToString())).TimeOfDay.ToString();
+                                        }
+                                        if (ChildWorkSheet.Cells[14, 3].Value == null)
+                                        {
+                                            MasterWorkSheet.Cells[23, 3].Value = "00:00:00 AM";
+                                        }
+
+                                        else
+                                        {
+
+                                            //Maximum End Time 
+                                            MasterWorkSheet.Cells[23, 3].Value = Max(DateTime.Parse(MasterWorkSheet.Cells[23, 3].Value.ToString()), DateTime.Parse(ChildWorkSheet.Cells[14, 3].Value.ToString())).TimeOfDay.ToString();
+                                        }
+
+                                        //Preparing Slave analysis parameter
+                                        //Slave Ip
+                                        if (slaveDataCounter + countOfFiles > slaveDataCounter)
+                                        {
+                                            string HostName = ChildWorkSheet.Cells[11, 3].Value.ToString();
+                                            if (ChildWorkSheet.Cells[12, 3].Value != null)
+                                            {
+                                                var labelCenter = MasterWorkSheet.Cells[slaveDataCounter, 2];
+                                                labelCenter.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                                                labelCenter.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                                //Get Local Host
+                                                labelCenter.Value = ChildWorkSheet.Cells[12, 3].Value.ToString();//Local Host
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 2].Value = ""; }
+
+                                            //Total Test Cases
+                                            if (ChildWorkSheet.Cells[7, 3].Value != null)
+                                            {
+                                                MasterWorkSheet.Cells[slaveDataCounter, 4].Value = ChildWorkSheet.Cells[7, 3].Value.ToString();
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 5].Value = ""; }
+
+                                            //Passed
+                                            if (ChildWorkSheet.Cells[8, 3].Value != null)
+                                            {
+                                                MasterWorkSheet.Cells[slaveDataCounter, 5].Value = ChildWorkSheet.Cells[8, 3].Value.ToString();
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 5].Value = ""; }
+
+                                            //Failed
+                                            if (ChildWorkSheet.Cells[9, 3].Value != null)
+                                            {
+                                                MasterWorkSheet.Cells[slaveDataCounter, 6].Value = ChildWorkSheet.Cells[9, 3].Value.ToString();
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 6].Value = ""; }
+
+                                            //NotRun
+                                            //ChildWorkSheet.Cells[10, 3].FormulaR1C1 = "=C7-C8-C9";
+                                            //ChildWorkSheet.Cells[10,3].Calculate();
+                                            ////childPackage.Save();
+                                            //if (ChildWorkSheet.Cells[10, 3].Value != null)
+                                            //{
+                                            //    MasterWorkSheet.Cells[slaveDataCounter, 7].Value = ChildWorkSheet.Cells[10, 3].Value;
+                                            //    MasterWorkSheet.Cells[slaveDataCounter, 7].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                                            //}
+                                            //else { MasterWorkSheet.Cells[slaveDataCounter, 7].Value = ""; }
+
+                                            //Total Time taken
+                                            if (ChildWorkSheet.Cells[11, 3].Value != null)
+                                            {
+                                                var labelCenter1 = MasterWorkSheet.Cells[slaveDataCounter, 7];
+                                                labelCenter1.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                                                labelCenter1.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                                labelCenter1.Value = ChildWorkSheet.Cells[11, 3].Value.ToString() + " Hrs";
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 7].Value = ""; }
+
+
+                                            //Start Time
+                                            if (ChildWorkSheet.Cells[13, 3].Value != null)
+                                            {
+                                                //MasterWorkSheet.Cells[slaveDataCounter, 9].Value = ChildWorkSheet.Cells[13, 3].Value.ToString();
+                                                var labelCenter2 = MasterWorkSheet.Cells[slaveDataCounter, 9];
+                                                labelCenter2.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                                                labelCenter2.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                                labelCenter2.Value = ChildWorkSheet.Cells[13, 3].Value.ToString() + " Hrs";
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 9].Value = ""; }
+
+                                            //End Time
+                                            if (ChildWorkSheet.Cells[14, 3].Value != null)
+                                            {
+                                                // MasterWorkSheet.Cells[slaveDataCounter, 11].Value = ChildWorkSheet.Cells[14, 3].Value.ToString();
+                                                var labelCenter3 = MasterWorkSheet.Cells[slaveDataCounter, 11];
+                                                labelCenter3.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                                                labelCenter3.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                                                labelCenter3.Value = ChildWorkSheet.Cells[14, 3].Value.ToString() + " Hrs";
+
+                                            }
+                                            else { MasterWorkSheet.Cells[slaveDataCounter, 11].Value = ""; }
+
+                                            var rangeColumn3 = MasterWorkSheet.Cells[slaveDataCounter, 2, slaveDataCounter, 3];
+                                            try { rangeColumn3.Merge = true; }
+                                            catch { }
+                                            var rangeColumn4 = MasterWorkSheet.Cells[slaveDataCounter, 7, slaveDataCounter, 8];
+                                            try { rangeColumn4.Merge = true; }
+                                            catch { }
+                                            var rangeColumn7 = MasterWorkSheet.Cells[slaveDataCounter, 9, slaveDataCounter, 10];
+                                            try { rangeColumn7.Merge = true; }
+                                            catch { }
+                                            var rangeColumn8 = MasterWorkSheet.Cells[slaveDataCounter, 11, slaveDataCounter, 12];
+                                            try { rangeColumn8.Merge = true; }
+                                            catch { }
+
+                                            slaveDataCounter++;
+                                        }
+                                    
+
+                                        // Copying The Data
+
+                                        using (ExcelPackage xlPackage1 = new ExcelPackage(new FileInfo(PreviousSheet)))
+                                        {
+                                            try
+                                            {
+                                                ExcelWorksheet OldWorkSheet = xlPackage1.Workbook.Worksheets[1];
+                                                int k = 1;
+                                                while (OldWorkSheet.Cells[k, 4].Value == null || !(OldWorkSheet.Cells[k, 4].Value.Equals("Test Case Id")))
+                                                {
+                                                    k++;
+                                                }
+                                                k++;
+                                                int rowCount1 = GetLastUsedRow(OldWorkSheet);
+                                                while (!(OldWorkSheet.Cells[k, 3].Value == null))
+                                                {
+                                                    Dictionary<string, int> failedCasesStatus = new Dictionary<string, int>();
+                                                    if (OldWorkSheet.Cells[k, 10].Value.Equals("Fail"))
+                                                    {
+                                                        string caseName = OldWorkSheet.Cells[k, 4].Value.ToString();
+                                                        string error2 = OldWorkSheet.Cells[k, 8].Value.ToString();
+                                                        //int count = 0;
+                                                        //if(OldWorkSheet.Cells[k,12].Value != null)
+                                                        int count = Convert.ToInt16(OldWorkSheet.Cells[k, 12].Value);
+                                                        failedCasesStatus[error2] = count;
+                                                        lastFailedCases[caseName] = failedCasesStatus;
+                                                    }
+                                                    k++;
+                                                }
+                                                /*   bool contains = false;
+                                                   string idName = ChildWorkSheet.Cells[childRow, 3].Value.ToString();
+                                                   string realIDName = String.Empty;
+                                                   if (idName.Contains("*"))
+                                                   {
+                                                       realIDName = idName.Substring(idName.IndexOf("*") + 1);
+                                                   }
+                                                   else
+                                                   {
+                                                       realIDName = idName;
+ 
+                                                   }
+                                                   if (ExcludeCasesFile.ContainsKey(realIDName))
+                                                   {
+                                                       Console.WriteLine("key exist");
+                                                       contains = true;
+                                                   }*/
+                                                while (!(ChildWorkSheet.Cells[childRow, 3].Value == null))// && !(ExcludeCasesFile.ContainsKey(realIDName)) )
+                                                {
+                                                    /*var range = MasterWorkSheet.Cells[masterRow, 2, masterRow, 11];
+                                                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;*/
+                                                    string HostName = ChildWorkSheet.Cells[11, 3].Value.ToString();
+                                                    mName = ChildWorkSheet.Cells[childRow, 2].Value.ToString();
+                                                    tCName = ChildWorkSheet.Cells[childRow, 3].Value.ToString();
+                                                    if (!ChildWorkSheet.Cells[childRow, 7].Value.ToString().ToLower().Contains("not able to run"))
+                                                    {
+                                                        AddToSheet(MasterWorkSheet, ChildWorkSheet, mName, tCName, masterRow, childRow);
+                                                        /*
+                                                        MasterWorkSheet.Cells[masterRow, 2].Value = ChildWorkSheet.Cells[12, 3].Value.ToString();
+                                                        MasterWorkSheet.Cells[masterRow, 3].Value = tCName;
+                                                        MasterWorkSheet.Cells[masterRow, 4].Value = ChildWorkSheet.Cells[childRow, 3].Value.ToString();
+                                                        MasterWorkSheet.Cells[masterRow, 7].Value = ChildWorkSheet.Cells[childRow, 4].Value.ToString();
+                                                        MasterWorkSheet.Cells[masterRow, 8].Value = ChildWorkSheet.Cells[childRow, 5].Value.ToString();
+                                                        MasterWorkSheet.Cells[masterRow, 10].Value = ChildWorkSheet.Cells[childRow, 6].Value.ToString();*/
+                                                        if (ChildWorkSheet.Cells[childRow, 7].Value.ToString().Equals("Not Run"))
+                                                            MasterWorkSheet.Cells[masterRow, 10].Value = "";
+                                                        else
+                                                            MasterWorkSheet.Cells[masterRow, 11].Value = ChildWorkSheet.Cells[childRow, 8].Value.ToString() + " m";
+
+
+                                                        var rangeColumn1 = MasterWorkSheet.Cells[masterRow, 5, masterRow, 6];
+                                                        rangeColumn1.Merge = true;
+                                                        var rangeColumn2 = MasterWorkSheet.Cells[masterRow, 8, masterRow, 9];
+                                                        rangeColumn2.Merge = true;
+
+                                                        tCName = tCName.Length > 0 && tCName[0] == '*' ? tCName.Substring(1, tCName.Length - 1) : tCName;
+                                                        //string tCidPart = GetModuleNameFrmTC(tCName);
+                                                        string tCidPart = mName;
+
+                                                        //int tCWeight = tCidPart != "" && tCName != "" && _dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCWeight.ContainsKey(_dictTCidMeping[tCidPart]) ? 0 : 1;
+                                                        int tCWeight = 1; // default
+
+                                                        if (!string.IsNullOrWhiteSpace(tCidPart)
+                                                            && !string.IsNullOrWhiteSpace(tCName)
+                                                            && _dictTCidMeping.ContainsKey(tCidPart)
+                                                            && _dictModuleTCWeight.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                        {
+                                                            // Intentionally keep it as 1; no lookup for tCName
+                                                            tCWeight = 1;
+                                                        }
+
+                                                        if (ChildWorkSheet.Cells[childRow, 7].Value.ToString().Equals("Pass"))
+                                                        {
+                                                            for (int i = masterRow1; i < masterRow; i++)
+                                                            {
+                                                                if (MasterWorkSheet.Cells[i, 4].Value.Equals(tCName) || MasterWorkSheet.Cells[i, 4].Value.Equals("*" + tCName))
+                                                                {
+                                                                    if (MasterWorkSheet.Cells[i, 10].Value.Equals("Fail") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Pass"))
+                                                                    {
+                                                                        AddToSheet(MasterWorkSheet, ChildWorkSheet, mName, tCName, i, childRow);
+                                                                        MasterWorkSheet.Cells[i, 11].Value = ChildWorkSheet.Cells[childRow, 8].Value.ToString() + " m";
+                                                                        MasterWorkSheet.Cells[i, 12].Value = 0;
+                                                                        masterRow -= 1;
+                                                                        Fail -= tCWeight;
+                                                                        if (_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                                            _dictModuleTCDetails[_dictTCidMeping[tCidPart]].FailedTC -= tCWeight;
+                                                                    }
+                                                                    else if (MasterWorkSheet.Cells[i, 10].Value.Equals("Not Run") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Pass"))
+                                                                    {
+                                                                        AddToSheet(MasterWorkSheet, ChildWorkSheet, mName, tCName, i, childRow);
+                                                                        MasterWorkSheet.Cells[i, 11].Value = ChildWorkSheet.Cells[childRow, 8].Value.ToString() + " m";
+                                                                        MasterWorkSheet.Cells[i, 12].Value = 0;
+                                                                        masterRow -= 1;
+                                                                    }
+                                                                    else if (MasterWorkSheet.Cells[i, 10].Value.Equals("Pass") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Pass"))
+                                                                    {
+                                                                        MasterWorkSheet.Cells[i, 12].Value = 0;
+                                                                        masterRow -= 1;
+                                                                        Pass -= tCWeight;
+                                                                        if (_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                                            _dictModuleTCDetails[_dictTCidMeping[tCidPart]].PassedTC -= tCWeight;
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            Pass += tCWeight;
+                                                            range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Green);
+                                                            range.Style.Fill.BackgroundColor.SetColor(Color.PaleGreen);
+                                                            if (_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                                _dictModuleTCDetails[_dictTCidMeping[tCidPart]].PassedTC += tCWeight;
+                                                        }
+                                                        else if (ChildWorkSheet.Cells[childRow, 7].Value.ToString().Equals("Fail"))
+                                                        {
+                                                            bool isRowChecked = false;
+                                                            error1 = ChildWorkSheet.Cells[childRow, 6].Value.ToString();
+                                                            for (int i = masterRow1; i < masterRow; i++)
+                                                            {
+                                                                if (MasterWorkSheet.Cells[i, 4].Value.Equals(tCName) || MasterWorkSheet.Cells[i, 4].Value.Equals("*" + tCName))
+                                                                {
+                                                                    if (MasterWorkSheet.Cells[i, 10].Value.Equals("Fail") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Fail") || (MasterWorkSheet.Cells[i, 10].Value.Equals("Fail") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Not Run")))
+                                                                    {
+                                                                        masterRow -= 1;
+                                                                        Fail -= tCWeight;
+                                                                        if (_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                                            _dictModuleTCDetails[_dictTCidMeping[tCidPart]].FailedTC -= tCWeight;
+                                                                    }
+                                                                    else if (MasterWorkSheet.Cells[i, 10].Value.Equals("Pass") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Fail"))
+                                                                    {
+                                                                        MasterWorkSheet.Cells[i, 12].Value = 0;
+                                                                        masterRow -= 1;
+                                                                        Fail -= tCWeight;
+                                                                        if (_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                                            _dictModuleTCDetails[_dictTCidMeping[tCidPart]].FailedTC -= tCWeight;
+                                                                    }
+                                                                    else if (MasterWorkSheet.Cells[i, 10].Value.Equals("Not Run") && ChildWorkSheet.Cells[childRow, 7].Value.Equals("Fail"))
+                                                                    {
+                                                                        AddToSheet(MasterWorkSheet, ChildWorkSheet, mName, tCName, i, childRow);
+                                                                        MasterWorkSheet.Cells[i, 11].Value = ChildWorkSheet.Cells[childRow, 8].Value.ToString() + " m";
+                                                                        updateCount(MasterWorkSheet, tCName, i);
+                                                                        masterRow -= 1;
+                                                                    }
+                                                                    isRowChecked = true;
+                                                                }
+                                                            }
+                                                            if (!isRowChecked)
+                                                            {
+                                                                updateCount(MasterWorkSheet, tCName, masterRow);
+                                                            }
+                                                            Fail += tCWeight;
+                                                            if (Convert.ToInt16(MasterWorkSheet.Cells[masterRow, 12].Value) >= 3)
+                                                            {
+                                                                range.Style.Fill.BackgroundColor.SetColor(Color.Crimson);
+                                                            }
+                                                            else
+                                                            {
+                                                                range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Red);
+                                                                range.Style.Fill.BackgroundColor.SetColor(Color.MistyRose);
+                                                            }
+                                                            if (_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(_dictTCidMeping[tCidPart]))
+                                                                _dictModuleTCDetails[_dictTCidMeping[tCidPart]].FailedTC += tCWeight;
+                                                        }
+                                                        else
+                                                        {
+                                                            range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                                                            range.Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+                                                        }
+
+                                                        masterRow++;
+                                                    }
+                                                    childRow++;
+
+                                                }
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                Console.WriteLine(ex.Message);
+                                                Console.WriteLine(ex.StackTrace);
+                                            }
+                                        }
+
+
+                                    }              
+                            }
+
+
+                        
+
+                        /*for (int i = masterRow1; i < masterRow; i++)
+                        {
+                            if (MasterWorkSheet.Cells[i, 3].Value.Equals(tCName) || MasterWorkSheet.Cells[i, 3].Value.Equals("*" + tCName))
+                            {
+                            //MasterWorkSheet.DeleteRow(masterRow);
+                                masterRow -= 1;
+                        }
+                        }*/
+                        // MergeNotRunCases(MasterWorkSheet);
+
+                        //Add Not Run Slaves To Report
+                        //if (countOfFiles != countOfTextCase)
+                        //{
+                        //    List<string> NotRunSlaves = countTestCases.CountNotRunSlaves();
+                        //    foreach (string HostName in NotRunSlaves)
+                        //    {
+                        //        try
+                        //        {
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 2].Value = HostName;
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 3].Value = "0";
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 4].Value = "NOT EXECUTED";
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 5].Value = "NOT EXECUTED";
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 6].Value = "NOT EXECUTED";
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 7].Value = "NOT EXECUTED";
+                        //            MasterWorkSheet.Cells[slaveDataCounter, 8].Value = "NOT EXECUTED";
+                        //            slaveDataCounter++;
+                        //        }
+                        //        catch (Exception ex) { Console.WriteLine(ex); }
+                        //    }
+                        //}
+
+                        try
+                        {
+                            StartTime = TimeSpan.Parse(MasterWorkSheet.Cells[22, 3].Value.ToString());
+                        }
+                        catch { StartTime = TimeSpan.Parse("00:00:00"); }
+                        try
+                        {
+                            EndTime = TimeSpan.Parse(MasterWorkSheet.Cells[23, 3].Value.ToString());
+                        }
+                        catch { EndTime = TimeSpan.Parse("00:00:00"); }
+                        var FinalTime = StartTime.Subtract(EndTime).Duration();
+                        MasterWorkSheet.Cells[25, 3].Value = FinalTime.ToString() + " Hrs";
+                        MasterWorkSheet.Cells[26, 3].Value = minModifiedDate.ToString();
+                        // Calculating total Pass and Fail Cases
+
+                        MasterWorkSheet.Cells[17, 3].Value = TotalTestCases;
+
+                        MasterWorkSheet.Cells[18, 3].Value = Pass;
+
+                        MasterWorkSheet.Cells[19, 3].Value = Fail;
+
+                        MasterWorkSheet.Cells[20, 3].Value = TotalTestCases - Pass - Fail;
+
+                        int row = 15;
+                        int col;
+                        if (isSprintRelease == true)
+                        {
+                            col = 8;
+                        }
+                        else
+                        {
+                            col = 6;
+                        }
+                        foreach (string moduleName in _dictModuleTCDetails.Keys)
+                        {
+                            MasterWorkSheet.Cells[row, col].Value = _dictModuleTCDetails[moduleName].PassedTC;
+                            MasterWorkSheet.Cells[row + 1, col].Value = _dictModuleTCDetails[moduleName].FailedTC;
+                            MasterWorkSheet.Cells[row + 2, col].Value = _dictModuleTCDetails[moduleName].NotRunTC;
+                            if (col % 12 == 0)
+                            {
+                                if (isSprintRelease == true)
+                                {
+                                    col = 8;
+                                }
+                                else
+                                {
+                                    col = 6;
+                                }
+                                row += 4;
+                            }
+                            else
+                                col += 1;
+                        }
+
+                        /* WriteCoverageData(MasterWorkSheet);
+                         // Save The file
+                         xlPackage.Save();*/
+
+
+                    }
+                    foreach (var cases in testCaseIdSheetCases)
+                    {
+                        int EndRow = MasterWorkSheet.Dimension.Rows + 1;
+                        if (!MasterSheetCases.Contains(cases.Key))
+                        {
+                            range = MasterWorkSheet.Cells[EndRow, 2, EndRow, 12];
+                            range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+
+                            MasterWorkSheet.Cells[EndRow, 2].Value = "HostName";
+                            MasterWorkSheet.Cells[EndRow, 3].Value = cases.Value;
+                            MasterWorkSheet.Cells[EndRow, 4].Value = cases.Key;
+                            //MasterWorkSheet.Cells[EndRow, 6].Value = "Host";
+                            MasterWorkSheet.Cells[EndRow, 10].Value = "Not Run";
+                            MasterWorkSheet.Cells[EndRow, 11].Value = "00:00 m";
+                            MasterWorkSheet.Cells[EndRow, 12].Value = 0;
+                            string Address = "B" + EndRow + ": L" + EndRow; //B1119:L1119
+                            range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                            range.Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+                            //MasterWorkSheet.Cells[Address].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                            //MasterWorkSheet.Cells[Address].Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+                        }
+                    }
+                    /*var NotRunCasesList = TestCaseIdSheetCases.Intersect(MasterSheetCases);
+                    List<string> vs = NotRunCasesList.ToList();
+                    int TotalNotRunCases = vs.Count + EndRow;
+                    for (int i = EndRow; i < TotalNotRunCases; i++)
+                    {
+                        try
+                        {
+                            
+                            //MasterWorkSheet.Cells[slaveDataCounter, 2].Value = HostName;
+                            //            MasterWorkSheet.Cells[slaveDataCounter, 3].Value = "0";
+                            //            MasterWorkSheet.Cells[slaveDataCounter, 4].Value = "NOT EXECUTED";
+                            //            MasterWorkSheet.Cells[slaveDataCounter, 5].Value = "NOT EXECUTED";
+                            //            MasterWorkSheet.Cells[slaveDataCounter, 6].Value = "NOT EXECUTED";
+                            //            MasterWorkSheet.Cells[slaveDataCounter, 7].Value = "NOT EXECUTED";
+                            //            MasterWorkSheet.Cells[slaveDataCounter, 8].Value = "NOT EXECUTED";
+                        }
+                        catch (Exception e) { Console.WriteLine(e); }
+
+                    }*/
+
+                    WriteCoverageData(MasterWorkSheet);
+                    if (isSprintRelease == true)
+                    {
+                        CreateDashbaordPieChart(MasterWorkSheet);
+                    }
+
+                    xlPackage.Save();
+                    //Upload file code here//
+                    //SendMail();
+
+                    if (Directory.Exists(masterDirPath))
+                    {
+                        Directory.Delete(masterDirPath, true);
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+
+        }
+
+        private void AddToSheet(ExcelWorksheet MasterWorkSheet, ExcelWorksheet ChildWorkSheet, string mName, string tCName, int masterRow, int childRow)
+        {
+            try
+            {
+                for (int i = 20; i < masterRow; i++)
+                {
+                    if (MasterWorkSheet.Cells[i, 4].Value != null)
+                    {
+
+                        if (MasterWorkSheet.Cells[childRow, 10].Value != null)
+                        {
+                            if (MasterWorkSheet.Cells[childRow, 10].Value.ToString().Equals("Pass"))
+                            {
+
+                                if (MasterWorkSheet.Cells[masterRow, 8].Value != null && MasterWorkSheet.Cells[masterRow, 8].Value != "")
+                                {
+                                    if (MasterWorkSheet.Cells[masterRow, 4].Value.ToString().Equals("Compliance-0090"))
+                                    {
+                                        Console.Write("");
+                                    }
+
+                                    MasterWorkSheet.Cells[masterRow, 8].Value = string.Empty;
+                                }
+                                if (MasterWorkSheet.Cells[masterRow, 9].Value != null && MasterWorkSheet.Cells[masterRow, 9].Value != "")
+                                    MasterWorkSheet.Cells[masterRow, 9].Value = string.Empty;
+                            }
+                        }
+                        if (MasterWorkSheet.Cells[i, 4].Value.ToString().ToLower() == tCName.ToLower())
+                        {
+                            if (ChildWorkSheet.Cells[childRow, 7].Value.ToString().Equals("Pass"))
+                            {
+                                if (MasterWorkSheet.Cells[masterRow, 8].Value != null)
+                                    MasterWorkSheet.Cells[masterRow, 8].Value = string.Empty;
+                                if (MasterWorkSheet.Cells[masterRow, 9].Value != null)
+                                    MasterWorkSheet.Cells[masterRow, 9].Value = string.Empty;
+                            }
+                            if (MasterWorkSheet.Cells[i, 10].Value.ToString().ToLower().Contains("fail"))
+                            {
+                                MasterWorkSheet.Cells[i, 2].Value = ChildWorkSheet.Cells[12, 3].Value.ToString();
+                                MasterWorkSheet.Cells[i, 3].Value = mName;
+                                MasterWorkSheet.Cells[i, 4].Value = tCName;
+                                string realIDName = String.Empty;
+                                if (tCName.Contains("*"))
+                                {
+                                    realIDName = tCName.Substring(tCName.IndexOf("*") + 1);
+                                }
+                                else
+                                {
+                                    realIDName = tCName;
+
+                                }
+                                StringBuilder errorMessageBuilder = new StringBuilder();
+                                HashSet<string> uniqueErrors = new HashSet<string>();
+                                string errorMessage = string.Empty;
+                                if (TestCasesRecordsKeeper.ContainsKey(realIDName))
+                                {
+                                    if (TestCasesRecordsKeeper[realIDName].Result == "Fail")
+                                    {
+                                        if (realIDName == "BasketCompliance-0109")
+                                        {
+                                            Console.Write("");
+                                        }
+
+                                        List<List<string>> errorList = TestCasesRecordsKeeper[realIDName].ErrorList;
+                                        //  StringBuilder errorMessageBuilder = new StringBuilder();
+                                        // HashSet<string> uniqueErrors = new HashSet<string>();
+
+                                        foreach (List<string> error in errorList)
+                                        {
+                                            string combinedError = string.Join("", error);
+
+                                            if (uniqueErrors.Contains(combinedError))
+                                            {
+                                                continue;
+                                            }
+                                            uniqueErrors.Add(combinedError);
+                                            if (errorMessageBuilder.Length > 0)
+                                            {
+                                                errorMessageBuilder.AppendLine("-------------------------");
+                                            }
+                                            errorMessageBuilder.AppendLine(combinedError);
+
+                                        }
+                                        errorMessage = errorMessageBuilder.ToString();
+                                        //Console.WriteLine(errorMessage);
+                                    }
+                                }
+                                MasterWorkSheet.Cells[i, 5].Value = ChildWorkSheet.Cells[childRow, 4].Value.ToString();
+                                MasterWorkSheet.Cells[i, 7].Value = ChildWorkSheet.Cells[childRow, 5].Value.ToString();
+
+
+                                //  if (MasterWorkSheet.Cells[masterRow, 8].Value != null && MasterWorkSheet.Cells[masterRow, 8].Value != "")
+                                // {
+                                //string value = MasterWorkSheet.Cells[masterRow, 8].Value.ToString();
+                                //   if (!string.IsNullOrEmpty(errorMessage))
+                                MasterWorkSheet.Cells[masterRow, 8].Value = errorMessage;
+                                // else 
+                                //      MasterWorkSheet.Cells[masterRow, 8].Value += "\n-------\n" + ChildWorkSheet.Cells[childRow, 6].Value.ToString();
+
+
+                                //"\n-------\n" + ChildWorkSheet.Cells[childRow, 6].Value.ToString();
+                                //}
+                                //MasterWorkSheet.Cells[i, 8].Value += "..." + ChildWorkSheet.Cells[childRow, 6].Value.ToString();
+
+
+                                if (MasterWorkSheet.Cells[i, 10].Value.ToString().Equals("Fail") && ChildWorkSheet.Cells[childRow, 7].Value.ToString().Equals("Pass"))
+                                {
+                                    MasterWorkSheet.Cells[masterRow, 8].Value = string.Empty;
+                                }
+                                MasterWorkSheet.Cells[i, 10].Value = ChildWorkSheet.Cells[childRow, 7].Value.ToString();
+
+                            }
+                            break;
+                        }
+                    }
+                }
+                range = MasterWorkSheet.Cells[masterRow, 2, masterRow, 12];
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                MasterWorkSheet.Cells[masterRow, 2].Value = ChildWorkSheet.Cells[12, 3].Value.ToString();
+                MasterWorkSheet.Cells[masterRow, 3].Value = mName;
+                MasterWorkSheet.Cells[masterRow, 4].Value = tCName;
+                MasterWorkSheet.Cells[masterRow, 5].Value = ChildWorkSheet.Cells[childRow, 4].Value.ToString();
+                MasterWorkSheet.Cells[masterRow, 7].Value = ChildWorkSheet.Cells[childRow, 5].Value.ToString();
+                if (MasterWorkSheet.Cells[masterRow, 8].Value != null)
+                {
+                    string value = MasterWorkSheet.Cells[masterRow, 8].Value.ToString();
+                }
+                MasterWorkSheet.Cells[masterRow, 8].Value += ChildWorkSheet.Cells[childRow, 6].Value.ToString();
+                MasterWorkSheet.Cells[masterRow, 10].Value = ChildWorkSheet.Cells[childRow, 7].Value.ToString();
+                MasterWorkSheet.Cells[masterRow, 12].Value = 0;
+                if (!MasterSheetCases.Contains(tCName))
+                {
+                    string temp = tCName;
+                    if (tCName.Contains("*"))
+                        temp = tCName.Replace("*", "");
+                    if (!MasterSheetCases.Contains(temp))
+                        MasterSheetCases.Add(temp);
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+        }
+        private static void ExcludeCasesonReport(string masterDirPath, Dictionary<string, string> ExcludeCasesFile)
+        {
+
+            try
+            {
+                string[] xlsxFiles = Directory.GetFiles(masterDirPath, "*.xlsx");
+                bool onlySinglecase = false;
+                foreach (string xlsxFile in xlsxFiles)
+                {
+                    FileInfo fileInfo = new FileInfo(xlsxFile); // Create FileInfo to access LastWriteTime
+
+                    if (fileInfo.LastWriteTime < minModifiedDate)
+                    {
+                        minModifiedDate = fileInfo.LastWriteTime;
+                    }
+                    using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(xlsxFile)))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets["TestReport"];
+                        int rows = GetLastUsedRow(worksheet);
+                        int cols = GetLastUsedColumn(worksheet);
+                        int testCaseColID = -1;
+                        List<int> rowsToDelete = new List<int>();
+                        string caseStatus= string.Empty;
+                        string errorLogs = string.Empty;
+                         Dictionary<string, int> colToIndexMapping = new Dictionary<string, int>();
+                        for (int i = 1; i <= cols; i++)
+                        {
+                            if (worksheet.Cells[17, i].Value != null && worksheet.Cells[17, i].Value.ToString() == "Test Case Id")
+                            {
+                                testCaseColID = i;
+                                break;
+                            }
+                        }
+                         for (int i = 1; i <= cols; i++)
+                        {
+                              if (worksheet.Cells[17, i].Value != null)
+                              {
+                                  string colName = worksheet.Cells[17, i].Text;
+                                  colToIndexMapping[colName] = i;
+
+                                  // colToIndexMapping[worksheet.Cells[17, i].Value.ToString()];
+                              }
+                          
+                        }
+
+                        for (int i = 18; i <= rows; i++)
+                        {
+                            object valueObj = worksheet.Cells[i, testCaseColID].Value;
+                            object resultStatusvalue = worksheet.Cells[i,colToIndexMapping[TestDataConstants.CAP_RESULT]].Value.ToString();
+                            string resultStatus = string.Empty;
+                            object errorvalues = worksheet.Cells[i,colToIndexMapping[TestDataConstants.CAP_ERROR]].Value.ToString();
+                            string errorValue = string.Empty;
+                            string testcaseID = string.Empty;
+                            if (valueObj != null)
+                            {
+                                testcaseID = valueObj.ToString();
+                                if (resultStatusvalue != null)
+                                {
+                                    resultStatus = resultStatusvalue.ToString();
+ 
+                                }
+                                if (errorvalues != null)
+                                {
+                                    errorValue = errorvalues.ToString();
+
+                                }
+
+                                if (!string.IsNullOrEmpty(testcaseID))
+                                {
+                                    string realIDName = String.Empty;
+                                    if (testcaseID.Contains("*"))
+                                    {
+                                        realIDName = testcaseID.Substring(testcaseID.IndexOf("*") + 1);
+                                    }
+                                    else
+                                    {
+                                        realIDName = testcaseID;
+
+                                    }
+                                    if (ExcludeCasesFile.ContainsKey(realIDName))
+                                    {
+                                        if (realIDName == "RB-0141")
+                                        {
+                                            Console.WriteLine(realIDName);
+                                            int numberLine = i;
+
+                                        }
+                                        Console.WriteLine(realIDName + " exists in dictionary therefore deleting it from report " + xlsxFile);
+                                        rowsToDelete.Add(i);
+                                    }
+
+                                    if (TestCasesRecordsKeeper.ContainsKey(realIDName))
+                                    {
+                                        if (string.Equals(TestCasesRecordsKeeper[realIDName].Result, "Pass", StringComparison.OrdinalIgnoreCase))
+                                        {
+ // do nothing, as there is pass report present 
+                                        }
+                                        else if (string.Equals(TestCasesRecordsKeeper[realIDName].Result, "Fail", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            bool errorValueExists = false;
+                                            if (string.Equals(resultStatus, "Fail", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                foreach (List<string> errorList in TestCasesRecordsKeeper[realIDName].ErrorList)
+                                                {
+                                                    if (errorList.Contains(errorValue))
+                                                    {
+                                                        errorValueExists = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (!errorValueExists)
+                                                {
+                                                    TestCasesRecordsKeeper[realIDName].ErrorList.Add(new List<string> { errorValue });
+                                                }
+                                            }
+                                            if (string.Equals(resultStatus, "Pass", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                TestCasesRecordsKeeper[realIDName].Result = "Pass";
+                                                TestCasesRecordsKeeper[realIDName].ErrorList = null;
+                                            }
+                                        }
+                                        if (string.Equals(TestCasesRecordsKeeper[realIDName].Result, "Not Run", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            if (string.Equals(resultStatus, "Fail", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                TestCasesRecordsKeeper[realIDName].Result = "Fail";
+                                                TestCasesRecordsKeeper[realIDName].ErrorList.Add(new List<string> { errorValue });
+                                            }
+
+                                            if (string.Equals(resultStatus, "Pass", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                TestCasesRecordsKeeper[realIDName].Result = "Pass";
+                                                TestCasesRecordsKeeper[realIDName].ErrorList = null;
+                                            }
+
+                                        }
+                                        if (string.Equals(TestCasesRecordsKeeper[realIDName].Result, "Not able to run", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            if (string.Equals(resultStatus, "Fail", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                TestCasesRecordsKeeper[realIDName].Result = "Fail";
+                                                TestCasesRecordsKeeper[realIDName].ErrorList.Add(new List<string> { errorValue });
+                                            }
+
+                                            if (string.Equals(resultStatus, "Pass", StringComparison.OrdinalIgnoreCase))
+                                            {
+                                                TestCasesRecordsKeeper[realIDName].Result = "Pass";
+                                                TestCasesRecordsKeeper[realIDName].ErrorList = null;
+                                            }
+
+                                        }
+
+
+                                        //if(TestCasesRecordsKeeper[realIDName].Result)
+ 
+                                    }
+                                    else if (!TestCasesRecordsKeeper.ContainsKey(realIDName))
+                                    {
+                                        TestCasesRecordsKeeper[realIDName] = new TestCasesStatusKeeper
+                                        {
+                                            Result = resultStatus,
+                                            ErrorList = new List<List<string>> { new List<string> { errorValue } }
+                                        };
+
+                                    }
+
+
+                                }
+                            }
+                        }
+                        if (rowsToDelete.Count >= 1)
+                        {
+                            rowsToDelete.Reverse();
+                            foreach (int rowtoDelete in rowsToDelete)
+                            {
+                                int row = GetLastUsedRow(worksheet) - 1;
+                                worksheet.DeleteRow(rowtoDelete);
+                                if (row == 17)
+                                {
+                                    onlySinglecase = true;
+                                }
+                            }
+                        }
+                        package.Save();
+                    }
+                    if (onlySinglecase == true)
+                    {
+                        File.Delete(xlsxFile);
+                        onlySinglecase = false;
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                throw;
+            }
+        }
+        /// <summary>
+        /// Gets the module name FRM tc.
+        /// </summary>
+        /// <param name="tCId">The t c identifier.</param>
+        /// <returns></returns>
+        private static string GetModuleNameFrmTC(string tCId)
+        {
+            try
+            {
+                int breakIndex = tCId.IndexOf('-');
+                if (breakIndex < 0)
+                    return string.Empty;
+                else
+                    return tCId.Substring(0, tCId.IndexOf('-'));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                throw;
+            }
+        }
+
+        // Minimum Start time Of All The sheets
+        public static T Min<T>(T x, T y)
+        {
+            return Comparer<T>.Default.Compare(x, y) < 0 ? x : y;
+        }
+
+        // Maximum Start time Of All The sheets
+        public static T Max<T>(T x, T y)
+        {
+            return Comparer<T>.Default.Compare(x, y) < 0 ? y : x;
+        }
+
+        public void StartEndTimeCalc()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void BuildRevisionNumber()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MasterTestLogConfiguraton()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string LocalIPGenerator()
+        {
+            try
+            {
+                IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+
+                foreach (IPAddress addr in localIPs)
+                {
+                    if (addr.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        localIP = addr.ToString();
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+
+            return localIP;
+        }
+
+        public int GetSlaveDataCounter
+        {
+            get { return 18; }
+        }
+
+        public void FillMasterSheet(ExcelWorksheet MasterWorkSheet, int fileCounter)
+        {
+            try
+            {
+                MasterWorkSheet.Cells[15, 2, 26, 3].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                MasterWorkSheet.Cells[15, 2, 26, 2].Style.Font.Bold = true;
+                MasterWorkSheet.Cells[15, 2, 26, 3].Style.Font.Size = 12;
+                MasterWorkSheet.Cells[15, 2, 26, 3].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                MasterWorkSheet.Cells[1, 2, 1, 3].Style.Font.Bold = true;
+                MasterWorkSheet.Cells[1, 2, 1, 3].Style.Font.Size = 14;
+                MasterWorkSheet.Cells[1, 2].Value = TestDataConstants.RUN_DESCR + " Test Report ";
+                MasterWorkSheet.Cells[15, 2].Value = TestDataConstants.CAP_PRANA_VERSION;
+                MasterWorkSheet.Cells[15, 3].Value = TestDataConstants.RUN_DESCR + "_" + TestDataConstants.SVN_REVISION_NUMBER;
+                MasterWorkSheet.Cells[16, 2].Value = TestDataConstants.CAP_RELEASE_DATE_TIME;
+                MasterWorkSheet.Cells[16, 3].Value = DateTime.Now.ToString();
+                MasterWorkSheet.Cells[17, 2].Value = TestDataConstants.CAP_TOTAL_TEST_CASES;
+                MasterWorkSheet.Cells[17, 3].Value = 0;
+                MasterWorkSheet.Cells[18, 2].Value = TestDataConstants.CAP_PASSED;
+                MasterWorkSheet.Cells[18, 3].Value = 0;
+                MasterWorkSheet.Cells[19, 2].Value = TestDataConstants.CAP_FAILED;
+                MasterWorkSheet.Cells[19, 3].Value = 0;
+                MasterWorkSheet.Cells[20, 2].Value = TestDataConstants.CAP_NOT_RUN;
+                MasterWorkSheet.Cells[20, 3].Value = 0;
+                MasterWorkSheet.Cells[21, 2].Value = TestDataConstants.CAP_SYSTEM_IP;
+                MasterWorkSheet.Cells[21, 3].Value = LocalIPGenerator();
+                MasterWorkSheet.Cells[22, 2].Value = TestDataConstants.TestCase_Start_Time;
+                MasterWorkSheet.Cells[22, 3].Value = "11:59:59 PM";
+                MasterWorkSheet.Cells[23, 2].Value = TestDataConstants.TestCase_End_Time;
+                MasterWorkSheet.Cells[23, 3].Value = "00:00:00 AM";
+                MasterWorkSheet.Cells[24, 2].Value = TestDataConstants.CAP_AUTOMATION_BUILD_NUMBER;
+                MasterWorkSheet.Cells[24, 3].Value = TestDataConstants.BUILD_NUMBER;
+                MasterWorkSheet.Cells[25, 2].Value = TestDataConstants.CAP_TOTAL_TIME_TAKEN;
+                MasterWorkSheet.Cells[25, 3].Value = new TimeSpan(0, 0, 0, 0).ToString();
+                MasterWorkSheet.Cells[26, 2].Value = "Regression start date";
+                MasterWorkSheet.Cells[26, 3].Value = minModifiedDate;
+                int slaveDataCounter;
+                if (isSprintRelease == true)
+                {
+                    slaveDataCounter = GetSlaveDataCounter + 14;
+                }
+                else
+                {
+                    slaveDataCounter = GetSlaveDataCounter + 10;
+                }
+
+                for (int i = 2; i < 13; i++)  // To draw the border of slave analysis grid till Lth column
+                {
+                    var range1 = MasterWorkSheet.Cells[slaveDataCounter, i];
+                    range1.Style.Font.Bold = true;
+                    range1.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    range1.Style.Fill.BackgroundColor.SetColor(Color.Brown);
+                    range1.Style.Font.Color.SetColor(Color.WhiteSmoke);
+                    range1.Style.Locked = true;
+                    range1.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                    range1.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    range1.Style.ShrinkToFit = false;
+                }
+
+                MasterWorkSheet.Cells[slaveDataCounter, 2].Value = TestDataConstants.SlaveSystemIpTag;
+                MasterWorkSheet.Cells[slaveDataCounter, 4].Value = TestDataConstants.CAP_TOTAL_TEST_CASES;
+                MasterWorkSheet.Cells[slaveDataCounter, 5].Value = TestDataConstants.CAP_PASSED;
+                MasterWorkSheet.Cells[slaveDataCounter, 6].Value = TestDataConstants.CAP_FAILED;
+                // MasterWorkSheet.Cells[slaveDataCounter, 7].Value = TestDataConstants.CAP_NOT_RUN;
+                MasterWorkSheet.Cells[slaveDataCounter, 7].Value = TestDataConstants.CAP_TOTAL_TIME_TAKEN;
+                MasterWorkSheet.Cells[slaveDataCounter, 9].Value = TestDataConstants.TestCase_Start_Time;
+                MasterWorkSheet.Cells[slaveDataCounter, 11].Value = TestDataConstants.TestCase_End_Time;
+
+                // Merged the Slave IP column and Total time taken column to match the allignment till Lth Column
+                var rangeColumn3 = MasterWorkSheet.Cells[slaveDataCounter, 2, slaveDataCounter, 3];
+                rangeColumn3.Merge = true;
+                var rangeColumn4 = MasterWorkSheet.Cells[slaveDataCounter, 7, slaveDataCounter, 8];
+                rangeColumn4.Merge = true;
+
+                //Merged the Start time and End Time column to match the allignment till Lth column
+                var rangeColumn5 = MasterWorkSheet.Cells[slaveDataCounter, 9, slaveDataCounter, 10];
+                rangeColumn5.Merge = true;
+                var rangeColumn6 = MasterWorkSheet.Cells[slaveDataCounter, 11, slaveDataCounter, 12];
+                rangeColumn6.Merge = true;
+
+                int SlaveDataSlotWindow = slaveDataCounter + 2 + fileCounter;
+
+                //Test cases Data
+                MasterWorkSheet.Cells[slaveDataCounter, 2, SlaveDataSlotWindow - 2, 12].Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 2].Value = TestDataConstants.SlaveSystemIpTag;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 3].Value = TestDataConstants.CAP_MODULE_NAME;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 4].Value = TestDataConstants.CAP_TEST_CASE_ID;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 5].Value = TestDataConstants.CAP_TEST_CASE_DESCRIPTION;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 7].Value = TestDataConstants.CAP_CATEGORY;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 8].Value = TestDataConstants.CAP_ERROR;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 10].Value = TestDataConstants.CAP_RESULT;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 11].Value = TestDataConstants.CAP_RUNNING_TIME;
+                MasterWorkSheet.Cells[SlaveDataSlotWindow, 12].Value = TestDataConstants.CAP_FAIL_COUNT;
+
+
+                var rangeColumn1 = MasterWorkSheet.Cells[SlaveDataSlotWindow, 5, SlaveDataSlotWindow, 6];
+                rangeColumn1.Merge = true;
+                var rangeColumn2 = MasterWorkSheet.Cells[SlaveDataSlotWindow, 8, SlaveDataSlotWindow, 9];
+                rangeColumn2.Merge = true;
+                //Column Width
+                MasterWorkSheet.Column(1).Width = 9;
+                for (int i = 2; i <= 20; i++)
+                {
+                    MasterWorkSheet.Column(i).Width = 15;
+                }
+                MasterWorkSheet.Column(3).Width = 18;
+                //MasterWorkSheet.Column(4).Width = 18;
+                MasterWorkSheet.Column(13).Width = 9;
+                for (var i = 1; i <= 12; i++)
+                {
+                    MasterWorkSheet.Column(i).Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+
+                }
+
+
+                var range = MasterWorkSheet.Cells[SlaveDataSlotWindow, 2, SlaveDataSlotWindow, 12];
+                range.Style.Font.Bold = true;
+                range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(Color.Brown);
+                range.Style.Font.Color.SetColor(Color.WhiteSmoke);
+                range.Style.Locked = true;
+                range.Style.VerticalAlignment = ExcelVerticalAlignment.Top;
+                range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                range.Style.ShrinkToFit = false;
+
+                // Pie chart
+                var chart = (ExcelPieChart)MasterWorkSheet.Drawings.AddChart("Test Summary", eChartType.Pie3D);
+                chart.Title.Text = "Execution Status";
+                chart.Title.Font.Size = 10;
+                chart.Fill.Color = Color.LightSteelBlue;
+                chart.Border.Fill.Color = Color.LightSkyBlue;
+                chart.PlotArea.Fill.Color = Color.LightSteelBlue;
+                chart.Legend.Position = eLegendPosition.Top;
+                chart.Legend.Font.Size = 8;
+                chart.DataLabel.Font.Size = 8;
+                chart.SetPosition(14, 0, 3, 9);
+                if (isSprintRelease == true)
+                {
+                    chart.SetSize(205, 320);
+                }
+                else
+                {
+                    chart.SetSize(200, 237);
+                }
+
+                chart.Series.Add(MasterWorkSheet.Cells[18, 3, 20, 3], MasterWorkSheet.Cells[18, 2, 20, 2]);
+                chart.DataLabel.ShowPercent = true;
+                chart.DataLabel.ShowLeaderLines = true;
+                var ws = chart.WorkSheet;
+                var nsm = ws.Drawings.NameSpaceManager;
+                var nschart = nsm.LookupNamespace("c");
+                var nsa = nsm.LookupNamespace("a");
+                var node = chart.ChartXml.SelectSingleNode("c:chartSpace/c:chart/c:plotArea/c:pie3DChart/c:ser", nsm);
+                var doc = chart.ChartXml;
+
+                SetPieChartSegmentColorMaster(doc, nschart, 0, node, nsa, Color.ForestGreen);
+                SetPieChartSegmentColorMaster(doc, nschart, 1, node, nsa, Color.Red);
+                SetPieChartSegmentColorMaster(doc, nschart, 2, node, nsa, Color.Yellow);
+                int row = 15;
+                int col;
+                if (isSprintRelease == true)
+                {
+                    col = 8;
+                }
+                else
+                {
+                    col = 6;
+                }
+                foreach (string moduleName in _dictModuleTCDetails.Keys)
+                {
+                    var moduleTCchart = (ExcelPieChart)MasterWorkSheet.Drawings.AddChart((moduleName).ToString(), eChartType.Pie3D);
+                    moduleTCchart.Fill.Color = Color.LightSteelBlue;
+                    moduleTCchart.Border.Fill.Color = Color.LightSkyBlue;
+                    moduleTCchart.PlotArea.Fill.Color = Color.LightSteelBlue;
+                    moduleTCchart.Title.Text = moduleName;
+                    moduleTCchart.Title.Font.Size = 6;
+                    moduleTCchart.DataLabel.ShowValue = true;
+                    moduleTCchart.DataLabel.ShowLeaderLines = true;
+                    moduleTCchart.DataLabel.Font.Size = 5;
+
+                    moduleTCchart.Series.Add(MasterWorkSheet.Cells[row, col, row + 2, col], MasterWorkSheet.Cells[18, 2, 20, 2]);
+
+
+
+                    moduleTCchart.Legend.Remove();
+                    ws = moduleTCchart.WorkSheet;
+                    nsm = ws.Drawings.NameSpaceManager;
+                    nschart = nsm.LookupNamespace("c");
+                    nsa = nsm.LookupNamespace("a");
+                    node = moduleTCchart.ChartXml.SelectSingleNode("c:chartSpace/c:chart/c:plotArea/c:pie3DChart/c:ser", nsm);
+                    doc = moduleTCchart.ChartXml;
+
+                    SetPieChartSegmentColorMaster(doc, nschart, 0, node, nsa, Color.ForestGreen);
+                    SetPieChartSegmentColorMaster(doc, nschart, 1, node, nsa, Color.Red);
+                    SetPieChartSegmentColorMaster(doc, nschart, 2, node, nsa, Color.Yellow);
+
+                    if (row == 19 || row == 23 || row == 27)  //Added the check for 23rd row also due to Pie chart section divided into 3 section
+                        moduleTCchart.SetPosition(row - 1, 0, col - 1, -1);
+                    else
+                        moduleTCchart.SetPosition(row - 1, 0, col - 1, -1);
+                    moduleTCchart.SetSize(105, 80);   //changed the graph size from 110,105 to show the graph in 3 section
+                    if (col % 12 == 0)
+                    {
+                        if (isSprintRelease == true)
+                        {
+                            col = 8;
+                        }
+                        else
+                        {
+                            col = 6;
+                        }
+                        row += 4;
+                    }
+                    else
+                    {
+                        col += 1;
+                    }
+                }
+                if (isSprintRelease == true)
+                {
+                    while (row <= 27)
+                    {
+                        var moduleTCchart = (ExcelPieChart)MasterWorkSheet.Drawings.AddChart((row.ToString() + " " + col.ToString()).ToString(), eChartType.Pie3D);
+                        moduleTCchart.Fill.Color = Color.LightSteelBlue;
+                        moduleTCchart.Border.Fill.Color = Color.LightSkyBlue;
+                        moduleTCchart.PlotArea.Fill.Color = Color.LightSteelBlue;
+
+                        if (row == 19 || row == 23 || row == 27)
+                            moduleTCchart.SetPosition(row - 1, 0, col - 1, -1);
+                        else
+                            moduleTCchart.SetPosition(row - 1, 0, col - 1, -1);
+                        moduleTCchart.SetSize(105, 80);
+                        if (col % 12 == 0)
+                        {
+                            col = 6;
+                            row += 4;
+                        }
+                        else
+                        {
+                            col += 1;
+                        }
+                    }
+                }
+                else
+                {
+                    while (row <= 23)
+                    {
+                        var moduleTCchart = (ExcelPieChart)MasterWorkSheet.Drawings.AddChart((row.ToString() + " " + col.ToString()).ToString(), eChartType.Pie3D);
+                        moduleTCchart.Fill.Color = Color.LightSteelBlue;
+                        moduleTCchart.Border.Fill.Color = Color.LightSkyBlue;
+                        moduleTCchart.PlotArea.Fill.Color = Color.LightSteelBlue;
+
+                        if (row == 19 || row == 23)
+                            moduleTCchart.SetPosition(row - 1, 0, col - 1, -1);
+                        else
+                            moduleTCchart.SetPosition(row - 1, 0, col - 1, -1);
+                        moduleTCchart.SetSize(105, 80);
+                        if (col % 12 == 0)
+                        {
+                            col = 6;
+                            row += 4;
+                        }
+                        else
+                        {
+                            col += 1;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+
+        }
+
+        private void WriteCoverageData(ExcelWorksheet MasterWorkSheet)
+        {
+            try
+            {
+                //int row = 31 + dir.GetFiles("*.xlsx").Count() + TotalTestCases;
+                int row = 0;
+                int i = 2;
+                int j = 2;
+                dataRowStart = row + i;
+                dataRowEnd = row + i;
+                int counter = 0;
+                using (var package = new ExcelPackage(new FileInfo(_regressionTestCaseSheetPath)))
+                {
+                    foreach (ExcelWorksheet sheet in package.Workbook.Worksheets)
+                    {
+
+                        string keyToDictionary = sheet.ToString();
+                        if (keyToDictionary.Equals("Report sheet"))
+                        {
+                            // Handling done for Showing the Coverage Graph and Monthly Target Release wise
+                            while (sheet.Cells[j, 1].Value != null && sheet.Cells[j, 1].Value != string.Empty)
+                            {
+                                if (sheet.Cells[j, 11].Value.ToString().Equals("All") || sheet.Cells[j, 11].Value.ToString().Contains(TestDataConstants.Release_Version))
+                                {
+                                    counter += 1;
+                                }
+                                j++;
+                            }
+                            while (counter > 0)  // To make the Coverage graph Dynamic so that it will not leave the blank space for Release specific Modules
+                            {
+                                if (sheet.Cells[i, 11].Value.ToString().Equals("All") || sheet.Cells[i, 11].Value.ToString().Contains(TestDataConstants.Release_Version))
+                                {
+                                    // Previous Code. This code was adding information of each module's case at the end.
+                                    /* MasterWorkSheet.Cells[row + i, 1].Value = sheet.Cells[i, 1].Value;
+                                   MasterWorkSheet.Cells[row + i, 2].Value = sheet.Cells[i, 4].Value;
+                                   MasterWorkSheet.Cells[row + i, 3].Value = sheet.Cells[i, 5].Value;
+                                   MasterWorkSheet.Cells[row + i, 4].Value = sheet.Cells[i, 6].Value;
+                                   MasterWorkSheet.Cells[row + i, 5].Value = sheet.Cells[i, 7].Value;*/
+                                    MasterWorkSheet.Cells[row + i, 15].Value = sheet.Cells[i, 1].Value;
+                                    MasterWorkSheet.Cells[row + i, 16].Value = sheet.Cells[i, 4].Value;
+                                    MasterWorkSheet.Cells[row + i, 17].Value = sheet.Cells[i, 5].Value;
+                                    MasterWorkSheet.Cells[row + i, 18].Value = sheet.Cells[i, 6].Value;
+                                    MasterWorkSheet.Cells[row + i, 19].Value = sheet.Cells[i, 7].Value;
+                                    if ((double)sheet.Cells[i, 9].Value != 0.0 || (double)sheet.Cells[i, 10].Value != 0.0)
+                                    {
+                                        // To show the monthly coverage bar chart release version wise
+                                        if (sheet.Cells[i, 12].Value == null || sheet.Cells[i, 12].Value.ToString().Contains(TestDataConstants.Release_Version))
+                                        {
+                                            MasterWorkSheet.Cells[dataRowEnd, 20].Value = sheet.Cells[i, 1].Value;//Name of module
+                                            MasterWorkSheet.Cells[dataRowEnd, 21].Value = sheet.Cells[i, 9].Value;//Completed
+                                            MasterWorkSheet.Cells[dataRowEnd, 22].Value = sheet.Cells[i, 10].Value;//Remaining
+                                            dataRowEnd++;
+                                        }
+                                    }
+                                    i++;
+                                    counter--;
+                                }
+                                else
+                                {
+                                    i++;
+                                }
+                            }
+                        }
+                    }
+                }
+                var rangeColumn = MasterWorkSheet.Cells[2, 2, 2, 9];
+                rangeColumn.Merge = true;
+                rangeColumn.Style.Font.Bold = true;
+                rangeColumn.Style.Font.Size = 11;
+                rangeColumn.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                MasterWorkSheet.Cells[2, 2].Value = "Automation Coverage Status";
+                rangeColumn = MasterWorkSheet.Cells[2, 10, 2, 13];
+                rangeColumn.Merge = true;
+                rangeColumn.Style.Font.Size = 11;
+                rangeColumn.Style.Font.Bold = true;
+                rangeColumn.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                MasterWorkSheet.Cells[2, 10].Value = "Monthly Target (" + DateTime.Now.ToString("MMMM") + ")";
+
+                //rangeColumn = MasterWorkSheet.Cells[2, 10, 2, 12];
+                //rangeColumn.Merge = true;
+                //rangeColumn.Style.Font.Size = 11;
+                //rangeColumn.Style.Font.Bold = true;
+                //rangeColumn.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                //MasterWorkSheet.Cells[2, 10].Value = "Execution Drill Down";
+
+
+                MasterWorkSheet.Cells[dataRowStart, 15, dataRowStart + i, 22].Style.Font.Color.SetColor(Color.White);
+                moduleBarChart = (OfficeOpenXml.Drawing.Chart.ExcelBarChart)MasterWorkSheet.Drawings.AddChart(("AutomationCoverageStatus").ToString(), eChartType.ColumnStacked);
+                moduleBarChart.Fill.Color = Color.LightSteelBlue;
+                moduleBarChart.Border.Fill.Color = Color.LightSkyBlue;
+                moduleBarChart.PlotArea.Fill.Color = Color.LightSteelBlue;
+                moduleBarChart.SetPosition(2, 0, 1, 0);
+                moduleBarChart.SetSize(861, 210);
+                moduleBarChart.XAxis.Font.Size = 8;
+                moduleBarChart.YAxis.MaxValue = 600;
+                moduleBarChart.YAxis.Font.Size = 8;
+                moduleBarChart.Legend.Font.Size = 10;
+                moduleBarChart.Legend.Add();
+                moduleBarChart.Legend.Position = eLegendPosition.Top;
+                moduleBarChart.ShowHiddenData = true;
+                moduleBarChart.DataLabel.ShowValue = false;
+                moduleBarChart.DataLabel.Font.Size = 8;
+                moduleBarChart.DataLabel.Font.Bold = false;
+                moduleBarChart.ShowDataLabelsOverMaximum = false;
+                i--;
+                var seriesObj = moduleBarChart.Series.Add(MasterWorkSheet.Cells[row + 2, 16, row + i, 16], MasterWorkSheet.Cells[row + 2, 15, row + i, 15]);
+                seriesObj.Header = "Covered In Automation";
+                seriesObj = moduleBarChart.Series.Add(MasterWorkSheet.Cells[row + 2, 17, row + i, 17], MasterWorkSheet.Cells[row + 2, 15, row + i, 15]);
+                seriesObj.Header = "Target in Current Month";
+                seriesObj = moduleBarChart.Series.Add(MasterWorkSheet.Cells[row + 2, 18, row + i, 18], MasterWorkSheet.Cells[row + 2, 15, row + i, 15]);
+                seriesObj.Header = "Target in Upcoming Month";
+                seriesObj = moduleBarChart.Series.Add(MasterWorkSheet.Cells[row + 2, 19, row + i, 19], MasterWorkSheet.Cells[row + 2, 15, row + i, 15]);
+                seriesObj.Header = "Not Planned";
+
+                RemoveGridlines(moduleBarChart);
+                SetChartPointColor(moduleBarChart, 0, Color.Green);
+                SetChartPointColor(moduleBarChart, 1, Color.Blue);
+                SetChartPointColor(moduleBarChart, 2, Color.Orange);
+                // SetChartPointColor(moduleBarChart, 3, Color.FromArgb(160, 210, 125));
+                SetChartPointColor(moduleBarChart, 3, Color.Gray);
+                moduleBarChart.Locked = true;
+
+                //Region for second bar chart i.e. Month wise coverage status
+                moduleBarChartMonth = (OfficeOpenXml.Drawing.Chart.ExcelBarChart)MasterWorkSheet.Drawings.AddChart(("MonthTargetCoverageStatus").ToString(), eChartType.ColumnStacked);
+                moduleBarChartMonth.Fill.Color = Color.LightSteelBlue;
+                moduleBarChartMonth.Border.Fill.Color = Color.LightSkyBlue;
+                moduleBarChartMonth.PlotArea.Fill.Color = Color.LightSteelBlue;
+                moduleBarChartMonth.SetPosition(2, 0, 9, 2);
+                moduleBarChartMonth.SetSize(312, 210);
+                moduleBarChartMonth.XAxis.Font.Size = 8;
+                //moduleBarChartMonth.YAxis.LogBase = 2;
+                moduleBarChartMonth.YAxis.Font.Size = 8;
+                moduleBarChartMonth.Legend.Font.Size = 10;
+                moduleBarChartMonth.Legend.Add();
+                moduleBarChartMonth.Legend.Position = eLegendPosition.Top;
+                moduleBarChartMonth.ShowHiddenData = true;
+                moduleBarChartMonth.DataLabel.ShowValue = true;
+                moduleBarChartMonth.DataLabel.Font.Size = 8;
+                moduleBarChartMonth.DataLabel.Font.Bold = false;
+                moduleBarChartMonth.ShowDataLabelsOverMaximum = false;
+
+                if (dataRowStart != dataRowEnd)
+                {
+                    var seriesObj1 = moduleBarChartMonth.Series.Add(MasterWorkSheet.Cells[dataRowStart, 21, dataRowEnd - 1, 21], MasterWorkSheet.Cells[dataRowStart, 20, dataRowEnd - 1, 20]);
+                    seriesObj1.Header = "Completed";
+                    seriesObj1 = moduleBarChartMonth.Series.Add(MasterWorkSheet.Cells[dataRowStart, 22, dataRowEnd - 1, 22], MasterWorkSheet.Cells[dataRowStart, 20, dataRowEnd - 1, 20]);
+                    seriesObj1.Header = "Remaining";
+                    RemoveGridlines(moduleBarChartMonth);
+                    SetChartPointColor(moduleBarChartMonth, 0, Color.FromArgb(19, 79, 92));
+                    SetChartPointColor(moduleBarChartMonth, 1, Color.FromArgb(118, 165, 175));
+                    moduleBarChartMonth.Locked = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+
+        private void CreateDashbaordPieChart(ExcelWorksheet MasterWorkSheet)
+        {
+            try
+            {
+                int row = 0;
+                int col = 0;
+                int i = 19;
+                int j = 2;
+                dataRowStart = row + i;
+                int endRow = 18;
+                bool createPie = false;
+                GoogleDriveHelper.DownloadSheetById(_weeklyDashboardGId, _weeklyDashboardSheetPath);
+                using (var package = new ExcelPackage(new FileInfo(_weeklyDashboardSheetPath)))
+                {
+                    foreach (ExcelWorksheet sheet in package.Workbook.Worksheets)
+                    {
+                        string keyToDictionary = sheet.ToString();
+                        if (keyToDictionary.Equals("categories"))
+                        {
+                            col = GetLastUsedColumn(sheet);
+                            // string colValue11 = sheet.Cells[1, col].Value.ToString().Substring(1,10);
+                            if (MasterWorkSheet.Cells[15, 3].Value.ToString().Contains(sheet.Cells[1, col].Value.ToString().Substring(0, 9)))
+                            {
+                                while (sheet.Cells[j, 1].Value != null && sheet.Cells[j, 1].Value != string.Empty)
+                                {
+                                    if (Int32.Parse(sheet.Cells[j, col].Value.ToString()) != 0)
+                                    {
+                                        MasterWorkSheet.Cells[row + i, 15].Value = sheet.Cells[j, 1].Value;
+                                        MasterWorkSheet.Cells[row + i, 16].Value = sheet.Cells[j, col].Value;
+                                        i++;
+                                        endRow++;
+                                    }
+                                    j++;
+                                }
+                                createPie = true;
+                            }
+
+                        }
+                    }
+                    if (createPie == true)
+                    {
+                        // Pie chart
+                        var chart = (ExcelPieChart)MasterWorkSheet.Drawings.AddChart("Stability Analysis", eChartType.Pie3D);
+                        chart.Title.Text = "Execution Drill Down";
+                        chart.Title.Font.Size = 10;
+                        chart.Fill.Color = Color.LightSteelBlue;
+                        chart.Border.Fill.Color = Color.LightSkyBlue;
+                        chart.PlotArea.Fill.Color = Color.LightSteelBlue;
+                        chart.Legend.Position = eLegendPosition.Right;
+                        chart.Legend.Font.Size = 6;
+                        chart.DataLabel.Font.Size = 6;
+                        chart.SetPosition(14, 0, 5, 9);
+                        chart.SetSize(200, 320);
+
+                        chart.Series.Add(MasterWorkSheet.Cells[19, 16, endRow, 16], MasterWorkSheet.Cells[19, 15, endRow, 15]);
+                        chart.DataLabel.ShowPercent = true;
+                        chart.DataLabel.ShowLeaderLines = true;
+                        var ws = chart.WorkSheet;
+                        var nsm = ws.Drawings.NameSpaceManager;
+                        var nschart = nsm.LookupNamespace("c");
+                        var nsa = nsm.LookupNamespace("a");
+                        var node = chart.ChartXml.SelectSingleNode("c:chartSpace/c:chart/c:plotArea/c:pie3DChart/c:ser", nsm);
+                        var doc = chart.ChartXml;
+
+                        SetPieChartSegmentColorMaster(doc, nschart, 0, node, nsa, Color.ForestGreen);
+                        SetPieChartSegmentColorMaster(doc, nschart, 1, node, nsa, Color.Red);
+                        SetPieChartSegmentColorMaster(doc, nschart, 2, node, nsa, Color.Yellow);
+                        SetPieChartSegmentColorMaster(doc, nschart, 3, node, nsa, Color.LightGreen);
+                        SetPieChartSegmentColorMaster(doc, nschart, 4, node, nsa, Color.DarkGray);
+                        SetPieChartSegmentColorMaster(doc, nschart, 5, node, nsa, Color.DarkCyan);
+                        SetPieChartSegmentColorMaster(doc, nschart, 6, node, nsa, Color.DarkRed);
+                        SetPieChartSegmentColorMaster(doc, nschart, 7, node, nsa, Color.PaleVioletRed);
+                        SetPieChartSegmentColorMaster(doc, nschart, 8, node, nsa, Color.Orange);
+                        SetPieChartSegmentColorMaster(doc, nschart, 9, node, nsa, Color.BlueViolet);
+                        SetPieChartSegmentColorMaster(doc, nschart, 10, node, nsa, Color.Magenta);
+                        SetPieChartSegmentColorMaster(doc, nschart, 11, node, nsa, Color.LightBlue);
+                        SetPieChartSegmentColorMaster(doc, nschart, 12, node, nsa, Color.DarkBlue);
+                        SetPieChartSegmentColorMaster(doc, nschart, 13, node, nsa, Color.CornflowerBlue);
+                        SetPieChartSegmentColorMaster(doc, nschart, 14, node, nsa, Color.LightGoldenrodYellow);
+                        MasterWorkSheet.Cells[19, 15, 33, 16].Style.Font.Color.SetColor(Color.White);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+        /// <summary>
+        /// Removes the gridlines.
+        /// </summary>
+        /// <param name="chart">The chart.</param>
+        private void RemoveGridlines(ExcelChart chart)
+        {
+            try
+            {
+                var chartXml = chart.ChartXml;
+                var nsuri = chartXml.DocumentElement.NamespaceURI;
+                var nsm = new XmlNamespaceManager(chartXml.NameTable);
+                nsm.AddNamespace("c", nsuri);
+
+                //XY Scatter plots have 2 value axis and no category
+                var valAxisNodes = chartXml.SelectNodes("c:chartSpace/c:chart/c:plotArea/c:valAx", nsm);
+                if (valAxisNodes != null && valAxisNodes.Count > 0)
+                    foreach (XmlNode valAxisNode in valAxisNodes)
+                    {
+                        var major = valAxisNode.SelectSingleNode("c:majorGridlines", nsm);
+                        if (major != null)
+                            valAxisNode.RemoveChild(major);
+
+                        var minor = valAxisNode.SelectSingleNode("c:minorGridlines", nsm);
+                        if (minor != null)
+                            valAxisNode.RemoveChild(minor);
+                    }
+
+                //Other charts can have a category axis
+                var catAxisNodes = chartXml.SelectNodes("c:chartSpace/c:chart/c:plotArea/c:catAx", nsm);
+                if (catAxisNodes != null && catAxisNodes.Count > 0)
+                    foreach (XmlNode catAxisNode in catAxisNodes)
+                    {
+                        var major = catAxisNode.SelectSingleNode("c:majorGridlines", nsm);
+                        if (major != null)
+                            catAxisNode.RemoveChild(major);
+
+                        var minor = catAxisNode.SelectSingleNode("c:minorGridlines", nsm);
+                        if (minor != null)
+                            catAxisNode.RemoveChild(minor);
+                    }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+
+        /// <summary>
+        /// Sets the color of the chart point.
+        /// </summary>
+        /// <param name="chart">The chart.</param>
+        /// <param name="serieNumber">The serie number.</param>
+        /// <param name="color">The color.</param>
+        private void SetChartPointColor(ExcelChart chart, int serieNumber, Color color)
+        {
+            try
+            {
+                var chartXml = chart.ChartXml;
+
+                var nsa = chart.WorkSheet.Drawings.NameSpaceManager.LookupNamespace("a");
+                var nsuri = chartXml.DocumentElement.NamespaceURI;
+
+                var nsm = new XmlNamespaceManager(chartXml.NameTable);
+                nsm.AddNamespace("a", nsa);
+                nsm.AddNamespace("c", nsuri);
+
+                var serieNode = chart.ChartXml.SelectSingleNode(@"c:chartSpace/c:chart/c:plotArea/c:barChart/c:ser[c:idx[@val='" + serieNumber + "']]", nsm);
+                var serie = chart.Series[serieNumber];
+                var points = serie.Series.Length;
+
+                //Add reference to the color for the legend and data points
+                var srgbClr = chartXml.CreateNode(XmlNodeType.Element, "srgbClr", nsa);
+                var colorPie = Color.FromArgb(color.ToArgb());
+                var att = chartXml.CreateAttribute("val");
+                att.Value = System.Drawing.ColorTranslator.ToHtml(colorPie).Replace("#", String.Empty);
+                srgbClr.Attributes.Append(att);
+
+                var solidFill = chartXml.CreateNode(XmlNodeType.Element, "solidFill", nsa);
+                solidFill.AppendChild(srgbClr);
+
+                var spPr = chartXml.CreateNode(XmlNodeType.Element, "spPr", nsuri);
+                spPr.AppendChild(solidFill);
+
+                serieNode.AppendChild(spPr);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+
+        private static void SetPieChartSegmentColorMaster(XmlDocument doc, string nschart, int i, XmlNode node, string nsa, Color color)
+        {
+            try
+            {
+                //Add the node
+                var dPt = doc.CreateElement("dPt", nschart);
+                var idx = dPt.AppendChild(doc.CreateElement("idx", nschart));
+                var valattrib = idx.Attributes.Append(doc.CreateAttribute("val"));
+                valattrib.Value = i.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                node.AppendChild(dPt);
+
+                //Add the solid fill node
+                var spPr = doc.CreateElement("spPr", nschart);
+                var solidFill = spPr.AppendChild(doc.CreateElement("solidFill", nsa));
+                var srgbClr = solidFill.AppendChild(doc.CreateElement("srgbClr", nsa));
+                valattrib = srgbClr.Attributes.Append(doc.CreateAttribute("val"));
+
+                //Set the color
+                var colorPie = Color.FromArgb(color.ToArgb());
+                valattrib.Value = System.Drawing.ColorTranslator.ToHtml(colorPie).Replace("#", String.Empty);
+                dPt.AppendChild(spPr);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+            }
+        }
+
+        static void DirSearch(string sDir, string copyFilePath)
+        {
+            Console.WriteLine(sDir);
+            try
+            {
+                foreach (string d in Directory.GetDirectories(sDir))
+                {
+                    if (!d.ToString().Contains("MasterLog"))
+                    {
+                        if (d.Substring(d.Length - 8).Equals("TestLogs"))
+                        {
+                            foreach (string f in Directory.GetFiles(d))
+                            {
+                                if (Path.GetExtension(f).Contains("xlsx"))
+                                {
+                                    Console.WriteLine(copyFilePath + "   " + f);
+                                    File.Copy(f, copyFilePath + "\\" + Path.GetFileNameWithoutExtension(f) + Path.GetFileName(sDir) + ".xlsx");
+                                }
+                            }
+                        }
+                        DirSearch(d, copyFilePath);
+                    }
+
+                }
+            }
+            catch (System.Exception excpt)
+            {
+                Console.WriteLine(excpt.StackTrace);
+                Console.WriteLine(excpt.Message);
+                WriteExcToFile.WriteToFileError(excpt.Message, excpt.StackTrace);
+            }
+        }
+
+
+        public int CountTestCasesbak()
+        {
+            string pathToTestCases = TestDataConstants.SLAVE_WITH_READ + "\\" + TestDataConstants.MASTER_TESTLOG_PATH + "\\TestCases";
+            List<string> notIncludingTCIds = ConfigurationManager.AppSettings["TestCaseIdToNotInclude"].Split(',').ToList();
+            int numberOfTestCases, totalTestCasesInFile = 0;
+            try
+            {
+                Dictionary<string, string> testCasesCountAndSlaveName = new Dictionary<string, string>();
+                Dictionary<string, Dictionary<string, int>> dict = GetTestCasesFromExcelFile(out numberOfTestCases);
+                foreach (string fileName in Directory.GetFiles(pathToTestCases, "TC*.txt"))
+                {
+                    string contentOfFile = File.ReadAllText(fileName);
+                    int numberOfTestCasesInSlave = 0;
+                    Dictionary<string, Dictionary<string, List<string>>> dictionary = new Dictionary<string, Dictionary<string, List<string>>>();
+                    dictionary = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, List<string>>>>(contentOfFile);
+                    if (dictionary != null && dictionary.Count > 0)
+                    {
+                        foreach (Dictionary<string, List<string>> moduleDict in dictionary.Values)
+                        {
+                            foreach (string moduleName in moduleDict.Keys)
+                            {
+                                int totalCase = 0;
+                                if (moduleDict[moduleName].Count == 0)
+                                {
+                                    dict[moduleName].Keys.ToList().ForEach(tcName =>
+                                    {
+                                        if (!notIncludingTCIds.Any(notAddingtcId => tcName.Contains(notAddingtcId)))
+                                            totalCase += dict[moduleName][tcName];
+                                        numberOfTestCasesInSlave += dict[moduleName][tcName];
+                                    });
+                                    if (_dictModuleTCDetails.ContainsKey(moduleName))
+                                        _dictModuleTCDetails[moduleName].TotalTC = totalCase;
+                                }
+                                else
+                                {
+                                    moduleDict[moduleName].ForEach(tcName =>
+                                    {
+                                        if (!notIncludingTCIds.Any(notAddingtcId => tcName.Contains(notAddingtcId)))
+                                            totalCase += dict[moduleName][tcName];
+                                        numberOfTestCasesInSlave += dict[moduleName][tcName];
+                                    });
+                                    if (_dictModuleTCDetails.ContainsKey(moduleName))
+                                        _dictModuleTCDetails[moduleName].TotalTC += totalCase;
+                                }
+                            }
+                        }
+                    }
+                    testCasesCountAndSlaveName[Path.GetFileNameWithoutExtension(fileName)] = numberOfTestCasesInSlave + "";
+                    totalTestCasesInFile += numberOfTestCasesInSlave;
+                }
+                _dictModuleTCWeight = dict;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                throw;
+            }
+            return totalTestCasesInFile;
+        }
+        static Dictionary<string, string> testCaseIdSheetCases = new Dictionary<string, string>();
+        //static List<string> TestCaseIdSheetCases = new List<string>();
+        public int CountTestCases()
+        {
+            string TestCaseIDSheet = ConfigurationManager.AppSettings["TestCaseFile"].Replace("V0.00", TestDataConstants.Release_Version);
+            string pathToTestCases = TestDataConstants.MASTER_FOLDER + "\\" + TestCaseIDSheet;
+            List<string> notIncludingTCIds = ConfigurationManager.AppSettings["TestCaseIdToNotInclude"].Split(',').ToList();
+            List<string> moduleName = new List<string>();
+            int row, rowCount, numberOfTestCases, totalTestCasesInFile;
+            Dictionary<string, Dictionary<string, int>> dict = GetTestCasesFromExcelFile(out numberOfTestCases);
+
+            try
+            {
+                using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(pathToTestCases)))
+                {
+                    ExcelWorksheet worksheet = xlPackage.Workbook.Worksheets["Sheet1"];
+                    rowCount = GetLastUsedRow(worksheet);
+                    totalTestCasesInFile = rowCount - 1;
+
+                    for (row = 2; row <= rowCount; row++)
+                    {
+                        if (!testCaseIdSheetCases.ContainsKey(worksheet.Cells[row, 3].Value.ToString()))
+                        {
+                            testCaseIdSheetCases[worksheet.Cells[row, 3].Value.ToString()] = worksheet.Cells[row, 2].Value.ToString();
+                        }
+                        moduleName.Add(worksheet.Cells[row, 2].Value.ToString());
+                    }
+
+                        moduleName = moduleName.Distinct().ToList();
+
+                    foreach (string module in moduleName)
+                    {
+                        if (module.ToString().Contains("Closing"))
+                        {
+                            Console.WriteLine("Line Reached");
+                        }
+                        int totalCase = 0;
+                        for (row = 2; row <= rowCount; row++)
+                        {
+                            if (worksheet.Cells[row, 2].Value.ToString().Equals(module) && !notIncludingTCIds.Any(notAddingtcId => worksheet.Cells[row, 3].Value.ToString().Contains(notAddingtcId)))
+                                try
+                                {
+                                    totalCase += dict[module][worksheet.Cells[row, 3].Value.ToString()];
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(row);
+                                    Console.WriteLine(worksheet.Cells[row, 3].Value.ToString() + " testcase is not present in the regression sheet");
+                                    throw;
+                                }
+                        }
+                        if (_dictModuleTCDetails.ContainsKey(module))
+                            _dictModuleTCDetails[module].TotalTC += totalCase;
+
+                    }
+                    _dictModuleTCWeight = dict;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                throw;
+            }
+            return totalTestCasesInFile;
+
+        }
+
+
+
+
+
+        public Dictionary<string, Dictionary<string, int>> GetTestCasesFromExcelFile(out int NumberOfTestCases)
+        {
+            string pathToRegressionSheet = TestDataConstants.MASTER_FOLDER + "\\" + TestDataConstants.MASTER_TESTLOG_PATH + @"\Release\Regression Test Cases\Regression Test Cases.xlsx";
+            int totalNumberOfTestCases = 0;
+
+            Dictionary<string, Dictionary<string, int>> dictionaryContainingTestCases = new Dictionary<string, Dictionary<string, int>>();
+
+            using (var package = new ExcelPackage(new FileInfo(pathToRegressionSheet)))
+            {
+                try
+                {
+                    foreach (ExcelWorksheet sheet in package.Workbook.Worksheets)
+                    {
+                        string keyToDictionary = sheet.ToString();
+                        if (!keyToDictionary.StartsWith("_"))
+                        {
+                            Dictionary<string, int> testCaseNameDictionary = new Dictionary<string, int>();
+                            if (sheet.Name.ToString().Contains("Closing"))
+                            {
+                                Console.WriteLine("testing");
+                            }
+                            for (int i = 6; i < sheet.Dimension.End.Row + 1; i++)
+                            {
+                                if (sheet.Cells[i, 2].Value != null && sheet.Cells[i, 2].Value != "")
+                                {
+                                    try
+                                    {
+                                        string testCaseName = TestCaseNameReturn(sheet.Cells[i, 2].Value.ToString());
+                                        //string tCidPart = GetModuleNameFrmTC(testCaseName);
+                                        string tCidPart = keyToDictionary;
+                                        if (tCidPart != string.Empty && tCidPart != "CleanUp" && !_dictTCidMeping.ContainsKey(tCidPart) && _dictModuleTCDetails.ContainsKey(keyToDictionary))
+                                            _dictTCidMeping.Add(tCidPart, keyToDictionary);
+
+                                        int testCaseWeight = 1;
+                                        try
+                                        {
+                                            if (sheet.Cells[i, 13].Value != null && sheet.Cells[i, 13].Value.ToString() != string.Empty)
+                                                Int32.TryParse(TestCaseNameReturn(sheet.Cells[i, 13].Value.ToString()), out testCaseWeight);
+                                        }
+                                        catch (Exception) { testCaseWeight = 1; }
+                                        testCaseNameDictionary[testCaseName] = testCaseWeight;
+                                        totalNumberOfTestCases += testCaseWeight;
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine(ex.StackTrace);
+                                        Console.WriteLine(ex);
+                                        WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                                    }
+                                }
+                            }
+                            dictionaryContainingTestCases[keyToDictionary] = testCaseNameDictionary;
+                            string checkr = new string(keyToDictionary.Where(c => !char.IsDigit(c)).ToArray());
+
+                            if (checkr != keyToDictionary)
+                            {
+                                if (dictionaryContainingTestCases.ContainsKey(checkr))
+                                {
+                                    var dic2 = dictionaryContainingTestCases[checkr];
+                                    foreach (var kvp in testCaseNameDictionary)
+                                    {
+                                        dic2[kvp.Key] = kvp.Value;
+                                    }
+                                }
+                                // dictionaryContainingTestCases[keyToDictionary] = testCaseNameDictionary;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Message);
+                    WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                }
+            }
+            NumberOfTestCases = totalNumberOfTestCases;
+            return dictionaryContainingTestCases;
+        }
+
+
+        public static string TestCaseNameReturn(string testCase)
+        {
+            string result = testCase;
+            try
+            {
+                if (result != null)
+                {
+                    if (result[0] == '\n')
+                        result = testCase.Substring(1);
+                    result = result.Trim();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                throw;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creates the module tc object.
+        /// </summary>
+        private void CreateModuleTCObj()
+        {
+            try
+            {
+                GoogleDriveHelper.DownloadSheetById(_regressionTestCasesGId, _regressionTestCaseSheetPath);
+                using (var package = new ExcelPackage(new FileInfo(_regressionTestCaseSheetPath)))
+                {
+                    int i = 2;
+                    List<string> releaseWiseModules = new List<string>();
+                    string[] moduleNames = ConfigurationManager.AppSettings["modulesToShow"].Split(',');
+                    //handling done for Showing the Modules Pie charts Release wise
+                    foreach (ExcelWorksheet sheet in package.Workbook.Worksheets)
+                    {
+                        string keyToDictionary = sheet.ToString();
+                        if (keyToDictionary.Equals("Report sheet"))
+                        {
+                            while (sheet.Cells[i, 1].Value != null && sheet.Cells[i, 1].Value != string.Empty)
+                            {
+                                if (sheet.Cells[i, 11].Value.ToString().Contains(TestDataConstants.Release_Version))
+                                {
+                                    releaseWiseModules.Add(Convert.ToString(sheet.Cells[i, 1].Value));
+                                }
+                                i++;
+                            }
+                        }
+                    }
+                    var modulesToShow = moduleNames.Union(releaseWiseModules).ToArray();  //It will concatenate the Common module with Release specific modules
+                    foreach (string moduleName in modulesToShow)
+                    {
+                        _dictModuleTCDetails.Add(moduleName, new ModuleTCDetails(moduleName));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.Message);
+                WriteExcToFile.WriteToFileError(ex.Message, ex.StackTrace);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the count of last used row in excel sheet
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <returns></returns> 
+        public static int GetLastUsedRow(ExcelWorksheet sheet)
+        {
+            if (sheet.Dimension == null) { return 0; } // In case of a blank sheet
+            var row = sheet.Dimension.End.Row;
+            while (row >= 1)
+            {
+                var range = sheet.Cells[row, 1, row, sheet.Dimension.End.Column];
+                if (range.Any(c => !string.IsNullOrEmpty(c.Text)))
+                {
+                    break;
+                }
+                row--;
+            }
+            return row;
+        }
+
+
+        /// <summary>
+        /// Gets count of last used column of excel sheet
+        /// </summary>
+        /// <param name="sheet"></param>
+        /// <returns></returns>
+        public static int GetLastUsedColumn(ExcelWorksheet sheet)
+        {
+            if (sheet.Dimension == null) { return 0; } // In case of a blank sheet
+            var column = sheet.Dimension.End.Column;
+            while (column >= 1)
+            {
+                var range = sheet.Cells[1, column, sheet.Dimension.End.Row, column];
+                if (range.Any(c => !string.IsNullOrEmpty(c.Text)))
+                {
+                    break;
+                }
+                column--;
+            }
+            return column;
+        }
+
+
+        public void MergeNotRunCases(ExcelWorksheet masterSheet)
+        {
+            string TestCaseIDSheet = ConfigurationManager.AppSettings["TestCaseFile"].Replace("V0.00", TestDataConstants.Release_Version);
+            string pathToTestCases = TestDataConstants.MASTER_FOLDER + "\\" + TestCaseIDSheet;
+            string pathToRegressionSheet = TestDataConstants.MASTER_FOLDER + "\\" + TestDataConstants.MASTER_TESTLOG_PATH + @"\Release\Regression Test Cases\Regression Test Cases.xlsx";
+            int rowCount, totalRows, moduleRowCount, row;
+
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(pathToTestCases)))
+            {
+                using (ExcelPackage xlPackage = new ExcelPackage(new FileInfo(pathToRegressionSheet)))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets["Sheet1"];
+                    ExcelWorksheet moduleSheet;
+                    totalRows = GetLastUsedRow(worksheet);
+                    ExcelRange range;
+
+                    for (rowCount = 2; rowCount <= totalRows; rowCount++)
+                    {
+                        if (worksheet.Cells[rowCount, 5].Value.ToString().Equals("Not_Run"))
+                        {
+                            moduleSheet = xlPackage.Workbook.Worksheets[worksheet.Cells[rowCount, 2].Value.ToString()];
+                            moduleRowCount = GetLastUsedRow(moduleSheet);
+
+                            for (row = 6; row <= moduleRowCount; row++)
+                            {
+                                if (moduleSheet.Cells[row, 2].Value != null && moduleSheet.Cells[row, 2].Value != " " && moduleSheet.Cells[row, 2].Value.ToString().Equals(worksheet.Cells[rowCount, 3].Value.ToString()))
+                                {
+                                    range = masterSheet.Cells[masterRow, 2, masterRow, 12];
+                                    range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                    masterSheet.Cells[masterRow, 3].Value = worksheet.Cells[rowCount, 2].Value.ToString();
+                                    masterSheet.Cells[masterRow, 4].Value = worksheet.Cells[rowCount, 3].Value.ToString();
+                                    if (moduleSheet.Cells[row, 3].Value != null)
+                                        masterSheet.Cells[masterRow, 5].Value = moduleSheet.Cells[row, 3].Value.ToString();
+                                    masterSheet.Cells[masterRow, 7].Value = "Regression";
+                                    masterSheet.Cells[masterRow, 10].Value = "Not Run";
+                                    var rangeColumn1 = masterSheet.Cells[masterRow, 5, masterRow, 6];
+                                    rangeColumn1.Merge = true;
+                                    var rangeColumn2 = masterSheet.Cells[masterRow, 8, masterRow, 9];
+                                    rangeColumn2.Merge = true;
+
+                                    range.Style.Border.BorderAround(ExcelBorderStyle.Thin, Color.Black);
+                                    range.Style.Fill.BackgroundColor.SetColor(Color.Yellow);
+                                    masterRow++;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        public void GetOldReport()
+        {
+            DateTime lastModified;
+            DirectoryInfo[] d;
+            PreviousSheet = CurrentDrive + "DistributedAutomation_Master\\" + TestDataConstants.MASTER_TESTLOG_PATH + "\\TestResults";
+            d = new DirectoryInfo(PreviousSheet).GetDirectories("*", SearchOption.TopDirectoryOnly);
+            if (d.Length == 0)
+            {
+                lastModified = DateTime.MinValue;
+                foreach (DirectoryInfo file in d)
+                {
+                    if (file.LastWriteTime > lastModified)
+                    {
+                        lastModified = file.LastWriteTime.Date;
+                        latestfile = file.Name;
+                    }
+                }
+            }
+            else
+            {
+                lastModified = DateTime.MinValue;
+                foreach (DirectoryInfo file in d)
+                {
+                    if (file.LastWriteTime > lastModified)
+                    {
+                        lastModified = file.LastWriteTime.Date;
+                        latestfile = file.Name;
+                    }
+                }
+            }
+            FileInfo[] fname = new DirectoryInfo(PreviousSheet + "\\" + latestfile).GetFiles("*.xlsx");
+            if (fname.Length != 0)
+            {
+                Console.WriteLine(fname[0]);
+                PreviousSheet = PreviousSheet + "\\" + latestfile + "\\" + fname[0];
+            }
+            else
+            {
+                bool flag = false;
+                DateTime lastFile = DateTime.MinValue;
+                string latest = string.Empty;
+                DirectoryInfo[] info = new DirectoryInfo(PreviousSheet).GetDirectories("*", SearchOption.TopDirectoryOnly).OrderBy(p => p.LastWriteTime).ToArray();
+                // FileInfo[] files = info.GetFiles().OrderBy(p => p.LastWriteTime).ToArray();
+                for (int i = info.Length - 1; i >= 0; i--)
+                {
+                    latest = info[i].Name;
+                    FileInfo[] name = new DirectoryInfo(PreviousSheet + "\\" + latest).GetFiles();
+
+                    if (name.Length == 0)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        if (name[0].ToString().Substring(name[0].ToString().Length - 4).ToLower() != "xlsx")
+                            continue;
+                        PreviousSheet = PreviousSheet + "\\" + latest + "\\" + name[0];
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    PreviousSheet = CurrentDrive + "DistributedAutomation_Master\\" + TestDataConstants.MASTER_TESTLOG_PATH + "\\TestResults"; ;
+                    d = new DirectoryInfo(PreviousSheet).GetDirectories("*", SearchOption.TopDirectoryOnly);
+                    lastModified = DateTime.MinValue;
+                    foreach (DirectoryInfo file1 in d)
+                    {
+                        if (file1.LastWriteTime > lastModified)
+                        {
+                            lastModified = file1.LastWriteTime.Date;
+                            latestfile = file1.Name;
+                        }
+                    }
+                    FileInfo[] Newfname = new DirectoryInfo(PreviousSheet + "\\" + latestfile).GetFiles("*.xlsx");
+
+                    PreviousSheet = PreviousSheet + "\\" + latestfile + "\\" + Newfname[0];
+                }
+                PreviousSheet = CurrentDrive + "DistributedAutomation_Master\\" + TestDataConstants.MASTER_TESTLOG_PATH + "\\TestResults"; ;
+                d = new DirectoryInfo(PreviousSheet).GetDirectories("*", SearchOption.TopDirectoryOnly);
+                lastModified = DateTime.MinValue;
+                foreach (DirectoryInfo file in d)
+                {
+                    if (file.LastWriteTime > lastModified)
+                    {
+                        lastModified = file.LastWriteTime.Date;
+                        latestfile = file.Name;
+                    }
+                }
+                FileInfo[] fname1 = new DirectoryInfo(PreviousSheet + "\\" + latestfile).GetFiles("*.xlsx");
+                Console.WriteLine(fname1[0]);
+                PreviousSheet = PreviousSheet + "\\" + latestfile + "\\" + fname1[0];
+
+            }
+        }
+
+        public void updateCount(ExcelWorksheet MasterWorkSheet, string tCName, int masterrow)
+        {
+            try
+            {
+                if (lastFailedCases.ContainsKey(tCName) || lastFailedCases.ContainsKey("*" + tCName))
+                {
+                    foreach (var kvp in lastFailedCases)
+                    {
+                        if (kvp.Key.Equals("*" + tCName) || kvp.Key.Equals(tCName))
+                        {
+                            var innerValue = kvp.Value;
+                            foreach (var kvp1 in innerValue)
+                            {
+                                string error = kvp1.Key;
+                                int count = kvp1.Value;
+                                if (error1.Equals(error) || error1.ToString() != string.Empty)
+                                    MasterWorkSheet.Cells[masterrow, 12].Value = count + 1;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+        }
+    }
+}

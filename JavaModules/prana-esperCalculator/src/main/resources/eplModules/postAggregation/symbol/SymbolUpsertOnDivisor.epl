@@ -1,0 +1,50 @@
+module eplModules.postAggregation.symbol.SymbolUpsert;
+
+
+uses eplModules.postAggregation.symbol.SymbolIntermediate;
+
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+uses eplModules.postAggregation.symbol.SymbolWindowWithNav;
+
+
+
+@Name('SymbolWithNavGlobalDivisorUpsert')
+@Description('Update SymbolWithNav whenever GlobalDivisorUpdateEvent event occurs.')
+on GlobalDivisorUpdateEvent as F 
+merge SymbolWithNav as W// where F.masterFundId = W.masterFundId
+when matched and 
+	(
+	    W.globalNav <> F.shadowNavG 
+		or W.startOfDayNavGlobal <> F.startOfDayNavG 
+		or W.grossExposureBaseGlobal <> F.grossExposureBaseG
+		or W.grossMarketValueBaseGlobal <> F.grossMarketValueBaseG
+		or W.netExposureBaseGlobal <> F.netExposureBaseG
+		or W.currentCash <> F.currentCash
+		or W.accrual <> F.accrual
+	)
+	then update set
+		W.globalNav = F.shadowNavG,
+		W.startOfDayNavGlobal = F.startOfDayNavG,
+		W.grossExposureBaseGlobal = F.grossExposureBaseG,
+		W.netExposureBaseGlobal = F.netExposureBaseG,
+		W.grossMarketValueBaseGlobal = F.grossMarketValueBaseG, 
+		W.percentNetMarketValueGlobal = percent(coalesce(W.netMarketValueBase,0), coalesce(F.shadowNavG,0)),
+		W.percentLongExposureGlobal = percent(coalesce(W.longExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentShortExposureGlobal = percent(coalesce(W.shortExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentNetExposureGlobal = percent(coalesce(W.netExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedExposureGlobal = percent(coalesce(W.betaAdjustedExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentGrossExposureGlobal = percent(coalesce(W.grossExposureBase,0), coalesce(F.shadowNavG,0)),
+		W.percentLongMarketValueGlobal = percent(coalesce(W.longMarketValueBase,0), coalesce(F.shadowNavG,0)),
+		W.percentShortMarketValueGlobal = percent(coalesce(W.shortMarketValueBase,0), coalesce(F.shadowNavG,0)),
+		W.percentGrossMarketValueGlobal = percent(coalesce(W.grossMarketValueBase,0), coalesce(F.shadowNavG,0)),
+		W.percentLongNotionalGlobal = percent(coalesce(W.longNotionalBase,0), coalesce(F.shadowNavG,0)),
+		W.percentShortNotionalGlobal = percent(coalesce(W.shortNotionalBase,0), coalesce(F.shadowNavG,0)),
+		W.percentNetNotionalGlobal = percent(coalesce(W.notionalBase,0), coalesce(F.shadowNavG,0)),
+		W.pnlContributionGlobal = percent(coalesce(W.dayPnLBase,0), coalesce(F.shadowNavG,0)),
+		W.percentCostBasisPnlGlobal = percent(coalesce(W.costBasisPnLBase,0), coalesce(F.shadowNavG,0)),
+		W.dayReturnGlobal = percent(coalesce(W.dayPnLBase,0), coalesce(F.startOfDayNavG,0)),
+		W.currentCash=F.currentCash,
+		W.accrual = F.accrual,
+		W.parentWindowStream = "GlobalDivisorUpdateEvent,SymbolWithNav";
+
+

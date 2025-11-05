@@ -1,0 +1,185 @@
+﻿<UserControl xmlns:ig="http://schemas.infragistics.com/xaml"  xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+             x:Class="Prana.Allocation.Client.Controls.Common.Views.DefaultRuleControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Common.ViewModels"
+             xmlns:converters="clr-namespace:Prana.Allocation.Client.ValueConvertor"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Core="clr-namespace:System;assembly=mscorlib"
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Constants"
+             xmlns:commonBehaviors="clr-namespace:Prana.Allocation.Client.Behaviours" 
+             mc:Ignorable="d"
+             DataContext="{DynamicResource DefaultRuleControlViewModel}" Background="{DynamicResource UserControlBackGround}" IsEnabled="{Binding Path=IsDefaultRuleControlEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:DefaultRuleControlViewModel x:Key="DefaultRuleControlViewModel"/>
+            <converters:BooleanToInvertedVisibilityConverter x:Key="BooleanToInvertedVisibilityConverter"/>
+            <converters:BooleanToVisbilityConverterLocal x:Key="BooleanToVisbilityConverterLocal"/>
+            <Style  x:Key="DateEditorStyle" TargetType="{x:Type igWPF:XamNumericEditor}">
+                <Setter Property="IsEnabled" Value="False"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Prorata">
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style  x:Key="AccountListStyle" TargetType="{x:Type ig:XamComboEditor}" BasedOn="{StaticResource igXamComboEditorStyle}">
+                <Setter Property="IsEnabled" Value="False"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Prorata">
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Leveling">
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Pro-rata (NAV)">
+                        <Setter Property="IsEnabled" Value="True"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style  x:Key="AllocationMethodStyle" TargetType="{x:Type ComboBox}">
+                <Setter Property="IsEnabled" Value="True"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Prorata">
+                        <Setter Property="IsEnabled" Value="False"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Leveling">
+                        <Setter Property="IsEnabled" Value="False"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ElementName=cmbboxTargetPercentage, Path=SelectedItem.DisplayText}" Value="Pro-rata (NAV)">
+                        <Setter Property="IsEnabled" Value="False"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style  x:Key="ProrataListLabel" TargetType="Label">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsMasterFundRule}" Value="True">
+                        <Setter Property="Content" Value="Master funds for Prorata/Leveling"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsMasterFundRule}" Value="False">
+                        <Setter Property="Content" Value="Accounts for Prorata/Leveling"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style  x:Key="GroupBoxHeader" TargetType="GroupBox">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Path=IsMasterFundRule}" Value="True">
+                        <Setter Property="Header" Value="Master Fund Default Rule"></Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Path=IsMasterFundRule}" Value="False">
+                        <Setter Property="Header" Value="Default Rule"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox Name="DefaultRuleControlGroupBox" Margin="5,5,5,5" BorderBrush="{DynamicResource GroupBoxBorder}" Style="{StaticResource GroupBoxHeader}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Name="lblAllocationMethod" Content="Allocation Method" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Visibility="{Binding Path=IsMasterFundRule, Mode=OneWay, Converter={StaticResource BooleanToInvertedVisibilityConverter}}"/>
+                <ComboBox Name="cmbboxAllocationMethod" ToolTip="{Binding SelectedItem.DisplayText, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="0" Grid.Column="1" Width="100" ItemsSource="{Binding Path=AllocationTypeCollection, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedAllocationType, Mode=TwoWay}" DisplayMemberPath="DisplayText" IsSynchronizedWithCurrentItem="True" Template="{DynamicResource ComboBoxEditableTemplate}" Style="{StaticResource AllocationMethodStyle}" Visibility="{Binding Path=IsMasterFundRule, Mode=OneWay, Converter={StaticResource BooleanToInvertedVisibilityConverter}}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.ToolTip" Value="{Binding DisplayText}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <Label Name="lblRemainderAllocation" Content="Remainder Allocation to" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  />
+                <ComboBox Name="cmbboxRemainderAllocation" ToolTip="{Binding SelectedItem.Value, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="1" Grid.Column="1" SelectedItem="{Binding Path=SelectedRemainderAllocationAccount, Mode=TwoWay}" ItemsSource="{Binding Path=Accounts}" DisplayMemberPath="Value" Width="100" Template="{DynamicResource ComboBoxEditableTemplate}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <Label Name="lblTargetPercentage" Content="Target % as of" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" />
+                <ComboBox Name="cmbboxTargetPercentage" ToolTip="{Binding SelectedItem.DisplayText, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="2" Grid.Column="1" Width="100" ItemsSource="{Binding Path=MatchingRuleTypeCollection, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedMatchingRuleType, Mode=TwoWay}" DisplayMemberPath="DisplayText" IsSynchronizedWithCurrentItem="True" Template="{DynamicResource ComboBoxEditableTemplate}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.ToolTip" Value="{Binding DisplayText}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <Label Name="lblAccountsForProrata" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Style="{StaticResource ProrataListLabel}"/>
+                <ig:XamComboEditor x:Name="cmbboxAccountsForProrata" EmptyText="Select" ToolTip="{Binding SelectedValues, ElementName=ComboEditorBehavior}" IsEditable="True" AllowMultipleSelection="True" CheckBoxVisibility="Visible"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="3" Grid.Column="1" Width="100" ItemsSource="{Binding Path=AccountsForProrata, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AccountListStyle}" DisplayMemberPath="Value" SelectedItems="{Binding Path=SelectedProrataAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ig:XamComboEditor.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Value}" ToolTip="{Binding Value}" Width="Auto"/>
+                        </DataTemplate>
+                    </ig:XamComboEditor.ItemTemplate>
+                    <i:Interaction.Behaviors>
+                        <commonBehaviors:XamComboEditorBehavior x:Name="ComboEditorBehavior" SelectedItems ="{Binding Path=SelectedProrataAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </i:Interaction.Behaviors>
+                </ig:XamComboEditor>
+                <Label Name="lblDateUptoDays" Content="Date up to Days" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" />
+                <igWPF:XamNumericEditor Name="txtboxDateUptoDays"  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="4" Grid.Column="1" Width="100" SpinButtonDisplayMode="Always" PromptChar=" " ValueType="Core:Int32" Value="{Binding Path=DateUptoDays}" Mask="{x:Static Constants:AllocationClientConstants.INTEGER_MASK}" Style="{StaticResource DateEditorStyle}">
+                    <igWPF:XamNumericEditor.ValueConstraint>
+                        <igWPF:ValueConstraint MinInclusive="0"/>
+                    </igWPF:XamNumericEditor.ValueConstraint>
+                    <i:Interaction.Behaviors>
+                        <commonBehaviors:XamNumericEditorBehaviour/>
+                    </i:Interaction.Behaviors>
+                </igWPF:XamNumericEditor>
+                <CheckBox Name="chkboxMatchClosingTransaction" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="5" Grid.Column="0" IsChecked="{Binding Path=IsMatchClosingChecked}"  Visibility="{Binding Path=IsMasterFundRule, Mode=OneWay, Converter={StaticResource BooleanToInvertedVisibilityConverter}}"/>
+                <Label Name="lblMatchClosingTransaction" Content="Match Closing Transaction Only" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.ColumnSpan="2" Margin="20,0,0,0"  Visibility="{Binding Path=IsMasterFundRule, Mode=OneWay, Converter={StaticResource BooleanToInvertedVisibilityConverter}}"/>
+                <Label Name="lblMatchClosingTransaction1" Content="Match Closing Transaction" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.Column="0" Visibility="{Binding Path=IsMasterFundRule, Mode=OneWay, Converter={StaticResource BooleanToVisbilityConverterLocal}}"/>
+                <ComboBox Name="cmbboxMatchClosingTransaction" ToolTip="{Binding SelectedItem.DisplayText, RelativeSource={RelativeSource Self}}" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,5,5,5" Grid.Row="5" Grid.Column="1" Width="100" ItemsSource="{Binding Path=MatchClosingCollection, Mode=TwoWay}" SelectedItem="{Binding Path=SelectedMatchClosing, Mode=TwoWay}" DisplayMemberPath="DisplayText" IsSynchronizedWithCurrentItem="True" Template="{DynamicResource ComboBoxEditableTemplate}" Visibility="{Binding Path=IsMasterFundRule, Mode=OneWay, Converter={StaticResource BooleanToVisbilityConverterLocal}}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="Control.ToolTip" Value="{Binding DisplayText}" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

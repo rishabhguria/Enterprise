@@ -1,0 +1,182 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{75DA35ED-C36C-4E17-AB68-A0AC195580EC}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Nirvana.PNL.Prefs</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Nirvana.PNL.Prefs</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics2.Shared.v6.1">
+      <Name>Infragistics2.Shared.v6.1</Name>
+      <HintPath>$(ProgramFiles)\Infragistics\NetAdvantage 2006 Volume 1 CLR 2.0\windows forms\bin\Infragistics2.Shared.v6.1.dll</HintPath>
+      <AssemblyFolderKey>hklm\Infragistics.WinAssemblies.20061.CLR20</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="Infragistics2.Win.Misc.v6.1">
+      <Name>Infragistics2.Win.Misc.v6.1</Name>
+      <HintPath>$(ProgramFiles)\Infragistics\NetAdvantage 2006 Volume 1 CLR 2.0\windows forms\bin\Infragistics2.Win.Misc.v6.1.dll</HintPath>
+      <AssemblyFolderKey>hklm\Infragistics.WinAssemblies.20061.CLR20</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="Infragistics2.Win.UltraWinEditors.v6.1">
+      <Name>Infragistics2.Win.UltraWinEditors.v6.1</Name>
+      <HintPath>$(ProgramFiles)\Infragistics\NetAdvantage 2006 Volume 1 CLR 2.0\windows forms\bin\Infragistics2.Win.UltraWinEditors.v6.1.dll</HintPath>
+      <AssemblyFolderKey>hklm\Infragistics.WinAssemblies.20061.CLR20</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="Infragistics2.Win.UltraWinGrid.v6.1">
+      <Name>Infragistics2.Win.UltraWinGrid.v6.1</Name>
+      <HintPath>$(ProgramFiles)\Infragistics\NetAdvantage 2006 Volume 1 CLR 2.0\windows forms\bin\Infragistics2.Win.UltraWinGrid.v6.1.dll</HintPath>
+      <AssemblyFolderKey>hklm\Infragistics.WinAssemblies.20061.CLR20</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="Infragistics2.Win.UltraWinTabControl.v6.1">
+      <Name>Infragistics2.Win.UltraWinTabControl.v6.1</Name>
+      <HintPath>$(ProgramFiles)\Infragistics\NetAdvantage 2006 Volume 1 CLR 2.0\windows forms\bin\Infragistics2.Win.UltraWinTabControl.v6.1.dll</HintPath>
+      <AssemblyFolderKey>hklm\Infragistics.WinAssemblies.20061.CLR20</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="Infragistics2.Win.v6.1">
+      <Name>Infragistics2.Win.v6.1</Name>
+      <HintPath>$(ProgramFiles)\Infragistics\NetAdvantage 2006 Volume 1 CLR 2.0\windows forms\bin\Infragistics2.Win.v6.1.dll</HintPath>
+      <AssemblyFolderKey>hklm\Infragistics.WinAssemblies.20061.CLR20</AssemblyFolderKey>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51205.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <ProjectReference Include="..\..\Nirvana.Global\Nirvana.Global.csproj">
+      <Name>Nirvana.Global</Name>
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Package>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.Interfaces\Nirvana.Interfaces.csproj">
+      <Name>Nirvana.Interfaces</Name>
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Package>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Package>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PNLPreferencesManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PNLPrefrencesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNLPrefrencesData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="licenses.licx" />
+    <EmbeddedResource Include="PNLPrefrencesControl.resx">
+      <DependentUpon>PNLPrefrencesControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

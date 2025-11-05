@@ -1,0 +1,161 @@
+module eplModules.whatIfAggregation.account.WhatIfAccountWindowWithNav;
+
+
+@Name('WhatIfAccountWindowWithNav')
+@Description('Named window which holds account-wise trade data for preTrade operations.')
+Create window WhatIfAccountWithNav.std:unique(basketId,accountId)
+(
+	basketId String,
+	isEomSent bool,	
+	taxlotId String,
+	userId int,	
+	accountId int,
+	accountShortName String,
+	accountLongName String,
+	masterFundId int,
+	masterFundName String,
+	
+taxlotType String,
+	compressionLevel String,	
+	
+	equityHaircutBase double,
+	indexHaircutBase double,
+	liquidationPnlBase double,
+
+	notionalBase double,
+	cashImpactBase double,
+	cashInflowBase double,
+	cashOutflowBase double,
+	netMarketValueBase double,
+
+yesterdayMarketValueBase double,
+	
+	costBasisPnLBase double,
+	dayPnLBase double,
+	
+	
+	betaAdjustedExposureBase double,
+	underlyingValueForOptionsBase double,
+
+	dayInterestBase double,
+	totalInterestBase double,
+	
+	longNotionalBase double,
+	shortNotionalBase double,
+	shortMarketValueBase double,
+	longMarketValueBase double,
+	shortExposureBase double,
+	longExposureBase double,
+
+	grossExposureUnderlying double,
+	
+	shortExposureUnderlying double,
+	longExposureUnderlying double,
+
+	globalNav double,	
+	startOfDayNavGlobal double,
+	grossMarketValueBaseGlobal double,
+	grossExposureBaseGlobal double,
+	netExposureBaseGlobal double,
+	
+    accountNav double,	
+	accountNRA double,
+	startOfDayNavAccount double,
+	grossMarketValueBase double,
+	grossExposureBase double,
+	netExposureBase double,
+	currentCash double,
+	accrual double,	
+	
+	masterFundNav double,
+	startOfDayNavMasterFund double,
+	grossMarketValueBaseMasterFund double,
+	grossExposureBaseMasterFund double,
+	netExposureBaseMasterFund double,
+	
+	pnlContributionAccount double,
+	percentLongExposureAccount double,
+	percentShortExposureAccount double, 
+	percentNetExposureAccount double,	
+	percentBetaAdjustedExposureAccount double,	
+	percentGrossExposureAccount double,
+percentLongMarketValueAccount double,
+percentShortMarketValueAccount double,	
+	percentNetMarketValueAccount double,	
+	percentGrossMarketValueAccount double,
+	percentCostBasisPnlAccount double,	
+percentLongNotionalAccount double,
+percentShortNotionalAccount double,
+	percentNetNotionalAccount double,
+	percentGrossExposureUnderlyingAccount double,
+	dayReturnAccount double,
+	
+	pnlContributionMasterFund double,
+percentLongExposureMasterFund double,
+percentShortExposureMasterFund double,	
+	percentNetExposureMasterFund double,	
+	percentBetaAdjustedExposureMasterFund double,	
+	percentGrossExposureMasterFund double,	
+	percentLongMarketValueMasterFund double,
+	percentShortMarketValueMasterFund double,
+	percentNetMarketValueMasterFund double,
+	percentGrossMarketValueMasterFund double,
+percentLongNotionalMasterFund double,
+percentShortNotionalMasterFund double,	
+	percentNetNotionalMasterFund double,
+	percentCostBasisPnlMasterFund double,
+	percentGrossExposureUnderlyingMasterFund double,
+	dayReturnMasterFund double,
+
+	pnlContributionGlobal double,	
+percentLongExposureGlobal double,
+percentShortExposureGlobal double,
+	percentNetExposureGlobal double,	
+	percentBetaAdjustedExposureGlobal double,
+	percentGrossExposureGlobal double,
+percentLongMarketValueGlobal double,
+percentShortMarketValueGlobal double,		
+	percentNetMarketValueGlobal double,	
+	percentGrossMarketValueGlobal double,
+	percentLongNotionalGlobal double,
+	percentShortNotionalGlobal double,	
+	percentNetNotionalGlobal double,
+	percentCostBasisPnlGlobal double,
+	percentGrossExposureUnderlyingGlobal double,
+	dayReturnGlobal double,	
+	
+	capitalAccount double,
+	calculatedStopout double,
+	grossPnl double,
+	adjustedPnlTrader double,
+	adjustedPnlAccount double,
+
+	todayAbsTradeQuantity double,
+	todayLongTradeQuantity double,
+	todayShortTradeQuantity double,
+	todayNetNotionalBase double,
+	todayLongNotionalBase double,
+	todayShortNotionalBase double,
+	
+	longDebitBalance double,
+	shortCreditBalance double,
+	
+	betaAdjustedGrossExposureUnderlyingBase double,
+	betaAdjustedLongExposureUnderlyingBase double,
+	betaAdjustedShortExposureUnderlyingBase double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseGlobal double,
+	percentBetaAdjustedLongExposureUnderlyingBaseGlobal double,
+	percentBetaAdjustedShortExposureUnderlyingBaseGlobal double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseAccount double,
+	percentBetaAdjustedLongExposureUnderlyingBaseAccount double,
+	percentBetaAdjustedShortExposureUnderlyingBaseAccount double,
+	
+	percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund double,
+	percentBetaAdjustedLongExposureUnderlyingBaseMasterFund double,
+	percentBetaAdjustedShortExposureUnderlyingBaseMasterFund double,
+	parentWindowStream string
+
+);
+

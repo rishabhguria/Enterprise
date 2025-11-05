@@ -1,0 +1,226 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE web-app PUBLIC
+    "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+
+<web-app>
+  
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>ErrorPage.jsp</location>
+  </error-page>
+
+
+  <!--
+     Security Constraint Section
+
+     Uncomment this section if you want to enable Role Based Access Control.
+     You will also need to uncomment the Role section in ../etc/CameronWeb.xml
+
+     The following security-constraint elements specify the security constraints
+     that apply to the various web pages and resources.
+
+     A security-constraint element that does not contain an auth-constraint
+     element means that anyone can access the resource(s) described in the
+     web-resource-collection.  E.g., see the "Index page" collection below.
+
+     A security-constraint with an empty auth-constraint means that no-one can
+     access the resources.  This the is default unless there is a more specific
+     rule.  See the "Default" rule below.
+
+     If a auth-constraint contains a role-name element, then users with the
+     specified role may access those resources.  See "Admin Application" below.
+
+     The security roles are described below in security-role elements.
+
+     Finally, we also specify the HTTP methods that can be used to access each
+     resource.  In brief HEAD and GET mean read something and POST means post a
+     form (which usually has the side-effect of changing something).  The PUT
+     and DELETE methods are not usually used in this sort of web application.
+   -->
+
+  <!--
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Default</web-resource-name>
+      <url-pattern>/</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Images, style sheets and scripts</web-resource-name>
+      <url-pattern>*.gif</url-pattern>
+      <url-pattern>*.jpg</url-pattern>
+      <url-pattern>*.png</url-pattern>
+      <url-pattern>*.css</url-pattern>
+      <url-pattern>*.js</url-pattern>
+
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+    </web-resource-collection>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Error page</web-resource-name>
+      <url-pattern>/ErrorPage.jsp</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+    </web-resource-collection>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Index page</web-resource-name>
+      <url-pattern>/index.jsp</url-pattern>
+      <url-pattern>/</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+    </web-resource-collection>
+  </security-constraint>
+
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Admin Application</web-resource-name>
+      <url-pattern>/CheckSessionConfig.jsp</url-pattern>
+      <url-pattern>/CommandLine.jsp</url-pattern>
+      <url-pattern>/SessionConfig.jsp</url-pattern>
+      <url-pattern>/SessionDelete.jsp</url-pattern>
+      <url-pattern>/SessionInMessages.jsp</url-pattern>
+      <url-pattern>/SessionOutMessages.jsp</url-pattern>
+      <url-pattern>/SessionStatus.jsp</url-pattern>
+      <url-pattern>/SessionSummary.jsp</url-pattern>
+
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>Admin.User</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Exception Manager View Pages</web-resource-name>
+      <url-pattern>/ExceptionView.jsp</url-pattern>
+      <url-pattern>/ExceptionDetailView.jsp</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ExceptionManager.User</role-name>
+      <role-name>ExceptionManager.Operator</role-name>
+      <role-name>ExceptionManager.Admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Exception Manager Application Action Servlet</web-resource-name>
+      <url-pattern>/ExceptionAction.jsp</url-pattern>
+      <url-pattern>/ExceptionComment.jsp</url-pattern>
+      <http-method>GET</http-method>
+      <http-method>HEAD</http-method>
+      <http-method>POST</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>ExceptionManager.Operator</role-name>
+      <role-name>ExceptionManager.Admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <security-constraint>
+      <web-resource-collection>
+        <web-resource-name>Net Trader</web-resource-name>
+        <url-pattern>/AtEntry.jsp</url-pattern>
+        <url-pattern>/AtError.jsp</url-pattern>
+        <url-pattern>/Ats.jsp</url-pattern>
+        <url-pattern>/AtUpdate.jsp</url-pattern>
+        <url-pattern>/FillEntry.jsp</url-pattern>
+        <url-pattern>/FillError.jsp</url-pattern>
+        <url-pattern>/Iois.jsp</url-pattern>
+        <url-pattern>/IoiUpdate.jsp</url-pattern>
+        <url-pattern>/Logon.jsp</url-pattern>
+        <url-pattern>/Logout.jsp</url-pattern>
+        <url-pattern>/Orders.jsp</url-pattern>
+        <url-pattern>/OrderUpdate.jsp</url-pattern>
+        <url-pattern>/OrderEntry.jsp</url-pattern>
+
+        <http-method>GET</http-method>
+        <http-method>HEAD</http-method>
+        <http-method>POST</http-method>
+      </web-resource-collection>
+    </security-constraint>
+
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Cameron Systems Universal Server</realm-name>
+  </login-config>
+
+  <security-role>
+    <description>Users in this role have complete access the Universal Server administration webpages.</description>
+    <role-name>Admin.User</role-name>
+  </security-role>
+
+  <security-role>
+    <description>
+      Users in this role can access Exception Manager's View pages, but can't view messages from any
+      particular client or perform any actions.  In order to view a clients actions, they need a
+      ExceptionManager.ViewAll, ExceptionManager.ActionAll, ExceptionManager.View.$CLIENT_COMP_ID$ or
+      ExceptionManager.Action.$CLIENT_COMP_ID$ roles (see below).
+    </description>
+    <role-name>ExceptionManager.User</role-name>
+  </security-role>
+
+  <security-role>
+    <description>
+      Users in this role can access Exception Manager's Action and View pages , but can't action or
+      view messages from any particular client.  In order to do that they need an ExceptionManager.ActionAll or
+      ExceptionManager.Action.$CLIENT_COMP_ID$ role (see below).
+    </description>
+    <role-name>ExceptionManager.Operator</role-name>
+  </security-role>
+
+  <security-role>
+    <description>
+      Users in this role can view (but not action) messages from all clients.
+    </description>
+    <role-name>ExceptionManager.ViewAll</role-name>
+  </security-role>
+
+  <security-role>
+    <description>
+      Users in this role can view and access messages from all clients.
+    </description>
+    <role-name>ExceptionManager.ActionAll</role-name>
+  </security-role>
+
+  <security-role>
+    <description>
+      EXAMPLE ROLE: Users in this role can view, but not action messages from CLIENT1
+    </description>
+    <role-name>CLIENT1</role-name>
+  </security-role>
+
+  <security-role>
+    <description>
+      Users in this role can do absolutely everything in the ExceptionManager.
+    </description>
+    <role-name>ExceptionManager.Admin</role-name>
+  </security-role>
+
+  -->
+
+</web-app>

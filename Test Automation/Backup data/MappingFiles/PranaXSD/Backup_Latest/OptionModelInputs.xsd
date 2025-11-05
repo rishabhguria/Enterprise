@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PositionMaster">
+          <xs:complexType>
+            <xs:all>
+      		 <xs:element name="Symbol" type="xs:string" minOccurs="1" />
+	 <xs:element name="Bloomberg" type="xs:string" minOccurs="0" />
+<xs:element name="Volatility" type="xs:decimal" minOccurs="0" />
+<xs:element name="VolatilityUsed" type="xs:string" minOccurs="0" />
+<xs:element name="IntRateUsed" type="xs:string" minOccurs="0" />
+<xs:element name="DividendUsed" type="xs:string" minOccurs="0" />
+<xs:element name="DeltaUsed" type="xs:string" minOccurs="0" />
+<xs:element name="LastPriceUsed" type="xs:string" minOccurs="0" />
+<xs:element name="IntRate" type="xs:decimal" minOccurs="0" />
+<xs:element name="CUSIP" type="xs:string" minOccurs="0" />
+<xs:element name="SEDOL" type="xs:string" minOccurs="0" />
+<xs:element name="ISIN" type="xs:string" minOccurs="0" />
+<xs:element name="Dividend" type="xs:decimal" minOccurs="0" />
+<xs:element name="Delta" type="xs:decimal" minOccurs="0" />
+<xs:element name="LastPrice" type="xs:decimal" minOccurs="0" />
+<xs:element name="CODEDISPLAY" type="xs:string" minOccurs="0" />
+<xs:element name="PBSymbol" type="xs:string" minOccurs="0" />
+<xs:element name="ForwardPoints" type="xs:string" minOccurs="0" />
+<xs:element name="ForwardPointsUsed" type="xs:string" minOccurs="0" />
+<xs:element name="UserClosingMarkUsed" type="xs:string" minOccurs="0" />
+
+		
+
+            </xs:all>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

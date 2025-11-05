@@ -1,0 +1,40 @@
+module customRules.icbc.postTrade.accountSectorConcentration.accountSectorConcentration;
+
+
+@Name('AggregationNetExposureAccountSectorICBC')
+@Description('Contains current Exposure for account sector compression')
+on pattern[every R=AccountSymbolWithNavUpdated]
+insert into AggregationNetExposureAccountSectorICBC
+select distinct
+	sum(coalesce(T.netExposureBase, 0)) as netExposureBase,
+	T.sector as sector,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId,
+	"AccountSymbolWithNav" as parentWindowStream
+from
+AccountSymbolWithNav as T
+group by T.accountId,T.sector;
+
+
+@Name('AccountSectorConcentrationICBC')
+@Description('Checks if limit is breached')
+on pattern[every T=AggregationNetExposureAccountSectorICBC]
+insert into AccountSectorConcentrationICBC
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'80' || ValueSeparator || 'N/A' || ValueSeparator || 'N/A'  as threshold,
+	doubleFormat(Math.abs(T.netExposureBase / R.accountNav) * 100 ) || ValueSeparator || T.accountShortName || ValueSeparator || T.sector as actualResult,
+	'Account Sector Concentration' || ValueSeparator || 'Account' || ValueSeparator || 'Sector' as constraintField,
+	true as isViolated,
+	'Account NAV: ' || doubleFormat(R.accountNav) || ', Net Exposure: '||doubleFormat(T.netExposureBase) || ', Account: '||T.accountShortName || ', Sector: '||T.sector || ', Sector Concentration: '||doubleFormat(Math.abs(T.netExposureBase / R.accountNav) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The account sector concentration is above 80%.' as summary,
+	T.accountShortName || '-' || T.sector as dimension,
+	"AccountWithNav" as parentWindowStream
+from
+AccountWithNav as R
+where T.accountId = R.accountId and Math.abs(coalesce(T.netExposureBase / coalesce(R.accountNav, 0), 0)) > 0.80;
+;

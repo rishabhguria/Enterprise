@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<appConfig>
+  <configSections>
+    <!-- This section contains the settings of configuration file. It is mandatory 
+			to include a section tag if any new section is included -->
+    <section key="AppSettings" value="appSettings.appSetting" />
+    <section key="Exchanges" value="amqpMedia.exchanges.exchange" />
+    <section key="Queues" value="amqpMedia.queues.queue" />
+  </configSections>
+  <appSettings>
+    <!-- Basic application settings -->
+    <appSetting key="AmqpServer" value="localhost" />
+    <appSetting key="Vhost" value="Dev" />
+    <appSetting key="UserId" value="nirvana" />
+    <appSetting key="Password" value="PRana888" />
+    <!-- A port lock will be taken on this so that multiple instances should 
+			not run -->
+    <appSetting key="SocketLockPort" value="5042" />
+    <appSetting key="RuleServer" value="localhost:8080/drools-guvnor" />
+    <appSetting key="RuleServerUserId" value="admin" />
+    <appSetting key="RuleServerPassword" value="admin" />
+    <appSetting key="RuleTemplate" value="target/resources/ruleTemplate/RuleTemplate.xml" />
+    <!-- HeartBeatTimer value is in milliseconds -->
+    <appSetting key="HeartBeatTimer" value="5000" />
+    <!-- This setting is to enable or disable email notification of error occurred in prana-esperCalculator project -->
+    <appSetting key="EmailErrorNotificationPermission" value="false" />
+    <!-- This setting is to set the time window(in seconds) within which same errors should not be notified on email more than once -->
+    <appSetting key="EmailErrorNotificationTimeoutSeconds" value="300" />
+    <!-- This setting is to tell that add the fields which are used in the rule condition -->
+    <appSetting key="IsAllowedMargeInParameter" value="true" />
+  </appSettings>
+  <amqpMedia>
+    <!-- List of all amqp media -->
+    <exchanges>
+      <exchange key="PostTradeExchangeName" value="Nirvana.Portfolio" />
+      <exchange key="PreTradeExchangeName" value="Nirvana.WhatIfPortfolio" />
+      <exchange key="OtherEventStreams" value="Nirvana.OtherEventStreams" />
+      <exchange key="BuildRequestExchangeName" value="Nirvana.RuleBuildRequest" />
+      <exchange key="BuildResponseExchangeName" value="Nirvana.RuleBuildResponse" />
+      <exchange key="NotificationExchangeName" value="Nirvana.Notification" />
+      <exchange key="EsperRequestExchangeName" value="Nirvana.EsperRequest" />
+      <exchange key="BasketComplianceRequestExchangeName" value="Nirvana.BasketComplianceExchange" />
+    </exchanges>
+    <queues>
+      <queue key="PreTradeValidationQueue" value="Nirvana.RuleResponseUserDefined" />
+    </queues>
+  </amqpMedia>
+</appConfig>

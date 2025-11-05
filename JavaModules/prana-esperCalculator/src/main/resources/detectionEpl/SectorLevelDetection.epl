@@ -1,0 +1,42 @@
+module detectionEpl.SectorLevelDetection;
+
+
+@Name('SectorSummation')
+@Description('This statement validates fund compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency*2 sec)]
+insert into SectorSummation
+select
+	sum(coalesce(F.longExposureBase, 0)) as longExposureBase,
+	F.sector as sector
+	
+from SymbolWithNav as F
+group by F.sector;
+
+
+@Name('SectorLevelDetection')
+@Description('This statement validates fund compliance level with margin 1%')
+on pattern[every D = SectorSummation]
+insert into SectorLevelDetection
+select distinct
+	'longExposureBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'Sector' as compressionLevel,
+	
+	G.sector as sector, 	
+	D.longExposureBase as actuallongExposureBase,
+	G.longExposureBase as fundUnderlyingSymbollongExposureBase,
+	D.longExposureBase - G.longExposureBase as difference, 
+	case 
+		when 
+			Math.abs(D.longExposureBase) < (1 - ErrorTolerance)*Math.abs(G.longExposureBase) 
+			or Math.abs(D.longExposureBase) > (1 + ErrorTolerance)*Math.abs(G.longExposureBase)
+			then true
+		else false
+	end as detectionResult 
+from SectorWithNav as G
+where G.sector = D.sector
+having
+(
+	Math.abs(D.longExposureBase) < (1 - ErrorTolerance)*Math.abs(G.longExposureBase) 
+	or Math.abs(D.longExposureBase) > (1 + ErrorTolerance)*Math.abs(G.longExposureBase)
+);

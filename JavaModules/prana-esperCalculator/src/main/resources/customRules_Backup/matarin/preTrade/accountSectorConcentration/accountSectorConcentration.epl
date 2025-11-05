@@ -1,0 +1,41 @@
+module customRules.matarin.preTrade.accountSectorConcentration.accountSectorConcentration;
+
+@Name('AccountSectorMatarinWhatIfAggregator')
+@Description('Stores Net Market Value for account-sector compression.')
+on BasketEOM as B
+insert into AccountSectorMatarinWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	sum(W.netMarketValueBase) as netMarketValueBase,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	W.sector as sector,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId, W.sector;
+
+
+@Name('AccountSectorConcentrationPreTrade')
+@Description('Checks if limit is breached.')
+insert into AccountSectorConcentrationPreTrade
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(ACCOUNT_SECTOR_CONC_PRE_TRADE) || ValueSeparator || ACCOUNT_NAME_MATARIN || ValueSeparator || 'N/A'  as threshold,
+	doubleFormat(coalesce((100 * A.netMarketValueBase / A.accountNav),0)) || ValueSeparator || A.accountShortName || ValueSeparator || A.sector as actualResult,
+	'Account Sector Concentration' || ValueSeparator || 'Account' || ValueSeparator || 'Sector' as constraintField,
+	coalesce((A.netMarketValueBase / A.accountNav), 0) >= (ACCOUNT_SECTOR_CONC_PRE_TRADE / 100) 
+	and valueExistsInCSV(A.accountShortName, ACCOUNT_NAME_MATARIN) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Sector : ' || A.sector
+		|| ', Net Market Value Base : ' || doubleFormat(coalesce(A.netMarketValueBase, 0))
+		|| ', %age contribution: ' || doubleFormat(coalesce((100 * A.netMarketValueBase / A.accountNav),0)) as parameters,
+	current_timestamp as validationTime,
+	'The account sector concentration is above ' || doubleFormat(ACCOUNT_SECTOR_CONC_PRE_TRADE) || ' %' as summary,
+	A.accountShortName || '-' || A.sector as dimension
+from
+AccountSectorMatarinWhatIfAggregator as A
+where A.userId is not null;

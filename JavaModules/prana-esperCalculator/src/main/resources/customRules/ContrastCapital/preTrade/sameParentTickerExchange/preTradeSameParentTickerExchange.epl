@@ -1,0 +1,69 @@
+module customRules.ContrastCapital.preTrade.sameParentTickerExchange.preTradeSameParentTickerExchange;
+
+@Name('AccountCheckParentTickerExchange')
+@Description('Checks if trade done in set account and asset or not')
+on BasketEOM  as W 
+insert into AccountCheckParentTickerExchange
+select distinct
+  W.basketId as basketId,
+  W.userId as userId,
+  R.accountId as accountId,
+  R.accountShortName as accountShortName,
+  R.udaAsset as udaAsset,
+  R.customUDA5 as parentTickerExchange,
+ (case(valueExistsInCSV(R.accountShortName, Account_ParentTickerExchange) is true and valueExistsInCSV(R.customUDA5, List_ParentTickerExchange) is false  and 
+   valueExistsInCSV(R.udaAsset, Asset_ParentTickerExchange) is false) 
+  when true then true else false end ) as validation,
+   "RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where W.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfParentTickerExchange')
+@Description('The values of Empty ultimate list and account nav')
+on AccountCheckParentTickerExchange as B
+insert into WhatIfParentTickerExchange
+select distinct
+	B.basketId as basketId,
+    B.validation as finalValidation,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+    W.customUDA5 as parentTickerExchange,
+    sum(case when (valueExistsInCSV(W.customUDA5, List_ParentTickerExchange) is false  and 
+    valueExistsInCSV(W.udaAsset, Asset_ParentTickerExchange) is false and
+    valueExistsInCSV(W.accountShortName, Account_ParentTickerExchange) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalNetMarketValueBase,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId and W.customUDA5=B.parentTickerExchange
+group by W.accountId;
+
+@Name('PreTradeParentTickerExchange')
+@Description('Final stream to check condition is breached')
+insert into PreTradeParentTickerExchange
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+  	Account_ParentTickerExchange || ValueSeparator || doubleFormat(Percentage_ParentTickerExchange) as threshold,
+	A.accountShortName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0))) as actualResult,
+    'Account '|| ValueSeparator || '% Account Nav'  as constraintField,
+	(case A.finalValidation is true
+	when true then 
+		(Math.abs(coalesce(A.totalNetMarketValueBase/ A.accountNav, 0)) > (Percentage_ParentTickerExchange/ 100))
+	else 
+		false end) as isViolated,
+   'Account: ' || A.accountShortName 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0)))
+		|| ', Net Market Value: '  || doubleFormat(A.totalNetMarketValueBase)
+		|| ', Parent Ticker Exchange: ' || A.parentTickerExchange as parameters,
+    current_timestamp as validationTime,
+	'Max '||doubleFormat(Percentage_ParentTickerExchange)|| '% same parent ticker exchange exceeded' as summary,
+	A.accountShortName as dimension
+from WhatIfParentTickerExchange as A
+where A.userId is not null;
+
+

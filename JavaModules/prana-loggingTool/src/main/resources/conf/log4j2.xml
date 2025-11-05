@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="terminal" target="SYSTEM_OUT">
+            <PatternLayout pattern="%m%n" />
+        </Console>
+        <RollingFile name="asynch-file"
+                     fileName="Log/LoggingTool.log"
+                     filePattern="Log/LoggingTool-%d{dd-MM-yyyy}-%i.log">
+            <PatternLayout pattern="---------------------------------------- \n %nTimeStamp: %d{M/d/yyyy h:mm:ss a}{UTC} %nLevel: %p %nMessage: - %m%n" />
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches 2MB -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                        size="2MB" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100" />
+        </RollingFile>
+		<RollingFile name="event-reporter"
+                     fileName="Log/EventLogging/EventLog.log"
+                     filePattern="Log/EventLogging/EventLog-%d{dd-MM-yyyy}-%i.log.gz">
+            <PatternLayout pattern="---------------------------------------- \n %nTimeStamp: %d{EEE, d MMM yyyy HH:mm:ss Z} %nLevel: %p %nMessage: - %m%n" />
+            <Policies>
+                <!-- rollover on startup, daily and when the file reaches 2MB -->
+                <OnStartupTriggeringPolicy />
+                <SizeBasedTriggeringPolicy
+                        size="5000000" />
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="100" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+    	<Logger name="consoleprint" level="INFO" additivity="false">
+      		<AppenderRef ref="terminal"/>
+    	</Logger>
+    	<Logger name="file" level="INFO" additivity="false">
+      		<AppenderRef ref="asynch-file"/>
+    	</Logger>
+		<logger name="report" level="INFO" additivity="false">
+			<Appender-ref ref="event-reporter" />
+		</logger>
+        <Root level="trace">
+            <AppenderRef ref="terminal" />
+            <AppenderRef ref="asynch-file"/>
+			<AppenderRef ref="event-reporter" />
+        </Root>
+    </Loggers>
+</Configuration>

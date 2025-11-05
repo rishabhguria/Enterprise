@@ -1,0 +1,463 @@
+
+with 
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Lag(10):strtomember(@ToDimTimeDate,CONSTRAINED)
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+set [PreviousDay] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).PrevMember.Lag(10):
+strtomember(@ToDimTimeDate,CONSTRAINED).PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MonthStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Parent.FirstChild.Lag(10)
+   :strtomember(@ToDimTimeDate,CONSTRAINED).Parent.FirstChild
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MPMonthStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Parent.FirstChild.PrevMember.Lag(10):
+strtomember(@ToDimTimeDate,CONSTRAINED).Parent.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [QuarterStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Parent.Parent.FirstChild.FirstChild.Lag(10)
+   :strtomember(@ToDimTimeDate,CONSTRAINED).Parent.Parent.FirstChild.FirstChild
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MPQuarterStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Parent.Parent.FirstChild.FirstChild.PrevMember.Lag(10):
+strtomember(@ToDimTimeDate,CONSTRAINED).Parent.Parent.FirstChild.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [YearStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+    strtomember(@ToDimTimeDate, CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.PrevMember.Lag(10)
+   :strtomember(@ToDimTimeDate,CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MPYearStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      strtomember(@ToDimTimeDate, CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.PrevMember.Lag(10):
+strtomember(@ToDimTimeDate,CONSTRAINED).Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+member MarkPriceEndDate
+as
+(
+(EndDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPricePrevDate
+as
+(
+(PreviousDay.Item(0),[Measures].[Final Mark Price])
+)
+
+member MarkPriceMonthStartDate
+as
+(
+(MPMonthStartDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPriceQuarterStartDate
+as
+(
+(MPQuarterStartDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPriceYearStartDate
+as
+(
+(MPYearStartDate.Item(0),[Measures].[Final Mark Price])
+)
+
+
+
+member DailyUnRealisedPnl as
+(
+sum(
+
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+,
+ iif([Measures].[TaxlotTradeDate]>=EndDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPricePrevDate)
+)
+)
+)
+member DailyRealisedPnl as
+(
+sum(
+Filter(
+crossjoin(EndDate.Item(0):EndDate.Item(0) ,
+      [PM Tax Lot Closing Temp].[PM Tax Lot Closing Temp].children),not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[Opening Trade Date Key]>=EndDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+-[Measures].[Opening Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPricePrevDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+MEMBER [DailyCash] AS
+(
+
+sum(
+(EndDate.Item(0):EndDate.Item(0)),
+[Measures].[Cash Value])
+)
+
+
+MEMBER [DailyWithNulls] AS
+(
+
+[DailyCash]+ [DailyUnRealisedPnl]+[DailyRealisedPnl]
+
+)
+member [Daily]
+as
+(
+iif(isempty([DailyWithNulls]),0,[DailyWithNulls])
+)
+
+member MonthlyUnRealisedPnl as
+(
+sum(
+
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+,
+ iif([Measures].[TaxlotTradeDate]>=MonthStartDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPriceMonthStartDate)
+)
+)
+)
+member MonthlyRealisedPnl as
+(
+sum(
+Filter(
+crossjoin(MonthStartDate.Item(0):EndDate.Item(0) ,
+      [PM Tax Lot Closing Temp].[PM Tax Lot Closing Temp].children),not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[Opening Trade Date Key]>=MonthStartDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+-[Measures].[Opening Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPriceMonthStartDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+MEMBER [MonthToDateCash] AS
+(
+sum(
+      
+(mtd(EndDate.Item(0)),[Measures].[Cash Value])
+
+)
+)
+
+
+MEMBER [MonthlyWithNulls] AS
+(
+
+[MonthToDateCash]+ [MonthlyUnRealisedPnl]+[MonthlyRealisedPnl]
+
+)
+member [Monthly]
+as
+(
+iif(isempty([MonthlyWithNulls]),0,[MonthlyWithNulls])
+)
+
+member QuarterlyUnRealisedPnl as
+(
+sum(
+
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+,
+ iif([Measures].[TaxlotTradeDate]>=QuarterStartDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPriceQuarterStartDate)
+)
+)
+)
+member QuarterlyRealisedPnl as
+(
+sum(
+Filter(
+crossjoin(QuarterStartDate.Item(0):EndDate.Item(0) ,
+      [PM Tax Lot Closing Temp].[PM Tax Lot Closing Temp].children),not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[Opening Trade Date Key]>=QuarterStartDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+-[Measures].[Opening Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPriceQuarterStartDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+MEMBER [QuarterlyToDateCash] AS
+(
+sum(
+      
+(Qtd(EndDate.Item(0)),[Measures].[Cash Value])
+
+)
+)
+
+
+MEMBER [QuarterlyWithNulls] AS
+(
+
+[QuarterlyToDateCash]+ [QuarterlyUnRealisedPnl]+[QuarterlyRealisedPnl]
+
+)
+member [Quarterly]
+as
+(
+iif(isempty([QuarterlyWithNulls]),0,[QuarterlyWithNulls])
+)
+
+member YearlyUnRealisedPnl as
+(
+sum(
+
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+,
+ iif([Measures].[TaxlotTradeDate]>=YearStartDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPriceYearStartDate)
+)
+)
+)
+member YearlyRealisedPnl as
+(
+sum(
+Filter(
+crossjoin(YearStartDate.Item(0):EndDate.Item(0) ,
+       [PM Tax Lot Closing Temp].[PM Tax Lot Closing Temp].children),not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[Opening Trade Date Key]>=YearStartDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+-[Measures].[Opening Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPriceYearStartDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+MEMBER [YearlyToDateCash] AS
+(
+sum(
+      
+(Ytd(EndDate.Item(0)),[Measures].[Cash Value])
+
+)
+)
+
+
+MEMBER [YearlyWithNulls] AS
+(
+
+[YearlyToDateCash]+ [YearlyUnRealisedPnl]+[YearlyRealisedPnl]
+
+)
+member [Yearly]
+as
+(
+iif(isempty([YearlyWithNulls]),0,[YearlyWithNulls])
+)
+
+
+
+ member TypeID as 
+(
+[Dim Sub Accounts].[AccountName].CurrentMember.Properties("Type ID")
+)
+SELECT  { [Daily],[Monthly],[Quarterly],[Yearly],[TypeID]} ON COLUMNS,
+
+
+
+  {
+[Dim Sub Accounts].[AccountName].children
+
+
+}
+ DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM 
+( SELECT ( [Dim Time].[Calender].[Year].&[2000].&[1].&[1].&[1]: STRTOMEMBER(@ToDimTimeDate) )
+ ON COLUMNS FROM ( SELECT ( { [Dim Sub Accounts].[Type ID].&[4],[Dim Sub Accounts].[Type ID].&[1] } ) 
+
+ON COLUMNS FROM ( SELECT ( STRTOSET(@TCompanyFundsFundName, CONSTRAINED) ) ON COLUMNS FROM [Nirvana Client DW])))
+
+
+ CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS
+

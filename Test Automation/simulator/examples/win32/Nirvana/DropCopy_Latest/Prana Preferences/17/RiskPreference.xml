@@ -1,0 +1,1028 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RiskPrefernece xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Grouping />
+  <BackColorLevel1>-9868951</BackColorLevel1>
+  <BackColorLevel2>-8355712</BackColorLevel2>
+  <BackColorLevel3>-5658199</BackColorLevel3>
+  <ForeColorLevel1>-1</ForeColorLevel1>
+  <ForeColorLevel2>-1</ForeColorLevel2>
+  <ForeColorLevel3>-1</ForeColorLevel3>
+  <FontSize>11</FontSize>
+  <ColorSummaryText>-1</ColorSummaryText>
+  <MaxStressTestViewsWithVolSkew>5</MaxStressTestViewsWithVolSkew>
+  <MaxStressTestViewsWithoutVolSkew>5</MaxStressTestViewsWithoutVolSkew>
+  <GroupByColumnForExport>None</GroupByColumnForExport>
+  <VolatilityType>Normal</VolatilityType>
+  <Method>VarianceCovariance</Method>
+  <UnderlyingPriceType>Last</UnderlyingPriceType>
+  <ConfidenceLevelPercent>95</ConfidenceLevelPercent>
+  <Lambda>0.94</Lambda>
+  <StepAnalPreferencesDict>
+    <item>
+      <key>
+        <string>Main</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>Main</StepAnalViewName>
+          <StepAnalViewID>10</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Level1Name,Symbol,CompanyName,UnderlyingSymbol,AssetName,MasterFund,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>1</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>1</StepAnalViewName>
+          <StepAnalViewID>11</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <DtVolShockFactor>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:Locale="">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Table">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="ToDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="VolShockAdjFactor" type="xs:double" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1" />
+          </DtVolShockFactor>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>2</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>2</StepAnalViewName>
+          <StepAnalViewID>12</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <DtVolShockFactor>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:Locale="">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Table">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="ToDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="VolShockAdjFactor" type="xs:double" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1" />
+          </DtVolShockFactor>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>5</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>5</StepAnalViewName>
+          <StepAnalViewID>15</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <DtVolShockFactor>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:Locale="">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Table">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="ToDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="VolShockAdjFactor" type="xs:double" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1" />
+          </DtVolShockFactor>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>6</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>6</StepAnalViewName>
+          <StepAnalViewID>16</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <DtVolShockFactor>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:Locale="">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Table">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="ToDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="VolShockAdjFactor" type="xs:double" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1" />
+          </DtVolShockFactor>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>7</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>7</StepAnalViewName>
+          <StepAnalViewID>17</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <DtVolShockFactor>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:Locale="">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Table">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="ToDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="VolShockAdjFactor" type="xs:double" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1" />
+          </DtVolShockFactor>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>8</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>8</StepAnalViewName>
+          <StepAnalViewID>18</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <DtVolShockFactor>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="Table" msdata:Locale="">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Table">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="FromDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="ToDaysToExp" type="xs:int" minOccurs="0" />
+                          <xs:element name="VolShockAdjFactor" type="xs:double" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1" />
+          </DtVolShockFactor>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>3</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>3</StepAnalViewName>
+          <StepAnalViewID>13</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,BloombergSymbol,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+    <item>
+      <key>
+        <string>4</string>
+      </key>
+      <value>
+        <StepAnalysisPref>
+          <StepAnalViewName>4</StepAnalViewName>
+          <StepAnalViewID>14</StepAnalViewID>
+          <StepAnalysisColumns>IsChecked,Symbol,CompanyName,UnderlyingSymbol,Level1Name,BloombergSymbol,MasterFund,AssetName,Quantity,MarketPrice,StockPrice,OptionPrice,DayPnl,ImpliedVol,DeltaAdjExposure,Delta,DollarDelta,Gamma,DollarGamma,Theta,DollarTheta,Vega,DollarVega,Rho,DollarRho,DaysToExpiration,</StepAnalysisColumns>
+          <ChangeVolatility>0</ChangeVolatility>
+          <ChangeUnderlyingPrice>0</ChangeUnderlyingPrice>
+          <ChangeInterestRate>0</ChangeInterestRate>
+          <ChangeDaysToExpiration>0</ChangeDaysToExpiration>
+          <IsVolShock>false</IsVolShock>
+          <IsUnderlyingShock>false</IsUnderlyingShock>
+          <IsIntRateShock>false</IsIntRateShock>
+          <IsDaysToExpShock>false</IsDaysToExpShock>
+          <UseVolSkew>false</UseVolSkew>
+          <UseNonParallelShifts>false</UseNonParallelShifts>
+          <UseVolShockAdjustment>false</UseVolShockAdjustment>
+          <DtGroupShocks>
+            <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+              <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="GroupShocks" msdata:UseCurrentLocale="true">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="GroupShocks">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Group" type="xs:string" minOccurs="0" />
+                          <xs:element name="PositionType" type="xs:string" minOccurs="0" />
+                          <xs:element name="VolatilityShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="UnderlyingPriceShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="InteresRateShock" type="xs:double" minOccurs="0" />
+                          <xs:element name="DaysToExpShock" type="xs:int" minOccurs="0" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                </xs:complexType>
+              </xs:element>
+            </xs:schema>
+            <diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+              <DocumentElement>
+                <GroupShocks diffgr:id="GroupShocks1" msdata:rowOrder="0" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks2" msdata:rowOrder="1" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSide</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks3" msdata:rowOrder="2" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks4" msdata:rowOrder="3" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSidePortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks5" msdata:rowOrder="4" diffgr:hasChanges="inserted">
+                  <Group>Long</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+                <GroupShocks diffgr:id="GroupShocks6" msdata:rowOrder="5" diffgr:hasChanges="inserted">
+                  <Group>Short</Group>
+                  <PositionType>PositionSideExpPortfolio</PositionType>
+                  <VolatilityShock>0</VolatilityShock>
+                  <UnderlyingPriceShock>0</UnderlyingPriceShock>
+                  <InteresRateShock>0</InteresRateShock>
+                  <DaysToExpShock>0</DaysToExpShock>
+                </GroupShocks>
+              </DocumentElement>
+            </diffgr:diffgram>
+          </DtGroupShocks>
+          <GroupShockFilter>PositionSideExpPortfolio</GroupShockFilter>
+        </StepAnalysisPref>
+      </value>
+    </item>
+  </StepAnalPreferencesDict>
+  <ExportColumnList />
+  <RiskReportColumns />
+  <RiskSimulationColumns />
+  <StressTestColumns />
+</RiskPrefernece>

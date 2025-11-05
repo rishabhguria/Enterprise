@@ -1,0 +1,24 @@
+with member [LogIRR] as 
+(
+VBA![Log]([IRR]+1)
+
+)
+
+ member [TWR] as
+(
+	2.718281828^sum(
+	([Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3464].
+	Parent.Parent.Parent.firstchild.firstchild) :
+	([Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3464].
+	Parent.PrevMember),[LogIRR]
+	) -1
+)
+select {
+
+[T Company Funds].[Fund Name].children
+
+} on rows  ,
+{
+
+[TWR]
+} on columns from [Nirvana Client DW]

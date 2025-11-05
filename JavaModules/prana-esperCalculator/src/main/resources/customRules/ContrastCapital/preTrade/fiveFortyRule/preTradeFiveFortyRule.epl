@@ -1,0 +1,70 @@
+module customRules.ContrastCapital.preTrade.fiveFortyRule.preTradeFiveFortyRule;
+
+@Name('AccountCheckInFiveForty')
+@Description('Checks if trade done in set account and asset or not')
+on BasketEOM  as B 
+insert into AccountCheckInFiveForty
+select distinct
+    B.basketId as basketId,
+    B.userId as userId,
+    R.accountId as accountId,
+    R.accountShortName as accountShortName,
+    R.udaAsset as udaAsset,
+    R.symbol as symbol,
+    (case(valueExistsInCSV(R.accountShortName, Account_FiveForty) is true 
+    and valueExistsInCSV(R.udaAsset, Asset_FiveForty) is true ) 
+    when true then true else false end) as validation,
+    "RowCalculationBaseWindow" as parentWindowStream    
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+@Name('WhatIfFiveFortyRule')
+@Description('Calculates the total market value and check against the given conditions')
+on AccountCheckInFiveForty  as B 
+insert into WhatIfFiveFortyRule
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+    (case((B.symbol=W.symbol)and B.validation )when true then Math.abs(coalesce(W.netMarketValueBase/W.accountNav,0)) > (Percentage_Individual / 100) else false end) as finalValidation,
+    W.udaAsset as udaAsset,
+ 	sum(case when( (Math.abs(coalesce(W.netMarketValueBase/W.accountNav,0)) > (Percentage_Individual / 100)) is true and 
+    valueExistsInCSV(W.udaAsset, Asset_FiveForty) is true and
+    valueExistsInCSV(W.accountShortName, Account_FiveForty) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalMarketValueBase,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId and B.udaAsset = W.udaAsset
+group by W.accountId;
+
+
+@Name('PreTradeFiveFortyRule')
+@Description('Final stream to check condition is breached')
+insert into PreTradeFiveFortyRule
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+  	Account_FiveForty || ValueSeparator || Asset_FiveForty || ValueSeparator || doubleFormat(Percentage_FiveForty) as threshold,
+	A.accountShortName || ValueSeparator || A.udaAsset || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0))) as actualResult,
+	'Account' ||  ValueSeparator || 'Asset Class' || ValueSeparator || '% Total Nav' as constraintField,
+	(case (A.finalValidation is true)
+	when true then 
+		(Math.abs(coalesce(A.totalMarketValueBase/ A.accountNav, 0)) > (Percentage_FiveForty / 100))
+	else 
+		false end) as isViolated,
+   		'Account: ' || A.accountShortName 
+		|| ', % Total NAV: ' ||doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0)))
+		|| ', Net Market Value: '  || doubleFormat(Math.abs(A.totalMarketValueBase)) as parameters,
+    current_timestamp as validationTime,
+	'The total market value of securities having market value greater than '|| doubleFormat(Percentage_Individual) ||'% of account NAV exceeded the ' || doubleFormat(Percentage_FiveForty) || '% of account NAV.' as summary,
+	A.accountShortName as dimension
+from
+WhatIfFiveFortyRule as A
+where A.userId is not null;
+
+
+

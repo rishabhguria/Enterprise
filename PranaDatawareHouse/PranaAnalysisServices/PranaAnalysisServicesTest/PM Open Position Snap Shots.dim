@@ -1,0 +1,444 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="c2ef5158-24b9-4698-978b-a2fe71246f74" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>PM Open Position Snap Shots</ID>
+  <Name>PM Open Position Snap Shots</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="22" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="1744" scrolltop="7401" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="12779" y="14129" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_Side (dbo.T_Side)" left="54" top="7242" logicalid="11" controlid="1" masterid="0" hint1="0" hint2="0" width="3000" height="2302" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000b80b0000fe080000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_Side" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="PM_OpenPositionSnapShots (dbo.PM_OpenPositionSnapShots)" left="20" top="0" logicalid="12" controlid="2" masterid="0" hint1="0" hint2="0" width="3625" height="4842" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000290e0000ea120000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_PM_OpenPositionSnapShots" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="-118" top="4542" logicalid="13" controlid="3" masterid="0" hint1="0" hint2="0" width="972" height="3200" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_PM_OpenPositionSnapShots_T_Side]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="1" destid="2" sourceattachpoint="0" destattachpoint="1" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="454" y="7242" />
+              <point x="454" y="6042" />
+              <point x="182" y="6042" />
+              <point x="182" y="4842" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_CompanyFunds (dbo.T_CompanyFunds)" left="4894" top="6510" logicalid="14" controlid="4" masterid="0" hint1="0" hint2="0" width="3334" height="3149" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000060d00004d0c0000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_CompanyFunds" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="3345" top="4321" logicalid="15" controlid="5" masterid="0" hint1="0" hint2="0" width="3616" height="2689" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_PM_OpenPositionSnapShots_T_CompanyFunds]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="4" destid="2" sourceattachpoint="4" destattachpoint="31" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="6561" y="6510" />
+              <point x="6561" y="4621" />
+              <point x="3645" y="4621" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_SMData (dbo.T_SMData)" left="11080" top="11080" logicalid="16" controlid="6" masterid="0" hint1="0" hint2="0" width="3545" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000d90d000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_SMData" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="3345" top="3771" logicalid="17" controlid="7" masterid="0" hint1="0" hint2="0" width="8035" height="8009" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_PM_OpenPositionSnapShots_T_SMData]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="6" destid="2" sourceattachpoint="14" destattachpoint="29" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="11080" y="11380" />
+              <point x="7363" y="11380" />
+              <point x="7363" y="4071" />
+              <point x="3645" y="4071" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="Dim_SubAccounts (dbo.Dim_SubAccounts)" left="-873" top="-3149" logicalid="18" controlid="8" masterid="0" hint1="0" hint2="0" width="3016" height="2725" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000c80b0000a50a0000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_Dim_SubAccounts" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="1843" top="-3286" logicalid="19" controlid="9" masterid="0" hint1="0" hint2="0" width="1000" height="3586" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_PM_OpenPositionSnapShots_Dim_SubAccounts]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="8" destid="2" sourceattachpoint="11" destattachpoint="8" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="2143" y="-2887" />
+              <point x="2543" y="-2887" />
+              <point x="2543" y="-400" />
+              <point x="2382" y="-400" />
+              <point x="2382" y="0" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_Asset (dbo.T_Asset)" left="0" top="0" logicalid="20" controlid="10" masterid="0" hint1="0" hint2="0" width="3000" height="2302" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000b80b0000fe080000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_Asset" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>1744</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>7401</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>-873</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>-3149</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="873e2217-7d97-49bb-a059-97f87677e6bc">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="28c352ab-61cb-4455-99e2-d804a94be5b2">
+      <ID>Fund ID</ID>
+      <Name>Fund Name</Name>
+      <EstimatedCount>7</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="a69dd7cf-fb0f-473b-8853-131ac99405c8">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="df218114-3ed5-4a1d-8991-dd4dc0283953">
+            <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+            <ColumnID>FundID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="80aa88bb-c722-4c53-aa8b-99071d9a986a">
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="fe226b5a-e206-484e-9b27-66733301c5e1">
+          <TableID>dbo_T_CompanyFunds</TableID>
+          <ColumnID>FundName</ColumnID>
+        </Source>
+      </NameColumn>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="99761791-f908-4206-ba0d-eaf2acd37d2e">
+      <ID>Symbol</ID>
+      <Name>Symbol</Name>
+      <EstimatedCount>25</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="9c3b345f-5c03-459d-9c33-96105c9eea48">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="daf13b3b-f407-4842-a00b-c0ce5cc17c25">
+            <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+            <ColumnID>Symbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="1e68dbd4-d8fd-4074-987b-b927ffb04c64">
+        <DataType>WChar</DataType>
+        <DataSize>100</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="c37f9ab4-3a79-4c30-98d9-bd0e3b00e519">
+          <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+          <ColumnID>Symbol</ColumnID>
+        </Source>
+      </NameColumn>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="6c6012b2-e065-41f7-9491-ec39b1b57012">
+          <AttributeID>Under Lying Symbol</AttributeID>
+          <Name>Under Lying Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="4992a2c9-052b-4f87-9466-27a69413f284">
+          <AttributeID>Asset Name</AttributeID>
+          <Name>Asset Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="aeabfbbd-313a-4a13-b72c-cfa04b61efc8">
+          <AttributeID>Long Name</AttributeID>
+          <Name>Long Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="7462f046-375c-4381-85f1-c54306417304">
+          <AttributeID>Sector</AttributeID>
+          <Name>Sector</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="3658672d-9d33-4a17-b38c-edf624af6d11">
+          <AttributeID>Fund ID</AttributeID>
+          <Name>Fund Name</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="e7d17d66-c90f-4dfa-b88a-01fffec9bbd8">
+      <ID>Time Key</ID>
+      <Name>Time Key</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="da362787-e83a-44ed-ad2d-6963ee2f8e11">
+          <DataType>BigInt</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="924815d8-1b12-4aee-828a-22292cf77a41">
+            <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+            <ColumnID>TimeKey</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="1ca85cad-af53-404e-af88-b94c14d5bff3">
+        <DataType>WChar</DataType>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="0c7092a0-83a0-4dec-a764-d1a30992291f">
+          <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+          <ColumnID>TimeKey</ColumnID>
+        </Source>
+      </NameColumn>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>MandatoryFilter</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="548d6155-b062-4ff1-aa43-a7564e995016">
+      <ID>Sub Account ID</ID>
+      <Name>Sub Account ID</Name>
+      <EstimatedCount>2</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="d6f2bff8-9ced-40bb-b6b1-83fe6482e62b">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a422fc7d-20ad-46c1-99c3-942b02496d21">
+            <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+            <ColumnID>SubAccountID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="458b18e7-cfe0-49f3-ba33-c2b8e57b8b0e">
+      <ID>Under Lying Symbol</ID>
+      <Name>Under Lying Symbol</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c28f216c-6e79-4192-acdd-21180c5c44ef">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a6af80cb-c4ee-49ad-99de-70f8d4919adc">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>UnderLyingSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="9cc0a183-00e0-48ba-8bcb-10b67190693d">
+      <ID>PKID</ID>
+      <Name>PKID</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="b12a1484-aaca-4493-b3c2-08d025475b79">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="eda4758b-972d-43a1-8e5c-5fb35a9ff460">
+            <TableID>dbo_PM_OpenPositionSnapShots</TableID>
+            <ColumnID>PKID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="d49b5a30-fe5c-41a3-9265-73ddd440dc82">
+          <AttributeID>Fund ID</AttributeID>
+          <Name>Fund ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="4b022fbe-d745-4b65-8543-9e68ec1c6926">
+          <AttributeID>Symbol</AttributeID>
+          <Name>Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="24535874-dcab-42ba-ae5a-ed30903b693f">
+          <AttributeID>Time Key</AttributeID>
+          <Name>Time Key</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="9a3e87ab-8a57-4aec-840d-bdc9b790c7ee">
+          <AttributeID>Sub Account ID</AttributeID>
+          <Name>Sub Account ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="a6243e18-e770-4678-8820-90cd5cd1d75d">
+          <AttributeID>Under Lying Symbol</AttributeID>
+          <Name>Under Lying Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="2e2f5041-e53e-425b-a2bb-b5482ee73060">
+          <AttributeID>Asset Name</AttributeID>
+          <Name>Asset Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="45f566d0-afe7-4174-8b6b-c3653243a382">
+          <AttributeID>Long Name</AttributeID>
+          <Name>Long Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="de020016-7452-47c4-b03a-78200921175b">
+          <AttributeID>Sector</AttributeID>
+          <Name>Sector</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+    </Attribute>
+    <Attribute dwd:design-time-name="f9a98a64-468a-4509-bf65-84248683aaee">
+      <ID>Asset Name</ID>
+      <Name>Asset Name</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="2f49d32d-e7dc-4deb-adc3-f87b981a434a">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5395a372-5592-45dd-b714-4867916a0858">
+            <TableID>dbo_T_Asset</TableID>
+            <ColumnID>AssetName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="1baea8a5-673d-48d3-92d5-23e98a5e9ac1">
+      <ID>Long Name</ID>
+      <Name>Long Name</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="909aa100-6288-44f4-9416-407f6601b7aa">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="693bab4b-883e-4892-9268-75f832ee41ba">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>LongName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+    <Attribute dwd:design-time-name="b531b8cb-119f-4f7f-a5ac-29cb005b7fb8">
+      <ID>Sector</ID>
+      <Name>Sector</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="69a7c25a-9f45-43e8-9d49-f48636d313f0">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a138f9e6-cdde-4413-a633-914e698e2979">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>Sector</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+    </Attribute>
+  </Attributes>
+  <Hierarchies>
+    <Hierarchy dwd:design-time-name="2f52e1dd-f4fb-469c-860a-c7ae31ea2a7e">
+      <ID>Hierarchy</ID>
+      <Name>Fund-Symbol</Name>
+      <Levels>
+        <Level dwd:design-time-name="11910077-bc55-46d7-b24b-ff48469767fb">
+          <ID>Fund Name</ID>
+          <Name>Fund Name</Name>
+          <SourceAttributeID>Fund ID</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="a08f57e3-a423-464b-a25c-8169887f6646">
+          <ID>Symbol</ID>
+          <Name>Symbol</Name>
+          <SourceAttributeID>Symbol</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+  </Hierarchies>
+</Dimension>

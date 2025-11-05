@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   namespace="Prana.BusinessObjects" 
+                   assembly="Prana.BusinessObjects">
+  <class name="SwapParameters" table="T_SwapParameters">
+    <id name="SwapPK" column="SwapPK">
+      <generator class="native" />
+    </id >
+    <property name="GroupID" column="GroupID"/>
+    <property name="NotionalValue" column="NotionalValue"/>
+    <property name="DayCount" column="DayCount"/>
+    <property name="BenchMarkRate" column="BenchMarkRate"/>
+    <property name="Differential" column="Differential"/>
+    <property name="FirstResetDate" column="FirstResetDate"/>
+    <property name="ResetFrequency" column="ResetFrequency"/>
+    <property name="OrigTransDate" column="OrigTransDate"/>
+    <property name="OrigCostBasis" column="OrigCostBasis"/>
+    <property name="SwapDescription" column="SwapDescription"/>
+    <property name="ClosingPrice" column="ClosingPrice"/>
+    <property name="ClosingDate" column="ClosingDate"/>
+    <property name="TransDate" column="TransDate"/>
+    
+  </class>
+</hibernate-mapping>

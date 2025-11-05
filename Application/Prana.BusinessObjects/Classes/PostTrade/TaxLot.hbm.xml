@@ -1,0 +1,42 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   namespace="Prana.BusinessObjects"
+                   assembly="Prana.BusinessObjects">
+	<class name="TaxLot" table="T_Level2Allocation">
+		<id name="TaxLotID"/>
+		<property name="GroupID"/>
+		<property name="NLevel1AllocationID" column="Level1AllocationID"/>		
+		<!--<property name="Level1ID" />-->
+		<property name="Level2ID" />
+		<property name="Level2Percentage" />
+		<property name="TaxLotQty" />
+		<property name="Commission" />
+		<property name="SoftCommission" />
+		<property name="OtherBrokerFees" />
+		<property name="ClearingBrokerFee" />
+		<property name="StampDuty" />
+		<property name="TransactionLevy" />
+		<property name="ClearingFee" />
+		<property name="TaxOnCommissions" />
+		<property name="MiscFees" />
+		<property name="SecFee" />
+		<property name="OccFee" />
+		<property name="OrfFee" />
+		<property name="TaxLotState" />
+		<property name="AccruedInterest" />
+		<property name="FXRate"/>
+		<property name="FXConversionMethodOperator"/>
+		<property name="ExternalTransId"/>
+        <property name="LotId"/>
+		<property name="TradeAttribute1"/>
+		<property name="TradeAttribute2"/>
+		<property name="TradeAttribute3"/>
+		<property name="TradeAttribute4"/>
+		<property name="TradeAttribute5"/>
+		<property name="TradeAttribute6"/>
+		<property name="ExecutedQty" column="TaxLotQty"/>
+    <!--<Settlement currency fields>-->
+    <property name="SettlementCurrencyID" column="SettlCurrency"/>
+    <property name="OptionPremiumAdjustment"/>
+	</class>
+</hibernate-mapping>

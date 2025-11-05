@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!--  	 	1. id is primary key.
+			    2. name and rule-Type should be unique in combination-->
+	<rules name="TopWater">	
+	
+	<rule id="custom-rule10">
+		<name>LoebFlagshipNonUSDollar</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/loebFlagshipNonUSDollar/</eplPath>
+		<description>No more than 50% of Loeb Flagship may be invested in non denominated US dollars.</description>
+		<compressionLevel>Currency </compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName12FinalPost"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName12FinalPostWinFiller1"/>
+		</windowFillerStatementList>		
+		<blocked>true</blocked>	
+	</rule>
+	
+	<rule id="custom-rule12">
+		<name>EastwindLongOptionMVIn5Days</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/eastwindLongOptionMVIn5Days/</eplPath>
+		<description>The market value of all long option positions expiring within five business days shall not exceed 2% in Eastwind.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName8FinalPost"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName8FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>	
+	
+	<rule id="custom-rule14">
+		<name>EastwindLongOptionMVInFrontMonth</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/eastwindLongOptionMVInFrontMonth/</eplPath>
+		<description>The market value of all long option positions in front month shall not exceed 5% in Eastwind.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName7FinalPost"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName7FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>	
+	<rule id="custom-rule15">
+		<name>LoebFlagshipGrExpInCountry</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/loebFlagshipGrExpInCountry/</eplPath>
+		<description>No more than 10% of Loeb Flagship may be invested in Brazil, Chile, Iceland, India, Mexico, South Africa and South Korea.</description>
+		<compressionLevel>Account Country</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName13FinalPost"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName13FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>
+	<rule id="custom-rule16">
+		<name>TigrisGrExpInCountryTaiwan</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/tigrisGrExpInCountryTaiwan/</eplPath>
+		<description>The gross Exposure of Tigris shall not exceed 30% in Taiwan.</description>
+		<compressionLevel>Country</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName14FinalPost"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName14FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule17">
+		<name>ChiefCornestoneOptGrExpIn3Days</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/chiefCornestoneOptGrExpIn3Days/</eplPath>
+		<description>No more than 5% of Chief Cornestone1(TA) exposure shall be used to purchase options that are expiring within 3 business days.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName4FinalPostChiefCornestone"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName4FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>	
+	<rule id="custom-rule18">
+		<name>CoveGlobalOptGrExpIn3Days</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/coveGlobalOptGrExpIn3Days/</eplPath>
+		<description>No more than 5% of Cove Global exposure shall be used to purchase options that are expiring within 3 business days.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName4FinalPostCoveGlobal"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName4FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>	
+	<rule id="custom-rule19">
+		<name>FJCapitalOptGrExpIn3Days</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/fJCapitalOptGrExpIn3Days/</eplPath>
+		<description>No more than 5% of the investment account(FJ Capital) exposure shall be used to purchase options that are expiring within 3 business days.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName4FinalPostFJCapital"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName4FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>	
+	<rule id="custom-rule20">
+		<name>SenzarOptGrExpIn3Days</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/senzarOptGrExpIn3Days/</eplPath>
+		<description>No more than 5% of Senzar exposure shall be used to purchase options that are expiring within 3 business days.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName4FinalPostSenzar"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName4FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>	
+	<rule id="custom-rule21">
+		<name>SymphonyOptGrExpIn3Days</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/symphonyOptGrExpIn3Days/</eplPath>
+		<description>No more than 5% of Symphony exposure shall be used to purchase options that are expiring within 3 business days.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName4FinalPostSymphony"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName4FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>	
+	<rule id="custom-rule22">
+		<name>LoebAsiaGrExpInCountry</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/loebAsiaGrExpInCountry/</eplPath>
+		<description>No more than 10% of Loeb Asia may be invested in India, Taiwan and South Korea.</description>
+		<compressionLevel>Account Country</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName11FinalPost"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName11FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule23">
+		<name>ArmoryOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/armoryOptGrExp/</eplPath>
+		<description>If options make up 20% or more of Armory, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostArmory"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule24">
+		<name>ChiefCornerstone1OptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/chiefCornerstone1OptGrExp/</eplPath>
+		<description>If options make up 20% or more of Chief Cornerstone1(TA), please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostChiefCornerstone1"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule25">
+		<name>CoveGlobalOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/coveGlobalOptGrExp/</eplPath>
+		<description>If options make up 20% or more of Cove Global, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostCoveGlobal"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>
+	<rule id="custom-rule26">
+		<name>EastwindOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/eastwindOptGrExp/</eplPath>
+		<description>If options make up 22.5% or more of Eastwind, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostEastwind"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>
+	<rule id="custom-rule27">
+		<name>FJCapitalOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/fJCapitalOptGrExp/</eplPath>
+		<description>If options make up 20% or more of FJ Capital, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostFJCapital"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule28">
+		<name>LoebAsiaOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/loebAsiaOptGrExp/</eplPath>
+		<description>If options make up 20% or more of Loeb Asia, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostLoebAsia"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule29">
+		<name>LoebFlagshipOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/loebFlagshipOptGrExp/</eplPath>
+		<description>If options make up 20% or more of Loeb Flagship, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostLoebFlagship"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule30">
+		<name>SenzarOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/senzarOptGrExp/</eplPath>
+		<description>If options make up 50% or more of Senzar, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostSenzar"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule31">
+		<name>SymphonyOptGrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/symphonyOptGrExp/</eplPath>
+		<description>If options make up 20% or more of Symphony, please advise.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName15FinalPostSymphony"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName15FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule32">
+		<name>SymphonyOptInFrontMonth</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/symphonyOptInFrontMonth/</eplPath>
+		<description>No more than 20% of long call long put options in the front-month in Symphony.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName3FinalPostSymphony"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName3FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule33">
+		<name>SenzarOptInFrontMonth</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/senzarOptInFrontMonth/</eplPath>
+		<description>No more than 50% of long call long put options in the front-month in Senzar.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName3FinalPostSenzar"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName3FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule34">
+		<name>FJCapitalOptInFrontMonth</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/fJCapitalOptInFrontMonth/</eplPath>
+		<description>No more than 20% of long call long put options in the front-month in FJ Capital.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName3FinalPostFJCapital"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName3FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule35">
+		<name>ChiefCornerstone1OptInFrontMonth</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/chiefCornerstone1OptInFrontMonth/</eplPath>
+		<description>No more than 20% of long call long put options in the front-month in Chief Cornerstone1(TA).</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName3FinalPostChiefCornerstone1"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName3FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule36">
+		<name>EastwindOptDeltaAdjExposure</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/eastwindOptDeltaAdjExposure/</eplPath>
+		<description>Over the counter/non exchange traded options require the prior consent of the account(Eastwind) which shall not unreasonably be withheld and shall not exceed 5% of the investment account exposure on a delta adjusted basis.</description>
+		<compressionLevel>Account Asset</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName10FinalPostEastwind"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName10FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>
+	<rule id="custom-rule37">
+		<name>ChiefCornerstone1AvgPxLess5GrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/chiefCornerstone1AvgPxLess5GrExp/</eplPath>
+		<description>No more than 10% of the investment account(Chief Cornerstone1(TA)) exposure shall be invested in stocks and Average Price less than $5</description>
+		<compressionLevel>Account</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName2FinalChiefCornerstone1"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName2FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+	<rule id="custom-rule38">
+		<name>CogniosAvgPxLess5GrExp</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/cogniosAvgPxLess5GrExp/</eplPath>
+		<description>No more than 2% of the investment account Cognios exposure shall be invested in stocks and Average Price less than $5</description>
+		<compressionLevel>Account</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName5FinalCognios"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName2FinalPostWinFiller1"/>
+		</windowFillerStatementList>	
+		<blocked>true</blocked>		
+	</rule>
+        <rule id="custom-rule39">
+		<name>TigrisGrExpInCountryIndia</name>
+		<enabled>true</enabled>
+		<isDeleted>false</isDeleted>
+		<ruleType>PostTrade</ruleType>
+		<eplPath>/tigrisGrExpInCountryIndia/</eplPath>
+		<description>The gross Exposure of Tigris shall not exceed 10% in India</description>
+		<compressionLevel>Country</compressionLevel>
+		<validationCompletedEventName></validationCompletedEventName>
+		<outputStatementList>		
+			<outputStatementName name="RuleName14FinalPostIndia"/>
+		</outputStatementList>
+		<windowFillerStatementList>		
+			<windowFillerStatementName name="RuleName14FinalPostWinFiller1"/>
+		</windowFillerStatementList>
+		<blocked>true</blocked>			
+	</rule>
+	</rules>
+</ruleConfig>

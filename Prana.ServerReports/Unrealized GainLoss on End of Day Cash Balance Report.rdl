@@ -1,0 +1,1873 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DS_Reports">
+      <rd:DataSourceID>b9e0666f-46b0-4352-b43d-3ab6c541d3af</rd:DataSourceID>
+      <DataSourceReference>DS_Reports</DataSourceReference>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>8.5in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="Choice">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>1</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Choice</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramStartDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>MonthStartDate</DataSetName>
+          <ValueField>MonthStartDate</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Start Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramEndDate">
+      <DataType>DateTime</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>LastBusinessDay</DataSetName>
+          <ValueField>LastBusinessDay</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>End Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramCompanyID">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetCompanyID</DataSetName>
+          <ValueField>CompanyID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_0</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramUserID">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetUserId</DataSetName>
+          <ValueField>UserID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>userID</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramErrorMessage">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value />
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ErrorMessage</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramErrorNumber">
+      <DataType>Integer</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>ErrorNumber</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramGroupByLevel1">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Select</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Group 1</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetGroupingParameters</DataSetName>
+          <ValueField>items</ValueField>
+          <LabelField>items</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramGroupByLevel2">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Select</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Group 2</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetGroupingParameters</DataSetName>
+          <ValueField>items</ValueField>
+          <LabelField>items</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramGroupByLevel3">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Select</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Group 3</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetGroupingParameters</DataSetName>
+          <ValueField>items</ValueField>
+          <LabelField>items</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramGroupByLevel4">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Select</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Group 4</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetGroupingParameters</DataSetName>
+          <ValueField>items</ValueField>
+          <LabelField>items</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramCurrenciesFilter">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetCurrencies</DataSetName>
+          <ValueField>CurrencyID</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Currency</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetCurrencies</DataSetName>
+          <ValueField>CurrencyID</ValueField>
+          <LabelField>CurrencySymbol</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="paramShowCompanyName">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>True</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Parameter_28</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramDisclaimer">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>DataSetDisclaimer</DataSetName>
+          <ValueField>Disclaimer</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Disclaimer</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DataSetDisclaimer</DataSetName>
+          <ValueField>Disclaimer</ValueField>
+          <LabelField>Disclaimer</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramFormatPNL">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>#,##0.00;(#,##0.00)</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramFormatPNL</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>#,###;(#,###)</Value>
+            <Label>No Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.0;(#,##0.0)</Value>
+            <Label>1Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.00;(#,##0.00)</Value>
+            <Label>2Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.000;(#,##0.000)</Value>
+            <Label>3Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.0000;(#,##0.0000)</Value>
+            <Label>4Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.00000;(#,##0.00000)</Value>
+            <Label>5Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.000000;(#,##0.000000)</Value>
+            <Label>6Decimal</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramFormatPrices">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>#,##0.0000;(#,##0.0000)</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramFormatPrices</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>#,###;(#,###)</Value>
+            <Label>No Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.0;(#,##0.0)</Value>
+            <Label>1Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.00;(#,##0.00)</Value>
+            <Label>2Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.000;(#,##0.000)</Value>
+            <Label>3Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.0000;(#,##0.0000)</Value>
+            <Label>4Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.00000;(#,##0.00000)</Value>
+            <Label>5Decimal</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>#,##0.000000;(#,##0.000000)</Value>
+            <Label>6Decimal</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramShowCompanyLogo">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>False</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>paramShowCompanyLogo</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ShowHidePranaTextLogo">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>True</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ShowHidePranaTextLogo</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramSearchBy">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>="Symbol"</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Search By</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>="Symbol"</Value>
+            <Label>Ticker Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="BloombergSymbol"</Value>
+            <Label>Bloomberg Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="IDCOSymbol"</Value>
+            <Label>IDCO Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="ISINSymbol"</Value>
+            <Label>ISIN Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="OSISymbol"</Value>
+            <Label>OSI Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="SedolSymbol"</Value>
+            <Label>Sedol Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="UnderlyingSymbol"</Value>
+            <Label>Underlying Symbol</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>="SecurityName"</Value>
+            <Label>SecurityName</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="showNegativeWithRed">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>False</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Show Negative With Red</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="paramSearchSymbol">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Symbol/Security Name</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="paramShowHideDetails">
+      <DataType>Boolean</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>True</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Show Details</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ghostparam">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ghostparam</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>13in</InteractiveWidth>
+  <rd:GridSpacing>0.05in</rd:GridSpacing>
+  <rd:SnapToGrid>false</rd:SnapToGrid>
+  <RightMargin>0.001in</RightMargin>
+  <LeftMargin>0.1in</LeftMargin>
+  <BottomMargin>0.001in</BottomMargin>
+  <rd:ReportID>532d2fe9-c17a-491e-b1df-bf5c43365996</rd:ReportID>
+  <PageWidth>9in</PageWidth>
+  <DataSets>
+    <DataSet Name="DataSetDate">
+      <Fields>
+        <Field Name="Date">
+          <DataField>Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>Select getdate() AS Date</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyLogoShared">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetCompanyLogo</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@companyID">
+            <Value>=Parameters!paramCompanyID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@userID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorMessage">
+            <Value>=Parameters!paramErrorMessage.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorNumber">
+            <Value>=Parameters!paramErrorNumber.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetGroupingParameters">
+      <Fields>
+        <Field Name="items">
+          <DataField>items</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_groupingParameters_UnrealizedGainOnCashReport</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetCompanyLogo</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@companyID">
+            <Value>=Parameters!paramCompanyID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@userID">
+            <Value>=Parameters!paramUserID.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorMessage">
+            <Value>=Parameters!paramErrorMessage.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@ErrorNumber">
+            <Value>=Parameters!paramErrorNumber.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyID">
+      <Fields>
+        <Field Name="CompanyID">
+          <DataField>CompanyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select top 1 CompanyID from T_Company where companyid &lt;&gt; -1</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="MonthStartDate">
+      <Fields>
+        <Field Name="MonthStartDate">
+          <DataField>MonthStartDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetMonthStartDate</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="LastBusinessDay">
+      <Fields>
+        <Field Name="LastBusinessDay">
+          <DataField>LastBusinessDay</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetLastBusinessDay</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="ReportGroupRowColors">
+      <Fields>
+        <Field Name="Group1BGColor">
+          <DataField>Group1BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group2BGColor">
+          <DataField>Group2BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group3BGColor">
+          <DataField>Group3BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group4BGColor">
+          <DataField>Group4BGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DetailRowBGColor">
+          <DataField>DetailRowBGColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group1FontColor">
+          <DataField>Group1FontColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group2FontColor">
+          <DataField>Group2FontColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group3FontColor">
+          <DataField>Group3FontColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Group4FontColor">
+          <DataField>Group4FontColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DetailRowFontColor">
+          <DataField>DetailRowFontColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="GrandTotalRowFontColor">
+          <DataField>GrandTotalRowFontColor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetReportGroupRowColors_New</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetPranaLogo">
+      <Fields>
+        <Field Name="Logo">
+          <DataField>Logo</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PMGetPranaLogo</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCompanyName">
+      <Fields>
+        <Field Name="name">
+          <DataField>name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandText>select name from T_Company</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetStartDate">
+      <Fields>
+        <Field Name="ID">
+          <DataField />
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_MW_getAdjustedDate</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Choice">
+            <Value>=Parameters!Choice.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetDisclaimer">
+      <Fields>
+        <Field Name="Disclaimer">
+          <DataField>Disclaimer</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_MW_GetDisclaimer</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetUserId">
+      <Fields>
+        <Field Name="UserID">
+          <DataField>UserID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_getUserIDforReports</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSet_Get_IncomeExpense">
+      <Fields>
+        <Field Name="CurrencyID">
+          <DataField>CurrencyID</DataField>
+        </Field>
+        <Field Name="CurrencyName">
+          <DataField>CurrencyName</DataField>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+        </Field>
+        <Field Name="TransactionDate">
+          <DataField>TransactionDate</DataField>
+        </Field>
+        <Field Name="FxratePrevDay">
+          <DataField>FxratePrevDay</DataField>
+        </Field>
+        <Field Name="FxrateCurrDay">
+          <DataField>FxrateCurrDay</DataField>
+        </Field>
+        <Field Name="FxGainLoss">
+          <DataField>FxGainLoss</DataField>
+        </Field>
+        <Field Name="Select">
+          <DataField>='Select'</DataField>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_UnrealizedGainLossOnEODCash</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@StartDate">
+            <Value>=Parameters!paramStartDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@EndDate">
+            <Value>=Parameters!paramEndDate.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Currency">
+            <Value>=Parameters!paramCurrenciesFilter.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="DataSetCurrencies">
+      <Fields>
+        <Field Name="CurrencySymbol">
+          <DataField>CurrencySymbol</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CurrencyID">
+          <DataField>CurrencyID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DS_Reports</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>P_GetCurrenciesFilter</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>8.6in</Width>
+  <Body>
+    <ColumnSpacing>0.1in</ColumnSpacing>
+    <ReportItems>
+      <List Name="list1">
+        <ZIndex>4</ZIndex>
+        <DataSetName>DataSet_Get_IncomeExpense</DataSetName>
+        <ReportItems>
+          <Textbox Name="textbox7">
+            <rd:DefaultName>textbox7</rd:DefaultName>
+            <Visibility>
+              <Hidden>true</Hidden>
+            </Visibility>
+            <Top>0.99792in</Top>
+            <Width>1in</Width>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+            <ZIndex>1</ZIndex>
+            <CanGrow>true</CanGrow>
+            <Height>0.26042in</Height>
+            <Value />
+          </Textbox>
+          <Table Name="table2">
+            <NoRows>No Data</NoRows>
+            <DataSetName>DataSet_Get_IncomeExpense</DataSetName>
+            <TableGroups>
+              <TableGroup>
+                <Grouping Name="table2_Group1">
+                  <GroupExpressions>
+                    <GroupExpression>=Fields(Parameters!paramGroupByLevel1.Value).Value</GroupExpression>
+                  </GroupExpressions>
+                </Grouping>
+                <Header>
+                  <TableRows>
+                    <TableRow>
+                      <Visibility>
+                        <Hidden>=iif(Parameters!paramGroupByLevel1.Value = "Select", True, False)</Hidden>
+                      </Visibility>
+                      <TableCells>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox44">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group1FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group1FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group1BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#95a5a6",First(Fields!Group1BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>d</Format>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>24</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Fields(Parameters!paramGroupByLevel1.Value).Value</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox46">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group1FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group1FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group1BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#95a5a6",First(Fields!Group1BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>23</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!CurrencyName.Value) &gt; 1, "", Fields!CurrencyName.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox83">
+                              <rd:DefaultName>textbox83</rd:DefaultName>
+                              <Style>
+                                <Color>=IIF((Sum(Fields!Amount.Value)&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!Group1FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group1FontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group1BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#95a5a6",First(Fields!Group1BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPNL.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>22</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Sum(Fields!Amount.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox15">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group1FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group1FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group1BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#95a5a6",First(Fields!Group1BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>21</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxrateCurrDay.Value) &gt; 1, "", Fields!FxrateCurrDay.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox2">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group1FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group1FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group1BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#95a5a6",First(Fields!Group1BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel2.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>20</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxGainLoss.Value) &gt; 1, "", Fields!FxGainLoss.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                      </TableCells>
+                      <Height>0.15in</Height>
+                    </TableRow>
+                  </TableRows>
+                </Header>
+              </TableGroup>
+              <TableGroup>
+                <Grouping Name="table2_Group2">
+                  <GroupExpressions>
+                    <GroupExpression>=Fields(Parameters!paramGroupByLevel2.Value).Value</GroupExpression>
+                  </GroupExpressions>
+                </Grouping>
+                <Header>
+                  <TableRows>
+                    <TableRow>
+                      <Visibility>
+                        <Hidden>=iif(Parameters!paramGroupByLevel2.Value = "Select", True, False)</Hidden>
+                      </Visibility>
+                      <TableCells>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox47">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group2FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group2FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group2BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#bdc3c7",First(Fields!Group2BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>d</Format>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>4pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>19</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Fields(Parameters!paramGroupByLevel2.Value).Value</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox49">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group2FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group2FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group2BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#bdc3c7",First(Fields!Group2BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>18</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!CurrencyName.Value) &gt; 1, "", Fields!CurrencyName.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox93">
+                              <rd:DefaultName>textbox93</rd:DefaultName>
+                              <Style>
+                                <Color>=IIF((Sum(Fields!Amount.Value)&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!Group2FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group2FontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group2BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#bdc3c7",First(Fields!Group2BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPNL.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>17</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Sum(Fields!Amount.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox16">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group2FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group2FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group2BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#bdc3c7",First(Fields!Group2BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>16</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxrateCurrDay.Value) &gt; 1, "", Fields!FxrateCurrDay.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox3">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group2FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group2FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group2BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#bdc3c7",First(Fields!Group2BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel3.Value.ToString().Equals("Select")
+	  And Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>15</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxGainLoss.Value) &gt; 1, "", Fields!FxGainLoss.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                      </TableCells>
+                      <Height>0.15in</Height>
+                    </TableRow>
+                  </TableRows>
+                </Header>
+              </TableGroup>
+              <TableGroup>
+                <Grouping Name="table2_Group3">
+                  <GroupExpressions>
+                    <GroupExpression>=Fields(Parameters!paramGroupByLevel3.Value).Value</GroupExpression>
+                  </GroupExpressions>
+                </Grouping>
+                <Header>
+                  <TableRows>
+                    <TableRow>
+                      <Visibility>
+                        <Hidden>=iif(Parameters!paramGroupByLevel3.Value = "Select", True, False)</Hidden>
+                      </Visibility>
+                      <TableCells>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox50">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group3FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group3FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group3BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#ecf0f1",First(Fields!Group3BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>d</Format>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>6pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>14</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Fields(Parameters!paramGroupByLevel3.Value).Value</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox52">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group3FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group3FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group3BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#ecf0f1",First(Fields!Group3BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>13</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!CurrencyName.Value) &gt; 1, "", Fields!CurrencyName.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox105">
+                              <rd:DefaultName>textbox105</rd:DefaultName>
+                              <Style>
+                                <Color>=IIF((Sum(Fields!Amount.Value)&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!Group3FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group3FontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group3BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#ecf0f1",First(Fields!Group3BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPNL.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>12</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Sum(Fields!Amount.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox17">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group3FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group3FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group3BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#ecf0f1",First(Fields!Group3BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>11</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxrateCurrDay.Value) &gt; 1, "", Fields!FxrateCurrDay.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox4">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group3FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group3FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <BackgroundColor>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Transparent",IIF(First(Fields!Group3BGColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"#ecf0f1",First(Fields!Group3BGColor.Value, 
+				"ReportGroupRowColors")))</BackgroundColor>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Parameters!paramGroupByLevel4.Value.ToString().Equals("Select")
+	  And Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>10</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxGainLoss.Value) &gt; 1, "", Fields!FxGainLoss.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                      </TableCells>
+                      <Height>0.15in</Height>
+                    </TableRow>
+                  </TableRows>
+                </Header>
+              </TableGroup>
+              <TableGroup>
+                <Grouping Name="table2_Group4">
+                  <GroupExpressions>
+                    <GroupExpression>=Fields(Parameters!paramGroupByLevel4.Value).Value</GroupExpression>
+                  </GroupExpressions>
+                </Grouping>
+                <Header>
+                  <TableRows>
+                    <TableRow>
+                      <Visibility>
+                        <Hidden>=iif(Parameters!paramGroupByLevel4.Value = "Select", True, False)</Hidden>
+                      </Visibility>
+                      <TableCells>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox63">
+                              <rd:DefaultName>textbox63</rd:DefaultName>
+                              <Style>
+                                <Color>=IIF(First(Fields!Group4FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group4FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>d</Format>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>8pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>9</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Fields(Parameters!paramGroupByLevel4.Value).Value</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox64">
+                              <rd:DefaultName>textbox64</rd:DefaultName>
+                              <Style>
+                                <Color>=IIF(First(Fields!Group4FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group4FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <TextAlign>Left</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>8</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!CurrencyName.Value) &gt; 1, "", Fields!CurrencyName.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox107">
+                              <rd:DefaultName>textbox107</rd:DefaultName>
+                              <Style>
+                                <Color>=IIF((Sum(Fields!Amount.Value)&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!Group4FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group4FontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPNL.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>7</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=Sum(Fields!Amount.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox18">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group4FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group4FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>6</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxrateCurrDay.Value) &gt; 1, "", Fields!FxrateCurrDay.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                        <TableCell>
+                          <ReportItems>
+                            <Textbox Name="textbox5">
+                              <Style>
+                                <Color>=IIF(First(Fields!Group4FontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!Group4FontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                                <FontFamily>Segoe UI</FontFamily>
+                                <FontSize>7pt</FontSize>
+                                <FontWeight>=IIF(Not Parameters!paramShowHideDetails.Value
+	  ,"Normal","Bold")</FontWeight>
+                                <Format>=Parameters!paramFormatPrices.Value</Format>
+                                <TextAlign>Right</TextAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                              <ZIndex>5</ZIndex>
+                              <CanGrow>true</CanGrow>
+                              <Value>=IIF(CountDistinct(Fields!FxGainLoss.Value) &gt; 1, "", Fields!FxGainLoss.Value)</Value>
+                            </Textbox>
+                          </ReportItems>
+                        </TableCell>
+                      </TableCells>
+                      <Height>0.15in</Height>
+                    </TableRow>
+                  </TableRows>
+                </Header>
+              </TableGroup>
+            </TableGroups>
+            <Details>
+              <TableRows>
+                <TableRow>
+                  <Visibility>
+                    <Hidden>=IIF(Parameters!paramShowHideDetails.Value,False,True)</Hidden>
+                  </Visibility>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="Symbol">
+                          <rd:DefaultName>Symbol</rd:DefaultName>
+                          <Style>
+                            <Color>=IIF(First(Fields!DetailRowFontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!DetailRowFontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) mod 2, "Gainsboro", "White")</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>7pt</FontSize>
+                            <Format>d</Format>
+                            <TextAlign>Left</TextAlign>
+                            <PaddingLeft>10pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>4</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!TransactionDate.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="CompanyName">
+                          <rd:DefaultName>CompanyName</rd:DefaultName>
+                          <Style>
+                            <Color>=IIF(First(Fields!DetailRowFontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!DetailRowFontColor.Value, 
+				"ReportGroupRowColors"))</Color>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) mod 2, "Gainsboro", "White")</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>7pt</FontSize>
+                            <TextAlign>Left</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>3</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!CurrencyName.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox109">
+                          <rd:DefaultName>textbox109</rd:DefaultName>
+                          <Style>
+                            <Color>=IIF((Fields!Amount.Value&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!DetailRowFontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!DetailRowFontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) mod 2, "Gainsboro", "White")</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>7pt</FontSize>
+                            <Format>=Parameters!paramFormatPNL.Value</Format>
+                            <TextAlign>Right</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>2</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!Amount.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox19">
+                          <Style>
+                            <Color>=IIF((Fields!FxrateCurrDay.Value&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!DetailRowFontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!DetailRowFontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) mod 2, "Gainsboro", "White")</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>7pt</FontSize>
+                            <Format>=Parameters!paramFormatPrices.Value</Format>
+                            <TextAlign>Right</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>1</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!FxrateCurrDay.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox6">
+                          <Style>
+                            <Color>=IIF((Fields!FxGainLoss.Value&lt;=0) AND (Parameters!showNegativeWithRed.Value.Equals(TRUE)),"Red"
+,IIF(First(Fields!DetailRowFontColor.Value, "ReportGroupRowColors") IS Nothing 
+				,"BLACK",First(Fields!DetailRowFontColor.Value, 
+				"ReportGroupRowColors")))</Color>
+                            <BackgroundColor>=IIF(RowNumber(Nothing) mod 2, "Gainsboro", "White")</BackgroundColor>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>7pt</FontSize>
+                            <Format>=Parameters!paramFormatPrices.Value</Format>
+                            <TextAlign>Right</TextAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CanGrow>true</CanGrow>
+                          <Value>=Fields!FxGainLoss.Value</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.15in</Height>
+                </TableRow>
+              </TableRows>
+              <Sorting>
+                <SortBy>
+                  <SortExpression>=Fields!TransactionDate.Value</SortExpression>
+                  <Direction>Ascending</Direction>
+                </SortBy>
+              </Sorting>
+            </Details>
+            <Style>
+              <FontFamily>Verdana</FontFamily>
+              <FontWeight>700</FontWeight>
+            </Style>
+            <Header>
+              <TableRows>
+                <TableRow>
+                  <TableCells>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox54">
+                          <Style>
+                            <Color>White</Color>
+                            <BackgroundColor>#2c3e50</BackgroundColor>
+                            <BorderStyle>
+                              <Left>Solid</Left>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Left</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>29</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>=IIF(Parameters!paramShowHideDetails.Value = True, "Date",
+    IIF(Parameters!paramGroupByLevel4.Value &lt;&gt; "Select",Parameters!paramGroupByLevel4.Label,
+       IIF(Parameters!paramGroupByLevel3.Value &lt;&gt; "Select",Parameters!paramGroupByLevel3.Label,
+        IIF(Parameters!paramGroupByLevel2.Value &lt;&gt; "Select",Parameters!paramGroupByLevel2.Label,
+           IIF(Parameters!paramGroupByLevel1.Value &lt;&gt; "Select",Parameters!paramGroupByLevel1.Label,"Date")
+           )
+          )
+        )
+      )</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox56">
+                          <Style>
+                            <Color>White</Color>
+                            <BackgroundColor>#2c3e50</BackgroundColor>
+                            <BorderStyle>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Left</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>28</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>Currency</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox80">
+                          <rd:DefaultName>textbox80</rd:DefaultName>
+                          <Style>
+                            <Color>White</Color>
+                            <BackgroundColor>#2c3e50</BackgroundColor>
+                            <BorderStyle>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>27</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>Ending Cash(Local)</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox13">
+                          <Style>
+                            <Color>White</Color>
+                            <BackgroundColor>#2c3e50</BackgroundColor>
+                            <BorderStyle>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>26</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>FxRate</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                    <TableCell>
+                      <ReportItems>
+                        <Textbox Name="textbox1">
+                          <Style>
+                            <Color>White</Color>
+                            <BackgroundColor>#2c3e50</BackgroundColor>
+                            <BorderStyle>
+                              <Top>None</Top>
+                              <Bottom>None</Bottom>
+                            </BorderStyle>
+                            <FontFamily>Segoe UI</FontFamily>
+                            <FontSize>8pt</FontSize>
+                            <FontWeight>700</FontWeight>
+                            <TextAlign>Right</TextAlign>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <ZIndex>25</ZIndex>
+                          <CanGrow>true</CanGrow>
+                          <Value>FX  Gain Loss On Cash Balance</Value>
+                        </Textbox>
+                      </ReportItems>
+                    </TableCell>
+                  </TableCells>
+                  <Height>0.2in</Height>
+                </TableRow>
+              </TableRows>
+              <RepeatOnNewPage>true</RepeatOnNewPage>
+            </Header>
+            <TableColumns>
+              <TableColumn>
+                <Width>1in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1.5in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>1in</Width>
+              </TableColumn>
+              <TableColumn>
+                <Width>2in</Width>
+              </TableColumn>
+            </TableColumns>
+            <Height>0.95in</Height>
+          </Table>
+        </ReportItems>
+        <Top>0.6in</Top>
+        <Width>6.5in</Width>
+        <Grouping Name="list1_Details_Group">
+          <GroupExpressions>
+            <GroupExpression>=Fields!CurrencyName.Value</GroupExpression>
+          </GroupExpressions>
+        </Grouping>
+        <Height>1.27083in</Height>
+      </List>
+      <Textbox Name="textbox116">
+        <Style>
+          <Color>#2c3e50</Color>
+          <FontFamily>Century Gothic</FontFamily>
+          <FontSize>32pt</FontSize>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>3</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>6.6in</Left>
+        <Height>0.6in</Height>
+        <Value>=IIF(Parameters!ShowHidePranaTextLogo.Value.Equals(True),"Nirvana","")</Value>
+      </Textbox>
+      <Textbox Name="textbox35">
+        <Visibility>
+          <Hidden>=IIF(Parameters!paramShowCompanyName.Value,False,True)</Hidden>
+        </Visibility>
+        <Width>6.6in</Width>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>2</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.2in</Height>
+        <Value>=First(Fields!name.Value, "DataSetCompanyName")</Value>
+      </Textbox>
+      <Textbox Name="textbox415">
+        <rd:DefaultName>textbox415</rd:DefaultName>
+        <Top>0.2in</Top>
+        <Width>6.6in</Width>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontWeight>700</FontWeight>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.2in</Height>
+        <Value>Unrealized Gain/Loss On End Of Day Cash Report</Value>
+      </Textbox>
+      <Textbox Name="textbox14">
+        <rd:DefaultName>textbox14</rd:DefaultName>
+        <Top>0.4in</Top>
+        <Width>6.6in</Width>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.2in</Height>
+        <Value>="Start Date: " &amp; Parameters!paramStartDate.Value &amp;
+"     End Date: " &amp; Parameters!paramEndDate.Value &amp; 
+"     Rendered: " &amp; Today() &amp; 
+"     Sorted by " &amp; (IIF(Parameters!paramGroupByLevel1.Value.Equals("Select"),"",Parameters!paramGroupByLevel1.Label) 
+             &amp; IIF(Parameters!paramGroupByLevel2.Value.Equals("Select"),"",", " &amp; Parameters!paramGroupByLevel2.Label)
+             &amp; IIF(Parameters!paramGroupByLevel3.Value.Equals("Select"),"",", " &amp; Parameters!paramGroupByLevel3.Label)
+             &amp; IIF(Parameters!paramGroupByLevel4.Value.Equals("Select"),"",", " &amp; Parameters!paramGroupByLevel4.Label))</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>2.1in</Height>
+  </Body>
+  <Language>en-US</Language>
+  <PageFooter>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <ReportItems>
+      <Textbox Name="textbox23">
+        <Width>6.6in</Width>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>7pt</FontSize>
+          <FontWeight>300</FontWeight>
+          <TextAlign>Left</TextAlign>
+          <PaddingLeft>1pt</PaddingLeft>
+          <PaddingRight>1pt</PaddingRight>
+          <PaddingTop>1pt</PaddingTop>
+          <PaddingBottom>1pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Height>0.18749in</Height>
+        <Value>=Parameters!paramDisclaimer.Value</Value>
+      </Textbox>
+      <Textbox Name="textbox79">
+        <Top>0.34168in</Top>
+        <Width>6.6in</Width>
+        <Style>
+          <FontFamily>Segoe UI</FontFamily>
+          <FontSize>7pt</FontSize>
+          <TextAlign>Right</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.15in</Height>
+        <Value>="Page " &amp; Globals!PageNumber &amp; " of " &amp; Globals!TotalPages</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>0.5021in</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageFooter>
+  <TopMargin>0.001in</TopMargin>
+  <PageHeight>8.5in</PageHeight>
+</Report>

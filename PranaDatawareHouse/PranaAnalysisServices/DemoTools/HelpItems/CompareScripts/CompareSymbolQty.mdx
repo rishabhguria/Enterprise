@@ -1,0 +1,171 @@
+with 
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Lag(10):[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506]
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+set [PreviousDay] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].PrevMember.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MonthStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.FirstChild.Lag(10)
+   :[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.FirstChild
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MPMonthStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.FirstChild.PrevMember.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [QuarterStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.FirstChild.FirstChild.Lag(10)
+   :[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.FirstChild.FirstChild
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MPQuarterStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.FirstChild.FirstChild.PrevMember.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.FirstChild.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [YearStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+    [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.PrevMember.Lag(10)
+   :[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+set [MPYearStartDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.Parent.FirstChild.FirstChild.FirstChild.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506].Parent.Parent.Parent.FirstChild.FirstChild.FirstChild
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+member MarkPriceEndDate
+as
+(
+(EndDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPricePrevDate
+as
+(
+(PreviousDay.Item(0),[Measures].[Final Mark Price])
+)
+
+member MarkPriceMonthStartDate
+as
+(
+(MPMonthStartDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPriceQuarterStartDate
+as
+(
+(MPQuarterStartDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPriceYearStartDate
+as
+(
+(MPYearStartDate.Item(0),[Measures].[Final Mark Price])
+)
+
+
+
+member SymbolOpenQty as
+(
+sum(
+
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+,
+ [Measures].[TaxLotOpenQty]*[Measures].[SideMultiplier]
+)
+)
+
+SELECT  {SymbolOpenQty} ON COLUMNS,
+{
+[PM Taxlots].[Symbol].children
+}
+ DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM 
+( SELECT ( [Dim Time].[Calender].[Year].&[2000].&[1].&[1].&[1]: 
+[Dim Time].[Calender].[Year].&[2009].&[3].&[8].&[3506] )
+ ON COLUMNS FROM 
+
+ [Nirvana Client DW])
+
+
+
+ CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS
+

@@ -1,0 +1,36 @@
+module detectionEpl.GlobalLevelDetection;
+
+
+@Name('GlobalSummation')
+@Description('This statement validates global compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency sec)]
+insert into GlobalSummation
+select
+	sum(coalesce(longMarketValueBase, 0)) as longMarketValueBase
+from SymbolWithNav;
+
+
+@Name('GlobalLevelDetection')
+@Description('This statement validates global compliance level with margin 1%')
+on pattern[every D = GlobalSummation]
+insert into GlobalLevelDetection
+select distinct
+	'LongMarketValueBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'Global' as compressionLevel,
+	D.longMarketValueBase as actualLongMarketValueBase,
+	G.longMarketValueBase as globalLongMarketValueBase,
+	D.longMarketValueBase - G.longMarketValueBase as difference, 
+	case 
+		when 
+			Math.abs(D.longMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.longMarketValueBase) 
+			or Math.abs(D.longMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.longMarketValueBase)
+			then true
+		else false
+	end as detectionResult 
+from GlobalWithNav as G
+having
+(
+	Math.abs(D.longMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.longMarketValueBase) 
+	or Math.abs(D.longMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.longMarketValueBase)
+);

@@ -1,0 +1,1 @@
+sqlcmd -U "sa" -P "NIRvana2@@6" -S "192.168.1.19" -i c:\Scripts\SQLMigration.sql

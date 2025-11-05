@@ -1,0 +1,587 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="eed78f80-5837-43ea-8e63-49b5d8dd78f3" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>T SM Data</ID>
+  <Name>T SM Data</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="12" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-1143" scrolltop="-2438" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="11245" y="14129" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_SMData (dbo.T_SMData)" left="5420" top="0" logicalid="6" controlid="1" masterid="0" hint1="0" hint2="0" width="3519" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000bf0d000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_SMData" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_Asset (dbo.T_Asset)" left="20" top="6686" logicalid="7" controlid="2" masterid="0" hint1="0" hint2="0" width="3000" height="2302" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000b80b0000fe080000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_Asset" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="T_AUEC (dbo.T_AUEC)" left="20" top="714" logicalid="8" controlid="3" masterid="0" hint1="0" hint2="0" width="3000" height="3572" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="00080000b80b0000f40d0000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_T_AUEC" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="2720" top="2101" logicalid="9" controlid="4" masterid="0" hint1="0" hint2="0" width="3000" height="799" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK_T_SMData_T_AUEC]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="3" destid="1" sourceattachpoint="17" destattachpoint="22" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="3020" y="2500" />
+              <point x="5420" y="2500" />
+            </connector>
+          </ddscontrol>
+          <ddscontrol controlprogid="MSDDS.Polyline" left="1121" top="3986" logicalid="10" controlid="5" masterid="0" hint1="0" hint2="0" width="799" height="3200" noresize="0" nomove="0" nodefaultattachpoints="1" autodrag="0" usedefaultiddshape="0" selectable="1" showselectionhandles="0" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobj>
+                <polyline endtypedst="6" endtypesrc="3" usercolor="0" linestyle="0" linerender="1" customendtypedstid="0" customendtypesrcid="0" adornsvisible="1" />
+              </ddsxmlobj>
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dataSet.Relations[FK__T_AUEC__AssetID__2276B61A]" vartype="8" />
+                <property name="Virtual" value="0" vartype="11" />
+                <property name="VisibleAP" value="0" vartype="3" />
+              </ddsxmlobj>
+            </layoutobject>
+            <connector lineroutestyle="MSDDS.Rectilinear" sourceid="2" destid="3" sourceattachpoint="4" destattachpoint="5" segmenteditmode="0" bendpointeditmode="0" bendpointvisibility="0" relatedid="0" virtual="0">
+              <point x="1520" y="6686" />
+              <point x="1520" y="4286" />
+            </connector>
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-1143</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>-2438</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>20</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="37407837-9f92-4ea4-9f09-73e810e227f4">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <UnknownMember>Hidden</UnknownMember>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="05213ba6-4ebd-4bd1-9544-c66729f0366c">
+      <ID>T SM Data</ID>
+      <Name>TickerSymbol</Name>
+      <Usage>Key</Usage>
+      <EstimatedCount>545</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="b9a1810b-987d-4e60-9955-71446b43a1e2">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5815b18a-8b88-471c-a7fb-ae4c34c153bc">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>TickerSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="7f2074f6-3f76-4d57-adf7-a302dab0ef63">
+          <AttributeID>Bloomberg Symbol</AttributeID>
+          <Name>Bloomberg Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="b80393b1-e349-4d48-9b5c-213545070e7f">
+          <AttributeID>ISIN Symbol</AttributeID>
+          <Name>ISIN Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="27876f95-48c9-47a0-bcab-fe5a9d60883b">
+          <AttributeID>SEDOL Symbol</AttributeID>
+          <Name>SEDOL Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="9f6709e2-8b1d-428d-a6b6-dd5ef54cc629">
+          <AttributeID>CUSIP Symbol</AttributeID>
+          <Name>CUSIP Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="7f417dd5-1aba-465b-8b14-e171bc257075">
+          <AttributeID>Under Lying Symbol</AttributeID>
+          <Name>Under Lying Symbol</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ae7129ab-092a-4e48-ac01-b07cbf3bbdb4">
+          <AttributeID>Long Name</AttributeID>
+          <Name>Long Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="a9d040d5-b050-4312-b17a-b4f212f57731">
+          <AttributeID>Sector</AttributeID>
+          <Name>Sector</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="86a04d72-9ca1-4351-9dc9-3f6d66a5b39f">
+          <AttributeID>Put Or Call</AttributeID>
+          <Name>Put Or Call</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="2ff3c4e1-9db8-4d5f-950f-92698d3d5b5a">
+          <AttributeID>Multiplier</AttributeID>
+          <Name>Multiplier</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="d081ced7-6da5-4b1f-aade-3f0df1a8658d">
+          <AttributeID>Strike Price</AttributeID>
+          <Name>Strike Price</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="3ca4e005-e5a7-46e4-83fc-9b312c8a70d3">
+          <AttributeID>Currency ID</AttributeID>
+          <Name>Currency ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="576e2088-a104-463f-9ecb-e80c299b8918">
+          <AttributeID>T AUEC</AttributeID>
+          <Name>T AUEC</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>FilteredList</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="54fdafa1-86c3-4aea-a044-266c503cb059">
+      <ID>Bloomberg Symbol</ID>
+      <Name>Bloomberg Symbol</Name>
+      <EstimatedCount>235</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="788f1d4d-295e-463a-a647-614d6b66e3ef">
+          <DataType>WChar</DataType>
+          <DataSize>20</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9bcf2b9c-e4ed-4d4d-acfc-bf47b412b051">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>BloombergSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>List</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="1da756a3-0b3e-4bd7-bbd3-a825ecaf434c">
+      <ID>ISIN Symbol</ID>
+      <Name>ISIN Symbol</Name>
+      <EstimatedCount>213</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="d4eac395-acbd-4276-ac0b-12cbfd0d0bd9">
+          <DataType>WChar</DataType>
+          <DataSize>20</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="8c99777e-eb05-4ec1-a6fd-59d7ce2a652a">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>ISINSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>List</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="fc7685eb-0edf-4417-84f3-e52cfd30b7dc">
+      <ID>SEDOL Symbol</ID>
+      <Name>SEDOL Symbol</Name>
+      <EstimatedCount>223</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="eafbedcc-2c9c-4e3c-9c7e-4c74a412e3ba">
+          <DataType>WChar</DataType>
+          <DataSize>20</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="b17c3d42-03d8-4a59-b20f-ef8677da4abf">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>SEDOLSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>List</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="4c3a9493-c4a1-484b-bd13-8b4252ea6c27">
+      <ID>CUSIP Symbol</ID>
+      <Name>CUSIP Symbol</Name>
+      <EstimatedCount>216</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="df004a0e-7fda-4e8b-89b0-ce2d4811c730">
+          <DataType>WChar</DataType>
+          <DataSize>20</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="0f8f887a-0b41-408e-aa22-344caebe157f">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>CUSIPSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>List</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="aa0aa25a-7f30-4fed-8bf5-c95594ca3db4">
+      <ID>Under Lying Symbol</ID>
+      <Name>Under Lying Symbol</Name>
+      <EstimatedCount>164</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="e30d15cf-2f30-42dd-a1d0-24a1989edd55">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="d2a5ce60-d501-4145-a193-cd13979cf119">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>UnderLyingSymbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>List</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="c45900b0-8ca5-43b6-a946-eb63e1753f2f">
+      <ID>Long Name</ID>
+      <Name>Long Name</Name>
+      <EstimatedCount>520</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="fdd7f3a8-56cd-4a91-a7db-c25f47c5bb3c">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="58bed2c3-2a3a-470f-9ace-b613228f72d0">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>LongName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>FilteredList</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="0236dc9f-f5e8-4396-825e-0fff9538c806">
+      <ID>Sector</ID>
+      <Name>Sector</Name>
+      <EstimatedCount>1</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="e2d7cbc0-260b-4351-8ef5-50a2685cd7ec">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="d77cbd7b-f4e1-4459-933a-ee524ff5832e">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>Sector</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="09f4b216-fd9d-4bec-bdb2-dfcb162f8931">
+      <ID>Put Or Call</ID>
+      <Name>Put Or Call</Name>
+      <EstimatedCount>3</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="76bfd8bd-10cd-4a65-bd84-fcf502711d6f">
+          <DataType>WChar</DataType>
+          <DataSize>5</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="45379657-f3fc-4817-9d32-55a694e5bb2e">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>PutOrCall</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="9403815f-d62a-42ce-9e8d-49dd2acccede">
+      <ID>Multiplier</ID>
+      <Name>Multiplier</Name>
+      <EstimatedCount>2</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="951921cd-8524-4819-ae03-51953a593e41">
+          <DataType>Double</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5e4dd97b-d7dc-4f23-8401-230fbd940d0c">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>Multiplier</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="35f7b7b6-ee99-4e58-bd44-231fce65c84b">
+      <ID>Strike Price</ID>
+      <Name>Strike Price</Name>
+      <EstimatedCount>39</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c8d4c4df-7bae-4b23-9064-e9e2187eda7f">
+          <DataType>Double</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="70e9edcb-8592-4c80-a34d-456f54195099">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>StrikePrice</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="762b92a7-91c3-4b47-90f6-5f91f73b8ba6">
+      <ID>Currency ID</ID>
+      <Name>Currency ID</Name>
+      <EstimatedCount>6</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="19809d4c-4dff-4f6a-939f-fd253bb74c9d">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="fcb813d3-371f-40c2-9f2b-b95e5d01a11c">
+            <TableID>dbo_T_SMData</TableID>
+            <ColumnID>CurrencyID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="413624bc-4902-4e9b-981f-7e7b2acb8a11">
+      <ID>T AUEC</ID>
+      <Name>T AUEC</Name>
+      <EstimatedCount>13</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="cdd76f85-62bf-4293-8295-8bf46ca317fe">
+          <NullProcessing>UnknownMember</NullProcessing>
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="af4186c9-375f-42d7-b005-772a6b7abd95">
+            <TableID>dbo_T_AUEC</TableID>
+            <ColumnID>AUECID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="b7209301-6ec7-49d1-ba62-af5a74f4b1c1">
+        <DataType>WChar</DataType>
+        <DataSize>50</DataSize>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="93d16b8f-2910-4a5a-9a5f-973a161079de">
+          <TableID>dbo_T_AUEC</TableID>
+          <ColumnID>DisplayName</ColumnID>
+        </Source>
+      </NameColumn>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="d5f91f5a-7cd7-40ed-9688-9c21955e42f6">
+          <AttributeID>Under Lying ID</AttributeID>
+          <Name>Under Lying ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ed83c9d4-df6e-41c9-a5e1-8b7639242420">
+          <AttributeID>Exchange ID</AttributeID>
+          <Name>Exchange ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="453a2633-055f-40bc-8964-1474bf714f41">
+          <AttributeID>Full Name</AttributeID>
+          <Name>Full Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="db852ba0-2e76-444f-8427-7eec315b3a5d">
+          <AttributeID>T Asset</AttributeID>
+          <Name>T Asset</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="e280b9a3-b06f-4599-91c7-cb9a647b15ec">
+      <ID>Under Lying ID</ID>
+      <Name>Under Lying ID</Name>
+      <EstimatedCount>12</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="1ab78efd-e4f9-4558-84a6-003849bbad38">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="6418a8fe-f57e-449b-9803-22fc1b3df54d">
+            <TableID>dbo_T_AUEC</TableID>
+            <ColumnID>UnderLyingID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="d189d417-8ce8-48c8-83c4-ba8c899bd3f9">
+      <ID>Exchange ID</ID>
+      <Name>Exchange ID</Name>
+      <EstimatedCount>54</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="d304e2e5-16a8-47a6-b6a3-4faeaf2d4441">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="349a3e6a-d260-4883-b8c1-5568314e0dd9">
+            <TableID>dbo_T_AUEC</TableID>
+            <ColumnID>ExchangeID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="8aaa2a5c-93df-44cc-86ad-572ce46fbd44">
+      <ID>Full Name</ID>
+      <Name>Full Name</Name>
+      <EstimatedCount>58</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="b9deca25-bae0-4b8a-8204-9963bacef358">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="7750bda0-5660-4d05-b382-26b453720590">
+            <TableID>dbo_T_AUEC</TableID>
+            <ColumnID>FullName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="e3ccea5f-6998-4034-b8de-0a9a3d132a70">
+      <ID>T Asset</ID>
+      <Name>T Asset</Name>
+      <EstimatedCount>8</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="89c1f81f-5925-4700-b113-09c6a87fcf78">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a305a28d-a0a9-47ba-97e9-2e33b61c6a23">
+            <TableID>dbo_T_Asset</TableID>
+            <ColumnID>AssetID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="949c768d-231e-490f-919e-4e02b8db51ba">
+          <AttributeID>Asset Name</AttributeID>
+          <Name>Asset Name</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="fe58ace1-bd9f-406f-9d11-3651e098643f">
+          <AttributeID>Comment</AttributeID>
+          <Name>Comment</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="1b5420d4-8e2e-4b46-b90c-c97197bd44c8">
+      <ID>Asset Name</ID>
+      <Name>Asset Name</Name>
+      <EstimatedCount>10</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="86b50d12-39d9-4fec-838f-da2dcae87794">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="562e39f3-9869-4a45-9317-452a04964237">
+            <TableID>dbo_T_Asset</TableID>
+            <ColumnID>AssetName</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="f19fbf9f-07ec-4031-b66b-55e0c1f14727">
+      <ID>Comment</ID>
+      <Name>Comment</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="42656ca5-783c-46eb-985a-ddfb4f42e87a">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="04e9265b-0720-4ae7-89fd-46a4f412479c">
+            <TableID>dbo_T_Asset</TableID>
+            <ColumnID>AssetID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <ValueColumn dwd:design-time-name="db73e813-ee92-4038-b7c1-cc7c3fa6f311">
+        <DataType>Binary</DataType>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="3b573e0e-e927-4359-a052-e9be02c00330">
+          <TableID>dbo_T_Asset</TableID>
+          <ColumnID>Comment</ColumnID>
+        </Source>
+      </ValueColumn>
+    </Attribute>
+  </Attributes>
+  <Hierarchies>
+    <Hierarchy dwd:design-time-name="d7801c96-536a-44e6-9106-49801b15b4fb">
+      <ID>Under Lying ID - T AUEC</ID>
+      <Name>Under Lying ID - T AUEC</Name>
+      <Levels>
+        <Level dwd:design-time-name="4dbd911e-298b-441c-8853-f88be889a347">
+          <ID>Under Lying ID</ID>
+          <Name>Under Lying ID</Name>
+          <SourceAttributeID>Under Lying ID</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="c5d5dea7-b67e-4ba8-b9d1-9cdc24f750a7">
+          <ID>T AUEC</ID>
+          <Name>T AUEC</Name>
+          <SourceAttributeID>T AUEC</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="dae3d891-b495-4329-bd1a-fcf3f29b6a08">
+          <ID>T SM Data</ID>
+          <Name>T SM Data</Name>
+          <SourceAttributeID>T SM Data</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+    <Hierarchy dwd:design-time-name="cc9e581f-c836-492f-9058-5c5b99462d46">
+      <ID>T Asset - T AUEC</ID>
+      <Name>T Asset - T AUEC</Name>
+      <Levels>
+        <Level dwd:design-time-name="21046ecc-566a-49d5-92eb-4e1223004b49">
+          <ID>T Asset</ID>
+          <Name>T Asset</Name>
+          <SourceAttributeID>T Asset</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="f58af6f8-e134-4ac2-81bd-7fb42c43af9e">
+          <ID>T AUEC</ID>
+          <Name>T AUEC</Name>
+          <SourceAttributeID>T AUEC</SourceAttributeID>
+        </Level>
+        <Level dwd:design-time-name="832e7dcc-89be-4b8f-9780-62d01461dfb2">
+          <ID>T SM Data</ID>
+          <Name>T SM Data</Name>
+          <SourceAttributeID>T SM Data</SourceAttributeID>
+        </Level>
+      </Levels>
+    </Hierarchy>
+  </Hierarchies>
+</Dimension>

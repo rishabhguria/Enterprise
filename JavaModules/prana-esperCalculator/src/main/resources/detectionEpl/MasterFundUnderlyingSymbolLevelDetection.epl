@@ -1,0 +1,42 @@
+module detectionEpl.MasterFundUnderlyingSymbolLevelDetection;
+
+
+@Name('MasterFundUnderlyingSymbolSummation')
+@Description('This statement validates fund compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency*2 sec)]
+insert into MasterFundUnderlyingSymbolSummation
+select
+	sum(coalesce(F.longMarketValueBase, 0)) as longMarketValueBase,
+	F.underlyingSymbol as underlyingSymbol,
+	F.masterFundId as masterFundId
+from MasterFundSymbolWithNav as F
+group by F.masterFundId,F.underlyingSymbol;
+
+
+@Name('MasterFundUnderlyingSymbolLevelDetection')
+@Description('This statement validates fund compliance level with margin 1%')
+on pattern[every D = MasterFundUnderlyingSymbolSummation]
+insert into MasterFundUnderlyingSymbolLevelDetection
+select distinct
+	'longMarketValueBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'MasterFund-UnderlyingSymbol' as compressionLevel,
+	G.masterFundName as masterFundName,
+	G.underlyingSymbol as underlyingSymbol, 	
+	D.longMarketValueBase as actualLongMarketValueBase,
+	G.longMarketValueBase as masterFundUnderlyingSymbolLongMarketValueBase,
+	D.longMarketValueBase - G.longMarketValueBase as difference, 
+	case 
+		when 
+			Math.abs(D.longMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.longMarketValueBase) 
+			or Math.abs(D.longMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.longMarketValueBase)
+			then true
+		else false
+	end as detectionResult 
+from MasterFundUnderlyingSymbolWithNav as G
+where G.masterFundId = D.masterFundId and G.underlyingSymbol = D.underlyingSymbol
+having
+(
+	Math.abs(D.longMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.longMarketValueBase) 
+	or Math.abs(D.longMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.longMarketValueBase)
+);

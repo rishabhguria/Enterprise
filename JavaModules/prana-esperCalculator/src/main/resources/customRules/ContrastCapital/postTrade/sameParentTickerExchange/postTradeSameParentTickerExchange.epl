@@ -1,0 +1,52 @@
+module customRules.ContrastCapital.postTrade.sameParentTickerExchange.postTradeSameParentTickerExchange;
+
+@Name('ParentTickerExchangePost')
+@Description('The values of Empty ultimate list and account nav')
+on DivisorEndMessage as B
+insert into ParentTickerExchangePost
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+    W.customUDA5 as parentTickerExchange,
+    sum(case when (valueExistsInCSV(W.customUDA5, List_ParentTickerExchange_post) is false  and 
+    valueExistsInCSV(W.udaAsset, Asset_ParentTickerExchange_post) is false and
+    valueExistsInCSV(W.accountShortName, Account_ParentTickerExchange_post) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalNetMarketValueBase,
+	(case (valueExistsInCSV(W.customUDA5, List_ParentTickerExchange_post) is false  and 
+    valueExistsInCSV(W.udaAsset, Asset_ParentTickerExchange_post) is false and
+    valueExistsInCSV(W.accountShortName, Account_ParentTickerExchange_post) is true)
+	 when true then true
+	else false end) as validation,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W 
+group by W.accountId,W.customUDA5 ;
+
+@Name('PostTradeParentTickerExchange')
+@Description('Final stream to check condition is breached')
+insert into PostTradeParentTickerExchange
+select distinct
+	A.userId as userId,
+	A.taxlotId as taxlotId,
+  	Account_ParentTickerExchange_post || ValueSeparator || doubleFormat(Percentage_ParentTickerExchange_post) as threshold,
+	A.accountShortName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0))) as actualResult,
+    'Account '|| ValueSeparator || '% Account Nav'  as constraintField,
+	(case A.validation is true
+	when true then 
+		(Math.abs(coalesce(A.totalNetMarketValueBase/ A.accountNav, 0)) > (Percentage_ParentTickerExchange_post/ 100))
+	else 
+		false end) as isViolated,
+   'Account: ' || A.accountShortName 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalNetMarketValueBase / A.accountNav)*100,0)))
+		|| ', Net Market Value: '  || doubleFormat(A.totalNetMarketValueBase)
+		|| ', Parent Ticker Exchange: ' || A.parentTickerExchange as parameters,
+    current_timestamp as validationTime,
+	'Max '||doubleFormat(Percentage_ParentTickerExchange_post)|| '% same parent ticker exchange exceeded' as summary,
+	A.accountShortName|| ValueSeparator || A.parentTickerExchange as dimension
+from ParentTickerExchangePost as A
+where A.userId is not null;
+
+

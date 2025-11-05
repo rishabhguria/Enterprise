@@ -1,0 +1,76 @@
+module eplModules.postAggregation.account.AggregationAccountIntermediate;
+
+uses eplModules.postAggregation.accountUnderlyingSymbol.AccountUnderlyingSymbolUpsert;
+uses eplModules.postAggregation.account.AggregationAccountWindow;
+uses eplModules.postAggregation.accountUnderlyingSymbol.AccountUnderlyingSymbolWindow;
+
+@Name('AccountWithNavIntermediate')
+@Description('Insert data into AccountWithNavIntermediate whenever AccountUnderlyingSymbolUpdated in encountered.')
+on pattern [every (T = AccountUnderlyingSymbolUpdated)]
+insert into AccountWithNavIntermediate
+select distinct
+	T.modifiedBy as modifiedBy,	
+	'Post' as taxlotType,
+	'Account' as compressionLevel,	
+	T.accountId as accountId,
+	F.accountShortName as accountShortName,
+	F.accountLongName as accountLongName,		
+	F.masterFundId as masterFundId,
+	F.masterFundName as masterFundName,		
+	sum(coalesce(F.equityHaircutBase,0)) as equityHaircutBase,
+	sum(coalesce(F.indexHaircutBase,0)) as indexHaircutBase,	
+	sum(coalesce(F.liquidationPnlBase,0)) as liquidationPnlBase,	
+	sum(coalesce(F.notionalBase,0)) as notionalBase,
+	sum(coalesce(F.cashImpactBase,0)) as cashImpactBase,
+	sum(coalesce(F.cashInflowBase,0)) as cashInflowBase,
+	sum(coalesce(F.cashOutflowBase,0)) as cashOutflowBase,
+	sum(coalesce(F.netMarketValueBase,0)) as netMarketValueBase,
+	sum(coalesce(F.yesterdayMarketValueBase,0)) as yesterdayMarketValueBase,
+	sum(coalesce(F.costBasisPnLBase,0)) as costBasisPnLBase,
+	sum(coalesce(F.dayPnLBase,0)) as dayPnLBase,
+	sum(coalesce(F.grossExposureUnderlying,0)) as grossExposureUnderlying,
+	sum(coalesce(F.betaAdjustedExposureBase,0)) as betaAdjustedExposureBase,
+	sum(coalesce(F.underlyingValueForOptionsBase,0)) as underlyingValueForOptionsBase,	
+	sum(coalesce(F.longNotionalBase,0)) as longNotionalBase,
+	sum(coalesce(F.shortNotionalBase,0)) as shortNotionalBase,
+	sum(coalesce(F.shortMarketValueBase,0)) as shortMarketValueBase,
+	sum(coalesce(F.longMarketValueBase,0)) as longMarketValueBase,
+	sum(coalesce(F.shortExposureBase,0)) as shortExposureBase,
+	sum(coalesce(F.longExposureBase,0)) as longExposureBase,	
+	sum(coalesce(F.dayInterestBase,0)) as dayInterestBase,
+	sum(coalesce(F.totalInterestBase,0)) as totalInterestBase,	
+	sum(F.shortExposureUnderlying) as shortExposureUnderlying,
+	sum(F.longExposureUnderlying) as longExposureUnderlying,	
+	F.globalNav as globalNav,
+	F.startOfDayNavGlobal as startOfDayNavGlobal,
+	F.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	F.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	F.netExposureBaseGlobal as netExposureBaseGlobal,	
+	F.accountNav as accountNav,	
+	F.accountNRA as accountNRA,
+	F.startOfDayNavAccount as startOfDayNavAccount,
+	F.grossMarketValueBaseAccount as grossMarketValueBase,
+	F.grossExposureBaseAccount as grossExposureBase,
+	F.netExposureBaseAccount as netExposureBase,
+	F.currentCash as currentCash,
+	F.accrual as accrual,	
+	F.masterFundNav as masterFundNav,
+	F.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	F.grossMarketValueBaseMasterFund as grossMarketValueBaseMasterFund,
+	F.grossExposureBaseMasterFund as grossExposureBaseMasterFund,
+	F.netExposureBaseMasterFund as netExposureBaseMasterFund,	
+	sum(coalesce(F.todayAbsTradeQuantity,0)) as todayAbsTradeQuantity,
+	sum(coalesce(F.todayLongTradeQuantity,0)) as todayLongTradeQuantity,
+	sum(coalesce(F.todayShortTradeQuantity,0)) as todayShortTradeQuantity,
+	sum(coalesce(F.todayNetNotionalBase,0)) as todayNetNotionalBase,
+	sum(coalesce(F.todayLongNotionalBase,0)) as todayLongNotionalBase,
+	sum(coalesce(F.todayShortNotionalBase,0)) as todayShortNotionalBase,
+	sum(coalesce(F.longDebitBalance,0)) as longDebitBalance,
+	sum(coalesce(F.shortCreditBalance,0)) as shortCreditBalance,	
+	sum(coalesce(F.betaAdjustedGrossExposureUnderlyingBase,0)) as betaAdjustedGrossExposureUnderlyingBase,
+	sum(coalesce(F.betaAdjustedLongExposureUnderlyingBase,0)) as betaAdjustedLongExposureUnderlyingBase,
+	sum(coalesce(F.betaAdjustedShortExposureUnderlyingBase,0)) as betaAdjustedShortExposureUnderlyingBase,
+	"AccountUnderlyingSymbolWithNav,AccountUnderlyingSymbolUpdated" as parentWindowStream	
+from
+	AccountUnderlyingSymbolWithNav as F 
+where T.accountId = F.accountId;

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<CounterParties>
+
+	<CounterParty ID = "1" Name = "MS">
+		<Strategies>
+
+			<AlgoStrategy ID = "1" Name  = "Instinct">
+				<Parameters>
+					<Parameter ID = "9804" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames =" " InnerControlValues=" " XPos = "23" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9805,9829" Name = "EndTimeandDuration" Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""   XPos = "5" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9806,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues="" XPos = "5" YPos="120" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9807" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""   XPos = "292" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9808,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues="" XPos = "292" YPos="100" Type="PranaUC">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "2" Name  = "TVOL">
+				<Parameters>
+					<Parameter ID = "9800" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues="" XPos = "23" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9801,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues="" XPos = "5" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9802" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""   XPos = "292" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9803,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues="" XPos = "292" YPos="100" Type="PranaUC">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+
+
+			<AlgoStrategy ID = "3" Name  = "MarketCall">
+				<Parameters>
+					<Parameter ID = "9809" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9810,9829" Name = "EndTimeandDuration" Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues="" XPos = "5" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9811,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="120" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9812" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9813" Name = "ExecutionMode" Display = "UCExecutionMode" ControlType="Prana.AlgoStrategyControls.UCExecutionMode" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9814,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="150" Type="PranaUC">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+		</Strategies>
+	</CounterParty>
+	<CounterParty ID = "2" Name = "GS">
+		<Strategies>
+			<AlgoStrategy ID = "1" Name  = "VWAP">
+				<Parameters>
+					<Parameter ID = "9815" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "1" YPos="1" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9818" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "2" YPos="1" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9816,9829" Name = "EndTimeandDuration"  Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""  XPos = "1" YPos="2" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9817,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "1" YPos="3" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9819,9821,9822" Name = "OnCloseandType" Display = "UCOnCloseandType" ControlType="Prana.AlgoStrategyControls.UCOnCloseandType" InnerControlNames ="" InnerControlValues=""  XPos = "2" YPos="3" Type="PranaUC">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "2" Name  = "TVOL">
+				<Parameters>
+					<Parameter ID = "9820" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9821,9826" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9822" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9823,9827,9828" Name = "OnCloseandType" Display = "UCOnCloseandType" ControlType="Prana.AlgoStrategyControls.UCOnCloseandType" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="100" Type="PranaUC">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "3" Name  = "MarketCall">
+				<Parameters>
+					<Parameter ID = "9824" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9825,9829" Name = "EndTimeandDuration" Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9826,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="120" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9827" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="15" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9828" Name = "ExecutionMode" Display = "UCExecutionMode" ControlType="Prana.AlgoStrategyControls.UCExecutionMode" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="55" Type="PranaUC">
+					</Parameter>
+					<Parameter ID = "9829,9821,9822" Name = "OnCloseandType" Display = "UCOnCloseandType" ControlType="Prana.AlgoStrategyControls.UCOnCloseandType" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="150" Type="PranaUC">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+		</Strategies>
+	</CounterParty>
+	<CounterParty ID = "3" Name = "BOFA">
+		<Strategies>
+			<AlgoStrategy ID = "1" Name  = "VWAP">
+				<Parameters>
+					<Parameter ID = "9795" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9796,9829" Name = "EndTimeandDuration"  Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="50" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9797,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="135" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9798" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="50" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9799,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="100" Type="PranaUC">
+						</Parameter>
+					</Parameters>
+				</AlgoStrategy>
+
+				<AlgoStrategy ID = "2" Name  = "TVOL">
+					<Parameters>
+						<Parameter ID = "9800" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9801,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues="" XPos = "5" YPos="55" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9802" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="55" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9803,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="100" Type="PranaUC">
+						</Parameter>
+					</Parameters>
+				</AlgoStrategy>
+
+				<AlgoStrategy ID = "3" Name  = "Instinct">
+					<Parameters>
+						<Parameter ID = "9804" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9805,9829" Name = "EndTimeandDuration" Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="55" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9806,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="120" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9807" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="55" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9808,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="100" Type="PranaUC">
+						</Parameter>
+					</Parameters>
+				</AlgoStrategy>
+
+				<AlgoStrategy ID = "4" Name  = "MarketCall">
+					<Parameters>
+						<Parameter ID = "9809" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9810,9829" Name = "EndTimeandDuration" Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="55" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9811,9820" Name = "OnOpen" Display = "UCOnOpen" ControlType="Prana.AlgoStrategyControls.UCOnOpen" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="120" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9812" Name = "ParticipationRate" Display = "UCParticipationRate" ControlType="Prana.AlgoStrategyControls.UCParticipationRate" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="15" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9813" Name = "ExecutionMode" Display = "UCExecutionMode" ControlType="Prana.AlgoStrategyControls.UCExecutionMode" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="55" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9814,9821" Name = "OnClose" Display = "UCOnClose" ControlType="Prana.AlgoStrategyControls.UCOnClose" InnerControlNames ="" InnerControlValues=""  XPos = "292" YPos="150" Type="PranaUC">
+						</Parameter>
+					</Parameters>
+				</AlgoStrategy>
+
+				<AlgoStrategy ID = "5" Name  = "VWAPNew">
+					<Parameters>
+						<Parameter ID = "9795" Name = "StartTime" Display = "UCStartTime" ControlType="Prana.AlgoStrategyControls.UCStartTime" InnerControlNames ="" InnerControlValues=""  XPos = "23" YPos="15" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9796,9829" Name = "EndTimeandDuration"  Display = "UCEndTimeandDuration" ControlType="Prana.AlgoStrategyControls.UCEndTimeandDuration" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="50" Type="PranaUC">
+						</Parameter>
+						<Parameter ID = "9797" Name = "Execution Mode" Display = "Execution Mode" ControlType="System.Windows.Forms.RadioButton" InnerControlNames ="Passive,Aggresive,Neutral" InnerControlValues="P,A,N"  XPos = "5" YPos="135" Type="Generic">
+						</Parameter>
+						<Parameter ID = "9798" Name = "Text Box Test" Display = "Text Box Test" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues="" XPos = "5" YPos="135" Type="Generic">
+						</Parameter>
+						<Parameter ID = "9710" Name = "Combo Box Test" Display = "Combo Box Test" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="" InnerControlValues="FirstItem,SecondItem,ThirdItem" XPos = "5" YPos="135" Type="Generic">
+						</Parameter>
+						<Parameter ID = "9711" Name = "CheckBoxCondition" Display = "Check Box Test" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="" InnerControlValues="Checked_Value" XPos = "5" YPos="135" Type="Generic">
+						</Parameter>
+					</Parameters>
+				</AlgoStrategy>
+			</Strategies>
+    </CounterParty>
+
+	
+
+
+</CounterParties>

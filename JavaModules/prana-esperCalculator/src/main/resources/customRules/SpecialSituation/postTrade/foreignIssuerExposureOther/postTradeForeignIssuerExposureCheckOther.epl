@@ -1,0 +1,55 @@
+module customRules.specialSituations.postTrade.foreignIssuerExposureOther.postTradeForeignIssuerExposureCheckOther;
+
+@Name('ForeignIssuerExposureOthAccountAggregator')
+@Description('ForeignIssuerExposureOthAccountAggregator')
+on DivisorEndMessage as B
+insert into ForeignIssuerExposureOthAccountAggregator
+select distinct
+	W.accountId as accountId,
+	sum(case (valueExistsInCSV(W.accountShortName, Account_Name_To_Monitor_Other) and valueExistsInCSV(W.countryOfRisk, Self_Currency1_Other) is false)
+	when true then
+		(case Variable5_Other is 'Net Exposure' when true then W.netExposureBase else W.netMarketValueBase end)
+	else
+		0.0 end) as calculationField,
+	(case (valueExistsInCSV(W.accountShortName, Account_Name_To_Monitor_Other) and valueExistsInCSV(W.countryOfRisk, Self_Currency1_Other) is false)
+	when true then concatValues(W.accountId, 'ForeignIssuerPost', W.issuer)
+	else concatValues(W.accountId, 'ForeignIssuerPost', '') end) as issuer,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W
+group by W.accountId;
+
+@Name('PostTradeForeignIssuerExposureCheckOtherAccount')
+@Description('Restriction on having total Assets in the securities of foreign issuers')
+insert into PostTradeForeignIssuerExposureCheckOtherAccount
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Exposure_Percentage_To_Monitor1_Other) as threshold,
+	doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as actualResult,
+	'Investment limit' as constraintField,
+	(case valueExistsInCSV(A.accountShortName, Account_Name_To_Monitor_Other)
+	when true then
+		(Math.abs(coalesce(A.calculationField/ A.accountNav, 0)) > (Exposure_Percentage_To_Monitor1_Other/100))
+	else
+		false end ) as isViolated,
+	'Account: ' || A.accountShortName || ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+	|| (case Variable5_Other is 'Net Exposure' when true then ', Net Exposure: ' else ', Net Market Value: ' end) || doubleFormat(A.calculationField)
+	|| ', % Investment: ' || doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) || ', Foreign Issuer(s): ' || getConcatValues(A.accountId, 'ForeignIssuerPost') as parameters,
+	current_timestamp as validationTime,
+	'Exposure to foreign issuers cannot be more than ' || doubleFormat(Exposure_Percentage_To_Monitor1_Other) ||'% of its total assets in ' || Account_Name_To_Monitor_Other as summary,
+	A.accountShortName as dimension
+from
+ForeignIssuerExposureOthAccountAggregator as A;
+
+@Name('ForeignIssuerCheckResetEventOtherAccounts')
+@Description('ForeignIssuerCheckResetEventOtherAccounts resets the issuers.')
+on PostTradeForeignIssuerExposureCheckOtherAccount as B
+insert into ForeignIssuerCheckResetEventOtherAccounts
+select distinct
+	W.accountId as accountId,
+	resetConcatValues(W.accountId, 'ForeignIssuerPost') as resetVal
+from AccountSymbolWithNav as W
+where valueExistsInCSV(W.accountShortName, Account_Name_To_Monitor_Other) is true
+group by W.accountId;

@@ -1,0 +1,114 @@
+module eplModules.whatIfAggregation.whatIfCommon.WhatIfUpdateOnEOM;
+
+uses eplModules.whatIfAggregation.whatIfCommon.WhatIfEndMessage;
+uses eplModules.whatIfAggregation.asset.WhatIfAssetWindowWithNav;
+uses  eplModules.whatIfAggregation.global.WhatIfGlobalWindowWithNav;
+uses eplModules.whatIfAggregation.symbol.WhatIfSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.underlyingSymbol.WhatIfUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.sector.WhatIfSectorWindowWithNav;
+uses eplModules.whatIfAggregation.accountSymbol.WhatIfAccountSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.masterFundUnderlyingSymbol.WhatIfMasterFundUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.masterFundSymbol.WhatIfMasterFundSymbolWithNav;
+uses eplModules.whatIfAggregation.masterFund.WhatIfMasterFundWindowWithNav;
+uses eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.account.WhatIfAccountWindowWithNav;
+uses eplModules.whatIfAggregation.subSector.WhatIfSubSectorWindowWithNav;
+
+@Priority(10)
+@Name('WhatIfSymbolEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfSymbolWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfUnderlyingSymbolEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfUnderlyingSymbolWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfAccountSymbolEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfAccountSymbolWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfAccountUnderlyingSymbolEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfAccountUnderlyingSymbolWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfMasterFundSymbolEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfMasterFundSymbolWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfMasterFundUnderlyingSymbolEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfMasterFundUnderlyingSymbolWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfMasterFundEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfMasterFundWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfAccountEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfAccountWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfGlobalEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfGlobalWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfSectorEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfSectorWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfSubSectorEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfSubSectorWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+@Priority(10)
+@Name('WhatIfAssetEomUpdate')
+@Description('To register the event of EOM being sent.')
+on WhatIfFinalEndMessage as D
+merge WhatIfAssetWithNav as W where W.basketId = D.basketId
+when matched then update
+set isEomSent = true ;
+
+
+

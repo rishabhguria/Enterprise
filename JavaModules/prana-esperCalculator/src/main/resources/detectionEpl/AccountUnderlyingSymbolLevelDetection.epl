@@ -1,0 +1,42 @@
+module detectionEpl.AccountUnderlyingSymbolLevelDetection;
+
+
+@Name('AccountUnderlyingSymbolSummation')
+@Description('This statement validates Account compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency*2 sec)]
+insert into AccountUnderlyingSymbolSummation
+select
+	sum(coalesce(F.netMarketValueBase, 0)) as netMarketValueBase,
+	F.underlyingSymbol as underlyingSymbol,
+	F.accountId as accountId
+from AccountSymbolWithNav as F
+group by F.accountId,F.underlyingSymbol;
+
+
+@Name('AccountUnderlyingSymbolLevelDetection')
+@Description('This statement validates Account compliance level with margin 1%')
+on pattern[every D = AccountUnderlyingSymbolSummation]
+insert into AccountUnderlyingSymbolLevelDetection
+select distinct
+	'netMarketValueBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'Account-UnderlyingSymbol' as compressionLevel,
+	G.accountShortName as accountShortName,
+	G.underlyingSymbol as underlyingSymbol, 	
+	D.netMarketValueBase as actualnetMarketValueBase,
+	G.netMarketValueBase as accountUnderlyingSymbolNetMarketValueBase,
+	D.netMarketValueBase - G.netMarketValueBase as difference, 
+	case 
+		when 
+			Math.abs(D.netMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.netMarketValueBase) 
+			or Math.abs(D.netMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.netMarketValueBase)
+			then true
+		else false
+	end as detectionResult 
+from AccountUnderlyingSymbolWithNav as G
+where G.accountId = D.accountId and G.underlyingSymbol = D.underlyingSymbol
+having
+(
+	Math.abs(D.netMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.netMarketValueBase) 
+	or Math.abs(D.netMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.netMarketValueBase)
+);

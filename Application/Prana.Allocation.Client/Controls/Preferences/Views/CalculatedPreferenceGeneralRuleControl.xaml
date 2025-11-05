@@ -1,0 +1,318 @@
+﻿<UserControl xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             x:Class="Prana.Allocation.Client.Controls.Preferences.Views.CalculatedPreferenceGeneralRuleControl"
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Preferences.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:ig="http://schemas.infragistics.com/xaml"
+             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             xmlns:behavioursProxy="clr-namespace:Prana.Allocation.Client.Controls.Preferences.Behaviours"
+             xmlns:bindingProxy="clr-namespace:Prana.Allocation.Client"
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Constants"
+             mc:Ignorable="d"
+             DataContext="{DynamicResource CalculatedPreferenceGeneralRuleControlViewModel}"
+             xmlns:Converters="clr-namespace:Prana.Allocation.Client.ValueConvertor" xmlns:commonBehaviours="clr-namespace:Prana.Allocation.Client.Behaviours" xmlns:igExcelExporter="http://infragistics.com/ExcelExporter"
+             d:DesignHeight="300" d:DesignWidth="300"             
+             Background="{DynamicResource UserControlBackGround}"
+             md:DialogServiceViews.IsRegistered="True" IsEnabled="{Binding Path=IsPrefGeneralRuleControlEnabled}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <igExcelExporter:DataPresenterExcelExporter x:Key="Exporter"/>
+            <viewModels:CalculatedPreferenceGeneralRuleControlViewModel x:Key="CalculatedPreferenceGeneralRuleControlViewModel"/>
+            <Converters:EnumToEnumerationValueConverter x:Key="EnumToEnumerationValueConverter"/>
+            <Converters:DictionaryToListConverter x:Key="DictionaryToListConverter"/>
+            <Converters:KeyValuePairToIntConverter x:Key="KeyValuePairToIntConverter"/>
+            <Converters:TextToListConverter x:Key="TextToListConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+        <Grid>
+        <igWPF:XamDataGrid Name="GeneralRuleDataGrid" GroupByAreaLocation="None" DataSource="{Binding Path=CheckListWisePreferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ScrollingMode="Immediate" HorizontalAlignment="Stretch" SelectedDataItemsScope="RecordsOnly" CellContainerGenerationMode="Recycle" RecordContainerGenerationMode="Recycle" RecordSelectorExtent="30" Background="{DynamicResource XamDataGridBackground}">
+            <i:Interaction.Behaviors>
+                <behavioursProxy:GeneralRuleXamDatGridBehavior IsDisableCell="{Binding Path=IsDisableCell, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <commonBehaviours:XamDataGridExporter ExportFilePath="{Binding ExportFilePathForAutomation}" ExportGridData="{Binding Path=ExportGrid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ExporterResource="{Binding Mode=OneWay, Source={StaticResource Exporter}}"/>
+            </i:Interaction.Behaviors>
+                <igWPF:XamDataGrid.Resources>
+                    <bindingProxy:BindingProxy x:Key="proxy" Data="{Binding}" />
+                    <behavioursProxy:GeneralPreferencesComboBehavior x:Key="behavioursProxy"/>
+                    <ContextMenu x:Key="RecordContextMenu">
+                        <MenuItem Header="Add" 
+                                           Command="{Binding Data.AddCheckListWisePreference, Source={StaticResource proxy}}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}},Path=PlacementTarget}"/>
+                        <MenuItem Header="Remove" 
+                                            Command="{Binding Data.RemoveCheckListWisePreference, Source={StaticResource proxy}}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}},Path=PlacementTarget.Record}"/>
+                    </ContextMenu>
+                    <ContextMenu x:Key="XamGridContextMenu">
+                        <MenuItem Header="Add" 
+                                           Command="{Binding Data.AddCheckListWisePreference, Source={StaticResource proxy}}"
+                                           CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}},Path=PlacementTarget}"/>
+                    </ContextMenu>
+                    <Style TargetType="{x:Type igWPF:DataRecordCellArea}">
+                        <Setter Property="ContextMenu" Value="{DynamicResource RecordContextMenu}"></Setter>
+                    </Style>
+                    <Style TargetType="{x:Type igWPF:XamDataGrid}">
+                        <Setter Property="ContextMenu" Value="{DynamicResource XamGridContextMenu}"></Setter>
+                    </Style>
+                    <Style TargetType="{x:Type ig:XamComboEditor}">
+                        <Setter Property="EmptyText" Value="Select"/>
+                        <Setter Property="CustomValueEnteredAction" Value="Allow"/>
+                    </Style>
+                </igWPF:XamDataGrid.Resources>
+                <igWPF:XamDataGrid.FieldLayoutSettings>
+                    <igWPF:FieldLayoutSettings AutoGenerateFields="False" AllowAddNew="False" AllowDelete="False"/>
+                </igWPF:XamDataGrid.FieldLayoutSettings>
+                <igWPF:XamDataGrid.FieldSettings>
+                    <igWPF:FieldSettings CellClickAction="SelectRecord"></igWPF:FieldSettings>
+                </igWPF:XamDataGrid.FieldSettings>
+                <igWPF:XamDataGrid.FieldLayouts>
+                    <igWPF:FieldLayout>
+                        <igWPF:Field Name="ExchangeOperator"  Label="Exchange Selector">
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="False" 
+                                                                               ItemsSource="{Binding Data.ExchangeOperator, Source={StaticResource proxy}}" 
+                                                                               SelectedItem="{Binding DataItem.ExchangeOperator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource EnumToEnumerationValueConverter}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralRuleXamComboEditorBehavior
+                                                                       IsEnabledCell="{Binding Path=DataContext.IsDisableCell, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:Field BindingType="Unbound" Name="ExchangeList" Label="Exchange List" IsEnabled="False" >
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                                                               ItemsSource="{Binding Data.ExchangeList, Source={StaticResource proxy}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralPreferencesComboBehavior x:Name="ExchangeComboEditorBehavior" 
+                                                                                                                      SelectedItems ="{Binding DataItem.ExchangeList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, 
+                                                                                                                      Converter={StaticResource DictionaryToListConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.EXCHANGE_LIST}}"/>
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:Field Name="AssetOperator" Label="Asset Selector">
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="False" 
+                                                                           ItemsSource="{Binding Data.AssetOperator, Source={StaticResource proxy}}"
+                                                                           SelectedItem="{Binding DataItem.AssetOperator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource EnumToEnumerationValueConverter}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralRuleXamComboEditorBehavior
+                                                                       IsEnabledCell="{Binding Path=DataContext.IsDisableCell, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:Field BindingType="Unbound" Name="AssetList" Label="Asset List" IsEnabled="False">
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" DisplayMemberPath="Value" SelectedValuePath="Key" 
+                                                                               ItemsSource="{Binding Data.AssetList, Source={StaticResource proxy}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralPreferencesComboBehavior x:Name="AssetComboEditorBehavior" 
+                                                                                                                      SelectedItems ="{Binding DataItem.AssetList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, 
+                                                                                                                      Converter={StaticResource DictionaryToListConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.ASSET_LIST}}"/>
+
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:Field Name="PROperator" Label="PR Selector">
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="False" 
+                                                                           ItemsSource="{Binding Data.PrOperator, Source={StaticResource proxy}}"
+                                                                           SelectedItem="{Binding DataItem.PROperator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource EnumToEnumerationValueConverter}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralRuleXamComboEditorBehavior
+                                                                       IsEnabledCell="{Binding Path=DataContext.IsDisableCell, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:TextField Name="PRList" Label="PR List" Visibility="Visible" Converter="{StaticResource TextToListConverter}" IsEnabled="False"/>
+                        <igWPF:Field Name="OrderSideOperator"  Label="Order Side Selector">
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="False" 
+                                                                               ItemsSource="{Binding Data.OrderSideOperator, Source={StaticResource proxy}}" 
+                                                                               SelectedItem="{Binding DataItem.OrderSideOperator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource EnumToEnumerationValueConverter}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralRuleXamComboEditorBehavior
+                                                                       IsEnabledCell="{Binding Path=DataContext.IsDisableCell, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:Field BindingType="Unbound" Name="OrderSideList" Label="Order Side List" IsEnabled="False" >
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <ig:XamComboEditor IsEditable="False" AllowMultipleSelection="True" CheckBoxVisibility="Visible" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                                                               ItemsSource="{Binding Data.OrderSideList, Source={StaticResource proxy}}">
+                                                                <i:Interaction.Behaviors>
+                                                                    <behavioursProxy:GeneralPreferencesComboBehavior x:Name="OrderSideComboEditorBehavior" 
+                                                                                                                      SelectedItems ="{Binding DataItem.OrderSideList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True, 
+                                                                                                                      Converter={StaticResource DictionaryToListConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.ORDER_SIDE_LIST}}"/>
+                                                                </i:Interaction.Behaviors>
+                                                            </ig:XamComboEditor>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                        <igWPF:Field BindingType="Unbound" Name="UpdatePreference" Label="Update Preference">
+                            <igWPF:Field.Settings>
+                                <igWPF:FieldSettings>
+                                    <igWPF:FieldSettings.CellValuePresenterStyle>
+                                        <Style TargetType="{x:Type igWPF:CellValuePresenter}">
+                                            <Style.Setters>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Button Content="Update">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="Click">
+                                                                    <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDataGrid}}, Path=DataContext.UpdateGeneralRulePreference }" 
+                                                                                                   CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type igWPF:XamDataGrid}},Path=ActiveDataItem}"/>
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </Button>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style.Setters>
+                                        </Style>
+                                    </igWPF:FieldSettings.CellValuePresenterStyle>
+                                </igWPF:FieldSettings>
+                            </igWPF:Field.Settings>
+                        </igWPF:Field>
+                </igWPF:FieldLayout>
+                </igWPF:XamDataGrid.FieldLayouts>
+            </igWPF:XamDataGrid>
+    </Grid>
+</UserControl>

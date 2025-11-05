@@ -1,0 +1,49 @@
+module customRules.matarin.preTrade.securitiesWithinRange.securitiesWithinRange;
+
+/* Constant Variable region starts here*/
+/*
+create constant variable double MINIMUM_MARKET_CAP= 65813405;
+create constant variable double MAXUMUM_MARKET_CAP = 4632737111;
+*/
+
+
+@Name('SecuritiesWithinRangeMatarinWhatIfAggregator')
+@Description('Picking up the market value of the what if trades that have capitalization within the said range')
+on BasketEOM as B
+insert into SecuritiesWithinRangeMatarinWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	sum(case W.marketCapitalization >= MINIMUM_MARKET_CAP_GLOBAL AND
+			W.marketCapitalization <= MAXUMUM_MARKET_CAP_GLOBAL
+		when true then coalesce(W.netMarketValueBase,0)
+		else 0.0
+		end) as netMarketValueBase,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId;
+
+
+@Name('SecuritiesWithinRangeMatarin')
+@Description('Checks if specified limits are within the range.')
+insert into SecuritiesWithinRangeMatarin
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	'80'  as threshold,
+	doubleFormat(coalesce((100*A.netMarketValueBase / A.accountNav),0)) as actualResult,
+	'SecuritiesWithinRange' as constraintField,
+	(A.netMarketValueBase / A.accountNav) <= 0.8 as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', net market value in range: ' || doubleFormat(A.netMarketValueBase)
+		|| ', %age contribution: ' || doubleFormat(coalesce((100*A.netMarketValueBase / A.accountNav),0)) as parameters,
+	current_timestamp as validationTime,
+	'Less than 80% of the securities are within the specified range.' as summary,
+	A.accountShortName as dimension
+from
+SecuritiesWithinRangeMatarinWhatIfAggregator as A
+where A.userId is not null;

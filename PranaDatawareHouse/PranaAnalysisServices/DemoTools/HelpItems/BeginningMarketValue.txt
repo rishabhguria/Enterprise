@@ -1,0 +1,32 @@
+with member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+(null:[Dim Time].[Calender].CurrentMember)*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+member [BeginningMarketValue] as
+(
+
+sum(
+[PM Open Position Snap Shots].[Symbol].children,
+[SymbolLastQuantity]*([Measures].[Final Mark Price],[Dim Time].[Calender].CurrentMember)
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+)
+)
+select {
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.Parent.Parent.FirstChild.FirstChild.FirstChild),
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.Parent.FirstChild.FirstChild),
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430].Parent.FirstChild),
+([Dim Time].[Calender].[Year].&[2009].&[2].&[5].&[3430]) 
+
+
+
+} on rows,
+
+{BeginningMarketValue,SymbolLastQuantity} on columns
+from [Nirvana Client DW]

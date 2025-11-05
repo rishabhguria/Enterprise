@@ -1,0 +1,26 @@
+module eplModules.dataWindow.AccountNavPreferenceFeeder;
+
+@Name('AccountNavPreferenceWindow')
+@Description('Named window which stores the accountId and the corresponding isNavSaved status.')
+Create window AccountNavPreferenceWindow.std:unique(accountId)
+(
+	accountId int,
+	isNavSaved boolean,
+	parentWindowStream string
+);
+
+@Name('AccountNavPreferenceWindowInsert')
+@Description('This updates the AccountNavPreferenceWindow whenever new AccountNavPreference event occurs.')
+on AccountNavPreference as s
+merge AccountNavPreferenceWindow sw where s.accountId=sw.accountId
+when matched and s.isNavSaved <> sw.isNavSaved
+	then update
+	set
+		sw.isNavSaved = s.isNavSaved,
+		sw.parentWindowStream = "AccountNavPreference"		
+when not matched
+	then insert 
+	select 
+		s.isNavSaved as isNavSaved,
+		s.accountId as accountId,
+		"AccountNavPreference" as parentWindowStream;

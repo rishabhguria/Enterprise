@@ -1,0 +1,232 @@
+module eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolAggregator;
+
+
+uses eplModules.whatIfAggregation.accountSymbol.WhatIfAccountSymbolIntermediate;
+uses eplModules.whatIfAggregation.accountSymbol.WhatIfAccountSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.accountSymbol.WhatIfAccountSymbolMerge;
+uses eplModules.expressions.BaseExpression;
+uses eplModules.whatIfAggregation.whatIfCommon.WhatIfAggregationStart;
+
+@Priority(10)
+@Name('WhatIfAggregationAccountUnderlyingSymbolIntermediate')
+@Description('Insert data into WhatIfAggregationAccountUnderlyingSymbolIntermediate from WhatIfAccountSymbolWithNav whenever WhatIfAccountSymbolUpdated is updated.')
+on pattern [every (A=WhatIfAggregationStart(IsAccountCompressionEnabled = true or IsAccountUnderlyingSymbolCompressionEnabled = true) -> W=WhatIfAccountSymbolUpdated(A.basketId = W.basketId))]
+insert into WhatIfAggregationAccountUnderlyingSymbolIntermediate
+select distinct
+	
+	T.symbol as symbol,
+	T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	T.accountShortName as accountShortName,
+	T.accountLongName as accountLongName,
+	T.accountId as accountId,
+	T.masterFundId as masterFundId,
+	T.masterFundName as masterFundName,
+	T.underlyingAsset as underlyingAsset,
+	T.underlyingCountry as underlyingCountry,
+	'WhatIf' as taxlotType,
+	'Account-UnderlyingSymbol' as compressionLevel,
+	T.underlyingSymbol as underlyingSymbol,
+	T.underlyingSharesOutstanding as underlyingSharesOutstanding,
+	T.underlyingMarketCapitalization as underlyingMarketCapitalization,
+	
+	getUnderlyingDynamicUda(T.underlyingSymbol,"riskCurrency",T.riskCurrency) as riskCurrency,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"issuer",T.issuer) as issuer,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"countryOfRisk",T.countryOfRisk) as countryOfRisk,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"region",T.region) as region,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"analyst",T.analyst) as analyst,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"ucitsEligibleTag",T.ucitsEligibleTag) as ucitsEligibleTag,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"liquidTag",T.liquidTag) as liquidTag,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"marketCap",T.marketCap) as marketCap,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA1",T.customUDA1) as customUDA1,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA2",T.customUDA2) as customUDA2,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA3",T.customUDA3) as customUDA3,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA4",T.customUDA4) as customUDA4,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA5",T.customUDA5) as customUDA5,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA6",T.customUDA6) as customUDA6,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA7",T.customUDA7) as customUDA7,
+	
+	T.exchange as exchange,
+	T.udaCountry as udaCountry,
+		
+	sum(T.equityHaircutBase) as equityHaircutBase,
+	sum(T.indexHaircutBase) as indexHaircutBase,
+	sum(T.liquidationPnlBase) as liquidationPnlBase,
+	
+	
+	sum(T.notionalBase) as notionalBase,
+	sum(T.cashImpactBase) as cashImpactBase,
+	sum(T.cashInflowBase) as cashInflowBase,
+	sum(T.cashOutflowBase) as cashOutflowBase,
+	sum(T.netMarketValueBase) as netMarketValueBase,
+
+	sum(T.grossMarketValueBase) as grossMarketValueBase,
+	sum(T.costBasisPnLBase) as costBasisPnLBase,
+	sum(T.dayPnLBase) as dayPnLBase,
+	sum(T.netExposureBase) as netExposureBase,
+	sum(T.grossExposureBase) as grossExposureBase,
+	sum(T.betaAdjustedExposureBase) as betaAdjustedExposureBase,
+	sum(T.underlyingValueForOptionsBase) as underlyingValueForOptionsBase,
+	
+	sum(T.dayInterestBase) as dayInterestBase,
+	sum(T.totalInterestBase) as totalInterestBase,
+	sum(T.equivalent) as equivalent,
+	sum(coalesce(T.deltaAdjPosition,0)) as deltaAdjPosition,
+	
+	Math.abs(sum(T.netExposureBase)) as grossExposureUnderlying,
+	
+	exprUnderlyingExposurePositionSide(T) as underlyingExposurePositionSide,
+	
+	case exprUnderlyingExposurePositionSide(T)
+		when 'short' then T.netExposureBase
+		else 0.0 end as shortExposureUnderlying,
+	case exprUnderlyingExposurePositionSide(T)
+		when 'long' then T.netExposureBase
+		else 0.0 end as longExposureUnderlying,
+	
+	T.globalNav as globalNav,
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	T.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	T.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+		
+	T.accountNav as accountNav,
+	T.accountNRA as accountNRA,
+	T.startOfDayNavAccount as startOfDayNavAccount,
+	T.grossMarketValueBaseAccount as grossMarketValueBaseAccount,
+	T.grossExposureBaseAccount as grossExposureBaseAccount,
+	T.netExposureBaseAccount as netExposureBaseAccount,
+	T.currentCash as currentCash,
+	T.accrual as accrual,
+	
+	T.masterFundNav as masterFundNav,
+	T.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	T.grossMarketValueBaseMasterFund as grossMarketValueBaseMasterFund,
+	T.grossExposureBaseMasterFund as grossExposureBaseMasterFund,
+	T.netExposureBaseMasterFund as netExposureBaseMasterFund,
+	
+	
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.accountNav,0)) as pnlContributionAccount,
+	percent(sum(coalesce(T.netExposureBase,0)) ,coalesce(T.accountNav,0)) as percentNetExposureAccount,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)) ,coalesce(T.accountNav,0)) as percentBetaAdjustedExposureAccount,
+	percent(sum(coalesce(T.grossExposureBase,0)) ,coalesce(T.accountNav,0)) as percentGrossExposureAccount,
+	percent(sum(coalesce(T.netMarketValueBase,0)) ,coalesce(T.accountNav,0)) as percentNetMarketValueAccount,
+	percent(sum(coalesce(T.grossMarketValueBase,0)) ,coalesce(T.accountNav,0)) as percentGrossMarketValueAccount,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.accountNav,0)) as percentNetNotionalAccount,
+	percent(sum(coalesce(T.costBasisPnLBase,0)),coalesce(T.accountNav,0)) as percentCostBasisPnlAccount,
+	//0.0  as percentGrossExposureUnderlyingAccount,
+	(case (T.accountNav > 0) when true then
+	(Math.abs(sum(coalesce(T.netExposureBase,0))))*100/coalesce(T.accountNav,0)
+	else 0.0 end) as percentGrossExposureUnderlyingAccount,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavAccount,0)) as dayReturnAccount,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.masterFundNav,0)) as pnlContributionMasterFund,
+	percent(sum(coalesce(T.netExposureBase,0)) ,coalesce(T.masterFundNav,0)) as percentNetExposureMasterFund,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)),coalesce(T.masterFundNav,0)) as percentBetaAdjustedExposureMasterFund,
+	percent(sum(coalesce(T.grossExposureBase,0)) ,coalesce(T.masterFundNav,0)) as percentGrossExposureMasterFund,
+	percent(sum(coalesce(T.netMarketValueBase,0)),coalesce(T.masterFundNav,0)) as percentNetMarketValueMasterFund,
+	percent(sum(coalesce(T.grossMarketValueBase,0)),coalesce(T.masterFundNav,0)) as percentGrossMarketValueMasterFund,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.masterFundNav,0)) as percentNetNotionalMasterFund,
+	percent(sum(coalesce(T.costBasisPnLBase,0)) ,coalesce(T.masterFundNav,0)) as percentCostBasisPnlMasterFund,
+	//0.0  as percentGrossExposureUnderlyingMasterFund,
+	
+	(case (T.masterFundNav > 0) when true then
+	(Math.abs(sum(coalesce(T.netExposureBase,0)) ))*100/coalesce(T.masterFundNav,0)
+	else 0.0 end) as percentGrossExposureUnderlyingMasterFund,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavMasterFund,0)) as dayReturnMasterFund,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.globalNav,0)) as pnlContributionGlobal,
+	percent(sum(coalesce(T.netExposureBase,0)) ,coalesce(T.globalNav,0)) as percentNetExposureGlobal,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)) ,coalesce(T.globalNav,0)) as percentBetaAdjustedExposureGlobal,
+	percent(sum(coalesce(T.grossExposureBase,0)) ,coalesce(T.globalNav,0)) as percentGrossExposureGlobal,
+	percent(sum(coalesce(T.netMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentNetMarketValueGlobal,
+	percent(sum(coalesce(T.grossMarketValueBase,0)),coalesce(T.globalNav,0)) as percentGrossMarketValueGlobal,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.globalNav,0)) as percentNetNotionalGlobal,
+	percent(sum(coalesce(T.costBasisPnLBase,0)) ,coalesce(T.globalNav,0)) as percentCostBasisPnlGlobal,
+	//0.0  as percentGrossExposureUnderlyingGlobal,
+	
+	(case (T.globalNav > 0) when true then
+	(Math.abs(sum(coalesce(T.netExposureBase,0)) ))*100/coalesce(T.globalNav,0)
+	else 0.0 end) as percentGrossExposureUnderlyingGlobal,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavGlobal,0)) as dayReturnGlobal,
+	
+	sum(T.longNotionalBase)  as longNotionalBase,
+	sum(T.shortNotionalBase) as shortNotionalBase,
+	sum(T.shortMarketValueBase) as shortMarketValueBase,
+	sum(T.longMarketValueBase) as longMarketValueBase,
+	sum(T.shortExposureBase) as shortExposureBase,
+	sum(T.longExposureBase) as longExposureBase,
+	
+	sum(T.yesterdayMarketValueBase) as yesterdayMarketValueBase,
+	
+	sum(coalesce(T.todayAbsTradeQuantity,0)) as todayAbsTradeQuantity,
+	sum(coalesce(T.todayLongTradeQuantity,0)) as todayLongTradeQuantity,
+	sum(coalesce(T.todayShortTradeQuantity,0)) as todayShortTradeQuantity,
+	sum(coalesce(T.todayNetNotionalBase,0)) as todayNetNotionalBase,
+	sum(coalesce(T.todayLongNotionalBase,0)) as todayLongNotionalBase,
+	sum(coalesce(T.todayShortNotionalBase,0)) as todayShortNotionalBase,
+	
+	sum(T.longDebitBalance) as longDebitBalance,
+	sum(T.shortCreditBalance) as shortCreditBalance,
+	
+	Math.abs(sum(coalesce(T.betaAdjustedExposureBase,0))) as betaAdjustedGrossExposureUnderlyingBase,
+	
+	case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) < 0
+		when true then sum(coalesce(T.betaAdjustedExposureBase, 0.0))
+		else 0.0 end as betaAdjustedShortExposureUnderlyingBase,
+		
+	case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) > 0
+		when true then sum(coalesce(T.betaAdjustedExposureBase, 0.0))
+		else 0.0 end as betaAdjustedLongExposureUnderlyingBase,
+		
+	
+    percent(sum(coalesce(T.betaAdjustedExposureBase,0)), T.globalNav) as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	
+    case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) < 0
+		when true then percent(sum(coalesce(T.betaAdjustedExposureBase, 0.0)), T.globalNav)
+		else 0.0 end as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) > 0
+		when true then percent(sum(coalesce(T.betaAdjustedExposureBase, 0.0)), T.globalNav)
+		else 0.0 end as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+		
+    percent(sum(coalesce(T.betaAdjustedExposureBase,0)), T.accountNav) as percentBetaAdjustedGrossExposureUnderlyingBaseAccount,
+	
+    case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) < 0
+		when true then percent(sum(coalesce(T.betaAdjustedExposureBase, 0.0)), T.accountNav)
+		else 0.0 end as percentBetaAdjustedLongExposureUnderlyingBaseAccount,
+	case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) > 0
+		when true then percent(sum(coalesce(T.betaAdjustedExposureBase, 0.0)), T.accountNav)
+		else 0.0 end as percentBetaAdjustedShortExposureUnderlyingBaseAccount,
+		
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)), T.masterFundNav) as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	
+    case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) < 0
+		when true then percent(sum(coalesce(T.betaAdjustedExposureBase, 0.0)), T.masterFundNav)
+		else 0.0 end as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	case sum(coalesce(T.betaAdjustedExposureBase, 0.0)) > 0
+		when true then percent(sum(coalesce(T.betaAdjustedExposureBase, 0.0)), T.masterFundNav)
+		else 0.0 end as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	
+	"WhatIfAccountSymbolWithNav" as parentWindowStream,
+	
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA8",T.customUDA8) as customUDA8,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA9",T.customUDA9) as customUDA9,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA10",T.customUDA10) as customUDA10,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA11",T.customUDA11) as customUDA11,
+	getUnderlyingDynamicUda(T.underlyingSymbol,"customUDA12",T.customUDA12) as customUDA12
+
+
+
+from 
+WhatIfAccountSymbolWithNav as T
+where W.basketId = T.basketId
+group by T.accountId,T.underlyingSymbol;
+
+

@@ -1,0 +1,38 @@
+module customRules.iguana.postTrade.industryAndSectorLimits2.industryAndSectorLimits2;
+
+
+@Name('AggregationNetExposureAccountSector')
+@Description('Calculates and stores gross exposure for Whitney Capital-JPM account in each sector.')
+on pattern[every R=AccountSymbolWithNavUpdated]
+insert into AggregationNetExposureAccountSector
+select distinct
+	sum(T.netExposureBase) as netExposureBase,
+	T.sector as sector,
+	T.accountShortName as accountShortName,
+	T.accountId as accountId,
+	'' as taxlotId,
+	0 as userId	
+from
+AccountSymbolWithNav as T
+where T.accountShortName='Whitney Capital-JPM'
+group by T.accountShortName,T.sector;
+
+
+@Name('IndustryAndSectorLimits2')
+@Description('Aggregates data whenever gross exposure exceeds +/-12.5 percent of client Gross Market Value.')
+on pattern[every T=AggregationNetExposureAccountSector]
+insert into IndustryAndSectorLimits2
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'12.5' || ValueSeparator || T.accountShortName || ValueSeparator || 'N/A'  as threshold,
+	doubleFormat(0.125*R.grossMarketValueBase) || ValueSeparator || T.accountShortName || ValueSeparator || T.sector as actualResult,
+	'Net exposure %' || ValueSeparator || 'Account' || ValueSeparator || 'Sector' as constraintField,
+	true as isViolated,
+	'Net Exposure: '||doubleFormat(T.netExposureBase) || ', Account: '||T.accountShortName || ', Sector: '||T.sector || ', 12.5% of Account Gross Market Value: '||doubleFormat(0.125*R.grossMarketValueBase) as parameters,
+	current_timestamp as validationTime,
+	'The net exposure of a single sector, in Whitney Capital-JPM exceeded +/-12.5% of a client Gross Market Value.' as summary,
+	T.accountShortName || '-' || T.sector as dimension
+from
+AccountWithNav as R
+where (T.netExposureBase > 0.125*R.grossMarketValueBase or T.netExposureBase < -0.125*R.grossMarketValueBase) and R.accountId=T.accountId ;

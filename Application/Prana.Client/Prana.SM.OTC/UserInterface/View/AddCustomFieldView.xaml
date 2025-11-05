@@ -1,0 +1,232 @@
+﻿<Window x:Class="Prana.SM.OTC.View.AddCustomFieldView"
+      x:Name="AddCustomFieldViewUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+        xmlns:custom="http://infragistics.com/Windows"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Prana.SM.OTC.View"
+        xmlns:viewModels="clr-namespace:Prana.SM.OTC"
+        xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        mc:Ignorable="d"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+        ShowInTaskbar="False"
+        xmlns:Behaviours="clr-namespace:Prana.SM.OTC.Behaviours" 
+        xmlns:Custom="http://infragistics.com/Editors"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:Core="clr-namespace:System;assembly=mscorlib" 
+        xmlns:Converters="clr-namespace:Prana.SM.OTC.ValueConvertor"
+        xmlns:ValueConvertor="clr-namespace:Prana.SM.OTC.ValueConvertor"
+        xmlns:themes="http://infragistics.com/Themes"  
+        xmlns:behaviors="clr-namespace:Prana.SM.OTC.Behaviours"
+              Title="Add New Custom Field"  Width="500" Height="325" MaxHeight="325" MaxWidth="500" MinHeight="325" MinWidth="500"
+        DataContext="{Binding AddCustomFieldViewModel}" >
+
+    <!--xmlns:behaviors="clr-namespace:Prana.SM.OTC.Behaviours" 
+        xmlns:Custom="http://infragistics.com/Editors"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:Core="clr-namespace:System;assembly=mscorlib" 
+         xmlns:Converters="clr-namespace:Prana.SM.OTC.Converters"
+         xmlns:ValueConverters="clr-namespace:Prana.SM.OTC.ValueConvertor"-->
+    <!--xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"-->
+
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/NirvanaSkin.xaml" />
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.SM.OTC;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ObjectDataProvider x:Key="DataTypesEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="viewModels:DataTypes"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="InstrumentTypeEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="viewModels:InstrumentType"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+
+            <ObjectDataProvider x:Key="BooleanEnum" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="viewModels:BooleanValue"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <!--<Converters:PrecisionFormatDisplayConverter x:Key="PrecisionFormatDisplayConverter"/>
+            <Style x:Key="NumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="ValueToDisplayTextConverter" Value="{StaticResource PrecisionFormatDisplayConverter}"/>
+                <Setter Property="Tag" Value="{Binding Path=PrecisionFormat}"></Setter>
+                <Setter Property="Mask" Value="{}{char:15:0-9.}"/>
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="5,5,5,5"/>
+                <Setter Property="IsReadOnly" Value="{Binding IsReadOnly,Mode=TwoWay}"/>
+            </Style>-->
+
+            <Style x:Key="ButtonStyleSaveButton" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource GreenButtonSkinTemplate}"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+            </Style>
+            <Style x:Key="NumericEditorStyle" TargetType="{x:Type Custom:XamNumericEditor}">
+                <Setter Property="SpinButtonDisplayMode" Value="Always"/>
+                <Setter Property="PromptChar" Value=""/>
+                <Setter Property="Margin" Value="5,5,5,5"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0" />
+    </shell:WindowChrome.WindowChrome>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Path=FormCloseButton}" PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction  Command="{Binding Path=FormClosed}" PassEventArgsToCommand="False"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border CornerRadius="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#58585A" Grid.RowSpan="2" />
+        <Border CornerRadius="2" Grid.Row="0" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <TextBlock x:Name="tbNirvana" Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center" >
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="FontSize" Value="15"/>
+                            <Setter Property="Text" Value="Nirvana"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AddCustomFieldViewUI, Path=WindowState}" Value="Minimized">
+                                    <Setter Property="FontSize" Value="12"/>
+                                    <Setter Property="Text" Value="CustomField"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Text="Custom Field View" Height="22" FontSize="14" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <customChromeLibrary:CaptionButtons  VerticalAlignment="Center" />
+        </StackPanel>
+
+        <DockPanel Margin="5,0,5,5" Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#FFE7E8E9" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!--<RowDefinition Height="Auto"/>-->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Name" Grid.Row="0" Grid.Column="0"  Margin="10" Width="150"/>
+                <Label Content="Type" Grid.Row="1" Grid.Column="0"  Margin="10" Width="150"/>
+                <Label Content="Default Value" Grid.Row="2" Grid.Column="0"  Margin="10" Width="150"/>
+                <Label Content="Instrument Type" Grid.Row="3" Grid.Column="0"  Margin="10" Width="150"/>
+                <Label Content="Order" Grid.Row="4" Grid.Column="0"  Margin="10" Width="150"/>
+
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="10,10,-68,10" Text="{Binding CustomOTCFieldData.Name}" IsEnabled="{Binding CustomOTCFieldData.IsControlsEditable,Mode=TwoWay}" Width="150"/>
+                <ig:XamComboEditor x:Name="DataType"  Grid.Row="1" Grid.Column="1" Margin="10,10,-68,10"  EmptyText="Select"   
+                                   Width="150" VerticalAlignment="Center" IsEditable="False" 
+                                   ItemsSource="{Binding Source={StaticResource DataTypesEnum}}" SelectedItem="{Binding Path=CustomOTCFieldData.DataType}">
+                </ig:XamComboEditor>
+
+                <Custom:XamNumericEditor  Grid.Row="2" Grid.Column="1" Visibility="{Binding Path=CustomOTCFieldData.IsVisibleInt,Mode=TwoWay}"  Margin="10,10,-68,10" Width="150" ValueType="Core:Double" Value="{Binding Path=CustomOTCFieldData.DefaultValue,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1.00">
+                    <i:Interaction.Behaviors>
+                        <Behaviours:XamNumericEditorBehaviour/>
+                    </i:Interaction.Behaviors>
+                </Custom:XamNumericEditor>
+                <TextBox Grid.Row="2" Grid.Column="1"  Margin="10,10,-68,10"  Text="{Binding Path=CustomOTCFieldData.DefaultValue,Mode=TwoWay}" Width="150" Visibility="{Binding Path=CustomOTCFieldData.IsVisibleText,Mode=TwoWay}" />
+                <DatePicker Grid.Row="2" Grid.Column="1"   Margin="10,10,-68,10"  Text="{Binding Path=CustomOTCFieldData.DefaultValue,Mode=TwoWay}"   Width="150" Visibility="{Binding Path=CustomOTCFieldData.IsVisibleDateTime,Mode=TwoWay}"  Background="White" />
+                <ig:XamComboEditor x:Name="Boolean"  Grid.Row="2" Grid.Column="1"  Margin="10,10,-68,10"  EmptyText="Select"   
+                                   Width="150" VerticalAlignment="Center" IsEditable="False"  Visibility="{Binding Path=CustomOTCFieldData.IsVisibleBool,Mode=TwoWay}"
+                                   ItemsSource="{Binding Source={StaticResource BooleanEnum}}" SelectedItem="{Binding Path=CustomOTCFieldData.DefaultBooleanValue}">
+                </ig:XamComboEditor>
+
+
+                <ig:XamComboEditor x:Name="ComboInstrumentType"  Margin="10,10,-68,10" EmptyText="Select"  Grid.Row="3" Grid.Column="1" IsEnabled="{Binding CustomOTCFieldData.IsControlsEditable}"
+                                   Width="150" VerticalAlignment="Center" IsEditable="False" 
+                                   ItemsSource="{Binding Source={StaticResource InstrumentTypeEnum}}" SelectedItem="{Binding Path=CustomOTCFieldData.InstrumentType}">
+                </ig:XamComboEditor>
+                <Custom:XamNumericEditor Grid.Row="4" Grid.Column="1" Margin="10,10,-68,10" Width="150" ValueType="Core:Int32" Value="{Binding Path=CustomOTCFieldData.UIOrder,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1">
+                    <i:Interaction.Behaviors>
+                        <Behaviours:XamNumericEditorBehaviour/>
+                    </i:Interaction.Behaviors>
+                </Custom:XamNumericEditor>
+                <!--<Custom:XamNumericEditor Grid.Row="5" Grid.Column="1" ValueType="Core:Double" Value="{Binding Path=NotionalValueEditor,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource NumericEditorStyle}" SpinIncrement="1">
+                    <i:Interaction.Behaviors>
+                        <behaviors:XamNumericEditorBehaviour/>
+                    </i:Interaction.Behaviors>
+                </Custom:XamNumericEditor>-->
+                <Button Grid.ColumnSpan="2" Grid.Row="5" HorizontalAlignment="Center"  VerticalAlignment="Center" Content="Save" Name="AddTemplate"  Style="{StaticResource ButtonStyleSaveButton}" Width="80" Command="{Binding SaveCustomFieldsCommand}" CommandParameter="{Binding ElementName=AddCustomFieldViewUI}" Margin="192,10,130,10" />
+                <DockPanel Grid.Row="6" Height="30">
+                    <Label DockPanel.Dock="Bottom" Height="30" Visibility="{Binding IsVisibleLblNotificationBar}" Foreground="{Binding NotificationBarColor}" Content="{Binding NotificationBarContent}" FontSize="14"  Width="Auto"  FontFamily="Calibri" FontWeight="Bold" />
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
+

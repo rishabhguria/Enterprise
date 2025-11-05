@@ -1,0 +1,901 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RiskGridPrefs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StepAnalysisColumns>
+    <ColumnData>
+      <Key>DeltaAdjExposure</Key>
+      <VisiblePosition>13</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Delta Exposure</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DayPnl</Key>
+      <VisiblePosition>10</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Simulated P&amp;L</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CostBasisPnl</Key>
+      <VisiblePosition>12</VisiblePosition>
+      <Width>121</Width>
+      <Hidden>true</Hidden>
+      <Caption>Cost Basis P&amp;L</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DeltaAdjPosition</Key>
+      <VisiblePosition>25</VisiblePosition>
+      <Width>116</Width>
+      <Hidden>true</Hidden>
+      <Caption>Delta Position</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcUnderlyingSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Gamma</Key>
+      <VisiblePosition>16</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Gamma</Caption>
+      <Format>#.0000</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#.0000}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Theta</Key>
+      <VisiblePosition>18</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Theta</Caption>
+      <Format>#.0000</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#.0000}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Vega</Key>
+      <VisiblePosition>20</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Vega</Caption>
+      <Format>#.0000</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#.0000}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Rho</Key>
+      <VisiblePosition>22</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Rho</Caption>
+      <Format>#.0000</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#.0000}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>ImpliedVol</Key>
+      <VisiblePosition>11</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Implied Volatility</Caption>
+      <Format>#.00</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.00}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DaysToExpiration</Key>
+      <VisiblePosition>24</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Days To Expiration</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>InterestRate</Key>
+      <VisiblePosition>26</VisiblePosition>
+      <Width>101</Width>
+      <Hidden>true</Hidden>
+      <Caption>Interest %</Caption>
+      <Format>#.00</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.00}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>StockPrice</Key>
+      <VisiblePosition>8</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Underlying Price</Caption>
+      <Format>#,#.00</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.00}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>OptionPrice</Key>
+      <VisiblePosition>9</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Simulated Price</Caption>
+      <Format>#,#.00</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.00}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>IsChecked</Key>
+      <VisiblePosition>0</VisiblePosition>
+      <Width>23</Width>
+      <Hidden>false</Hidden>
+      <Caption />
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>Disabled</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>MarketPrice</Key>
+      <VisiblePosition>7</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Market Price</Caption>
+      <Format>#,#.00</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.00}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DollarDelta</Key>
+      <VisiblePosition>15</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Dollar Delta</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DollarGamma</Key>
+      <VisiblePosition>17</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Dollar Gamma</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DollarTheta</Key>
+      <VisiblePosition>19</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Dollar Theta</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DollarVega</Key>
+      <VisiblePosition>21</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Dollar Vega</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>DollarRho</Key>
+      <VisiblePosition>23</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Dollar Rho</Caption>
+      <Format>#,0</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>AbsQuantity</Key>
+      <VisiblePosition>27</VisiblePosition>
+      <Width>108</Width>
+      <Hidden>true</Hidden>
+      <Caption>AbsQuantity</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Multiplier</Key>
+      <VisiblePosition>28</VisiblePosition>
+      <Width>93</Width>
+      <Hidden>true</Hidden>
+      <Caption>Multiplier</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Delta</Key>
+      <VisiblePosition>14</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Delta</Caption>
+      <Format>#.0000</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#.0000}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Fund</Key>
+      <VisiblePosition>4</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Fund</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Strategy</Key>
+      <VisiblePosition>29</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>Strategy</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>SecurityTypeName</Key>
+      <VisiblePosition>30</VisiblePosition>
+      <Width>115</Width>
+      <Hidden>true</Hidden>
+      <Caption>Security Type</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>SectorName</Key>
+      <VisiblePosition>31</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>Sector</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>SubSectorName</Key>
+      <VisiblePosition>32</VisiblePosition>
+      <Width>101</Width>
+      <Hidden>true</Hidden>
+      <Caption>Sub Sector</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CountryName</Key>
+      <VisiblePosition>33</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>Country</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+
+    <ColumnData>
+      <Key>SideMultiplier</Key>
+      <VisiblePosition>34</VisiblePosition>
+      <Width>114</Width>
+      <Hidden>true</Hidden>
+      <Caption>SideMultiplier</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>PositionType</Key>
+      <VisiblePosition>35</VisiblePosition>
+      <Width>114</Width>
+      <Hidden>true</Hidden>
+      <Caption>Position Type</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>PutOrCall</Key>
+      <VisiblePosition>36</VisiblePosition>
+      <Width>86</Width>
+      <Hidden>true</Hidden>
+      <Caption>Put/Call</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>StrikePrice</Key>
+      <VisiblePosition>37</VisiblePosition>
+      <Width>103</Width>
+      <Hidden>true</Hidden>
+      <Caption>Strike Price</Caption>
+      <Format>#,#.##</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcNum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.##}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>OrderSide</Key>
+      <VisiblePosition>38</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>OrderSide</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>OrderType</Key>
+      <VisiblePosition>39</VisiblePosition>
+      <Width>100</Width>
+      <Hidden>true</Hidden>
+      <Caption>OrderType</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Symbol</Key>
+      <VisiblePosition>1</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Symbol</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Quantity</Key>
+      <VisiblePosition>6</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Quantity</Caption>
+      <Format>#,#.#</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcSymbolSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,0.#}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>AvgPrice</Key>
+      <VisiblePosition>40</VisiblePosition>
+      <Width>98</Width>
+      <Hidden>true</Hidden>
+      <Caption>Cost Basis</Caption>
+      <Format>#,#.00</Format>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcWeightedSum</ColSummaryKey>
+      <ColSummaryFormat>{0:#,#.00}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>AssetName</Key>
+      <VisiblePosition>5</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Asset</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList>
+        <FilterCondition>
+          <ComparisionOperator>Equals</ComparisionOperator>
+          <CompareValue xsi:type="xsd:string">EquityOption</CompareValue>
+        </FilterCondition>
+      </FilterConditionList>
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>UnderlyingName</Key>
+      <VisiblePosition>41</VisiblePosition>
+      <Width>101</Width>
+      <Hidden>true</Hidden>
+      <Caption>Underlying</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>ExchangeName</Key>
+      <VisiblePosition>42</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>Exchange</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CurrencyName</Key>
+      <VisiblePosition>43</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>Currency</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>TradingAccountName</Key>
+      <VisiblePosition>44</VisiblePosition>
+      <Width>154</Width>
+      <Hidden>true</Hidden>
+      <Caption>TradingAccountName</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CompanyUserName</Key>
+      <VisiblePosition>45</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>User</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CounterPartyName</Key>
+      <VisiblePosition>46</VisiblePosition>
+      <Width>112</Width>
+      <Hidden>true</Hidden>
+      <Caption>Counterparty</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Venue</Key>
+      <VisiblePosition>47</VisiblePosition>
+      <Width>97</Width>
+      <Hidden>true</Hidden>
+      <Caption>Venue</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CumQty</Key>
+      <VisiblePosition>48</VisiblePosition>
+      <Width>87</Width>
+      <Hidden>true</Hidden>
+      <Caption>CumQty</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>ContractMultiplier</Key>
+      <VisiblePosition>51</VisiblePosition>
+      <Width>135</Width>
+      <Hidden>true</Hidden>
+      <Caption>ContractMultiplier</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>CompanyName</Key>
+      <VisiblePosition>52</VisiblePosition>
+      <Width>123</Width>
+      <Hidden>true</Hidden>
+      <Caption>CompanyName</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>AUECLocalDate</Key>
+      <VisiblePosition>53</VisiblePosition>
+      <Width>103</Width>
+      <Hidden>true</Hidden>
+      <Caption>Trade Date</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcDate</ColSummaryKey>
+      <ColSummaryFormat>{0:MM/dd/yyyy}</ColSummaryFormat>
+      <CellActivation>NoEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>SettlementDate</Key>
+      <VisiblePosition>54</VisiblePosition>
+      <Width>125</Width>
+      <Hidden>true</Hidden>
+      <Caption>SettlementDate</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>ExpirationDate</Key>
+      <VisiblePosition>55</VisiblePosition>
+      <Width>124</Width>
+      <Hidden>true</Hidden>
+      <Caption>Expiration Date</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcDate</ColSummaryKey>
+      <ColSummaryFormat>{0:MM/dd/yyyy}</ColSummaryFormat>
+      <CellActivation>NoEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>Description</Key>
+      <VisiblePosition>56</VisiblePosition>
+      <Width>103</Width>
+      <Hidden>true</Hidden>
+      <Caption>Description</Caption>
+      <ExcludeFromColumnChooser>True</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey />
+      <ColSummaryFormat />
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+    <ColumnData>
+      <Key>UnderlyingSymbol</Key>
+      <VisiblePosition>3</VisiblePosition>
+      <Width>70</Width>
+      <Hidden>false</Hidden>
+      <Caption>Underlying Symbol</Caption>
+      <ExcludeFromColumnChooser>Default</ExcludeFromColumnChooser>
+      <SortIndicator>None</SortIndicator>
+      <IsGroupByColumn>false</IsGroupByColumn>
+      <Fixed>false</Fixed>
+      <FilterConditionList />
+      <FilterLogicalOperator>And</FilterLogicalOperator>
+      <ColSummaryKey>SummaryCalcText</ColSummaryKey>
+      <ColSummaryFormat>{0}</ColSummaryFormat>
+      <CellActivation>AllowEdit</CellActivation>
+    </ColumnData>
+  </StepAnalysisColumns>
+  <RiskReportColumns />
+  <RiskSimulationColumns />
+  <StressTestColumns />
+  <SplitterPosition>2</SplitterPosition>
+</RiskGridPrefs>

@@ -1,0 +1,369 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Activ.ContributionServerApi</name>
+    </assembly>
+    <members>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient">
+            <summary>
+            Contribution server client. Implements functionality of the Contribution Server API.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Settings">
+            <summary>
+            Contribution server client settings.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Settings.IniFile">
+            <summary>
+            ini file name.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Settings.SectionName">
+            <summary>
+            Section name.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Settings.GetFromIniFile(System.String,System.String)">
+            <summary>
+            Read settings from the ini file.
+            </summary>
+            <param name="iniFile">file name.</param>
+            <param name="sectionName">section name.</param>
+            <returns>setting instance generated from the file.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder">
+            <summary>
+            Message builder for the symbol records.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.#ctor(ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="contributionServerClient">contribution server client instance.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.Reset">
+            <summary>
+            Reset symbol record message builder. This resets internal message builder.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.ResetKeepHeader">
+            <summary>
+            Reset symbol record message builder, but keep header. This resets internal message builder to the length of the header.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendHeader(System.Boolean,System.Int32,System.Int32,System.Byte,System.String,System.Int32)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="symbol">symbol.</param>
+            <param name="symbolLength">length of the symbol.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendHeader(System.Boolean,System.Int32,System.Int32,System.Byte,System.String,System.Int32,System.Byte)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="symbol">symbol.</param>
+            <param name="symbolLength">length of the symbol.</param>
+            <param name="defaultRuleSet">default rule set.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendHeader(System.Boolean,System.Int32,System.Int32,System.Byte,System.String,System.Int32,System.Byte,System.Char)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="symbol">symbol.</param>
+            <param name="symbolLength">length of the symbol.</param>
+            <param name="defaultRuleSet">default rule set.</param>
+            <param name="updateId">the update id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte,System.String,System.Int32)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isDoNotAdd">true if do not add message.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="symbol">symbol.</param>
+            <param name="symbolLength">length of the symbol.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte,System.String,System.Int32,System.Byte)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isDoNotAdd">true if do not add message.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="symbol">symbol.</param>
+            <param name="symbolLength">length of the symbol.</param>
+            <param name="defaultRuleSet">default rule set.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte,System.String,System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isDoNotAdd">true if do not add message.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="symbol">symbol.</param>
+            <param name="symbolLength">length of the symbol.</param>
+            <param name="defaultRuleSet">default rule set.</param>
+            <param name="updateId">the update id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendFieldWithContentServerRuleSet(System.Int32,System.Byte,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Append field with content server rule set.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="fieldRules">field rules.</param>
+            <param name="iFieldType">field to contribute.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendFieldWithTranslatorRuleSet(System.Int32,System.Byte,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Append field with translator rule set.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="fieldRules">field rules.</param>
+            <param name="iFieldType">field to contribute.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendFieldWithNoneRuleSet(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Append field without rule set.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="iFieldType">field to contribute.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendField(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Append field
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="iFieldType">field to contribute.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendUndefinedField(System.Int32)">
+            <summary>
+            Append undefined field.
+            </summary>
+            <param name="fieldId">field id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendUndefinedFieldWithContentServerRuleSet(System.Int32,System.Byte)">
+            <summary>
+            Append undefined field with content server rule set.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="fieldRules">field rules.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendUndefinedFieldWithTranslatorRuleSet(System.Int32,System.Byte)">
+            <summary>
+            Append underfined field with translator rule set.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="fieldRules">field rules.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.AppendUndefinedFieldWithNoneRuleSet(System.Int32)">
+            <summary>
+            Append undefined field without rule set.
+            </summary>
+            <param name="fieldId">field id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.Write">
+            <summary>
+            Write and flush the message.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.Write(System.Boolean)">
+            <summary>
+            Write the message
+            </summary>
+            <param name="flush">flush after write</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.SymbolRecordMessageBuilder.Flush">
+            <summary>
+            Flush message from buffer
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder">
+            <summary>
+            Message builder for the records.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.#ctor(ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="contributionServerClient">contribution server client instance.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.Reset">
+            <summary>
+            Reset record message builder. This resets internal message builder.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.ResetKeepHeader">
+            <summary>
+            Reset record message builder, but keep header. This resets internal message builder to the length of the header.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isRefresh">true if refresh.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isRefresh">true if refresh.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="updateId">update id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isRefresh">true if refresh.</param>
+            <param name="isDoNotAdd">true if do not add.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendHeader(System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Int32,System.Byte,System.Int32)">
+            <summary>
+            Append header.
+            </summary>
+            <param name="isDelete">true if delete operation.</param>
+            <param name="isRefresh">true if refresh.</param>
+            <param name="isDoNotAdd">true if do not add.</param>
+            <param name="tableNumber">table number.</param>
+            <param name="permissionId">permission id.</param>
+            <param name="eventType">event type.</param>
+            <param name="updateId">update id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendIndexNumber(System.Byte)">
+            <summary>
+            Append index number.
+            </summary>
+            <param name="indexNumber">index number.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendUndefinedField(System.Int32)">
+            <summary>
+            Append undefined field.
+            </summary>
+            <param name="fieldId">field id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendUndefinedKeyField(System.Int32)">
+            <summary>
+            Append undefined key field.
+            </summary>
+            <param name="fieldId">field id.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendKeyField(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Append key field.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="iFieldType">field to contribute.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.AppendField(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Append field.
+            </summary>
+            <param name="fieldId">field id.</param>
+            <param name="iFieldType">field to contribute.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.Write">
+            <summary>
+            Write and flush the message.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.Write(System.Boolean)">
+            <summary>
+            Write the message
+            </summary>
+            <param name="flush">flush after write</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.RecordMessageBuilder.Flush">
+            <summary>
+            Flush message from buffer
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Application">
+            <summary>
+            Application.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.#ctor(ActivFinancial.Middleware.Application.ActivApplication,ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Settings)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="application">application.</param>
+            <param name="settings">settings.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.TableTemplateList">
+            <summary>
+            Table template list.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.DefaultName">
+            <summary>
+            Default name. Returns 'ContributionServerApi'.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.MinimumTableNumber">
+            <summary>
+            Minimum table number from settings.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.MaximumTableNumber">
+            <summary>
+            Maximum table number from settings.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.UdpTransmitter">
+            <summary>
+            Udp transmitter.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContributionServerApi.ContributionServerClient.Shutdown">
+            <summary>
+            Shutdown.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionServerApi.RecordKeyFieldListBuilder">
+            <summary>
+            Record key field builder.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContributionServerApi.RecordMessageBuilderHelper">
+            <summary>
+            Record message builder helper.
+            </summary>
+        </member>
+    </members>
+</doc>

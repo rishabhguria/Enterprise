@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{58F01E19-0014-4555-9DB8-BE9FB93D9066}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.Middleware</RootNamespace>
+    <AssemblyName>Nirvana.Middleware</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="windale.options">
+      <HintPath>DLL\windale.options.dll</HintPath>
+    </Reference>
+    <Reference Include="Xheo.Licensing, Version=2.1.5000.0, Culture=neutral, PublicKeyToken=798276055709c98a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>DLL\Xheo.Licensing.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arguments.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="DbCore.cs" />
+    <Compile Include="Exceptions\MethodNotFoundException.cs" />
+    <Compile Include="Extensions\EnumeratorExtensions.cs" />
+    <Compile Include="Extensions\FileExtensions.cs" />
+    <Compile Include="Extensions\ObjectXMLSerializer.cs" />
+    <Compile Include="Extensions\SerializeHash.cs" />
+    <Compile Include="Fund.cs" />
+    <Compile Include="FundSymbol.cs" />
+    <Compile Include="Linq\GlobalDataContext.cs" />
+    <Compile Include="Linq\NirvanaDataContext.cs" />
+    <Compile Include="Linq\Tables\PM_CompanyFundCashCurrencyValue.cs" />
+    <Compile Include="Linq\Tables\PM_DailyBeta.cs" />
+    <Compile Include="Linq\Tables\PM_DailyDividendYield.cs" />
+    <Compile Include="Linq\Tables\PM_DailyVolatility.cs" />
+    <Compile Include="Linq\Tables\PM_DayMarkPrice.cs" />
+    <Compile Include="Linq\Tables\T_Company.cs" />
+    <Compile Include="Linq\Tables\T_CompanyFund.cs" />
+    <Compile Include="Linq\Tables\T_MW_Status.cs" />
+    <Compile Include="Linq\Tables\T_NT_Entities.cs" />
+    <Compile Include="Linq\Tables\T_SubAccount.cs" />
+    <Compile Include="Linq\Tables\T_SubAccountCashValue.cs" />
+    <Compile Include="Linq\Tables\T_MW_DailyReturn.cs" />
+    <Compile Include="Linq\Tables\T_MW_DailyReturns_Fund.cs" />
+    <Compile Include="Linq\Tables\T_MW_DerivedData.cs" />
+    <Compile Include="Linq\Tables\T_MW_GenericPNL.cs" />
+    <Compile Include="Linq\Tables\T_MW_Transaction.cs" />
+    <Compile Include="Linq\Views\V_SecMasterData.cs" />
+    <Compile Include="Sandbox.cs" />
+    <Compile Include="DateRange.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="Extensions\DateExtensions.cs" />
+    <Compile Include="Extensions\EntityDataReader.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\SQLExtensions.cs" />
+    <Compile Include="Functions.cs" />
+    <Compile Include="Greeks.cs" />
+    <Compile Include="Linq\nirvana.cs">
+      <DependentUpon>nirvana.dbml</DependentUpon>
+    </Compile>
+    <Content Include="Changes.txt" />
+    <Content Include="Linq\nirvana.designer.cs">
+      <DependentUpon>nirvana.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Content>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Linq\nirvana.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>nirvana.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Linq\nirvana.dbml.layout">
+      <DependentUpon>nirvana.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQL\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Copy  "$(TargetDir)\$(TargetFileName)" ..\..\..\Middleware.Installer\bin\$(Configuration)\runtime\
+xcopy "$(TargetDir)windale.options.dll" ..\..\..\Middleware.Installer\bin\$(Configuration)\runtime\ /y
+xcopy "$(TargetDir)Xheo.Licensing.dll"  ..\..\..\Middleware.Installer\bin\$(Configuration)\runtime\ /y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

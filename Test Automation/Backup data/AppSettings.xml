@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AppSettings>
+  <CounterPartyConnectionDetails host="localhost" >
+	<!--This is for Cameron simulator (Live TT). For Dropcopy session, please change "OriginatorType" to 3-->
+    <CounterParty	OriginatorType="0" CounterPartyID ="1" CounterPartyName="MS"  SenderCompID="SendToMS" TargetCompID="MS"  Port="7000" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" >
+    </CounterParty>
+	<!--This is for QuickFix simulator (Live TT).-->
+	<!-- <CounterParty	OriginatorType="3" CounterPartyID ="2" CounterPartyName="GS"  SenderCompID="DAWAY" TargetCompID="SendToDAWAY"  Port="8000" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" > -->
+	<!-- </CounterParty> -->
+	<CounterParty	OriginatorType="3" CounterPartyID ="2" CounterPartyName="GS"  SenderCompID="DropCopy" TargetCompID="SendToDropCopy"  Port="1456" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" >
+	</CounterParty>
+  </CounterPartyConnectionDetails>
+</AppSettings>

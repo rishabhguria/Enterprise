@@ -1,0 +1,13 @@
+﻿--No Need to set OriginalAllocationPreferenceID 0 in the Table from onwards
+
+--IF EXISTS (
+--		SELECT *
+--		FROM INFORMATION_SCHEMA.COLUMNS
+--		WHERE TABLE_NAME = 'T_Group'
+--			AND COLUMN_NAME = 'OriginalAllocationPreferenceID'
+--		)
+--BEGIN
+--	UPDATE T_Group
+--	SET OriginalAllocationPreferenceID = 0
+--	WHERE OriginalAllocationPreferenceID IS NULL
+--END

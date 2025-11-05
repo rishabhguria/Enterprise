@@ -1,0 +1,56 @@
+module customRules.EpicenterCapital.preTrade.openEndFundsETFs.preTradeOpenEndFundsETFs;
+
+@Name('OpenEndFundsCheckInAccount')
+@Description('Checks if trade has the given account and fund type or not.')
+on BasketEOM as W
+insert into OpenEndFundsCheckInAccount
+select distinct
+    W.basketId as basketId,
+	W.userId as userId,
+	R.accountId as accountId,
+	R.accountShortName as accountShortName,
+	(case(valueExistsInCSV(R.accountShortName, AccountNameOpenEndFunds) and valueExistsInCSV(R.customUDA1,FundTypeOpenEndFunds))
+	when true then true else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where W.basketId = R.basketId and R.taxlotType='WhatIf';
+
+@Name('WhatIfAccountOpenEndFundsCheck')
+@Description('Stores calculated value of net market value for current trade.')
+on OpenEndFundsCheckInAccount as B
+insert into WhatIfAccountOpenEndFundsCheck
+select distinct
+    B.basketId as basketId,
+    W.userId as userId,
+    W.accountId as accountId,
+    W.accountShortName as accountName,
+    B.validation as finalValidation,
+    sum(case when (valueExistsInCSV(W.accountShortName, AccountNameOpenEndFunds) is true and 
+    valueExistsInCSV(W.customUDA1,FundTypeOpenEndFunds) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalMarketValueBase,
+    W.accountNav as accountNav,
+    "WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId
+group by W.accountId ;
+
+@Name('PreTradeOpenEndFundsCheck')
+@Description('Check if condition is breached')
+insert into PreTradeOpenEndFundsCheck
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+    'Account' || ValueSeparator || ' % Total Nav' as constraintField,
+    AccountNameOpenEndFunds || ValueSeparator || doubleFormat(NavPercentOpenEndFunds) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0))) as actualResult,
+    (case finalValidation is true
+    when true then (Math.abs(coalesce(A.totalMarketValueBase/ A.accountNav, 0)) > (NavPercentOpenEndFunds/100))
+    else false end) as isViolated,
+	'Account : ' || A.accountName || ', Net Market Value : ' || doubleFormat(A.totalMarketValueBase) || ', % Total Nav : ' || doubleFormat(Math.abs(coalesce((A.totalMarketValueBase / A.accountNav)*100,0)))  as parameters,
+	current_timestamp as validationTime,
+	'Sum of MarketValue of all the securities of Fund Types ' || FundTypeOpenEndFunds || ', should not be greater than ' || doubleFormat(NavPercentOpenEndFunds) || '% of account NAV' as summary,
+	A.accountName as dimension
+  from  WhatIfAccountOpenEndFundsCheck as A
+  where A.userId is not null;

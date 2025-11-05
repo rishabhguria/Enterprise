@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[PM_CashReconTransactions] (
+    [TransactionID]     INT           NOT NULL,
+    [CashReconID]       INT           NOT NULL,
+    [ThirdPartyID]      INT           NOT NULL,
+    [CompanyFundID]     INT           NOT NULL,
+    [SymbolID]          INT           NULL,
+    [TransactionDate]   DATETIME      NOT NULL,
+    [TransactionType]   NVARCHAR (50) NOT NULL,
+    [PaymentDate]       DATETIME      NULL,
+    [TransactionAmount] FLOAT (53)    NULL,
+    [ImpactOnCash]      INT           NOT NULL,
+    [CurrencyID]        INT           NOT NULL,
+    [EntryBy]           INT           NOT NULL,
+    [EntryTimeStamp]    DATETIME      NOT NULL,
+    [ManualAmount]      FLOAT (53)    NULL,
+    [SourceAmount]      FLOAT (53)    NULL,
+    CONSTRAINT [PK_PM_CashReconManualTransactions] PRIMARY KEY CLUSTERED ([TransactionID] ASC),
+    CONSTRAINT [FK_PM_CashReconManualTransactions_PM_CompanyCashRecon] FOREIGN KEY ([CashReconID]) REFERENCES [dbo].[PM_CompanyCashRecon] ([CashReconID]),
+    CONSTRAINT [FK_PM_CashReconManualTransactions_T_CompanyFunds] FOREIGN KEY ([CompanyFundID]) REFERENCES [dbo].[T_CompanyFunds] ([CompanyFundID]),
+    CONSTRAINT [FK_PM_CashReconManualTransactions_T_Currency] FOREIGN KEY ([CurrencyID]) REFERENCES [dbo].[T_Currency] ([CurrencyID]),
+    CONSTRAINT [FK_PM_CashReconManualTransactions_T_Symbol] FOREIGN KEY ([SymbolID]) REFERENCES [dbo].[T_Symbol] ([SymbolID]),
+    CONSTRAINT [FK_PM_CashReconManualTransactions_T_User] FOREIGN KEY ([EntryBy]) REFERENCES [dbo].[T_User] ([UserID]),
+    CONSTRAINT [FK_PM_CashRecontransactions_T_ThirdParty] FOREIGN KEY ([ThirdPartyID]) REFERENCES [dbo].[T_ThirdParty] ([ThirdPartyID])
+);
+

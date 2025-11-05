@@ -1,0 +1,84 @@
+module customRules.PSPResearch.postTrade.alertNoSecMaster.postTradeAlertNoSecMaster;
+
+@Name('AssetCheckInTradePost')
+@Description('checks asset and secMaster is not empty or undefined.')
+on DivisorEndMessage  as B 
+insert into AssetCheckInTradePost
+select distinct
+  '0' as taxlotId,
+  '0' as userId,
+  R.udaCountry as udaCountry,
+  R.customUDA6 as customUDA6,
+  R.customUDA5 as customUDA5,
+  R.customUDA4 as customUDA4,
+  R.customUDA3 as customUDA3,
+  R.customUDA2 as customUDA2,
+  R.customUDA1 as customUDA1,
+  R.customUDA7 as customUDA7,
+  R.customUDA8 as customUDA8,
+  R.customUDA10 as customUDA10,
+  R.customUDA11 as customUDA11,
+  R.analyst as analyst,
+  R.udaAsset as udaAsset,
+  R.countryOfRisk as countryOfRisk,
+  R.currency as currency,
+  R.subSector as subSector,
+  R.udaCountry as udaCountry,
+  R.marketCap as marketCap,
+  R.sector as sector,
+  R.ucitsEligibleTag as ucitsEligibleTag, 
+  R.liquidTag as liquidTag,
+  R.region as region,
+  R.symbol as Symbol,
+  R.sharesOutstanding as sharesOutstanding,
+ (case((valueExistsInCSV(R.udaAsset, Asset_SecMaster) is true) and ((isValueDefined(R.customUDA5) and isValueDefined(R.analyst)
+ and isValueDefined(R.udaAsset) and isValueDefined(R.countryOfRisk) and isValueDefined(R.customUDA1) and isValueDefined(R.customUDA2)
+ and isValueDefined(R.customUDA3) and isValueDefined(R.customUDA4) and isValueDefined(R.customUDA7) and isValueDefined(R.currency)
+ and isValueDefined(R.subSector) and isValueDefined(R.customUDA6) and isValueDefined(R.udaCountry) and isValueDefined(R.marketCap)  
+ and isValueDefined(R.sector) and isValueDefined(R.ucitsEligibleTag) and isValueDefined(R.liquidTag) and isValueDefined(R.region) 
+ and isValueDefined(R.customUDA10) and isValueDefined(R.customUDA11) and isValueDefined(R.customUDA8)) is false or (R.sharesOutstanding=0) )) 
+ when true then true else false end ) as validation,
+   "SymbolWithNav" as parentWindowStream
+from SymbolWithNav as R;
+
+
+@Name('PostTradeAlertNoSecMaster')
+@Description('Final stream to check condition is breached')
+insert into PostTradeAlertNoSecMaster
+select distinct
+	A.userId as userId,
+	A.taxlotId as taxlotId,
+    'N/A' as threshold,
+	 'N/A'  as actualResult,
+    'Security Master Entries'  as constraintField,
+     A.validation as isViolated,
+    'Security Master Tags are missing for '||A.Symbol || '-'
+    || (case(isValueDefined(A.customUDA6) is false) when true then ' Company BBG Id : ' || getValue(A.customUDA6)||', ' else '' end)
+    || (case(isValueDefined(A.customUDA5) is false) when true then 'Parent Ticker Exchange : ' || getValue(A.customUDA5)||', ' else '' end)
+    || (case(isValueDefined(A.customUDA4) is false) when true then ' Private Company : ' || getValue(A.customUDA4)||', ' else '' end)
+    || (case(isValueDefined(A.customUDA3) is false) when true then 'GICS Sub Industry : ' || getValue(A.customUDA3)||', ' else '' end)
+    || (case(isValueDefined(A.customUDA2) is false) when true then 'Security Type : ' || getValue(A.customUDA2)||', ' else '' end)
+    || (case(isValueDefined(A.customUDA1) is false) when true then ' Fund Type : ' || getValue(A.customUDA1)||', ' else ''end)
+    || (case(isValueDefined(A.customUDA7) is false) when true then ' Voting Shares : ' || getValue(A.customUDA7)||', ' else '' end)
+    || (case(isValueDefined(A.customUDA8) is false) when true then 'Floating Equity : ' || getValue(A.customUDA8)||', ' else '' end)
+	|| (case(isValueDefined(A.customUDA10) is false) when true then 'GICS Industry : ' || getValue(A.customUDA10)||', ' else '' end)
+	|| (case(isValueDefined(A.customUDA11) is false) when true then 'Settlement Period : ' || getValue(A.customUDA11)||', ' else '' end)
+    || (case(isValueDefined(A.analyst) is false) when true then 'Voting Rights : ' || getValue(A.analyst)||', ' else '' end)
+    || (case(isValueDefined(A.udaAsset) is false) when true then ' Asset : ' || getValue(A.udaAsset)||', ' else '' end)
+    || (case(isValueDefined(A.countryOfRisk) is false) when true then ' Country of Issue : ' || getValue(A.countryOfRisk)||', ' else '' end)
+    || (case(isValueDefined(A.currency) is false) when true then ' Currency : ' || getValue(A.currency)||', ' else '' end)
+    || (case(isValueDefined(A.subSector) is false) when true then ' ICB Subsector : ' || getValue(A.subSector)||', ' else '' end)
+    || (case(isValueDefined(A.udaCountry) is false) when true then ' Country : ' || getValue(A.udaCountry)||', ' else '' end)
+    || (case(isValueDefined(A.marketCap) is false) when true then ' Market Cap : ' || getValue(A.marketCap) ||', 'else '' end)
+    || (case(isValueDefined(A.sector) is false) when true then ' Sector : ' || getValue(A.sector)||', ' else ', ' end)
+    || (case(isValueDefined(A.ucitsEligibleTag) is false) when true then ' UK Sanctioned : ' || getValue(A.ucitsEligibleTag)||', ' else '' end)
+    || (case(isValueDefined(A.liquidTag) is false) when true then 'EU Sanctioned : ' || getValue(A.liquidTag)||', ' else '' end)
+    || (case(isValueDefined(A.region) is false) when true then 'OFAC Sanctioned : ' || getValue(A.region)||', ' else '' end)
+    || (case(A.sharesOutstanding=0) when true then 'Shares Outstanding : ' || getValue(formatBigDecimal(A.sharesOutstanding))||', ' else '' end)
+    as parameters,
+    current_timestamp as validationTime,
+	'Missing security master entry' as summary,
+	A.Symbol as dimension
+from
+AssetCheckInTradePost as A
+where A.userId is not null;

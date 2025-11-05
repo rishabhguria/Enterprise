@@ -1,0 +1,25 @@
+module eplModules.dataWindow.HolidaysFeeder;
+
+@Name('WeeklyHolidaysWindow')
+@Description('Named window which stores the data for WeeklyHolidays.')
+create window WeeklyHolidaysWindow.std:unique(auecId,holiday)
+(						
+			auecId int,
+			holiday int,
+			parentWindowStream string
+);
+ 
+@Name('WeeklyHolidaysWindowInsert')
+@Description('This updates the WeeklyHolidaysWindow every time new WeeklyHolidaysEvent event occurs.')
+on WeeklyHolidaysEvent as s
+merge WeeklyHolidaysWindow sw where sw.auecId = s.auecId and s.holiday = sw.holiday	
+	when not matched
+		then insert 
+			select
+		   		s.auecId as auecId,
+		   		case s.holiday=0//As Sundays are represented as 7 in Joda while holiday window has 0 for it
+		   			when true then 7
+		   			else s.holiday 
+		   		end as holiday,
+		   		"WeeklyHolidaysEvent" as parentWindowStream; 
+ 

@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SenSatoV1.7" Class="NirvanaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=dev.nirvanasolutions.com;Initial Catalog=SenSatoV1.7;Persist Security Info=True;User ID=sa" SettingsObjectName="Nirvana.Middleware.Properties.Settings" SettingsPropertyName="SourceConnectString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.PM_CompanyFundCashCurrencyValue" Member="PM_CompanyFundCashCurrencyValues">
+    <Type Name="PM_CompanyFundCashCurrencyValue">
+      <Column Name="CashCurrencyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FundID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BaseCurrencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CashValueBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="LocalCurrencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CashValueLocal" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="T_CompanyFund_PM_CompanyFundCashCurrencyValue" Member="T_CompanyFund" ThisKey="FundID" OtherKey="CompanyFundID" Type="T_CompanyFund" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_CompanyFunds" Member="T_CompanyFunds">
+    <Type Name="T_CompanyFund">
+      <Column Name="CompanyFundID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FundName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FundShortName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FundTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UIOrder" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="T_CompanyFund_PM_CompanyFundCashCurrencyValue" Member="PM_CompanyFundCashCurrencyValues" ThisKey="CompanyFundID" OtherKey="FundID" Type="PM_CompanyFundCashCurrencyValue" />
+      <Association Name="T_CompanyFund_T_SubAccountCashValue" Member="T_SubAccountCashValues" ThisKey="CompanyFundID" OtherKey="FundID" Type="T_SubAccountCashValue" />
+      <Association Name="T_Company_T_CompanyFund" Member="T_Company" ThisKey="CompanyID" OtherKey="CompanyID" Type="T_Company" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_SubAccounts" Member="T_SubAccounts">
+    <Type Name="T_SubAccount">
+      <Column Name="SubAccountID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Acronym" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="T_SubAccount_T_SubAccountCashValue" Member="T_SubAccountCashValues" ThisKey="SubAccountID" OtherKey="SubAccountID" Type="T_SubAccountCashValue" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_SubAccountCashValue" Member="T_SubAccountCashValues">
+    <Type Name="T_SubAccountCashValue">
+      <Column Name="FundID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SubAccountID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CashValue" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="CurrencyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CashID" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TaxLotID" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TradedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="PayOutDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FXRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IsAutomatic" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Symbol" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PBDesc" Type="System.String" DbType="VarChar(3000)" CanBeNull="true" />
+      <Column Name="AccrueDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="T_CompanyFund_T_SubAccountCashValue" Member="T_CompanyFund" ThisKey="FundID" OtherKey="CompanyFundID" Type="T_CompanyFund" IsForeignKey="true" />
+      <Association Name="T_SubAccount_T_SubAccountCashValue" Member="T_SubAccount" ThisKey="SubAccountID" OtherKey="SubAccountID" Type="T_SubAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_TS_Transactions" Member="T_TS_Transactions">
+    <Type Name="T_TS_Transaction" Id="ID1">
+      <Column Name="RunDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Symbol" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UnderlyingSymbol" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Strategy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Fund" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Asset" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Underlyer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Exchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Currency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="UDASector" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDACountry" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDASecurityType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDAAssetClass" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDASubSector" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="TradeCurrency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Side" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CounterParty" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimeBroker" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Trader" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SecurityName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="TradeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SettleDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AvgPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CommissionLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CommissionBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FeesLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FeesBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OtherFeesLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OtherFeesBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FXRate_TradeDate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MarkFXRate_TradeDate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MarkFXRate_SettleDate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NetAmountBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="NetAmountLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PrincipalAmountBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PrincipalAmountLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TradeOrigin" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Open_CloseTag" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Dividend" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PM_DailyBeta" Member="PM_DailyBetas">
+    <Type Name="PM_DailyBeta">
+      <Column Name="DayBetaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Symbol" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Beta" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_TS_DerivedData" Member="T_TS_DerivedDatas">
+    <Type Name="T_TS_DerivedData" Id="ID3">
+      <Column Name="CalculatedFromDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CalculatedToDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TimeFrameType" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="DataType" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Groupfield" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Entity" Type="System.String" DbType="VarChar(64)" CanBeNull="true" />
+      <Column Name="Value" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_TS_GenericPNL" Member="T_TS_GenericPNLs">
+    <Type Name="T_TS_GenericPNL" Id="ID2">
+      <Column Name="Rundate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Symbol" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UnderlyingSymbol" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Strategy" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Fund" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Asset" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Underlyer" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Exchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Currency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="UDASector" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDACountry" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDASecurityType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDAAssetClass" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="UDASubSector" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="TradeCurrency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Side" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="SecurityName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="UnitCostLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OpeningFXRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnitCostBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ClosingPriceLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ClosingPriceBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BeginningFXRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndingFXRate" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BeginningPriceLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndingPriceLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BeginningPriceBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndingPriceBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BeginningQuantity" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndingQuantity" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Multiplier" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SideMultiplier" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="Broker" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="BeginningMarketValueLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BeginningMarketValueBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndingMarketValueLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="EndingMarketValueBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalOpenCommissionAndFees_Local" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalOpenCommissionAndFees_Base" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalClosedCommissionAndFees_Local" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalClosedCommissionAndFees_Base" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnrealizedTotalGainOnCostD0_Local" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnrealizedTotalGainOnCostD0_Base" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnrealizedTotalGainOnCostD2_Local" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnrealizedTotalGainOnCostD2_Base" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ChangeInUnrealizedPNL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ShortTermTotalRealizedPNL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="LongTermTotalRealizedPNL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalRealizedPNLOnCost" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalRealizedPNLMTM" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalUnrealizedPNLMTM" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Dividend" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TradeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ClosingDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Open_CloseTag" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="IsSwapped" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MarketValueEndingLocal_New" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MarketValueEndingBase_New" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnrealizedPNLOnCostLocal_New" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnrealizedPNLOnCostBase_New" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalRealizedPNLMTM_New" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TotalUnrealizedPNLMTM_New" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Delta" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Beta" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="impliedVol" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Theta" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Rho" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Vega" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Gamma" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DeltaExposureLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DeltaExposureBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BetaExposureLocal" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BetaExposureBase" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AverageVolume" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AverageLiquidation" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="UnderlyingSymbolPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PM_DayMarkPrice" Member="PM_DayMarkPrices">
+    <Type Name="PM_DayMarkPrice">
+      <Column Name="DayMarkPriceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Symbol" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationMarkPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="PrimeBrokerMarkPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="FinalMarkPrice" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ForwardPoints" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.T_Company" Member="T_Companies">
+    <Type Name="T_Company">
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Address1" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Address2" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="CompanyTypeID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Telephone" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Fax" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="PrimaryContactFirstName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PrimaryContactLastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PrimaryContactTitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PrimaryContactEMail" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PrimaryContactTelephone" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="PrimaryContactCell" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondaryContactFirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondaryContactLastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondaryContactTitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondaryContactEMail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondaryContactTelephone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SecondaryContactCell" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TechnologyContactFirstName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TechnologyContactLastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TechnologyContactTitle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TechnologyContactEMail" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TechnologyContactTelephone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TechnologyContactCell" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ShortName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Login" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StateID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Zip" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="BaseCurrencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SupportsMultipleCurrencies" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DefaultAUECID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="T_Company_T_CompanyFund" Member="T_CompanyFunds" ThisKey="CompanyID" OtherKey="CompanyID" Type="T_CompanyFund" />
+    </Type>
+  </Table>
+  <Table Name="dbo.V_SecMasterData" Member="V_SecMasterDatas">
+    <Type Name="V_SecMasterData">
+      <Column Name="AUECID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TickerSymbol" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Delta" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="AssetName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="SecurityTypeName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="SectorName" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="SubSectorName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CountryName" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="UnderLyingSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="BloombergSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ISINSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="SEDOLSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CUSIPSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="PutOrCall" Type="System.String" DbType="VarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="StrikePrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Multiplier" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ReutersSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ExpirationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LeadCurrencyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="VsCurrencyID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LeadCurrency" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="VsCurrency" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="CurrencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OSISymbol" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="IDCOSymbol" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="OpraSymbol" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="AssetId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Coupon" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IssueDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MaturityDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FirstCouponDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CouponFrequencyID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AccrualBasisID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BondTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsZero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsNDF" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FixingDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.AdjustBusinessDays" Method="AdjustBusinessDays" IsComposable="true">
+    <Parameter Name="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="numDays" Type="System.Int32" DbType="Int" />
+    <Parameter Name="AUECID" Parameter="aUECID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.DateTime" />
+  </Function>
+  <Function Name="dbo.IsBusinessDay" Method="IsBusinessDay" IsComposable="true">
+    <Parameter Name="date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="auecid" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Boolean" />
+  </Function>
+  <Function Name="dbo.P_MW_GetTransactions" Method="P_MW_GetTransactions">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.P_MW_GetGenericPNL" Method="P_MW_GetGenericPNL">
+    <Parameter Name="StartDate" Parameter="startDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="EndDate" Parameter="endDate" Type="System.DateTime" DbType="DateTime" />
+    <ElementType IdRef="ID2" />
+  </Function>
+  <Function Name="dbo.P_MW_GetDailyReturns" Method="P_MW_GetDailyReturns" IsComposable="true">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ToDate" Parameter="toDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="AutoSave" Parameter="autoSave" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ReturnAllData" Parameter="returnAllData" Type="System.Int32" DbType="Int" />
+    <Return Type="object" />
+  </Function>
+  <Function Name="dbo.P_MW_GetDerivedData" Method="P_MW_GetDerivedData">
+    <Parameter Name="FromDate" Parameter="fromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="todate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="AutoSave" Parameter="autoSave" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ReturnAllData" Parameter="returnAllData" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LookBackDays" Parameter="lookBackDays" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID3" />
+  </Function>
+  <Function Name="dbo.P_MW_UpdatePNLReportsDropDown" Method="P_MW_UpdatePNLReportsDropDown"  IsComposable="true">
+    <Return Type="object" />
+  </Function>
+  
+  
+</Database>

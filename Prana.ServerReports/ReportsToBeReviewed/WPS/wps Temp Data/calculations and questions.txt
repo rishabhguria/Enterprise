@@ -1,0 +1,58 @@
+/*
+Date range 28/5/2015 to 5/6/2015
+SCENARIO 1 
+
+	if the security was traded earlier and was not closed until last date
+			
+			Beginnning position will be as on startdate
+			Beginning Price will be as on startdate
+
+			Ending position will be of the end date
+			Ending Price will be of the end date
+				
+SCENARIO 2 
+	if the security was traded earlier and was closed before last date
+			
+			Beginnning position will be 0
+			Beginning Price will be as on startdate
+								
+			Ending position will be 0
+			Ending Price will be as on when the trade was closed
+
+SCENARIO 3
+	if the security was traded after start date and was closed before last date
+			
+			Beginnning position will be 0
+			Beginning Price will be as on average weighted price
+								
+			Ending position will be 0
+			Ending Price will be as on when the trade was closed
+
+SCENARIO 4
+	if the security was traded after start date and was not closed until last date
+			
+			Beginning Position will be as on tradedate
+			Beginnning Price will be the average weighted price
+								
+			Ending position will be of the end date
+			Ending Price will be as on end date
+		
+*/
+
+
+
+
+
+/*
+Questions
+		*) How we will identify if the trade was done prior to start date or not?
+		*) How we will get that was the trade closed before end date?
+		*) Can we return only one row per Symbol that are still open until the window is open?
+				if yes
+				*) Can we merge the PNL contribution and PNL Contribution% in the single row too?
+		*) What has to be done if Cash is to be included?
+				*) For what cash is to be included?
+				*) How is it added?
+				*) What is affected by inclusion of cash
+
+*/

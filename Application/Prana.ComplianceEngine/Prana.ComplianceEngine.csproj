@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CCE11E0D-2CF9-4EA1-9CCC-B86747687129}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.ComplianceEngine</RootNamespace>
+    <AssemblyName>Prana.ComplianceEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTree.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabbedMdi.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinListView.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinListBar.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>$(ProgramFiles)\Microsoft.NET\Primary Interop Assemblies\Microsoft.mshtml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlertHistory\BLL\AlertHistoryManager.cs" />
+    <Compile Include="AlertHistory\DAL\AlertsAmqpPlugin.cs" />
+    <Compile Include="AlertHistory\DAL\AlertsDAO.cs" />
+    <Compile Include="AlertHistory\UI\UserControls\AlertGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertGrid.Designer.cs">
+      <DependentUpon>AlertGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertHistoryMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertHistoryMain.Designer.cs">
+      <DependentUpon>AlertHistoryMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertHistoryPaging.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertHistoryPaging.Designer.cs">
+      <DependentUpon>AlertHistoryPaging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertOperations.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlertHistory\UI\UserControls\AlertOperations.Designer.cs">
+      <DependentUpon>AlertOperations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComplianceAlertPopup\ComplainceConstants.cs" />
+    <Compile Include="ComplianceAlertPopup\ComplianceAlertPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComplianceAlertPopup\ComplianceAlertPopUp.Designer.cs">
+      <DependentUpon>ComplianceAlertPopUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComplianceAlertPopup\ComplianceAlertPopupUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ComplianceAlertPopup\ComplianceAlertPopupUC.Designer.cs">
+      <DependentUpon>ComplianceAlertPopupUC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ComplianceAlertPopup\ComplianceCommon.cs" />
+    <Compile Include="ComplianceAlertPopup\OpenAndBindDataThresholdActualResultView.cs" />
+    <Compile Include="ComplianceAlertPopup\ThresholdActualResultDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ComplianceAlertPopup\ThresholdActualResultDetails.Designer.cs">
+      <DependentUpon>ThresholdActualResultDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pending Approval UI\BLL\PendingApprovalCache.cs" />
+    <Compile Include="Pending Approval UI\BLL\PendingApprovalConstants.cs" />
+    <Compile Include="Pending Approval UI\BLL\PendingApprovalHelperClass.cs" />
+    <Compile Include="Pending Approval UI\BLL\PendingApprovalManager.cs" />
+    <Compile Include="Pending Approval UI\DAL\PendingApprovalConnector.cs" />
+    <Compile Include="Pending Approval UI\UI\UserControls\PendingApprovalData.cs" />
+    <Compile Include="Pending Approval UI\UI\UserControls\PendingApprovalGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pending Approval UI\UI\UserControls\PendingApprovalGrid.Designer.cs">
+      <DependentUpon>PendingApprovalGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pending Approval UI\UI\UserControls\PendingApprovalMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pending Approval UI\UI\UserControls\PendingApprovalMain.Designer.cs">
+      <DependentUpon>PendingApprovalMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\BLL\GroupCache.cs" />
+    <Compile Include="RuleDefinition\BLL\ProcessManager.cs" />
+    <Compile Include="RuleDefinition\DAL\GroupDataHandler.cs" />
+    <Compile Include="RuleDefinition\Helper\RuleHandlerHelper.cs" />
+    <Compile Include="RuleDefinition\RulePluggins\UserControls\RuleGroupingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\RulePluggins\UserControls\RuleGroupingControl.Designer.cs">
+      <DependentUpon>RuleGroupingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\RulePluggins\UserControls\RuleGroupingMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\RulePluggins\UserControls\RuleGroupingMain.Designer.cs">
+      <DependentUpon>RuleGroupingMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\ImportRuleSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\ImportRuleSelection.Designer.cs">
+      <DependentUpon>ImportRuleSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\RuleDefinitionMainNew.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\RuleDefinitionMainNew.Designer.cs">
+      <DependentUpon>RuleDefinitionMainNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\IWebBrowserControl.cs" />
+    <Compile Include="ComplianceEngine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ComplianceEngine.Designer.cs">
+      <DependentUpon>ComplianceEngine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuleDefinition\UI\UserControls\BrowserFactoryHandler.cs" />
+    <Compile Include="RuleDefinition\BLL\RuleCache.cs" />
+    <Compile Include="RuleDefinition\BLL\RuleFactoryHandler.cs" />
+    <Compile Include="RuleDefinition\BLL\RuleLoadHandler.cs" />
+    <Compile Include="RuleDefinition\BLL\RuleManager.cs" />
+    <Compile Include="RuleDefinition\DAL\CommonRuleHandler.cs" />
+    <Compile Include="RuleDefinition\DAL\CustomRuleHandler.cs" />
+    <Compile Include="RuleDefinition\DAL\UserDefinedRuleHandler.cs" />
+    <Compile Include="RuleDefinition\UI\UserControls\NotificationSettings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\NotificationSettings.Designer.cs">
+      <DependentUpon>NotificationSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\RuleDefViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\RuleDefViewer.Designer.cs">
+      <DependentUpon>RuleDefViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\RuleNavigator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\RuleNavigator.Designer.cs">
+      <DependentUpon>RuleNavigator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\WebBrowserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RuleDefinition\UI\UserControls\WebBrowserControl.Designer.cs">
+      <DependentUpon>WebBrowserControl.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AlertHistory\UI\UserControls\AlertGrid.resx">
+      <DependentUpon>AlertGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertHistory\UI\UserControls\AlertHistoryMain.resx">
+      <DependentUpon>AlertHistoryMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertHistory\UI\UserControls\AlertHistoryPaging.resx">
+      <DependentUpon>AlertHistoryPaging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlertHistory\UI\UserControls\AlertOperations.resx">
+      <DependentUpon>AlertOperations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComplianceEngine.resx">
+      <DependentUpon>ComplianceEngine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComplianceAlertPopup\ComplianceAlertPopUp.resx">
+      <DependentUpon>ComplianceAlertPopUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ComplianceAlertPopup\ThresholdActualResultDetails.resx">
+      <DependentUpon>ThresholdActualResultDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pending Approval UI\UI\UserControls\PendingApprovalGrid.resx">
+      <DependentUpon>PendingApprovalGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pending Approval UI\UI\UserControls\PendingApprovalMain.resx">
+      <DependentUpon>PendingApprovalMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\RulePluggins\UserControls\RuleGroupingControl.resx">
+      <DependentUpon>RuleGroupingControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\RulePluggins\UserControls\RuleGroupingMain.resx">
+      <DependentUpon>RuleGroupingMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\UI\UserControls\ImportRuleSelection.resx">
+      <DependentUpon>ImportRuleSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\UI\UserControls\NotificationSettings.resx">
+      <DependentUpon>NotificationSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\UI\UserControls\RuleDefinitionMainNew.resx">
+      <DependentUpon>RuleDefinitionMainNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\UI\UserControls\RuleDefViewer.resx">
+      <DependentUpon>RuleDefViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\UI\UserControls\RuleNavigator.resx">
+      <DependentUpon>RuleNavigator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleDefinition\UI\UserControls\WebBrowserControl.resx">
+      <DependentUpon>WebBrowserControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RuleDefinition\UI\UserForms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10dd56d7-73f5-4213-9f65-74abcca49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExportGridsData\ExportGridsData.csproj">
+      <Project>{C7D2FAEB-0FE4-4E42-8317-AC5249EE0E4E}</Project>
+      <Name>ExportGridsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceConnector\Prana.ServiceConnector.csproj">
+      <Project>{be2a9463-08f3-46c5-b230-165c3056718d}</Project>
+      <Name>Prana.ServiceConnector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4efe8391-0c06-425f-83c7-78e7fef8717f}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Fix.FixDictionary\Prana.Fix.FixDictionary.csproj">
+      <Project>{08ad82ef-9fc2-4225-8014-a030a9b1b356}</Project>
+      <Name>Prana.Fix.FixDictionary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0bab7dc4-552e-41c6-b216-ab831495e5d5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205a21c-5cbe-4c10-965c-383f26246dad}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\Category.ico" />
+    <Content Include="Images\Disable.jpg" />
+    <Content Include="Images\PreEnable.jpg" />
+    <None Include="Resources\ExpandAll16.png" />
+    <None Include="Resources\collapseall.gif" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\sort_incr.png" />
+    <None Include="Resources\sort_decrease.png" />
+    <None Include="Resources\AppIconDefaultON_32.ico" />
+    <Content Include="RuleDefinition\UI\HtmlFiles\CustomRule.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RuleDefinition\UI\HtmlFiles\Startup.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.ComplianceEngine.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(TargetDir)Prana.ComplianceEngine.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)" /I /F /Y
+xcopy "$(ProjectDir)RuleDefinition\UI\HtmlFiles\*.*"  "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)\HtmlFiles\" /E /I /F /Y
+xcopy "$(ProjectDir)RuleDefinition\UI\HtmlFiles\*.*"  "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)RuleDefinition\UI\HtmlFiles\" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

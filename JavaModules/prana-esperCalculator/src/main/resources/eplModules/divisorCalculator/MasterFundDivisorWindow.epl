@@ -1,0 +1,155 @@
+module eplModules.divisorCalculators.MasterFundDivisorWindow;
+
+uses eplModules.divisorCalculators.BaseFieldsCalculator;
+uses eplModules.divisorCalculators.AccountDivisorWindow;
+
+@Priority(10)
+@Name('MasterFundNavInserted')
+@Description('This inserts data into MasterFundNavInserted from AccountDivisorWindow.')
+on pattern [every (U=AccountDivisorWindowUpdate)]
+insert into MasterFundNavInserted
+select distinct	
+	
+	R.masterFundId as masterFundId,
+	sum(coalesce(R.shadowNav,0)) as shadowNavMF,
+	sum(coalesce(R.startOfDayNav,0)) as startOfDayNavMF,
+	sum(coalesce(R.currentCash,0)) as currentCash,
+	sum(coalesce(R.accrual,0)) as accrual,
+	"AccountDivisorWindow" as parentWindowStream
+from 
+	AccountDivisorWindow as R 
+where U.masterFundId = R.masterFundId
+group by R.masterFundId;
+
+@Priority(10)
+@Name('MasterFundFieldsInserted')
+@Description('This inserts data into MasterFundFieldsInserted from MasterFundSymbolDivisorWindow whenever MasterFundSymbolDivisorUpdate event occurs.')
+on pattern [every (U=MasterFundSymbolDivisorUpdate)]
+insert into MasterFundFieldsInserted
+select distinct		
+	W.masterFundId as masterFundId,	
+	sum(W.grossMarketValueBase) as grossMarketValueBaseMF,
+	sum(W.grossExposureBase) as grossExposureBaseMF,
+	sum(W.netExposureBase) as netExposureBaseMF,
+	"MasterFundSymbolDivisorWindow" as parentWindowStream
+from
+	MasterFundSymbolDivisorWindow as W 
+where W.masterFundId=U.masterFundId
+group by W.masterFundId;
+
+@Priority(10)
+@Name('MasterFundDivisorWindowContinuous')
+@Description('Named window which stores data of MasterFund Divisor.')
+create window MasterFundDivisorWindow.std:unique(masterFundId)
+(			
+	masterFundId int,		
+	shadowNavMF double,
+	startOfDayNavMF double,
+	grossMarketValueBaseMF double,
+	grossExposureBaseMF double,
+	netExposureBaseMF double,
+	currentCash double,
+	accrual double,
+	parentWindowStream string
+);
+
+@Priority(10)
+@Name('MasterFundCollection')
+@Description('This updates the MasterFundDivisorWindow whenever AccountCollection event occurs.')
+on AccountCollection as s
+merge MasterFundDivisorWindow as W where W.masterFundId = s.masterFundId 
+when not matched and s.masterFundId is not null
+	then insert
+		select 			
+			s.masterFundId as masterFundId,
+			0.0 as shadowNavMF,
+			0.0 as startOfDayNavMF,			
+			0.0 as grossMarketValueBaseMF,
+			0.0 as grossExposureBaseMF,
+			0.0 as netExposureBaseMF,
+			0.0 as currentCash,
+			0.0 as accrual,
+		   	"AccountCollection" as parentWindowStream;
+
+@Priority(10)
+@Name('MasterFundDivisorWindowContinuousUpsertNav')
+@Description('This updates the MasterFundDivisorWindow whenever MasterFundNavInserted event occurs.')
+on MasterFundNavInserted as s
+merge MasterFundDivisorWindow as W where W.masterFundId=s.masterFundId
+when matched and
+		(
+			s.shadowNavMF <> W.shadowNavMF or
+			s.startOfDayNavMF <> W.startOfDayNavMF or	
+			s.currentCash <> W.currentCash or
+			s.accrual <> W.accrual
+		)
+		then update
+			set
+			W.shadowNavMF = s.shadowNavMF,
+			W.startOfDayNavMF = s.startOfDayNavMF,
+			W.currentCash = s.currentCash,
+			W.accrual = s.accrual,
+			W.parentWindowStream = "MasterFundNavInserted"
+
+when not matched
+		then insert
+		select 
+			
+			s.masterFundId as masterFundId,
+			coalesce(s.shadowNavMF,0) as shadowNavMF,
+			coalesce(s.startOfDayNavMF,0) as startOfDayNavMF,
+			0.0 as grossMarketValueBaseMF,
+			0.0 as grossExposureBaseMF,
+			0.0 as netExposureBaseMF,
+			0.0 as currentCash,
+			0.0 as accrual,
+		   	"MasterFundNavInserted" as parentWindowStream;
+				
+@Priority(10)
+@Name('MasterFundDivisorWindowContinuousUpsertFields')
+@Description('This updates the MasterFundDivisorWindow whenever MasterFundFieldsInserted event occurs.')
+on MasterFundFieldsInserted as s
+merge MasterFundDivisorWindow as W where W.masterFundId=s.masterFundId
+when matched and
+		(			
+			s.grossMarketValueBaseMF <> W.grossMarketValueBaseMF or
+			s.grossExposureBaseMF <> W.grossExposureBaseMF or
+			s.netExposureBaseMF <> W.netExposureBaseMF
+		)
+		then update
+			set			
+			W.grossMarketValueBaseMF = s.grossMarketValueBaseMF,
+			W.grossExposureBaseMF = s.grossExposureBaseMF,
+			W.netExposureBaseMF = s.netExposureBaseMF,
+			W.parentWindowStream = "MasterFundFieldsInserted"
+
+when not matched
+		then insert
+		select 			
+			s.masterFundId as masterFundId,
+			0.0 as shadowNavMF,
+			0.0 as startOfDayNavMF,
+			coalesce(s.grossMarketValueBaseMF,0) as grossMarketValueBaseMF,
+			coalesce(s.grossExposureBaseMF,0) as grossExposureBaseMF,
+			coalesce(s.netExposureBaseMF,0) as netExposureBaseMF,
+			0.0 as currentCash,
+			0.0 as accrual,
+		   	"MasterFundFieldsInserted" as parentWindowStream;
+
+@Priority(10)
+@Name('MasterFundDivisorWindowTimerUpdate')
+@Description('This inserts data into MasterFundDivisorUpdateEvent from MasterFundDivisorWindow whenever SymbolDataEndEvent event occurs.')
+on pattern [every (E = SymbolDataEndEvent)]
+insert into MasterFundDivisorUpdateEvent
+select
+			E.cycleId as cycleId,
+			R.masterFundId as masterFundId,
+			R.shadowNavMF as shadowNavMF,
+			R.startOfDayNavMF as startOfDayNavMF,
+			R.grossMarketValueBaseMF as grossMarketValueBaseMF,
+			R.grossExposureBaseMF as grossExposureBaseMF,
+			R.netExposureBaseMF as netExposureBaseMF,
+			R.currentCash as currentCash,
+			R.accrual as accrual,
+		   	"MasterFundDivisorWindow" as parentWindowStream
+from MasterFundDivisorWindow as R;

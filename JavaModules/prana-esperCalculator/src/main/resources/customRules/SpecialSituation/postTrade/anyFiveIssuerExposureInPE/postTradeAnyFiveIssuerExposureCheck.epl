@@ -1,0 +1,101 @@
+module customRules.specialSituations.postTrade.anyFiveIssuerExposureInPE.postTradeAnyFiveIssuerExposureCheck;
+
+@Name('TopFiveIssuerExposureForGivenAccountPost')
+@Description('Creating window which will contain sum of calculationField of top 5 issuers')
+create window TopFiveIssuerExposureForGivenAccountPost.std:groupwin(accountShortName).ext:sort(5, calculationField desc).win:time_batch(5 sec)
+(
+	accountId int,
+	calculationField double,
+	accountNav double,
+	accountShortName string,
+	issuer string,
+	resetVal string,
+	parentWindowStream String
+);
+
+@Name('IssuerExposureForGivenAccountPost')
+@Description('IssuerExposureForGivenAccountPost')
+on DivisorEndMessage as B
+insert into IssuerExposureForGivenAccountPost
+select distinct
+	W.accountId as accountId,
+	(case valueExistsInCSV(W.accountShortName, Account_Name_To_Check1)
+	when true then (case Variable4 is 'Net Exposure' when true then sum(coalesce(W.netExposureBase,0)) else sum(coalesce(W.netMarketValueBase,0)) end)
+	else 0.0 end) as calculationField,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	W.issuer as issuer,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W where
+	valueExistsInCSV(W.accountShortName, Account_Name_To_Check1) is true
+group by W.accountId,W.issuer
+order by (case Variable4 is 'Net Exposure' when true then W.netExposureBase else W.netMarketValueBase end) desc;
+
+@Name('TopFiveIssuerExposureForGivenAccountPost')
+@Description('TopFiveIssuerExposureForGivenAccountPost')
+insert into TopFiveIssuerExposureForGivenAccountPost
+select
+	W.accountId as accountId,
+	W.calculationField as calculationField,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	W.issuer as issuer,
+	resetConcatValues(W.accountId, 'AnyFiveIssuerPost') as resetVal,
+	"IssuerExposureForGivenAccountPost" as parentWindowStream
+from IssuerExposureForGivenAccountPost as W
+group by W.accountId,W.issuer
+Limit 5;
+
+@Name('SumTopFiveIssuerExposurePost')
+@Description('SumTopFiveIssuerExposurePost')
+insert into SumTopFiveIssuerExposurePost
+select
+	W.accountId as accountId,
+	sum(coalesce(W.calculationField,0)) as calculationField,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	concatValues(W.accountId, 'AnyFiveIssuerPost', W.issuer) as issuer,
+	"TopFiveIssuerExposureForGivenAccountPost" as parentWindowStream
+from TopFiveIssuerExposureForGivenAccountPost as W
+group by W.accountId;
+
+@Name('PostTradeAnyFiveIssuerExposureCheck')
+@Description('Exposure to Any 5 issuers in PE account')
+insert into PostTradeAnyFiveIssuerExposureCheck
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Exposure_Percentage_To_Check1) as threshold,
+	doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) as actualResult,
+	'Investment limit' as constraintField,
+	(case valueExistsInCSV(A.accountShortName, Account_Name_To_Check1)
+	when true then 
+		(Math.abs(coalesce(A.calculationField/ A.accountNav, 0)) > (Exposure_Percentage_To_Check1/100))
+	else 
+		false end) as isViolated,
+	'Account: ' || A.accountShortName || ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+	|| (case Variable4 is 'Net Exposure' when true then ', Net Exposure: ' else ', Net Market Value: ' end) || doubleFormat(A.calculationField)
+	|| ', % Investment: ' || doubleFormat(coalesce((A.calculationField / A.accountNav)*100,0)) || ', Top Five Issuer(s): ' || getConcatValues(A.accountId, 'AnyFiveIssuerPost')  as parameters,
+	current_timestamp as validationTime,
+	'Exposure to any five issuers cannot be more than ' || doubleFormat(Exposure_Percentage_To_Check1) ||'% of its total assets in ' || Account_Name_To_Check1 as summary,
+	A.accountShortName as dimension
+from
+SumTopFiveIssuerExposurePost as A;
+
+@Name('TopFiveIssuerExposureResetEvent')
+@Description('TopFiveIssuerExposureResetEvent resets the issuers.')
+on PostTradeAnyFiveIssuerExposureCheck as B
+insert into TopFiveIssuerExposureResetEvent
+select distinct
+	W.accountId as accountId,
+	resetConcatValues(W.accountId, 'AnyFiveIssuerPost') as resetVal
+from AccountSymbolWithNav as W
+where valueExistsInCSV(W.accountShortName, Account_Name_To_Check1) is true
+group by W.accountId;
+
+@Priority(10)
+@Name('TopFiveIssuerExposureForGivenAccountPost Delete')
+@Description('Select  delete from TopFiveIssuerExposureForGivenAccountPost')
+on DivisorEndMessage as D
+delete from TopFiveIssuerExposureForGivenAccountPost as C
+where valueExistsInCSV(C.accountShortName, Account_Name_To_Check1);

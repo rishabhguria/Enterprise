@@ -1,0 +1,40 @@
+module customRules.mapleRock.postTrade.masterFundSectorConcentration.masterFundSectorConcentration;
+
+
+@Name('AggregationNetExposureMasterFundSectorMapleRock')
+@Description('Contains current Exposure for master-fund sector compression')
+on pattern[every R=MasterFundSymbolWithNavUpdated]
+insert into AggregationNetExposureMasterFundSectorMapleRock
+select distinct
+	sum(coalesce(T.netExposureBase, 0)) as netExposureBase,
+	T.sector as sector,
+	T.masterFundName as masterFundName,
+	T.masterFundId as masterFundId,
+	'' as taxlotId,
+	0 as userId,
+	"MasterFundSymbolWithNav" as parentWindowStream
+from
+MasterFundSymbolWithNav as T
+group by T.masterFundId,T.sector;
+
+
+@Name('MasterFundSectorConcentrationMapleRock')
+@Description('Checks if limit is breached')
+on pattern[every T=AggregationNetExposureMasterFundSectorMapleRock]
+insert into MasterFundSectorConcentrationMapleRock
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'30' || ValueSeparator || 'N/A' || ValueSeparator || 'N/A' as threshold,
+	doubleFormat(Math.abs(T.netExposureBase / R.masterFundNav) * 100 ) || ValueSeparator || T.masterFundName || ValueSeparator || T.sector as actualResult,
+	'Master Account-Sector Concentration Limit (%)' || ValueSeparator || 'MasterFund' || ValueSeparator || 'Sector' as constraintField,
+	true as isViolated,
+	'Master Fund NAV: ' || doubleFormat(R.masterFundNav) || ', Net Exposure: '||doubleFormat(T.netExposureBase) || ', Master Fund: '||T.masterFundName || ', Sector: '||T.sector || ', Sector Concentration: '||doubleFormat(Math.abs(T.netExposureBase / R.masterFundNav) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The fund sector concentration is above 30%.' as summary,
+	T.masterFundName || '-' || T.sector as dimension,
+	"MasterFundWithNav,AggregationNetExposureMasterFundSectorMapleRock" as parentWindowStream
+from
+MasterFundWithNav as R
+where T.masterFundId = R.masterFundId and Math.abs(coalesce(T.netExposureBase / coalesce(R.masterFundNav, 0), 0)) > 0.30;
+;

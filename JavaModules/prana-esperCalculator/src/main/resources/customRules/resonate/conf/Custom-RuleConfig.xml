@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="Resonate">
+		<rule id="custom-rule-Resonate1">
+			<name>Long Positions Limit</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/LongPositionsLimit/</eplPath>
+			<description>The count of all securities of Long Positions is less than 15 or greater than 20</description>
+			<compressionLevel>Account</compressionLevel>
+			<validationCompletedEventName>LongPositionsLimitResonate</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="LongPositionsLimitResonate" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="LongPositionsLimitResonate" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="LONG_POSITIONS_MIN_LIMIT_RESONATE" type="double" value="15" displayName="Long Positions Minimum Limit" />
+				<constantValue name="LONG_POSITIONS_MAX_LIMIT_RESONATE" type="double" value="20" displayName="Long Positions Maximum Limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Resonate2">
+			<name>Short Positions Limit</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/ShortPositionsLimit/</eplPath>
+			<description>The count of all securities of Short Positions is less than 35 or greater than 75</description>
+			<compressionLevel>Account</compressionLevel>
+			<validationCompletedEventName>ShortPositionsLimitResonate</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="ShortPositionsLimitResonate" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="ShortPositionsLimitResonate" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="SHORT_POSITIONS_MIN_LIMIT_RESONATE" type="double" value="35" displayName="Short Positions Minimum Limit" />
+				<constantValue name="SHORT_POSITIONS_MAX_LIMIT_RESONATE" type="double" value="75" displayName="Short Position Maximum Limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Resonate3">
+			<name>Investment Outside The Country</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/InvestmentOutsideTheCountry/</eplPath>
+			<description>The Notional of all securities outside the Country is more than 50%</description>
+			<compressionLevel>Account</compressionLevel>
+			<validationCompletedEventName>InvestmentOutsideTheCountryResonate</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="InvestmentOutsideTheCountryResonate" />
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="InvestmentOutsideTheCountryResonate" />
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME_RESONATE" type="string" value="Star V partners" displayName="Account Name" />
+				<constantValue name="COUNTRY_NAME_RESONATE" type="string" value="USA" displayName="Country Name" />
+				<constantValue name="INVESTMENT_LIMIT_RESONATE" type="double" value="50" displayName="Investment Limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Resonate4">
+			<name>Investment in One Continent</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/InvestmentInOneContinent/</eplPath>
+			<description>The Notional of all securities in one continent is more than 25%.</description>
+			<compressionLevel>AccountContinent</compressionLevel>
+			<validationCompletedEventName>InvestmentInOneContinentResonate</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="InvestmentInOneContinentResonate"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="InvestmentInOneContinentResonate"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME1_RESONATE" type="string" value="Star V partners" displayName="Account Name" />
+				<constantValue name="INVESTMENT_LIMIT1_RESONATE" type="double" value="25" displayName="Investment Limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Resonate5">
+			<name>Partnership Investment Limit</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/PartnershipInvestmentLimit/</eplPath>
+			<description>The Partnership investment in the securities of any single issuer typically will not exceed 15% of the Partnership assets</description>
+			<compressionLevel>AccountIssuer</compressionLevel>
+			<validationCompletedEventName>PartnershipInvestmentLimitResonate</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PartnershipInvestmentLimitResonate"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PartnershipInvestmentLimitResonate"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME2_RESONATE" type="string" value="Resonate Core" displayName="Account Name" />
+				<constantValue name="INVESTMENT_LIMIT2_RESONATE" type="double" value="15" displayName="Partnership Investment Limit" />			
+			</constantList>
+		</rule>
+		<rule id="custom-rule-Resonate6">
+			<name>Partnership Liquidation Limit</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/PartnershipLiquidationLimit/</eplPath>
+			<description>The aggregate notional value of futures and commodity options cannot exceed one hundred percent (100%) of the Partnerships liquidation value</description>
+			<compressionLevel>Account</compressionLevel>
+			<validationCompletedEventName>PartnershipLiquidationLimitResonate</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PartnershipLiquidationLimitResonate"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PartnershipLiquidationLimitResonate"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue name="FUND_NAME3_RESONATE" type="string" value="Resonate Core" displayName="Account Name" />
+				<constantValue name="INVESTMENT_LIMIT3_RESONATE" type="double" value="100" displayName="Partnership Liquidation Limit" />			
+			</constantList>
+			
+		</rule>
+	</rules>
+</ruleConfig>

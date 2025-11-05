@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7BAE2D8-E416-4B82-A709-403C313D64FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.SAPIAdapter</RootNamespace>
+    <AssemblyName>Prana.SAPIAdapter</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bloomberglp.Blpapi, Version=3.21.0.1, Culture=neutral, PublicKeyToken=ec3efa8c033c2bc5, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Nuget DLLs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\ElementSchema.cs" />
+    <Compile Include="Attributes\ElementValueAttribute.cs" />
+    <Compile Include="Attributes\KeyValueAttribute.cs" />
+    <Compile Include="Attributes\SetterAttribute.cs" />
+    <Compile Include="EventArgs\MessageEventArgs.cs" />
+    <Compile Include="Models\BloombergAccessTokenDTO.cs" />
+    <Compile Include="Responses\InstrumentListResponse.cs" />
+    <Compile Include="Events\MarketDataEvents.cs" />
+    <Compile Include="HelperClasses\MarketDataEventArgs.cs" />
+    <Compile Include="Responses\ReferenceDataResponse.cs" />
+    <Compile Include="Requests\InstrumentListRequest.cs" />
+    <Compile Include="Responses\SubscriptionFailure.cs" />
+    <Compile Include="SAPIConstants.cs" />
+    <Compile Include="SAPIManager.cs" />
+    <Compile Include="Elements\ElementTree.cs" />
+    <Compile Include="Elements\Entitlement.cs" />
+    <Compile Include="Elements\ErrorInfo.cs" />
+    <Compile Include="Elements\Field.cs" />
+    <Compile Include="Elements\FieldData.cs" />
+    <Compile Include="Elements\FieldError.cs" />
+    <Compile Include="Elements\FieldException.cs" />
+    <Compile Include="Elements\Fields.cs" />
+    <Compile Include="Elements\FieldSchema.cs" />
+    <Compile Include="Elements\FieldSearchError.cs" />
+    <Compile Include="Elements\Override.cs" />
+    <Compile Include="Elements\ResponseError.cs" />
+    <Compile Include="Elements\SearchOptions.cs" />
+    <Compile Include="Elements\Security.cs" />
+    <Compile Include="Elements\SecurityData.cs" />
+    <Compile Include="Elements\SecurityError.cs" />
+    <Compile Include="Elements\SubscriptionError.cs" />
+    <Compile Include="Elements\SubscriptionFailureDetails.cs" />
+    <Compile Include="Enumerators\AbstractEnumerator.cs" />
+    <Compile Include="Enumerators\Overrides.cs" />
+    <Compile Include="Enumerators\Securities.cs" />
+    <Compile Include="Enums\ElementKeys.cs" />
+    <Compile Include="Enums\FieldType.cs" />
+    <Compile Include="Enums\NonTradingDayFillMethod.cs" />
+    <Compile Include="Enums\NonTradingDayFillOption.cs" />
+    <Compile Include="Enums\OverrideOption.cs" />
+    <Compile Include="Enums\PeriodicityAdjustment.cs" />
+    <Compile Include="Enums\PeriodicitySelection.cs" />
+    <Compile Include="Enums\PricingOption.cs" />
+    <Compile Include="Enums\ProductType.cs" />
+    <Compile Include="Enums\SearchCategory.cs" />
+    <Compile Include="Enums\SecurityType.cs" />
+    <Compile Include="Enums\ServiceType.cs" />
+    <Compile Include="Extensions\BloombergExtensions.cs" />
+    <Compile Include="Extensions\ElementExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\AbstractRequest.cs" />
+    <Compile Include="Requests\AuthorizationRequest.cs" />
+    <Compile Include="Requests\MarketDataRequest.cs" />
+    <Compile Include="Requests\ProductRequest.cs" />
+    <Compile Include="Requests\ReferenceDataRequest.cs" />
+    <Compile Include="Services\AuthorizationService.cs" />
+    <Compile Include="Services\FieldListService.cs" />
+    <Compile Include="Services\FieldSearchService.cs" />
+    <Compile Include="Services\FieldService.cs" />
+    <Compile Include="Services\InstrumentService.cs" />
+    <Compile Include="Services\MarketDataService.cs" />
+    <Compile Include="Services\ReferenceDataService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Sessions\UserOptions.cs" />
+    <Compile Include="Sessions\UserSession.cs" />
+    <Compile Include="Sessions\UserSubscription.cs" />
+    <Compile Include="SymbolRequest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Docs\api dev guide.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.MarketDataAdapter.Common\Prana.MarketDataAdapter.Common.csproj">
+      <Project>{2fc67c23-3c11-4f13-b47d-d4e3c4e73de0}</Project>
+      <Name>Prana.MarketDataAdapter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bloomberglp.Blpapi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>if not exist "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2Host\$(OutDir)\SAPI Certificates" mkdir "$(SolutionDir)Application\Prana.PricingAnalysisModels\Prana.PricingService2Host\$(OutDir)\SAPI Certificates"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

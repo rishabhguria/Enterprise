@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{550C046E-C0D8-4F44-BA2B-E5D54A50744F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.TestAutomation.Steps.Blotter</RootNamespace>
+    <AssemblyName>Nirvana.TestAutomation.Steps.Blotter</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.UIA">
+      <HintPath>..\..\DLLs\Interop.UIA.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.UIAutomationClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\DLLs\Interop.UIAutomationClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Database">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51205.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestAutomationFX.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Steps\AddTabBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BlotterExecutionReportUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BlotterExecutionReportUIMap.Designer.cs">
+      <DependentUpon>BlotterExecutionReportUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BlotterUIMap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BlotterUIMap.Designer.cs">
+      <DependentUpon>BlotterUIMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Steps\AllocateFromWorkingSubsBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\BlotterToolBarAction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CancelFromSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CustomTabActions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\MergeOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\AddFillsSubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AddFillsWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AddTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AllocateFromBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\AuditTrailOrderBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\BlotterExecutionReportSnapshot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\BlotterFunctionalities.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\BlotterHelper.cs" />
+    <Compile Include="Steps\CancelAllSelectedSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CancelAllSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CancelSubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CancelWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExportExecutionReportData.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ExportToExcel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GetExecutionReportDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GoToAllocation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\MultipleTradeTransferToUser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\OpenBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReAllocateFromBlotterByAllocate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReloadFromSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReloadOrderFromBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReloadOrderFromSubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReloadOrderFromWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RemoveExecutionWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RemoveManualExecution.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RemoveOrderFromCustomTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveLayoutBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DetailsForAlgoSubOrders.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DetailsForAlgoTradeOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\DetailsForAlgoTradeWS.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\GetExecutionReportOrders.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RefreshBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RemoveSelectedOrders.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditAddFillsDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RemoveTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RenameBlotterTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReplaceStageOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReplaceSubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReplaceWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\CheckBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\EditStageOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\MultiTradingTicketFromBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\RemoveStageOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ReplaceFillsOnBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveLayoutOrderGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveOrRemoveInSummaryTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SaveOrRemoveInWorkingSubsTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectCheckBoxOnCustomTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectCheckBoxOnOrderGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectTradeOnBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectTradeSubOrderBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectTradeSummary.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectTradeWorkingSubsBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SwitchTabBlotter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\TransferToUserOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\SelectTradeOnOrderGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\TransferToUserSubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\TransferToUserWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\TradeNewSubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UploadStageOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\UploadStageOrders.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAlgoDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyAuditTrail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyBlotter.cs" />
+    <Compile Include="Steps\VerifyCustomTabs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyExecutionReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyExpandedBR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyLowerStripBlotterUI.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyRollover.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifySubOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifySubOrderAfterRollover.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyViewAllocationDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyViewAllocationOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyWorkingSubs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ViewAllocationDetailsWorkingSub.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\ViewPTTAllocationDetails.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Steps\VerifyMergeOrder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <EmbeddedResource Include="BlotterExecutionReportUIMap.resx">
+      <DependentUpon>BlotterExecutionReportUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BlotterUIMap.resx">
+      <DependentUpon>BlotterUIMap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Steps\SaveLayoutOrderGrid.resx">
+      <DependentUpon>SaveLayoutOrderGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Steps\TransferToUserOrder.resx">
+      <DependentUpon>TransferToUserOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.BussinessObjects\Nirvana.TestAutomation.BussinessObjects.csproj">
+      <Project>{b6c8fded-0558-4930-a9ff-f6e61c76af7d}</Project>
+      <Name>Nirvana.TestAutomation.BussinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Factory\Nirvana.TestAutomation.Factory.csproj">
+      <Project>{8d2bb2fc-8362-41ba-ab0f-4c6b0e8915f6}</Project>
+      <Name>Nirvana.TestAutomation.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Interfaces\Nirvana.TestAutomation.Interfaces.csproj">
+      <Project>{85e56089-02d6-435a-ab82-dc828da19114}</Project>
+      <Name>Nirvana.TestAutomation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.UIAutomation\Nirvana.TestAutomation.UIAutomation.csproj">
+      <Project>{c814debb-9e96-4795-9fde-8f7b950771f7}</Project>
+      <Name>Nirvana.TestAutomation.UIAutomation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Nirvana.TestAutomation.Utilities\Nirvana.TestAutomation.Utilities.csproj">
+      <Project>{1dc3644b-50a8-4fe8-9237-39e3f3ae563a}</Project>
+      <Name>Nirvana.TestAutomation.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

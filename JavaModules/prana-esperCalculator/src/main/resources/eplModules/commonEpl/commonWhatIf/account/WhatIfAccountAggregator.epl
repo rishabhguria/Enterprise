@@ -1,0 +1,227 @@
+module eplModules.whatIfAggregation.account.WhatIfAccountAggregator;
+
+
+uses eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolMerge;
+uses eplModules.whatIfAggregation.accountUnderlyingSymbol.WhatIfAccountUnderlyingSymbolWindowWithNav;
+uses eplModules.whatIfAggregation.whatIfCommon.WhatIfAggregationStart;
+uses  eplModules.dataWindow.PmCalculationPreference;
+uses eplModules.expressions.BaseExpression;
+
+@Priority(10)
+@Name('WhatIfAggregationAccountIntermediate1')
+@Description('Inserts data into WhatIfAggregationAccountIntermediate1 from WhatIfAccountUnderlyingSymbolUpdated on basis of basketId.')
+//on pattern [every (A=WhatIfAggregationStart -> W=WhatIfAccountUnderlyingSymbolUpdated(A.basketId = W.basketId))]
+insert into WhatIfAggregationAccountIntermediate1
+select distinct
+
+
+	W.basketId as basketId,
+	W.isEomSent as isEomSent,
+	W.taxlotId as taxlotId,
+	W.userId as userId,
+	W.accountShortName as accountShortName,
+	W.accountLongName as accountLongName,
+	W.accountId as accountId,
+	W.masterFundId as masterFundId,
+	W.masterFundName as masterFundName,
+	
+
+	'WhatIf' as taxlotType,
+	'Account' as compressionLevel,
+	
+	W.globalNav as globalNav,
+	W.startOfDayNavGlobal as startOfDayNavGlobal,
+	W.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	W.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	W.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+		
+	W.accountNav as accountNav,
+	W.accountNRA as accountNRA,
+	W.startOfDayNavAccount as startOfDayNavAccount,
+	W.grossMarketValueBaseAccount as grossMarketValueBaseAccount,
+	W.grossExposureBaseAccount as grossExposureBaseAccount,
+	W.netExposureBaseAccount as netExposureBaseAccount,
+	W.currentCash as currentCash,
+	W.accrual as accrual,	
+	
+	W.masterFundNav as masterFundNav,
+	W.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	W.grossMarketValueBaseMasterFund as grossMarketValueBaseMasterFund,
+	W.grossExposureBaseMasterFund as grossExposureBaseMasterFund,
+	W.netExposureBaseMasterFund as netExposureBaseMasterFund,
+	"WhatIfAccountUnderlyingSymbolUpdated" as parentWindowStream
+
+from  pattern 
+[every (A=WhatIfAggregationStart(IsAccountCompressionEnabled = true) -> W=WhatIfAccountUnderlyingSymbolUpdated(A.basketId = W.basketId))];
+	
+
+
+
+@Priority(10)
+@Name('WhatIfAggregationAccountIntermediate')
+@Description('Inserts data into WhatIfAggregationAccountIntermediate from WhatIfAggregationAccountIntermediate1,WhatIfAccountUnderlyingSymbolWithNav and PmCalculationPreferenceWindow.')
+//on pattern [every (T=WhatIfAggregationAccountIntermediate1)]
+insert into WhatIfAggregationAccountIntermediate
+select distinct
+	
+
+
+	T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	T.accountShortName as accountShortName,
+	T.accountLongName as accountLongName,
+	T.accountId as accountId,
+	T.masterFundId as masterFundId,
+	T.masterFundName as masterFundName,
+	
+
+	'WhatIf' as taxlotType,
+	'Account' as compressionLevel,
+		
+	sum(T.equityHaircutBase) as equityHaircutBase,
+	sum(T.indexHaircutBase) as indexHaircutBase,
+	sum(T.liquidationPnlBase) as liquidationPnlBase,	
+	
+	sum(T.notionalBase) as notionalBase,
+	sum(T.cashImpactBase) as cashImpactBase,
+	sum(T.cashInflowBase) as cashInflowBase,
+	sum(T.cashOutflowBase) as cashOutflowBase,
+	sum(T.netMarketValueBase) as netMarketValueBase,
+	sum(T.yesterdayMarketValueBase) as yesterdayMarketValueBase,	
+	sum(T.costBasisPnLBase) as costBasisPnLBase,
+	sum(T.dayPnLBase) as dayPnLBase,
+	sum(T.betaAdjustedExposureBase) as betaAdjustedExposureBase,
+	sum(T.underlyingValueForOptionsBase) as underlyingValueForOptionsBase,
+	
+	sum(T.dayInterestBase) as dayInterestBase,
+	sum(T.totalInterestBase) as totalInterestBase,
+	
+
+	sum(T.longNotionalBase)  as longNotionalBase,
+	sum(T.shortNotionalBase) as shortNotionalBase,
+	sum(T.shortMarketValueBase) as shortMarketValueBase,
+	sum(T.longMarketValueBase) as longMarketValueBase,
+	sum(T.shortExposureBase) as shortExposureBase,
+	sum(T.longExposureBase) as longExposureBase,
+	
+        sum(T.grossExposureUnderlying) as grossExposureUnderlying,
+	
+	sum(T.longExposureUnderlying) as longExposureUnderlying,
+	sum(T.shortExposureUnderlying) as shortExposureUnderlying,
+	
+	
+	T.globalNav as globalNav,
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	T.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	T.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+		
+	T.accountNav as accountNav,
+	T.accountNRA as accountNRA,
+	T.startOfDayNavAccount as startOfDayNavAccount,
+	T.grossMarketValueBaseAccount as grossMarketValueBase,
+	T.grossExposureBaseAccount as grossExposureBase,
+	T.netExposureBaseAccount as netExposureBase,
+	T.currentCash as currentCash,
+	T.accrual as accrual,	
+	
+	T.masterFundNav as masterFundNav,
+	T.startOfDayNavMasterFund as startOfDayNavMasterFund,
+	T.grossMarketValueBaseMasterFund as grossMarketValueBaseMasterFund,
+	T.grossExposureBaseMasterFund as grossExposureBaseMasterFund,
+	T.netExposureBaseMasterFund as netExposureBaseMasterFund,
+	
+		
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.accountNav,0)) as pnlContributionAccount,
+	percent(sum(coalesce(T.longExposureBase,0)) ,coalesce(T.accountNav,0)) as percentLongExposureAccount,
+	percent(sum(coalesce(T.shortExposureBase,0)) ,coalesce(T.accountNav,0)) as percentShortExposureAccount, 
+	percent(coalesce(T.netExposureBaseAccount,0) ,coalesce(T.accountNav,0)) as percentNetExposureAccount,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)) ,coalesce(T.accountNav,0)) as percentBetaAdjustedExposureAccount,
+	percent(coalesce(T.grossExposureBaseAccount,0),coalesce(T.accountNav,0)) as percentGrossExposureAccount,
+	percent(sum(coalesce(T.longMarketValueBase,0)) ,coalesce(T.accountNav,0)) as percentLongMarketValueAccount,
+	percent(sum(coalesce(T.shortMarketValueBase,0)) ,coalesce(T.accountNav,0)) as percentShortMarketValueAccount,
+	percent(sum(coalesce(T.netMarketValueBase,0)) ,coalesce(T.accountNav,0)) as percentNetMarketValueAccount,
+	percent(coalesce(T.grossMarketValueBaseAccount,0) ,coalesce(T.accountNav,0)) as percentGrossMarketValueAccount,
+	percent(sum(coalesce(T.longNotionalBase,0)) ,coalesce(T.accountNav,0)) as percentLongNotionalAccount,
+	percent(sum(coalesce(T.shortNotionalBase,0)) ,coalesce(T.accountNav,0)) as percentShortNotionalAccount,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.accountNav,0)) as percentNetNotionalAccount,
+	percent(sum(coalesce(T.costBasisPnLBase,0)) ,coalesce(T.accountNav,0)) as percentCostBasisPnlAccount,
+	percent(sum(coalesce(T.grossExposureUnderlying,0)) ,coalesce(T.accountNav,0)) as percentGrossExposureUnderlyingAccount,
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavAccount,0)) as dayReturnAccount,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.masterFundNav,0)) as pnlContributionMasterFund,
+	percent(sum(coalesce(T.longExposureBase,0)) ,coalesce(T.masterFundNav,0)) as percentLongExposureMasterFund,
+	percent(sum(coalesce(T.shortExposureBase,0)) ,coalesce(T.masterFundNav,0)) as percentShortExposureMasterFund,
+	percent(coalesce(T.netExposureBaseAccount,0) ,coalesce(T.masterFundNav,0)) as percentNetExposureMasterFund,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)) ,coalesce(T.masterFundNav,0)) as percentBetaAdjustedExposureMasterFund,
+	percent(coalesce(T.grossExposureBaseAccount,0) ,coalesce(T.masterFundNav,0)) as percentGrossExposureMasterFund,
+	percent(sum(coalesce(T.longMarketValueBase,0)) ,coalesce(T.masterFundNav,0)) as percentLongMarketValueMasterFund,
+	percent(sum(coalesce(T.shortMarketValueBase,0)) ,coalesce(T.masterFundNav,0)) as percentShortMarketValueMasterFund,
+	percent(sum(coalesce(T.netMarketValueBase,0)) ,coalesce(T.masterFundNav,0)) as percentNetMarketValueMasterFund,
+	percent(coalesce(T.grossMarketValueBaseAccount,0) ,coalesce(T.masterFundNav,0)) as percentGrossMarketValueMasterFund,
+	percent(sum(coalesce(T.longNotionalBase,0)) ,coalesce(T.masterFundNav,0)) as percentLongNotionalMasterFund,
+	percent(sum(coalesce(T.shortNotionalBase,0)) ,coalesce(T.masterFundNav,0)) as percentShortNotionalMasterFund,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.masterFundNav,0)) as percentNetNotionalMasterFund,
+	percent(sum(coalesce(T.costBasisPnLBase,0)) ,coalesce(T.masterFundNav,0)) as percentCostBasisPnlMasterFund,
+	percent(sum(coalesce(T.grossExposureUnderlying,0)) ,coalesce(T.masterFundNav,0)) as percentGrossExposureUnderlyingMasterFund,
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavMasterFund,0)) as dayReturnMasterFund,
+	
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.globalNav,0)) as pnlContributionGlobal,
+	percent(sum(coalesce(T.longExposureBase,0)) ,coalesce(T.globalNav,0)) as percentLongExposureGlobal,
+	percent(sum(coalesce(T.shortExposureBase,0)) ,coalesce(T.globalNav,0)) as percentShortExposureGlobal,
+	percent(coalesce(T.netExposureBaseAccount,0) ,coalesce(T.globalNav,0)) as percentNetExposureGlobal,
+	percent(sum(coalesce(T.betaAdjustedExposureBase,0)) ,coalesce(T.globalNav,0)) as percentBetaAdjustedExposureGlobal,
+	percent(coalesce(T.grossExposureBaseAccount,0) ,coalesce(T.globalNav,0)) as percentGrossExposureGlobal,
+	percent(sum(coalesce(T.longMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentLongMarketValueGlobal,
+	percent(sum(coalesce(T.shortMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentShortMarketValueGlobal,
+	percent(sum(coalesce(T.netMarketValueBase,0)) ,coalesce(T.globalNav,0)) as percentNetMarketValueGlobal,
+	percent(coalesce(T.grossMarketValueBaseAccount,0) ,coalesce(T.globalNav,0)) as percentGrossMarketValueGlobal,
+	percent(sum(coalesce(T.longNotionalBase,0)) ,coalesce(T.globalNav,0)) as percentLongNotionalGlobal,
+	percent(sum(coalesce(T.shortNotionalBase,0)) ,coalesce(T.globalNav,0)) as percentShortNotionalGlobal,
+	percent(sum(coalesce(T.notionalBase,0)) ,coalesce(T.globalNav,0)) as percentNetNotionalGlobal,
+	percent(sum(coalesce(T.costBasisPnLBase,0)) ,coalesce(T.globalNav,0)) as percentCostBasisPnlGlobal,
+	percent(sum(coalesce(T.grossExposureUnderlying,0)) ,coalesce(T.globalNav,0)) as percentGrossExposureUnderlyingGlobal,
+	percent(sum(coalesce(T.dayPnLBase,0)) ,coalesce(T.startOfDayNavGlobal,0)) as dayReturnGlobal,
+		
+    coalesce(exprCapitalAccount(P,T),0) as capitalAccount,
+	coalesce(exprStopout(P,T),0) as calculatedStopout,
+	coalesce(exprGrossPnl(P,T),0) as grossPnl,
+	coalesce(exprAdjustedPnlTrader(P,T),0) as adjustedPnlTrader,
+	coalesce(exprAdjustedPnlAccount(P,T),0) as adjustedPnlAccount,	
+
+	sum(coalesce(T.todayAbsTradeQuantity,0)) as todayAbsTradeQuantity,
+	sum(coalesce(T.todayLongTradeQuantity,0)) as todayLongTradeQuantity,
+	sum(coalesce(T.todayShortTradeQuantity,0)) as todayShortTradeQuantity,
+	sum(coalesce(T.todayNetNotionalBase,0)) as todayNetNotionalBase,
+	sum(coalesce(T.todayLongNotionalBase,0)) as todayLongNotionalBase,
+	sum(coalesce(T.todayShortNotionalBase,0)) as todayShortNotionalBase,
+	
+	sum(T.longDebitBalance) as longDebitBalance,
+	sum(T.shortCreditBalance) as shortCreditBalance,
+	
+	sum(coalesce(T.betaAdjustedGrossExposureUnderlyingBase,0)) as betaAdjustedGrossExposureUnderlyingBase,
+	sum(coalesce(T.betaAdjustedLongExposureUnderlyingBase,0)) as betaAdjustedLongExposureUnderlyingBase,
+	sum(coalesce(T.betaAdjustedShortExposureUnderlyingBase,0)) as betaAdjustedShortExposureUnderlyingBase,
+	
+	percent(sum(coalesce(T.betaAdjustedGrossExposureUnderlyingBase,0)),T.globalNav) as percentBetaAdjustedGrossExposureUnderlyingBaseGlobal,
+	percent(sum(coalesce(T.betaAdjustedLongExposureUnderlyingBase,0)),T.globalNav) as percentBetaAdjustedLongExposureUnderlyingBaseGlobal,
+	percent(sum(coalesce(T.betaAdjustedShortExposureUnderlyingBase,0)),T.globalNav) as percentBetaAdjustedShortExposureUnderlyingBaseGlobal,
+	
+	percent(sum(coalesce(T.betaAdjustedGrossExposureUnderlyingBase,0)),T.accountNav) as percentBetaAdjustedGrossExposureUnderlyingBaseAccount,
+	percent(sum(coalesce(T.betaAdjustedLongExposureUnderlyingBase,0)),T.accountNav) as percentBetaAdjustedLongExposureUnderlyingBaseAccount,
+	percent(sum(coalesce(T.betaAdjustedShortExposureUnderlyingBase,0)),T.accountNav) as percentBetaAdjustedShortExposureUnderlyingBaseAccount,
+	
+	percent(sum(coalesce(T.betaAdjustedGrossExposureUnderlyingBase,0)),T.masterFundNav) as percentBetaAdjustedGrossExposureUnderlyingBaseMasterFund,
+	percent(sum(coalesce(T.betaAdjustedLongExposureUnderlyingBase,0)),T.masterFundNav) as percentBetaAdjustedLongExposureUnderlyingBaseMasterFund,
+	percent(sum(coalesce(T.betaAdjustedShortExposureUnderlyingBase,0)),T.masterFundNav) as percentBetaAdjustedShortExposureUnderlyingBaseMasterFund,
+	"WhatIfAggregationAccountIntermediate1,WhatIfAccountUnderlyingSymbolWithNav,PmCalculationPreferenceWindow" as parentWindowStream
+
+from
+WhatIfAggregationAccountIntermediate1 as W unidirectional left outer join
+WhatIfAccountUnderlyingSymbolWithNav as T on T.basketId = W.basketId left outer join
+PmCalculationPreferenceWindow as P on P.accountId=W.accountId
+group by T.accountId;

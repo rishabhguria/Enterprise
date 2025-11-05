@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs"
+xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+    xmlns:my="put-your-namespace-uri-here">
+	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+
+	<msxsl:script language="C#" implements-prefix="my">
+		public string Now(int year, int month)
+		{
+		DateTime thirdFriday= new DateTime(year, month, 15);
+		while (thirdFriday.DayOfWeek != DayOfWeek.Friday)
+		{
+		thirdFriday = thirdFriday.AddDays(1);
+		}
+		return thirdFriday.ToString();
+		}
+	</msxsl:script>
+
+	<xsl:template name="GetMonth">
+		<xsl:param name="varMonthNo"/>
+		<xsl:param name="varPutCall"/>
+
+		<!-- Call month Codes e.g. 01 represents Call,January...  13 put january -->
+		<xsl:choose>
+			<xsl:when test ="$varMonthNo='01' and $varPutCall='C'">
+				<xsl:value-of select ="'A'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='02' and $varPutCall='C'">
+				<xsl:value-of select ="'B'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='03' and $varPutCall='C'">
+				<xsl:value-of select ="'C'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='04' and $varPutCall='C'">
+				<xsl:value-of select ="'D'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='05' and $varPutCall='C'">
+				<xsl:value-of select ="'E'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='06' and $varPutCall='C'">
+				<xsl:value-of select ="'F'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='07' and $varPutCall='C'">
+				<xsl:value-of select ="'G'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='08' and $varPutCall='C'">
+				<xsl:value-of select ="'H'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='09' and $varPutCall='C'">
+				<xsl:value-of select ="'I'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='10' and $varPutCall='C'">
+				<xsl:value-of select ="'J'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='11' and $varPutCall='C'">
+				<xsl:value-of select ="'K'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='12' and $varPutCall='C'">
+				<xsl:value-of select ="'L'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='01' and $varPutCall='P'">
+				<xsl:value-of select ="'M'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='02' and $varPutCall='P'">
+				<xsl:value-of select ="'N'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='03' and $varPutCall='P'">
+				<xsl:value-of select ="'O'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='04' and $varPutCall='P'">
+				<xsl:value-of select ="'P'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='05' and $varPutCall='P'">
+				<xsl:value-of select ="'Q'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='06' and $varPutCall='P'">
+				<xsl:value-of select ="'R'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='07' and $varPutCall='P'">
+				<xsl:value-of select ="'S'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='08' and $varPutCall='P'">
+				<xsl:value-of select ="'T'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='09' and $varPutCall='P'">
+				<xsl:value-of select ="'U'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='10' and $varPutCall='P'">
+				<xsl:value-of select ="'V'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='11' and $varPutCall='P'">
+				<xsl:value-of select ="'W'"/>
+			</xsl:when>
+			<xsl:when test ="$varMonthNo='12' and $varPutCall='P'">
+				<xsl:value-of select ="'X'"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select ="''"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="Symbol">
+		<xsl:param name="varCurrency"/>
+		<xsl:choose>
+			<xsl:when test="$varCurrency = 'CAD'">
+				<xsl:value-of select="'-TC'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'CHF'">
+				<xsl:value-of select="'-SWX'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'DKK'">
+				<xsl:value-of select="'-OMX'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'EUR'">
+				<xsl:value-of select="'-EEB'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'GBP'">
+				<xsl:value-of select="'-LON'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'HKD'">
+				<xsl:value-of select="'-HKG'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'JPY'">
+				<xsl:value-of select="'-TSE'"/>
+			</xsl:when>
+			<xsl:when test="$varCurrency = 'SGD'">
+				<xsl:value-of select="'-SES'"/>
+			</xsl:when>
+
+			<xsl:otherwise>
+				<xsl:value-of select="''"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template match="/">
+		<DocumentElement>
+			<xsl:attribute name="xsi:noNamespaceSchemaLocation">C:/UpdatedPM/PM.xsd</xsl:attribute>
+			<xsl:for-each select="//PositionMaster">
+				<xsl:variable name = "PB_FUND_NAME">
+					<xsl:value-of select="COL2"/>
+				</xsl:variable>
+
+				<xsl:variable name="PRANA_FUND_NAME">
+					<xsl:value-of select="document('../ReconMappingXml/AccountMapping.xml')/FundMapping/PB[@Name='JPM']/FundData[@PBFundName=$PB_FUND_NAME]/@PranaFund"/>
+				</xsl:variable>
+				<xsl:if test ="number(COL21) and  normalize-space(COL4)!='OTHER' and COL2!='10250054' and COL2!='10250055' and COL2!='10250057' and COL2!='10250063' and COL2!='10247028'">
+				<!--<xsl:if test ="number(COL21) and COL2!='10250054' and COL2!='10250055' and COL2!='10250057' and COL2!='10250063' and COL2!='10247028'">-->
+
+					<PositionMaster>		
+
+						<xsl:variable name ="varCurrency">
+							<xsl:value-of select ="COL3"/>
+						</xsl:variable>
+
+						<xsl:variable name = "PB_Symbol_NAME" >
+							<xsl:choose>
+								<xsl:when test="COL4='EQUITIES'">
+									<xsl:choose>
+										<xsl:when test="COL12!='*'">
+											<xsl:value-of select="COL12"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="COL10"/>
+										</xsl:otherwise>
+									</xsl:choose>
+									
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="COL10"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+
+						<xsl:variable name="PRANA_Symbol_NAME">
+							<xsl:value-of select="document('../ReconMappingXml/SymbolMapping.xml')/SymbolMapping/PB[@Name='JPM']/SymbolData[@PBCompanyName=$PB_Symbol_NAME and @Currency = $varCurrency]/@PranaSymbol"/>
+						</xsl:variable>
+
+						<xsl:choose>
+							<xsl:when test="$PRANA_FUND_NAME!=''">
+								<AccountName>
+									<xsl:value-of select='$PRANA_FUND_NAME'/>
+								</AccountName>
+							</xsl:when>
+							<xsl:otherwise>
+								<AccountName>
+									<xsl:value-of select='$PRANA_FUND_NAME'/>
+								</AccountName>
+							</xsl:otherwise>
+						</xsl:choose>
+
+						<PositionStartDate>
+							<xsl:value-of select="COL11"/>
+						</PositionStartDate>
+
+						<xsl:choose>
+
+							<xsl:when test="normalize-space(COL4)='OPTIONS'">
+
+								<xsl:variable name="varExpirationDate">
+									<xsl:value-of select="substring-before(substring-after(substring-after(normalize-space(COL10),' '),' '),' ')"/>
+								</xsl:variable>
+
+								<xsl:variable name="varYear">
+									<xsl:value-of select="substring($varExpirationDate,7,2)"/>
+								</xsl:variable>
+
+								<xsl:variable name="varMonth">
+									<xsl:value-of select="substring($varExpirationDate,1,2)"/>
+								</xsl:variable>
+
+								<xsl:variable name="varDateNo">
+									<xsl:value-of select="substring($varExpirationDate,4,2)"/>
+								</xsl:variable>
+
+								<!--<xsl:variable name="varThirdFriday">
+									<xsl:value-of select =" my:Now(number(concat('20',$varYear)),number($varMonth))"/>
+								</xsl:variable>
+
+
+								<xsl:variable name="varIsFlex">
+									<xsl:choose>
+										<xsl:when test="(substring-before(substring-after($varThirdFriday,'/'),'/') + 1) = number($varDateNo)">
+											<xsl:value-of select="0"/>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="1"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:variable>-->
+
+								<xsl:variable name="varDate">
+									<xsl:value-of select="substring-before(substring-after(COL27,'/'),'/')"/>
+								</xsl:variable>
+
+								<xsl:variable name="MonthCode">
+									<xsl:call-template name="GetMonth">
+										<xsl:with-param name="varMonthNo" select="$varMonth"/>
+										<xsl:with-param name="varPutCall" select="COL26"/>
+									</xsl:call-template>
+								</xsl:variable>
+
+
+								<xsl:variable name="StrikePrice">
+									<xsl:value-of select ="format-number(substring-before(substring-after(substring-after(substring-after(normalize-space(COL10),' '),' '),' '),' '),'#.00')"/>
+								</xsl:variable>
+								
+								<Symbol>
+									<!--<xsl:choose>
+										<xsl:when test="$varIsFlex = 0">
+											<xsl:value-of select="concat('O:',normalize-space(COL16),' ',$varYear,$MonthCode,$StrikePrice)"/>
+										</xsl:when>
+										<xsl:otherwise>-->
+											<xsl:value-of select="concat('O:',normalize-space(COL16),' ',$varYear,$MonthCode,$StrikePrice,'D',$varDate)"/>
+										<!--</xsl:otherwise>
+									</xsl:choose>-->
+								</Symbol>
+							</xsl:when>
+
+							<xsl:otherwise>
+								<xsl:variable name="varSuffix">
+									<xsl:call-template name="Symbol">
+										<xsl:with-param name="varCurrency" select="COL3"/>
+									</xsl:call-template>
+								</xsl:variable>
+
+								<Symbol>
+									<xsl:choose>
+										<xsl:when test="$PRANA_Symbol_NAME = ''">
+											<xsl:choose>
+												<xsl:when test="string-length(normalize-space(COL12))=4 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+													<xsl:value-of select="concat(normalize-space(COL12),$varSuffix)"/>
+												</xsl:when>
+												<xsl:when test="string-length(normalize-space(COL12))=3 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+													<xsl:value-of select="concat('0',normalize-space(COL12),$varSuffix)"/>
+												</xsl:when>
+												<xsl:when test="string-length(normalize-space(COL12))=2 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+													<xsl:value-of select="concat('00',normalize-space(COL12),$varSuffix)"/>
+												</xsl:when>
+												<xsl:when test ="COL3 = 'USD' and COL16!='*'">
+													<xsl:value-of select ="COL16"/>
+												</xsl:when>
+												<xsl:when test ="COL3 = 'CAD' and contains(COL12,'/') != false">
+													<xsl:value-of select ="concat(substring-before(COL12,'/'),'.',substring-after(normalize-space(COL12),'/'),$varSuffix)"/>
+												</xsl:when>
+												
+												<!--<xsl:when test ="normalize-space(COL4)='FIXED INCOME' and COL15=''">
+													<xsl:value-of select ="''"/>
+												</xsl:when>-->
+												
+												<xsl:when test ="normalize-space(COL4)='FIXED INCOME'">
+													<xsl:value-of select ="translate(normalize-space(COL15),$varLower,$varUpper)"/>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:choose>
+														<xsl:when test="contains(COL12,'/')">
+															<xsl:value-of select ="concat(translate(normalize-space(COL12),'/','.'),$varSuffix)"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:value-of select ="concat(normalize-space(COL12),$varSuffix)"/>
+														</xsl:otherwise>
+													</xsl:choose>
+													<!--<xsl:value-of select ="concat(normalize-space(COL12),$varSuffix)"/>-->
+												</xsl:otherwise>
+											</xsl:choose>
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="normalize-space($PRANA_Symbol_NAME)"/>
+										</xsl:otherwise>
+									</xsl:choose>
+								</Symbol>
+							</xsl:otherwise>
+
+						</xsl:choose>
+						<!--<CUSIP>
+							<xsl:choose>
+								<xsl:when test ="normalize-space(COL4)='FIXED INCOME' and COL15=''">
+									<xsl:value-of select ="COL17"/>
+								</xsl:when>
+							</xsl:choose>
+
+						</CUSIP>-->
+
+						<PBSymbol>
+							<xsl:value-of select="COL10"/>
+						</PBSymbol>
+						<CounterPartyID>
+							<xsl:value-of select="61"/>
+						</CounterPartyID>
+
+						<!--<PBAssetType>
+              <xsl:value-of select ="COL5"/>
+            </PBAssetType>-->
+
+						<!--QUANTITY-->
+						<FXRate>
+							<xsl:choose>
+								<xsl:when test="number(COL32)">
+									<xsl:value-of select="COL32"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="1"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</FXRate>
+
+						<FXConversionMethodOperator>
+							<xsl:value-of select ="'M'"/>
+						</FXConversionMethodOperator>
+
+
+						<NetPosition>
+							<xsl:choose>
+								<xsl:when test="COL21 &lt; 0">
+									<xsl:value-of select="COL21 * (-1)"/>
+								</xsl:when>
+								<xsl:when test="COL21 &gt; 0">
+									<xsl:value-of select="COL21"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="0"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</NetPosition>
+
+						<!--Side-->
+
+						<SideTagValue>
+							<xsl:choose>
+								<xsl:when test="COL21 &lt; 0">
+									<xsl:value-of select="5"/>
+								</xsl:when>
+								<xsl:when test="COL21 &gt; 0">
+									<xsl:value-of select="1"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="0"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</SideTagValue>
+
+
+						<xsl:choose>
+							<xsl:when test ="boolean(number(COL22))">
+								<CostBasis>
+									<xsl:value-of select="COL22"/>
+								</CostBasis>
+							</xsl:when>
+							<xsl:otherwise>
+								<CostBasis>
+									<xsl:value-of select="0"/>
+								</CostBasis>
+							</xsl:otherwise>
+						</xsl:choose>
+
+						<TradeAttribute1>
+							<xsl:choose>
+								<xsl:when test="contains(COL4,'swap')">
+									<xsl:choose>
+
+										<xsl:when test="normalize-space(COL4)='OPTIONS'">
+
+											<xsl:variable name="varExpirationDate">
+												<xsl:value-of select="substring-before(substring-after(substring-after(normalize-space(COL10),' '),' '),' ')"/>
+											</xsl:variable>
+
+											<xsl:variable name="varYear">
+												<xsl:value-of select="substring($varExpirationDate,7,2)"/>
+											</xsl:variable>
+
+											<xsl:variable name="varMonth">
+												<xsl:value-of select="substring($varExpirationDate,1,2)"/>
+											</xsl:variable>
+
+											<xsl:variable name="varDateNo">
+												<xsl:value-of select="substring($varExpirationDate,4,2)"/>
+											</xsl:variable>
+
+											<xsl:variable name="varDate">
+												<xsl:value-of select="substring-before(substring-after(COL27,'/'),'/')"/>
+											</xsl:variable>
+
+											<xsl:variable name="MonthCode">
+												<xsl:call-template name="GetMonth">
+													<xsl:with-param name="varMonthNo" select="$varMonth"/>
+													<xsl:with-param name="varPutCall" select="COL26"/>
+												</xsl:call-template>
+											</xsl:variable>
+
+
+											<xsl:variable name="StrikePrice">
+												<xsl:value-of select ="format-number(substring-before(substring-after(substring-after(substring-after(normalize-space(COL10),' '),' '),' '),' '),'#.00')"/>
+											</xsl:variable>
+
+											<xsl:value-of select="translate(concat('O:',normalize-space(COL16),' ',$varYear,$MonthCode,$StrikePrice,'D',$varDate,'_swap'),$varUpper,$varLower)"/>
+										</xsl:when>
+
+										<xsl:otherwise>
+											<xsl:variable name="varSuffix">
+												<xsl:call-template name="Symbol">
+													<xsl:with-param name="varCurrency" select="COL3"/>
+												</xsl:call-template>
+											</xsl:variable>
+
+
+											<xsl:choose>
+												<xsl:when test="$PRANA_Symbol_NAME = ''">
+													<xsl:choose>
+														<xsl:when test="string-length(normalize-space(COL12))=4 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+															<xsl:value-of select="translate(concat(normalize-space(COL12),$varSuffix,'_swap'),$varUpper,$varLower)"/>
+														</xsl:when>
+														<xsl:when test="string-length(normalize-space(COL12))=3 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+															<xsl:value-of select="translate(concat('0',normalize-space(COL12),$varSuffix,'_swap'),$varUpper,$varLower)"/>
+														</xsl:when>
+														<xsl:when test="string-length(normalize-space(COL12))=2 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+															<xsl:value-of select="translate(concat('00',normalize-space(COL12),$varSuffix,'_swap'),$varUpper,$varLower)"/>
+														</xsl:when>
+														<xsl:when test ="COL3 = 'USD' and COL16!='*'">
+															<xsl:value-of select ="translate(concat(COL16,'_swap'),$varUpper,$varLower)"/>
+														</xsl:when>
+														<xsl:when test ="COL3 = 'CAD' and contains(COL12,'/') != false">
+															<xsl:value-of select ="translate(concat(substring-before(COL12,'/'),'.',substring-after(normalize-space(COL12),'/'),$varSuffix,'_swap'),$varUpper,$varLower)"/>
+														</xsl:when>
+
+														<xsl:when test ="normalize-space(COL4)='FIXED INCOME'">
+															<xsl:value-of select ="translate(concat(normalize-space(COL15),'_swap'),$varLower,$varUpper)"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:choose>
+																<xsl:when test="contains(COL12,'/')">
+																	<xsl:value-of select ="translate(concat(translate(normalize-space(COL12),'/','.'),$varSuffix,'_swap'),$varUpper,$varLower)"/>
+																</xsl:when>
+																<xsl:otherwise>
+																	<xsl:value-of select ="translate(concat(normalize-space(COL12),$varSuffix,'_swap'),$varUpper,$varLower)"/>
+																</xsl:otherwise>
+															</xsl:choose>
+															<!--<xsl:value-of select ="concat(normalize-space(COL12),$varSuffix)"/>-->
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="translate(concat(normalize-space($PRANA_Symbol_NAME),'_swap'),$varUpper,$varLower)"/>
+												</xsl:otherwise>
+											</xsl:choose>
+
+										</xsl:otherwise>
+
+									</xsl:choose>
+								</xsl:when>
+
+								<xsl:otherwise>
+									<xsl:choose>
+
+										<xsl:when test="normalize-space(COL4)='OPTIONS'">
+
+											<xsl:variable name="varExpirationDate">
+												<xsl:value-of select="substring-before(substring-after(substring-after(normalize-space(COL10),' '),' '),' ')"/>
+											</xsl:variable>
+
+											<xsl:variable name="varYear">
+												<xsl:value-of select="substring($varExpirationDate,7,2)"/>
+											</xsl:variable>
+
+											<xsl:variable name="varMonth">
+												<xsl:value-of select="substring($varExpirationDate,1,2)"/>
+											</xsl:variable>
+
+											<xsl:variable name="varDateNo">
+												<xsl:value-of select="substring($varExpirationDate,4,2)"/>
+											</xsl:variable>
+
+											<xsl:variable name="varDate">
+												<xsl:value-of select="substring-before(substring-after(COL27,'/'),'/')"/>
+											</xsl:variable>
+
+											<xsl:variable name="MonthCode">
+												<xsl:call-template name="GetMonth">
+													<xsl:with-param name="varMonthNo" select="$varMonth"/>
+													<xsl:with-param name="varPutCall" select="COL26"/>
+												</xsl:call-template>
+											</xsl:variable>
+
+
+											<xsl:variable name="StrikePrice">
+												<xsl:value-of select ="format-number(substring-before(substring-after(substring-after(substring-after(normalize-space(COL10),' '),' '),' '),' '),'#.00')"/>
+											</xsl:variable>
+
+											<xsl:value-of select="concat('O:',normalize-space(COL16),' ',$varYear,$MonthCode,$StrikePrice,'D',$varDate)"/>
+										</xsl:when>
+
+										<xsl:otherwise>
+											<xsl:variable name="varSuffix">
+												<xsl:call-template name="Symbol">
+													<xsl:with-param name="varCurrency" select="COL3"/>
+												</xsl:call-template>
+											</xsl:variable>
+
+
+											<xsl:choose>
+												<xsl:when test="$PRANA_Symbol_NAME = ''">
+													<xsl:choose>
+														<xsl:when test="string-length(normalize-space(COL12))=4 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+															<xsl:value-of select="concat(normalize-space(COL12),$varSuffix)"/>
+														</xsl:when>
+														<xsl:when test="string-length(normalize-space(COL12))=3 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+															<xsl:value-of select="concat('0',normalize-space(COL12),$varSuffix)"/>
+														</xsl:when>
+														<xsl:when test="string-length(normalize-space(COL12))=2 and (COL3 = 'HKD' or COL3 = 'SGD' or COL3 = 'JPY')">
+															<xsl:value-of select="concat('00',normalize-space(COL12),$varSuffix)"/>
+														</xsl:when>
+														<xsl:when test ="COL3 = 'USD' and COL16!='*'">
+															<xsl:value-of select ="COL16"/>
+														</xsl:when>
+														<xsl:when test ="COL3 = 'CAD' and contains(COL12,'/') != false">
+															<xsl:value-of select ="concat(substring-before(COL12,'/'),'.',substring-after(normalize-space(COL12),'/'),$varSuffix)"/>
+														</xsl:when>
+
+														<xsl:when test ="normalize-space(COL4)='FIXED INCOME'">
+															<xsl:value-of select ="translate(normalize-space(COL15),$varLower,$varUpper)"/>
+														</xsl:when>
+														<xsl:otherwise>
+															<xsl:choose>
+																<xsl:when test="contains(COL12,'/')">
+																	<xsl:value-of select ="concat(translate(normalize-space(COL12),'/','.'),$varSuffix)"/>
+																</xsl:when>
+																<xsl:otherwise>
+																	<xsl:value-of select ="concat(normalize-space(COL12),$varSuffix)"/>
+																</xsl:otherwise>
+															</xsl:choose>
+															<!--<xsl:value-of select ="concat(normalize-space(COL12),$varSuffix)"/>-->
+														</xsl:otherwise>
+													</xsl:choose>
+												</xsl:when>
+												<xsl:otherwise>
+													<xsl:value-of select="normalize-space($PRANA_Symbol_NAME)"/>
+												</xsl:otherwise>
+											</xsl:choose>
+
+										</xsl:otherwise>
+
+									</xsl:choose>
+								</xsl:otherwise>
+							</xsl:choose>
+							
+							
+						</TradeAttribute1>
+
+
+					</PositionMaster>
+				</xsl:if>
+			</xsl:for-each>
+		</DocumentElement>
+	</xsl:template>
+
+
+	<xsl:variable name ="varLower">abcdefghijklmnopqrstuvwxyz</xsl:variable>
+	<xsl:variable name ="varUpper">ABCDEFGHIJKLMNOPQRSTUVWXYZ</xsl:variable>
+
+</xsl:stylesheet>
+

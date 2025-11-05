@@ -1,0 +1,145 @@
+﻿<UserControl xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  x:Class="Prana.Allocation.Client.Controls.Preferences.Views.CalculatedPreferencesListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Preferences.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             xmlns:themes="http://infragistics.com/Themes"
+             xmlns:behaviors="clr-namespace:Prana.Allocation.Client.Controls.Preferences.Behaviours"
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Enums" xmlns:commonBehaviours="clr-namespace:Prana.Allocation.Client.Behaviours" xmlns:igExcelExporter="http://infragistics.com/ExcelExporter"
+             mc:Ignorable="d"
+             md:DialogServiceViews.IsRegistered="True"
+             DataContext="{DynamicResource CalculatedPreferencesListControlViewModel}" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+
+            </ResourceDictionary.MergedDictionaries>
+            <igExcelExporter:DataPresenterExcelExporter x:Key="Exporter"/>
+            <viewModels:CalculatedPreferencesListControlViewModel x:Key="CalculatedPreferencesListControlViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <igWPF:XamDataGrid Name="listViewAllocationPref" ScrollingMode="Immediate" Margin="5,5,5,5" DataSource="{Binding Path=AllocationPreferenceCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ActiveDataItem="{Binding Path=SelectedAllocationPreferences,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedDataItem="{Binding Path=SelectedAllocationPreferenceItem,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" GroupByAreaLocation="None">
+                <igWPF:XamDataGrid.Resources>
+                    <Style TargetType="{x:Type igWPF:DataRecordCellArea}">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="{Binding Path=Background, RelativeSource={RelativeSource AncestorType={x:Type igWPF:XamDataGrid}}}"></Setter>
+                    </Style>
+                    <Style TargetType="{x:Type igWPF:DataRecordPresenter}">
+                        <EventSetter Event="MouseRightButtonDown" Handler="DataRecordPresenter_MouseRightButtonDown" />
+                    </Style>
+                    <Style x:Key="ItemContextMenuVisibilityStyle" TargetType="{x:Type MenuItem}">
+                        <Setter Property="Control.Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=ItemContextMenuVisibility}" Value="Visible" />
+                                    <Condition Binding="{Binding Path=IsEnabledMenuForMF}" Value="true" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Control.Visibility" Value="Visible" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style x:Key="ContextMenuVisibilityStyle" TargetType="{x:Type MenuItem}">
+                        <Setter Property="Control.Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding Path=ContextMenuVisibility}" Value="Visible" />
+                                    <Condition Binding="{Binding Path=IsEnabledMenuForMF}" Value="true" />
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Control.Visibility" Value="Visible" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+            </igWPF:XamDataGrid.Resources>
+                <igWPF:XamDataGrid.FieldLayouts>
+                    <igWPF:FieldLayout>
+                        <igWPF:Field Name="Value" Visibility="Visible" Width="*"/>
+                    </igWPF:FieldLayout>
+                </igWPF:XamDataGrid.FieldLayouts>
+                <igWPF:XamDataGrid.FieldSettings>
+                    <igWPF:FieldSettings AllowRecordFiltering="False" AllowEdit="False" CellClickAction="EnterEditModeIfAllowed"/>
+                </igWPF:XamDataGrid.FieldSettings>
+                <igWPF:XamDataGrid.FieldLayoutSettings>
+                    <igWPF:FieldLayoutSettings RecordSelectorLocation="None" HighlightAlternateRecords="False" LabelLocation="Hidden" AutoGenerateFields="False"/>
+                </igWPF:XamDataGrid.FieldLayoutSettings>
+                <igWPF:XamDataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="menuItemDelete" Header="Delete Preference" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Delete}}" Visibility="{Binding Path=ItemContextMenuVisibility}"/>
+                        <MenuItem Name="menuItemRename" Header="Rename Preference" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Rename}}" Visibility="{Binding Path=ItemContextMenuVisibility}"/>
+                    <MenuItem Name="menuItemCopy" Header="Copy Preference" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Copy}}" Visibility="{Binding Path=ItemContextMenuVisibility}" Style="{DynamicResource ItemContextMenuVisibilityStyle}" />
+                    <MenuItem Name="menuItemExport" Header="Export Preference" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Export}}" Visibility="{Binding Path=ItemContextMenuVisibility}" Style="{DynamicResource ItemContextMenuVisibilityStyle}" />
+                        <MenuItem Name="menuItemAdd" Header="Add" Command="{Binding  Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Add}}" Visibility="{Binding Path=ContextMenuVisibility}"/>
+                    <MenuItem Name="menuItemImport" Header="Import" Command="{Binding  Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Import}}" Visibility="{Binding Path=ContextMenuVisibility}" Style="{DynamicResource ContextMenuVisibilityStyle}" />
+                    <MenuItem Name="menuItemExportAll" Header="ExportAll" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.ExportAll}}" Visibility="{Binding Path=ContextMenuVisibility}" Style="{DynamicResource ContextMenuVisibilityStyle}" />
+                </ContextMenu>
+                </igWPF:XamDataGrid.ContextMenu>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ContextMenuOpening">
+                        <i:InvokeCommandAction Command="{Binding Path=ContextMenuOpening}" PassEventArgsToCommand="True" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="EditModeEnded">
+                        <i:InvokeCommandAction Command="{Binding Path=EditModeEndedCommand}" CommandParameter="{Binding Path=ActiveDataItem, RelativeSource={RelativeSource AncestorType={x:Type igWPF:XamDataGrid}}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <i:Interaction.Behaviors>
+                    <behaviors:CalculatedPreferenceGridBehavior ItemEnterEditMode="{Binding Path=ItemEnterEditMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" EndEditMode="{Binding Path=EndEditMode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  SelectedAllocationPreferences="{Binding Path=SelectedAllocationPreferences, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <commonBehaviours:XamDataGridExporter ExportFilePath="{Binding ExportFilePathForAutomation}" ExportGridData="{Binding Path=ExportGrid, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ExporterResource="{Binding Mode=OneWay, Source={StaticResource Exporter}}"/>
+            </i:Interaction.Behaviors>
+        </igWPF:XamDataGrid>
+        <ToolBarTray Grid.Row="1" Background="{DynamicResource ToolTrayBackGround}">
+            <ToolBar Background="{DynamicResource ToolBarBackGround}" Foreground="{DynamicResource ToolBarForeGround}">
+                <Button Name="btnAddMF" Content="Add" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Add}}" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}"  IsEnabled="{Binding Path=EnableDisableToolBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="btnDeleteMF" Content="Delete" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Delete}}" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}"  IsEnabled="{Binding Path=EnableDisableToolBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="btnCopyMF" Content="Copy" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Copy}}" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}"  IsEnabled="{Binding Path=EnableDisableToolBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="btnBulkChangeMF" Content="BulkChange" Command="{Binding Path= LoadBulkChangeUI}" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}"  IsEnabled="{Binding Path=EnableDisableToolBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding Path=IsVisibleButtonForMF}"/>
+                <Button Name="btnImportMF" Content="Import" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.Import}}" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}"  IsEnabled="{Binding Path=EnableDisableToolBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="btnExportAllMF" Content="Export All" Command="{Binding Path= PreferenceContextMenuClicked}" CommandParameter="{Binding Source={x:Static Constants:AllocationPrefOperation.ExportAll}}" Background="{DynamicResource ToolBarButtonBackGround}" Foreground="{DynamicResource ToolBarButtonForground}"  IsEnabled="{Binding Path=EnableDisableToolBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>                
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <i:InvokeCommandAction Command="{Binding Path=ToolBarClickCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ToolBar>
+        </ToolBarTray>
+    </Grid>
+</UserControl>

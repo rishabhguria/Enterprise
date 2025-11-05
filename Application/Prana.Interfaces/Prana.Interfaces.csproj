@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.Interfaces</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Prana.Interfaces</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IAllocationPrefDataManager.cs" />
+    <Compile Include="Interfaces\IClientsCommonDataManager.cs" />
+    <Compile Include="Interfaces\IKeyValueDataManager.cs" />
+    <Compile Include="Interfaces\IMarkDataManager.cs" />
+    <Compile Include="Interfaces\IMasterDashboard.cs" />
+    <Compile Include="Interfaces\INAVLockUI.cs" />
+    <Compile Include="Interfaces\IpluggableToolPI.cs" />
+    <Compile Include="Interfaces\IPostReconAmendmentsUI.cs" />
+    <Compile Include="Interfaces\IDashboard.cs" />
+    <Compile Include="Interfaces\IFundLock.cs" />
+    <Compile Include="Interfaces\IImportITaskHandler.cs" />
+    <Compile Include="Interfaces\IAccruals.cs" />
+    <Compile Include="Interfaces\IAuditTrailUI.cs" />
+    <Compile Include="Interfaces\IAutomationDataHandler.cs" />
+    <Compile Include="Interfaces\ICashAccounts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\AlgoBase.cs" />
+    <Compile Include="Interfaces\ICashManagement.cs" />
+    <Compile Include="Interfaces\IDelivery.cs" />
+    <Compile Include="Interfaces\IFileFormatter.cs" />
+    <Compile Include="Interfaces\IFixedIncomeAdapter.cs" />
+    <Compile Include="Interfaces\IImportHandler.cs" />
+    <Compile Include="Interfaces\ILoginUser.cs" />
+    <Compile Include="Interfaces\IMultiTradingTicket.cs" />
+    <Compile Include="Interfaces\IPreferencesSavedClicked.cs" />
+    <Compile Include="Interfaces\IRiskPreferenceDataManager.cs" />
+    <Compile Include="Interfaces\ISnapShotPositionManagement.cs" />
+    <Compile Include="Interfaces\IRebalancer.cs" />
+    <Compile Include="Interfaces\IQuickTradingTicket.cs" />
+    <Compile Include="Services\IThirdPartyService.cs" />
+    <Compile Include="Services\IAllocationManager.cs" />
+    <Compile Include="Services\IExpnlCalculationService.cs" />
+    <Compile Include="Services\IPreTradeService.cs" />
+    <Compile Include="Services\IMarketDataPermissionService.cs" />
+    <Compile Include="Services\IMarketDataPermissionServiceCallback.cs" />
+    <Compile Include="Services\IRebalancerBLService.cs" />
+    <Compile Include="Services\ISecMasterOTCService.cs" />
+    <Compile Include="Services\ISecMasterSyncServices.cs" />
+    <Compile Include="Services\IActivityServices.cs" />
+    <Compile Include="Services\IAuditTrailService.cs" />
+    <Compile Include="Services\ICashManagementService.cs" />
+    <Compile Include="Interfaces\ICorporateActionBaseRule.cs" />
+    <Compile Include="Interfaces\IFixEngineAdapter.cs" />
+    <Compile Include="Interfaces\IBlotter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IBlotterReports.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ICacheManager.cs" />
+    <Compile Include="Interfaces\ICharts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IClientInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IClosingUI.cs" />
+    <Compile Include="Interfaces\ICommunicationManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ICorporateActions.cs" />
+    <Compile Include="Interfaces\ICreateTransaction.cs" />
+    <Compile Include="Interfaces\IDepthServer.cs" />
+    <Compile Include="Interfaces\IeSignalDesktopAPI.cs" />
+    <Compile Include="Interfaces\IExceptionReport.cs" />
+    <Compile Include="Interfaces\IExposureAndPNLCalculator.cs" />
+    <Compile Include="Interfaces\IHeartBeat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IIndices.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ILaunchForm.cs" />
+    <Compile Include="Interfaces\ILevelOneServer.cs" />
+    <Compile Include="Interfaces\ILiveFeedCommon.cs" />
+    <Compile Include="Interfaces\ILiveFeedFactory.cs" />
+    <Compile Include="Interfaces\IMappingFile.cs" />
+    <Compile Include="Interfaces\IMarkPriceUI.cs" />
+    <Compile Include="Interfaces\INews.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\INewsServer.cs" />
+    <Compile Include="Interfaces\INewsStory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\INirvanaAbstractFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IPluggableTools.cs" />
+    <Compile Include="Interfaces\IPMInteraction.cs" />
+    <Compile Include="Interfaces\IPositionManagementReports.cs" />
+    <Compile Include="Interfaces\IPostTradeManager.cs" />
+    <Compile Include="Interfaces\IPostTradeServices.cs" />
+    <Compile Include="Interfaces\IPricingAnalysis.cs" />
+    <Compile Include="Interfaces\IQueueManager.cs" />
+    <Compile Include="Interfaces\IRefresh.cs" />
+    <Compile Include="Interfaces\ISecurityMasterServices.cs" />
+    <Compile Include="Interfaces\ISecurityMasterControl.cs" />
+    <Compile Include="Interfaces\ITradeQueueProcessor.cs" />
+    <Compile Include="Interfaces\ITradingInstructionUI.cs" />
+    <Compile Include="Interfaces\IPNL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IPositionManagement.cs" />
+    <Compile Include="Interfaces\IPreferences.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IPreferencesSubControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IPrefPNL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IRegionalOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IServerInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IThirdPartyReport.cs" />
+    <Compile Include="Interfaces\ITimeSales.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ITradeManager.cs" />
+    <Compile Include="Interfaces\ITradingTicket.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\ITradingTicketFactory.cs" />
+    <Compile Include="Interfaces\IUDAForm.cs" />
+    <Compile Include="Services\ICAServices.cs" />
+    <Compile Include="Services\ICentralSMSecurityCallback.cs" />
+    <Compile Include="Services\IAllocationServices.cs" />
+    <Compile Include="Services\IClosingServices.cs" />
+    <Compile Include="Services\IGroupingComponent.cs" />
+    <Compile Include="Services\ILiveFeedCallback.cs" />
+    <Compile Include="Services\IPranaPositionServices.cs" />
+    <Compile Include="Services\IPricingService.cs" />
+    <Compile Include="Services\IReportingServices.cs" />
+    <Compile Include="Services\IRiskServices.cs" />
+    <Compile Include="Services\IGreekAnalysisCallback.cs" />
+    <Compile Include="Services\IGreekAnalysisServices.cs" />
+    <Compile Include="Services\ISecMasterServices.cs" />
+    <Compile Include="Services\ISessionServices.cs" />
+    <Compile Include="TextSearch\Common\ITextSearch.cs" />
+    <Compile Include="TextSearch\SymbolSearch\ISymbolSearch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{AEBD67D7-2487-4D54-B93F-FE8B3685E6B3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.Global\Prana.Global.csproj">
+      <Project>{98bf7eec-2a9a-4b4f-8809-e2ae23939f8a}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

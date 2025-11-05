@@ -1,0 +1,225 @@
+<?xml version="1.0" standalone="yes"?>
+<RuleDetails>
+	<Rule Name="Transaction" ReconType="0" SP="P_GetTransactions"  IsVisible="true">
+		<Parameter Name="MasterFund" Type="0" IsIncluded="true" />
+		<Parameter Name="FundName" Type="0" IsIncluded="true" />
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="Asset" Type="0" IsIncluded="true" />
+		<Parameter Name="Side" Type="0" IsIncluded="true" />
+		<Parameter Name="Quantity" Type="2" IsIncluded="true" ErrorTolerance="10" IsRoundOff="false" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AvgPX" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4"  IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="GrossNotionalValueBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1"  />
+		<Parameter Name="GrossNotionalValue" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1"  />
+		<Parameter Name="TotalCommissionandFees" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1"  />
+		<Parameter Name="TotalCommissionandFeesBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1"  />
+		<Parameter Name="NetNotionalValueBase" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="NetNotionalValue" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementDate" Type="0" IsIncluded="false" />
+		<Parameter Name="TradeDate" Type="0" IsIncluded="false" />
+		<Parameter Name="CounterParty" Type="0" IsIncluded="false" />
+		<Parameter Name="UnderlyingSymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="CompanyName" Type="0" IsIncluded="false" />
+		<Parameter Name="Commission" Type="2" IsIncluded="true" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="CommissionBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MiscFees" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MiscFeesBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="StampDuty" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="StampDutyBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ClearingFee" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ClearingFeeBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="FXRate" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Bloomberg" Type="0" IsIncluded="false" />
+		<Parameter Name="SEDOL" Type="0" IsIncluded="false" />
+		<Parameter Name="CUSIP" Type="0" IsIncluded="false" />
+		<Parameter Name="OSI" Type="0" IsIncluded="false" />
+		<Parameter Name="IDCO" Type="0" IsIncluded="false" />
+		<Parameter Name="PutOrCall" Type="0" IsIncluded="false" />
+		<Parameter Name="ExpirationDate" Type="0" IsIncluded="false" />
+		<Parameter Name="Coupon" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="LotID" Type="0" IsIncluded="false" />
+		<Parameter Name="ExternalTransID" Type="0" IsIncluded="false" />
+		<Parameter Name="CurrencySymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="UnitCost" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SoftCommission" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ClearingBrokerFee" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TransactionLevy" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TaxOnCommissions" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Multiplier" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SideMultiplier" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<!--<Parameter Name="TradeAttribute1" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TradeAttribute2" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TradeAttribute3" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TradeAttribute4" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TradeAttribute5" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TradeAttribute6" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />-->
+		<Parameter Name="FXConversionMethodOperator"  Type="0" IsIncluded="false" />
+		<Parameter Name="BaseCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlementCurrencyCommission" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyCostBasis" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyAveragePrice" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyTotalCost" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="OriginalPurchaseDate" Type="0" IsIncluded="false"/>    
+		<Parameter Name="AUECFee1" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AUECFee2" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AUECFee1Base" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AUECFee2Base" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="OccFee" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="OccFeeBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="OrfFee" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="OrfFeeBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="OtherBrokerFees" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+	<Parameter Name="OtherBrokerFeesBase" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+	<Parameter Name="OptionPremiumAdjustment" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+	</Rule>
+	<Rule Name="Position" ReconType="1" SP="PMGetFundPositionsWithMarketValue" IsVisible="true">
+		<Parameter Name="MasterFund" Type="0" IsIncluded="true" />
+		<Parameter Name="FundName" Type="0" IsIncluded="true" />
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="Asset" Type="0" IsIncluded="true" />
+		<Parameter Name="Side" Type="0" IsIncluded="true" />
+		<Parameter Name="Quantity" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AvgPX" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarkPrice" Type="2" IsIncluded="false" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarkPriceBase" Type="2" IsIncluded="false" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarketValue" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarketValueBase" Type="2" IsIncluded="true" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="NetNotionalValueBase" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="NetNotionalValue" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="CounterParty" Type="0" IsIncluded="false" />
+		<Parameter Name="UnderlyingSymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="SEDOL" Type="0" IsIncluded="false" />
+		<Parameter Name="CompanyName" Type="0" IsIncluded="false" />
+		<Parameter Name="CUSIP" Type="0" IsIncluded="false" />
+		<Parameter Name="OSI" Type="0" IsIncluded="false" />
+		<Parameter Name="IDCO" Type="0" IsIncluded="false" />
+		<Parameter Name="PutOrCall" Type="0" IsIncluded="false" />
+		<Parameter Name="TradeDate" Type="0" IsIncluded="false" />
+		<Parameter Name="ExpirationDate" Type="0" IsIncluded="false" />
+		<Parameter Name="NetNotionalValue" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Coupon" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="CurrencySymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="LotID" Type="0" IsIncluded="false" />
+		<Parameter Name="ExternalTransID" Type="0" IsIncluded="false" />
+		<Parameter Name="UnitCost" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ISINSymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="BBGID" Type="0" IsIncluded="false" />
+		<Parameter Name="Bloomberg" Type="0" IsIncluded="false" />
+		<Parameter Name="StrikePrice" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="FXRate" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Multiplier" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SideMultiplier" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="BaseCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlementCurrencyMarkPrice" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyCostBasis" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyMarketValue" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyTotalCost" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="ProcessDate" Type="0" IsIncluded="false" />
+        <Parameter Name="OriginalPurchaseDate" Type="0" IsIncluded="false" />
+        <Parameter Name="MarkedFXRate" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="ForwardPoint" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="LocalAmount" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="BaseAmount" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+   </Rule>
+	<Rule Name="PNL" ReconType="2" SP="P_GetPNLForDateRange" IsVisible="true">
+		<Parameter Name="RunDate" Type="0" IsIncluded="false" />
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="MasterFund" Type="0" IsIncluded="true" />
+		<Parameter Name="FundName" Type="0" IsIncluded="true" />
+		<Parameter Name="Asset" Type="0" IsIncluded="true" />
+		<Parameter Name="Side" Type="0" IsIncluded="true" />
+		<Parameter Name="StartDateFXRate" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="EndDateFXRate" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="TradeDateFXRate" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="StartDateMarkPrice" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="EndDateMarkPrice" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="UnRealizedPNLWithCommission_Local" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="UnRealizedPNLWithoutCommission_Local" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="UnRealizedPNLWithCommission_Base" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="UnRealizedPNLWithoutCommission_Base" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ShortTermTotalRealizedPNLWithCommission" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ShortTermTotalRealizedPNLWithoutCommission" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="LongTermTotalRealizedPNLWithCommission" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="LongTermTotalRealizedPNLWithoutCommission" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Quantity" Type="2" IsIncluded="true" ErrorTolerance="10" IsRoundOff="false" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AvgPX" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4"  IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="BaseCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="ActivityType" Type="0" IsIncluded="false" />
+		<Parameter Name="Currency" Type="0" IsIncluded="false" />
+		<Parameter Name="TradeDate" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlementDate" Type="0" IsIncluded="false" />
+		<Parameter Name="Description" Type="0" IsIncluded="false" />
+		<Parameter Name="TransactionSource" Type="0" IsIncluded="false" />
+		<Parameter Name="CashValueLocal" Type="2" IsIncluded="false" ErrorTolerance="2" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+	</Rule>
+	<Rule Name="TaxLot" ReconType="3" SP="PMGetFundPositionsWithMarketValue" IsVisible="true">
+		<Parameter Name="MasterFund" Type="0" IsIncluded="true" />
+		<Parameter Name="FundName" Type="0" IsIncluded="true" />
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="Asset" Type="0" IsIncluded="true" />
+		<Parameter Name="Side" Type="0" IsIncluded="true" />
+		<Parameter Name="Quantity" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="AvgPX" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarkPrice" Type="2" IsIncluded="false" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarkPriceBase" Type="2" IsIncluded="false" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarketValue" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="MarketValueBase" Type="2" IsIncluded="true" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="NetNotionalValueBase" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="NetNotionalValue" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="CounterParty" Type="0" IsIncluded="false" />
+		<Parameter Name="UnderlyingSymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="SEDOL" Type="0" IsIncluded="false" />
+		<Parameter Name="CompanyName" Type="0" IsIncluded="false" />
+		<Parameter Name="CUSIP" Type="0" IsIncluded="false" />
+		<Parameter Name="OSI" Type="0" IsIncluded="false" />
+		<Parameter Name="IDCO" Type="0" IsIncluded="false" />
+		<Parameter Name="PutOrCall" Type="0" IsIncluded="false" />
+		<Parameter Name="TradeDate" Type="0" IsIncluded="false" />
+		<Parameter Name="ExpirationDate" Type="0" IsIncluded="false" />
+		<Parameter Name="NetNotionalValue" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Coupon" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="CurrencySymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="LotID" Type="0" IsIncluded="false" />
+		<Parameter Name="ExternalTransID" Type="0" IsIncluded="false" />
+		<Parameter Name="UnitCost" Type="2" IsIncluded="true" ErrorTolerance="20" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="ISINSymbol" Type="0" IsIncluded="false" />
+		<Parameter Name="BBGID" Type="0" IsIncluded="false" />
+		<Parameter Name="Bloomberg" Type="0" IsIncluded="false" />
+		<Parameter Name="StrikePrice" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="FXRate" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="Multiplier" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SideMultiplier" Type="2" IsIncluded="true" ErrorTolerance="5" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="BaseCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlCurrency" Type="0" IsIncluded="false" />
+		<Parameter Name="SettlementCurrencyMarkPrice" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyCostBasis" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyMarketValue" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+		<Parameter Name="SettlementCurrencyTotalCost" Type="2" IsIncluded="true" ErrorTolerance="30" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="ProcessDate" Type="0" IsIncluded="false" />
+        <Parameter Name="OriginalPurchaseDate" Type="0" IsIncluded="false" />
+        <Parameter Name="MarkedFXRate" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="ForwardPoint" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="LocalAmount" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+        <Parameter Name="BaseAmount" Type="2" IsIncluded="false" ErrorTolerance="10" IsRoundOff="false" RoundDigits="4" IsIntegral="false" IsPercentMatch="false"  IsAbsoluteMatch="false" AbsoluteDifference="1" />
+  </Rule>
+	<Rule Name="TaxLotMatching" ReconType="" IsVisible="false">
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="Commissions" Type="0" IsIncluded="true" />
+		<Parameter Name="Quantity" Type="0" IsIncluded="true" />
+		<Parameter Name="AvgPX" Type="0" IsIncluded="true" />
+	</Rule>
+	<Rule Name="SecurityMaster" ReconType="" IsVisible="false">
+		<Parameter Name="TickerSymbol" Type="0" IsIncluded="true" />
+	</Rule>
+	<Rule Name="Grouping" ReconType="" IsVisible="false">
+		<Parameter Name="Side" Type="0" IsIncluded="true" />
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="FundName" Type="0" IsIncluded="true" />
+	</Rule>
+	<Rule Name="GroupingFundSymbol" ReconType="" IsVisible="false">
+		<Parameter Name="Symbol" Type="0" IsIncluded="true" />
+		<Parameter Name="FundName" Type="0" IsIncluded="true" />
+	</Rule>
+</RuleDetails>

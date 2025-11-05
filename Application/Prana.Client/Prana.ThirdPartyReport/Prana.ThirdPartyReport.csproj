@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9BA6EE7D-BB97-40C4-A7CA-D4491E26CDD7}</ProjectGuid>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Prana.ThirdPartyReport</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Prana.ThirdPartyReport</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile></DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Documents.Core.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v20.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v20.2</Name>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.ExcelExport.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Documents.Excel.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Excel.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v20.2, Version=20.2.20202.30, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2020.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v20.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic">
+      <Name>Microsoft.VisualBasic</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+      <Name>System.Runtime.Serialization.Formatters.Soap</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.ico" />
+    <Content Include="ThirdpartyXML\ThirdPartyTaxlotStateSortPreference.xml" />
+    <Content Include="ThirdPartyXSL\ArenaCapital\ThirdParty_ArenaCap_Cormark.xslt" />
+    <Content Include="ThirdPartyXSL\ArenaCapital\ThirdParty_ArenaCap_Meridian.xslt" />
+    <Content Include="ThirdPartyXSL\Crown Capital\ThirdParty_CrownCapital_Citi.xslt" />
+    <Content Include="ThirdPartyXSL\Eleven11\PranaToThirdParty_CSFB_Eleven11.xslt" />
+    <Content Include="ThirdPartyXSL\Eleven11\PranaToThirdParty_GlobeOp_Eleven11.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_Jefferies_Allocation.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_Jefferies_Execution.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_Jefferies_OptLay.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_JPMorgan.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_JPMorgan_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_JPMorgan_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Eng_JPMorgan_Footer_V2.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Eng_JPMorgan_Header_V2.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Eng_JPMorgan_V2.xslt" />
+    <Content Include="ThirdPartyXSL\Englander\ThirdParty_Englander_ML.xslt" />
+    <Content Include="ThirdPartyXSL\Fimat\FIMATMapToNirvana_Final.xslt" />
+    <Content Include="ThirdPartyXSL\Fimat\NirvanaMapToFIMAT_Final.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_Jasincap_Jefferies.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_Jasincap_JPM_JETS_Trades.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_Jasincap_Millennium.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_Jasincap_Millennium_20121017_New.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_Jasincap_Millennium_20121017_New_Updated.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_Jasincap_NITE_KNIGHT.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_JCap_JPMorgan_EOD.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_JCap_JPMorgan_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\JasinCap\ThirdParty_JCap_JPM_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Jefferies\ThirdParty_Jefferies_New.xslt" />
+    <Content Include="ThirdPartyXSL\Jefferies\ThirdParty_Jefferies_Updated.xslt" />
+    <Content Include="ThirdPartyXSL\Lakehill\ThirdParty_Lakehill_ML.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Bofa_IDCO.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Bofa_OPRA.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Bofa_OSI.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Goldman_IDCO.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Goldman_OPRA.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Goldman_OSI.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Lucas_Barclays_Allocation.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Lucas_Bofa_Allocation.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Lucas_Goldman_Allocation.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdPartyFooter_Lyford_Citco.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdPartyHeader_Lyford_Citco.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_Citco.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_GlobeOp_Lyford.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_Jef.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_Lyford_Allocation.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_Lyford_Citco.xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_Lyford_NewEdge.Xslt" />
+    <Content Include="ThirdPartyXSL\Lyford\ThirdParty_Suicess.xslt" />
+    <Content Include="ThirdPartyXSL\MaerIsland\PranaToThirdParty_MearisLand_Goldman.xslt" />
+    <Content Include="ThirdPartyXSL\MaerIsland\PranaToThirdParty_MearisLand_Goldman_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\MaerIsland\PranaToThirdParty_MearisLand_Goldman_Header.xslt" />
+    <Content Include="ThirdPartyXSL\MaerIsland\ThirdParty_Citco_Updated.xslt" />
+    <Content Include="ThirdPartyXSL\MaerIsland\ThirdParty_Citco_Updated2.xslt" />
+    <Content Include="ThirdPartyXSL\MaerIsland\ThirdParty_MaerIsland_Citco.xslt" />
+    <Content Include="ThirdPartyXSL\MBF\PranaToThirdParty_MBF_Barclays.xslt" />
+    <Content Include="ThirdPartyXSL\MBF\PranaToThirdParty_MBF_GSEC.xslt" />
+    <Content Include="ThirdPartyXSL\MBF\PranaToThirdParty_MBF_GSPWM.xslt" />
+    <Content Include="ThirdPartyXSL\MBF\PranaToThirdParty_MBF_IB.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\NirvanaToThirdParty.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\NirvanaToThirdParty_Equity_4ID.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\NirvanaToThirdParty_Equity_5ID.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Bofa.xslt" />
+    <Content Include="ThirdPartyXSL\Concept Capital\PranaToThirdParty_ConceptCapital.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Goldman.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Goldman_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Goldman_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\PranaToThirdParty_Lucas_Barclays.xslt" />
+    <Content Include="ThirdPartyXSL\ISOX\PranaToThirdParty_ISOX.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\NirvanaToThirdParty_MS.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\NirvanaToThirdParty_Options.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Newland_Goldman_OPRA.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Goldman_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Goldman_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Newland_Goldman.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Newland_Goldman_IDCO.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Newland_Goldman_OSI.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\PranaToThirdParty_Goldman_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\PranaToThirdParty_Goldman_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\PranaToThirdParty_Newland_Goldman_OSI.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\Sensato_Recon_Positions.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_CONIFER_EOD.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_CONIFER_EOD_S1.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_CONIFER_EOD_S1_Consolidated.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_CreditSuisse.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_CreditSuisseswap.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sansato_AllBroker.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_DBswaps.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_SENSATO_GSSwap.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_MSFS.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_MSFS_FXAndFXForward.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_MSFS_Swap.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_MSPB.XSLT" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_MSPB_Swap.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_MSPB_Test.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_Omgeo_Equity.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_UBS.xslt" />
+    <Content Include="ThirdPartyXSL\Sansato Investors\ThirdParty_Sensato_DeutscheBank.xslt" />
+    <Content Include="ThirdPartyXSL\Saratoga\PranaToThirdParty_Saratoga_JPM.xslt" />
+    <Content Include="ThirdPartyXSL\Saratoga\PranaToThirdParty_Saratoga_JPM_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Saratoga\PranaToThirdParty_Saratoga_JPM_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Saxis\PranaToThirdParty_Saxis.xslt" />
+    <Content Include="ThirdPartyXSL\Seafarer\ThirdParty_Seafarer.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\PranaToThirdParty_Sonoma_IB.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_SonomaFinal_Jefferies.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_AXYS.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_AXYS_Updated.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Pershing.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Pershing_1691.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Pershing_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Pershing_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Viteos.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Viteos_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Sonoma\ThirdParty_Sonoma_Viteos_Header.xslt" />
+    <Content Include="ThirdPartyXSL\SS\ThirdParty_SS_MS.xslt" />
+    <Content Include="ThirdPartyXSL\Star Point\PranaToThirdParty_MS_StarPoint.xslt" />
+    <Content Include="ThirdPartyXSL\Star Point\PranaToThirdParty_MS_StarPointV2.xslt" />
+    <Content Include="ThirdPartyXSL\Newland\PranaToThirdParty_Newland_CITCO.xslt" />
+    <Content Include="ThirdPartyXSL\Second Curve\PranaToThirdParty_SC_MS_New.xslt" />
+    <Content Include="ThirdPartyXSL\Second Curve\PranaToThirdParty_SC_MS_Unallocated_Export.xslt" />
+    <Content Include="ThirdPartyXSL\Second Curve\PranaToThirdParty_SecondCurve_MS.xslt" />
+    <Content Include="ThirdPartyXSL\Second Curve\PranaToThirdParty_SC_MS_CUTTONE_Export.xslt" />
+    <Content Include="ThirdPartyXSL\Second Curve\PranaToThirdParty_SecondCurve_UBS.xslt" />
+    <Content Include="ThirdPartyXSL\Second Curve\PranaToThirdParty_SC_UBS_CUTTONE_Export.xslt" />
+    <Content Include="ThirdPartyXSL\Shoreline\PranaToThirdParty_Shoreline_Fidelity.xslt" />
+    <Content Include="ThirdPartyXSL\Shoreline\PranaToThirdParty_Shoreline_Fidelity_Footer.xslt" />
+    <Content Include="ThirdPartyXSL\Shoreline\PranaToThirdParty_Shoreline_Fidelity_Header.xslt" />
+    <Content Include="ThirdPartyXSL\Shoreline\PranaToThirdParty_Shoreline_Goldman.xslt" />
+    <Content Include="ThirdPartyXSL\Star Point\PranaToThirdParty_StarPoint_Axys.xslt" />
+    <Content Include="ThirdPartyXSL\CUTTONE\PranaToThirdPart_CUTTONE_4_EqAllocs.xslt" />
+    <Content Include="ThirdPartyXSL\CUTTONE\PranaToThirdPart_CUTTONE_6_OptAllocs.xslt" />
+    <Content Include="ThirdPartyXSL\CUTTONE\PranaToThirdPart_CUTTONE_7_OptExecs.xslt" />
+    <Content Include="ThirdPartyXSL\CUTTONE\PranaToThirdPart_CUTTONE_b_Execs.xslt" />
+    <Content Include="ThirdPartyXSL\ISOX\ThirdPartyToPrana_ISOX.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\ThirdPartyToNirvana_MS.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\ThirdPartyToNirvana_Test.xslt" />
+    <Content Include="ThirdPartyXSL\Yenzui\NirvanaToThirdParty_Yenzui_DB.xslt" />
+    <Content Include="ThirdPartyXSL\Yenzui\NirvanaToThirdParty_Yenzui_USB_Equity.xslt" />
+    <Content Include="ThirdPartyXSL\Yenzui\NirvanaToThirdParty_Yenzui_USB_FutureOptions.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\ThirdPartyToNirvana.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\ThirdPartyToNirvana_Equity_4ID.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\ThirdPartyToNirvana_Equity_5ID.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\ThirdPartyToNirvana_Options.xslt" />
+    <Content Include="ThirdPartyXSL\Misc\NirvanaToThirdParty_Test.xslt" />
+    <Content Include="ThirdPartyXSL\Yenzui\ThirdPartyToNirvana_Yenzui_DB.xslt" />
+    <Content Include="ThirdPartyXSL\Yenzui\ThirdPartyToNirvana_Yenzui_USB_Equity.xslt" />
+    <Content Include="ThirdPartyXSL\Yenzui\ThirdPartyToNirvana_Yenzui_USB_FutureOptions.xslt" />
+    <Content Include="ThirdPartyXSL\Lucas\ThirdPartyToPrana_Lucas_Barclays.xslt" />
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\ThirdPartyFlatFileManager.cs" />
+    <Compile Include="Classes\XMLHelper.cs" />
+    <Compile Include="Controls\ThirdPartyReportControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Form\ThirdPartyFileType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\ThirdPartyFileType.Designer.cs">
+      <DependentUpon>ThirdPartyFileType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\ThirdPartyReportMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Form\ThirdPartyFileType.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ThirdPartyFileType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ThirdPartyReportControl.resx">
+      <DependentUpon>ThirdPartyReportControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\ThirdPartyReportMain.resx">
+      <DependentUpon>ThirdPartyReportMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{F015C504-985F-44AA-92EC-E6F8C8461F9C}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.DatabaseManager\Prana.DatabaseManager.csproj">
+      <Project>{2888477e-5152-4cbf-b120-97db05cbc464}</Project>
+      <Name>Prana.DatabaseManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026b8-a7e0-4bfa-ac4f-c43daa2a4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Prana.ServiceCommon.Interfaces\Prana.ServiceCommon.Interfaces.csproj">
+      <Project>{aebd67d7-2487-4d54-b93f-fe8b3685e6b3}</Project>
+      <Name>Prana.ServiceCommon.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.PubSubService.Interfaces\Prana.PubSubService.Interfaces.csproj">
+      <Project>{35b3fd76-9aa5-424b-9e04-b7ff1ef1bfc2}</Project>
+      <Name>Prana.PubSubService.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities.UI\Prana.Utilities.UI.csproj">
+      <Project>{22f06506-2258-4e7e-be07-4ded5d8b8a6b}</Project>
+      <Name>Prana.Utilities.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{A28AE507-104B-45C5-BCB1-CE51394E3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram3.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)Prana.ThirdPartyReport.dll" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(TargetDir)Prana.ThirdPartyReport.pdb" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)Modules\" /I /F /Y
+xcopy "$(ProjectDir)ThirdpartyXML\*.xml" "$(SolutionDir)Application\Prana.Client\Prana\$(OutDir)MappingFiles\ThirdPartyXML\" /E /I /F /Y</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,54 @@
+module customRules.EpicenterCapital.preTrade.marketCapFiveBillion.preTradeMarketCapFiveBillion;
+
+@Name('MaxTenPercentWithMarketCapCheckInAccount')
+@Description('Checks if trade done in set account or not.')
+on BasketEOM as B
+insert into MaxTenPercentWithMarketCapCheckInAccount
+select distinct
+    B.basketId as basketId,
+    R.accountId as accountId,
+    R.accountShortName as accountShortName,
+    (case( valueExistsInCSV(R.accountShortName, Account_Check) is true and isConvertibleToDouble(R.marketCap) is true)
+    when true then (convertStrToDouble(R.marketCap)<MarketCap_Range) else false end) as validation,
+    "RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('WhatIfMaxTenPercentWithMarketCapCheck')
+@Description('Stores calculated value of Market Value for securities having market capital less than $5B.')
+on MaxTenPercentWithMarketCapCheckInAccount as B
+insert into WhatIfMaxTenPercentWithMarketCapCheck
+select distinct
+    B.basketId as basketId,
+    W.userId as userId,
+    W.accountId as accountId,
+    W.accountNav as accountNav,
+    W.accountShortName as accountName,
+    B.validation as finalValidation,
+    sum(case( valueExistsInCSV(W.accountShortName, Account_Check) is true and (case isConvertibleToDouble(W.marketCap) when true then convertStrToDouble(W.marketCap)<MarketCap_Range else false end))
+    when true then coalesce(W.netMarketValueBase,0) else 0 end) as calculationField,
+    "WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W 
+where W.basketId = B.basketId and B.accountId = W.accountId
+group by W.accountId;
+
+@Name('PreTradeMaxTenPercentWithMarketCapCheck')
+@Description('Final stream to check if condition is breached')
+insert into PreTradeMaxTenPercentWithMarketCapCheck
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+    Account_Check || ValueSeparator || doubleFormat(AccountNav_Percentage) as threshold,
+    A.accountName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.calculationField / A.accountNav)*100,0))) as actualResult,
+    'Account' || ValueSeparator ||' % Total Nav' as constraintField,
+    (case A.finalValidation is true
+    when true then (Math.abs(A.calculationField) > A.accountNav*(AccountNav_Percentage/100))
+    else false end) as isViolated,
+    'Account: ' || A.accountName || ', Net Market Value ' || doubleFormat(A.calculationField) || ', % Total Nav: ' || doubleFormat(Math.abs(coalesce((A.calculationField / A.accountNav)*100,0))) as parameters,
+    current_timestamp as validationTime,
+    'Market Value of the securities should be less than ' || doubleFormat(AccountNav_Percentage) || '% of Account NAV.' as summary,
+    A.accountName as dimension
+  from  WhatIfMaxTenPercentWithMarketCapCheck as A
+  where A.userId is not null;

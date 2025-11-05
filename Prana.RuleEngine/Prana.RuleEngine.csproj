@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CA6A4CB6-4FAE-4CE0-BB0C-5F0BEE1F155A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.RuleEngine</RootNamespace>
+    <AssemblyName>Prana.RuleEngine</AssemblyName>
+    <StartupObject>
+    </StartupObject>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Win.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinListView.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinExplorerBar.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinDock.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.Misc.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Shared.v12.1, Version=12.1.20121.2038, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="OpenWebKitSharp, Version=2.9.0.0, Culture=neutral, processorArchitecture=x86" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebKit.Interop, Version=536.0.0.0, Culture=neutral, PublicKeyToken=e78a9a0f333419fa, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessLogic\CustomRuleManager.cs" />
+    <Compile Include="BusinessLogic\IWebBrowserControl.cs" />
+    <Compile Include="BusinessLogic\RulesManager.cs" />
+    <Compile Include="BusinessObjects\Attribute.cs" />
+    <Compile Include="BusinessObjects\Attributes.cs" />
+    <Compile Include="BusinessObjects\CustomRule.cs" />
+    <Compile Include="BusinessObjects\NotificationSettings.cs" />
+    <Compile Include="BusinessObjects\Rule.cs" />
+    <Compile Include="BusinessObjects\RuleCategory.cs" />
+    <Compile Include="BusinessObjects\RulesAsset.cs" />
+    <Compile Include="BusinessObjects\GuvnorCatagories.cs" />
+    <Compile Include="BusinessObjects\Metadata.cs" />
+    <Compile Include="BusinessObjects\UserPermission.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DataAccessControl\RulesDAO.cs" />
+    <Compile Include="DataAccessControl\SixteenBDataHelper.cs" />
+    <Compile Include="ImportExport\CustomRuleExportImport.cs" />
+    <Compile Include="ImportExport\IImportHelper.cs" />
+    <Compile Include="ImportExport\ImportExportManager.cs" />
+    <Compile Include="ImportExport\UserDefinedExportImport.cs" />
+    <Compile Include="NotificationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NotificationControl.Designer.cs">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenWebkitWebControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OpenWebkitWebControl.Designer.cs">
+      <DependentUpon>OpenWebkitWebControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PortfolioGrpControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PortfolioGrpControl.Designer.cs">
+      <DependentUpon>PortfolioGrpControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="NotificationControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenWebkitWebControl.resx">
+      <DependentUpon>OpenWebkitWebControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PortfolioGrpControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PortfolioGrpControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RuleEngineWin.resx">
+      <DependentUpon>RuleEngineWin.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ImportRuleSelection.resx">
+      <DependentUpon>ImportRuleSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\SixtenBControl.resx">
+      <DependentUpon>SixtenBControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="OpenWebkitSharpLib\AVFoundationCF.resources\AVCFAssetExportPresets.plist" />
+    <None Include="OpenWebkitSharpLib\AVFoundationCF.resources\AVFoundationCFSupport.plist" />
+    <None Include="OpenWebkitSharpLib\AVFoundationCF.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\ar.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\CFNetworkCoreTypes-Info.plist" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\da.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\de.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\English.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\es.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\fi.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\fr.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\it.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\ja.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\ko.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\nb.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\nl.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\pl.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\pt.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\pt_PT.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\ru.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\sv.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\types.plist" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\zh_CN.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\CFNetwork.resources\zh_TW.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\AdobeRGB1998.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\Generic CMYK Profile.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\Generic Gray Gamma 2.2 Profile.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\Generic Gray Profile.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\Generic Lab Profile.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\Generic RGB Profile.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\Generic XYZ Profile.icc" />
+    <None Include="OpenWebkitSharpLib\ColorSync.resources\Profiles\sRGB Profile.icc" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\CFCharacterSetBitmaps.bitmap" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\CFUniCharPropertyDatabase.data" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\CFUnicodeData-L.mapping" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\da.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\da.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\de.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\de.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\en.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\es.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\es.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\fi.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\fi.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\fr.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\fr.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\it.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\it.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\ja.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\ja.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\ko.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\ko.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\nb.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\nb.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\nl.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\nl.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\pl.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\pl.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\pt_PT.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\pt_PT.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\ru.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\ru.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\sv.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\sv.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\zh_CN.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\zh_CN.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\zh_TW.lproj\CFSafeLaunch.strings" />
+    <None Include="OpenWebkitSharpLib\CoreFoundation.resources\zh_TW.lproj\Error.strings" />
+    <None Include="OpenWebkitSharpLib\CoreGraphics.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\Foundation.resources\en.lproj\Document.strings" />
+    <None Include="OpenWebkitSharpLib\Foundation.resources\en.lproj\EncodingNames.strings" />
+    <None Include="OpenWebkitSharpLib\Foundation.resources\en.lproj\Formatter.strings" />
+    <None Include="OpenWebkitSharpLib\Foundation.resources\en.lproj\FoundationErrors.strings" />
+    <None Include="OpenWebkitSharpLib\Foundation.resources\en.lproj\URL.strings" />
+    <None Include="OpenWebkitSharpLib\Foundation.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\IncompatibleApps.list" />
+    <None Include="OpenWebkitSharpLib\JavaScriptCore.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\English.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\Finnish.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\French.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\German.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\Greek.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\Indonesian.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\Na%27vi.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\Russian.ini" />
+    <None Include="OpenWebkitSharpLib\LanguageLoader.resources\Spanish.ini" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\de\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\en\GB\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\en\US\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\es\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\fr\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\it\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\nl\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\LinguisticData.resources\ru\hyphenation.dat" />
+    <None Include="OpenWebkitSharpLib\MediaToolbox.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\MediaToolbox.resources\MediaToolbox.icxs" />
+    <None Include="OpenWebkitSharpLib\OpenWebKitSharp.dll.config" />
+    <None Include="OpenWebkitSharpLib\OpenWebKitSharp.manifest" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\da.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\de.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\en.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\es.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\fi.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\fr.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\Info.plist" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionAPISchema.json" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\inspector\InspectorBackendStub.qrc" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceCSSTokenizer.re2js" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceHTMLTokenizer.re2js" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceJavaScriptTokenizer.re2js" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\inspector\WebKit.qrc" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\it.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\ja.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\ko.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\nb.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\nl.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\pl.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\pt.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\pt_PT.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\ru.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\sv.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\zh_CN.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit.resources\zh_TW.lproj\Localizable.strings" />
+    <None Include="OpenWebkitSharpLib\WebKit2WebProcess.resources\Info.plist" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="RuleEngineWin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RuleEngineWin.designer.cs">
+      <DependentUpon>RuleEngineWin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ImportRuleSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserControls\ImportRuleSelection.Designer.cs">
+      <DependentUpon>ImportRuleSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SixtenBControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\SixtenBControl.designer.cs">
+      <DependentUpon>SixtenBControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\WebClientAdaptor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CustomRule.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DLLs\Newtonsoft.Json.dll">
+    </Content>
+    <Content Include="OpenWebkitSharpLib\ApplePushService.dll" />
+    <Content Include="OpenWebkitSharpLib\AppleVersions.dll" />
+    <Content Include="OpenWebkitSharpLib\APSDaemon.exe" />
+    <Content Include="OpenWebkitSharpLib\APSDaemon_main.dll" />
+    <Content Include="OpenWebkitSharpLib\ASL.dll" />
+    <Content Include="OpenWebkitSharpLib\AVFoundationCF.dll" />
+    <Content Include="OpenWebkitSharpLib\CFNetwork.dll" />
+    <Content Include="OpenWebkitSharpLib\CFNetwork.resources\PACSupport.js" />
+    <Content Include="OpenWebkitSharpLib\CoreAudioToolbox.dll" />
+    <Content Include="OpenWebkitSharpLib\CoreFoundation.dll" />
+    <Content Include="OpenWebkitSharpLib\CoreGraphics.dll" />
+    <Content Include="OpenWebkitSharpLib\CoreMedia.dll" />
+    <Content Include="OpenWebkitSharpLib\CoreVideo.dll" />
+    <Content Include="OpenWebkitSharpLib\defaults.exe" />
+    <Content Include="OpenWebkitSharpLib\distnoted.exe" />
+    <Content Include="OpenWebkitSharpLib\Foundation.dll" />
+    <Content Include="OpenWebkitSharpLib\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="OpenWebkitSharpLib\icudt46.dll" />
+    <Content Include="OpenWebkitSharpLib\icuin40.dll" />
+    <Content Include="OpenWebkitSharpLib\icuuc40.dll" />
+    <Content Include="OpenWebkitSharpLib\JavaScriptCore.dll" />
+    <Content Include="OpenWebkitSharpLib\JSCore.dll" />
+    <Content Include="OpenWebkitSharpLib\LanguageLoader.resources\Credits.txt" />
+    <Content Include="OpenWebkitSharpLib\libcache.dll" />
+    <Content Include="OpenWebkitSharpLib\libdispatch.dll" />
+    <Content Include="OpenWebkitSharpLib\libicuin.dll" />
+    <Content Include="OpenWebkitSharpLib\libicuuc.dll" />
+    <Content Include="OpenWebkitSharpLib\libtidy.dll" />
+    <Content Include="OpenWebkitSharpLib\libxml2.dll" />
+    <Content Include="OpenWebkitSharpLib\libxslt.dll" />
+    <Content Include="OpenWebkitSharpLib\MediaToolbox.dll" />
+    <Content Include="OpenWebkitSharpLib\MyDownloader.App.dll" />
+    <Content Include="OpenWebkitSharpLib\MyDownloader.Core.dll" />
+    <Content Include="OpenWebkitSharpLib\MyDownloader.Extension.dll" />
+    <Content Include="OpenWebkitSharpLib\MyDownloader.Spider.dll" />
+    <Content Include="OpenWebkitSharpLib\objc.dll" />
+    <Content Include="OpenWebkitSharpLib\OpenWebKitSharp.dll" />
+    <Content Include="OpenWebkitSharpLib\plutil.exe" />
+    <Content Include="OpenWebkitSharpLib\pthreadVC2.dll" />
+    <Content Include="OpenWebkitSharpLib\QTMovieWin.dll" />
+    <Content Include="OpenWebkitSharpLib\QuartzCore.dll" />
+    <Content Include="OpenWebkitSharpLib\SQLite3.dll" />
+    <Content Include="OpenWebkitSharpLib\TabStrip.dll" />
+    <Content Include="OpenWebkitSharpLib\VideoToolbox.dll" />
+    <Content Include="OpenWebkitSharpLib\WebKit.dll" />
+    <Content Include="OpenWebkitSharpLib\WebKit.Interop.dll" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\da.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\de.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\en.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\es.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\fi.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\fr.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AdvancedSearchController.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ApplicationCacheItemsView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ApplicationCacheModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AuditCategories.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AuditFormatters.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AuditLauncherView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AuditResultView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AuditRules.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\audits.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\auditsPanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\AuditsPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\BinarySearch.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\BottomUpProfileDataGridTree.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\BreakpointManager.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\BreakpointsSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CallStackSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Checkbox.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Color.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CompilerSourceMapping.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ConsoleMessage.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ConsoleModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ConsolePanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ConsoleView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ContentProviders.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ContextMenu.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CookieItemsView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CookieParser.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CookiesTable.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CSSCompletions.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CSSKeywordCompletions.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CSSSelectorProfileView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\CSSStyleModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Database.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DatabaseQueryView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DatabaseTableView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\dataGrid.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DataGrid.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DebuggerModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DebuggerPresentationModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DetailedHeapshotGridNodes.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DetailedHeapshotView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\dialog.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Dialog.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DOMAgent.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DOMBreakpointsSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DOMPresentationUtils.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DOMStorage.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DOMStorageItemsView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\DOMSyntaxHighlighter.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Drawer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\elementsPanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ElementsPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ElementsTreeOutline.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\EmptyView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\EventListenersSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionAPI.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionAuditCategory.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionCommon.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionRegistryStub.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ExtensionServer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\externs.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\filteredItemSelectionDialog.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\FilteredItemSelectionDialog.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\FontView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\goToLineDialog.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\GoToLineDialog.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HandlerRegistry.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HAREntry.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\heapProfiler.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HeapSnapshot.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HeapSnapshotProxy.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HeapSnapshotView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HeapSnapshotWorker.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HeapSnapshotWorkerDispatcher.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\helpScreen.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\HelpScreen.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\applicationCache.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\back.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\breakpointBorder.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\breakpointConditionalBorder.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\breakpointConditionalCounterBorder.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\breakpointCounterBorder.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\checker.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\closeButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\cookie.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\database.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\databaseTable.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\debuggerContinue.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\debuggerPause.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\debuggerStepInto.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\debuggerStepOut.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\debuggerStepOver.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\deleteIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallDown.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallDownBlack.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallDownWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallRight.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallRightBlack.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallRightDown.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallRightDownBlack.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallRightDownWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\disclosureTriangleSmallRightWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\domain.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\errorIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\errorMediumIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\errorRedDot.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\forward.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\frame.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\glossyHeader.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\glossyHeaderPressed.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\glossyHeaderSelected.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\glossyHeaderSelectedPressed.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\goArrow.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\graphLabelCalloutLeft.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\graphLabelCalloutRight.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\indexedDB.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\indexedDBIndex.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\indexedDBObjectStore.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\localStorage.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\navigatorPinButton.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\navigatorShowHideButton.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneAddButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneBottomGrow.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneBottomGrowActive.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneElementStateButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneFilterButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneGrowHandleLine.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneRefreshButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\paneSettingsButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\popoverArrows.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\popoverBackground.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\profileGroupIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\profileIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\profileSmallIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\profilesSilhouette.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\programCounterBorder.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\radioDot.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourceCSSIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourceDocumentIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourceDocumentIconSmall.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourceJSIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourcePlainIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourcePlainIconSmall.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourcesSizeGraphIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\resourcesTimeGraphIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\scriptsSilhouette.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\searchSmallBlue.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\searchSmallBrightBlue.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\searchSmallGray.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\searchSmallWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\segment.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\segmentEnd.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\segmentHover.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\segmentHoverEnd.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\segmentSelected.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\segmentSelectedEnd.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\sessionStorage.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\spinner.gif" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\spinnerActive.gif" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\spinnerActiveSelected.gif" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\spinnerInactive.gif" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\spinnerInactiveSelected.gif" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\splitviewDimple.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\splitviewDividerBackground.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarBackground.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarBottomBackground.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarButtonGlyphs.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarButtons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarMenuButton.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarMenuButtonSelected.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarResizerHorizontal.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\statusbarResizerVertical.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\successGreenDot.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\thumbActiveHoriz.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\thumbActiveVert.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\thumbHoriz.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\thumbHoverHoriz.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\thumbHoverVert.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\thumbVert.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarBlue.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarGray.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarGreen.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarOrange.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarPurple.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarRed.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineBarYellow.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineCheckmarks.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineDots.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillBlue.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillGray.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillGreen.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillOrange.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillPurple.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillRed.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelineHollowPillYellow.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillBlue.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillGray.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillGreen.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillOrange.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillPurple.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillRed.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\timelinePillYellow.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\toolbarIcons.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\toolbarIconsSmall.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\toolbarItemSelected.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\trackHoriz.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\trackVert.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\treeDownTriangleBlack.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\treeDownTriangleWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\treeRightTriangleBlack.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\treeRightTriangleWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\treeUpTriangleBlack.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\treeUpTriangleWhite.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\userInputIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\userInputPreviousIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\userInputResultIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\warningIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\warningMediumIcon.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\warningOrangeDot.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Images\warningsErrors.png" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ImageView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\IndexedDBModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\InjectedFakeWorker.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\inspector.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\inspector.html" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\inspector.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\InspectorBackend.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\InspectorBackendStub.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\inspectorCommon.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\InspectorFrontendAPI.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\InspectorFrontendHostStub.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\inspectorSyntaxHighlight.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\InspectorView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\JavaScriptContextManager.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\JavaScriptFormatter.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\JavaScriptSourceFrame.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\KeyboardShortcut.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\MemoryStatistics.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\MetricsSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\NetworkItemView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\NetworkLog.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\networkLogView.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\NetworkManager.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\networkPanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\NetworkPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Object.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ObjectPopoverHelper.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ObjectPropertiesSection.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Panel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\panelEnablerView.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\PanelEnablerView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\PartialQuickSort.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Placard.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\PleaseWaitMessage.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\popover.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Popover.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ProfileDataGridTree.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ProfileLauncherView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\profilesPanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ProfilesPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ProfileView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\PropertiesSection.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\PropertiesSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\RawSourceCode.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\RemoteObject.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Resource.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceCategory.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceCookiesView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceHeadersView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceHTMLView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceJSONView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourcePreviewView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceResponseView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\resourcesPanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourcesPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceTimingView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceTreeModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceUtils.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\resourceView.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ResourceView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ScopeChainSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Script.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ScriptFormatter.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ScriptFormatterWorker.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ScriptsNavigator.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\scriptsPanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ScriptsPanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ScriptsSearchScope.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SearchController.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Section.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Settings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SettingsScreen.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ShortcutsHelp.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ShortcutsScreen.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\ShowMoreDataGridNode.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SidebarOverlay.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SidebarTreeElement.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SoftContextMenu.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceCSSTokenizer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceFile.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceFrame.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceHTMLTokenizer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceJavaScriptTokenizer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SourceTokenizer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Spectrum.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\splitView.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SplitView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\StatusBarButton.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\StylesSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\SummaryBar.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TabbedEditorContainer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\tabbedPane.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TabbedPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TestController.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TextEditorHighlighter.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TextEditorModel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\textPrompt.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TextPrompt.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\textViewer.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TextViewer.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TimelineAgent.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TimelineGrid.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TimelineManager.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TimelineOverviewPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\timelinePanel.css" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TimelinePanel.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\Toolbar.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\TopDownProfileDataGridTree.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\treeoutline.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\UglifyJS\parse-js.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\UISourceCode.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\UIUtils.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\UserMetrics.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\utilities.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\View.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\WatchExpressionsSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\WelcomeView.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\WorkerManager.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\inspector\WorkersSidebarPane.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\it.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\ja.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\ko.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\nb.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\nl.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\pl.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\pt.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\pt_PT.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\ru.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\sv.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\zh_CN.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit.resources\zh_TW.lproj\localizedStrings.js" />
+    <Content Include="OpenWebkitSharpLib\WebKit2WebProcess.exe" />
+    <Content Include="OpenWebkitSharpLib\WebKitQuartzCoreAdditions.dll" />
+    <Content Include="OpenWebkitSharpLib\YSCrashDump.dll" />
+    <Content Include="OpenWebkitSharpLib\YSUtilities.dll" />
+    <Content Include="OpenWebkitSharpLib\zlib1.dll" />
+    <None Include="Resources\Rule.ico" />
+    <None Include="Resources\Category.ico" />
+    <None Include="Resources\rd_icon_regulatory.png" />
+    <None Include="Resources\Custom-Icon-Design-Pretty-Office-5-Catalog.ico" />
+    <None Include="Resources\Custom-Icon-Design-Pretty-Office-5-Analysis.ico" />
+    <None Include="Resources\Icon2.gif" />
+    <None Include="Resources\Treetog-Junior-Folder-blue-favs.ico" />
+    <None Include="Resources\Disable.jpg" />
+    <None Include="Resources\PreEnable.jpg" />
+    <Content Include="Startup.htm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AmqpAdapter\Prana.AmqpAdapter.csproj">
+      <Project>{10DD56D7-73F5-4213-9F65-74ABCCA49938}</Project>
+      <Name>Prana.AmqpAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

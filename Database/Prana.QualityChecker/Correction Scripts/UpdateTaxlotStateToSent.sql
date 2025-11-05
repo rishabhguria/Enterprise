@@ -1,0 +1,1 @@
+UPDATE T_PBWiseTaxlotState SET TaxLotState = 1 WHERE TaxLotState <> 1

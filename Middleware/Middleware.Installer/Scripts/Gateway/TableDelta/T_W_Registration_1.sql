@@ -1,0 +1,12 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [dbo].[T_W_Registration]  WITH CHECK ADD  CONSTRAINT [FK_Registration_Clients] FOREIGN KEY([ClientID])
+REFERENCES [dbo].[T_W_Clients] ([ClientID])
+GO
+ALTER TABLE [dbo].[T_W_Registration] CHECK CONSTRAINT [FK_Registration_Clients]

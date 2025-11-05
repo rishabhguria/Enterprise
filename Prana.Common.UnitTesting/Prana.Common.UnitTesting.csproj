@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Prana.Common.UnitTesting\sdk props\Microsoft.NET.Test.Sdk.17.9.0\build\net462\Microsoft.NET.Test.Sdk.props" Condition="Exists('..\Prana.Common.UnitTesting\sdk props\Microsoft.NET.Test.Sdk.17.9.0\build\net462\Microsoft.NET.Test.Sdk.props')" />
+  <Import Project="..\Prana.Common.UnitTesting\sdk props\Microsoft.CodeCoverage.17.9.0\build\netstandard2.0\Microsoft.CodeCoverage.props" Condition="Exists('..\Prana.Common.UnitTesting\sdk props\Microsoft.CodeCoverage.17.9.0\build\netstandard2.0\Microsoft.CodeCoverage.props')" />
+  <Import Project="..\Prana.Common.UnitTesting\sdk props\xunit.runner.visualstudio.2.5.7\build\net462\xunit.runner.visualstudio.props" Condition="Exists('..\Prana.Common.UnitTesting\sdk props\xunit.runner.visualstudio.2.5.7\build\net462\xunit.runner.visualstudio.props')" />
+  <Import Project="..\Prana.Common.UnitTesting\sdk props\xunit.core.2.7.0\build\xunit.core.props" Condition="Exists('..\Prana.Common.UnitTesting\sdk props\xunit.core.2.7.0\build\xunit.core.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC8073E4-B2B5-4507-91C8-387F84C63002}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Prana.Common.UnitTesting</RootNamespace>
+    <AssemblyName>Prana.Common.UnitTesting</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Csla, Version=2.1.0.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Application\Prana.BusinessObjects\Dlls\Csla.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.20.70.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Application\Prana.BusinessObjects\Dlls\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Application\Prana.BusinessObjects\Dlls\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.7.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.7.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.7.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\Nuget DLLs\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MockDataCreation\CreateCsvFile.cs" />
+    <Compile Include="MockDataCreation\CreateDataTable.cs" />
+    <Compile Include="MockDataCreation\MockDataPath.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\BusinessRulesTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\BasketDetailTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\BetaImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\CashCurrencyValueTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\CollateralImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\DailyCreditLimitTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\DividendImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\DividendYieldImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\ForexPriceImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\GenericBindingListTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\MarkPriceImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\NAVLockDateRuleTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\OrderTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByAUECDateWiseTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByDateRangeTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByExactFundTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByExactDateTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByExactSymbolTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByFromDateTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataByToDateTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataForLastDateModifiedTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\FilterDataForSameUsersTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\PositionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionManagement\ThirdPartyNameIDTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PositionMasterTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Risk Management\RiskPathCreatorTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\SecMasterUpdateDataByImportUITests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\SecurityMasterBusinessObjects\DynamicUDATests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\SecurityMasterBusinessObjects\SecMasterFutObjTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\SecurityMasterBusinessObjects\SecMasterRequestObjTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\SettlementDateCashCurrencyValueTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\TTPrefs\OrderDetailsTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Utilities\IEnumerableExtensionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\VolatilityImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\VWAPImportTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Allocation\AllocationMasterFundPreferenceTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Allocation\AllocationOperationPreferenceTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Allocation\AllocationParameterTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Allocation\AllocationRuleTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Allocation\CheckListWisePreferenceTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Analytics\PranaRequestCarrierTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\CommissionRule\CommissionRuleTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\EPNL Business Objects\ExposureAndPnlOrderCollectionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Extensions\AllocationGroupExtensionsTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Extensions\AllocationOrderExtensionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Extensions\DataRowExtensionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Extensions\DataTableExtensionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Import\StageImportDataTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\LiveFeed\LeafContainerTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\LiveFeed\PriceSizePriorityTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\MarkPrice\MonthMarkPriceListTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\OptionGreeks\StepAnalysisResponseTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\OptionGreeks\UserOptModelInputTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\OptionGreeks\VolatilitySkewRequestObjectTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PostTrade\AllocationGroupCollectionTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PostTrade\AllocationLevelListTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\PostTrade\TaxLotTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\Classes\Reconciliation\MatchingRuleTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\CostAdjustment\Definitions\CostAdjustmentParameterTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\FixClasses\FixPartyDetailsTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\NewLiveFeed\DictionaryModeTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\NewLiveFeed\EquitySymbolDataTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\NewLiveFeed\FeedPriceChooserTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\NewLiveFeed\FutureOptionSymbolDataTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\NewLiveFeed\FutureSymbolDataTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\NewLiveFeed\PricingRequestMappingsTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\SerializableDictionaryTests.cs" />
+    <Compile Include="Prana.BusinessObjectsTest\TimeZoneInfoTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\CommissionEnumHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\DateTimeUtilities\CentralTimerTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\DateTimeUtilities\DateTimeHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\DateTimeUtilities\SchedulerTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\ExtensionMethodTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\CSVFileFormatterTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\CSVFileHealperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\DataInputStreamTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\DataOutputStreamTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\FileStoreImplTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\FileTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\InputStreamTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\NetworkFolderFinderTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\OutputStreamTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\RandomAccessFileTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\IO\StringByteConversionTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\CAHelperClassTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ChunkingManagerTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\CompressionHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\DATAReconcilerTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\DataTableExpressionHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\DataTableToListConverterTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\DeliveryFactoryTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\EmailSenderTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\EmailsHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\GeneralUtilitiesTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\CsvReadingStrategyTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\CustomRASImportReadingStrategyTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\ExcelReadingStrategyTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\FileNameParserTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\FileReaderFactoryTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\NpoiXlsReadingStrategyTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\ImportExportUtilities\NpoiXlsxReadingStrategyTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\PranaBinaryFormatterTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\PranaExtensionHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\RetryHelperTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\SqlParserTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\TimeFormatterTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\MailDeliveryTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\MiscUtilities\MessageFormatterTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\PredicateHelper\PredicateBuilderTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\StringUtilities\StringUtilitiesTests.cs" />
+    <Compile Include="Prana.UtilitiesTest\StringUtilities\TripleDESEncryptDecryptTests.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MockDataCreation\TestingPath\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{b209105c-ca12-4cda-9cc5-3540d487bbb6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6d8871aa-7521-4ce6-9755-f4b99e8ed081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.LogManager\Prana.LogManager.csproj">
+      <Project>{498026B8-A7E0-4BFA-AC4F-C43DAA2A4835}</Project>
+      <Name>Prana.LogManager</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,53 @@
+module eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolUpsert;
+
+
+uses eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolUpsertIntermediate;
+uses eplModules.divisorCalculators.GlobalDivisorWindow;
+uses eplModules.postAggregation.underlyingSymbol.UnderlyingSymbolWindowWithNav;
+
+
+
+@Name('UnderlyingSymbolWithNavGlobalDivisorUpsert')
+@Description('Update UnderlyingSymbolWithNav whenever GlobalDivisorUpdateEvent event occurs.')
+on GlobalDivisorUpdateEvent as F 
+merge UnderlyingSymbolWithNav as W// where F.masterFundId = W.masterFundId
+when matched and 
+	(
+	    W.globalNav <> F.shadowNavG 
+		or W.startOfDayNavGlobal <> F.startOfDayNavG 
+		or W.grossExposureBaseGlobal <> F.grossExposureBaseG
+		or W.netExposureBaseGlobal <> F.netExposureBaseG
+		or W.grossMarketValueBaseGlobal <> F.grossMarketValueBaseG
+		or W.currentCash <> F.currentCash
+		or W.accrual <> F.accrual
+	)
+	then update set
+		W.globalNav = F.shadowNavG,
+		W.startOfDayNavGlobal = F.startOfDayNavG,
+		W.grossExposureBaseGlobal = F.grossExposureBaseG,
+		W.netExposureBaseGlobal = F.netExposureBaseG,
+		W.grossMarketValueBaseGlobal = F.grossMarketValueBaseG,
+		W.percentNetMarketValueGlobal = percent(W.netMarketValueBase, F.shadowNavG),
+		//W.percentLongExposureGlobal = percent(W.longExposureBase,F.shadowNavG),
+		//W.percentShortExposureGlobal = percent(W.shortExposureBase,F.shadowNavG),
+		W.percentNetExposureGlobal = percent(W.netExposureBase,F.shadowNavG),
+		W.percentBetaAdjustedExposureGlobal = percent(W.betaAdjustedExposureBase,F.shadowNavG),
+		W.percentGrossExposureGlobal = percent(W.grossExposureBase,F.shadowNavG),
+		//W.percentLongMarketValueGlobal = percent(W.longMarketValueBase,F.shadowNavG),
+		//W.percentShortMarketValueGlobal = percent(W.shortMarketValueBase,F.shadowNavG),
+		W.percentGrossMarketValueGlobal = percent(W.grossMarketValueBase,F.shadowNavG),
+		//W.percentLongNotionalGlobal = percent(W.longNotionalBase,F.shadowNavG),
+		//W.percentShortNotionalGlobal = percent(W.shortNotionalBase,F.shadowNavG),
+		W.percentNetNotionalGlobal = percent(W.notionalBase,F.shadowNavG),
+		W.pnlContributionGlobal = percent(W.dayPnLBase,F.shadowNavG),
+		W.percentCostBasisPnlGlobal = percent(W.costBasisPnLBase,F.shadowNavG),
+		W.dayReturnGlobal = percent(W.dayPnLBase,F.startOfDayNavG),
+		W.currentCash=F.currentCash,
+		W.accrual = F.accrual,
+		
+		W.percentBetaAdjustedGrossExposureUnderlyingBaseGlobal = percent(coalesce(W.betaAdjustedGrossExposureUnderlyingBase,0),coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedLongExposureUnderlyingBaseGlobal = percent(coalesce(W.betaAdjustedLongExposureUnderlyingBase,0),coalesce(F.shadowNavG,0)),
+		W.percentBetaAdjustedShortExposureUnderlyingBaseGlobal = percent(coalesce(W.betaAdjustedShortExposureUnderlyingBase,0),coalesce(F.shadowNavG,0)),
+		W.parentWindowStream = "GlobalDivisorUpdateEvent,UnderlyingSymbolWithNav";
+
+

@@ -1,0 +1,43 @@
+<!--Template for displaying cutom rules.-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>#RULE_NAME#</title>
+		<style type="text/css">
+		    .description {
+		        margin: 20px;
+		        color: #FEFEFE;
+		        font-size: 15px;
+		        /*float:left;*/
+		    }
+		    .Constants {
+		        margin: 20px;
+		        color: #FEFEFE;
+		        font-size: 14px;
+		    }
+		    .constantList {
+		        margin-left: 20px;
+		        font-size: 14px;
+		    }
+		</style>
+	</head>
+	<body style="background-color:#444444;color:#CCCCCC;max-width:600px;font-family : Arial;">
+        <div>
+			<!--<b>CustomRule : </b>#RULE_NAME#<br/>
+			<b>Compliance Level : </b>#COMPRESSION_LEVEL#<br/><br/>
+			<b>Description : </b><br/>-->
+			<div class="description">
+				#DESCRIPTION#
+			</div>
+            <div class="Constants">
+                <span>Rule Constants</span>
+                <br />
+<br />
+                <table class="constantList">
+                #RULE_PARAMETER_CONSTANTS#
+                </table>
+            </div>
+		</div>
+    </body>
+</html>

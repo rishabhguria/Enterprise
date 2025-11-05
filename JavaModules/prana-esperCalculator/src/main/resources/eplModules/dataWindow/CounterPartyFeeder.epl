@@ -1,0 +1,30 @@
+module eplModules.dataWindow.CounterPartyFeeder;
+
+@Name('CounterPartyWindow')
+@Description('Named window which stores the counter party details.')
+create window CounterPartyWindow.std:unique(counterPartyId)
+(
+			counterPartyId int,
+			counterParty string,
+			parentWindowStream string
+);
+
+@Name('CounterPartyWindowInsert')
+@Description('This updates the CounterPartyWindow every time new CounterParty event occurs.')
+on CounterParty as s
+merge CounterPartyWindow sw where sw.counterPartyId = s.counterPartyId
+	when matched and
+			(
+				s.counterParty <> sw.counterParty
+			)
+		then 
+			update 
+				set  
+				sw.counterParty = s.counterParty,
+				sw.parentWindowStream = "CounterParty"
+	when not matched
+		then insert 
+			select    	
+		   	s.counterPartyId as counterPartyId,
+		   	s.counterParty as counterParty,
+		   	"CounterParty" as parentWindowStream;

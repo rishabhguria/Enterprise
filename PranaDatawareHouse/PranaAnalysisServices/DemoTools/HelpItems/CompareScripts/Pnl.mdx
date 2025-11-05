@@ -1,0 +1,194 @@
+with 
+
+set [InputDate] as
+(
+[Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3441]
+)
+set [EndDate] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3441].Lag(10):
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3441]
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+set [PreviousDay] as
+(
+Tail(
+crossjoin
+(
+   {
+      [Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3441].PrevMember.Lag(10):
+[Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3441].PrevMember
+   } ,{[Dim Time].[Is Holiday].&[False]}
+)
+
+,1).item(0).item(0)
+)
+
+
+
+
+
+
+member MarkPriceEndDate
+as
+(
+(EndDate.Item(0),[Measures].[Final Mark Price])
+)
+member MarkPricePrevDate
+as
+(
+(PreviousDay.Item(0),[Measures].[Final Mark Price])
+)
+
+member SnapShotCashValue as
+(
+([Measures].[Cash Value])
+)
+
+member DailyUnRealisedPnl as
+(
+sum(
+
+  descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )
+,
+ iif([Measures].[TaxlotTradeDate]>=InputDate.Item(0).Properties("Key",TYPED),
+([Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*(MarkPriceEndDate-[Measures].[AvgPrice]))
+-[Measures].[Open Total Commissionand Fees]
+,
+[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* (MarkPriceEndDate-MarkPricePrevDate)
+)
+)
+)
+member DailyRealisedPnl as
+(
+sum(
+Filter(
+crossjoin(inputDate.Item(0):inputDate.Item(0) ,
+      [PM Tax Lot Closing Temp].[PM Tax Lot Closing Temp].children),
+      not isempty([Measures].[ClosedQty]))
+,
+ iif([Measures].[Opening Trade Date Key]>=inputDate.Item(0).Properties("Key",TYPED),
+([Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+*([Measures].[Closing Price]-[Measures].[Opening Price]))
+-[Measures].[Closing Commission]
+-[Measures].[Opening Commission]
+,
+[Measures].[ClosedQty]
+*[Measures].[Opening Side Multiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+* ([Measures].[Closing Price]-MarkPricePrevDate)
+-[Measures].[Closing Commission]
+)
+)
+)
+
+
+MEMBER [DailyCash] AS
+(
+
+sum(
+(EndDate.Item(0):EndDate.Item(0)),
+[Measures].[Cash Value])
+)
+
+
+MEMBER [DailyWithNulls] AS
+(
+
+ [DailyUnRealisedPnl]+[DailyRealisedPnl]
+
+)
+member [DailyPnl]
+as
+(
+iif(isempty([DailyWithNulls]),0,[DailyWithNulls])
+)
+
+member AverageCostBasis as 
+(
+sum(
+
+(EndDate.Item(0):EndDate.Item(0))*[Dim Sub Accounts].[Type ID].&[4]
+,
+(
+	(
+	   EndDate.item(0).Properties("Key",Typed)-
+	   [Dim Time].[Calender].CurrentMember.Properties("Key",Typed)+1
+	)
+*[Measures].[Cash Value]
+)/
+   (
+	   EndDate.item(0).Properties("Key",Typed)-
+	   EndDate.item(0).Parent.FirstChild.Properties("Key",Typed)+1
+	)
+)
+)
+member [SymbolLastQuantity] as
+(
+Sum(Tail(
+Filter(
+(null:[Dim Time].[Calender].CurrentMember)*
+[PM Open Position Snap Shots].[Symbol].Currentmember,
+not isempty([Measures].[SymbolQuantity])
+),1),[Measures].[SymbolQuantity]
+)
+)
+member [BeginningMarketValue] as
+(
+
+sum(
+[PM Open Position Snap Shots].[Symbol].children,
+[SymbolLastQuantity]
+*([Measures].[Final Mark Price],[Dim Time].[Calender].CurrentMember)
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+)
+)
+
+member [DailyACB] as
+(
+([AverageCostBasis])+
+([BeginningMarketValue],[PreviousDay].item(0))+
+([SnapShotCashValue],PreviousDay.item(0))
+)
+
+SELECT  {DailyRealisedPnl,DailyunRealisedPnl } ON COLUMNS,
+
+
+
+  {
+[PM Taxlots].[Symbol].members
+--[T Company Funds].[Fund Name].members
+
+}
+ DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM 
+( SELECT ( [Dim Time].[Calender].[Year].&[2000].&[1].&[1].&[1]: 
+[Dim Time].[Calender].[Year].&[2009].&[2].&[6].&[3441] )
+ON COLUMNS FROM [Nirvana Client DW])
+
+
+ CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS

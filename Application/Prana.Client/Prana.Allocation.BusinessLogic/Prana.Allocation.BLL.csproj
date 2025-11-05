@@ -1,0 +1,134 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{51B7522B-B58E-468A-8497-326A75555E2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.Allocation.BLL</RootNamespace>
+    <AssemblyName>Prana.Allocation.BLL</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Prana.Allocation.BLL.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Allocation Business Objects\AllocatedGroup.cs" />
+    <Compile Include="Allocation Business Objects\AllocatedGroups.cs" />
+    <Compile Include="Allocation Business Objects\AllocationFund.cs" />
+    <Compile Include="Allocation Business Objects\AllocationFunds.cs" />
+    <Compile Include="Allocation Business Objects\AllocationGroup.cs" />
+    <Compile Include="Allocation Business Objects\AllocationGroups.cs" />
+    <Compile Include="Allocation Business Objects\AllocationIDGenerator.cs" />
+    <Compile Include="Allocation Business Objects\AllocationMessages.cs" />
+    <Compile Include="Allocation Business Objects\AllocationOrder.cs" />
+    <Compile Include="Allocation Business Objects\AllocationOrderCollection.cs" />
+    <Compile Include="Allocation Business Objects\AllocationPreferences.cs" />
+    <Compile Include="Allocation Business Objects\AllocationStrategies.cs" />
+    <Compile Include="Allocation Business Objects\AllocationStrategy.cs" />
+    <Compile Include="Allocation Business Objects\BasketGroup.cs" />
+    <Compile Include="Allocation Business Objects\BasketGroupCollection.cs" />
+    <Compile Include="Allocation Business Objects\Default.cs" />
+    <Compile Include="Allocation Business Objects\Defaults.cs" />
+    <Compile Include="Allocation Business Objects\FundStrategies.cs" />
+    <Compile Include="Allocation Business Objects\FundStrategy.cs" />
+    <Compile Include="Allocation Business Objects\GridType.cs" />
+    <Compile Include="Allocation Business Objects\GroupedEntities.cs" />
+    <Compile Include="Allocation Business Objects\GroupedEntity.cs" />
+    <Compile Include="BLL\AllocationPreferencesManager.cs" />
+    <Compile Include="BLL\BasketAllocationManager.cs" />
+    <Compile Include="BLL\BasketFundAllocationManager.cs" />
+    <Compile Include="BLL\BasketStrategyAllocationManager.cs" />
+    <Compile Include="BLL\CommissionCalculator.cs" />
+    <Compile Include="BLL\CommissionRuleEvents.cs" />
+    <Compile Include="BLL\GroupManager.cs" />
+    <Compile Include="BLL\OrderAllocationManager.cs" />
+    <Compile Include="BLL\OrderFundAllocationManager.cs" />
+    <Compile Include="BLL\OrderStrategyAllocationManager.cs" />
+    <Compile Include="Constants\AllocationConstants.cs" />
+    <Compile Include="Constants\OrderColumns.cs" />
+    <Compile Include="DAL\BasketAllocationDBManager.cs" />
+    <Compile Include="DAL\CompanyStrategyManager.cs" />
+    <Compile Include="DAL\FundManager.cs" />
+    <Compile Include="DAL\FundStraegyManager.cs" />
+    <Compile Include="DAL\OrderAllocationDBManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{A28AE507-104B-45C5-BCB1-CE51394E3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,414 @@
+module eplModules.dataWindow.AggregationTaxlotFeederPost;
+
+uses eplModules.dataWindow.TaxlotFeeder;
+uses eplModules.dataWindow.AggregationTaxlotWindow;
+
+@Name('AggregationTaxlotEventPost')
+@Description('This inserts data into AggregationTaxlotEventPost on the basis of grouping on startup.')
+on BasketStartEOM ( basketId = 'StartCalculation') as S
+Insert into AggregationTaxlotEventPost 
+select
+	'0' as basketId,
+	'0' as taxlotId,
+	'0' as clOrderId,
+	T.taxlotType as taxlotType,
+	'Insert/Update' as taxlotState,
+	T.symbol as symbol,
+	T.underlyingSymbol as underlyingSymbol,
+	sum(coalesce(T.quantity,0)) as quantity,
+	sum(coalesce((T.quantity*T.avgPrice),0)) as quantityFxRate,
+	T.avgPrice as avgPrice,
+	T.limitPrice as limitPrice,
+	T.stopPrice as stopPrice,
+	sum(coalesce((T.quantity*T.avgPrice*T.multiplier),0)) as notional,
+	sum(coalesce((T.quantity*T.avgPrice*T.avgFxRateForTrade),0)) as notionalFxRate,
+	T.orderSideTagValue as orderSideTagValue,
+	T.orderTypeTagValue as orderTypeTagValue,
+	T.accountId as accountId,
+	T.masterFundId as masterFundId,
+	T.masterFundName as masterFundName,
+	T.accountShortName as accountShortName,
+	T.accountLongName as accountLongName,
+	T.strategyId as strategyId,
+	T.counterPartyId as counterPartyId,
+	T.venueId as venueId,
+	T.auecLocalDate as auecLocalDate,
+	T.settlementDate as settlementDate,
+	T.userId as userId,
+	T.benchMarkRate as benchMarkRate,
+	T.differential as differential,
+	T.swapNotional as swapNotional,
+	T.dayCount as dayCount,
+	T.isSwapped	as isSwapped,
+	T.avgFxRateForTrade as avgFxRateForTrade,
+	T.conversionMethodOperator as conversionMethodOperator,
+	T.tif as tif,
+	T.orderSide as orderSide,
+	T.counterParty as counterParty,
+	T.venue as venue,
+	T.sideMultiplier as sideMultiplier,
+	T.orderType as orderType,
+	T.underlyingAsset as underlyingAsset,
+	T.isWhatIfTradeStreamRequired as isWhatIfTradeStreamRequired,
+	T.assetId as assetId,
+	T.asset as asset,
+	T.auecId as auecId,
+	T.multiplier as multiplier,
+	T.isTodayTrade as isTodayTrade,
+	T.today as today,
+	sum(coalesce(T.dayInterestLocal,0)) as dayInterestLocal,
+	sum(coalesce(T.totalInterestLocal,0)) as totalInterestLocal,
+	T.tradeAttribute1 as tradeAttribute1,
+	T.tradeAttribute2 as tradeAttribute2,
+	T.tradeAttribute3 as tradeAttribute3,
+	T.tradeAttribute4 as tradeAttribute4,
+	T.tradeAttribute5 as tradeAttribute5,
+	T.tradeAttribute6 as tradeAttribute6,
+	T.baseCurrencyId as baseCurrencyId,
+	"TaxlotWindowPost-BasketStartEOM" as parentWindowStream
+from TaxlotWindow as T
+where T.taxlotType = 'Post'
+group by T.accountId,T.symbol,T.taxlotType,T.asset,T.orderSide,T.isTodayTrade,T.strategyId,
+T.tradeAttribute1,T.tradeAttribute2,T.tradeAttribute3,T.tradeAttribute4,T.tradeAttribute5,T.tradeAttribute6;
+
+@Name('AggregationTaxlotUpdated')
+@Description('This inserts data into TaxlotWindowEvent on the basis of grouping.')
+on TaxlotWindowUpdated (taxlotType = 'Post' and IsBasketStarted = true) as s
+merge AggregationTaxlotWindow sw where sw.accountId = s.accountId and sw.symbol = s.symbol and sw.taxlotType = s.taxlotType
+						   and sw.orderSide = s.orderSide and sw.isTodayTrade = s.isTodayTrade and sw.strategyId = s.strategyId
+when matched and sw.asset = s.asset then delete
+	then insert into AggregationTaxlotUpdated
+			select
+				'Deleted' as status,
+				s.taxlotId as taxlotId,
+				s.symbol as symbol,
+				s.quantity as quantity,
+				s.accountId as accountId,
+				s.orderSide as orderSide,
+				s.assetId as assetId,
+				s.asset as asset,
+				s.isTodayTrade as isTodayTrade,
+				s.avgPrice as avgPrice,
+				s.taxlotType as taxlotType,
+				s.isSwapped as isSwapped,
+				s.strategyId as strategyId,
+				s.tradeAttribute1 as tradeAttribute1,
+				s.tradeAttribute2 as tradeAttribute2,
+				s.tradeAttribute3 as tradeAttribute3,
+				s.tradeAttribute4 as tradeAttribute4,
+				s.tradeAttribute5 as tradeAttribute5,
+				s.tradeAttribute6 as tradeAttribute6,
+		   		"TaxlotWindowUpdated - Delete1" as parentWindowStream
+when matched and s.assetReceived = sw.asset and s.isSwapped = true and s.status = 'Updated'
+	then delete
+	then insert into AggregationTaxlotUpdated
+			select
+				'Deleted' as status,
+				s.taxlotId as taxlotId,
+				s.symbol as symbol,
+				s.quantity as quantity,
+				s.accountId as accountId,
+				s.orderSide as orderSide,
+				s.assetId as assetId,
+				s.asset as asset,
+				s.isTodayTrade as isTodayTrade,
+				s.avgPrice as avgPrice,
+				s.taxlotType as taxlotType,
+				s.isSwapped as isSwapped,
+				s.strategyId as strategyId,
+				s.tradeAttribute1 as tradeAttribute1,
+				s.tradeAttribute2 as tradeAttribute2,
+				s.tradeAttribute3 as tradeAttribute3,
+				s.tradeAttribute4 as tradeAttribute4,
+				s.tradeAttribute5 as tradeAttribute5,
+				s.tradeAttribute6 as tradeAttribute6,
+		   		"TaxlotWindowUpdated - Delete2" as parentWindowStream
+when matched and sw.asset <> s.asset
+	then insert into AggregationTaxlotUpdated
+			select
+				s.status as status,
+				s.taxlotId as taxlotId,
+				s.symbol as symbol,
+				s.quantity as quantity,
+				s.accountId as accountId,
+				s.orderSide as orderSide,
+				s.assetId as assetId,
+				s.asset as asset,
+				s.isTodayTrade as isTodayTrade,
+				s.avgPrice as avgPrice,
+				s.taxlotType as taxlotType,
+				s.isSwapped as isSwapped,
+				s.strategyId as strategyId,
+				s.tradeAttribute1 as tradeAttribute1,
+				s.tradeAttribute2 as tradeAttribute2,
+				s.tradeAttribute3 as tradeAttribute3,
+				s.tradeAttribute4 as tradeAttribute4,
+				s.tradeAttribute5 as tradeAttribute5,
+				s.tradeAttribute6 as tradeAttribute6,
+		   		"TaxlotWindowUpdated - Insert/Update1" as parentWindowStream
+when not matched then
+insert into AggregationTaxlotUpdated
+			select
+				s.status as status,
+				s.taxlotId as taxlotId,
+				s.symbol as symbol,
+				s.quantity as quantity,
+				s.accountId as accountId,
+				s.orderSide as orderSide,
+				s.assetId as assetId,
+				s.asset as asset,
+				s.isTodayTrade as isTodayTrade,
+				s.avgPrice as avgPrice,
+				s.taxlotType as taxlotType,
+				s.isSwapped as isSwapped,
+				s.strategyId as strategyId,
+				s.tradeAttribute1 as tradeAttribute1,
+				s.tradeAttribute2 as tradeAttribute2,
+				s.tradeAttribute3 as tradeAttribute3,
+				s.tradeAttribute4 as tradeAttribute4,
+				s.tradeAttribute5 as tradeAttribute5,
+				s.tradeAttribute6 as tradeAttribute6,
+		   		"TaxlotWindowUpdated - Insert/Update2" as parentWindowStream;
+
+@Name('AggregationTaxlotEventPost')
+@Description('This inserts data into AggregationTaxlotEventPost on the basis of grouping.')
+on AggregationTaxlotUpdated as S
+Insert into AggregationTaxlotEventPost 
+select
+	'0' as basketId,
+	'0' as taxlotId,
+	'0' as clOrderId,
+	T.taxlotType as taxlotType,
+	'Insert/Update' as taxlotState,
+	T.symbol as symbol,
+	T.underlyingSymbol as underlyingSymbol,
+	sum(coalesce(T.quantity,0)) as quantity,
+	sum(coalesce((T.quantity*T.avgPrice),0)) as quantityFxRate,
+	T.avgPrice as avgPrice,
+	T.limitPrice as limitPrice,
+	T.stopPrice as stopPrice,
+	sum(coalesce((T.quantity*T.avgPrice*T.multiplier),0)) as notional,
+	sum(coalesce((T.quantity*T.avgPrice*T.avgFxRateForTrade),0)) as notionalFxRate,
+	T.orderSideTagValue as orderSideTagValue,
+	T.orderTypeTagValue as orderTypeTagValue,
+	T.accountId as accountId,
+	T.masterFundId as masterFundId,
+	T.masterFundName as masterFundName,
+	T.accountShortName as accountShortName,
+	T.accountLongName as accountLongName,
+	T.strategyId as strategyId,
+	T.counterPartyId as counterPartyId,
+	T.venueId as venueId,
+	T.auecLocalDate as auecLocalDate,
+	T.settlementDate as settlementDate,
+	T.userId as userId,
+	T.benchMarkRate as benchMarkRate,
+	T.differential as differential,
+	T.swapNotional as swapNotional,
+	T.dayCount as dayCount,
+	T.isSwapped	as isSwapped,
+	T.avgFxRateForTrade as avgFxRateForTrade,
+	T.conversionMethodOperator as conversionMethodOperator,
+	T.tif as tif,
+	T.orderSide as orderSide,
+	T.counterParty as counterParty,
+	T.venue as venue,
+	T.sideMultiplier as sideMultiplier,
+	T.orderType as orderType,
+	T.underlyingAsset as underlyingAsset,
+	T.isWhatIfTradeStreamRequired as isWhatIfTradeStreamRequired,
+	T.assetId as assetId,
+	T.asset as asset,
+	T.auecId as auecId,
+	T.multiplier as multiplier,
+	T.isTodayTrade as isTodayTrade,
+	T.today as today,
+	sum(coalesce(T.dayInterestLocal,0)) as dayInterestLocal,
+	sum(coalesce(T.totalInterestLocal,0)) as totalInterestLocal,
+	T.tradeAttribute1 as tradeAttribute1,
+	T.tradeAttribute2 as tradeAttribute2,
+	T.tradeAttribute3 as tradeAttribute3,
+	T.tradeAttribute4 as tradeAttribute4,
+	T.tradeAttribute5 as tradeAttribute5,
+	T.tradeAttribute6 as tradeAttribute6,
+	T.baseCurrencyId as baseCurrencyId,
+	T.parentWindowStream as parentWindowStream
+from TaxlotWindow as T
+where T.taxlotType = 'Post' and IsBasketStarted = true
+and S.asset = T.asset and S.accountId = T.accountId and S.symbol = T.symbol 
+and S.orderSide = T.orderSide and S.isTodayTrade = T.isTodayTrade and S.strategyId = T.strategyId
+and S.tradeAttribute1 = T.tradeAttribute1 and S.tradeAttribute2 = T.tradeAttribute2 and S.tradeAttribute3 = T.tradeAttribute3
+and S.tradeAttribute4 = T.tradeAttribute4 and S.tradeAttribute5 = T.tradeAttribute5 and S.tradeAttribute6 = T.tradeAttribute6
+group by T.accountId,T.symbol,T.taxlotType,T.asset,T.orderSide,T.isTodayTrade,T.strategyId,
+T.tradeAttribute1,T.tradeAttribute2,T.tradeAttribute3,T.tradeAttribute4,T.tradeAttribute5,T.tradeAttribute6;
+
+@Name('AggregationTaxlotWindowInsert')
+@Description('This updates the AggregationTaxlotWindow every time new AggregationTaxlotEventPost event occurs and on the basis of grouping.')
+on AggregationTaxlotEventPost as s
+merge AggregationTaxlotWindow sw where sw.accountId = s.accountId and sw.symbol = s.symbol and sw.taxlotType = s.taxlotType
+						   and sw.asset = s.asset and sw.orderSide = s.orderSide and sw.isTodayTrade = s.isTodayTrade and sw.strategyId = s.strategyId
+						   and sw.tradeAttribute1 = s.tradeAttribute1 and sw.tradeAttribute2 = s.tradeAttribute2 and sw.tradeAttribute3 = s.tradeAttribute3
+						   and sw.tradeAttribute4 = s.tradeAttribute4 and sw.tradeAttribute5 = s.tradeAttribute5 and sw.tradeAttribute6 = s.tradeAttribute6 and s.taxlotType = 'Post'
+	when matched and
+			(				
+				s.symbol <> sw.symbol or
+				s.underlyingSymbol <> sw.underlyingSymbol or
+				s.quantity <> sw.quantity or
+				s.avgPrice <> sw.avgPrice or
+				s.limitPrice <> sw.limitPrice or
+				s.stopPrice <> sw.stopPrice or
+				s.orderSideTagValue <> sw.orderSideTagValue or
+				s.orderTypeTagValue<> sw.orderTypeTagValue or
+				s.accountId <> sw.accountId or
+				s.masterFundId <> sw.masterFundId or
+				s.masterFundName <> sw.masterFundName or
+				s.accountShortName <> sw.accountShortName or
+				s.accountLongName <> sw.accountLongName or
+				s.strategyId <> sw.strategyId or
+				s.counterPartyId <> sw.counterPartyId or
+				s.venueId <> sw.venueId or
+				s.auecLocalDate <> sw.auecLocalDate	or
+				s.settlementDate <> sw.settlementDate or
+				s.userId <> sw.userId or				
+				s.isSwapped <> sw.isSwapped or
+				s.benchMarkRate <> sw.benchMarkRate or
+				s.differential <> sw.differential or
+				s.swapNotional <> sw.swapNotional or
+				s.dayCount <> sw.dayCount or
+				s.avgFxRateForTrade <> sw.avgFxRateForTrade or
+				s.conversionMethodOperator <> sw.conversionMethodOperator or
+				s.tif <> sw.tif or
+				s.orderSide <> sw.orderSide or
+				s.counterParty <> sw.counterParty or
+				s.venue <> sw.venue or
+				s.sideMultiplier <> sw.sideMultiplier or
+				s.orderType <> sw.orderType or
+				s.underlyingAsset <> sw.underlyingAsset or
+				s.isWhatIfTradeStreamRequired <> sw.isWhatIfTradeStreamRequired or
+				s.assetId <> sw.assetId or
+				s.asset <> sw.asset or
+				s.auecId <> sw.auecId or
+				s.multiplier <> sw.multiplier or
+				s.isTodayTrade <> sw.isTodayTrade or
+				s.today <> sw.today or
+				s.dayInterestLocal <> sw.dayInterestLocal or
+				s.totalInterestLocal <> sw.totalInterestLocal or
+				s.tradeAttribute1 <> sw.tradeAttribute1 or
+				s.tradeAttribute2 <> sw.tradeAttribute2 or
+				s.tradeAttribute3 <> sw.tradeAttribute3 or
+				s.tradeAttribute4 <> sw.tradeAttribute4 or
+				s.tradeAttribute5 <> sw.tradeAttribute5 or
+				s.tradeAttribute6 <> sw.tradeAttribute6 or
+				s.baseCurrencyId <> sw.baseCurrencyId
+			)
+		then 
+			update 
+				set
+				sw.symbol = s.symbol,
+				sw.underlyingSymbol = s.underlyingSymbol,
+				sw.quantity = s.quantity,
+				sw.avgPrice = coalesce((s.notional/(s.quantity*s.multiplier)),0),
+				sw.limitPrice = s.limitPrice,
+				sw.stopPrice = s.stopPrice,
+				sw.orderSideTagValue = s.orderSideTagValue,
+				sw.orderTypeTagValue=s.orderTypeTagValue,
+				sw.accountId = s.accountId,
+				sw.masterFundId = s.masterFundId,
+				sw.masterFundName = s.masterFundName,
+				sw.accountShortName = s.accountShortName,
+				sw.accountLongName = s.accountLongName,
+				sw.strategyId =s.strategyId,
+				sw.counterPartyId = s.counterPartyId,
+				sw.venueId = s.venueId,
+				sw.auecLocalDate = s.auecLocalDate,
+				sw.settlementDate = s.settlementDate,
+				sw.userId = s.userId,
+				sw.isSwapped = s.isSwapped,
+				sw.benchMarkRate = s.benchMarkRate,
+				sw.differential = s.differential,
+				sw.swapNotional = s.swapNotional,
+				sw.dayCount = s.dayCount,
+				sw.avgFxRateForTrade = coalesce((s.notionalFxRate/s.quantityFxRate),0),
+				sw.conversionMethodOperator = s.conversionMethodOperator,
+				sw.tif = s.tif,
+				sw.orderSide = s.orderSide,
+				sw.counterParty = s.counterParty,
+				sw.venue = s.venue,
+				sw.sideMultiplier = s.sideMultiplier,
+				sw.orderType = s.orderType,
+				sw.underlyingAsset = s.underlyingAsset,
+				sw.isWhatIfTradeStreamRequired = s.isWhatIfTradeStreamRequired,
+				sw.assetId = s.assetId,
+				sw.asset = s.asset,
+				sw.auecId = s.auecId,
+				sw.multiplier = s.multiplier,
+				sw.isTodayTrade = s.isTodayTrade,
+				sw.today = s.today,
+				sw.dayInterestLocal = s.dayInterestLocal,
+				sw.totalInterestLocal = s.totalInterestLocal,
+				sw.tradeAttribute1 = s.tradeAttribute1,
+				sw.tradeAttribute2 = s.tradeAttribute2,
+				sw.tradeAttribute3 = s.tradeAttribute3,
+				sw.tradeAttribute4 = s.tradeAttribute4,
+				sw.tradeAttribute5 = s.tradeAttribute5,
+				sw.tradeAttribute6 = s.tradeAttribute6,
+				sw.baseCurrencyId = s.baseCurrencyId,
+				sw.parentWindowStream = "Update"
+	when not matched and s.taxlotType = 'Post'
+		then insert 
+			select
+			s.basketId as basketId,
+		   	s.taxlotId as taxlotId,
+		   	s.clOrderId as clOrderId,
+		   	s.taxlotState as taxlotState,
+			s.taxlotType as taxlotType,
+			s.symbol as symbol,
+			s.underlyingSymbol as underlyingSymbol,
+			s.quantity as quantity,
+			coalesce((s.notional/(s.quantity*s.multiplier)),0) as avgPrice,
+			coalesce(s.limitPrice,0) as limitPrice,
+			coalesce(s.stopPrice,0) as stopPrice,
+			s.orderSideTagValue as orderSideTagValue,
+			s.orderTypeTagValue as orderTypeTagValue,
+			s.accountId as accountId,
+			s.masterFundId as masterFundId,
+			s.masterFundName as masterFundName,
+			s.accountShortName as accountShortName,
+			s.accountLongName as accountLongName,
+			s.strategyId as strategyId,
+			s.counterPartyId as counterPartyId,
+			s.venueId as venueId,
+	 		s.auecLocalDate as auecLocalDate,
+	 		s.settlementDate as settlementDate,
+	 		s.userId as userId,
+	 		s.isSwapped as isSwapped,
+	 		s.benchMarkRate as benchMarkRate,
+	 		s.differential as differential,
+	 		s.swapNotional as swapNotional,
+	 		s.dayCount as dayCount,
+	 		coalesce((s.notionalFxRate/s.quantityFxRate),0) as avgFxRateForTrade,
+	 		s.conversionMethodOperator as conversionMethodOperator,
+	 		s.tif as tif,
+	 		s.orderSide as orderSide,
+	 		s.counterParty as counterParty,
+	 		s.venue as venue,
+	 		s.sideMultiplier as sideMultiplier,
+	 		s.orderType as orderType,
+	 		s.underlyingAsset as underlyingAsset,
+	 		s.isWhatIfTradeStreamRequired as isWhatIfTradeStreamRequired,
+	 		s.assetId as assetId,
+	 		s.asset as asset,
+			s.auecId as auecId,
+			s.multiplier as multiplier,
+			s.isTodayTrade as isTodayTrade,
+			s.today as today,
+			s.dayInterestLocal as dayInterestLocal,
+			s.totalInterestLocal as totalInterestLocal,
+			s.tradeAttribute1 as tradeAttribute1,
+			s.tradeAttribute2 as tradeAttribute2,
+			s.tradeAttribute3 as tradeAttribute3,
+			s.tradeAttribute4 as tradeAttribute4,
+			s.tradeAttribute5 as tradeAttribute5,
+			s.tradeAttribute6 as tradeAttribute6,
+			s.baseCurrencyId as baseCurrencyId,
+		   	"Insert" as parentWindowStream

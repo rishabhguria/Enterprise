@@ -1,0 +1,2 @@
+﻿INSERT INTO T_PTTAllocationMapping
+SELECT PTTId, PTTId FROM T_PTTDefinition

@@ -1,0 +1,181 @@
+module customRules.kettleHill.preTrade.maxTop5AggregateGross.maxTop5AggregateGrossKHPreTrade;
+
+@Name('Top5GrossExposureAllPositionsWindowName')
+@Description('Creating window which will contain top 5 gross Exposure position for the given Master Fund')
+create window Top5GrossExposureAllPositionsWindowName.ext:sort(5, grossExposureBase desc)
+(
+	basketId string,
+	userId int,
+	grossExposureBase double,
+	masterFundName string,
+	masterFundNav double,
+	number Long,
+	parentWindowStream String
+);
+
+@Name('SumOfTop5GrossExposureAllPositionsWindowName')
+@Description('Creating window which will contain the sum of top 5 gross Exposure position for the given Master Fund')
+create window SumOfTop5GrossExposureAllPositionsWindowName.ext:sort(5, grossExposureBase desc)
+(
+	basketId string,
+	userId int,
+	grossExposureBase double,
+	masterFundName string,
+	masterFundNav double,
+	parentWindowStream String
+);
+
+@Name('Top5GrossExposureAllPositionsWindow2')
+@Description('This statement fills initial data to Top5GrossExposureAllPositionsWindow1')
+on BasketEOM as B
+insert into Top5GrossExposureAllPositionsWindowName
+select 
+	B.basketId as basketId,
+	"WhatIfMasterFundSymbolWithNav" as parentWindowStream,
+	B.userId as userId,
+	T.grossExposureBase as grossExposureBase,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav,
+	(case when count(*) >= 5 then 5 when count(*) < 5 then count(*) end) as number
+from WhatIfMasterFundSymbolWithNav as T
+where T.basketId = B.basketId and T.masterFundName = MasterFund_Name_KH10
+group by T.masterFundName
+order by T.grossExposureBase desc
+Limit 5;
+
+@Name('SumOfTop5GrossExposureAllPositionsNo')
+@Description('This Stream will flow If the defined constant Mater Fund is not exist')
+on BasketEOM as B
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select distinct
+	B.basketId as basketId,
+	"WhatIfMasterFundSymbolWithNav" as parentWindowStream,
+	B.userId as userId,
+	0.0 as grossExposureBase,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav
+from WhatIfMasterFundSymbolWithNav as T 
+where T.basketId = B.basketId
+and not exists(select * from WhatIfMasterFundSymbolWithNav as M where M.basketId = B.basketId and T.masterFundName = MasterFund_Name_KH10);	
+
+@Name('SumOfTop5GrossExposureAllPositions0')
+@Description('This Stream will flow If Top default side gross exposure positions are equal to 0')
+on BasketEOM as B
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select distinct
+	B.basketId as basketId,
+	"WhatIfMasterFundSymbolWithNav" as parentWindowStream,
+	B.userId as userId,
+	0.0 as grossExposureBase,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav
+from WhatIfMasterFundSymbolWithNav as T 
+where T.basketId = B.basketId and T.masterFundName = MasterFund_Name_KH10
+and not exists(select * from WhatIfMasterFundSymbolWithNav as M where M.basketId = B.basketId);	
+
+@Name('SumOfTop5GrossExposureAllPositions1')
+@Description('This Stream will flow If Top default side gross exposure positions are equal to 1')
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select	
+	T.basketId as basketId,
+	"Top5GrossExposureAllPositionsWindow" as parentWindowStream,
+	T.userId as userId,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposureAllPositionsWindowName as T
+where T.number = 1
+group by T.masterFundName
+output last every 1 events;
+
+@Name('SumOfTop5GrossExposureAllPositions2')
+@Description('This Stream will flow If Top default side gross exposure positions are equal to 2')
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select	
+	T.basketId as basketId,
+	"Top5GrossExposureAllPositionsWindow" as parentWindowStream,
+	T.userId as userId,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposureAllPositionsWindowName as T
+where T.number = 2
+group by T.masterFundName
+output last every 2 events;
+
+@Name('SumOfTop5GrossExposureAllPositions3')
+@Description('This Stream will flow If Top default side gross exposure positions are equal to 3')
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select	
+	T.basketId as basketId,
+	"Top5GrossExposureAllPositionsWindow" as parentWindowStream,
+	T.userId as userId,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposureAllPositionsWindowName as T
+where T.number = 3
+group by T.masterFundName
+output last every 3 events;
+
+@Name('SumOfTop5GrossExposureAllPositions4')
+@Description('This Stream will flow If Top default side gross exposure positions are equal to 4')
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select	
+	T.basketId as basketId,
+	"Top5GrossExposureAllPositionsWindow" as parentWindowStream,
+	T.userId as userId,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposureAllPositionsWindowName as T
+where T.number = 4
+group by T.masterFundName
+output last every 4 events;
+
+@Name('SumOfTop5GrossExposureAllPositions5')
+@Description('This Stream will flow If Top default side gross exposure positions are equal to 5')
+insert into SumOfTop5GrossExposureAllPositionsWindowName
+select	
+	T.basketId as basketId,
+	"Top5GrossExposureAllPositionsWindow" as parentWindowStream,
+	T.userId as userId,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposureAllPositionsWindowName as T
+where T.number = 5
+group by T.masterFundName
+output last every 5 events;
+
+@Name('FinalStreamSumOfTop5GrossExpoAllPositionsKH')
+@Description('True if the limit is breached')
+insert into FinalStreamSumOfTop5GrossExpoAllPositionsKH
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(Percentage_GrossExposure_KH10) || ValueSeparator || MasterFund_Name_KH10 as threshold,
+	doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ValueSeparator || A.masterFundName as actualResult,
+	'% Gross Exposure' || ValueSeparator || 'MasterFund' as constraintField,
+	coalesce(A.grossExposureBase / A.masterFundNav, 0) > ((Percentage_GrossExposure_KH10)/100) and A.masterFundName = MasterFund_Name_KH10 as isViolated,
+	'Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0)) || ', Gross Exposure: '||doubleFormat(A.grossExposureBase) || ', Master Fund: '||A.masterFundName || ',
+	Master Fund Top 5 Symbols Concentration: '||doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The % Gross Exposure of the top 5 positions is greater than 40%' as summary,
+	A.masterFundName as dimension
+from SumOfTop5GrossExposureAllPositionsWindowName A;
+
+@Priority(10)
+@Name('Top5GrossExposureAllPositionsWindow3')
+@Description('Delete from Top5GrossExposureAllPositionsWindow3')
+on WhatIfFinalEndMessage as D
+delete from Top5GrossExposureAllPositionsWindowName as C
+where D.basketId  = C.basketId;
+
+@Priority(10)
+@Name('SumOfTop5GrossExposureAllPositions1')
+@Description('Delete from SumOfTop5GrossExposureAllPositions1')
+on WhatIfFinalEndMessage as D
+delete from SumOfTop5GrossExposureAllPositionsWindowName as C
+where D.basketId  = C.basketId;

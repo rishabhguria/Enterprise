@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[T_DataScripts]
+(
+[Id] INT NOT NULL IDENTITY(1,1), 
+   [ScriptName] VARCHAR(200) NOT NULL PRIMARY KEY, 
+   [RunDate] DATETIME NULL DEFAULT GETDATE()
+)

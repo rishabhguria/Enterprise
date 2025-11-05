@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F5268A80-6F0F-4103-A366-E7C820801CF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Prana.AllocationNew</RootNamespace>
+    <AssemblyName>Prana.AllocationNew</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <StartupObject>
+    </StartupObject>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Infragistics4.Win.AppStylistSupport.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Win.UltraWinListView.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Documents.Excel.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Excel.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Shared.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Shared.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.Misc.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.Misc.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinDock.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinDock.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinEditors.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinEditors.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.ExcelExport.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.ExcelExport.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinGrid.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinGrid.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinStatusBar.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinStatusBar.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinTabControl.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinTabControl.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinToolbars.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.UltraWinToolbars.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Win.v15.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Infragistics4.Win.UltraWinSchedule.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="Infragistics4.Documents.Core.v15.2, Version=15.2.20152.2023, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL">
+      <HintPath>$(ProgramFiles)\Infragistics\2015.2\Windows Forms\CLR4.0\Bin\Infragistics4.Documents.Core.v15.2.dll</HintPath>
+      <Name>Infragistics4.Documents.Core.v15.2</Name>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Prana.BusinessObjects\Dlls\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Allocation\BusinessLogic\AllocationManager.cs" />
+    <Compile Include="Allocation\BusinessLogic\AllocationPreferencesManager.cs" />
+    <Compile Include="Allocation\BusinessLogic\AllocationRules.cs" />
+    <Compile Include="Allocation\BusinessLogic\AllocationUIHelper.cs" />
+    <Compile Include="Allocation\BusinessLogic\BulkChangesAtGroupLevel.cs" />
+    <Compile Include="Allocation\BusinessLogic\FundStrategyMapping.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationConstants.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationCtrlObject.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationNewDelegates.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationPrefOperation.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationPrefOperationEventArgs.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationStaticCollection.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationObjColl.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationPreferences.cs" />
+    <Compile Include="Allocation\BusinessObjects\AllocationUIConstants.cs" />
+    <Compile Include="Allocation\BusinessObjects\ApplyBulkChangeEventArgs.cs" />
+    <Compile Include="Allocation\BusinessObjects\CurrentPosition.cs" />
+    <Compile Include="Allocation\BusinessObjects\CurrentPositionList.cs" />
+    <Compile Include="Allocation\UI\AllocationDefaultRuleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationDefaultRuleControl.Designer.cs">
+      <DependentUpon>AllocationDefaultRuleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\AutoCompleteTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CheckSide.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CheckSide.Designer.cs">
+      <DependentUpon>CheckSide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\AddAndUpdateExternalTransactionID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\AddAndUpdateExternalTransactionID.Designer.cs">
+      <DependentUpon>AddAndUpdateExternalTransactionID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CommissionRuleEvents.cs" />
+    <Compile Include="Allocation\DAL\PositionDataManager.cs" />
+    <Compile Include="Allocation\UI\AllocationCalculatorUsrControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationCalculatorUsrControl.Designer.cs">
+      <DependentUpon>AllocationCalculatorUsrControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationCtrl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationCtrl.Designer.cs">
+      <DependentUpon>AllocationCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationMain.designer.cs">
+      <DependentUpon>AllocationMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\AllocationReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CommisionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CommisionForm.Designer.cs">
+      <DependentUpon>CommisionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CtrlAmendmend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CtrlAmendmend.Designer.cs">
+      <DependentUpon>CtrlAmendmend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CtrlAmendSingleGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CtrlAmendSingleGroup.designer.cs">
+      <DependentUpon>CtrlAmendSingleGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CtrlRecalculate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CtrlRecalculate.designer.cs">
+      <DependentUpon>CtrlRecalculate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentControl.Designer.cs">
+      <DependentUpon>CostAdjustmentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentControlMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentControlMain.Designer.cs">
+      <DependentUpon>CostAdjustmentControlMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentForm.Designer.cs">
+      <DependentUpon>CostAdjustmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentGridControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentGridControl.Designer.cs">
+      <DependentUpon>CostAdjustmentGridControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentUndoGridControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\CostAdjustment\CostAdjustmentUndoGridControl.Designer.cs">
+      <DependentUpon>CostAdjustmentUndoGridControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\ctrlCheckSide.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\ctrlCheckSide.Designer.cs">
+      <DependentUpon>ctrlCheckSide.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\FilterGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\FilterGrid.Designer.cs">
+      <DependentUpon>FilterGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\FundOnlyUserControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\FundOnlyUserControl.Designer.cs">
+      <DependentUpon>FundOnlyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\FundStrategyAllocationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\FundStrategyAllocationControl.Designer.cs">
+      <DependentUpon>FundStrategyAllocationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\FundStrategyMappingUserCtrlNew.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\FundStrategyMappingUserCtrlNew.Designer.cs">
+      <DependentUpon>FundStrategyMappingUserCtrlNew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\IAllocationCalculator.cs" />
+    <Compile Include="Allocation\UI\Preferences\AllocationColumns.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\AllocationColumns.designer.cs">
+      <DependentUpon>AllocationColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\AllocationPreferencesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\ColumnsUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\CtrlAttributeRename.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\CtrlAttributeRename.Designer.cs">
+      <DependentUpon>CtrlAttributeRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\CtrlMasterfundRatio.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\CtrlMasterfundRatio.Designer.cs">
+      <DependentUpon>CtrlMasterfundRatio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\Preferences\FundStrategyDefaultsUsrCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CommissionRuleDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\Commision\CommissionRuleDisplay.Designer.cs">
+      <DependentUpon>CommissionRuleDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\AllocationPrefMainControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\AllocationPrefMainControl.Designer.cs">
+      <DependentUpon>AllocationPrefMainControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\BulkChangeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\BulkChangeControl.Designer.cs">
+      <DependentUpon>BulkChangeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\BulkChangesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\BulkChangesForm.Designer.cs">
+      <DependentUpon>BulkChangesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\CustomSummaries.cs" />
+    <Compile Include="Allocation\UI\UserControls\ControlHelper.cs" />
+    <Compile Include="Allocation\UI\UserControls\DefaultRuleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\DefaultRuleControl.Designer.cs">
+      <DependentUpon>DefaultRuleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\FundAllocationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\FundAllocationControl.Designer.cs">
+      <DependentUpon>FundAllocationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\GeneralRuleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\GeneralRuleControl.Designer.cs">
+      <DependentUpon>GeneralRuleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\PreferenceSchemeListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\PreferenceSchemeListControl.Designer.cs">
+      <DependentUpon>PreferenceSchemeListControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\CtlTradeAttributes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Allocation\UI\UserControls\CtlTradeAttributes.Designer.cs">
+      <DependentUpon>CtlTradeAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Allocation\UI\AllocationCalculatorUsrControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AllocationCalculatorUsrControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\AllocationCtrl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AllocationCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\AllocationDefaultRuleControl.resx">
+      <DependentUpon>AllocationDefaultRuleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\AllocationMain.resx">
+      <DependentUpon>AllocationMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\AllocationReport.resx">
+      <DependentUpon>AllocationReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\CheckSide.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CheckSide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Commision\CommisionForm.resx">
+      <DependentUpon>CommisionForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Commision\CtrlAmendmend.resx">
+      <DependentUpon>CtrlAmendmend.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Commision\CtrlAmendSingleGroup.resx">
+      <DependentUpon>CtrlAmendSingleGroup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Commision\CtrlRecalculate.resx">
+      <DependentUpon>CtrlRecalculate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\CostAdjustment\CostAdjustmentControl.resx">
+      <DependentUpon>CostAdjustmentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\CostAdjustment\CostAdjustmentControlMain.resx">
+      <DependentUpon>CostAdjustmentControlMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\CostAdjustment\CostAdjustmentForm.resx">
+      <DependentUpon>CostAdjustmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\CostAdjustment\CostAdjustmentGridControl.resx">
+      <DependentUpon>CostAdjustmentGridControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\CostAdjustment\CostAdjustmentUndoGridControl.resx">
+      <DependentUpon>CostAdjustmentUndoGridControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\ctrlCheckSide.resx">
+      <DependentUpon>ctrlCheckSide.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\FilterGrid.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FilterGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\FundOnlyUserControl.resx">
+      <DependentUpon>FundOnlyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\FundStrategyAllocationControl.resx">
+      <DependentUpon>FundStrategyAllocationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\FundStrategyMappingUserCtrlNew.resx">
+      <DependentUpon>FundStrategyMappingUserCtrlNew.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Preferences\AllocationColumns.resx">
+      <DependentUpon>AllocationColumns.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Preferences\AllocationPreferencesUserControl.resx">
+      <DependentUpon>AllocationPreferencesUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Preferences\ColumnsUserControl.resx">
+      <DependentUpon>ColumnsUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Preferences\CtrlAttributeRename.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlAttributeRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Preferences\CtrlMasterfundRatio.resx">
+      <DependentUpon>CtrlMasterfundRatio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Preferences\FundStrategyDefaultsUsrCtrl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FundStrategyDefaultsUsrCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\Commision\CommissionRuleDisplay.resx">
+      <DependentUpon>CommissionRuleDisplay.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\AllocationPrefMainControl.resx">
+      <DependentUpon>AllocationPrefMainControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\BulkChangeControl.resx">
+      <DependentUpon>BulkChangeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\BulkChangesForm.resx">
+      <DependentUpon>BulkChangesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\DefaultRuleControl.resx">
+      <DependentUpon>DefaultRuleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\FundAllocationControl.resx">
+      <DependentUpon>FundAllocationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\GeneralRuleControl.resx">
+      <DependentUpon>GeneralRuleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\PreferenceSchemeListControl.resx">
+      <DependentUpon>PreferenceSchemeListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Allocation\UI\UserControls\CtlTradeAttributes.resx">
+      <DependentUpon>CtlTradeAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ApplicationAdmin\PranaSuperAdmin\Prana.Admin.BLL\Prana.Admin.BLL.csproj">
+      <Project>{f015c504-985f-44aa-92ec-e6f8c8461f9c}</Project>
+      <Name>Prana.Admin.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Allocation.Common\Prana.Allocation.Common.csproj">
+      <Project>{0c0e7e36-5abb-4d29-b872-272db9b72399}</Project>
+      <Name>Prana.Allocation.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.AuditTrail\Prana.AuditTrail.csproj">
+      <Project>{4C0CBECD-F6FC-4B55-94E2-2ED811C2DB85}</Project>
+      <Name>Prana.AuditTrail</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessLogic\Prana.BusinessLogic.csproj">
+      <Project>{DB822308-7562-4404-8D85-E1DE6F5A317D}</Project>
+      <Name>Prana.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.BusinessObjects\Prana.BusinessObjects.csproj">
+      <Project>{B209105C-CA12-4CDA-9CC5-3540D487BBB6}</Project>
+      <Name>Prana.BusinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.CommonDataCache\Prana.CommonDataCache.csproj">
+      <Project>{4EFE8391-0C06-425F-83C7-78E7FEF8717F}</Project>
+      <Name>Prana.CommonDataCache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Global\Prana.Global.csproj">
+      <Project>{98BF7EEC-2A9A-4B4F-8809-E2AE23939F8A}</Project>
+      <Name>Prana.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Interfaces\Prana.Interfaces.csproj">
+      <Project>{0BAB7DC4-552E-41C6-B216-AB831495E5D5}</Project>
+      <Name>Prana.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Prana.Utilities\Prana.Utilities.csproj">
+      <Project>{6D8871AA-7521-4CE6-9755-F4B99E8ED081}</Project>
+      <Name>Prana.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WCFConnectionMgr\Prana.WCFConnectionMgr.csproj">
+      <Project>{6205A21C-5CBE-4C10-965C-383F26246DAD}</Project>
+      <Name>Prana.WCFConnectionMgr</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Prana.ClientCommon\Prana.ClientCommon.csproj">
+      <Project>{A28AE507-104B-45C5-BCB1-CE51394E3620}</Project>
+      <Name>Prana.ClientCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pencil.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\abc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon_search_filter.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AllocationTheme.ico" />
+    <None Include="Resources\AllocationNoTheme.ico" />
+    <Content Include="Resources\Clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

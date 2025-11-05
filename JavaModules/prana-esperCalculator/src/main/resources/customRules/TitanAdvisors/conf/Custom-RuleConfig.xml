@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ruleConfig>
+     <rules name="TitanAdvisors">
+         <rule id="custom-ruleTitan">
+			<name>Order Side Check</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+			<description>Trade would sell more than the current position</description>
+			<compressionLevel>Custom</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList> 
+			</constantList>	
+		</rule>
+     </rules>
+</ruleConfig>

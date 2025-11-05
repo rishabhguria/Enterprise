@@ -1,0 +1,155 @@
+module eplModules.dataWindow.DayEndCashFeeder;
+
+@Name('DayEndCashAccountWindow')
+@Description('Named window which store day end cash for each account.')
+create window DayEndCashAccountWindow.std:unique(accountId)
+(
+			accountId int,
+			cashAmount double,
+			today java.util.Date,
+			accountShortName string,
+			masterFundId int,
+			masterFundName string,
+			nonTradingCashAmount double,
+			parentWindowStream string
+); 
+
+@Name('DayEndCashAccountWindowInsert')
+@Description('This updates the DayEndCashAccountWindow every time new DayEndCash or AccountCollection event occurs.
+				Also inserts data into DayEndCashWindowUpdated stream.')
+on pattern [every(s=DayEndCash) or every(f=AccountCollection)]  
+merge DayEndCashAccountWindow sw where sw.accountId = coalesce(s.accountId,f.accountId)
+	when matched and 
+	(			
+			 	sw.cashAmount <> s.cashAmount or 
+				sw.today <> s.today or
+				sw.accountShortName <> f.accountShortName or
+				sw.masterFundId <> f.masterFundId or
+				sw.masterFundName <> f.masterFundName or
+				sw.nonTradingCashAmount <> s.nonTradingCashAmount
+	)
+		then 
+			update 
+				set  
+				sw.cashAmount = coalesce(s.cashAmount,sw.cashAmount,0), 
+				sw.today = coalesce(s.today,sw.today),
+				sw.accountShortName = coalesce(sw.accountShortName,f.accountShortName),
+				sw.masterFundId = coalesce(sw.masterFundId,f.masterFundId),
+				sw.masterFundName = coalesce(sw.masterFundName,f.masterFundName),
+				sw.nonTradingCashAmount = coalesce(s.nonTradingCashAmount, sw.nonTradingCashAmount, 0),
+				sw.parentWindowStream = "DayEndCashAccountWindow,DayEndCash,AccountCollection"
+		then insert into DayEndCashWindowUpdated
+			select 
+				sw.accountId as accountId,
+				sw.cashAmount as cashAmount,
+				coalesce(sw.today,current_timestamp.todate()) as today,
+				sw.accountShortName as accountShortName,
+				sw.masterFundId as masterFundId,
+				sw.masterFundName as masterFundName,
+				sw.nonTradingCashAmount as nonTradingCashAmount,
+		   		"DayEndCashAccountWindow" as parentWindowStream
+					
+	when not matched
+		then insert 
+			select    	
+		   	coalesce(f.accountId,s.accountId) as accountId,
+			coalesce(s.cashAmount,0.0) as cashAmount, 
+			coalesce(s.today,current_timestamp.todate()) as today,
+	 		f.accountShortName as accountShortName,
+	 		f.masterFundId as masterFundId,
+	 		f.masterFundName as masterFundName,
+	 		coalesce(s.nonTradingCashAmount,0.0) as nonTradingCashAmount,
+		   	"DayEndCash,AccountCollection" as parentWindowStream
+
+	 	then insert into DayEndCashWindowUpdated
+			select 
+				coalesce(f.accountId,s.accountId) as accountId,
+				coalesce(s.cashAmount,0.0) as cashAmount, 
+				coalesce(s.today,current_timestamp.todate()) as today,
+		 		f.accountShortName as accountShortName,
+		 		f.masterFundId as masterFundId,
+		 		f.masterFundName as masterFundName,
+		 		coalesce(s.nonTradingCashAmount,0.0) as nonTradingCashAmount,
+		   		"DayEndCash,AccountCollection" as parentWindowStream;
+		   		
+@Name('DayEndCashAccountWindowInsertEvent')
+@Description('This updates the DayEndCashAccountWindow every time new DayEndCashEvent occurs.
+				Also inserts data into DayEndCashWindowUpdated stream.')
+on DayEndCashEvent as s
+merge DayEndCashAccountWindow sw where sw.accountId = s.accountId
+	when matched and 
+	(			
+			 	sw.cashAmount <> s.cashAmount or 
+				sw.today <> s.today or
+				sw.accountShortName <> s.accountShortName or
+				sw.masterFundId <> s.masterFundId or
+				sw.masterFundName <> s.masterFundName or
+				sw.nonTradingCashAmount <> s.nonTradingCashAmount
+	)
+		then 
+			update 
+				set  
+				sw.cashAmount = coalesce(s.cashAmount,sw.cashAmount,0), 
+				sw.today = coalesce(s.today,sw.today),
+				sw.accountShortName = sw.accountShortName,
+				sw.masterFundId = sw.masterFundId,
+				sw.masterFundName = sw.masterFundName,
+				sw.nonTradingCashAmount = coalesce(s.nonTradingCashAmount, sw.nonTradingCashAmount, 0),
+				sw.parentWindowStream = "DayEndCashAccountWindow,DayEndCash,AccountCollection"
+		then insert into DayEndCashWindowUpdated
+			select 
+				sw.accountId as accountId,
+				sw.cashAmount as cashAmount,
+				coalesce(sw.today,current_timestamp.todate()) as today,
+				sw.accountShortName as accountShortName,
+				sw.masterFundId as masterFundId,
+				sw.masterFundName as masterFundName,
+				sw.nonTradingCashAmount as nonTradingCashAmount,
+		   		"DayEndCashAccountWindow" as parentWindowStream
+					
+	when not matched
+		then insert 
+			select    	
+		   	s.accountId as accountId,
+			coalesce(s.cashAmount,0.0) as cashAmount, 
+			coalesce(s.today,current_timestamp.todate()) as today,
+	 		s.accountShortName as accountShortName,
+	 		s.masterFundId as masterFundId,
+	 		s.masterFundName as masterFundName,
+	 		coalesce(s.nonTradingCashAmount,0.0) as nonTradingCashAmount,
+		   	"DayEndCash,AccountCollection" as parentWindowStream
+
+	 	then insert into DayEndCashWindowUpdated
+			select 
+				s.accountId as accountId,
+				coalesce(s.cashAmount,0.0) as cashAmount, 
+				coalesce(s.today,current_timestamp.todate()) as today,
+		 		s.accountShortName as accountShortName,
+		 		s.masterFundId as masterFundId,
+		 		s.masterFundName as masterFundName,
+		 		coalesce(s.nonTradingCashAmount,0.0) as nonTradingCashAmount,
+		   		"DayEndCash,AccountCollection" as parentWindowStream;
+						 		
+@Name('DayEndCashMasterFundWindow')
+@Description('Named window which store day end cash for each masterFund.')
+create window DayEndCashMasterFundWindow.std:unique(masterFundId)
+(
+			masterFundId int,
+			cashAmount double,
+			today java.util.Date,
+			masterFundName string,
+			nonTradingCashAmount double,
+			parentWindowStream string
+);
+
+@Name('DayEndCashMasterFundWindowInsert')
+@Description('This inserts the data from DayEndCashAccountWindow to DayEndCashMasterFundWindow')
+insert into DayEndCashMasterFundWindow 
+select 
+		   	DF.masterFundId as masterFundId,
+			sum(DF.cashAmount) as cashAmount, 
+			max(DF.today) as today,
+	 		DF.masterFundName as masterFundName,
+	 		sum(DF.nonTradingCashAmount) as nonTradingCashAmount,
+		   	"DayEndCashAccountWindow" as parentWindowStream
+from DayEndCashAccountWindow as DF;

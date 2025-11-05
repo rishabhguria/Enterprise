@@ -1,0 +1,315 @@
+module eplModules.dataWindow.SymbolDataFeeder;
+
+@Name('SymbolDataWindow')
+@Description('This store latest data of livefeed for each symbols, based on selected feed price change.')
+create window SymbolDataWindow.std:unique(symbol)
+(	
+	symbol string,
+	underlyingSymbol string,
+	askPrice double,
+	bidPrice double,
+	lowPrice double,
+	highPrice double,
+	openPrice double,
+	closePrice double,
+	lastPrice double,
+	selectedFeedPrice double,
+	conversionMethod string,
+	markPrice double,	
+	delta double,
+	beta5YearMonthly double,
+	assetId int,
+	openInterest double,
+	avgVolume20Days double,
+	avgVolume double,
+	sharesOutstanding BigDecimal,
+	parentWindowStream string
+);
+
+@Name('SymbolDataWindowInsert')
+@Description('This inserts data from SymbolData,CustomSymbolDataWindow,BetaWindow,AvgVolumeCustomDaysWindow on the basis of symbol.')
+insert into SymbolDataWindowInsert
+select 
+	s.symbol as symbol,
+	s.underlyingSymbol as underlyingSymbol,
+	s.askPrice as askPrice,
+	s.bidPrice as bidPrice,
+	s.lowPrice as lowPrice,
+	s.highPrice as highPrice,
+	s.openPrice as openPrice,
+	s.closePrice as closePrice,
+	s.lastPrice as lastPrice,
+	s.selectedFeedPrice as selectedFeedPrice,
+	s.conversionMethod as conversionMethod,
+	s.markPrice as markPrice,
+	s.delta as delta,	
+	s.beta5YearMonthly as beta5YearMonthly,
+	s.assetId as assetId,
+	s.openInterest as openInterest,
+	s.avgVolume20Days as avgVolume20Days,
+	0.0 as avgVolume,
+	s.sharesOutstanding as sharesOutstanding,
+	"SymbolData" as parentWindowStream
+from 
+SymbolData as s;
+
+@Name('SymbolDataWindowInsert')
+@Description('This updates the SymbolDataWindow every time new SymbolDataWindowInsert event occurs.')
+on SymbolDataWindowInsert(symbol not in ('')) as s
+merge SymbolDataWindow sw where sw.symbol = s.symbol
+when not matched
+		then insert select			
+			s.symbol as symbol,
+		   	s.underlyingSymbol as underlyingSymbol,
+			s.askPrice as askPrice,
+			s.bidPrice as bidPrice,
+			s.lowPrice as lowPrice,
+			s.highPrice as highPrice,
+			s.openPrice as openPrice,
+			s.closePrice as closePrice,
+			s.lastPrice as lastPrice,
+			s.selectedFeedPrice as selectedFeedPrice,
+			s.conversionMethod as conversionMethod,
+			s.markPrice as markPrice,
+	 		coalesce(s.delta,1) as delta,
+	 		s.beta5YearMonthly as beta5YearMonthly,
+	 		s.assetId as assetId,
+	 		s.openInterest as openInterest,
+	 		s.avgVolume20Days as avgVolume20Days,
+	 		s.avgVolume as avgVolume,
+	 		s.sharesOutstanding as sharesOutstanding,
+		    "SymbolDataWithBeta-Insert1" as parentWindowStream
+		    
+when matched and s.assetId is null or s.assetId not in (12) and
+	(
+		s.underlyingSymbol <> sw.underlyingSymbol or
+		s.selectedFeedPrice <> sw.selectedFeedPrice or
+		s.askPrice <> sw.askPrice or
+		s.bidPrice <> sw.bidPrice or
+		s.lowPrice <> sw.lowPrice or
+		s.highPrice <> sw.highPrice or
+		s.openPrice <> sw.openPrice or
+		s.closePrice <> sw.closePrice or
+		s.markPrice <> sw.markPrice or
+		s.lastPrice <> sw.lastPrice or				
+		s.delta <> sw.delta or
+		s.beta5YearMonthly <> sw.beta5YearMonthly or
+		s.assetId <> sw.assetId or
+		s.openInterest <> sw.openInterest or
+		s.avgVolume20Days <> sw.avgVolume20Days or
+		s.avgVolume <> sw.avgVolume or
+		s.sharesOutstanding <> sw.sharesOutstanding
+	)	
+		then 
+			update 
+				set
+					 sw.underlyingSymbol = s.underlyingSymbol,
+					 sw.selectedFeedPrice = s.selectedFeedPrice,
+					 sw.askPrice = coalesce(s.askPrice, coalesce(sw.askPrice, 0.0)),
+					 sw.bidPrice = coalesce(s.bidPrice, coalesce(sw.bidPrice, 0.0)),
+					 sw.lowPrice = coalesce(s.lowPrice, coalesce(sw.lowPrice, 0.0)),
+					 sw.highPrice = coalesce(s.highPrice, coalesce(sw.highPrice, 0.0)),
+					 sw.openPrice = coalesce(s.openPrice, coalesce(sw.openPrice, 0.0)),
+					 sw.closePrice = coalesce(s.closePrice, coalesce(sw.closePrice, 0.0)),
+					 sw.lastPrice = coalesce(s.lastPrice, coalesce(sw.lastPrice, 0.0)),
+					 sw.conversionMethod = s.conversionMethod,
+					 sw.markPrice = s.markPrice,
+					 sw.delta = coalesce(s.delta, coalesce(sw.delta,1)),
+					 sw.beta5YearMonthly= coalesce(s.beta5YearMonthly, coalesce(sw.beta5YearMonthly,1)),
+					 sw.assetId = s.assetId,
+					 sw.openInterest = coalesce(s.openInterest , coalesce(sw.openInterest, 0.0)),
+					 sw.avgVolume20Days = coalesce(s.avgVolume20Days , coalesce(sw.avgVolume20Days, 0.0)),
+					 sw.avgVolume = s.avgVolume,
+					 sw.sharesOutstanding = coalesce(s.sharesOutstanding, coalesce(sw.sharesOutstanding, BigDecimal.ZERO)),
+					 sw.parentWindowStream = "SymbolDataWithBeta-Update1"
+					
+when matched  and s.assetId in (12) and sw.conversionMethod <> s.conversionMethod and
+	(
+		s.underlyingSymbol <> sw.underlyingSymbol or
+		s.selectedFeedPrice <> sw.selectedFeedPrice or
+		s.askPrice <> sw.askPrice or
+		s.bidPrice <> sw.bidPrice or
+		s.lowPrice <> sw.lowPrice or
+		s.highPrice <> sw.highPrice or
+		s.openPrice <> sw.openPrice or
+		s.closePrice <> sw.closePrice or
+		s.markPrice <> sw.markPrice or
+		s.lastPrice <> sw.lastPrice or				
+		s.delta <> sw.delta or
+		s.beta5YearMonthly <> sw.beta5YearMonthly or
+		s.assetId <> sw.assetId or
+		s.openInterest <> sw.openInterest or
+		s.avgVolume20Days <> sw.avgVolume20Days or
+		s.avgVolume <> sw.avgVolume or
+		s.sharesOutstanding <> sw.sharesOutstanding
+	)	
+		then update set 			
+		sw.underlyingSymbol = s.underlyingSymbol,
+		sw.selectedFeedPrice = s.selectedFeedPrice,
+		sw.askPrice = coalesce(s.askPrice, coalesce(sw.askPrice, 0.0)),
+		sw.bidPrice = coalesce(s.bidPrice, coalesce(sw.bidPrice, 0.0)),
+		sw.lowPrice = coalesce(s.lowPrice, coalesce(sw.lowPrice, 0.0)),
+		sw.highPrice = coalesce(s.highPrice, coalesce(sw.highPrice, 0.0)),
+		sw.openPrice = coalesce(s.openPrice, coalesce(sw.openPrice, 0.0)),
+		sw.closePrice = coalesce(s.closePrice, coalesce(sw.closePrice, 0.0)),
+		sw.lastPrice = coalesce(s.lastPrice, coalesce(sw.lastPrice, 0.0)),
+		sw.conversionMethod = s.conversionMethod,
+		sw.markPrice = coalesce(1/s.markPrice,0),
+		sw.delta = coalesce(s.delta, coalesce(sw.delta,1)),
+		sw.beta5YearMonthly = coalesce(s.beta5YearMonthly, coalesce(sw.beta5YearMonthly,1)),
+		sw.assetId = s.assetId,
+		sw.openInterest = coalesce(s.openInterest , coalesce(sw.openInterest, 0.0)),
+		sw.avgVolume20Days = coalesce(s.avgVolume20Days , coalesce(sw.avgVolume20Days, 0.0)),
+		sw.avgVolume = s.avgVolume,
+		sw.sharesOutstanding = coalesce(s.sharesOutstanding, coalesce(sw.sharesOutstanding, BigDecimal.ZERO)),
+		sw.parentWindowStream = "SymbolDataWithBeta-Update2"
+
+when matched  and s.assetId in (12) and sw.conversionMethod = s.conversionMethod and
+	(
+		s.underlyingSymbol <> sw.underlyingSymbol or
+		s.selectedFeedPrice <> sw.selectedFeedPrice or
+		s.askPrice <> sw.askPrice or
+		s.bidPrice <> sw.bidPrice or
+		s.lowPrice <> sw.lowPrice or
+		s.highPrice <> sw.highPrice or
+		s.openPrice <> sw.openPrice or
+		s.closePrice <> sw.closePrice or
+		s.markPrice <> sw.markPrice or
+		s.lastPrice <> sw.lastPrice or				
+		s.delta <> sw.delta or
+		s.beta5YearMonthly <> sw.beta5YearMonthly or
+		s.assetId <> sw.assetId or
+		s.openInterest <> sw.openInterest or
+		s.avgVolume20Days <> sw.avgVolume20Days or
+		s.avgVolume <> sw.avgVolume or
+		s.sharesOutstanding <> sw.sharesOutstanding
+	)	
+		then update set 			
+		 sw.underlyingSymbol = s.underlyingSymbol,
+		 sw.selectedFeedPrice = s.selectedFeedPrice,
+		 sw.askPrice = coalesce(s.askPrice, coalesce(sw.askPrice, 0.0)),
+		 sw.bidPrice = coalesce(s.bidPrice, coalesce(sw.bidPrice, 0.0)),
+		 sw.lowPrice = coalesce(s.lowPrice, coalesce(sw.lowPrice, 0.0)),
+		 sw.highPrice = coalesce(s.highPrice, coalesce(sw.highPrice, 0.0)),
+		 sw.openPrice = coalesce(s.openPrice, coalesce(sw.openPrice, 0.0)),
+		 sw.closePrice = coalesce(s.closePrice, coalesce(sw.closePrice, 0.0)),
+		 sw.markPrice = coalesce(s.markPrice, coalesce(sw.markPrice, 0.0)),
+		 sw.lastPrice = coalesce(s.lastPrice, coalesce(sw.lastPrice, 0.0)),	 
+		 sw.delta = coalesce(s.delta, coalesce(sw.delta,1)),
+		 sw.beta5YearMonthly = coalesce(s.beta5YearMonthly, coalesce(sw.beta5YearMonthly,1)),
+		 sw.assetId = s.assetId,
+		 sw.openInterest = coalesce(s.openInterest , coalesce(sw.openInterest, 0.0)),
+		 sw.avgVolume20Days = coalesce(s.avgVolume20Days , coalesce(sw.avgVolume20Days, 0.0)),
+		 sw.avgVolume = s.avgVolume,
+		 sw.sharesOutstanding = coalesce(s.sharesOutstanding, coalesce(sw.sharesOutstanding, BigDecimal.ZERO)), 
+		 sw.parentWindowStream = "SymbolDataWithBeta-Update3";
+
+@Name('SymbolDataWindowInsertReverseFx')
+@Description('This updates the SymbolDataWindow every time new SymbolDataWithBeta event occurs and on the basis of reverseCurrencyPair symbol.')
+on SymbolDataWindowInsert as s
+merge SymbolDataWindow sw where sw.symbol = reverseCurrencyPair(s.symbol) 
+when matched and s.assetId in (12) and sw.conversionMethod = s.conversionMethod  and 
+(
+			 sw.underlyingSymbol <> s.underlyingSymbol or
+			 sw.selectedFeedPrice <> s.selectedFeedPrice or
+			 sw.askPrice <> s.askPrice or
+			 sw.bidPrice <> s.bidPrice or
+			 sw.lowPrice <> s.lowPrice or
+			 sw.highPrice <> s.highPrice or
+			 sw.openPrice <> s.openPrice or
+			 sw.closePrice <> s.closePrice or
+			 sw.markPrice <> s.markPrice or
+			 sw.lastPrice <> s.lastPrice or			 
+			 sw.delta <> s.delta or
+			 sw.beta5YearMonthly<>s.beta5YearMonthly
+)
+	then update
+		set  
+		 	sw.underlyingSymbol = s.underlyingSymbol,
+			 conversionMethod = 
+			 	case 
+		    	when s.conversionMethod = 'D' then 'M'
+		    	when s.conversionMethod = 'M' then 'D' end,
+			 sw.selectedFeedPrice = s.selectedFeedPrice,
+			 sw.askPrice = coalesce(s.askPrice, coalesce(sw.askPrice, 0.0)),
+		 	 sw.bidPrice = coalesce(s.bidPrice, coalesce(sw.bidPrice, 0.0)),
+		 	 sw.lowPrice = coalesce(s.lowPrice, coalesce(sw.lowPrice, 0.0)),
+		 	 sw.highPrice = coalesce(s.highPrice, coalesce(sw.highPrice, 0.0)),
+		 	 sw.openPrice = coalesce(s.openPrice, coalesce(sw.openPrice, 0.0)),
+		 	 sw.closePrice = coalesce(s.closePrice, coalesce(sw.closePrice, 0.0)),
+		 	 sw.lastPrice = coalesce(s.lastPrice, coalesce(sw.lastPrice, 0.0)),	 		 
+			 sw.markPrice = 1/s.markPrice,
+			 sw.delta = coalesce(s.delta, coalesce(sw.delta,1)),
+			 sw.beta5YearMonthly = coalesce(s.beta5YearMonthly, coalesce(sw.beta5YearMonthly,1)),
+			 sw.assetId = s.assetId,
+			 sw.openInterest = coalesce(s.openInterest , coalesce(sw.openInterest, 0.0)),
+			 sw.avgVolume20Days = coalesce(s.avgVolume20Days , coalesce(sw.avgVolume20Days, 0.0)),
+			 sw.avgVolume = s.avgVolume,
+			 sw.sharesOutstanding = coalesce(s.sharesOutstanding, coalesce(sw.sharesOutstanding, BigDecimal.ZERO)),
+			 sw.parentWindowStream = "SymbolDataWithBeta-Update4"
+	
+when matched and s.assetId in (12) and sw.conversionMethod <> s.conversionMethod  and
+(
+			 sw.underlyingSymbol <> s.underlyingSymbol or			 
+			 sw.selectedFeedPrice <> s.selectedFeedPrice or
+			 sw.askPrice <> s.askPrice or
+			 sw.bidPrice <> s.bidPrice or
+			 sw.lowPrice <> s.lowPrice or
+			 sw.highPrice <> s.highPrice or
+			 sw.openPrice <> s.openPrice or
+			 sw.closePrice <> s.closePrice or
+			 sw.markPrice <> s.markPrice or
+			 sw.lastPrice <> s.lastPrice or			 
+			 sw.delta <> s.delta or
+			 sw.beta5YearMonthly<>s.beta5YearMonthly or
+			 sw.openInterest <> s.openInterest or
+			 sw.avgVolume20Days <> s.avgVolume20Days or
+			 sw.avgVolume <> s.avgVolume or
+			 sw.sharesOutstanding <> s.sharesOutstanding
+)
+	then update
+		set  			 
+		     sw.underlyingSymbol = s.underlyingSymbol,
+			 sw.selectedFeedPrice = s.selectedFeedPrice,
+			 sw.askPrice = coalesce(s.askPrice, coalesce(sw.askPrice, 0.0)),
+		 	 sw.bidPrice = coalesce(s.bidPrice, coalesce(sw.bidPrice, 0.0)),
+		 	 sw.lowPrice = coalesce(s.lowPrice, coalesce(sw.lowPrice, 0.0)),
+		 	 sw.highPrice = coalesce(s.highPrice, coalesce(sw.highPrice, 0.0)),
+		 	 sw.openPrice = coalesce(s.openPrice, coalesce(sw.openPrice, 0.0)),
+		 	 sw.closePrice = coalesce(s.closePrice, coalesce(sw.closePrice, 0.0)),
+		 	 sw.lastPrice = coalesce(s.lastPrice, coalesce(sw.lastPrice, 0.0)),	 			 
+			 sw.delta = coalesce(s.delta, coalesce(sw.delta,1)),
+			 sw.beta5YearMonthly = coalesce(s.beta5YearMonthly, coalesce(sw.beta5YearMonthly,1)),
+			 sw.assetId = s.assetId,
+			 sw.openInterest = coalesce(s.openInterest , coalesce(sw.openInterest, 0.0)),
+			 sw.avgVolume20Days = coalesce(s.avgVolume20Days , coalesce(sw.avgVolume20Days, 0.0)),
+			 sw.avgVolume = s.avgVolume,
+			 sw.sharesOutstanding = coalesce(s.sharesOutstanding, coalesce(sw.sharesOutstanding, BigDecimal.ZERO)),
+			 sw.parentWindowStream = "SymbolDataWithBeta-Update5"
+		
+when not matched and s.assetId in (12)
+	then insert		
+		select    	
+			reverseCurrencyPair(s.symbol) as symbol,
+		   	s.underlyingSymbol as underlyingSymbol,
+			s.askPrice as askPrice,
+			s.bidPrice as bidPrice,
+			s.lowPrice as lowPrice,
+			s.highPrice as highPrice,
+			s.openPrice as openPrice,
+			s.closePrice as closePrice,
+			s.lastPrice as lastPrice,
+			s.selectedFeedPrice as selectedFeedPrice,
+			case 
+		    	when s.conversionMethod = 'D' then 'M'
+		    	when s.conversionMethod = 'M' then 'D'
+		    end as conversionMethod,
+			s.markPrice as markPrice,
+	 		coalesce(s.delta,1) as delta,
+	 		s.beta5YearMonthly as beta5YearMonthly,
+	 		s.assetId as assetId,
+	 		s.openInterest as openInterest,
+	 		s.avgVolume20Days as avgVolume20Days,
+	 		s.avgVolume as avgVolume,
+	 		s.sharesOutstanding as sharesOutstanding,
+		   	"SymbolDataWithBeta-Insert2" as parentWindowStream;

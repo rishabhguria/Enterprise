@@ -1,0 +1,33 @@
+module customRules.cushing.preTrade.fatFingerRuleAccount.fatFingerRuleAccount;
+
+@Name('FatFingerRuleEvent')
+@Description('Getting account nav from the trade')
+insert into FatFingerRuleEvent
+select distinct 
+	B.basketId as basketId,
+	R.userId as userId,
+	A.shadowNav as accountNav,
+	R.notionalBase as notional,
+	R.symbol as symbol,
+	R.accountLongName as account
+from BasketEOM as B unidirectional left outer join RowCalculationBaseWindow as R on B.basketId = R.basketId
+left outer join AccountDivisorWindow as A on R.accountId = A.accountId;	
+
+@Name('FatFingerRuleAccountVerify')
+@Description('Checks if fatFingerRule validates or not')
+insert into FatFingerRuleAccountVerify
+select distinct
+	F.basketId as basketId,
+	F.userId as userId,
+	F.basketId as taxlotId,
+	doubleFormat(Percentage_Multiplier) as threshold,
+	doubleFormat(coalesce(F.notional / F.accountNav, 0) * 100 ) as actualResult,
+	'% Multiplier' as constraintField,
+	coalesce(F.notional / F.accountNav, 0) > ((Percentage_Multiplier)/100) as isViolated,
+	'Account NAV: ' || doubleFormat(coalesce(F.accountNav, 0)) || ', Notional '||doubleFormat(F.notional) ||  
+	', Account: '||F.account || ', Actual Result: '||doubleFormat(coalesce(F.notional / F.accountNav, 0) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'Trade cost is greater than '||doubleFormat(Percentage_Multiplier) ||' of nav' as summary,
+ 	F.account|| '-' || F.symbol as dimension 
+from FatFingerRuleEvent as F	
+where F.userId is not null;

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="NirvanaDemo">
+ 		<!-- <rule id="custom-ruleMR1"> -->
+			<!-- <name>Account Sector Concentration</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PostTrade</ruleType> -->
+			<!-- <eplPath>/accountSectorConcentration/</eplPath> -->
+			<!-- <description> -->
+				<!-- Alert when account sector concentration goes above limit. -->
+			<!-- </description> -->
+			<!-- <compressionLevel>Account-Sector</compressionLevel> -->
+			<!-- <validationCompletedEventName>AccountSectorConcentrationMapleRock</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="AccountSectorConcentrationMapleRock"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="AccountSectorConcentrationMapleRock"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>true</blocked> -->
+			<!-- <constantList> -->
+				<!-- <constantValue displayName="Account-Sector Concentration Limit (%)" name="AccountSectorConcentrationMapleRockPostTradeLimit" type="double" value="30"/> -->
+			<!-- </constantList> -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-ruleMR2"> -->
+			<!-- <name>Account Sector Concentration</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PreTrade</ruleType> -->
+			<!-- <eplPath>/accountSectorConcentration/</eplPath> -->
+			<!-- <description>Pre-Trade Alert when account sector concentration goes above limit.</description> -->
+			<!-- <compressionLevel>Account-Sector</compressionLevel> -->
+			<!-- <validationCompletedEventName>AccountSectorConcentrationPreTrade</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="AccountSectorConcentrationPreTrade"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="AccountSectorConcentrationPreTrade"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>true</blocked> -->
+			<!-- <constantList> -->
+				<!-- <constantValue displayName="Account-Sector Concentration Limit (%)" name="AccountSectorConcentrationMapleRockPreTradeLimit" type="double" value="30"/> -->
+			<!-- </constantList> -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-ruleMR3"> -->
+			<!-- <name>Master Account Sector Concentration</name> -->
+			<!-- <enabled>true</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PreTrade</ruleType> -->
+			<!-- <eplPath>/masterFundSectorConcentration/</eplPath> -->
+			<!-- <description>Sector concentration should not exceed 30% of the Nirvana Demo Fund</description> -->
+			<!-- <compressionLevel>Account-Sector</compressionLevel> -->
+			<!-- <validationCompletedEventName>MasterFundSectorConcentrationPreTrade</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="MasterFundSectorConcentrationPreTrade"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList>  -->
+				<!-- <windowFillerStatementName name="MasterFundSectorConcentrationPreTrade"/>  -->
+			<!-- </windowFillerStatementList> -->
+			 <!-- <blocked>true</blocked> -->
+			<!-- <constantList>  -->
+				 <!-- <constantValue displayName="Master Account-Sector Concentration Limit (%)" name="MasterFundSectorConcentrationMapleRockPreTradeLimit" type="double" value="30"/> -->
+				<!-- <constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_MRLP" type="String" value="Nirvana Fund"/> -->
+			<!-- </constantList>  -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-ruleMR31"> -->
+			<!-- <name>Sector Concentration</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PreTrade</ruleType> -->
+			<!-- <eplPath>/SectorConcentration/</eplPath> -->
+			<!-- <description>Pre-Trade Alert when master account sector concentration goes above limit.</description> -->
+			<!-- <compressionLevel>Account-Sector</compressionLevel> -->
+			<!-- <validationCompletedEventName>SectorConcentrationPreTrade</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="SectorConcentrationPreTrade"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="SectorConcentrationPreTrade"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>false</blocked> -->
+			<!-- <constantList> -->
+				<!-- <constantValue displayName="Master Account-Sector Concentration Limit (%)" name="SectorConcentrationMapleRockPreTradeLimit" type="double" value="30"/> -->
+				<!-- <constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_MRLP1" type="String" value="Maple Rock Master Fund LP"/> -->
+			<!-- </constantList> -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-ruleMR4"> -->
+			<!-- <name>Short Cover Restriction</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PreTrade</ruleType> -->
+			<!-- <eplPath>/shortCoverRestriction/</eplPath> -->
+			<!-- <description>Pre-Trade Alert when the buy to cover happened within 5 days of the last sell short of the symbol</description> -->
+			<!-- <compressionLevel>Trade</compressionLevel> -->
+			<!-- <validationCompletedEventName>ShortCoverRestrictionPreTrade</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="ShortCoverRestrictionPreTrade"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="ShortCoverRestrictionPreTrade"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>true</blocked> -->
+			<!-- <constantList> -->
+				<!-- <constantValue displayName="No of Days" name="NoOfDays" type="double" value="5"/> -->
+			<!-- </constantList> -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-ruleMR5"> -->
+			<!-- <name>Master Account Sector Concentration</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PostTrade</ruleType> -->
+			<!-- <eplPath>/masterFundSectorConcentration/</eplPath> -->
+			<!-- <description> -->
+				<!-- Alert when master account sector concentration goes above limit. -->
+			<!-- </description> -->
+			<!-- <compressionLevel>MasterFund-Sector</compressionLevel> -->
+			<!-- <validationCompletedEventName>MasterFundSectorConcentrationMapleRock</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="MasterFundSectorConcentrationMapleRock"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="MasterFundSectorConcentrationMapleRock"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>true</blocked> -->
+			<!-- <constantList> -->
+				<!-- <constantValue displayName="Account-Sector Concentration Limit (%)" name="MasterFundSectorConcentrationMapleRockPostTradeLimit" type="double" value="30"/> -->
+			<!-- </constantList> -->
+		<!-- </rule>	 -->
+		<rule id="custom-ruleNirvana1">
+			<name>Order Side Check</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+			<description>Pre-Trade Alerts For OrderSide Violation on Account-Symbol Level</description>
+			<compressionLevel>Custom</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList> 
+			</constantList>	
+		</rule>	
+	</rules>
+</ruleConfig>

@@ -1,0 +1,40 @@
+module customRules.tigerveda.postTrade.NAVConcentrationTigerVeda.NAVConcentrationTigerVeda;
+
+
+@Name('NAVConcentrationTigerVedaWhatIfAggregatorPostTrade')
+@Description('The sum of all securities that make up at least 5 % of the portfolio make up 40% or more of the portfolio. First, the sum of all securities that make up 5% of the portfolio needs to be calculated. Then it needs to be checked if that sum makes up 40% of fund NAV')
+on pattern[every R=MasterFundUnderlyingSymbolUpdated]
+insert into NAVConcentrationTigerVedaWhatIfAggregatorPostTrade
+select distinct
+	sum(
+		case W.percentGrossExposureUnderlyingMasterFund >= Securities_Percentage
+			when true then W.grossExposureUnderlying
+			else 0.0
+		end) as grossExposureUnderlying,
+	W.masterFundNav as masterFundNav,
+	W.masterFundName as masterFundName,
+	"MasterFundUnderlyingSymbolWithNav" as parentWindowStream
+from MasterFundUnderlyingSymbolWithNav as W  
+group by W.masterFundId;
+
+
+@Name('NAVConcentrationTigerVedaPostTrade')
+@Description('')
+insert into NAVConcentrationTigerVedaPostTrade
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	doubleFormat(Total_Percentage_PT) || ValueSeparator || Fund_Name_PT  as threshold,
+	doubleFormat(coalesce((A.grossExposureUnderlying / A.masterFundNav)*100,0)) || ValueSeparator || A.masterFundName as actualResult,
+	'Total concentration limit' || ValueSeparator || 'MasterFund' as constraintField,
+	(coalesce(A.grossExposureUnderlying/ A.masterFundNav, 0)) > (Total_Percentage_PT/100) and valueExistsInCSV(A.masterFundName, Fund_Name_PT) as isViolated,
+	'Master Fund: ' || A.masterFundName
+		|| ', Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0))
+		|| ', gross exposure value: ' || doubleFormat(A.grossExposureUnderlying)
+		|| ', Percentage contribution: ' || doubleFormat(coalesce((A.grossExposureUnderlying / A.masterFundNav)*100,0)) as parameters,
+	current_timestamp as validationTime,
+	'The sum of all securities that make up at least ' || doubleFormat(Securities_Percentage_PT) ||  ' % of the portfolio make up ' || doubleFormat(Total_Percentage_PT) || '% or more of the portfolio' as summary,
+	A.masterFundName as dimension,
+	"NAVConcentrationTigerVedaWhatIfAggregatorPostTrade" as parentWindowStream
+from
+NAVConcentrationTigerVedaWhatIfAggregatorPostTrade as A;

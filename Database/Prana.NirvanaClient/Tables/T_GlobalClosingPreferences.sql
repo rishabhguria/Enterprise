@@ -1,0 +1,20 @@
+﻿CREATE TABLE [dbo].[T_GlobalClosingPreferences] (
+    [AccountingMethodData]        VARBINARY (MAX) NULL,
+    [IsShortWithBuyandBuyToClose] BIT             NULL,
+    [IsSellWithBuyToClose]        BIT             NULL,
+    [OverrideGlobal]              BIT             NULL,
+    [GlobalClosingAlgo]           INT             NULL,
+    [SecondarySort]               INT             NULL,
+    [GlobalClosingMethodology]    INT             NULL,
+    [IsFetchDataAutomatically]    BIT             DEFAULT ((1)) NOT NULL,
+    [LongTermTaxRate]             FLOAT (53)      DEFAULT ((1)) NOT NULL,
+    [ShortTermTaxRate]            FLOAT (53)      DEFAULT ((1)) NOT NULL,
+    [QtyRoundOffDigits]           INT             CONSTRAINT [DF_T_GlobalClosingPreferences_qtyRoundOffDigits] DEFAULT ((4)) NULL,
+    [PriceRoundOffDigits]         INT             CONSTRAINT [DF_T_GlobalClosingPreferences_PriceRoundOffDigits] DEFAULT ((4)) NULL,
+    [IsAutoCloseStrategy]         BIT             CONSTRAINT [DF_T_GlobalClosingPreferences_IsAutoCloseStrategy] DEFAULT ((0)) NULL,
+    [GlobalClosingField]          INT             DEFAULT ((0)) NOT NULL, 
+    [SplitunderlyingBasedOnPosition] BIT NULL DEFAULT 0,
+    [AutoOptExerciseValue]        FLOAT (53)      DEFAULT ((0.01)) NOT NULL,
+    [CopyOpeningTradeAttributes]  BIT             NULL, 
+);
+

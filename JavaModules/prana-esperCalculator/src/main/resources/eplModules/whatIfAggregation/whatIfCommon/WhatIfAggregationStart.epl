@@ -1,0 +1,128 @@
+module eplModules.whatIfAggregation.whatIfCommon.WhatIfAggregationStart;
+
+uses eplModules.dataWindow.AccountFeeder;
+uses eplModules.rowCalculation.RowCalculationWindow;
+
+@Priority(10)
+@Name('WhatIfAccountWhatIfPart')
+@Description('Insert data into WhatIfAccountWhatIfPart from BasketAggreation and RowCalculationBaseWindow.')
+insert into WhatIfAccountWhatIfPart
+select distinct
+	R.basketId as basketId,	
+	current_timestamp as time_now,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.netMarketValueBase,0)+coalesce(T.cashImpactBase,0) end) as whatIfNavPart,
+	sum( case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.cashImpactBase,0) end) as whatIfCashPart,
+	R.userId as userId,
+	T.accountId as accountId,
+	T.masterFundId as masterFundId,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.grossMarketValueBase,0) end) as whatIfGrossMarketValuePart,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.netExposureBase,0) end) as whatIfNetExposureBasePart,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.grossExposureBase,0) end) as whatIfGrossExposureBasePart,
+		   	"BasketAggreation,RowCalculationBaseWindow" as parentWindowStream
+from BasketAggreation as R unidirectional, 
+RowCalculationBaseWindow as T
+where (		
+			(T.taxlotType in ('InTradeMarket','InTradeStage') and T.clOrderId not in (select P.clOrderId from RowCalculationBaseWindow as P where P.basketId = R.basketId))
+			or 
+			(T.taxlotType='WhatIf' and T.basketId = R.basketId)
+			or
+			(T.taxlotType = 'Post')
+	  )
+group by T.accountId;
+
+@Priority(10)
+@Name('WhatIfMasterFundWhatIfPart')
+@Description('Insert data into WhatIfMasterFundWhatIfPart from BasketAggreation and RowCalculationBaseWindow.')
+insert into WhatIfMasterFundWhatIfPart
+select distinct
+	R.basketId as basketId,	
+	current_timestamp as time_now,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.netMarketValueBase,0)+coalesce(T.cashImpactBase,0) end) as whatIfNavPart,
+	sum( case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.cashImpactBase,0) end) as whatIfCashPart,
+	R.userId as userId,
+	T.masterFundId as masterFundId,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.grossMarketValueBase,0) end) as whatIfGrossMarketValuePart,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.netExposureBase,0) end) as whatIfNetExposureBasePart,
+	sum(case T.taxlotType='Post'
+			when true then 0.0
+			else
+			coalesce(T.grossExposureBase,0) end) as whatIfGrossExposureBasePart,
+		   	"BasketAggreation,RowCalculationBaseWindow" as parentWindowStream
+from BasketAggreation as R unidirectional, 
+RowCalculationBaseWindow as T
+where (		
+			(T.taxlotType in ('InTradeMarket','InTradeStage') and T.clOrderId not in (select P.clOrderId from RowCalculationBaseWindow as P where P.basketId = R.basketId))
+			or 
+			(T.taxlotType='WhatIf' and T.basketId = R.basketId)
+			or
+			(T.taxlotType = 'Post')
+	  )
+group by T.masterFundId;
+
+
+@Priority(10)
+@Name('WhatIfAggregationCheck')
+@Description('Extracts userId from Masterfund and account level for preTrade.')
+insert into WhatIfAggregationCheck
+select distinct
+	R.basketId as basketId,	
+	R.userId as userId,
+	"BasketAggreation" as parentWindowStream
+from pattern[every
+				(R =BasketAggreation ->
+						( F = WhatIfAccountWhatIfPart(R.basketId = F.basketId)
+						 and M = WhatIfMasterFundWhatIfPart(R.basketId = M.basketId)
+						 )
+				 )
+			 ];
+
+@Priority(10)
+@Name('WhatIfAggregationStart')
+@Description('Inserts data into WhatIfAggregationStart from WhatIfAggregationCheck and RowCalculationBaseWindow.')
+insert into WhatIfAggregationStart
+select distinct
+	current_timestamp as time_now,
+	R.basketId as basketId,
+	sum(coalesce(T.netMarketValueBase,0)+coalesce(T.cashImpactBase,0)) as whatIfNavPart,
+	sum(coalesce(T.cashImpactBase,0)) as whatIfCashPart,
+	R.userId as userId,
+	sum(coalesce(T.grossMarketValueBase,0)) as whatIfGrossMarketValuePart,
+	sum(coalesce(T.netExposureBase,0)) as whatIfNetExposureBasePart,
+	sum(coalesce(T.grossExposureBase,0)) as whatIfGrossExposureBasePart,
+	"WhatIfAggregationCheck" as parentWindowStream
+from WhatIfAggregationCheck as R unidirectional, 
+RowCalculationBaseWindow as T
+where 
+(       (case when PostWithInMarketInStage = 1 then
+		(T.taxlotType in ('InTradeMarket','InTradeStage') and T.clOrderId not in (select P.clOrderId from RowCalculationBaseWindow as P where P.basketId = R.basketId))
+		else false end)
+ 			or 
+ 		(T.taxlotType='WhatIf' and T.basketId = R.basketId)
+);

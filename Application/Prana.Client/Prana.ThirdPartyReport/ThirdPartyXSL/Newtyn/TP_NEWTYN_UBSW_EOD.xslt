@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="xs">
+	<xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/>
+  <xsl:template match="/NewDataSet">
+    <ThirdPartyFlatFileDetailCollection>
+
+      
+      <!-- <xsl:for-each select="ThirdPartyFlatFileDetail"> -->
+	   <xsl:for-each select="ThirdPartyFlatFileDetail[CounterParty = 'UBSW']"> 
+
+        <ThirdPartyFlatFileDetail>
+		
+					<RowHeader>
+						<xsl:value-of select ="'false'"/>
+					</RowHeader>
+					
+					<TaxlotState>
+						<xsl:value-of select="TaxLotState"/>
+					</TaxlotState>
+
+					
+					<SYMBOL>
+                      <xsl:value-of select ="Symbol"/>
+					</SYMBOL>
+					
+					<SIDE>
+            <xsl:choose>
+              <xsl:when test="Side='Buy to Open' or Side='Buy' ">
+                <xsl:value-of select ="'B'"/>
+              </xsl:when>
+              <xsl:when test="Side='Sell' or Side='Sell to Close' ">
+                <xsl:value-of select ="'S'"/>
+              </xsl:when>
+              <xsl:when test="Side='Sell short' or Side='Sell to Open' ">
+                <xsl:value-of select ="'SS'"/>
+              </xsl:when>
+              <xsl:when test="Side='Buy to Close'">
+                <xsl:value-of select ="'CS'"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="Side"/>
+              </xsl:otherwise>
+            </xsl:choose>
+					</SIDE>
+					
+					<ACCOUNT>
+            <xsl:value-of select ="AccountName"/>
+					</ACCOUNT>
+					
+				  <QUANTITY>
+            <xsl:value-of select="format-number(AllocatedQty,'0')"/>
+			  	</QUANTITY>
+				
+					
+					<PRICE>
+						<xsl:value-of select="format-number(AveragePrice,'#.####')"/>
+					</PRICE>
+					
+					<Comm>
+						<xsl:value-of select="format-number(CommissionPerShare,'#.####')"/>
+					</Comm>
+          
+
+				</ThirdPartyFlatFileDetail>
+			</xsl:for-each>
+		</ThirdPartyFlatFileDetailCollection>
+	</xsl:template>
+</xsl:stylesheet>

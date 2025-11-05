@@ -1,0 +1,221 @@
+module eplModules.rowCalculation.RowCalculationWindow;
+
+@Name('RowCalculationBaseWindow')
+@Description('Named window which stores the calculated row level data.')
+create window RowCalculationBaseWindow.std:unique(taxlotId,accountId,symbol,taxlotType,asset,orderSide,isTodayTrade,strategyId,tradeAttribute1,tradeAttribute2,tradeAttribute3,tradeAttribute4,tradeAttribute5,tradeAttribute6)
+(	
+	accountId int,
+	accountLongName string,
+	accountShortName string,
+	actualDaysToExpire int,
+	analyst string,
+	askPrice double,
+	asset string,
+	assetId int,
+	auecId int,
+	avgPrice double,
+	limitPrice double,
+	stopPrice double,
+	avgVolume double,	
+	avgVolume20Days double,
+	basketId string,
+	beta5YearMonthly double,
+	betaAdjustedExposureBase double,
+	betaAdjustedExposureLocal double,
+	bidPrice double,
+	businessDaysToExpire int,
+	cashImpactBase double,
+	cashImpactLocal double,
+	cashInflowBase double,
+	cashInflowLocal double,
+	cashOutflowBase double,
+	cashOutflowLocal double,
+	clOrderId string,
+	closePrice double,
+	costBasisPnLBase double,
+	costBasisPnLLocal double,
+	counterParty string,
+	countryOfRisk string,
+	currency string,
+	currentFxRate double,
+	customUDA1 string,
+	customUDA2 string,
+	customUDA3 string,
+	customUDA4 string,
+	customUDA5 string,
+	customUDA6 string,
+	customUDA7 string,	
+	dayDiff int,
+	dayInterestBase double,
+	dayInterestLocal double,
+	dayPnLBase double,
+	dayPnLLocal double,
+	delta double,
+	deltaAdjPosition double,
+	equityHaircutBase double,
+	equityHaircutLocal double,
+	exchange string,
+	expirationDate java.util.Date,	
+	fxConversionMethod string,
+	fxSymbol string,
+	grossExposureBase double,
+	grossExposureLocal double,
+	grossMarketValueBase double,	
+	grossMarketValueLocal double,	
+	highPrice double,
+	indexHaircutBase double,
+	indexHaircutLocal double,
+	isSwapped boolean,	
+	isTodayTrade boolean,
+	issuer string,
+	lastPrice double,
+	leveragedFactor double,
+	liquidTag string,
+	liquidationPnlBase double,
+	liquidationPnlLocal double,	
+	longDebitBalance double,
+	lowPrice double,
+	markPrice double,	
+	marketCap string,
+	marketCapitalization BigDecimal,
+	masterFundId int,
+	masterFundName string,
+	masterStrategyId int,
+	masterStrategyName string,
+	modificationType string,	
+	multiplier double,
+	netExposureBase double,
+	netExposureLocal double,
+	netMarketValueBase double,
+	netMarketValueLocal double,
+	notionalBase double,
+	notionalLocal double,
+	openInterest double,
+	openPrice double,
+	orderSide string,
+	orderType string,
+	percentAvgVolume double,	
+	putOrCall string,
+	quantity double,
+	region string,
+	riskCurrency string,
+	roundLot double,
+	sector string,
+	selectedFeedPrice double,
+	sharesOutstanding BigDecimal,
+	shortCreditBalance double,
+	strategyFullName string,
+	strategyId int,
+	strategyName string,
+	strikePrice double,	
+	subSector string,
+	symbol string,
+	taxlotFxConversionMethod string,
+	taxlotFxRate double,
+	taxlotId string,
+	taxlotState string,		
+	taxlotType string,
+	tif string,
+	todayAbsTradeQuantity double,
+	todayLongNotionalBase double,
+	todayLongTradeQuantity double,
+	todayNetNotionalBase double,
+	todayShortNotionalBase double,			
+	todayShortTradeQuantity double,
+	totalInterestBase double,
+	totalInterestLocal double,
+	tradeDate java.util.Date,
+	ucitsEligibleTag string,
+	udaAsset string,
+	udaCountry string,
+	udaSecurityType string,
+	underlyingAsset string,
+	underlyingCountry string,
+	underlyingMarketCapitalization BigDecimal,
+	underlyingPrice double,
+	underlyingSharesOutstanding BigDecimal,
+	underlyingSymbol string,
+	underlyingValueForOptionsBase double,
+	underlyingValueForOptionsLocal double,
+	userId string,
+	venue string,
+	yesterdayFxRate double,
+	yesterdayMarketValueBase double,
+	yesterdayMarketValueLocal double,
+	parentWindowStream string,
+	customUDA8 string,
+	customUDA9 string,
+	customUDA10 string,
+	customUDA11 string,
+	customUDA12 string,
+	bloombergSymbol string,
+	activSymbol string,
+	factSetSymbol string,
+	bloombergSymbolWithExchangeCode string,
+	selectedFeedPriceBase double,
+	tradeAttribute1 string,
+	tradeAttribute2 string,
+	tradeAttribute3 string,
+	tradeAttribute4 string,
+	tradeAttribute5 string,
+	tradeAttribute6 string
+);
+
+/*
+ * Creating indexes for efficiently traversing RowCalculationBaseWindow
+ */
+@Name('RowCalculationBaseWindowBasketIdTaxlotTypeIndex')
+@Description('')
+create index RowCalculationBaseWindowBasketIdTaxlotTypeIndex on RowCalculationBaseWindow(basketId,taxlotType);
+
+@Name('RowCalculationBaseWindowBasketIdMasterFundAccountSymbolTaxlotTypeIndex')
+@Description('')
+create index RowCalculationBaseWindowBasketIdMasterFundAccountSymbolTaxlotTypeIndex on RowCalculationBaseWindow(basketId,taxlotType, masterFundId, accountId,symbol);
+
+@Name('RowCalculationBaseWindowTaxlotTypeIndex')
+@Description('')
+create index RowCalculationBaseWindowTaxlotTypeIndex on RowCalculationBaseWindow(taxlotType);
+
+@Name('RowCalculationBaseWindowAccountIdMasterFundIndex')
+@Description('')
+create index RowCalculationBaseWindowAccountIdMasterFundIndex on RowCalculationBaseWindow(accountId,masterFundId);
+
+@Name('RowCalculationBaseWindowMasterFundIndex')
+@Description('')
+create index RowCalculationBaseWindowMasterFundIndex on RowCalculationBaseWindow(masterFundId);
+
+@Name('RowCalculationBaseWindowMasterFundSymbolIndex')
+@Description('')
+create index RowCalculationBaseWindowMasterFundSymbolIndex on RowCalculationBaseWindow(masterFundId, symbol);
+
+@Name('RowCalculationBaseWindowAccountSymbolIndex')
+@Description('')
+create index RowCalculationBaseWindowAccountSymbolIndex on RowCalculationBaseWindow(accountId, symbol);
+
+@Name('RowCalculationBaseWindowSymbolIndex')
+@Description('')
+create index RowCalculationBaseWindowSymbolIndex on RowCalculationBaseWindow(symbol);
+
+@Name('RowCalculationBaseWindowMasterFundUnderlyingSymbolIndex')
+@Description('')
+create index RowCalculationBaseWindowMasterFundUnderlyingSymbolIndex on RowCalculationBaseWindow(masterFundId, underlyingSymbol);
+
+@Name('RowCalculationBaseWindowAccountUnderlyingSymbolIndex')
+@Description('')
+create index RowCalculationBaseWindowAccountUnderlyingSymbolIndex on RowCalculationBaseWindow(accountId, underlyingSymbol);
+
+@Name('RowCalculationBaseWindowUnderlyingSymbolIndex')
+@Description('')
+create index RowCalculationBaseWindowUnderlyingSymbolIndex on RowCalculationBaseWindow(underlyingSymbol);
+
+@Name('RowCalculationBaseWindowAssetIndex')
+@Description('')
+create index RowCalculationBaseWindowAssetIndex on RowCalculationBaseWindow(asset);
+
+@Name('RowCalculationBaseWindowSectorIndex')
+@Description('')
+create index RowCalculationBaseWindowSectorIndex on RowCalculationBaseWindow(sector);
+
+@Name('RowCalculationBaseWindoSubwSectorIndex')
+@Description('')
+create index RowCalculationBaseWindowSubSectorIndex on RowCalculationBaseWindow(subSector);

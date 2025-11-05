@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ruleConfig>
+	<!-- 1. id is primary key. 2. name and rule-Type should be unique in combination -->
+	<rules name="ContrastCapital">
+	 <rule id="custom-ruleContrastCapital">
+			<name>Order Side Check</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/preTradeCheckSideAccountSymbol/</eplPath>
+			<description>Trade would sell more than the current position</description>
+			<compressionLevel>Custom</compressionLevel>
+			<validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList> 
+			</constantList>	
+		</rule> 
+          <rule id="custom-rule-ContrastCapital1">
+			<name>Max 10% in US</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/nonBenchmarkCountries/</eplPath>
+			<description>
+				 Sum of MarketValue of all the securities with Country not equal to benchmark countries should not be greater than 10% of account NAV.
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>PreTradeNonBenchMarkCountries</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeNonBenchMarkCountries"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeNonBenchMarkCountries"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+				<constantValue displayName="BenchMark countries (not in) :" name="BenchMarkCountry_Name" type="String" value="US"/>
+				<constantValue displayName="Max % of total account NAV :" name="Nav_Percentage" type="double" value="10"/>
+				<constantValue displayName="Account name :" name="Account_Name" type="string" value="LF0R"/>
+				<constantValue displayName="Security class (not in) :" name="Asset_Name" type="string" value="Cash"/>
+			</constantList>
+		</rule> 
+		<!-- <rule id="custom-rule-ContrastCapital2"> -->
+               <!-- <name>Max 3% of total voting rights.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/votingRights/</eplPath> -->
+               <!-- <description>Quantity should be less than 3% of total voting shares of that symbol</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeVotingRightCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeVotingRightCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeVotingRightCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Name_To_Check" type="String" value="NBIM PF EX EQ NZS GBL T EX CH"/> -->
+					<!-- <constantValue displayName="Max % of total voting rights" name="VotingPercentage" type="double" value="3"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital3"> -->
+               <!-- <name>Max 10% PNotes India</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/pNotesIndia/</eplPath> -->
+               <!-- <description>Sum of MarketValue of all the Warrant securities where Country of Issue is INDIA, should not be greater than 10% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradePNotesIndiaCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradePNotesIndiaCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradePNotesIndiaCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Names" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Country of Issue" name="CountryIssue" type="String" value="INDIA"/> -->
+					<!-- <constantValue displayName="Security Class" name="SecurityClass" type="String" value="Warrant"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentage" type="double" value="10"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+             <!-- <rule id="custom-rule-ContrastCapital4"> -->
+               <!-- <name>Max 10% of Free Float Adjusted Shares.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/freeFloatAdjustedShares/</eplPath> -->
+               <!-- <description>Quantity should be less than 10% of free floating shares of that symbol</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeFreeFloatingSharesCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeFreeFloatingSharesCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeFreeFloatingSharesCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Name_Floating_Shares" type="String" value="NBIM PF EX EQ NZS GBL T EX CH"/> -->
+					<!-- <constantValue displayName="Max % of free floating shares" name="FloatingSharesPercentage" type="double" value="10"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+		<!-- </rule>  -->
+        <!-- <rule id="custom-rule-ContrastCapital5"> -->
+               <!-- <name>Max 5% Kenya</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/kenya/</eplPath> -->
+               <!-- <description>Sum of MarketValue of all the securities where Country of Issue is Kenya, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PreTradeMaxFivePercentKenya</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxFivePercentKenya"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxFivePercentKenya"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Country of Issue" name="Country_Of_Issue_To_Check" type="String" value="KE"/> -->
+					<!-- <constantValue displayName="Account(s) Name" name="AccountName" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="MaxNavPercentage" type="double" value="5"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <rule id="custom-rule-ContrastCapital6">
+          	<name>Max 10 Percent EM</name>
+               <enabled>true</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/nigeria/</eplPath>
+               <description>Sum of MarketValue of all the securities for Emerging Countries, should not be greater than 10% of account NAV.</description>
+               <compressionLevel>Account-Symbol</compressionLevel> 
+               <validationCompletedEventName>PreTradeMaxFivePercentNigeria</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeMaxFivePercentNigeria"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeMaxFivePercentNigeria"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+					<constantValue displayName="Country of Issue" name="Country_to_check" type="String" value="Saudi Arabia, TAIWAN, China, South Korea, India, United Arab Emirates, Brazil, Uruguay, Indonesia, RUSSIA, Hong Kong, SINGAPORE, Mexico, Kuwait, Qatar, South Africa, TURKEY, THAILAND, CHILE, MALAYSIA, Kazakhstan, Colombia, Czech Republic, Poland, Vietnam, Philippines, MACAU, Hungary, PERU, Romania, Argentina, Lebanon, Morocco, Curacao, Panama, Nigeria, Puerto Rico, Croatia, Kenya, Jordan, Egypt, Oman, Slovenia, Bahrain, Iraq, Senegal, Ivory Coast, Trinidad and Tobago, Bangladesh, Cambodia, Pakistan, Mauritius, Slovakia, Georgia, Cayman Islands, Barbados, Ecuador, Bahamas, Ghana, Lithuania, Mozambique, Tanzania, Costa Rica, Mongolia, Serbia, Estonia, Tunisia, Montenegro, Uganda, Jamaica, British Virgin Islands, Sri Lanka, Botswana, Ukraine, Macedonia, Palestine, Bulgaria, Gabon, Bosnia And Herzegovina, Malawi, Namibia, Zambia, Burkina Faso, Canada"/>
+					<constantValue displayName="Account(s) Name" name="Account_Name_Check" type="String" value="LF0R"/>
+					<constantValue displayName="Max % of total account NAV" name="Maximum_Nav_Percentage" type="double" value="10"/>
+				</constantList>
+          </rule>
+          <!-- <rule id="custom-rule-ContrastCapital7"> -->
+          <!-- <name>Max 25% own in single Open end fund </name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/singleOpenEndFunds/</eplPath> -->
+               <!-- <description>Market value of per open end fund for the fund type listed should be less than 25% of Account NAV </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PreTradeMaxFundCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxFundCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxFundCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) Name" name="AccountNameToVerify" type="String" value="Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+					<!-- <constantValue displayName="Fund Type" name="Fund_to_check" type="String" value="SICAV, UCIT, Open-End Fund, Fund of Funds"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Maximum_Percentage" type="double" value="25"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital8"> -->
+               <!-- <name>Max 10 Percent REITS</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/openEndFundsETFs/</eplPath> -->
+               <!-- <description>Sum of MarketValue of all the securities where Fund Type is either SICAV or UCIT or Open-End Fund or Fund of Funds or ETF, should not be greater than 30% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeOpenEndFundsCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeOpenEndFundsCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeOpenEndFundsCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="AccountNameOpenEndFunds" type="String" value="LF0R"/> -->
+					<!-- <constantValue displayName="Fund Type" name="FundTypeOpenEndFunds" type="String" value="REITS"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentOpenEndFunds" type="double" value="10"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-rule-ContrastCapital9"> -->
+			<!-- <name>Max 10% Non-Voting Shares.</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PreTrade</ruleType> -->
+			<!-- <eplPath>/nonVotingShares/</eplPath> -->
+			<!-- <description> -->
+				<!-- Sum of market value of all the securities where Voting Right is 0, should not be greater than 10% of account NAV.   -->
+			<!-- </description> -->
+			<!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+			<!-- <validationCompletedEventName>PreTradeNonVotingShares</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="PreTradeNonVotingShares"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="PreTradeNonVotingShares"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>true</blocked> -->
+			<!-- <constantList> -->
+			<!-- <constantValue displayName="Account(s) name :" name="AccountNameNonVotingShares" type="string" value="Challenge Technology EQ Evolution3, Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+			<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentageVotingRights" type="double" value="10"/> -->
+			<!-- <constantValue displayName="Voting rights" name="VotingRightsValue" type="string" value="0"/> -->
+			<!-- </constantList> -->
+		<!-- </rule> -->
+		<!-- <rule id="custom-rule-ContrastCapital10"> -->
+          	   <!-- <name>Max 20 percent Sector</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/gicsLevelOneSector/</eplPath> -->
+               <!-- <description>Sum of Market Value of all the securities in any of the GICS sectors should be less than 50% of Account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PreTradeMaxFiftyPercentGICS</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxFiftyPercentGICS"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxFiftyPercentGICS"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) Name" name="AccountCheck" type="String" value="LF0R"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Max_Account_NAV" type="double" value="20"/> -->
+				<!-- </constantList> -->
+         <!-- </rule> -->
+         <!-- <rule id="custom-rule-ContrastCapital11"> -->
+               <!-- <name>Max 30% Emerging Market Exposure</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/emergingMarketCountries/</eplPath> -->
+               <!-- <description> -->
+                     <!-- Sum of Exposure of all the securities with Country in Emerging Market countries should not be greater than 30% of account NAV. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeEmergingMarketCountries</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeEmergingMarketCountries"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeEmergingMarketCountries"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Emerging Countries: " name="emergingMarketCountries" type="String" value="AE, AR, BR, CL, CN, CO, CZ, EG, GR, HU, ID, KR, MX, MY, PE, PH, PK, PL, QA, RU, SA, TH, TR, TW, ZA, IN"/>                     -->
+                    <!-- <constantValue displayName="Max % of total account NAV :" name="Percentage_EmergingMarket" type="double" value="30"/> -->
+                    <!-- <constantValue displayName="Account name :" name="Account_EmergingMarket" type="string" value="NZS Global Growth Fund LP"/> -->
+               <!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital12"> -->
+               <!-- <name>Max 10% with Market Cap less than $5B.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/marketCapFiveBillion/</eplPath> -->
+               <!-- <description> Aggregated market value of the securities having market capital less than $5 Billion should be less than 10% of Account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeMaxTenPercentWithMarketCapCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxTenPercentWithMarketCapCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxTenPercentWithMarketCapCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) name" name="Account_Check" type="String" value="Jpool 2"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV" name="AccountNav_Percentage" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Market cap" name="MarketCap_Range" type="double" value="5000000000"/> -->
+               <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital13">
+               <name>Max 20% deposit and investment same body .</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/depositAndInvestment/</eplPath>
+               <description>Sum of market value of securities with parent ticker exchange not in the empty ultimate list should not be greater than 20% of Account NAV.</description>
+               <compressionLevel>Account-Symbol</compressionLevel>
+               <validationCompletedEventName>PreTradeDepositAndInvestment</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeDepositAndInvestment"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeDepositAndInvestment"/>
+               </windowFillerStatementList>
+               <constantList>
+               		<constantValue displayName="Account(s) name: " name="Account_depositAndInvestment" type="String" value="NZS-SICAV"/>
+  					<constantValue displayName="Max % of account NAV: " name="Percentage_depositAndInvestment" type="double" value="20"/>
+					<constantValue displayName="Empty ultimate list: " name="emptyUltimateList" type="string" value="None"/>
+ 					<constantValue displayName="Security class (not in): " name="Asset_depositAndInvestment" type="string" value="Cash"/>
+                    </constantList>
+               <blocked>true</blocked>
+          </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital14"> -->
+               <!-- <name>Max 10% PNotes India</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/pNotesIndia/</eplPath> -->
+               <!-- <description>Sum of market value of all the Warrant securities where country of issue is India, should not be greater than 10% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradePNotesIndiaCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradePNotesIndiaCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradePNotesIndiaCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="AccountNamesPostTrade" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Country of Issue" name="CountryIssuePostTrade" type="String" value="INDIA"/> -->
+					<!-- <constantValue displayName="Security class" name="SecurityClassPostTrade" type="String" value="Warrant"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentagePostTrade" type="double" value="10"/> -->
+                    <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+         <!-- <rule id="custom-rule-ContrastCapital15"> -->
+               <!-- <name>Max 3% of total voting rights.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/votingRights/</eplPath> -->
+               <!-- <description>Quantity should be less than 3% of total voting shares of that symbol</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeVotingRightCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeVotingRightCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeVotingRightCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name: " name="Account_Name_PostTrade" type="String" value="NBIM PF EX EQ NZS GBL T EX CH"/> -->
+					<!-- <constantValue displayName="Max % of total voting shares: " name="VotingPercentagePostTrade" type="double" value="3"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital16"> -->
+               <!-- <name>Max 30% of NAV in Open End Funds/ETFS.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/openEndFundsETFs/</eplPath> -->
+               <!-- <description>Sum of market value of all the securities where Fund Type is either SICAV or UCIT or Open-End Fund or Fund of Funds or ETF, should not be greater than 30% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeOpenEndFundsCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeOpenEndFundsCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeOpenEndFundsCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="AccountNameOpenEndFundsPostTrade" type="String" value="Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+					<!-- <constantValue displayName="Fund Type" name="FundTypeOpenEndFundsPostTrade" type="String" value="SICAV, UCIT, Open-End Fund, Fund of Funds, ETF"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentOpenEndFundsPostTrade" type="double" value="30"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital17"> -->
+               <!-- <name>Max 5% Kenya </name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/kenya/</eplPath> -->
+               <!-- <description>Sum of market value of all the securities where country of issue is Kenya, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PostTradeMaxFivePercentKenya</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeMaxFivePercentKenya"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeMaxFivePercentKenya"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Country of Issue" name="Country_Of_Issue_To_Check_Post" type="String" value="Kenya"/> -->
+					<!-- <constantValue displayName="Account(s) Name" name="AccountNamePost" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="PostMaxNavPercentage" type="double" value="5"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital18"> -->
+          	<!-- <name>Max 5% Nigeria</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/nigeria/</eplPath> -->
+               <!-- <description>Sum of market value of all the securities where country of issue is Nigeria, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PostTradeMaxFivePercentNigeria</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeMaxFivePercentNigeria"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeMaxFivePercentNigeria"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Country of Issue" name="Country_to_check_post" type="String" value="Nigeria"/> -->
+					<!-- <constantValue displayName="Account(s) Name" name="Account_Name_Check_post" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Post_Maximum_Nav_Percentage" type="double" value="5"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital19"> -->
+               <!-- <name>Max 10% of Free Float Adjusted Shares.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/freeFloatAdjustedShares/</eplPath> -->
+               <!-- <description>Quantity should be less than 10% of free floating shares of that symbol</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeFreeFloatingSharesCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeFreeFloatingSharesCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeFreeFloatingSharesCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Name_PostFloatingShares" type="String" value="NBIM PF EX EQ NZS GBL T EX CH"/> -->
+					<!-- <constantValue displayName="Max % of total free floating shares" name="FreeFloatingPercentagePostTrade" type="double" value="10"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital20"> -->
+          	   <!-- <name>Max 25% own in single Open end fund</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/singleOpenEndFunds/</eplPath> -->
+               <!-- <description>Market value of per open end fund for the fund type listed should be less than 25% of Account NAV. </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PostTradeMaxFundCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeMaxFundCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeMaxFundCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) Name" name="PostAccountNameToVerify" type="String" value="Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+					<!-- <constantValue displayName="Fund Type" name="Post_Fund_to_check" type="String" value="SICAV, UCIT, Open-End Fund, Fund of Funds"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Post_Maximum_Percentage" type="double" value="25"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital21"> -->
+               <!-- <name>Max 10% with Market Cap less than $5B.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/marketCapFiveBillion/</eplPath> -->
+               <!-- <description>Aggregated market value of the securities having market capital less than $5 Billion should be less than 10% of Account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeMaxTenPercentWithMarketCapCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeMaxTenPercentWithMarketCapCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeMaxTenPercentWithMarketCapCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) name" name="Account_MarketCap" type="String" value="Jpool 2"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV" name="Percentage_MarketCap" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Market capital" name="MarketCap_Post" type="double" value="5000000000"/> -->
+               <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital22"> -->
+          	   <!-- <name>No GICS Level 1 Sector to exceed 50%</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/gicsLevelOneSector/</eplPath> -->
+               <!-- <description>Sum of market value of all the securities in any of the GICS sectors should be less than 50% of Account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PostTradeMaxFiftyPercentGICS</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeMaxFiftyPercentGICS"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeMaxFiftyPercentGICS"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) Name" name="PostAccountCheck" type="String" value="Jpool 2"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Post_Max_Account_NAV" type="double" value="50"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital23"> -->
+               <!-- <name>Max 30% Emerging Market Exposure</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/emergingMarketCountries/</eplPath> -->
+               <!-- <description> -->
+                     <!-- Sum of exposure of all the securities with country in emerging market countries should not be greater than 30% of account NAV. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeEmergingMarketCountries</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeEmergingMarketCountries"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeEmergingMarketCountries"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                  <!-- <constantValue displayName="Emerging Countries: " name="emergingMarketCountries_post" type="String" value="AE, AR, BR, CL, CN, CO, CZ, EG, GR, HU, ID, KR, MX, MY, PE, PH, PK, PL, QA, RU, SA, TH, TR, TW, ZA"/>                     -->
+                  <!-- <constantValue displayName="Max % of total account NAV :" name="Percentage_EmergingMarket_post" type="double" value="30"/> -->
+                  <!-- <constantValue displayName="Account name :" name="Account_EmergingMarket_post" type="string" value="NZS Global Growth Fund LP"/> -->
+               <!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital24"> -->
+				<!-- <name>Max 10% Non-Voting Shares.</name> -->
+				<!-- <enabled>false</enabled> -->
+				<!-- <isDeleted>false</isDeleted> -->
+				<!-- <ruleType>PostTrade</ruleType> -->
+				<!-- <eplPath>/nonVotingShares/</eplPath> -->
+				<!-- <description> -->
+					<!-- Sum of market value of all the securities where Voting Right is zero, should not be greater than 10% of account NAV.   -->
+				<!-- </description> -->
+				<!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+				<!-- <validationCompletedEventName>PostTradeNonVotingShares</validationCompletedEventName> -->
+				<!-- <outputStatementList> -->
+					<!-- <outputStatementName name="PostTradeNonVotingShares"/> -->
+				<!-- </outputStatementList> -->
+				<!-- <windowFillerStatementList> -->
+					<!-- <windowFillerStatementName name="PostTradeNonVotingShares"/> -->
+				<!-- </windowFillerStatementList> -->
+				<!-- <blocked>true</blocked> -->
+				<!-- <constantList> -->
+			  		<!-- <constantValue displayName="Account(s) name :" name="AccountName_NonVotingShares" type="string" value="Challenge Technology EQ Evolution3, Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+			  		<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentageVotingRights_post" type="double" value="10"/> -->
+			 		 <!-- <constantValue displayName="Voting rights" name="VotingRights_post" type="string" value="0"/> -->
+            	<!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital25"> -->
+				<!-- <name>Max 10% in Non Benchmark Countries.</name> -->
+				<!-- <enabled>false</enabled> -->
+				<!-- <isDeleted>false</isDeleted> -->
+				<!-- <ruleType>PostTrade</ruleType> -->
+				<!-- <eplPath>/nonBenchmarkCountries/</eplPath> -->
+				<!-- <description>Sum of market value of all the securities with Country not equal to benchmark countries should not be greater than 10% of account NAV.</description> -->
+				<!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+				<!-- <validationCompletedEventName>PostTradeNonBenchMarkCountries</validationCompletedEventName> -->
+				<!-- <outputStatementList> -->
+					<!-- <outputStatementName name="PostTradeNonBenchMarkCountries"/> -->
+				<!-- </outputStatementList> -->
+				<!-- <windowFillerStatementList> -->
+					<!-- <windowFillerStatementName name="PostTradeNonBenchMarkCountries"/> -->
+				<!-- </windowFillerStatementList> -->
+				<!-- <blocked>true</blocked> -->
+				<!-- <constantList> -->
+					<!-- <constantValue displayName="BenchMark countries (not in) :" name="PostBenchMarkCountry_Name" type="String" value="AR, AT, AU, BA, BD, BE, BF, BG, BH, BJ, BR, BW, CA, CH, CI, CL, CN, CO, CZ, DE, DK, EE, EG, ES, FI, FR, GB, GR, GW, HK, HR, HU, ID, IE, IL, IN, IS, IT, JM, JO, JP, KE, KR, KW, KZ, LB, LK, LT, MC, ML, MT, MU, MX, MY, NE, NG, NL, NO, NZ, OM, PA, PE, PH, PK, PL, PS, PT, QA, RO, RS, RU, SA, SE, SG, SI, SN, TG, TH, TN, TRAE, TT, TW, UA, US, VN, ZA, ZW"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV :" name="Post_Nav_Percentage" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Account name :" name="Post_Account_Name" type="string" value="Jpool 2"/> -->
+					<!-- <constantValue displayName="Security class (not in) :" name="Post_Asset_Name" type="string" value="Cash"/> -->
+				<!-- </constantList> -->
+			<!-- </rule>  -->
+			<!--  <rule id="custom-rule-ContrastCapital26">
+               <name>Max 20% deposit and investment same body .</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PostTrade</ruleType>
+               <eplPath>/depositAndInvestment/</eplPath>
+               <description>Sum of market value of securities with parent ticker exchange not in the empty ultimate list should not be greater than 20% of Account NAV.</description>
+               <compressionLevel>Account-Symbol</compressionLevel>
+               <validationCompletedEventName>PostTradeDepositAndInvestment</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PostTradeDepositAndInvestment"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PostTradeDepositAndInvestment"/>
+               </windowFillerStatementList>
+               <constantList>
+               		<constantValue displayName="Account(s) name: " name="Account_depositAndInvestment_post" type="String" value="NZS-SICAV"/>
+  					<constantValue displayName="Max % of account NAV: " name="Percentage_depositAndInvestment_post" type="double" value="20"/>
+					<constantValue displayName="Empty ultimate list: " name="emptyUltimateList_post" type="string" value="None"/>
+ 					<constantValue displayName="Security class (not in): " name="Asset_depositAndInvestment_post" type="string" value="Cash"/>
+                    </constantList>
+               <blocked>true</blocked>
+          </rule> -->
+          <rule id="custom-rule-ContrastCapital27">
+               <name>Max 10% Issuer </name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/issuer/</eplPath>
+               <description>Sum of market value of securities of a single issuer should not be greater than 10% of Account NAV. </description>
+               <compressionLevel>Account-Symbol</compressionLevel>
+               <validationCompletedEventName>PreTradeIssuer</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeIssuer"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeIssuer"/>
+               </windowFillerStatementList>
+               <constantList>
+               		<constantValue displayName="Account(s) name: " name="AccountIssuer" type="String" value="LF0R"/>
+  					<constantValue displayName="Max % of account NAV: " name="PercentageIssuer" type="double" value="10"/>
+					<constantValue displayName="Empty ultimate list: " name="EmptyUltimateListIssuer" type="string" value="None"/>
+ 					<constantValue displayName="Asset class (not in): " name="AssetIssuer" type="string" value="Cash"/>
+                </constantList>
+               <blocked>true</blocked>
+          </rule>  
+          <rule id="custom-rule-ContrastCapital28">
+              <name>Max 10 Percent US</name>
+              <enabled>true</enabled>
+              <isDeleted>false</isDeleted>
+              <ruleType>PreTrade</ruleType>
+              <eplPath>/singleEmergingMarketExposure/</eplPath>
+               <description>
+                     Sum of Exposure of all the securities with country as US should not be greater than 10% of account NAV.
+               </description>
+               <compressionLevel>Account-Symbol</compressionLevel>
+               <validationCompletedEventName>PreTradeSingleEmergingMarketCountries</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeSingleEmergingMarketCountries"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeSingleEmergingMarketCountries"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+                    <constantValue displayName="Emerging Countries: " name="emergingMarketCountriesSingle" type="String" value="United States"/>                    
+                    <constantValue displayName="Max % of total account NAV :" name="Percentage_SingleEmergingMarket" type="double" value="10"/>
+                    <constantValue displayName="Account name :" name="Account_SingleEmergingMarket" type="string" value="LF0R"/>
+                    <constantValue displayName="Security class (not in) :" name="Asset_SingleEmergingMarket" type="string" value="Cash"/>
+               </constantList>
+         </rule>
+		 
+		 <rule id="custom-rule-ContrastCapital42">
+			<name>Sector Concentration</name>
+			<enabled>true</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/SectorConcentration/</eplPath>
+			<description>Pre-Trade Alert when master account sector concentration goes above limit.</description>
+			<compressionLevel>CustomMasterFund-Symbol</compressionLevel>
+			<validationCompletedEventName>SectorConcentrationPreTrade</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="SectorConcentrationPreTrade"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="SectorConcentrationPreTrade"/>
+			</windowFillerStatementList>
+			<blocked>false</blocked>
+			<constantList>
+				<constantValue displayName="Master Account-Sector Concentration Limit (%)" name="SectorConcentrationcontrastcapitalPreTradeLimit" type="double" value="20"/>
+				<constantValue displayName="Master Funds to be monitored" name="MasterFund_Name_MRLP1" type="String" value="Contrast Capital Management"/>
+			</constantList>
+		</rule>
+		 <!-- <rule id="custom-rule-ContrastCapital29"> -->
+              <!-- <name>Alert No SecMaster Entry.</name> -->
+              <!-- <enabled>false</enabled> -->
+              <!-- <isDeleted>false</isDeleted> -->
+              <!-- <ruleType>PreTrade</ruleType> -->
+              <!-- <eplPath>/alertNoSecMaster/</eplPath> -->
+               <!-- <description> -->
+                     <!-- All traded Securities must have a security master entry. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeAlertNoSecMaster</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeAlertNoSecMaster"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeAlertNoSecMaster"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Security class :" name="Asset_SecMaster" type="string" value="Equity, Option, Future, Future_Otion, FXFWD, FXUSD"/> -->
+               <!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital30"> -->
+               <!-- <name>Max 10% Trans Sec/MM .</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/sameParentTickerExchange/</eplPath> -->
+               <!-- <description>Sum of market value of securities with same parent ticker exchange not in the empty ultimate list should not be greater than 10% of Account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeParentTickerExchange</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeParentTickerExchange"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeParentTickerExchange"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) name: " name="Account_ParentTickerExchange" type="String" value="Jupiter NZS Glo EQ GR Unconstr Sicav, Jpool 2"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV: " name="Percentage_ParentTickerExchange" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Empty ultimate list: " name="List_ParentTickerExchange" type="string" value="None"/> -->
+ 					<!-- <constantValue displayName="Security class (not in): " name="Asset_ParentTickerExchange" type="string" value="Cash"/> -->
+                <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+         <!-- </rule> -->
+         <!-- <rule id="custom-rule-ContrastCapital31"> -->
+               <!-- <name>Max 5% of PNotes Issuer</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/pNotesIssuer/</eplPath> -->
+               <!-- <description>Sum of market value of all the Warrant securities where Country of Issue is INDIA, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradePNotesIssuerCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradePNotesIssuerCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradePNotesIssuerCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Issuer" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Country of Issue" name="CountryIssue_Issuer" type="String" value="INDIA"/> -->
+					<!-- <constantValue displayName="Security Class" name="SecurityClass_Issuer" type="String" value="Warrant"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentage_Issuer" type="double" value="5"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+        <!-- </rule> -->
+        <!-- <rule id="custom-rule-ContrastCapital32"> -->
+               <!-- <name> 5-40 Rule</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/fiveFortyRule/</eplPath> -->
+               <!-- <description>Aggregated market value of the securities having market value more than 5% of Account NAV should be less than 40% of the account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeFiveFortyRule</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeFiveFortyRule"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeFiveFortyRule"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Account(s) name: " name="Account_FiveForty" type="String" value="Challenge Technology EQ Evolution3, Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+                    <!-- <constantValue displayName="Max % of account NAV: " name="Percentage_FiveForty" type="double" value="40"/> -->
+                    <!-- <constantValue displayName="Market value % per security: " name="Percentage_Individual" type="double" value="5"/> -->
+                    <!-- <constantValue displayName="Security class : " name="Asset_FiveForty" type="string" value="Equity"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital33"> -->
+              <!-- <name>Max 15% Single Emerging Market Exposure</name> -->
+              <!-- <enabled>false</enabled> -->
+              <!-- <isDeleted>false</isDeleted> -->
+              <!-- <ruleType>PostTrade</ruleType> -->
+              <!-- <eplPath>/singleEmergingMarketExposure/</eplPath> -->
+               <!-- <description> -->
+                     <!-- Sum of Exposure of all the securities with Country in Emerging Market countries should not be greater than 15% of account NAV. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeSingleEmergingMarketCountries</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeSingleEmergingMarketCountries"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeSingleEmergingMarketCountries"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Emerging Countries: " name="emergingMarketCountriesSingle_post" type="String" value="AE, AR, BR, CL, CN, CO, CZ, EG, GR, HU, ID, KR, MX, MY, PE, PH, PK, PL, QA, RU, SA, TH, TR, TW, ZA"/>                     -->
+                    <!-- <constantValue displayName="Max % of total account NAV :" name="Percentage_SingleEmergingMarket_post" type="double" value="15"/> -->
+                    <!-- <constantValue displayName="Account name :" name="Account_SingleEmergingMarket_post" type="string" value="NZS Global Growth Fund LP"/> -->
+                    <!-- <constantValue displayName="Security class (Not in) :" name="Asset_SingleEmergingMarket_post" type="string" value="Cash"/> -->
+               <!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital34"> -->
+               <!-- <name>Max 10% Trans Sec/MM .</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/sameParentTickerExchange/</eplPath> -->
+               <!-- <description>Sum of market value of securities with same parent ticker exchange not in the empty ultimate list should not be greater than 10% of Account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeParentTickerExchange</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeParentTickerExchange"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeParentTickerExchange"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) name: " name="Account_ParentTickerExchange_post" type="String" value="Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV: " name="Percentage_ParentTickerExchange_post" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Empty ultimate list: " name="List_ParentTickerExchange_post" type="string" value="None"/> -->
+ 					<!-- <constantValue displayName="Security class (not in): " name="Asset_ParentTickerExchange_post" type="string" value="Cash"/> -->
+                <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+         <!-- </rule> -->
+         <!-- <rule id="custom-rule-ContrastCapital35"> -->
+              <!-- <name>Alert No SecMaster Entry.</name> -->
+              <!-- <enabled>false</enabled> -->
+              <!-- <isDeleted>false</isDeleted> -->
+              <!-- <ruleType>PostTrade</ruleType> -->
+              <!-- <eplPath>/alertNoSecMaster/</eplPath> -->
+               <!-- <description> -->
+                     <!-- All traded Securities must have a security master entry. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeAlertNoSecMaster</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeAlertNoSecMaster"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeAlertNoSecMaster"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Asset class :" name="Asset_SecMaster" type="string" value="Equity, Option, Future, Future_Otion, FXFWD, FXUSD"/> -->
+               <!-- </constantList> -->
+        <!-- </rule> -->
+        <!-- <rule id="custom-rule-ContrastCapital36"> -->
+               <!-- <name>Max 5% of PNotes Issuer</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/pNotesIssuer/</eplPath> -->
+               <!-- <description>Sum of market value of all the Warrant securities where Country of Issue is INDIA, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>postTradePNotesIssuerCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="postTradePNotesIssuerCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="postTradePNotesIssuerCheck"/> -->
+			<!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Post_Account_Issuer" type="String" value="Challenge Technology EQ Evolution3"/> -->
+					<!-- <constantValue displayName="Country of Issue" name="Post_CountryIssue_Issuer" type="String" value="INDIA"/> -->
+					<!-- <constantValue displayName="Security Class" name="Post_SecurityClass_Issuer" type="String" value="Warrant"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="PostNavPercentage_Issuer" type="double" value="5"/> -->
+				<!-- </constantList> -->
+			<!-- <blocked>true</blocked> -->
+        <!-- </rule> -->
+        <!-- <rule id="custom-rule-ContrastCapital37"> -->
+               <!-- <name> 5-40 Rule</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/fiveFortyRule/</eplPath> -->
+               <!-- <description>Aggregated market value of the securities having market value more than 5% of Account NAV should be less than 40% of the account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeFiveFortyRule</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeFiveFortyRule"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeFiveFortyRule"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Account(s) name: " name="Post_Account_FiveForty" type="String" value="Challenge Technology EQ Evolution3, Jupiter NZS Glo EQ GR Unconstr Sicav"/> -->
+                    <!-- <constantValue displayName="Max % of account NAV: " name="Post_Percentage_FiveForty" type="double" value="40"/> -->
+                    <!-- <constantValue displayName="Market value % per security: " name="Post_Percentage_Individual" type="double" value="5"/> -->
+                    <!-- <constantValue displayName="Security class : " name="Post_Asset_FiveForty" type="string" value="Equity"/> -->
+               <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-ContrastCapital38"> -->
+               <!-- <name>Max 10% Issuer </name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PostTrade</ruleType> -->
+               <!-- <eplPath>/issuer/</eplPath> -->
+               <!-- <description>Sum of market value of securities of a single issuer should not be greater than 10% of Account NAV. </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PostTradeIssuer</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PostTradeIssuer"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PostTradeIssuer"/> -->
+               <!-- </windowFillerStatementList> -->
+			<!-- <constantList>  -->
+               		<!-- <constantValue displayName="Account(s) name: " name="AccountIssuer_post" type="String" value="Challenge Technology EQ Evolution3, Jpool 2"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV: " name="PercentageIssuer_post" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Empty ultimate list: " name="EmptyUltimateListIssuer_post" type="string" value="None"/> -->
+ 					<!-- <constantValue displayName="Asset class (not in): " name="AssetIssuer_post" type="string" value="Cash"/> -->
+			<!-- </constantList>	 -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule>  -->
+          <!-- <rule id="custom-rule-ContrastCapital39"> -->
+				<!-- <name>No single trade exceeding.</name> -->
+				<!-- <enabled>false</enabled> -->
+				<!-- <isDeleted>false</isDeleted> -->
+				<!-- <ruleType>PreTrade</ruleType> -->
+				<!-- <eplPath>/noSingleTrade/</eplPath> -->
+				<!-- <description> -->
+				 	<!-- No single trade exceeding 10% of assets. -->
+				<!-- </description> -->
+				<!-- <compressionLevel>Account</compressionLevel> -->
+				<!-- <validationCompletedEventName>PreTradeNoSingleTradeExceeding</validationCompletedEventName> -->
+				<!-- <outputStatementList> -->
+					<!-- <outputStatementName name="PreTradeNoSingleTradeExceeding"/> -->
+				<!-- </outputStatementList> -->
+				<!-- <windowFillerStatementList> -->
+					<!-- <windowFillerStatementName name="PreTradeNoSingleTradeExceeding"/> -->
+				<!-- </windowFillerStatementList> -->
+				<!-- <blocked>true</blocked> -->
+				<!-- <constantList> -->
+					<!-- <constantValue displayName="Select Type - Absolute (0) / %of NAV (1) :" name="Threshold_Type" type="double" value="1"/> -->
+					<!-- <constantValue displayName="Threshold :" name="Threshold_Metric" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Asset Class (exclusions)  :" name="Asset_SingleTrade" type="string" value="Cash"/> -->
+				<!-- </constantList> -->
+          <!-- </rule>  -->
+          <!-- <rule id="custom-rule-ContrastCapital40"> -->
+               <!-- <name>Maximum portfolio holding ex cash of 80</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/maxPortfolioHolding/</eplPath> -->
+               <!-- <description>Maximum portfolio holding ex cash of 80.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeMaxPortfolioHolding</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxPortfolioHolding"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxPortfolioHolding"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name: " name="Account_Position" type="String" value="Jpool 2"/> -->
+                    <!-- <constantValue displayName="MINIMUM or MAXIMUM : " name="MinOrMax" type="String" value="MAXIMUM"/> -->
+                    <!-- <constantValue displayName="Threshold:" name="Threshold_Position" type="double" value="80"/> -->
+					<!-- <constantValue displayName="Asset Classes (exclusions): " name="SecurityClass_Position" type="String" value="Cash, FXForward"/>					 -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+        <!-- </rule> -->
+        <!-- <rule id="custom-rule-ContrastCapital41"> -->
+               <!-- <name>Minimum portfolio holding ex cash of 40</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/minPortfolioHolding/</eplPath> -->
+               <!-- <description>Minimum portfolio holding ex cash of 40.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeMinPortfolioHolding</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMinPortfolioHolding"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMinPortfolioHolding"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name: " name="Account_Position_Min" type="String" value="Jpool 2"/> -->
+                    <!-- <constantValue displayName="MINIMUM or MAXIMUM : " name="MinOrMax2" type="String" value="MINIMUM"/> -->
+                    <!-- <constantValue displayName="Threshold:" name="Threshold_Position_Min" type="double" value="40"/> -->
+					<!-- <constantValue displayName="Asset Classes (exclusions): " name="SecurityClass_Position_Min" type="String" value="Cash, FXForward"/>					 -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+		<!-- </rule>  -->
+	</rules>
+</ruleConfig>

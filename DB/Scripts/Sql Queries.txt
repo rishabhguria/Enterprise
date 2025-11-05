@@ -1,0 +1,107 @@
+
+select * from T_Order where ParentClorderID='2010062312170745'
+select * from T_Sub where ParentClorderID='2010062312170745'
+select * from T_Fills where ClorderID='2010062312170745'
+
+
+select * from V_TradedOrders where ParentClorderID='2010062312170745'
+
+
+
+http://192.168.1.14:8090/NirvanaCode
+D:\NirvanaSourceCode
+
+--------------------------------------
+
+SELECT * INTO T_TradedOrders FROM V_TradedOrders where 1=2
+
+--------------------------------------
+
+USE [NirvanaClient_Perf]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER SubTrigger
+   ON  T_Sub
+   AFTER INSERT
+AS 
+BEGIN
+-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;	
+declare @CLOrderID varchar(50),@OrderTypeTagValue varchar(3),@CounterPartyID int,@VenueID int,@FundID int,@StrategyID int,@Quantity float,@Price float,@InsertionTime datetime,@MsgType varchar(10),@UserID int,@OrigClOrderID varchar(50),@ParentClOrderID varchar(50),@ClientOrderID varchar(50),@ParentClientOrderID varchar(50),@OpenClose varchar(3),@NirvanaMsgType int,@OrderID varchar(50),@SettlementDate datetime,@AlgoStrategyID varchar(50),@AlgoParameters varchar(500),@ExecutionInst varchar(50),@TimeInForce varchar(3),@HandlingInst varchar(3),@AUECLocalDate datetime,@Text varchar(200)
+	
+	select 	@CLOrderID=i.CLOrderID,@OrderTypeTagValue=i.OrderTypeTagValue,@CounterPartyID=i.CounterPartyID,@VenueID=i.VenueID,@FundID=i.FundID,@StrategyID=i.StrategyID,@Quantity=i.Quantity,@Price=i.Price,@InsertionTime=i.InsertionTime,@MsgType=i.MsgType,@UserID=i.UserID,@OrigClOrderID=i.OrigClOrderID,@ParentClOrderID=i.ParentClOrderID,@ClientOrderID=i.ClientOrderID,@ParentClientOrderID=i.ParentClientOrderID,@OpenClose=i.OpenClose,@NirvanaMsgType=i.NirvanaMsgType,@OrderID=i.OrderID,@SettlementDate=i.SettlementDate,@AlgoStrategyID=i.AlgoStrategyID,@AlgoParameters=i.AlgoParameters,@ExecutionInst=i.ExecutionInst,@TimeInForce=i.TimeInForce,@HandlingInst=i.HandlingInst,@AUECLocalDate=i.AUECLocalDate,@Text=i.Text From inserted i
+
+    UPDATE T_TradedOrders set CLOrderID=@CLOrderID,OrderTypeTagValue=@OrderTypeTagValue,CounterPartyID=@CounterPartyID,VenueID=@VenueID,FundID=@FundID,StrategyID=@StrategyID,Quantity=@Quantity,Price=@Price,InsertionTime=@InsertionTime,MsgType=@MsgType,UserID=@UserID,OrigClOrderID=@OrigClOrderID,ParentClOrderID=@ParentClOrderID,ClientOrderID=@ClientOrderID,ParentClientOrderID=@ParentClientOrderID,OpenClose=@OpenClose,NirvanaMsgType=@NirvanaMsgType,OrderID=@OrderID,SettlementDate=@SettlementDate,AlgoStrategyID=@AlgoStrategyID,AlgoParameters=@AlgoParameters,ExecutionInst=@ExecutionInst,TimeInForce=@TimeInForce,HandlingInst=@HandlingInst,AUECLocalDate=@AUECLocalDate,Text=@Text where ParentClOrderID=@ParentClOrderID
+END
+GO
+
+--------------------------------------
+
+USE [NirvanaClient_Perf]
+GO
+/****** Object:  Trigger [dbo].[OrderTrigger]    Script Date: 07/21/2010 12:29:06 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER [dbo].[OrderTrigger] 
+   ON  [dbo].[T_Order]
+   AFTER INSERT
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+    declare @ParentClOrderID varchar(50),@AUECID int,@InsertionTime datetime,@OrderSidetagValue varchar(50),@TradingAccountID varchar(50),@Symbol varchar(100)
+	select @ParentClOrderID=i.ParentClOrderID,@AUECID=i.AUECID,@InsertionTime=i.InsertionTime,@OrderSidetagValue=i.OrderSidetagValue,@TradingAccountID=i.TradingAccountID,@Symbol=i.Symbol FROM inserted i
+    insert into T_TradedOrders(ParentClOrderID,AUECID,InsertionTime,OrderSidetagValue,TradingAccountID,Symbol) values (@ParentClOrderID,@AUECID,@InsertionTime,@OrderSidetagValue,@TradingAccountID,@Symbol);
+
+END
+
+INSERT INTO T_Order values(2010071918284236,1,'20100712-12:00:00','7/19/2010 1:01:06 PM','','',1,'MSFT',11,'',0,1)
+
+--------------------------------------
+USE [NirvanaClient_Perf]
+GO
+/****** Object:  Trigger [dbo].[FillTrigger]    Script Date: 07/22/2010 11:59:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER TRIGGER [dbo].[FillTrigger]
+   ON  [dbo].[T_Fills]
+   AFTER INSERT
+AS 
+BEGIN
+-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;	
+
+declare @AveragePrice float,@CumQty float,@Price float,@NirvanaSeqNumber bigint,@OrderStatus varchar(3),@ExecType varchar(50),@LeavesQty float,@LastPx float,@LastShares float,@TransactTime varchar(50),@SettlCurrFxRate float,@SettlCurrFxRateCalc varchar(1),@AvgFxRateForTrade float,@ParentClOrderID varchar(50)
+	
+	select 	@AveragePrice=i.AveragePrice,@CumQty=i.CumQty,@Price=i.Price,@NirvanaSeqNumber=i.NirvanaSeqNumber,@OrderStatus=i.OrderStatus,@ExecType=i.ExecType,@LeavesQty=i.LeavesQty,@LastPx=i.LastPx,@LastShares=i.LastShares,@TransactTime=i.TransactTime,@SettlCurrFxRate=i.SettlCurrFxRate,@SettlCurrFxRateCalc=i.SettlCurrFxRateCalc,@AvgFxRateForTrade=i.AvgFxRateForTrade,@ParentClOrderID=(SELECT ParentClOrderID FROM T_Sub where  ClOrderID=i.ClOrderID) From inserted i
+
+    UPDATE T_TradedOrders set AvgPrice=@AveragePrice,AveragePrice=@AveragePrice,CumQty=@CumQty,Price=@Price,NirvanaSeqNumber=@NirvanaSeqNumber,OrderStatusTagValue=@OrderStatus,OrderStatus=@OrderStatus,ExecType=@ExecType,LeavesQty=@LeavesQty,LastPx=@LastPx,LastShares=@LastShares,TransactTime=@TransactTime,SettlCurrFxRate=@SettlCurrFxRate,SettlCurrFxRateCalc=@SettlCurrFxRateCalc,AvgFxRateForTrade=@AvgFxRateForTrade where ParentClOrderID=@ParentClOrderID
+END
+-----------
+
+Helpful Stored Procedures
+
+
+sp_helptext 'P_SaveOrderResponse'  :-- Displays the definition(Text or Body) of Specified Stored Procedure
+
+P_SaveOrderRequest,P_SaveGroupOrders
+ 
+
+
+
+------------
+
+
+
+
+

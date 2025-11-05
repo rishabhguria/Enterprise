@@ -1,0 +1,89 @@
+module customRules.mapleRock.preTrade.preTradeCheckSideAccountSymbol.preTradeCheckSideAccountSymbol;
+	
+@Name('AccountSymbolExistingPositionsOtherExist')
+@Description('Getting pre quantity positions sum, including InStage and InMarket taxlot type')
+on pattern [every (T = RowCalculationBaseWindowWhatIfModified)]
+insert into AccountSymbolExistingPositions
+select
+	R.symbol as symbol,
+	"RowCalculationBaseWindow" as parentWindowStream,
+	sum(R.quantity) as preQuantity,
+	R.accountId as accountId,
+	'Other Exists' as eventType
+from
+	RowCalculationBaseWindow as R
+where R.symbol = T.symbol and R.accountId = T.accountId and ((R.taxlotId <> T.taxlotId and R.taxlotType <> 'WhatIf') or (R.taxlotId = T.taxlotId and R.taxlotType = 'Post'))
+group by accountId, symbol;
+	
+
+@Name('AccountSymbolExistingPositionsAccountSymbolTaxlotNotExist')
+@Description('If symbol position is not exist in portfolio')
+insert into AccountSymbolExistingPositions
+select distinct
+	T.symbol as symbol,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream,
+	0.0 as preQuantity,
+	T.accountId as accountId,
+	'Nothing Exists' as eventType
+from
+	RowCalculationBaseWindowWhatIfModified as T
+where
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.symbol = T.symbol and S.accountId = T.accountId)	;
+	
+@Name('AccountSymbolOnlyExistingPositions')
+@Description('If symbol position is not exist in portfolio')
+insert into AccountSymbolExistingPositions
+select distinct
+	T.symbol as symbol,
+	"RowCalculationBaseWindowWhatIfModified,RowCalculationBaseWindow" as parentWindowStream,
+	0.0 as preQuantity,
+	T.accountId as accountId,
+	'Only Exists' as eventType
+from
+	RowCalculationBaseWindowWhatIfModified as T unidirectional left outer join
+	RowCalculationBaseWindow as R
+where	R.taxlotType <> 'WhatIf' and R.symbol = T.symbol and R.accountId = T.accountId and
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.symbol = T.symbol and S.accountId = T.accountId and S.taxlotId <> T.taxlotId);
+
+@Name('PreTradeDetailsAccountSymbolTaxlotExist')
+@Description('If symbol position exist in portfolio')
+insert into PreTradeDetailsAccountSymbol
+select
+	S.symbol as symbol,
+	S.preQuantity as preQuantity,
+	T.quantity as tradeQuantity,
+	(S.preQuantity + T.quantity)  as postQuantity,	
+    T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	T.accountShortName as accountShortName,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream
+from pattern
+[
+	every (T = RowCalculationBaseWindowWhatIfModified -> S = AccountSymbolExistingPositions)
+] where S.symbol = T.symbol and S.accountId = T.accountId;
+
+
+@Name('PreTradeCheckSideAccountSymbol')
+@Description('Final PreTradeCheckSideAccountSymbol stream')
+insert into PreTradeCheckSideAccountSymbol
+select
+	cast(T.userId, int) as userId,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	'N/A' || ValueSeparator || 'N/A' || ValueSeparator || doubleFormat(coalesce(T.preQuantity, 0)) || ValueSeparator || 'N/A' as threshold,
+	T.symbol || ValueSeparator || T.accountShortName || ValueSeparator || doubleFormat(coalesce(T.postQuantity, 0)) || ValueSeparator || T.orderSide as actualResult,
+	'Symbol' || ValueSeparator || 'Account' || ValueSeparator || 'Quantity' || ValueSeparator || 'OrderSide' as constraintField,
+	exprIsInvalidSide(T) as isViolated,
+	'Order Side: '|| T.orderSide || 
+	', Symbol: '|| T.symbol ||
+	', Account: '|| T.accountShortName ||
+	', Quantity before trade: '|| doubleFormat(coalesce(T.preQuantity, 0)) ||
+	', Order quantity: '|| doubleFormat(coalesce(T.tradeQuantity, 0)) ||
+	', Quantity if trade is executed: '|| doubleFormat(coalesce(T.postQuantity, 0)) as parameters,
+	current_timestamp as validationTime,
+	'The Order Side ' || T.orderSide || ' is invalid for this trade' as summary,
+	T.accountShortName|| '-' || T.symbol as dimension
+from
+	PreTradeDetailsAccountSymbol as T;

@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="RuleDetails" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="RuleDetails" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Rule">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Parameter" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="xs:string" />
+                  <xs:attribute name="Type" type="xs:string" />
+                  <xs:attribute name="IsIncluded" type="xs:boolean" />
+				  <xs:attribute name="ErrorTolerance" type="xs:double" />
+                  <xs:attribute name="IsRoundOff" type="xs:boolean" />
+				  <xs:attribute name="RoundDigits" type="xs:integer" />
+                  <xs:attribute name="IsIntegral" type="xs:boolean" />
+                  <xs:attribute name="IsPercentMatch" type="xs:boolean" />				  
+				  <xs:attribute name="IsAbsoluteMatch" type="xs:boolean" />
+				  <xs:attribute name="AbsoluteDifference" type="xs:double" />
+				  <xs:attribute name="mismatchExactReconColumn" type="xs:boolean" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string" />
+            <xs:attribute name="ReconType" type="xs:string" />
+			<xs:attribute name="SP" type="xs:string" />
+            <xs:attribute name="IsVisible" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

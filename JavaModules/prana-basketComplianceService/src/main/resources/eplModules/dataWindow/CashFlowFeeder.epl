@@ -1,0 +1,81 @@
+module eplModules.dataWindow.CashFlowFeeder;
+
+@Name('CashFlowWindow')
+@Description('Named window which store day end cash for each account.')
+create window CashFlowWindow.std:unique(accountId)
+(
+			accountId int,
+			cashAmount double,
+			accountShortName string,
+			masterFundId int,
+			masterFundName string
+); 
+
+@Name('CashFlowWindowInsert')
+@Description('This updates the CashFlowWindow every time new CashFlow.')
+on pattern [every(s=CashFlow) or every(f=AccountCollection)]  
+merge CashFlowWindow sw where sw.accountId = coalesce(s.accountId,f.accountId)
+	when matched and 
+	(			
+			 	sw.cashAmount <> s.cashAmount or 
+				sw.accountShortName <> f.accountShortName or
+				sw.masterFundId <> f.masterFundId or
+				sw.masterFundName <> f.masterFundName 
+	)
+		then 
+			update 
+				set  
+				sw.cashAmount = coalesce(s.cashAmount,sw.cashAmount,0), 
+				sw.accountShortName = coalesce(sw.accountShortName,f.accountShortName),
+				sw.masterFundId = coalesce(sw.masterFundId,f.masterFundId),
+				sw.masterFundName = coalesce(sw.masterFundName,f.masterFundName)
+		then insert into CashFlowWindowUpdated
+			select 
+				sw.accountId as accountId,
+				sw.cashAmount as cashAmount,
+				sw.accountShortName as accountShortName,
+				sw.masterFundId as masterFundId,
+				sw.masterFundName as masterFundName
+					
+	when not matched
+		then insert 
+			select    	
+		   	coalesce(f.accountId,s.accountId) as accountId,
+			coalesce(s.cashAmount,0.0) as cashAmount, 
+			f.accountShortName as accountShortName,
+	 		f.masterFundId as masterFundId,
+	 		f.masterFundName as masterFundName
+	 		
+	 	then insert into DayEndCashWindowUpdated
+			select 
+			coalesce(f.accountId,s.accountId) as accountId,
+			coalesce(s.cashAmount,0.0) as cashAmount, 
+			f.accountShortName as accountShortName,
+	 		f.masterFundId as masterFundId,
+	 		f.masterFundName as masterFundName;
+
+@Name('CashFlowWindowInsert')
+@Description('This updates the CashFlowWindow every time new CashFlow from TT/PTT.')
+on ResetCashFlowWindow as s
+update CashFlowWindow as sw 
+	set  
+	 sw.cashAmount = 0.0;
+
+		 				 		
+@Name('CashFlowMasterFundWindow')
+@Description('Named window which store day end cash for each masterFund.')
+create window CashFlowMasterFundWindow.std:unique(masterFundId)
+(
+			masterFundId int,
+			cashAmount double,
+			masterFundName string
+);
+
+@Name('CashFlowMasterFundWindowInsert')
+@Description('This inserts the data from CashFlowWindow to DayEndCashMasterFundWindow')
+insert into CashFlowMasterFundWindow 
+select 
+		   	DF.masterFundId as masterFundId,
+			sum(DF.cashAmount) as cashAmount, 
+			DF.masterFundName as masterFundName
+from CashFlowWindow as DF;

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AppSettings>
+	<!--	OriginatorType
+			"0" means two way session,
+			"3" means DropCopy session,
+			"4" means Allocations session-->
+
+	<!--	BrokerConnectionType (only used with OriginatorType = "4")
+			"1" means SendOnly, 
+			"2" means SendAndConfirmBack-->
+
+	<CounterPartyConnectionDetails host="localhost" >
+		<!--DropCopy Session-->
+		<!--<CounterParty	OriginatorType="3" CounterPartyID ="1" CounterPartyName="Party1"  SenderCompID="DevLocal1" TargetCompID="Simulator1"  Port="7001" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />-->
+
+		<!--Two way Session - CameronSimulator-->
+		<CounterParty	OriginatorType="0" CounterPartyID ="2" CounterPartyName="Party2"  SenderCompID="DevLocal2" TargetCompID="Simulator2"  Port="7002" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />
+		<!--<CounterParty	OriginatorType="0" CounterPartyID ="3" CounterPartyName="Party3"  SenderCompID="DevLocal3" TargetCompID="Simulator3"  Port="7003" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />-->
+
+		<!--Two way Session - New FixSim (FIXHUB) using CameronSimulator-->
+		<!--<CounterParty	OriginatorType="0" CounterPartyID ="4" CounterPartyName="Party4"  SenderCompID="NIRVANA_DevLocal1_India" TargetCompID="NIRVANA_FH_FIXSIM1"  Port="7005" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />-->
+		<!--<CounterParty	OriginatorType="0" CounterPartyID ="5" CounterPartyName="Party5"  SenderCompID="NIRVANA_DevLocal2_India" TargetCompID="NIRVANA_FH_FIXSIM2"  Port="7006" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />-->
+		<!--<CounterParty	OriginatorType="0" CounterPartyID ="6" CounterPartyName="Party6"  SenderCompID="NIRVANA_DevLocal3_India" TargetCompID="NIRVANA_FH_FIXSIM3"  Port="7007" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />-->
+		<!--<CounterParty	OriginatorType="0" CounterPartyID ="7" CounterPartyName="Party7"  SenderCompID="NIRVANA_DevLocal4_India" TargetCompID="NIRVANA_FH_FIXSIM4"  Port="7008" DeliverToCompID ="" TargetSubID ="" Symbology="0" FIXDllName="Prana.FixAdapters.dll,Prana.FixAdapters.CameronFixAdapter" ResetTime="06:00:00 PM" />-->
+	</CounterPartyConnectionDetails>
+</AppSettings>

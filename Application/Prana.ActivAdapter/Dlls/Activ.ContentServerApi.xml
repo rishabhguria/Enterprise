@@ -1,0 +1,1612 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Activ.ContentServerApi</name>
+    </assembly>
+    <members>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator">
+            <summary>
+            Base validator for update messages.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.TableNumber">
+            <summary>
+            The table number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.UpdateId">
+            <summary>
+            Get the update id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.PermissionId">
+            <summary>
+            The permission id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.EventType">
+            <summary>
+            The event type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.IsDelete">
+            <summary>
+            Is this a delete message?
+            </summary>
+            <returns>whether this is a delete message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.IsNewRecord">
+            <summary>
+            Is this a new record?
+            </summary>
+            <returns>whether this is a new record.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.IsStale">
+            <summary>
+            Is this a stale message?
+            </summary>
+            <returns>whether this is a stale message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.IsRefresh">
+            <summary>
+            Is this a refresh message?
+            </summary>
+            <returns>whether this is a refresh message.</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.MessageValidator">
+            <summary>
+            Message validator
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.Reset(ActivFinancial.Middleware.ActivBase.MessageValidator)">
+            <summary>
+            Reset.
+            </summary>
+            <param name="messageValidator"></param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.GetField(System.Int32,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Find a field by field id.
+            BaseUpdateMessageValidator is not designed for random access to fields by field id.
+            This function performs a linear search through the fields so should be used only in exceptional circumstances!
+            </summary>
+            <param name="fieldId">the field to search for.</param>
+            <param name="length">length</param>
+            <param name="offset">offset</param>
+            <param name="fieldDataOffset">data offset</param>
+            <returns>StatusCodeSuccess or StatusCodeNotFound field id not found.</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.FieldData">
+            <summary>
+            pointer to start of field data.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.FieldDataOffset">
+            <summary>
+            Get field data offset.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.ValidateFieldList">
+            <summary>
+            Validate field list.
+            </summary>
+            <returns>StatusCodeSuccess, StatusCodeNotInitialized</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.NumberOfFields">
+            <summary>
+            number of fields
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.GetEnumerator">
+            <summary>
+            Returns an iterator over a list of Fields
+            </summary>
+            <returns>an iterator</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an iterator over a list of Fields
+            </summary>
+            <returns>an iterator</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ClientCallbacks.IRealtimeCallback">
+            <summary>
+            Callback interface for the Content Server API
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ClientCallbacks.IRealtimeCallback.OnSymbolRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate)">
+            <summary>
+            Called on receiving a symbol record update.
+            The message can be deserialized using FieldListValidator.Initialize() or ApplyUpdate().
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="symbolRecordUpdate">the object containing the record update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ClientCallbacks.IRealtimeCallback.OnRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate)">
+            <summary>
+            Called on receiving a record update.
+            The message can be deserialized using FieldListValidator.Initialize() or ApplyUpdate().
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="recordUpdate">the object containing the record update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ClientCallbacks.IRealtimeCallback.OnRegionalQuoteUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.RegionalQuoteUpdate)">
+            <summary>
+            Called on receiving a regional quote update.
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="regionalQuoteUpdate">the object containing the update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ClientCallbacks.IRealtimeCallback.OnCompositeQuoteUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.CompositeQuoteUpdate)">
+            <summary>
+            Called on receiving a composite quote update.
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="compositeQuoteUpdate">the object containing the update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuoteUpdate">
+            <summary>
+            Combined quote update class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuoteUpdate.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuoteUpdate.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="contentServerMessageValidator">reference to the base update message validator.</param>
+            <param name="symbol">symbol.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuoteUpdate.Initialize(ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator,System.String)">
+            <summary>
+            Initialize method.
+            </summary>
+            <param name="contentServerMessageValidator">reference to the base update message validator.</param>
+            <param name="symbol">symbol.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuoteUpdate.Symbol">
+            <summary>
+            The symbol.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions">
+            <summary>
+            Combined quote update message header definitions class.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.RegionalSideState">
+            <summary>
+            State of a regional side field set.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.RegionalSideState.RegionalSideStateUnchanged">
+            <summary>
+            Side has not changed (and not present in message).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.RegionalSideState.RegionalSideStatePresent">
+            <summary>
+            Side has values (and is present in message).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.RegionalSideState.RegionalSideStateUndefined">
+            <summary>
+            Side is fully undefined (and not present in message).
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeSideState">
+            <summary>
+            State of a composite side field set.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeSideState.CompositeSideStateUnchanged">
+            <summary>
+            Side has not changed (and not present in message).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeSideState.CompositeSideStateUseRegional">
+            <summary>
+            Side is same as corresponding regional side (with exception of price trending).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeSideState.CompositeSideStateUndefined">
+            <summary>
+            Side is undefined (and not present in message).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeSideState.CompositeSideStateUseAppendage">
+            <summary>
+            Use appendage.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.FlagsBitmap">
+            <summary>
+            Flags bits for HeaderBitmap.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.FlagsBitmap.IsStale">
+            <summary>
+            Regional is stale?
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.FlagsBitmap.HasSequenceNumber">
+            <summary>
+            Body contains sequence number?
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.Header2Bitmap">
+            <summary>
+             Second header bitmap.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.Header2Bitmap.IsOpra">
+            <summary>
+            For TABLE_NO_US_EQUITY_OPTION?
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.Header2Bitmap.AskFieldsState">
+            <summary>
+            RegionalSideState for ask side.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.Header2Bitmap.BidFieldsState">
+            <summary>
+            RegionalSideState for bid side.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.Header2Bitmap.HasCompositeBitmap">
+            <summary>
+            CompositeBitmap present in message?
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.Header2Bitmap.HasNanosecondTime">
+            <summary>
+            Time field is 6 byte encoded nanoseconds (milliseconds otherwise)
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.PriceFieldHeader">
+            <summary>
+            Header for a price field (Rational header).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.PriceFieldHeader.DenominatorCode">
+            <summary>
+            Rational.Denominator value.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.PriceFieldHeader.Length">
+            <summary>
+            log2(numerator length).
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.PriceFieldHeader.Sign">
+            <summary>
+            Numerator sign.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeBitmap">
+            <summary>
+            Composite flags bitmap.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeBitmap.IsStale">
+            <summary>
+            Composite is stale?
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeBitmap.AskFieldsState">
+            <summary>
+            CompositeSideState for ask side.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.CompositeBitmap.BidFieldsState">
+            <summary>
+            CompositeSideState for bid side.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.IsValidMessageType(System.Byte)">
+            <summary>
+            Is the message type in a header valid?
+            </summary>
+            <param name="messageHeader">message header.</param>
+            <returns>true if valid message type.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageHeaderDefinitions.IsStale(System.Byte)">
+            <summary>
+            Is the stale bit set in a header?
+            </summary>
+            <param name="messageHeader">message header.</param>
+            <returns>true if the stale bit set in a header.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator">
+            <summary>
+            Validator for combined quote update message.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.Stats">
+            <summary>
+            Stats.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.Stats.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.Stats.Reset">
+            <summary>
+            Clear down stats.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.FieldHeader">
+            <summary>
+            Field header helper.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.SizeField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format size field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.PriceField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format price field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ExchangeField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format exchange field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ExchangeField.Set(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Set exchange values
+            </summary>
+            <param name="body">body</param>
+            <param name="offset">offset</param>
+            <param name="length">length</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ConditionField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format condition field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.RegionalSide">
+            <summary>
+            Regional quote side.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.CompositeSide">
+            <summary>
+            Composite quote side.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.DateField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format date field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.SequenceNumberField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format sequence number field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.TimeField">
+            <summary>
+            Helper for validation of CombinedQuoteUpdateMessage format time field, and generation of (Symbol)UpdateMessage format.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.getStats">
+            Get stats.
+            @return stats.
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.State">
+            <summary>
+            State
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.IsOpra">
+            <summary>
+            Is this Opra update?
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.HasNanosecondTime">
+            <summary>
+            Has nanosecond time?
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.SymbolLength">
+            <summary>
+            Symbol length.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.CommonSymbolLength">
+            <summary>
+            Common symbol length.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.TableNumber">
+            <summary>
+            The table number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.SequenceNumber">
+            <summary>
+            The sequence number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.MessageValidator">
+            <summary>
+            Message validator.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState">
+            <summary>
+            Validation states.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState.StateError">
+            <summary>
+            Validation has failed.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState.StateInit">
+            <summary>
+            Nothing validated.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState.StateSequenceNumber">
+            <summary>
+            Validated up-to and including sequence number.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState.StateCompositePermissionId">
+            <summary>
+            validated up-to and including composite flags.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState.StateAll">
+            <summary>
+            Validated everything.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.Initialize(ActivFinancial.Middleware.ActivBase.MessageValidator)">
+            <summary>
+            Initialize.
+            </summary>
+            <param name="messageValidator">message validator.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.RegionalValidator">
+            <summary>
+            Regional validator.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.CompositeValidator">
+            <summary>
+            Composite validator.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.SetErrorState(ActivFinancial.Middleware.StatusCode)">
+            <summary>
+            Set error state.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidateTo(ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.ValidationState)">
+            Continue validation to at least a given state.
+            @param newState new state to validate to.
+            @throws MiddlewareException 
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.IsRegionalPresent">
+            	@brief	Includes regional?
+            
+            	@retval	STATUS_CODE_SUCCESS has a composite.
+            	@retval	STATUS_CODE_IGNORED does not have a composite.
+            	@retval	... validation failed.
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator.IsCompositePresent">
+            	@brief	Includes composite?
+            
+            	@retval	STATUS_CODE_SUCCESS has a regional.
+            	@retval	STATUS_CODE_IGNORED does not have a regional.
+            	@retval	... validation failed.
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CompositeValidator">
+            <summary>
+            Composite quote validator.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CompositeValidator.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="combinedQuoteUpdateMessageValidator">combined quote update message validator.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CompositeValidator.Symbol">
+            <summary>
+            Symbol
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.RegionalValidator">
+            <summary>
+            Regional quote validator.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.RegionalValidator.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="combinedQuoteUpdateMessageValidator">combined quote update message validator.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.RegionalValidator.Symbol">
+            <summary>
+            Symbol.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator">
+            <summary>
+            The base for regional and composite validators. Provides a largely similar interface to BaseUpdateMessageValidator.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.CombinedQuoteUpdateMessageValidator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="combinedQuoteUpdateMessageValidator">combined quote update message validator.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.Reset">
+            <summary>
+            Reset.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.TableNumber">
+            <summary>
+            The table number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.UpdateId">
+            <summary>
+            The update id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.PermissionId">
+            <summary>
+            Permission id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.EventType">
+            <summary>
+            The event type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.IsDelete">
+            <summary>
+            Is this a delete message?
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.IsNewRecord">
+            <summary>
+            Is this a new record?
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.IsStale">
+            <summary>
+            Is this a stale message?
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.IsRefresh">
+            <summary>
+            Is this a refresh message?
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.MessageValidator">
+            <summary>
+            Message validator.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.GetField(System.Int32,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Find a field by field id.
+            BaseUpdateMessageValidator is not designed for random access to fields by field id.
+            This function performs a linear search through the fields so should be used only in exceptional circumstances!
+            </summary>
+            <param name="fieldId">the field to search for.</param>
+            <param name="length">length</param>
+            <param name="offset">offset</param>
+            <param name="fieldDataOffset">data offset</param>
+            <returns>StatusCodeSuccess or StatusCodeNotFound field id not found.</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.FieldData">
+            <summary>
+            Field data.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.FieldDataLength">
+            <summary>
+            Field data length.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CombinedQuote.Validator.getGreatestTimeResolution">
+            <summary>
+            What is the greatest time resolution stored in this field list?
+            Assumes (and therefore doesn't check) that ValidateFieldList() has been called and succeeded.
+            </summary>
+            <returns>The greatest contained DateTime/Time Resolution.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.CompositeQuoteUpdate">
+            <summary>
+            Composite quote update.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CompositeQuoteUpdate.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.CompositeQuoteUpdate.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="contentServerMessageValidator">reference to the base update message validator.</param>
+            <param name="symbol">symbol.</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient">
+            <summary>
+            Content server client class.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.RealtimeCallback">
+            <summary>
+            real-time callback to be fired on events back to the container
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.#ctor(ActivFinancial.Middleware.Application.ActivApplication,ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.Settings)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="application">Activ application</param>
+            <param name="settings">settings</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats">
+            <summary>
+            Message Stats
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats.Name">
+            <summary>
+            Name of the feed handler.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats.ReceivedUpdateCount">
+            <summary>
+            Number of received messages.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats.UnrecognizedUpdateCount">
+            <summary>
+            Number of unrecognized messages.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats.TotalProcessedCount">
+            <summary>
+            Total processed from the number received.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats.TotalIgnoredCount">
+            <summary>
+            Total ingored from the number received.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStats.TotalErrorCount">
+            <summary>
+            Total failed to process from the number received.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilter">
+            <summary>
+            Update Filter.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilter.EventTypeList">
+            <summary>
+            The event type list.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilter.TableNumberList">
+            <summary>
+            The table number list.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilter.SymbolPatternList">
+            <summary>
+            The symbol pattern list.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilterMap">
+            <summary>
+            Update filter map class.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilterMap.Name">
+            <summary>
+            Name of the feed handler.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilterMap.FilterMap">
+            <summary>
+            The update filter map.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.Settings">
+            <summary>
+            Settings for ContentServerClient class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.GetApiInfo">
+            <summary>
+            returns Api information, including build time and version.
+            </summary>
+            <returns>ApiInfo</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.MessageStatsList">
+            <summary>
+            the list of message statistics for each feed.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.TotalMessageStats">
+            <summary>
+            the total message statistics from each feed.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.Logon(System.String,System.String)">
+            <summary>
+            Attempt to process the logon and begin receiving updates.
+            </summary>
+            <param name="userId">the user id.</param>
+            <param name="password">the password.</param>
+            <returns>StatusCodeSuccess, StatusCodeAlreadyConnected, StatusCodeInvalidUser, StatusCodeInvalidPassword, StatusCodeExpired</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.Logoff">
+            <summary>
+            Logoff from the server (i.e. no longer process the updates).
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.PermissionInfo">
+            <summary>
+            the permission information.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.AddUpdateFilter(ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilter,System.Int32@,System.String)">
+            <summary>
+            Add an update filter.
+            </summary>
+            <param name="updateFilter">the update filter.</param>
+            <param name="subscriptionCookie">the subscription cookie.</param>
+            <param name="providerName">the name of the feed to filter on (default of empty will filter on all feeds).</param>
+            <returns>StatusCodeSuccess or StatusCodeAlreadyExists</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.RemoveUpdateFilter(System.Int32)">
+            <summary>
+            Remove an update filter.
+            </summary>
+            <param name="subscriptionCookie">the subscription cookie to remove.</param>
+            <returns>StatusCodeSuccess, StatusCodeNotFound</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.OnSymbolRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate)">
+            <summary>
+            Called on receiving a symbol record update.
+            The message can be deserialized using PermissionFieldListValidator.Initialize() or ApplyUpdate().
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="symbolRecordUpdate">the object containing the record update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.OnRegionalQuoteUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.RegionalQuoteUpdate)">
+            <summary>
+            Called on receiving a regional quote update.
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="regionalQuoteUpdate">the object containing the update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.OnCompositeQuoteUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.CompositeQuoteUpdate)">
+            <summary>
+            Called on receiving a composite quote update.
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="compositeQuoteUpdate">the object containing the update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.OnRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate)">
+            <summary>
+            Called on receiving a record update.
+            The message can be deserialized using PermissionFieldListValidator.Initialize() or ApplyUpdate().
+            </summary>
+            <param name="providerName">the provider name.</param>
+            <param name="recordUpdate">the object containing the record update data.</param>
+            <returns>StatusCodeSuccess or StatusCodeIgnored</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.ProcessUserRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            Process user record update.
+            </summary>
+            <param name="updateMessageValidator">message validator</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.ProcessPermissionRecordUpdate(ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            Process user record update.
+            </summary>
+            <param name="updateMessageValidator">message validator</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.Terminate">
+            <summary>
+            Terminate the component
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.Arbitrator.Terminate">
+            <summary>
+            Terminate the component
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerFeedComponentHandlerGroup.Terminate">
+            <summary>
+            Terminate the component
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerInput">
+            <summary>
+            Content server input class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerInput.#ctor(ActivFinancial.Middleware.Communication.UdpInput.Settings,ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.Arbitrator)">
+            <summary>
+            Create an input object.
+            </summary>
+            <param name="settings">the object's settings.</param>
+            <param name="arbitrator">the arbitrator.</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput">
+            <summary>
+            Content server output class.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.FeedComponentHandler">
+            <summary>
+            the feed component handle this object belongs to.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.UpdateFilterList">
+            <summary>
+            The update filter list.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.MessageStats">
+            <summary>
+            Message stats
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.UpdateFilterMap">
+            <summary>
+            Update filters class.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.UpdateFilterMap.Name">
+            <summary>
+            Name of the feed handler.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.UpdateFilterMap.FilterMap">
+            <summary>
+            The update filter map.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.FeedComponentHandler,ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient)">
+            <summary>
+            Create an input object.
+            </summary>
+            <param name="feedComponentHandler">the feed component handle this object belongs to.</param>
+            <param name="contentServerClient">the content server client.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.AddUpdateFilter(ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.UpdateFilter,System.Int32,System.String)">
+            <summary>
+            Add an update filter.
+            </summary>
+            <param name="updateFilter">the update filter.</param>
+            <param name="subscriptionCookie">the subscription cookie.</param>
+            <param name="providerName">provider name</param>
+            <returns>StatusCodeSuccess, StatusCodeAlreadyExists</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.RemoveUpdateFilter(System.Int32)">
+            <summary>
+            Remove an update filter.
+            </summary>
+            <param name="subscriptionCookie">the subscription cookie to remove.</param>
+            <returns>StatusCodeSuccess, StatusCodeNotFound</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.ContentServerOutput.GetUpdateFilterMap">
+            <summary>
+            Get the update filter map.
+            </summary>
+            <returns>the update filter map.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.FeedComponentHandler.Terminate">
+            <summary>
+            Terminate the component
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Feedhandler.FeedHandler.Terminate">
+            <summary>
+            Terminate the component
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.FieldListValidator">
+            <summary>
+            Field list validator class.
+            Note this class is not thread safe. Do not make concurrent calls to its methods from multiple threads.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.FieldListValidator.Initialize(ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate)">
+            <summary>
+            Initialize.
+            This call clears any fields currently in this object. New fields are then added from the a fieldData object.
+            </summary>
+            <param name="recordUpdate">object containing serialized field data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.FieldListValidator.Initialize(ActivFinancial.ContentPlatform.ContentServerApi.ISymbolRecordUpdate)">
+            <summary>
+            Initialize.
+            This call clears any fields currently in this object. New fields are then added from the fieldData object.
+            </summary>
+            <param name="symbolRecordUpdate">object containing serialized field data.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.Filters.UpdateFilterList">
+            <summary>
+            Update filter list class
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Filters.UpdateFilterList.AddUpdateFilter(ActivFinancial.ContentPlatform.ContentServerApi.Filters.ApiUpdateFilter,System.Int32)">
+            <summary>
+            Add an update filter.
+            </summary>
+            <param name="updateFilter">the update filter.</param>
+            <param name="subscriptionCookie">the subscription cookie.</param>
+            <returns>StatusCodeSuccess, StatusCodeAlreadyExists</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Filters.UpdateFilterList.RemoveUpdateFilter(System.Int32)">
+            <summary>
+            Remove an update filter.
+            </summary>
+            <param name="subscriptionCookie">the subscription cookie to remove.</param>
+            <returns>StatusCodeSuccess, StatusCodeNotFound</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Filters.UpdateFilterList.UpdateFilterMap">
+            <summary>
+            Update filter map
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Filters.UpdateFilterList.IsMatch(System.Byte,System.Int32,System.String)">
+            <summary>
+            Is match taking a string.
+            </summary>
+            <param name="eventType">the event type to match against.</param>
+            <param name="tableNumber">the table number to match against.</param>
+            <param name="symbol">the symbol to match against.</param>
+            <returns>boolean</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient">
+            <summary>
+            Interface for the Content Server Client
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.IsUserLoggedOn">
+            <summary>
+            True if user is logged in
+            </summary>
+            <returns>true if user is logged in.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.HandleRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate)">
+            <summary>
+            Invoked on a record update
+            </summary>
+            <param name="name">name of the provider</param>
+            <param name="recordUpdate">record update info.</param>
+            <returns>StatusCode of the update</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.HandleSymbolRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate)">
+            <summary>
+            Invoked on a symbol record update
+            </summary>
+            <param name="name">name of the provider</param>
+            <param name="symbolRecordUpdate">symbol record update info.</param>
+            <returns>StatusCode of the update</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.ProcessUserRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            rocess update of the user credentials.
+            </summary>
+            <param name="userId">id of the user</param>
+            <param name="updateMessageValidator">message validator</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.ProcessPermissionRecordUpdate(ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            Process update of the permissions data.
+            </summary>
+            <param name="updateMessageValidator">message validator</param>
+            <returns>StatusCode of the update</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.HandleRegionalQuoteUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.RegionalQuoteUpdate)">
+            <summary>
+            Handle regional quote update.
+            </summary>
+            <param name="name">name of the provider</param>
+            <param name="regionalQuoteUpdate">regional quote update.</param>
+            <returns>StatusCode of the update</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerClient.HandleCompositeQuoteUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.CompositeQuoteUpdate)">
+            <summary>
+            Handle composite quote update.
+            </summary>
+            <param name="name">name of the provider</param>
+            <param name="compositeQuoteUpdate">composite quote update.</param>
+            <returns>StatusCode of the update</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator">
+            <summary>
+            Message validator interface.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.TableNumber">
+            <summary>
+            The table number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.UpdateId">
+            <summary>
+            Get the update id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.PermissionId">
+            <summary>
+            The permission id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.EventType">
+            <summary>
+            The event type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.IsDelete">
+            <summary>
+            Is this a delete message?
+            </summary>
+            <returns>whether this is a delete message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.IsNewRecord">
+            <summary>
+            Is this a new record?
+            </summary>
+            <returns>whether this is a new record.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.IsStale">
+            <summary>
+            Is this a stale message?
+            </summary>
+            <returns>whether this is a stale message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.IsRefresh">
+            <summary>
+            Is this a refresh message?
+            </summary>
+            <returns>whether this is a refresh message.</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.MessageValidator">
+            <summary>
+            Message validator
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator.GetField(System.Int32,System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Find a field by field id.
+            BaseUpdateMessageValidator is not designed for random access to fields by field id.
+            This function performs a linear search through the fields so should be used only in exceptional circumstances!
+            </summary>
+            <param name="fieldId">the field to search for.</param>
+            <param name="length">length</param>
+            <param name="offset">offset</param>
+            <param name="fieldDataOffset">data offset</param>
+            <returns>StatusCodeSuccess or StatusCodeNotFound field id not found.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate">
+            <summary>
+            Record update interface.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.TableNumber">
+            <summary>
+            The table number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.UpdateId">
+            <summary>
+            Get the update id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.PermissionId">
+            <summary>
+            The permission id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.EventType">
+            <summary>
+            The event type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.IsDelete">
+            <summary>
+            Is this a delete message?
+            </summary>
+            <returns>whether this is a delete message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.IsNewRecord">
+            <summary>
+            Is this a new record?
+            </summary>
+            <returns>whether this is a new record.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.IsStale">
+            <summary>
+            Is this a stale message?
+            </summary>
+            <returns>whether this is a stale message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.IsRefresh">
+            <summary>
+            Is this a refresh message?
+            </summary>
+            <returns>whether this is a refresh message.</returns>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.IRecordUpdate.ContentServerMessageValidator">
+            <summary>
+            IContentServerMessageValidator interface.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.ISymbolRecordUpdate">
+            <summary>
+            Symbol record update interface.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.ISymbolRecordUpdate.Symbol">
+            <summary>
+            The symbol.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.IVisitor`1">
+            <summary>
+            Visitor interface.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.IVisitor`1.Visit(`0)">
+            <summary>
+            Visit object.
+            </summary>
+            <param name="o">the object to visit.</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.KeyField">
+            <summary>
+            Key field class
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.KeyField.#ctor(System.Int32,ActivFinancial.Middleware.FieldTypes.IFieldType)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="fieldId">field id</param>
+            <param name="fieldType">field type</param>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.KeyField.FieldId">
+            <summary>
+            Field id
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.KeyField.FieldType">
+            <summary>
+            Field type
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.KeyFieldListValidator">
+            <summary>
+            Key field list validator class.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.KeyFieldListValidator.KeyFields">
+            <summary>
+            Iterator to the fields in the message.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.KeyFieldListValidator.Reset">
+            <summary>
+            Reset.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.KeyFieldListValidator.Initialize(ActivFinancial.Middleware.ActivBase.MessageValidator,System.Int32)">
+            <summary>
+            Initialize.
+            </summary>
+            <param name="messageValidator">message validator.</param>
+            <param name="numberOfKeyFields">number of fields </param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.Message">
+            <summary>
+            Message class. 
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Message.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.Message.Set(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Set
+            </summary>
+            <param name="message">byte array</param>
+            <param name="offset">offset</param>
+            <param name="length">length</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Message.Length">
+            <summary>
+            length
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Message.Msg">
+            <summary>
+            message
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.Message.Offset">
+            <summary>
+            offset
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate">
+            <summary>
+            Record update class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="updateMessageValidator">reference to the update message validator.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdate.IndexNumber">
+            <summary>
+            Index number.
+            </summary>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper">
+            <summary>
+            Record update helper class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.Initialize(ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator)">
+            <summary>
+            initialize method
+            </summary>
+            <param name="contentServerMessageValidator">reference to the message validator.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.ContentServerMessageValidator">
+            <summary>
+            IContentServerMessageValidator interface.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.TableNumber">
+            <summary>
+            The table number.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.UpdateId">
+            <summary>
+            The update id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.PermissionId">
+            <summary>
+            Get the permission id.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.EventType">
+            <summary>
+            Get the event type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.IsDelete">
+            <summary>
+            Is this a delete message?
+            </summary>
+            <returns>whether this is a delete message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.IsNewRecord">
+            <summary>
+            Is this a new record?
+            </summary>
+            <returns>whether this is a new record.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.IsStale">
+            <summary>
+            Is this a stale message?
+            </summary>
+            <returns>whether this is a stale message.</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RecordUpdateHelper.IsRefresh">
+            <summary>
+            Is this a refresh message?
+            </summary>
+            <returns>whether this is a refresh message.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.RegionalQuoteUpdate">
+            <summary>
+            Regional quote update.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RegionalQuoteUpdate.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.RegionalQuoteUpdate.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.IContentServerMessageValidator,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="contentServerMessageValidator">reference to the base update message validator.</param>
+            <param name="symbol">symbol</param>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate">
+            <summary>
+            Symbol record update class.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate.#ctor(ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="baseUpdateMessageValidator">reference to the base update message validator.</param>
+            <param name="symbol">reference to the symbol.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate.Initialize(ActivFinancial.ContentPlatform.ContentServerApi.BaseUpdateMessageValidator,System.String)">
+            <summary>
+            initialize method
+            </summary>
+            <param name="baseUpdateMessageValidator">reference to the base update message validator.</param>
+            <param name="symbol">reference to the symbol.</param>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.SymbolRecordUpdate.Symbol">
+            <summary>
+            Symbol.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageHeaderDefinitions.MsgeType">
+            <summary>
+            The message type.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageHeaderDefinitions.GetMessageHeader(System.Boolean,System.Boolean)">
+            <summary>
+            Get message header.
+            </summary>
+            <param name="isDelete">is delete flag.</param>
+            <param name="isStale">is stale flag.</param>
+            <returns>message header.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageValidator">
+            <summary>
+            Validator for symbol update message.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageValidator.FieldDataLength">
+            <summary>
+            field data length
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageValidator.SymbolLength">
+            <summary>
+            symbol length
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageValidator.Symbol">
+            <summary>
+            the symbol.
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageValidator.Initialize(ActivFinancial.Middleware.ActivBase.MessageValidator)">
+            <summary>
+            Initialize.
+            </summary>
+            <param name="messageValidator">message validator.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.SymbolUpdateMessageValidator.Reset(ActivFinancial.Middleware.ActivBase.MessageValidator)">
+            <summary>
+            Reset.
+            </summary>
+            <param name="messageValidator"></param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageHeaderDefinitions.getMessageHeader(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Get message header.
+            </summary>
+            <param name="isDelete">is delete flag.</param>
+            <param name="isStale">is stale flag.</param>
+            <param name="isRefresh">is refresh flag.</param>
+            <returns>message header.</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator">
+            <summary>
+            Validator for update message with multiple key fields.
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator.IndexNumber">
+            <summary>
+            index number
+            </summary>
+        </member>
+        <member name="P:ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator.FieldDataLength">
+            <summary>
+            Field data length
+            </summary>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator.Initialize(ActivFinancial.Middleware.ActivBase.MessageValidator)">
+            <summary>
+            Initialize.
+            </summary>
+            <param name="messageValidator">message validator.</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator.Reset(ActivFinancial.Middleware.ActivBase.MessageValidator)">
+            <summary>
+            Reset.
+            </summary>
+            <param name="messageValidator"></param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.Initialize(ActivFinancial.Middleware.Application.ActivApplication,ActivFinancial.ContentPlatform.ContentServerApi.ContentServerClient.Settings)">
+            <summary>
+            Initialize the component
+            </summary>
+            <param name="application">application</param>
+            <param name="settings">settings</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.ValidateUser(System.String,System.String)">
+            <summary>
+            Validate the user by id and password
+            </summary>
+            <param name="userId">user id</param>
+            <param name="password">password</param>
+            <returns>StatusCodeSuccess if the user is valid</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.ValidateUserPermissions(System.String,System.Int32,System.Byte,ActivFinancial.ContentPlatform.ContentGatewayApi.FieldListValidator,System.Collections.Generic.IDictionary{System.Int32,System.Boolean})">
+            <summary>
+            Validate user permissions
+            </summary>
+            <param name="userId">user id.</param>
+            <param name="permissionId">id of the permission</param>
+            <param name="permissionLevel">level of permissions</param>
+            <param name="flv">field list validator</param>
+            <param name="permissionedFieldIds">fieldIds that the user has the permission for.</param>
+            <returns>StatusCodeSuccess if the user is valid</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.ValidateUserPermissions(System.String,System.Collections.Generic.IList{System.Int32},System.Byte,ActivFinancial.ContentPlatform.ContentGatewayApi.FieldListValidator,System.Collections.Generic.IDictionary{System.Int32,System.Boolean})">
+            <summary>
+            Validate user permissions
+            </summary>
+            <param name="userId">user id.</param>
+            <param name="permissionId">id of the permission</param>
+            <param name="permissionLevel">level of permissions</param>
+            <param name="flv">field list validator</param>
+            <param name="permissionedFieldIds">fieldIds that the user has the permission for.</param>
+            <returns>StatusCodeSuccess if the user is valid</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.UserHasAllPermissions(System.String,System.Int32,System.Byte@,System.Int32@)">
+            <summary>
+            Returns true if the user has all permissions for the permission id and permission level
+            </summary>
+            <param name="userId">id of the user</param>
+            <param name="permissionId">permission id</param>
+            <param name="permissionLevel">permission level</param>
+            <returns>true if the user has all permissions for the permission id and permission level</returns>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.ProcessUserRecordUpdate(System.String,ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            Process update of the user credentials.
+            </summary>
+            <param name="userId">id of the user</param>
+            <param name="updateMessageValidator">message validator</param>
+        </member>
+        <member name="M:ActivFinancial.ContentPlatform.ContentServerApi.UserPermissionValidationService.ProcessPermissionRecordUpdate(ActivFinancial.ContentPlatform.ContentServerApi.UpdateMessageValidator)">
+            <summary>
+            Process update of the permissions data.
+            </summary>
+            <param name="updateMessageValidator">message validator</param>
+            <returns>StatusCode of the update</returns>
+        </member>
+        <member name="T:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field">
+            <summary>
+            Represents a cached field within FieldListValidator.
+            Fields in FieldListValidator can be iterated.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.FieldId">
+            <summary>
+            Field id of the field.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.IsDefined">
+            <summary>
+            Whether the field is defined.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.IsFieldRulesPresent">
+            <summary>
+            Whether the field rules are present.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.FieldRules">
+            <summary>
+            The field rules.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.FieldType">
+            <summary>
+            Activ field type for the field.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.FieldOffset">
+            <summary>
+            Offset from start of field data to this serialized field.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.FieldLength">
+            <summary>
+            Length of serialized field data.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.HeaderOffset">
+            <summary>
+            Offset from start of field data to start of field header.
+            </summary>
+        </member>
+        <member name="F:ActivFinancial.ContentPlatform.ContentServerCommon.FieldListValidator.Field.TotalLength">
+            <summary>
+            Total length of this field, inc header.
+            </summary>
+        </member>
+    </members>
+</doc>

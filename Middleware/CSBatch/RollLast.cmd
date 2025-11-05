@@ -1,0 +1,1 @@
+CSBatch @Step=1,@Cores=4,@fromDate=10/6/2012,@todate=10/6/2012,@recover=0,@FunctionCores=1

@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" >
+	<xsl:output method="xml" encoding="UTF-8" indent="yes" omit-xml-declaration="yes"/>
+
+	<xsl:template name="Translate">
+		<xsl:param name="Number"/>
+		<xsl:variable name="SingleQuote">'</xsl:variable>
+		<xsl:variable name="varNumber">
+			<xsl:value-of select="number(translate(translate(translate(translate($Number,'(',''),')',''),',',''),$SingleQuote,''))"/>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="contains($Number,'(')">
+				<xsl:value-of select="$varNumber*-1"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$varNumber"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:variable name="smallcase" select="'abcdefghijklmnopqrstuvwxyz'"/>
+	<xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+
+	<xsl:template name="UPPER">
+		<xsl:param name="text"/>
+		<xsl:value-of select="translate(COL51, $smallcase, $uppercase)"/>
+	</xsl:template>
+
+	<xsl:template match="/">
+
+		<DocumentElement>
+
+			<xsl:for-each select="//PositionMaster">
+
+				<xsl:variable name="varAmount">
+					<xsl:call-template name="Translate">
+						<xsl:with-param name="Number" select="COL22"/>
+					</xsl:call-template>
+				</xsl:variable>
+
+				<xsl:if test="number($varAmount) and normalize-space(COL2) = '038CAOOJ0'">
+
+					<PositionMaster>
+
+						<xsl:variable name="PB_Name">
+							<xsl:value-of select="''"/>
+						</xsl:variable>
+
+						<xsl:variable name = "PB_FUND_NAME" >
+							<xsl:value-of select="normalize-space(COL2)"/>
+						</xsl:variable>
+
+						<xsl:variable name="PRANA_FUND_NAME">
+							<xsl:value-of select="document('../ReconMappingXml/AccountMapping.xml')/FundMapping/PB[@Name = $PB_Name]/FundData[@PBFundCode=$PB_FUND_NAME]/@PranaFund"/>
+						</xsl:variable>
+
+						<xsl:variable name="PB_Symbol" select="normalize-space(COL8)"/>
+
+						<xsl:variable name="PRANA_SYMBOL_NAME">
+							<xsl:value-of select="document('../ReconMappingXml/SymbolMapping.xml')/SymbolMapping/PB[@Name = $PB_Name]/SymbolData[@PBCompanyName=$PB_Symbol]/@PranaSymbol"/>
+						</xsl:variable>
+
+						<AccountName>
+							<xsl:choose>
+								<xsl:when test ="$PRANA_FUND_NAME!=''">
+									<xsl:value-of select ="$PRANA_FUND_NAME"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select ="$PB_FUND_NAME"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</AccountName>
+
+						<xsl:variable name="varSymbol">
+							<xsl:value-of select="normalize-space(COL9)"/>
+						</xsl:variable>
+
+						<Symbol>
+							<xsl:choose>
+								<xsl:when test="$PRANA_SYMBOL_NAME!=''">
+									<xsl:value-of select="$PRANA_SYMBOL_NAME"/>
+								</xsl:when>
+								<xsl:when test ="$varSymbol!=''">
+									<xsl:value-of select="$varSymbol"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$PB_Symbol"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</Symbol>
+
+						<xsl:variable name="varEXDate">
+							<xsl:value-of select="COL17"/>
+						</xsl:variable>
+
+						<ExDate>
+							<xsl:value-of select="$varEXDate" />
+						</ExDate>
+
+						<xsl:variable name="varPYDate">
+							<xsl:value-of select="COL18"/>
+						</xsl:variable>
+
+						<PayoutDate>
+							<xsl:value-of select="$varPYDate" />
+						</PayoutDate>
+
+						<Amount>
+							<xsl:choose>
+								<xsl:when test="$varAmount &gt; 0">
+									<xsl:value-of select="$varAmount"/>
+								</xsl:when>
+								<xsl:when test="$varAmount &lt; 0">
+									<xsl:value-of select="$varAmount * (-1)"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="0"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</Amount>
+
+						<xsl:variable name="varActivityType">
+							<xsl:choose>
+								<xsl:when test="COL6='DividendTax'">
+									<xsl:value-of select="'WithholdingTax'"/>
+								</xsl:when>								
+								<xsl:when test="$varAmount &lt; 0 ">
+									<xsl:value-of select="'DividendExpense'"/>
+								</xsl:when>
+								<xsl:when test="$varAmount &gt; 0 ">
+									<xsl:value-of select="'DividendIncome'"/>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+
+						<ActivityType>
+							<xsl:value-of select="$varActivityType"/>
+						</ActivityType>
+
+						<CurrencyID>
+							<xsl:value-of select="''"/>
+						</CurrencyID>
+						
+						<xsl:variable name="varDecription">
+							<xsl:choose>
+								<xsl:when test="$varActivityType='WithholdingTax'">
+									<xsl:value-of select="'Withholding Tax'"/>
+								</xsl:when>								
+								<xsl:when test="$varActivityType='DividendExpense'">
+									<xsl:value-of select="'Dividend Charged'"/>
+								</xsl:when>	
+								<xsl:when test="$varActivityType='DividendIncome'">
+									<xsl:value-of select="'Dividend Received'"/>
+								</xsl:when>	
+								<xsl:otherwise>
+									<xsl:value-of select="''"/>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:variable>
+
+						<Description>
+							<xsl:value-of select="$varDecription"/>
+						</Description>
+
+						<xsl:variable name="varCurrency">
+							<xsl:value-of select="COL13"/>
+						</xsl:variable>
+
+						<CurrencyName>
+							<xsl:value-of select="$varCurrency"/>
+						</CurrencyName>
+
+					</PositionMaster>
+				</xsl:if>
+			</xsl:for-each>
+		</DocumentElement>
+	</xsl:template>
+</xsl:stylesheet>

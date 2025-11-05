@@ -1,0 +1,45 @@
+module customRules.mapleRock.preTrade.SectorConcentration.SectorConcentration;
+
+
+
+
+@Name('SectorMapleRockWhatIfAggregator')
+@Description('Contains current Exposure for custom master-fund sector compression.')
+on BasketEOM as B
+insert into SectorMapleRockWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	sum(coalesce(W.netExposureBase,0)) as netExposureBase,
+	W.masterFundNav  as masterFundNav,
+	W.masterFundName as masterFundName,
+	W.sector as sector,
+	"WhatIfCustomMasterFundSymbolWithNav" as parentWindowStream
+from WhatIfCustomMasterFundSymbolWithNav as W where W.basketId = B.basketId
+group by W.masterFundId, W.sector;
+
+
+
+@Name('SectorConcentrationPreTrade')
+@Description('Checks if limit is breached.')
+insert into SectorConcentrationPreTrade
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(SectorConcentrationMapleRockPreTradeLimit) || ValueSeparator || MasterFund_Name_MRLP1 || ValueSeparator || 'N/A' as threshold,
+	doubleFormat(coalesce((100 * A.netExposureBase / A.masterFundNav),0)) || ValueSeparator || A.masterFundName || ValueSeparator || A.sector as actualResult,
+	'Master Account-Sector Concentration Limit (%)' || ValueSeparator || 'MasterFund' || ValueSeparator || 'Sector' as constraintField,
+	(A.netExposureBase / A.masterFundNav) >= (SectorConcentrationMapleRockPreTradeLimit / 100) 
+		and valueExistsInCSV(A.masterFundName, MasterFund_Name_MRLP1)
+		as isViolated,
+	'Master Fund: ' || A.masterFundName
+		|| ', Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0))
+		|| ', Sector : ' || A.sector
+		|| ', %age contribution: ' || doubleFormat(coalesce((100 * A.netExposureBase / A.masterFundNav),0)) as parameters,
+	current_timestamp as validationTime,
+	'The Master Fund sector concentration is above ' || doubleFormat(SectorConcentrationMapleRockPreTradeLimit) || ' %' as summary,
+	A.masterFundName as dimension
+from
+SectorMapleRockWhatIfAggregator as A
+where A.userId is not null;

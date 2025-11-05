@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8DF35FF8-0F37-480A-8E26-E2815055FD30}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nirvana.TestAutomation.TestExecutor</RootNamespace>
+    <AssemblyName>Nirvana.TestAutomation.TestExecutor</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Appium.Net">
+      <HintPath>..\DLLs\Appium.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Gmail.v1, Version=1.16.0.557, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\Google.Apis.Gmail.v1.dll</HintPath>
+    </Reference>
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamColorPicker.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamComboEditor.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamDateTimeInput.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamMaskedInput.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamPropertyGrid.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Editors.XamSlider.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Controls.Grids.XamGrid.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataManager.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.DataPresenter.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.Editors.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="InfragisticsWPF4.v20.2, Version=20.2.20202.38, Culture=neutral, PublicKeyToken=7dd5c3163f2cd0cb, processorArchitecture=MSIL" />
+    <Reference Include="EPPlus, Version=4.0.4.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Nuget DLLs\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform">
+      <HintPath>..\..\Nuget DLLs\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.UIA">
+      <HintPath>..\DLLs\Interop.UIA.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Interop.UIAutomationClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\DLLs\Interop.UIAutomationClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\Nuget DLLs\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="LogicaCMG.EnterpriseLibraryExtensions.Logging, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\LogicaCMG.EnterpriseLibraryExtensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="LogicaCMG.EnterpriseLibraryExtensions.Logging.Configuration.Design, Version=0.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\LogicaCMG.EnterpriseLibraryExtensions.Logging.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Configuration.Design">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging.Database">
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ObjectBuilder, Version=1.0.51205.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ProgramFiles)\Microsoft Enterprise Library January 2006\bin\Microsoft.Practices.ObjectBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Nirvana.TestAutomation.BussinessObjects\Dlls\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Prana.MvvmDialogs, Version=1.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\Prana.MvvmDialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\Nuget DLLs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="TestAutomationFX.Core, Version=2.6.65.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WebDriver, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DLLs\WebDriver.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Behaviour\XamComboEditorSelectAllBehavior.cs" />
+    <Compile Include="Behaviour\XamdataGridBehaviour.cs" />
+    <Compile Include="BindableBase.cs" />
+    <Compile Include="BindingProxy.cs" />
+    <Compile Include="CacheManager.cs" />
+    <Compile Include="CoreExecutor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CoreExecutor.Designer.cs">
+      <DependentUpon>CoreExecutor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CoreModes\ColumnValueReplaceApproach.cs" />
+    <Compile Include="CoreModes\CoreModeHelper.cs" />
+    <Compile Include="CoreModes\ModeManager.cs" />
+    <Compile Include="CoreModes\TestCaseFixingMode.cs" />
+    <Compile Include="Interface\IFixingApproach.cs" />
+    <Compile Include="ObservableDictionary.cs" />
+    <Compile Include="ProcessControlManager.cs" />
+    <Compile Include="ReleaseControlManager.cs" />
+    <Compile Include="TestExecutor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Behaviour\XamComboEditorSelectedItemsBehavior.cs" />
+    <Compile Include="GridColumns.cs" />
+    <Compile Include="TestIDWindow.xaml.cs">
+      <DependentUpon>TestIDWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AddTestIDViewModel.cs" />
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles.Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Styles.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Theme.Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\xamComboEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExecutionDetails.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="TestIDWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="CoreExecutor.resx">
+      <DependentUpon>CoreExecutor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="credential.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="html\gstatic_charts.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="html\ReportViewer.xsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="html\ReportViewer.xslt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
+    <Analyzer Include="..\..\Nuget DLLs\Microsoft.CodeAnalysis.NetAnalyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nirvana.TestAutomation.BussinessObjects\Nirvana.TestAutomation.BussinessObjects.csproj">
+      <Project>{b6c8fded-0558-4930-a9ff-f6e61c76af7d}</Project>
+      <Name>Nirvana.TestAutomation.BussinessObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Factory\Nirvana.TestAutomation.Factory.csproj">
+      <Project>{8d2bb2fc-8362-41ba-ab0f-4c6b0e8915f6}</Project>
+      <Name>Nirvana.TestAutomation.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Interfaces\Nirvana.TestAutomation.Interfaces.csproj">
+      <Project>{85e56089-02d6-435a-ab82-dc828da19114}</Project>
+      <Name>Nirvana.TestAutomation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.UIAutomation\Nirvana.TestAutomation.UIAutomation.csproj">
+      <Project>{c814debb-9e96-4795-9fde-8f7b950771f7}</Project>
+      <Name>Nirvana.TestAutomation.UIAutomation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nirvana.TestAutomation.Utilities\Nirvana.TestAutomation.Utilities.csproj">
+      <Project>{1dc3644b-50a8-4fe8-9237-39e3f3ae563a}</Project>
+      <Name>Nirvana.TestAutomation.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>md "BatchFiles"
+copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.Utilities\BatchFiles\" "BatchFiles\" /Y
+md "SQLQueries"
+copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.Utilities\SQLQueries\" "SQLQueries\" /Y
+
+      md "TestAutomation.Steps"
+      md "Images"
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Allocation\$(OutDir)Nirvana.TestAutomation.Steps.Allocation.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Allocation\$(OutDir)Nirvana.TestAutomation.Steps.Allocation.pdb" "TestAutomation.Steps\" /Y
+	  copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.AuditTrail\$(OutDir)Nirvana.TestAutomation.Steps.AuditTrail.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.AuditTrail\$(OutDir)Nirvana.TestAutomation.Steps.AuditTrail.pdb" "TestAutomation.Steps\" /Y 
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Blotter\$(OutDir)Nirvana.TestAutomation.Steps.Blotter.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Blotter\$(OutDir)Nirvana.TestAutomation.Steps.Blotter.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.GeneralLedger\$(OutDir)Nirvana.TestAutomation.Steps.GeneralLedger.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.GeneralLedger\$(OutDir)Nirvana.TestAutomation.Steps.GeneralLedger.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Closing\$(OutDir)Nirvana.TestAutomation.Steps.Closing.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Closing\$(OutDir)Nirvana.TestAutomation.Steps.Closing.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CorporateAction\$(OutDir)Nirvana.TestAutomation.Steps.CorporateAction.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CorporateAction\$(OutDir)Nirvana.TestAutomation.Steps.CorporateAction.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CreateTransaction\$(OutDir)Nirvana.TestAutomation.Steps.CreateTransaction.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CreateTransaction\$(OutDir)Nirvana.TestAutomation.Steps.CreateTransaction.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.DailyValuation\$(OutDir)Nirvana.TestAutomation.Steps.DailyValuation.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.DailyValuation\$(OutDir)Nirvana.TestAutomation.Steps.DailyValuation.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Import\$(OutDir)Nirvana.TestAutomation.Steps.Import.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Import\$(OutDir)Nirvana.TestAutomation.Steps.Import.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PortfolioManagement\$(OutDir)Nirvana.TestAutomation.Steps.PortfolioManagement.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PortfolioManagement\$(OutDir)Nirvana.TestAutomation.Steps.PortfolioManagement.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PricingInput\$(OutDir)Nirvana.TestAutomation.Steps.PricingInput.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PricingInput\$(OutDir)Nirvana.TestAutomation.Steps.PricingInput.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PTT\$(OutDir)Nirvana.TestAutomation.Steps.PTT.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PTT\$(OutDir)Nirvana.TestAutomation.Steps.PTT.pdb" "TestAutomation.Steps\" /Y    
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.MultiTradingTicket\$(OutDir)Nirvana.TestAutomation.Steps.MultiTradingTicket.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.MultiTradingTicket\$(OutDir)Nirvana.TestAutomation.Steps.MultiTradingTicket.pdb" "TestAutomation.Steps\" /Y 
+	  copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.NavLock\$(OutDir)Nirvana.TestAutomation.Steps.NavLock.dll" "TestAutomation.Steps\" /Y 
+	  copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.NavLock\$(OutDir)Nirvana.TestAutomation.Steps.NavLock.pdb" "TestAutomation.Steps\" /Y 
+	  copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CleanUp\$(OutDir)Nirvana.TestAutomation.Steps.CleanUp.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CleanUp\$(OutDir)Nirvana.TestAutomation.Steps.CleanUp.pdb" "TestAutomation.Steps\" /Y    
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.SymbolLookup\$(OutDir)Nirvana.TestAutomation.Steps.SymbolLookup.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.SymbolLookup\$(OutDir)Nirvana.TestAutomation.Steps.SymbolLookup.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.ThirdParty\$(OutDir)Nirvana.TestAutomation.Steps.ThirdParty.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.ThirdParty\$(OutDir)Nirvana.TestAutomation.Steps.ThirdParty.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.TradingTicket\$(OutDir)Nirvana.TestAutomation.Steps.TradingTicket.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.TradingTicket\$(OutDir)Nirvana.TestAutomation.Steps.TradingTicket.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PranaClient\$(OutDir)Nirvana.TestAutomation.Steps.PranaClient.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PranaClient\$(OutDir)Nirvana.TestAutomation.Steps.PranaClient.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.TradeServer\$(OutDir)Nirvana.TestAutomation.Steps.TradeServer.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.TradeServer\$(OutDir)Nirvana.TestAutomation.Steps.TradeServer.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Expnl\$(OutDir)Nirvana.TestAutomation.Steps.Expnl.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Expnl\$(OutDir)Nirvana.TestAutomation.Steps.Expnl.pdb" "TestAutomation.Steps\" /Y
+	  
+	  copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Compliance\$(OutDir)Nirvana.TestAutomation.Steps.Compliance.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Compliance\$(OutDir)Nirvana.TestAutomation.Steps.Compliance.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PricingServer\$(OutDir)Nirvana.TestAutomation.Steps.PricingServer.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.PricingServer\$(OutDir)Nirvana.TestAutomation.Steps.PricingServer.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.QualityChecker\$(OutDir)Nirvana.TestAutomation.Steps.QualityChecker.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.QualityChecker\$(OutDir)Nirvana.TestAutomation.Steps.QualityChecker.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.Utilities\$(OutDir)Nirvana.TestAutomation.Utilities.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.Utilities\$(OutDir)Nirvana.TestAutomation.Utilities.pdb" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\Nirvana.AssemblyAndClassNameWriter\$(OutDir)Nirvana.AssemblyAndClassNameWriter.exe" /Y
+	  
+      copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.AccessBridgeApp\$(OutDir)Nirvana.TestAutomation.AccessBridgeApp.exe" /Y
+	  copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.AccessBridgeApp\$(OutDir)Nirvana.TestAutomation.AccessBridgeApp.exe.config" /Y
+      copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.AccessBridgeApp\$(OutDir)Nirvana.TestAutomation.AccessBridgeApp.pdb" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CameronSimulator\$(OutDir)Nirvana.TestAutomation.Steps.Simulator.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CameronSimulator\$(OutDir)Nirvana.TestAutomation.Steps.Simulator.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Admin\$(OutDir)Nirvana.TestAutomation.Steps.Admin.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Admin\$(OutDir)Nirvana.TestAutomation.Steps.Admin.pdb" "TestAutomation.Steps\" /Y
+      
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CameronSimulator\Images\" "Images\" /Y
+      copy "$(SolutionDir)Test Automation\Nirvana.TestAutomation.Utilities\Step Utilities\Module Step Settings.xlsx" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.CameronSimulator\DLL\JSikuliModule.jar"  /Y
+      
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Rebalancer\$(OutDir)Nirvana.TestAutomation.Steps.Rebalancer.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Rebalancer\$(OutDir)Nirvana.TestAutomation.Steps.Rebalancer.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.ShortLocate\$(OutDir)Nirvana.TestAutomation.Steps.ShortLocate.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.ShortLocate\$(OutDir)Nirvana.TestAutomation.Steps.ShortLocate.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Recon\$(OutDir)Nirvana.TestAutomation.Steps.Recon.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Recon\$(OutDir)Nirvana.TestAutomation.Steps.Recon.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Dropcopy\$(OutDir)Nirvana.TestAutomation.Steps.Dropcopy.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Dropcopy\$(OutDir)Nirvana.TestAutomation.Steps.Dropcopy.pdb" "TestAutomation.Steps\" /Y
+
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Watchlist\$(OutDir)Nirvana.TestAutomation.Steps.Watchlist.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Watchlist\$(OutDir)Nirvana.TestAutomation.Steps.Watchlist.pdb" "TestAutomation.Steps\" /Y
+	  
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Unknown\$(OutDir)Nirvana.TestAutomation.Steps.Unknown.dll" "TestAutomation.Steps\" /Y
+      copy "$(SolutionDir)Test Automation\TestAutomation.Modules\Nirvana.TestAutomation.Steps.Unknown\$(OutDir)Nirvana.TestAutomation.Steps.Unknown.pdb" "TestAutomation.Steps\" /Y</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

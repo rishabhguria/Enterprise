@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<CounterParties>
+	<CounterParty ID = "1" Name = "MS" StrategyTags="6061">
+	<Strategies>
+		<AlgoStrategy ID = "11" Name  = "TWAP" StrategyValues="TWAP" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss" SendOnReplace ="True">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss" SendOnReplace ="True">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" SendOnReplace ="True">
+				</Parameter>
+				<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False" SendOnReplace ="True">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" SendOnReplace ="True">
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "2" Name  = "VWAP" StrategyValues="VWAP" IsSyntheticReplace="False">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "3" Name  = "VOLUMEINLINE" StrategyValues="INLINE" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Yes,No"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Yes,No"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol Target" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="True">
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "4" Name  = "TAPNOW" StrategyValues="TAPNOW" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "5" Name  = "TAP" StrategyValues="TAP" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="True">
+				</Parameter>
+				<Parameter ID = "6188" Name = "Compl Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "6" Name  = "PRICEINLINE" StrategyValues="AP" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "18" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "18" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="True">
+				</Parameter>
+				<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "7" Name  = "IS" StrategyValues="PRISM" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "8" Name  = "PINCOMPLETE" StrategyValues="PINC" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+				</Parameter>
+				<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+				</Parameter>
+				<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "9" Name = "PIN" StrategyValues= "PIN" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "110" Name = "Min Qty" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,2000000000,1"  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+		<AlgoStrategy ID = "10" Name = "DMA" StrategyValues="DMA" IsSyntheticReplace="True">
+			<Parameters>
+				<Parameter ID = "111" Name = "NoPost,DisplaySize" ControlType="PranaAlgoStrategyControlsNoPost.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0,1,2000000000,1"  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+				</Parameter>
+			</Parameters>
+		</AlgoStrategy>
+  </Strategies>
+	</CounterParty>
+	<CounterParty ID = "5" Name = "CSFB" StrategyTags="6061">
+		<Strategies>
+			<AlgoStrategy ID = "301" Name  = "VWAP" StrategyValues="1" IsSyntheticReplace="False">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="No" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "MaxPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "302" Name  = "TEX" StrategyValues="2" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "MaxPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "303" Name  = "TWAP" StrategyValues="3" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "MaxPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "304" Name  = "INLINE" StrategyValues="4" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6067" Name = "MinPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "MaxPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="100" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "305" Name  = "CLOSE" StrategyValues="5" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="Rx" InnerControlValues="Rx"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "306" Name  = "RESERVE" StrategyValues="6" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "307" Name  = "FLOAT" StrategyValues="7" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "308" Name  = "PATHFINDER" StrategyValues="9" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy> 
+			<AlgoStrategy ID = "309" Name  = "GUERRILLA" StrategyValues="B" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "MaxPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues=",0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "310" Name  = "SNIPER" StrategyValues="C" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime"  ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "311" Name  = "VOLUMEINLINE" StrategyValues="A" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime"  ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime"   ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6067" Name = "MinPctVolume" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "MaxPctVolume"  ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100" InnerControlValues="0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,85,90,95,100"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="True">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="100" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "312" Name  = "CROSSFINDER+" StrategyValues="4A" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime"  ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Passive,Normal,Aggressive" InnerControlValues="2,5,8"  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False" DefaultValue="5">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "313" Name  = "INLINE IW" StrategyValues="D" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "Starttime"  ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "Endtime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "Trigger" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6066" Name = "DisplaySize"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6083" Name = "RX" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Rx,"  XPos = "5" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					</Parameters>
+			</AlgoStrategy>
+		</Strategies>
+	</CounterParty>
+	<CounterParty ID = "11" Name = "UBS" StrategyTags="6061">
+		<Strategies>
+			<AlgoStrategy ID = "101" Name  = "TWAP" StrategyValues="TWAP" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6296" Name = "PinComp" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="55" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6188" Name = "ComplPrice" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6198" Name = "PinComplPrice"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="110" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "102" Name  = "VWAP" StrategyValues="VWAP" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime"  ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"   ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6296" Name = "PinComp" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="55" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6188" Name = "ComplPrice"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6198" Name = "PinComplPrice" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="110" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "103" Name  = "VOLUMEINLINE" StrategyValues="INLINE" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Yes,No"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Yes,No"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol Target" DControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="True">
+					</Parameter>
+					<Parameter ID = "6296" Name = "PinComp"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="55" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6188" Name = "ComplPrice"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6198" Name = "PinComplPrice" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="110" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "104" Name  = "TAPNOW" StrategyValues="TAPNOW" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6191" Name = "DarkOnly"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="55" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6619" Name = "IOC Only"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="80" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6167" Name = "ExecutionStyle" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Default,Time,Price,Liquidity,SmallCap,CustA,CustB,CustC" InnerControlValues="D,T,P,L,S,A,B,C"  XPos = "230" YPos="110" Type="Generic" ReplaceVisible="Yes" IsRequired="True" DefaultValue="D">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "105" Name  = "TAP" StrategyValues="TAP" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="True">
+					</Parameter>
+					<Parameter ID = "6188" Name = "Compl Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "106" Name  = "PRICEINLINE" StrategyValues="AP" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "18" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="True">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price"  ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+					<Parameter ID = "6296" Name = "PinComp"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="100" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6188" Name = "ComplPrice"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="125" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6198" Name = "PinComplPrice"  ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="150" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "107" Name  = "IS" StrategyValues="PRISM" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6296" Name = "PinComp" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="100" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6188" Name = "ComplPrice" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="125" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6198" Name = "PinComplPrice" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="150" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+		
+			<AlgoStrategy ID = "108" Name  = "PINCOMPLETE" StrategyValues="PINC" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "109" Name = "PIN" StrategyValues= "PIN" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "110" Name = "Min Qty" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,2000000000,1"  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "111" Name = "ATCLOSE" StrategyValues= "ATCLOSE" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6407" Name = "CompleteReq" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="100" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>										
+				</Parameters>
+			</AlgoStrategy>
+
+			<AlgoStrategy ID = "110" Name = "DMA" StrategyValues="DMA" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "111" Name = "NoPost,DisplaySize" ControlType="PranaAlgoStrategyControlsNoPost.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0,1,2000000000,1"  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+		</Strategies>
+	</CounterParty>	
+	<CounterParty ID = "13" Name = "BOFA" StrategyTags="5900">
+		<Strategies>
+			<AlgoStrategy ID = "201" Name  = "VWAP" StrategyValues="1" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "5902" Name = "EffectiveTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "5903" Name = "ExpireTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd-HH:mm:ss">
+					</Parameter>
+					<Parameter ID = "5904" Name = "Duration" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "233" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "849" Name = "ParticipationRate" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="35" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "5907" Name = "OnOpen" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "5908" Name = "OnClose" ControlType="System.Windows.Forms.TextBox" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="95" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "202" Name  = "TVOL" StrategyValues="2" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "203" Name  = "RAZOR" StrategyValues="1003" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "204" Name  = "MARKETCALL" StrategyValues="1004" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "205" Name  = "TWAP" StrategyValues="1005" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "206" Name  = "AP" StrategyValues="1006" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "207" Name  = "DP" StrategyValues="1007" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "208" Name  = "DMA" StrategyValues="1008" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"  ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "209" Name  = "SCAL" StrategyValues="1009" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime"  ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime"   ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "210" Name  = "AMB" StrategyValues="1010" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC"  ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+			<AlgoStrategy ID = "211" Name  = "BYBK" StrategyValues="1100" IsSyntheticReplace="True">
+				<Parameters>
+					<Parameter ID = "6062" Name = "StartTime" ControlType="PranaAlgoStrategyControlsUCStartTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "5" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" DefaultValue="NOW" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6063" Name = "EndTime" ControlType="PranaAlgoStrategyControlsUCEndTime.dll" InnerControlNames ="" InnerControlValues=""  XPos = "230" YPos="5" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" Format="yyyyMMdd HH::mm::ss">
+					</Parameter>
+					<Parameter ID = "6075" Name = "OPG" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "5" YPos="35" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6076" Name = "MOC" ControlType="System.Windows.Forms.CheckBox" InnerControlNames ="True,False" InnerControlValues="Y,N"  XPos = "230" YPos="35" Type="Generic"	ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6064" Name = "%Vol CAP" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="1,1,100,1"  XPos = "5" YPos="65" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6065" Name = "Urgency" ControlType="System.Windows.Forms.ComboBox" InnerControlNames ="Low,Medium-Low,Medium,Medium-High,High" InnerControlValues="1,2,3,4,5"  XPos = "230" YPos="65" Type="Generic" ReplaceVisible="Yes" IsRequired="False">
+					</Parameter>
+					<Parameter ID = "6087" Name = "Ref. Price" ControlType="PranaAlgoStrategyControlsSpinner.dll" InnerControlNames ="Default,MinValue,MaxValue,Increment" InnerControlValues="0.0100,0.0100,1000000.0000,0.0100"  XPos = "5" YPos="95" Type="PranaUC" ReplaceVisible="Yes" IsRequired="False" >
+					</Parameter>
+				</Parameters>
+			</AlgoStrategy>
+		</Strategies>
+	</CounterParty>
+
+</CounterParties> 

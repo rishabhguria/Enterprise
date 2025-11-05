@@ -1,0 +1,37 @@
+Converting from Date Parameter to Time Dimension Member
+
+="[Dim Time].[Date].[" & Year(Parameters!ToDimTimeDate.Value) & "-" & Format(Month(Parameters!ToDimTimeDate.Value), "00") & "-" & Format(Day(Parameters!ToDimTimeDate.Value),"00") & " 00:00:00]"
+
+
+="[Dim Time].[Date].[" & Year(Parameters!ToDimTimeDate.Value) & "-" & Format(Month(Parameters!ToDimTimeDate.Value), "00") & "-" & Format(Day(Parameters!ToDimTimeDate.Value),"00") & " 00:00:00]"
+
+
+
+-- quarter
+="[Dim Time].[Calender].[Year].&[" & Year(Parameters!ToDimTimeDate.Value) & "].&[" & Ceiling(Format(Month(Parameters!ToDimTimeDate.Value), "00")/3) & "].&[" & Format(Month(Parameters!ToDimTimeDate.Value), "00") & "].[" & Year(Parameters!ToDimTimeDate.Value) & "-" & Format(Month(Parameters!ToDimTimeDate.Value), "00") & "-" & Format(Day(Parameters!ToDimTimeDate.Value),"00") & " 00:00:00]"
+
+="[Dim Time].[Calender].[Year].&[" & Year(Parameters!FirstDimTime.Value) & "].&[" & Ceiling(Format(Month(Parameters!FirstDimTime.Value), "00")/3) & "].&[" & Format(Month(Parameters!FirstDimTime.Value), "00") & "].[" & Year(Parameters!FirstDimTime.Value) & "-" & Format(Month(Parameters!FirstDimTime.Value), "00") & "-" & Format(Day(Parameters!FirstDimTime.Value),"00") & " 00:00:00]"
+
+="[Dim Time].[Calender].[Year].&[" & Year(Parameters!SecondDimTime.Value) & "].&[" & Ceiling(Format(Month(Parameters!SecondDimTime.Value), "00")/3) & "].&[" & Format(Month(Parameters!SecondDimTime.Value), "00") & "].[" & Year(Parameters!SecondDimTime.Value) & "-" & Format(Month(Parameters!SecondDimTime.Value), "00") & "-" & Format(Day(Parameters!SecondDimTime.Value),"00") & " 00:00:00]"
+
+
+
+member [DeltaAdjExposure]
+as
+(
+
+sum(descendants(
+               [PM Taxlots].[Symbol-TaxLotID],
+               [PM Taxlots].[Symbol-TaxLotID].[Tax Lot ID]
+                  )*[PM Taxlots].[Under Lying Symbol].children
+                
+,(LinkMember([PM Taxlots].[Under Lying Symbol].CurrentMember,
+[PM Taxlots].[Symbol-TaxLotID]),
+[Measures].[Final Mark Price])
+*[Measures].[TaxLotOpenQty]
+*[Measures].[SideMultiplier]
+*[Measures].[CurrencyConversionRate]
+*[Measures].[Multiplier]
+
+)
+)

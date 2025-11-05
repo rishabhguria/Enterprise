@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  Add your own custom elements here
+-->
+
+<!-- Some sample elements -->
+
+<!--
+  Sample listener processor. It simply displays all message it receives
+  together with its own "name".
+-->
+<!ELEMENT SampleMessageListener ANY>
+<!ATTLIST SampleMessageListener
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.SampleMessageListener"
+          msgTypes CDATA #IMPLIED
+          id CDATA #IMPLIED
+          name CDATA #IMPLIED
+>
+
+<!--
+  Sample listener processor which rejects all new order messages it receives.
+-->
+<!ELEMENT RejectMessageListener ANY>
+<!ATTLIST RejectMessageListener
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.RejectMessageListener"
+          msgTypes CDATA #IMPLIED
+          id CDATA #IMPLIED
+>
+
+<!--
+  Sample source processor. It resends the same Fix message repeatedly
+  every "interval" milliseconds.
+-->
+<!ELEMENT SampleMessageSource ANY>
+<!ATTLIST SampleMessageSource
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.SampleMessageSource"
+          id CDATA #IMPLIED
+          checkBeforeSend ( true | false ) "false"
+          interval CDATA "10000"
+          targets CDATA #IMPLIED
+          senders CDATA #IMPLIED
+>
+
+<!--
+  Sample source processor. It resends Fix messages read from files picked randomly
+  every "interval" milliseconds.
+-->
+<!ELEMENT RandomFileSource ANY>
+<!ATTLIST RandomFileSource
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.RandomFileSource"
+          id CDATA #IMPLIED
+          checkBeforeSend ( true | false ) "false"
+          interval CDATA "2000"
+          inputDir CDATA #REQUIRED
+          tagSeperator CDATA #IMPLIED
+          readLineByLine ( true | false ) "true"
+          transformer CDATA "com.cameronsystems.fix.message.RawTransformer"
+>
+
+<!--
+  Sample source/listener processor that ack incoming orders with an exec
+  report.
+-->
+<!ELEMENT SampleExecutor ANY>
+<!ATTLIST SampleExecutor
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.SampleExecutor"
+          id CDATA #IMPLIED
+          interval CDATA "1000"
+>
+
+<!--
+  Sample validating listener processor.
+-->
+<!ELEMENT SampleValidatingListener ANY>
+<!ATTLIST SampleValidatingListener
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.SampleValidator"
+          msgTypes CDATA #IMPLIED
+          id CDATA #IMPLIED
+          minQuantity CDATA #IMPLIED
+>
+
+<!--
+  Sample custom monitor.
+-->
+<!ELEMENT SampleMonitor ANY>
+<!ATTLIST SampleMonitor
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.SampleMonitor"
+          id CDATA #IMPLIED
+>
+
+<!--
+  Sample input message persister.
+-->
+<!ELEMENT SampleInputPersister ANY>
+<!ATTLIST SampleInputPersister
+          class CDATA #FIXED "com.cameronsystems.fix.util.persistence.SampleInputMessagePersister"
+          id CDATA #IMPLIED
+>
+
+<!ELEMENT SampleMarketDataClientProcessor ANY>
+<!ATTLIST SampleMarketDataClientProcessor
+          class CDATA #FIXED "com.cameronsystems.fix.marketdata.SampleMarketDataClientProcessor"
+          id CDATA #IMPLIED
+          refid CDATA #IMPLIED
+
+          subscribe (depth|detail) "detail"
+>
+
+<!--
+  Sample listener processor. It displays the rate at which messages come into the system.
+-->
+<!ELEMENT PerformanceMessageTester ANY>
+<!ATTLIST PerformanceMessageTester
+          class CDATA #FIXED "com.cameronsystems.fix.universalserver.test.PerformanceMessageTester"
+          id CDATA #IMPLIED
+          cycles CDATA #IMPLIED
+          msgTypes CDATA #IMPLIED
+>
+
+<!--
+   Encryption Example
+-->
+<!ELEMENT EncryptionSource ANY>
+<!ATTLIST EncryptionSource
+          class CDATA #FIXED "com.cameronsystems.fix.processor.EncryptionSource"
+          id CDATA #IMPLIED
+          encrypt.fields CDATA #IMPLIED
+          encrypt.all.possible.fields (true | false) "false"
+          encrypt.recommended.fields (true | false) "true"
+>
+
+<!--
+  MessageEmailLogger
+-->
+<!ELEMENT MessageEmailLogger ANY>
+<!ATTLIST MessageEmailLogger
+          class CDATA #FIXED "com.cameronsystems.fix.processor.MessageEmailLogger"
+          id CDATA #IMPLIED
+          loggerName CDATA #IMPLIED
+          msgType CDATA #REQUIRED
+>
+
+<!--
+  OMS Simulator.
+-->
+<!ELEMENT BuySideOMS ANY>
+<!ATTLIST BuySideOMS
+          class CDATA #FIXED "com.cameronsystems.fix.oms.simulator.processor.SimulatorBuyMessageProcessor"
+          id CDATA "Buy Side"
+          file.name CDATA "buy_sim.oms"
+          is.ha (true | false) "false"
+>
+
+<!ELEMENT SellSideOMS ANY>
+<!ATTLIST SellSideOMS
+          class CDATA #FIXED "com.cameronsystems.fix.oms.simulator.processor.SimulatorSellMessageProcessor"
+          id CDATA "Sell Side"
+          file.name CDATA "sell_sim.oms"
+          is.ha (true | false) "false"
+>
+<!ELEMENT RoutingExampleSource ANY>
+<!ATTLIST RoutingExampleSource
+          class CDATA #FIXED "com.cameronsystems.fix.processor.routing.RoutingExampleSource"
+          id CDATA #IMPLIED
+          interval CDATA "5000"
+          side (buy | sell) "buy"
+          deliverTo CDATA #IMPLIED
+          onBehalfOf CDATA #IMPLIED
+>
+
+<!ELEMENT MultiHopRoutingRules ANY>
+<!ATTLIST MultiHopRoutingRules
+          class CDATA #FIXED "com.cameronsystems.fix.processor.routing.MultiHopRoutingRules"
+          id CDATA #IMPLIED
+          hideRoutingFields (true | false) "false"
+>

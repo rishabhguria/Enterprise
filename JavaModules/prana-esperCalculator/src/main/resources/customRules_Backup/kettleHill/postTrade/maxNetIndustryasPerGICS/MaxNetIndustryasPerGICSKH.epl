@@ -1,0 +1,37 @@
+module customRules.kettleHill.postTrade.maxNetIndustryasPerGICS.maxNetIndustryasPerGICSKH;
+
+@Name('AggregationNetExposureMFCustomUDA1KHPostTrade')
+@Description('Contains current Exposure for master-fund Custom UDA1 compression')
+on pattern[every R = DivisorEndMessage]
+insert into AggregationNetExposureMFCustomUDA1KHPostTrade
+select distinct
+    0 as userId,
+	sum(coalesce(T.netExposureBase, 0)) as netExposureBase,
+	T.customUDA1 as customUDA1,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav,
+	"MasterFundSymbolWithNav" as parentWindowStream
+from
+MasterFundSymbolWithNav as T
+group by T.masterFundId,T.customUDA1;
+
+
+@Name('MFCustomUDA1ConcentrationKHPostTrade')
+@Description('Checks if limit is breached')
+insert into MFCustomUDA1ConcentrationKHPostTrade
+select distinct
+	A.userId as userId,
+	'' as taxlotId,
+	doubleFormat(Percentage_NetExposure_KH5_PT) || ValueSeparator || MasterFund_Name_KH5_PT as threshold,
+	doubleFormat(coalesce(A.netExposureBase / A.masterFundNav, 0) * 100 ) || ValueSeparator || A.masterFundName as actualResult,
+	'% Net Exposure' || ValueSeparator || 'MasterFund' as constraintField,
+	coalesce(A.netExposureBase / A.masterFundNav, 0) > ((Percentage_NetExposure_KH5_PT)/100) and 
+	valueExistsInCSV(A.masterFundName, MasterFund_Name_KH5_PT) as isViolated,
+	'Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0)) || ', Net Exposure: '||doubleFormat(A.netExposureBase) || ', 
+	Master Fund: '||A.masterFundName || ', Custom UDA1: '||A.customUDA1 || ', 
+	CustomUDA1 Concentration: '||doubleFormat(coalesce(A.netExposureBase / A.masterFundNav, 0) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The Master-Fund CustomUDA1 concentration is above 20%' as summary,
+	A.masterFundName || '-' || A.customUDA1 as dimension,
+	"AggregationNetExposureMFCustomUDA1KHPostTrade" as parentWindowStream
+from AggregationNetExposureMFCustomUDA1KHPostTrade as A;

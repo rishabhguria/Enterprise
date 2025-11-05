@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[T_ImportFileSettings] (
+    [ImportFileSettingID]   INT           NOT NULL,
+    [IsActive]              BIT           CONSTRAINT [DF_T_ImportFileSettings_IsActive] DEFAULT ((1)) NOT NULL,
+    [FormatName]            VARCHAR (200) NOT NULL,
+    [ImportTypeID]          INT           NOT NULL,
+    [ReleaseID]             INT           NULL,
+    [FundID]                INT           NOT NULL,
+    [XSLTPath]              VARCHAR (500) NULL,
+    [XSDPath]               VARCHAR (500) NULL,
+    [ImportSPName]          VARCHAR (200) NULL,
+    [FTPFolderPath]         VARCHAR (500) NULL,
+    [LocalFolderPath]       VARCHAR (500) NULL,
+    [ImportFileName]        VARCHAR (500) NULL,
+    [FtpID]                 INT           NULL,
+    [EmailID]               INT           NULL,
+    [EmailLogID]            INT           NULL,
+    [DecryptionID]          INT           NULL,
+    [ThirdPartyID]          INT           NOT NULL,
+    [PriceToleranceColumns] VARCHAR (200) NULL,
+    [FormatType]            VARCHAR (50)  NULL,
+    [BatchStartDate]        DATETIME      DEFAULT (getdate()) NOT NULL,
+    [CompanyID]             INT           DEFAULT ((5)) NOT NULL,
+    [ImportFormatID]        INT           NULL
+);
+

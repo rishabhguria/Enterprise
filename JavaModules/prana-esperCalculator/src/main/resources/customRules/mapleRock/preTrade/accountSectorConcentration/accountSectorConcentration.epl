@@ -1,0 +1,44 @@
+module customRules.mapleRock.preTrade.accountSectorConcentration.accountSectorConcentration;
+
+
+
+
+@Name('AccountSectorMapleRockWhatIfAggregator')
+@Description('Contains current Exposure for account sector compression')
+on BasketEOM as B
+insert into AccountSectorMapleRockWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.netExposureBase as netExposureBase,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	W.sector as sector,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId
+group by W.accountId, W.sector;
+
+
+@Name('AccountSectorConcentrationPreTrade')
+@Description('Checks if limit is breached')
+insert into AccountSectorConcentrationPreTrade
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(AccountSectorConcentrationMapleRockPreTradeLimit) || ValueSeparator || 'N/A' || ValueSeparator || 'N/A' as threshold,
+	doubleFormat(coalesce((100 * A.netExposureBase / A.accountNav),0)) || ValueSeparator || A.accountShortName || ValueSeparator || A.sector as actualResult,
+	'Account-Sector Concentration Limit (%)' || ValueSeparator || 'Account' || ValueSeparator || 'Sector' as constraintField,
+	(coalesce((A.netExposureBase / A.accountNav),0)) >= (AccountSectorConcentrationMapleRockPreTradeLimit / 100) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Sector : ' || A.sector
+		|| ', %age contribution: ' || doubleFormat(coalesce((100 * A.netExposureBase / A.accountNav),0)) as parameters,
+	current_timestamp as validationTime,
+	'The account sector concentration is above ' || doubleFormat(AccountSectorConcentrationMapleRockPreTradeLimit) || ' %' as summary,
+	A.accountShortName as dimension
+from
+AccountSectorMapleRockWhatIfAggregator as A
+where A.userId is not null;
+
+

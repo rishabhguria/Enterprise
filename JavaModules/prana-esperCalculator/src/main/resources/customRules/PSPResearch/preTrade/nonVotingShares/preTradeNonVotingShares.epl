@@ -1,0 +1,64 @@
+module customRules.PSPResearch.preTrade.nonVotingShares.preTradeNonVotingShares;
+
+@Name('VotingShareCheckInAccount')
+@Description('Checks if trade done in set account or not')
+on BasketEOM as W
+insert into VotingShareCheckInAccount
+select distinct
+    W.basketId as basketId,
+	W.userId as userId,
+	R.accountId as accountId,
+	R.symbol as symbol,
+	R.accountShortName as accountShortName,
+	R.analyst as votingRights,
+	(case(valueExistsInCSV(R.accountShortName, AccountNameNonVotingShares) and valueExistsInCSV(R.analyst, VotingRightsValue))
+	when true then true else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where W.basketId = R.basketId and R.taxlotType='WhatIf';
+
+
+@Name('AccountNavCheckForNonVotingShares')
+@Description('If the sum of market values of all securities with voting rights equal to 0 is greater than 10% of accountNAV')
+on VotingShareCheckInAccount as B
+insert into AccountNavCheckForNonVotingShares
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	B.validation as finalValidation,
+	W.analyst as votingRights,
+	sum(case when (valueExistsInCSV(W.accountShortName, AccountNameNonVotingShares) is true and valueExistsInCSV(W.analyst, VotingRightsValue) is true)
+	then coalesce(W.netMarketValueBase,0)
+	else 0 end) as totalMarketValue,
+	W.accountNav as accountNav,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId and W.accountId = B.accountId and W.analyst = B.votingRights
+group by W.accountId;
+
+@Name('PreTradeNonVotingShares')
+@Description('Checks if Non Voting Shares')
+insert into PreTradeNonVotingShares
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	AccountNameNonVotingShares || ValueSeparator || VotingRightsValue || ValueSeparator || doubleFormat(NavPercentageVotingRights) as threshold,
+   	A.accountShortName || ValueSeparator || A.votingRights || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalMarketValue / A.accountNav)*100,0))) as actualResult,
+	'Account' || ValueSeparator || ' Voting Rights' || ValueSeparator || ' % Total Nav' as constraintField,
+	(case A.finalValidation is true
+	when true 
+	then (Math.abs(coalesce(totalMarketValue,0)) > accountNav * (NavPercentageVotingRights / 100)) 
+     else 
+		false end) as isViolated,
+  	'Account: ' || A.accountShortName 
+		|| ', % Total NAV: ' || doubleFormat(Math.abs(coalesce((A.totalMarketValue / A.accountNav)*100,0)))
+		|| ', Net Market Value: '  || doubleFormat(A.totalMarketValue) 
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))as parameters, 
+		current_timestamp as validationTime,
+	'Exceeded 10% non-voting shares threshold' as summary,
+	A.accountShortName as dimension
+from
+AccountNavCheckForNonVotingShares as A
+where A.userId is not null;

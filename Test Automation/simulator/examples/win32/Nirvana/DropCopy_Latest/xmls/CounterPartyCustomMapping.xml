@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Counterparties>
+
+	<CounterParty ID="18" Name="TOURDC">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<Rule1 >
+			<Condition Direction="0"  ConditionString="" FromTags="48" ToTags="100045" />
+		</Rule1>
+
+		<Rule2 >
+			<Condition Direction="0" ConditionString ="" ToTags="100002" ToTagsValues="25"  ></Condition>
+		</Rule2>
+
+		<DllRule>
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+			<Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G3'\w{2}\b)(?'G2' *)(?'G1'.*)" ReplaceWith=" ${G3}${G1}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+
+			<!--<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=37+' '+100108"></Condition>
+			<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+' '+100108"></Condition>-->
+
+		</DllRule>
+		<Rule1>
+
+
+		</Rule1>
+		<Rule2>
+			<Condition Direction="0"  ConditionString="54=1 AND 77=C" ToTags="54" ToTagsValues="B" />
+
+			<Condition Direction="0"  ConditionString="55=FCE AND 65=A" ToTags="55" ToTagsValues="FCE.A"  />
+			<Condition Direction="0"  ConditionString="55=GTO.XAMS" ToTags="55" ToTagsValues="GTO-EEB"  />
+			<Condition Direction="0" ConditionString ="114=Y" ToTags="114" ToTagsValues="True"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=N" ToTags="114" ToTagsValues="False"  ></Condition>
+
+		</Rule2>
+	</CounterParty>
+
+	<CounterParty ID="27" Name="IQ">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<DllRule>
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+
+			<!-- Rules for handling monarch session (Multi leg Orders)-->
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=11+654"></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+654"></Condition>
+		</DllRule>
+		<Rule1>
+			<Condition Direction="0" ConditionString="150=5" FromTags="150" ToTags="39" />
+			<Condition Direction="0" ConditionString="" FromTags="11" ToTags="37" />
+		</Rule1>
+		<Rule2>
+
+			<Condition Direction="0" ConditionString ="" ToTags="100014" ToTagsValues="1212"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=Y" ToTags="114" ToTagsValues="True"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=N" ToTags="114" ToTagsValues="False"  ></Condition>
+
+			--><!-- Ignore 1=wedbman1 trades-->
+			<Condition Direction="0" ConditionString ="1=wedbman1" ToTags="55" ToTagsValues="DoNotAccept"  ></Condition>
+		</Rule2>
+	</CounterParty>
+
+	<CounterParty ID="19" Name="DTTX">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<DllRule>
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+
+			<!-- Rules for handling monarch session (Multi leg Orders)-->
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=11+654"></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+654"></Condition>
+		</DllRule>
+		<Rule1>
+			<Condition Direction="0" ConditionString="150=5" FromTags="150" ToTags="39" />
+			<Condition Direction="0" ConditionString="57=PAIRS" FromTags="11" ToTags="37" />
+			<Condition Direction="0" ConditionString="167=OPT" FromTags="48" ToTags="55" />
+		</Rule1>
+		<Rule2>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-DOUG1" ToTags="100014" ToTagsValues="1320"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-HFAR2" ToTags="100014" ToTagsValues="1243"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-HFAR3" ToTags="100014" ToTagsValues="1244"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-HFAR" ToTags="100014" ToTagsValues="1245"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAEPRAXIS" ToTags="100014" ToTagsValues="1248"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-WEID" ToTags="100014" ToTagsValues="1251"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-RORS" ToTags="100014" ToTagsValues="1252"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=JOSHL" ToTags="100014" ToTagsValues="1261"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=RICHZ" ToTags="100014" ToTagsValues="1261"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=STEPP" ToTags="100014" ToTagsValues="1261"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=DREH" ToTags="100014" ToTagsValues="1261"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=JAMIE" ToTags="100014" ToTagsValues="1261"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=COREY" ToTags="100014" ToTagsValues="1261"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=DOUGS" ToTags="100014" ToTagsValues="1261"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-JOSHL" ToTags="100014" ToTagsValues="1317"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-RICHZ" ToTags="100014" ToTagsValues="1318"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-NARINS" ToTags="100014" ToTagsValues="1319"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DOUGS2" ToTags="100014" ToTagsValues="1320"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-JAMIE" ToTags="100014" ToTagsValues="1321"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-COREY" ToTags="100014" ToTagsValues="1322"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DOUGS" ToTags="100014" ToTagsValues="1323"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DHALP" ToTags="100014" ToTagsValues="1324"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-NARIN" ToTags="100014" ToTagsValues="1319"  ></Condition>
+
+			<!--For Zech new Accounts after moved this to Wedbush-->
+			<Condition Direction="0" ConditionString ="1=4IAE-STEPP" ToTags="100014" ToTagsValues="1325"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DREH" ToTags="100014" ToTagsValues="1326"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DREZ" ToTags="100014" ToTagsValues="1327"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-BLUEB" ToTags="100014" ToTagsValues="1328"  ></Condition>
+
+
+
+			<Condition Direction="0" ConditionString ="1=4IAE-CRAN" ToTags="100014" ToTagsValues="1262"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-FABULA" ToTags="100014" ToTagsValues="1263"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAEFABULA" ToTags="100014" ToTagsValues="1263"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-KEY" ToTags="100014" ToTagsValues="1264"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-KEYSS" ToTags="100014" ToTagsValues="1265"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-KEY73" ToTags="100014" ToTagsValues="1266"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-PERCA" ToTags="100014" ToTagsValues="1268"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4ROUNDAB AND 15=USD" ToTags="100014" ToTagsValues="24041226"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4ROUNDAB AND 15!=USD" ToTags="100014" ToTagsValues="24041232"  ></Condition>
+
+
+			<Condition Direction="0" ConditionString ="1=4ROUND-IAE AND 15=USD"	ToTags="100014" ToTagsValues="1274"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4ROUND-IAE AND 15!=USD"	ToTags="100014" ToTagsValues="1273"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-ROUND AND 15=USD"	ToTags="100014" ToTagsValues="1274"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-ROUND AND 15!=USD"	ToTags="100014" ToTagsValues="1273"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-DRAM" ToTags="100014" ToTagsValues="1288"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DRPM" ToTags="100014" ToTagsValues="1288"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-SSAM" ToTags="100014" ToTagsValues="1288"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-SSPM" ToTags="100014" ToTagsValues="1288"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-SS15" ToTags="100014" ToTagsValues="1289"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DR15" ToTags="100014" ToTagsValues="1289"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-SS14" ToTags="100014" ToTagsValues="1290"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DR14" ToTags="100014" ToTagsValues="1290"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-KAM" ToTags="100014" ToTagsValues="1291"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=53511567" ToTags="100014" ToTagsValues="1297"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-BMCS" ToTags="100014" ToTagsValues="1297"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-BMCC" ToTags="100014" ToTagsValues="1302"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-SENT" ToTags="100014" ToTagsValues="1303"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-BBCM" ToTags="100014" ToTagsValues="1310"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-BASIN" ToTags="100014" ToTagsValues="1294"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-BMCBR" ToTags="100014" ToTagsValues="1338"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=4IAE-BASIN" ToTags="100014" ToTagsValues="3110054"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-REDG" ToTags="100014" ToTagsValues="10025565"  ></Condition>
+
+			<!--<Condition Direction="0" ConditionString ="1=??????????" ToTags="100014" ToTagsValues="10025565"  ></Condition>-->
+
+
+
+
+
+			<Condition Direction="0" ConditionString ="114=Y" ToTags="114" ToTagsValues="True"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=N" ToTags="114" ToTagsValues="False"  ></Condition>
+
+			--><!-- Ignore 1=wedbman1 trades-->
+			<Condition Direction="0" ConditionString ="1=wedbman1" ToTags="55" ToTagsValues="DoNotAccept"  ></Condition>
+		</Rule2>
+	</CounterParty>
+
+
+	<CounterParty ID="18" Name="NEO">
+
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,28,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<Rule1 >
+			<Condition Direction="0"  ConditionString="39=5" FromTags="37" ToTags="41" />
+		</Rule1>
+
+		<Rule2>
+
+			<Condition Direction="0" ConditionString ="1=ParallelPartners - IA" ToTags="100014" ToTagsValues="1247"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=MJManaged - IA" ToTags="100014" ToTagsValues="1240"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=1416523429037" ToTags="100014" ToTagsValues="1239"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=1416524427037" ToTags="100014" ToTagsValues="1242"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=1416528428037" ToTags="100014" ToTagsValues="1249"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=Greystoke Omnibus - IA" ToTags="100014" ToTagsValues="1241"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=14165278" ToTags="100014" ToTagsValues="1246"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=14165483" ToTags="100014" ToTagsValues="1250"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=Guild omnibus – IA" ToTags="100014" ToTagsValues="1250"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=1015472424IP4" ToTags="100014" ToTagsValues="6033611"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=14165156" ToTags="100014" ToTagsValues="1276"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=14165162" ToTags="100014" ToTagsValues="1308"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=14165165" ToTags="100014" ToTagsValues="1308"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=14165166" ToTags="100014" ToTagsValues="1308"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=14165168" ToTags="100014" ToTagsValues="1308"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligP – IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligOS – IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligA – IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligP–IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligOS–IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligA–IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=SkelligP-IA" ToTags="100014" ToTagsValues="1312"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=1416604328037" ToTags="100014" ToTagsValues="1312"  ></Condition>
+
+		</Rule2>
+
+		<DllRule>
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+			<Condition Direction="0" ConditionString="100=LON" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="55=55+'-LON'" />
+			<Condition Direction="0" ConditionString="100=LN" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="55=55+'-LON'" />
+		</DllRule>
+
+	</CounterParty>
+
+	<CounterParty ID="124" Name="OBS">
+
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,28,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<Rule1 >
+			<Condition Direction="0"  ConditionString="39=5" FromTags="37" ToTags="41" />
+		</Rule1>
+
+		<Rule2>
+			<Condition Direction="0" ConditionString ="1=835-13316D2" ToTags="100014" ToTagsValues="1205"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=83513316D2" ToTags="100014" ToTagsValues="1205"  ></Condition>
+
+			<Condition Direction="0" ConditionString ="1=83516502" ToTags="100014" ToTagsValues="1206"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=83644502" ToTags="100014" ToTagsValues="1216"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=83644503" ToTags="100014" ToTagsValues="1216"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=84224502" ToTags="100014" ToTagsValues="1254"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=53901009B8" ToTags="100014" ToTagsValues="1259"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=53900015B6" ToTags="100014" ToTagsValues="1259"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=84224503" ToTags="100014" ToTagsValues="1260"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=ivycap" ToTags="100014" ToTagsValues="1205"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=Empirical" ToTags="100014" ToTagsValues="1258"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=EmpiricalA" ToTags="100014" ToTagsValues="1258"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=EmpiricalB" ToTags="100014" ToTagsValues="1258"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=EmpiricalC" ToTags="100014" ToTagsValues="1258"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=83513315D4" ToTags="100014" ToTagsValues="1205"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-SENT" ToTags="100014" ToTagsValues="1303"  ></Condition>
+			<!--<Condition Direction="0" ConditionString ="1=1015472424IP4" ToTags="100014" ToTagsValues="6033611"  ></Condition>-->
+
+
+		</Rule2>
+
+		<DllRule>
+			<Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G6'(^O)*)(?'G5'\w+)(?'G4'(\w{2}\b))(?'G3'(\s)*)(?'G2'([PC])*)(?'G1'(0)*)(?'G0'.*)" ReplaceWith="${G5} ${G4}${G2}${G0}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+
+			<Condition Direction="0" ConditionString="167=OPT AND 442?" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule" ConditionToApply="37=37+200+201+202+205" />
+
+		</DllRule>
+
+	</CounterParty>
+
+
+	<CounterParty ID="125" Name="LAKE">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<Rule2>
+
+
+			<Condition Direction="0"  ConditionString="54=1 AND 77=C" ToTags="54" ToTagsValues="B" />
+
+			<Condition Direction="0" ConditionString ="114=Y" ToTags="114" ToTagsValues="True"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=N" ToTags="114" ToTagsValues="False"  ></Condition>
+		</Rule2>
+
+		<Rule1>
+			<!--<Condition Direction="0" ConditionString="" FromTags="109" ToTags="37" />-->
+		</Rule1>
+
+		<DllRule>
+
+			<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=37+' '+100108"></Condition>
+			<Condition Direction="0" ConditionString=""  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+' '+100108"></Condition>
+
+			<Condition Direction="0" ConditionString="167=FUT" RegularExpression="(?'G3'\w{2}\b)(?'G2' *)(?'G1'.*)" ReplaceWith=" ${G3}${G1}" Tag="55" DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.RegularExpressionRule" ></Condition>
+
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+		</DllRule>
+	</CounterParty>
+
+	<CounterParty ID="126" Name="ZECH">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<DllRule>
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+
+			<!-- Rules for handling monarch session (Multi leg Orders)-->
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=11+654"></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+654"></Condition>
+		</DllRule>
+		<Rule1>
+			<Condition Direction="0" ConditionString="150=5" FromTags="150" ToTags="39" />
+			<Condition Direction="0" ConditionString="" FromTags="11" ToTags="37" />
+			<Condition Direction="0" ConditionString="167=OPT" FromTags="48" ToTags="55" />
+		</Rule1>
+		<Rule2>
+
+
+			<Condition Direction="0" ConditionString ="1!=4IAE-DOUGS" ToTags="55" ToTagsValues="@@@@@@@@@@@@@@@@@@DONOTACC@@@@@"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-DOUGS" ToTags="100014" ToTagsValues="1271"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=4IAE-SENT" ToTags="100014" ToTagsValues="1303"  ></Condition>
+
+
+
+			<Condition Direction="0" ConditionString ="114=Y" ToTags="114" ToTagsValues="True"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=N" ToTags="114" ToTagsValues="False"  ></Condition>
+
+			--><!-- Ignore 1=wedbman1 trades-->
+
+		</Rule2>
+	</CounterParty>
+
+	<CounterParty ID="61" Name="JPMC">
+		<DefaultRule>
+			<Condition Direction="0" ConditionString ="" ToTags="100001,100003,100009,21,18,59,40" ToTagsValues="11,1,17,1,1,1,2" Name="TradingAccount,Venue,userid,handlinginst,executioninst,tif"  ></Condition>
+		</DefaultRule>
+
+		<DllRule>
+			<!--<Condition Direction="0" ConditionString="167=OPT"  UnderlyingSymbolTag="55"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>-->
+			<Condition Direction="0" ConditionString="167=OPT" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG" RootSymbolTag="55" RootSymbolStage="PRE"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.OptionTickerConversionRule"  ConditionToApply=""></Condition>
+
+			<!-- Rules for handling monarch session (Multi leg Orders)-->
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="37=11+654"></Condition>
+			<Condition Direction="0" ConditionString="167=MLEG"  DllFullName="Prana.CounterPartyRules.dll" ClassName="Prana.CounterPartyRules.DllOperatorRule"  ConditionToApply="41=41+654"></Condition>
+		</DllRule>
+		<Rule1>
+			<Condition Direction="0" ConditionString="150=5" FromTags="150" ToTags="39" />
+			<Condition Direction="0" ConditionString="" FromTags="11" ToTags="37" />
+		</Rule1>
+		<Rule2>
+
+			<!--<Condition Direction="0" ConditionString ="" ToTags="100014" ToTagsValues="1212"  ></Condition>-->
+			<Condition Direction="0" ConditionString ="114=Y" ToTags="114" ToTagsValues="True"  ></Condition>
+			<Condition Direction="0" ConditionString ="114=N" ToTags="114" ToTagsValues="False"  ></Condition>
+			<!--<Condition Direction="0" ConditionString ="1=141-65536" ToTags="100014" ToTagsValues="6033611"  ></Condition>-->
+			<Condition Direction="0" ConditionString ="1=141-65536" ToTags="100014" ToTagsValues="1329"  ></Condition>
+			<Condition Direction="0" ConditionString ="1=141-65544" ToTags="100014" ToTagsValues="1329"  ></Condition>
+
+		</Rule2>
+	</CounterParty>
+
+</Counterparties>

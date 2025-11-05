@@ -1,0 +1,66 @@
+module customRules.PSPResearch.preTrade.kenya.preTradeKenya;
+
+@Name('NavPercentCheckKE')
+@Description('NavPercentCheckKE window is updated if condition satifies for given account and country of risk.')
+on BasketEOM as B
+insert into NavPercentCheckKE
+select distinct
+    B.basketId as basketId,
+	B.userId as userId,
+	R.accountId as accountId,
+	R.symbol as symbol,
+	R.accountShortName as accountShortName,
+	R.countryOfRisk as countryOfRisk,
+	(case(valueExistsInCSV(R.accountShortName, AccountName) and 
+	valueExistsInCSV(R.countryOfRisk, Country_Of_Issue_To_Check))
+	when true then true 
+	else false end) as validation,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where B.basketId = R.basketId and R.taxlotType='WhatIf';
+
+@Name('KEAccountNavCheckNZSWhatIfAggregator')
+@Description('Contains the calculated value of current NAV and net market value for current trade')
+on NavPercentCheckKE as B
+insert into KEAccountNavCheckNZSWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	B.userId as userId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountShortName,
+	 B.validation as finalValidation,
+	sum(coalesce(W.netMarketValueBase,0)) as calculationField,
+	W.countryOfRisk as countryOfRisk,
+	"WhatIfAccountSymbolWithNav" as parentWindowStream
+from WhatIfAccountSymbolWithNav as W where W.basketId = B.basketId and 
+B.accountId = W.accountId and 
+W.countryOfRisk = B.countryOfRisk
+group by W.accountId;
+
+@Name('PreTradeMaxFivePercentKenya')
+@Description('Check if condition is breached')
+insert into PreTradeMaxFivePercentKenya
+select distinct 
+    A.basketId as basketId,
+    A.userId as userId,
+    A.basketId as taxlotId,
+	AccountName || ValueSeparator || Country_Of_Issue_To_Check || ValueSeparator || doubleFormat(MaxNavPercentage) as threshold,
+	A.accountShortName || ValueSeparator || A.countryOfRisk || ValueSeparator || doubleFormat(Math.abs(coalesce((A.calculationField/ A.accountNav)*100, 0))) as actualResult,
+    'Account' || ValueSeparator || 'Country of Risk' || ValueSeparator || '% Total Nav' as constraintField,
+    (case A.finalValidation is true
+	when true then
+		(Math.abs(coalesce(A.calculationField/ A.accountNav, 0)) > (MaxNavPercentage/100))
+	else
+		false end ) as isViolated,
+	'Account: ' || A.accountShortName
+		|| ', Account NAV: ' || doubleFormat(coalesce(A.accountNav, 0))
+		|| ', Net Market Value:' || doubleFormat(A.calculationField)
+		|| ', Country of Issue : ' || A.countryOfRisk 
+		|| ', % Total Nav: ' || doubleFormat(Math.abs(coalesce((A.calculationField/ A.accountNav)*100, 0))) as parameters,
+    current_timestamp as validationTime,
+    'Sum of market value of all the securities exceeded ' || doubleFormat(MaxNavPercentage) || '% of NAV in ' || Country_Of_Issue_To_Check as summary,
+    A.accountShortName as dimension
+  from  
+  KEAccountNavCheckNZSWhatIfAggregator as A
+  where A.userId is not null;
+  

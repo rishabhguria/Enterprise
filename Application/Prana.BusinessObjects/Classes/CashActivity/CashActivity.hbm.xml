@@ -1,0 +1,55 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Prana.BusinessObjects" assembly="Prana.BusinessObjects">
+
+	<class name="CashActivity" table="T_AllActivity">
+		<id name="UniqueKey" />
+		<!--<property name="UniqueKey" />-->
+		<property name="ActivityId"/>
+		<property name="ActivityTypeId"  column="ActivityTypeId_FK"/>
+		<property name="FKID" />
+		<property name="BalanceType" />
+		<property name="Symbol" />
+		<property name="AccountID" column="FundID"/>
+		<property name="Date" column="TradeDate"/>
+		<property name="SettlementDate"/>
+		<property name="CurrencyID" />
+		
+		<property name="LeadCurrencyID" />
+		<property name="VsCurrencyID" />
+		<property name="ClosedQty" />
+		
+<!--<property name="TaxlotID" />-->
+		<property name="Amount" type="decimal(28,12)"/>
+        <property name="PnL" type="decimal(28,12)"/>
+		<property name="FXPnL" type="decimal(28,12)"/>
+		<property name="Commission" type="decimal(28,12)" />
+		<property name="SoftCommission" type="decimal(28,12)" />
+		<property name="OtherBrokerFees" type="decimal(28,12)" />
+		<property name="ClearingBrokerFee" type="decimal(28,12)" />
+		<property name="StampDuty" type="decimal(28,12)" />
+		<property name="TransactionLevy"  type="decimal(28,12)"/>
+		<property name="ClearingFee" type="decimal(28,12)" />
+		<property name="TaxOnCommissions" type="decimal(28,12)" />
+		<property name="MiscFees" type="decimal(28,12)" />
+		<property name="SecFee" type="decimal(28,12)" />
+		<property name="OccFee" type="decimal(28,12)" />
+		<property name="OrfFee" type="decimal(28,12)" />
+		<property name="FXRate" />
+    <property name="FXConversionMethodOperator"/>		
+		<property name="ActivitySource" />
+		<property name="TransactionSource" />
+		<property name="ActivityNumber" />
+		<property name="Description" />
+		<property name="SubActivity" />
+		<property name="SideMultiplier" />
+    <property name="SettlCurrencyID" column="SettlCurrency"/>
+		<property name="OptionPremiumAdjustment" />
+		<!--PRANA-9777-->
+    <property name="ModifyDate" />
+    <property name="EntryDate" />
+    <!--PRANA-9776-->
+    <property name="UserId" />
+    <!--<property name="AcName" formula="(select a.Name from T_Accounts as a where a.AccountID=(select s.AccountID from T_SubAccounts as s where s.SubAccountID=SubAcID))" type="String"/>-->
+	</class>
+
+</hibernate-mapping>

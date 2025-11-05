@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="yes"?>
+<CashTransactionMapping>
+  <PB Name="GS">
+    <ActivityMappingData PBSubAccountCode="Withdraw" CashValueType="Positive" ActivityType="CASH_WDL" />
+    <ActivityMappingData PBSubAccountCode="Deposit" CashValueType="Positive" ActivityType="CASH_DEP" />
+    <ActivityMappingData PBSubAccountCode="Interest" CashValueType="Negative" ActivityType="Interest_Expense" />
+    <ActivityMappingData PBSubAccountCode="Interest" CashValueType="Positive" ActivityType="Interest_Income" />
+    <ActivityMappingData PBSubAccountCode="Management Fee" CashValueType="Positive" ActivityType="MGMT_FEE" />
+    <ActivityMappingData PBSubAccountCode="Spot Fx" CashValueType="Positive" ActivityType="Spot_FX" />
+    <ActivityMappingData PBSubAccountCode="Return of Capital" CashValueType="Positive" ActivityType="MISC_INC" />
+    <ActivityMappingData PBSubAccountCode="SL Rebate/Fee" CashValueType="Positive" ActivityType="Misc_Fees" />
+    <ActivityMappingData PBSubAccountCode="other" CashValueType="Positive" ActivityType="Misc_Fees" />
+    <ActivityMappingData PBSubAccountCode="Div" CashValueType="Positive" ActivityType="DivL" />
+    <ActivityMappingData PBSubAccountCode="Div" CashValueType="Negative" ActivityType="DivS" />
+  </PB>
+</CashTransactionMapping>

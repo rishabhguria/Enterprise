@@ -1,0 +1,45 @@
+module customRules.PSPResearch.postTrade.emergingMarketCountries.postTradeEmergingMarketCountries;
+
+@Name('PostTradeAccountCheck')
+@Description('The values of Emerging Market countries and account nav')
+on DivisorEndMessage as B
+insert into PostTradeAccountCheck
+select distinct
+	0 as userId,
+	'' as taxlotId,
+	W.accountId as accountId,
+	W.accountNav as accountNav,
+	W.accountShortName as accountName,
+    sum(case (valueExistsInCSV(W.udaCountry, emergingMarketCountries_post) is true and
+    valueExistsInCSV(W.accountShortName, Account_EmergingMarket_post) is true)
+	 when true then coalesce(W.netExposureBase,0)
+	else 0 end) as totalNetExposureBase,
+	(case (valueExistsInCSV(W.udaCountry, emergingMarketCountries_post) is true and
+    valueExistsInCSV(W.accountShortName, Account_EmergingMarket_post) is true)
+	 when true then true
+	else false end) as validation,
+	"AccountSymbolWithNav" as parentWindowStream
+from AccountSymbolWithNav as W 
+group by W.accountId;
+
+@Name('PostTradeEmergingMarketCountries')
+@Description('Final stream to check condition is breached')
+insert into PostTradeEmergingMarketCountries
+select distinct
+	A.userId as userId,
+	A.taxlotId as taxlotId,
+  	Account_EmergingMarket_post || ValueSeparator ||doubleFormat(Percentage_EmergingMarket_post) as threshold,
+	A.accountName || ValueSeparator || doubleFormat(Math.abs(coalesce((A.totalNetExposureBase / A.accountNav)*100,0))) as actualResult,
+	'Account' || ValueSeparator || '% Total Nav' as constraintField,
+   (case A.validation is true
+    when true then (Math.abs(coalesce(A.totalNetExposureBase/ A.accountNav, 0)) > (Percentage_EmergingMarket_post / 100)) 
+    else false end) as isViolated,
+   	'Account: ' || A.accountName 
+		|| ', % Total Exposure: ' || doubleFormat(Math.abs(coalesce((A.totalNetExposureBase / A.accountNav)*100,0)))
+		|| ', Net Exposure: '  || doubleFormat(A.totalNetExposureBase) as parameters,
+    current_timestamp as validationTime,
+	'Max' || doubleFormat(Percentage_EmergingMarket_post) || '% exposure in emerging market countries exceeded' as summary,
+	A.accountName as dimension
+from PostTradeAccountCheck as A;
+
+

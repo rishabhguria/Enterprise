@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ruleConfig>
+     <rules name="Telsey">
+          <rule id="custom-rule-TP1">
+               <name>Symbol Crossing 0</name>
+               <enabled>true</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/PreTradeCheckSideAccountSymbol/</eplPath>
+               <description>Possible oversell</description>
+               <compressionLevel>Custom</compressionLevel>
+               <validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeCheckSideAccountSymbol"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/>
+               </windowFillerStatementList>
+               <constantList/>
+               <blocked>true</blocked>
+          </rule>
+     </rules>
+</ruleConfig>

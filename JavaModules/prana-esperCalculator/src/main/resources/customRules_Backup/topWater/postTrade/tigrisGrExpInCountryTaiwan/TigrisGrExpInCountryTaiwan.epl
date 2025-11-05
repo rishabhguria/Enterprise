@@ -1,0 +1,79 @@
+module customRules.postTrade.tigrisGrExpInCountryTaiwan.TigrisGrExpInCountryTaiwan;
+
+/* Constant Variable region starts here*/
+
+create constant variable double TIGRIS_MAX_GROSS_EXPOSURE_TAIWAN_COEFFICIENT = 1.5;
+create constant variable double TIGRIS_OPT_GRS_EXPOSURE_TAIWAN_COEFFICIENT = 0.3;
+
+/* Constant Variable region ends here*/
+
+
+
+@Name('AggregationCountryPost')
+@Description('Calculates gross exposure of investments by Tigris in Taiwan.')
+insert into AggregationCountryPost
+select distinct
+	sum(T.grossExposureBase) as grossExposureBase,
+	T.udaCountry as country,
+	'' as taxlotId,
+	0 as userId,
+	T.accountId as accountId,
+	T.accountShortName as accountShortName,
+	"AccountSymbolWithNav" as parentWindowStream
+	
+from
+
+AccountSymbolWithNav(udaCountry in('Taiwan')) as T 
+
+where T.accountShortName='Tigris'
+group by T.udaCountry, T.accountShortName;
+
+//TODO: For optimization we can remove checks of T.taxlotType='Post' from query as all rows in given window is post only
+//This check should only be applied when querying RowCalculation window
+
+
+
+@Name('PercentGrossExposurePost')
+@Description('Calculates percentage exposure.')
+on pattern[every T=AggregationCountryPost]
+insert into PercentGrossExposurePost
+select distinct
+/* TODO: Convert it to MAX GROSS EXPOSURE */
+	coalesce(T.grossExposureBase*100/(TIGRIS_OPT_GRS_EXPOSURE_TAIWAN_COEFFICIENT * coalesce(NF.accountNav,1) * TIGRIS_MAX_GROSS_EXPOSURE_TAIWAN_COEFFICIENT),0) as percentageGrossExposure,
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	T.country as country,
+	doubleFormat(T.grossExposureBase) as grossExposure,
+	T.accountShortName as accountShortName,
+	"AggregationCountryPost" as parentWindowStream
+from 
+AccountWithNav as NF
+where T.accountId=NF.accountId;
+
+
+
+@Name('RuleName14FinalPost')
+@Description('Checks if limits are breached.')
+//on RowCalculationBaseWindowWhatIfModified as R
+insert into RuleName14FinalPost
+select distinct
+	T.taxlotId as taxlotId,
+	T.userId as userId,
+	'N/A' || ValueSeparator || '30' || ValueSeparator || T.country  as threshold,
+	T.accountShortName || ValueSeparator || cast(T.percentageGrossExposure,String) || ValueSeparator || T.country as actualResult,
+	'Account' || ValueSeparator || '% Gross Exposure'|| ValueSeparator || 'Country' as constraintField,
+	true as isViolated,
+	'% Gross Exposure: '||cast(T.percentageGrossExposure,String) || ', Account: '||T.accountShortName || ', Country: '||T.country|| ', Gross Exposure: '|| T.grossExposure as parameters,
+	current_timestamp as validationTime,
+	'The gross exposure of Tigris shall not exceed 30% in Taiwan' as summary,
+	T.accountShortName||'-'||T.country as dimension,
+	"PercentGrossExposurePost" as parentWindowStream
+from
+PercentGrossExposurePost as T
+where (T.percentageGrossExposure > 30 and T.country = 'Taiwan');
+
+//where T.taxlotType='WhatIf';// T.taxlotId = R.taxlotId;
+//TODO: we can move this case statement into where clause as this is post trade
+//parameters should also include country name.
+//We can also use account-country/country compression level to define this type of rule
+//please check for same comments in all post trade rules 

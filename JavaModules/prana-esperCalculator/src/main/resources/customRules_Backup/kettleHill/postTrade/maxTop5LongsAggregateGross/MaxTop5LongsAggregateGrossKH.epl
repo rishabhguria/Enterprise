@@ -1,0 +1,146 @@
+module customRules.kettleHill.postTrade.maxTop5LongsAggregateGross.maxTop5LongsAggregateGrossKH;
+
+create constant variable String MasterFund_Name_KH8_PT = 'SEI';
+
+@Name('Top5GrossExposurePositionsWindowKHPostTrade')
+@Description('Creating window which will contain top 5 gross Exposure position for the given Master Fund')
+create window Top5GrossExposurePositionsWindowKHPostTrade.ext:sort(5, grossExposureBase desc)
+(
+	userId int,
+	grossExposureBase double,
+	masterFundName string,
+	masterFundNav double,
+	number Long,
+	parentWindowStream String
+);
+
+@Name('SumOfTop5GrossExposurePositionsKHPostTrade')
+@Description('Creating window which will contain the sum of top 5 gross Exposure position for the given Master Fund')
+create window SumOfTop5GrossExposurePositionsKHPostTrade.ext:sort(5, grossExposureBase desc)
+(
+	userId int,
+	grossExposureBase double,
+	masterFundName string,
+	masterFundNav double,
+	parentWindowStream String
+);
+
+@Name('Top5GrossExposurePositionsWindowKHPostTrade')
+@Description('This statement fills initial data to Top5GrossExposurePositionsWindowKHPostTrade')
+on pattern[every R=DivisorEndMessage]
+insert into Top5GrossExposurePositionsWindowKHPostTrade
+select 
+	0 as userId,
+	"MasterFundSymbolWithNav" as parentWindowStream,
+	T.grossExposureBase as grossExposureBase,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav,
+	(case when count(*) >= 5 then 5 when count(*) < 5 then count(*) end) as number
+from MasterFundSymbolWithNav as T
+where defaultPositionSide = 'long' and T.masterFundName = MasterFund_Name_KH8_PT
+group by T.masterFundName
+order by T.grossExposureBase desc
+Limit 5;
+
+@Name('SumOfTop5GrossExposurePositions1')
+@Description('This Stream will flow If Top long default side gross exposure positions are equal to 1')
+insert into SumOfTop5GrossExposurePositionsKHPostTrade
+select	
+	0 as userId,
+	"Top5GrossExposurePositionsWindowKHPostTrade" as parentWindowStream,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposurePositionsWindowKHPostTrade as T
+where T.number = 1
+group by T.masterFundName
+output last every 1 events;
+
+@Name('SumOfTop5GrossExposurePositions2')
+@Description('This Stream will flow If Top long default side gross exposure positions are equal to 2')
+insert into SumOfTop5GrossExposurePositionsKHPostTrade
+select	
+	0 as userId,
+	"Top5GrossExposurePositionsWindowKHPostTrade" as parentWindowStream,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposurePositionsWindowKHPostTrade as T
+where T.number = 2
+group by T.masterFundName
+output last every 2 events;
+
+@Name('SumOfTop5GrossExposurePositions3')
+@Description('This Stream will flow If Top long default side gross exposure positions are equal to 3')
+insert into SumOfTop5GrossExposurePositionsKHPostTrade
+select	
+    0 as userId,
+    "Top5GrossExposurePositionsWindowKHPostTrade" as parentWindowStream,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposurePositionsWindowKHPostTrade as T
+where T.number = 3
+group by T.masterFundName
+output last every 3 events;
+
+@Name('SumOfTop5GrossExposurePositions4')
+@Description('This Stream will flow If Top long default side gross exposure positions are equal to 4')
+insert into SumOfTop5GrossExposurePositionsKHPostTrade
+select	
+	0 as userId,
+	"Top5GrossExposurePositionsWindowKHPostTrade" as parentWindowStream,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposurePositionsWindowKHPostTrade as T
+where T.number = 4
+group by T.masterFundName
+output last every 4 events;
+
+@Name('SumOfTop5GrossExposurePositions5')
+@Description('This Stream will flow If Top long default side gross exposure positions are equal to 5')
+insert into SumOfTop5GrossExposurePositionsKHPostTrade
+select	
+	0 as userId,
+	"Top5GrossExposurePositionsWindowKHPostTrade" as parentWindowStream,
+	sum(coalesce(T.grossExposureBase,0)) as grossExposureBase,
+	T.masterFundName as masterFundName,
+	T.masterFundNav as masterFundNav
+from Top5GrossExposurePositionsWindowKHPostTrade as T
+where T.number = 5
+group by T.masterFundName
+output last every 5 events;
+
+@Name('FinalStreamSumOfTop5GrossExpPositionsKHPostTrade')
+@Description('True if the limit is breached')
+insert into FinalStreamSumOfTop5GrossExpPositionsKHPostTrade
+select distinct
+    '' as taxlotId,
+    "SumOfTop5GrossExposurePositionsKHPostTrade" as parentWindowStream,
+	A.userId as userId,
+	doubleFormat(Percentage_GrossExposure_KH8_PT) || ValueSeparator || MasterFund_Name_KH8_PT as threshold,
+	doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ValueSeparator || A.masterFundName as actualResult,
+	'% Gross Exposure' || ValueSeparator || 'MasterFund' as constraintField,
+	coalesce(A.grossExposureBase / A.masterFundNav, 0) > ((Percentage_GrossExposure_KH8_PT)/100) and A.masterFundName = MasterFund_Name_KH8_PT 
+	as isViolated,
+	'Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0)) || ', Gross Exposure: '||doubleFormat(A.grossExposureBase) || ', 
+	Master Fund: '||A.masterFundName || ', Master Fund Top 5 Symbols Concentration: '||doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The % Gross Exposure of the top 5 long positions is greater than 40%' as summary,
+	A.masterFundName as dimension
+from SumOfTop5GrossExposurePositionsKHPostTrade A;
+
+@Priority(10)
+@Name('Top5GrossExposurePositionsWindowKHPostTrade')
+@Description('Select delete from RowCalculationBaseWindow')
+on pattern[every R=DivisorEndMessage]
+delete from Top5GrossExposurePositionsWindowKHPostTrade as C
+where C.masterFundName = MasterFund_Name_KH8_PT;
+
+@Priority(10)
+@Name('SumOfTop5GrossExposurePositionsKHPostTrade')
+@Description('Select delete from RowCalculationBaseWindow')
+on pattern[every R=DivisorEndMessage]
+delete from SumOfTop5GrossExposurePositionsKHPostTrade as C
+where C.masterFundName = MasterFund_Name_KH8_PT;

@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="Prana.Allocation.Client.Controls.Preferences.Views.CommissionPreferencesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ig="http://schemas.infragistics.com/xaml"  
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"  
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:Prana.Allocation.Client.Controls.Preferences.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Core="clr-namespace:System;assembly=mscorlib"
+             xmlns:behaviours="clr-namespace:Prana.Allocation.Client.Behaviours" 
+             xmlns:Constants="clr-namespace:Prana.Allocation.Client.Constants" 
+             xmlns:Converters="clr-namespace:Prana.Allocation.Client.ValueConvertor"
+             DataContext="{DynamicResource CompanyWisePreferenceControlViewModel}" Background="{DynamicResource UserControlBackGround}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Allocation.Client;component/NirvanaSkin.xaml"/>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamComboEditor.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamDockManager.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamEditors.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamGrid.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMenu.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Allocation.Client;component/Themes/IG/IG.xamMultiColumnCombo.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            <viewModels:CompanyWisePreferenceControlViewModel x:Key="CompanyWisePreferenceControlViewModel"/>
+            <Converters:SelectorToEnabledConverter x:Key="SelectorToEnabledConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <GroupBox Name="gboxCommissionPreferencesControl" Header="Commission Preferences" Margin="5,5,5,5" BorderBrush="{DynamicResource GroupBoxBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <CheckBox Name="chkboxBrokerChangeMessage" Content="Alert when commission would be recalculated on change of broker" Grid.Row="0" Margin="15,5,5,5" IsChecked="{Binding Path=MsgOnBrokerChange, Mode=TwoWay}" />
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="225"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Name="lblBrokerChangeRecalculate" Content="Commission on change of broker" Grid.Row="0" Grid.Column="0" Margin="30,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ComboBox Name="cmbboxBrokerChangeRecalculate" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" IsEnabled="{Binding IsChecked, ElementName=chkboxBrokerChangeMessage, Converter={StaticResource SelectorToEnabledConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.COMMISSION_PREFERENCE}}" ToolTip="{Binding SelectedValues, ElementName=BrokerChangeEditor}" IsEditable="True" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" ItemsSource="{Binding Path=UserChoiceCollection}" DisplayMemberPath="Value" Template="{DynamicResource ComboBoxEditableTemplate}" Text="Select"  SelectedItem ="{Binding Path=SelectedBrokerChangeChoice, Mode=TwoWay}" >
+                        <ComboBox.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                        <i:Interaction.Behaviors>
+                            <behaviours:CustomValueComboBoxBehavior/>
+                        </i:Interaction.Behaviors>
+                    </ComboBox>
+                </Grid>
+                <CheckBox Name="chkboxAllocationMessage" Content="Alert when commission would be recalculated on Allocation" Grid.Row="2" Margin="15,5,5,5" IsChecked="{Binding Path=MsgOnAllocation, Mode=TwoWay}"/>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="225"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Name="lblAllocationRecalculate" Content="Commission on Allocation" Grid.Row="0" Grid.Column="0" Margin="30,5,5,5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ComboBox Name="cmbboxAllocationRecalculate" Grid.Row="0" Grid.Column="1" Margin="5,5,5,5" IsEnabled="{Binding IsChecked, ElementName=chkboxAllocationMessage, Converter={StaticResource SelectorToEnabledConverter}, ConverterParameter={x:Static Constants:AllocationClientConstants.COMMISSION_PREFERENCE}}" ToolTip="{Binding SelectedValues, ElementName=ReallocateBehavior}" IsEditable="True" IsReadOnly="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" ItemsSource="{Binding Path=UserChoiceCollection}" DisplayMemberPath="Value" Text="Select" Template="{DynamicResource ComboBoxEditableTemplate}" SelectedItem ="{Binding Path=SelectedAllocationChoice, Mode=TwoWay}">
+                        <ComboBox.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="Control.ToolTip" Value="{Binding Value}" />
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                        <i:Interaction.Behaviors>
+                            <behaviours:CustomValueComboBoxBehavior />
+                        </i:Interaction.Behaviors>
+                    </ComboBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

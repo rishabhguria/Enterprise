@@ -1,0 +1,266 @@
+﻿
+
+---- =============================================              
+---- Author:  Sumit Kakra
+---- Create date: 16 April 2008
+---- =============================================              
+--CREATE PROCEDURE [dbo].[P_SaveXigniteData] (              
+--  @Xml nText                                                                                        
+-- ,@ErrorMessage varchar(500) output                                             
+-- ,@ErrorNumber int output                
+--)              
+--AS                             
+                            
+--SET @ErrorNumber = 0                            
+--SET @ErrorMessage = 'Success'                            
+                            
+--BEGIN TRAN TRAN1                          
+--BEGIN TRY                            
+                           
+--DECLARE @handle int                          
+--exec sp_xml_preparedocument @handle OUTPUT,@Xml 
+                 
+--Drop Table XigniteData
+--Drop Table BadSymbols
+
+--Create Table XigniteData
+--(
+--	 Exchange	varchar(MAX)
+--	,CUSIP	varchar(MAX)
+--	,ISIN	varchar(MAX)
+--	,Symbol	varchar(MAX)
+--	,Name	varchar(MAX)
+--	,Industry	varchar(MAX)
+--	,Sector	varchar(MAX)
+--	,ErgonomicSymbol	varchar(MAX)
+--	,TraderSymbol	varchar(MAX)
+--	,ListingSymbol	varchar(MAX)
+--	,SEDOL	varchar(MAX)
+--	,TelekursSymbol	varchar(MAX)
+--	,RootSymbol	varchar(MAX)
+--	,Valoren	varchar(MAX)
+--	,OddLot	varchar(MAX)
+--	,BoardLot	varchar(MAX)
+--)
+
+--INSERT INTO XigniteData
+--(
+--	 Exchange
+--	,CUSIP
+--	,ISIN
+--	,Symbol	
+--	,Name
+--	,Industry
+--	,Sector	
+--	,ErgonomicSymbol
+--	,TraderSymbol
+--	,ListingSymbol
+--	,SEDOL
+--	,TelekursSymbol
+--	,RootSymbol
+--	,Valoren
+--	,OddLot
+--	,BoardLot
+--)              
+--Select *
+--FROM  OPENXML(@handle, '//NewDataSet/XigniteData',2)                                                                                              
+-- WITH                
+--(      
+--	Exchange	varchar(MAX)
+--	,CUSIP	varchar(MAX)
+--	,ISIN	varchar(MAX)
+--	,Symbol	varchar(MAX)
+--	,Name	varchar(MAX)
+--	,Industry	varchar(MAX)
+--	,Sector	varchar(MAX)
+--	,ErgonomicSymbol	varchar(MAX)
+--	,TraderSymbol	varchar(MAX)
+--	,ListingSymbol	varchar(MAX)
+--	,SEDOL	varchar(MAX)
+--	,TelekursSymbol	varchar(MAX)
+--	,RootSymbol	varchar(MAX)
+--	,Valoren	varchar(MAX)
+--	,OddLot	varchar(MAX)
+--	,BoardLot	varchar(MAX)
+--)
+
+----
+----,	Exchange
+----	,CUSIP	
+----	,Symbol	
+----	,Name	
+----	,Industry	
+----	,Sector	
+----	,ErgonomicSymbol	
+----	,TraderSymbol	
+----	,ListingSymbol	
+----	,TelekursSymbol	
+----	,RootSymbol	
+----	,Valoren	
+----	,OddLot
+----	,BoardLot
+----,
+
+--Create Table BadSymbols
+--(
+--	Symbol varchar(max),
+--)
+
+--Insert into BadSymbols
+--(
+--	Symbol
+--)
+--Select TraderSymbol from XigniteData 
+--	Group By 
+--	TraderSymbol,Exchange
+--	Having Count(TraderSymbol) >1 
+--	And LTRIM(RTRIM(Exchange)) like '%*%' 
+--	And LEN(LTRIM(RTRIM(TraderSymbol))) > 0
+
+
+--Insert Into T_SMSector
+--(
+--	SectorName
+--)
+--Select Distinct RTRIM(LTRIM(XD.Sector)) from 
+--XigniteData As XD 
+--Where RTRIM(LTRIM(XD.Sector)) Not In (Select SectorName from T_SMSector)
+--	  And LEN(RTRIM(LTRIM(XD.Sector))) > 0
+
+
+
+--INSERT INTO T_SMSymbolLookUpTable          
+--(          
+--TickerSymbol           
+--,UnderLyingID          
+--,AUECID      
+--,AssetID    
+--,ISINSymbol            
+--,SEDOLSymbol           
+--,ReutersSymbol           
+--,UnderLyingSymbol 
+--,CUSIPSymbol 
+--,ExchangeID 
+--,ModifiedAt         
+--)          
+--Select
+--Distinct
+--CASE WHEN NCAUEC.UnderLyingID <> 1
+--THEN 
+--	Case NCAUEC.AUECID
+--		When 20 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 21 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 27 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 28 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 36 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 37 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		Else TraderSymbol + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--	End
+--ELSE TraderSymbol
+--END  As TickerSymbol 
+--,NCAUEC.UnderLyingID
+--,NCAUEC.AUECID
+--,NCAUEC.AssetID	
+--	,ISIN	
+--	,SEDOL	
+--,TraderSymbol + '.' + XE.RICExchangeCode as ReutersSymbol
+--,CASE WHEN NCAUEC.UnderLyingID <> 1
+--THEN 
+--	Case NCAUEC.AUECID
+--		When 20 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 21 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 27 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 28 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 36 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 37 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		Else TraderSymbol + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--	End
+--ELSE TraderSymbol
+--END As UnderLyingSymbol
+--,CUSIP 
+--,NCAUEC.ExchangeID
+--,GetUTCDate()
+--FROM          
+--XigniteData AS XD
+--INNER JOIN XigniteExchanges AS XE ON LTRIM(RTRIM(Replace(XD.Exchange,'*',''))) = XE.XigniteExchangeCode
+--Inner Join NirvanaClient.dbo.T_AUEC AS NCAUEC ON LTRIM(RTRIM(XE.eSignalExchangeCode)) + '-Equity' = NCAUEC.ExchangeIdentifier
+--Where LTRIM(RTRIM(XD.Exchange)) like '%*%' 
+--	And LEN(LTRIM(RTRIM(TraderSymbol))) > 0 
+--	And LTRIM(RTRIM(XD.TraderSymbol)) Not In (Select Symbol from BadSymbols)
+--	And LTRIM(RTRIM(CASE WHEN NCAUEC.UnderLyingID <> 1
+--					THEN 
+--						Case NCAUEC.AUECID
+--							When 20 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 21 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 27 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 28 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 36 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 37 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							Else TraderSymbol + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--						End
+--					ELSE TraderSymbol
+--					END)) Not In (Select TickerSymbol from T_SMSymbolLookUpTable)
+
+
+--INSERT INTO T_SMNonHistoryData          
+--(          
+--TickerSymbol          
+--,CompanyName
+--, SectorID 
+--,ModifiedAt         
+--)          
+--SELECT          
+--CASE WHEN NCAUEC.UnderLyingID <> 1
+--THEN 
+--	Case NCAUEC.AUECID
+--		When 20 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 21 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 27 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 28 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 36 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		When 37 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--		Else TraderSymbol + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--	End
+--ELSE TraderSymbol
+--END  As TickerSymbol          
+--,[Name]          
+--,SectorID
+--,GetUTCDate()
+--FROM          
+--XigniteData AS XD
+--INNER JOIN XigniteExchanges AS XE ON LTRIM(RTRIM(Replace(XD.Exchange,'*',''))) = XE.XigniteExchangeCode
+--Inner Join NirvanaClient.dbo.T_AUEC AS NCAUEC ON LTRIM(RTRIM(XE.eSignalExchangeCode)) + '-Equity' = NCAUEC.ExchangeIdentifier
+--Left Join T_SMSector ON  T_SMSector.SectorName = LTRIM(RTRIM(XD.Sector))
+--Where LTRIM(RTRIM(XD.Exchange)) like '%*%' 
+--	And LEN(LTRIM(RTRIM(TraderSymbol))) > 0 
+--	And LTRIM(RTRIM(XD.TraderSymbol)) Not In (Select Symbol from BadSymbols)
+--	And LTRIM(RTRIM(CASE WHEN NCAUEC.UnderLyingID <> 1
+--					THEN 
+--						Case NCAUEC.AUECID
+--							When 20 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 21 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 27 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 28 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 36 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							When 37 Then dbo.GetPaddedSymbol(TraderSymbol) + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--							Else TraderSymbol + LTRIM(RTRIM(XE.eSignalSymbolSuffix))
+--						End
+--					ELSE TraderSymbol
+--					END)) Not In (Select TickerSymbol from T_SMNonHistoryData)
+
+---- Hard coded AUECs are for  HKG and Japan
+
+
+          
+--EXEC sp_xml_removedocument @handle                              
+                             
+--COMMIT TRANSACTION TRAN1                              
+--END TRY                              
+--BEGIN CATCH                               
+-- SET @ErrorMessage = ERROR_MESSAGE();                              
+-- SET @ErrorNumber = Error_number();                               
+-- ROLLBACK TRANSACTION TRAN1                                 
+--END CATCH;
+
+
+

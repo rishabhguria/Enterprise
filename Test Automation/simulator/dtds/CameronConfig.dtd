@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  COPYRIGHT (c) 1998-2005 Cameron Systems Pty Ltd. All Rights Reserved.
+-->
+
+<!ENTITY % CustomElements SYSTEM "CustomElements.dtd">
+%CustomElements;
+
+<!ENTITY % Scheduling SYSTEM "Scheduling.dtd">
+%Scheduling;
+
+<!ENTITY % log4j:configuration SYSTEM "log4j.dtd">
+%log4j:configuration;
+
+<!--
+  MessageProcessing elements can be used to define common chains of message
+  processors that can be referred to by SessionManager elements.
+
+   Notes:
+     * All MessageProcessing elements have an "id" attribute ("default" if
+       none specified) which should be unique and can be used to refer to
+       that common message processing from a SessionManager element using its
+       processingID attribute.
+
+     * The attribute values of all message processors contained in a
+       MessageProcessing element can contain "parameter" strings of the form:
+          ${SomeText}
+       When a SessionManager refers to a MessageProcessing element in order to
+       define its associated message processors, it can supply values which
+       will be substituted into the above strings. For example, if a
+       SessionManager defined a Property called SomeText with a value of
+       "My text", the string ${SomeText} would be replaced by "My text" in
+       any message processor attribute values where it occurred.
+       This allows for the same set of message processors to be parameterized
+       differently in different SessionManager's.
+       See the comments below on the SessionManager element.
+
+     * A standard parameter string - ${session} - is always defined.
+       It is automatically substituted with the party information associated
+       with the relevant SessionManager.
+-->
+<!ELEMENT MessageProcessing (SourceMessageProcessors, ListenerMessageProcessors)?>
+<!ATTLIST MessageProcessing
+          class       CDATA #FIXED "com.cameronsystems.fix.processor.MessageProcessingTemplate"
+          id          CDATA "default"
+>
+
+<!--
+   Our general purpose properties support.
+
+   Notes:
+     * Properties are collections of name/value 's (Property elements).
+
+     * A Properties element translates directly into a standard Java Properties
+       object.
+
+     * If a Property element contains text, that is taken as its value,
+       otherwise the value is taken from the value attribute. If both text and
+       value attribute are present, the text will be used and the attribute
+       ignored.
+
+     * Properties can be given an "id" attribute which should be unique and can
+       be used to refer to those Properties from within other elements.
+       References are made using the "refid" attribute. This is similar to the
+       model used in Ant.
+
+     * Note that Properties can contain another Properties. This allows
+       Properties to be built on top of each other which can be used to factor
+       out common data, simplifying maintenance.
+-->
+<!ELEMENT Properties ((Properties | Property)*)>
+<!ATTLIST Properties
+          id          CDATA #IMPLIED
+          refid       CDATA #IMPLIED
+>
+
+  <!ELEMENT Property (#PCDATA)>
+  <!ATTLIST Property
+            name      CDATA #REQUIRED
+            value     CDATA #IMPLIED
+  >
+
+
+<!--
+                      S E L E C T O R S
+
+   Selectors are classes that implement our standard
+   com.cameronsystems.util.notification.ISelector interface.
+
+   Notes:
+     * Selectors are simple classes which can be passed another object and
+       return true or false depending on whether or not that object is
+       "selected" depending on some criteria.
+
+     * A Selector element must have a class attribute referring to a Java
+       class which implements our ISelector interface.
+
+     * Selectors can have an "id" attribute which should be unique and can
+       be used to refer to the selector from other elements.
+       References are made using the "selectorRefID" attribute.
+       This is similar to the model used in Ant.
+-->
+
+<!--
+  Generic selector - configured using nested Properties element.
+  class must specify a class which implements the ISelector interface.
+-->
+<!ELEMENT Selector ANY>
+<!ATTLIST Selector
+          class       CDATA #REQUIRED
+          id          CDATA #IMPLIED
+>
+
+<!--
+  Selects by message tag/values.
+-->
+<!ELEMENT SelectByTagValue ANY>
+<!ATTLIST SelectByTagValue
+          class CDATA #FIXED "com.cameronsystems.fix.selector.SelectByTagValue"
+          id CDATA #IMPLIED
+          selection CDATA #REQUIRED
+          delim CDATA " "
+>
+
+
+
+<!--
+   This is the main element of any CameronFIX XML configuration file.
+-->
+<!ELEMENT Config ((Application | MessageProcessing | Properties | Selector)*)>
+  <!ATTLIST Config
+            version           CDATA "0"
+  >
+
+  <!ELEMENT Application (( CustomMonitors | MessageToStringFormat | Scheduling |
+                           Parties | Logger| HighAvailabilityCluster | Link |
+                           Properties | Selector | Services )* )>
+  <!ATTLIST Application
+            class                  CDATA #FIXED "com.cameronsystems.fix.rmi.CameronFixApplicationBase"
+            connectionPointMatcher CDATA "com.cameronsystems.fix.util.DefaultConnectionPointMatcher"
+            id                     CDATA "default"
+            rmiPort                CDATA #IMPLIED
+            rmiFixedPort           CDATA #IMPLIED
+            createRmiRegistry      ( true | false ) "true"
+            rmiName                CDATA #IMPLIED
+            jmxHttpPort            CDATA #IMPLIED
+            printMessages          ( true | false ) "true"
+            console                ( stdio | none ) "stdio"
+  >
+
+    <!--
+      Custom monitors allow you to insert your own in-process monitoring
+      and control code.
+      Each monitor element must at least specify a "class" attribute.
+      It can also specify an "id" attribute by which it will be known
+      within the application. Other attributes are specific to each
+      type of monitor.
+      Each monitor object must have a Properties constructor and support the
+      IComponent interface. ComponentHelper is a useful base class to
+      inherit from (or delegate to).
+      It will automically be registered as a listener to internal objects
+      depending on the interfaces that it supports.
+      For example, if it implements the ISessionManagerListener interface,
+      it will be registered as a listener to all FIX session manager events.
+    -->
+    <!ELEMENT CustomMonitors ANY>
+
+      <!--
+        Can be used for any monitor that does not require any special attributes.
+        Just specify the monitor's class name.
+      -->
+      <!ELEMENT GenericMonitor ANY>
+      <!ATTLIST GenericMonitor
+                class CDATA #REQUIRED
+                id CDATA #IMPLIED
+      >
+
+    <!--
+      Only use these if you want to override the default Message.toString
+      formats as defined by the
+      com.cameronsystems.fix.message.DefaultToStringTransformer class.
+      See the Message documentation for the definition of the different
+      types of format.
+    -->
+    <!ELEMENT MessageToStringFormat EMPTY>
+    <!ATTLIST MessageToStringFormat
+              class           CDATA #REQUIRED
+              format          (0 | 1 | 2 | 3) #REQUIRED
+    >
+
+    <!ELEMENT Logger ((log4j:configuration)*)>
+    <!ATTLIST Logger
+              class           CDATA "com.cameronsystems.util.logger.Log4JLoggerFactory"
+              id              CDATA "default"
+    >
+
+    <!ELEMENT HighAvailabilityCluster ((Server)*, (Ping)*)>
+    <!ATTLIST HighAvailabilityCluster
+          id                            CDATA #REQUIRED
+          class                         CDATA "com.cameronsystems.util.cluster.ClusterServer"
+          primaryDeterminationTimeout	CDATA "30000"
+          sleepInterval			CDATA "1000"
+          heartbeatInterval		CDATA "1000"
+          transactionTimeout            CDATA "3000"
+          wanSleepInterval		CDATA "3000"
+          wanHeartbeatInterval		CDATA "3000"
+          primaryStartScript		CDATA ""
+          primaryStopScript		CDATA ""
+          scriptTimeout                 CDATA "5000"
+    >
+
+      <!ELEMENT Server EMPTY>
+      <!ATTLIST Server
+            class            CDATA "com.cameronsystems.util.cluster.node.NodeStats"
+            name             CDATA #REQUIRED
+            ip               CDATA #REQUIRED
+            port             CDATA #REQUIRED
+            automaticFailover ( true | false ) "true"
+            filePath	   CDATA "."
+      >
+
+      <!ELEMENT Ping EMPTY>
+      <!ATTLIST Ping
+            command       CDATA #REQUIRED
+      >
+
+    <!ELEMENT Link (SessionGroup, SessionGroup)>
+    <!ATTLIST Link
+              class           CDATA #FIXED "com.cameronsystems.fix.processor.LinkBase"
+              directed        ( true | false ) "false"
+              useOnBehalfOfSendingTime ( true | false ) "false"
+              useHopFields             ( true | false ) "false"
+              useDeliverToRouting      ( true | false ) "true"
+    >
+
+      <!ELEMENT SessionGroup (SessionRef*)>
+        <!ELEMENT SessionRef EMPTY>
+        <!ATTLIST SessionRef
+                  class              CDATA "com.cameronsystems.fix.ConnectionPoint"
+                  compid             CDATA #REQUIRED
+                  subid              CDATA #IMPLIED
+                  locationid         CDATA #IMPLIED
+                  ourcompid          CDATA #REQUIRED
+                  oursubid           CDATA #IMPLIED
+                  ourlocationid      CDATA #IMPLIED
+        >
+
+    <!-- Services are named components that are global to an application.  They
+         Can be accessed through the ServiceManager.
+         Note all service elements MUST have class and id attributes, the value
+         of the id attribute will be used as the service name.
+    -->
+    <!ELEMENT Services ANY>
+
+      <!-- A generic service -->
+      <!ELEMENT GenericService ANY>
+      <!ATTLIST GenericService
+                class CDATA #REQUIRED
+                id    CDATA #REQUIRED
+      >
+
+      <!ELEMENT FixMarketMirror EMPTY>
+      <!ATTLIST FixMarketMirror
+                class             CDATA #FIXED "com.cameronsystems.fix.marketstate.FixMarketMirror"
+                id                CDATA #REQUIRED
+                marketOrdersBecomeLimitOrders ( true | false ) "true"
+                useOrderPendingStatuses       ( true | false ) "false"
+      >
+
+      <!ELEMENT ClearTextFilePasswordStore EMPTY>
+      <!ATTLIST ClearTextFilePasswordStore
+                class                      CDATA #FIXED "com.cameronsystems.util.passwordstore.ClearTextFilePasswordStore"
+                id                         CDATA #REQUIRED
+                passwordFile               CDATA #REQUIRED
+                lastSuccessfulPasswordFile CDATA #IMPLIED
+      >
+
+      <!ELEMENT SeatsMarketDataGatewayService (SeatsMarketDataGateway+)>
+      <!ATTLIST SeatsMarketDataGatewayService
+                class CDATA "com.cameronsystems.fix.seatsadapter.MarketDataGatewayManager"
+                id    CDATA #REQUIRED
+      >
+
+     <!ELEMENT SeatsMarketDataGateway EMPTY>
+     <!ATTLIST SeatsMarketDataGateway
+               class CDATA "com.cameronsystems.fix.seatsadapter.MarketDataGateway"
+               id CDATA #IMPLIED
+
+               protocolVersion (0301 | 0311) #IMPLIED
+
+               mode (test | production) "test"
+
+               hostname CDATA "localhost"
+               port CDATA "5002"
+
+               username CDATA #IMPLIED
+               password CDATA #IMPLIED
+               newPassword CDATA #IMPLIED
+               passwordStoreServiceName CDATA #IMPLIED
+
+               serviceID CDATA "SEATS"
+               serviceQualifier CDATA #IMPLIED
+
+               heartbeatInterval CDATA "30"
+     >
+
+     <!ELEMENT SeatsMarketDataService EMPTY>
+     <!ATTLIST SeatsMarketDataService
+               class                      CDATA #FIXED "com.cameronsystems.fix.seatsmarketdata.SeatsMarketDataService"
+               id                         CDATA #REQUIRED
+               marketDataGatewayServiceId CDATA #REQUIRED
+     >
+
+     <!ELEMENT BreakOutBox ANY>
+     <!ATTLIST BreakOutBox
+               class             CDATA #FIXED "com.cameronsystems.fix.processor.breakout.BreakOutBox"
+               id                CDATA #REQUIRED
+               persistenceFile   CDATA #REQUIRED
+               policyEngineClass CDATA #REQUIRED
+     >
+
+       <!ELEMENT BreakOutLogger (Properties*)>
+       <!ATTLIST BreakOutLogger
+                 class    CDATA #REQUIRED
+       >
+
+
+    <!ENTITY partyConfigClass "com.cameronsystems.fix.configuration.PartyConfigInXml">
+    <!ELEMENT Parties (Party*)>
+    <!ATTLIST Parties
+              class           CDATA "&partyConfigClass;"
+    >
+
+      <!-- Although the Party element below potentially allows for multiple
+           Session, Scheduling, Connections and SessionManager child elements,
+           there should only be at most one of each.
+           Unfortunately, there does not appear to be a way of expressing this
+           in a DTD, without imposing an ordering as in:
+      <!ELEMENT Party (Session?, Scheduling?, Connections?, SessionManager?)>
+           Rather than impose this unnecessary ordering we have chosen a
+           definition that allows multiples - however this should be avoided.
+      -->
+      <!ELEMENT Party (Session | Scheduling | Connections | SessionManager)*>
+      <!ATTLIST Party
+                class              CDATA "com.cameronsystems.fix.Party"
+                compid             CDATA #REQUIRED
+                subid              CDATA #IMPLIED
+                locationid         CDATA #IMPLIED
+                keyStore           CDATA #IMPLIED
+                keyStorePassword   CDATA "password"
+                keyPassword        CDATA "password"
+                needClientAuth     ( true | false ) "false"
+                side               ( buy | sell ) "sell"
+                startTask          CDATA "com.cameronsystems.fix.task.StartTask"
+                stopTask           CDATA "com.cameronsystems.fix.task.StopTask"
+                trustStore         CDATA #IMPLIED
+                trustStorePassword CDATA "password"
+      >
+
+        <!-- At most one Persister, Encryption or MessageFactory child element
+             should be present - despite the following element definition.
+             See comments above on Party element.
+             If it were not for the restriction on child element ordering
+             the following element definition would be:
+        <!ELEMENT Session (Properties*, Persister?, Encryption?, MessageFactory?)>
+        -->
+        <!ELEMENT Session (Properties | Persister | Encryption | MessageFactory)*>
+        <!ATTLIST Session
+                  fixversion (4.0 | 4.1 | 4.2 | 4.3 | 4.4) #REQUIRED
+                  heartbeat       CDATA #IMPLIED
+                  heartbeatOffset CDATA #IMPLIED
+                  compid          CDATA #IMPLIED
+                  subid           CDATA #IMPLIED
+                  locationid      CDATA #IMPLIED
+                  autoLogoutResponse ( true | false ) "true"
+                  description     CDATA #IMPLIED
+                  resendTimeout   CDATA "0"
+                  dialectAllowLogonResponseWithoutEncryptMethod ( true | false ) "false"
+                  dialectAllowNoLengthOnRawData ( true | false ) "false"
+                  dialectAllowResendTimeout ( true | false ) "false"
+                  dialectAlwaysSendPossDupFlagAndOrigSendingTime ( true | false ) "false"
+                  dialectAlwaysSendResendRequest ( true | false ) "false"
+                  dialectDoNotSendTargetCompID ( true | false ) "false"
+                  dialectEnableShortTestReqIDFormat ( true | false ) "false"
+                  dialectIgnoreIDFieldsInLogonResponse ( true | false ) "false"
+                  dialectInitializeCipherOncePerSession ( true | false ) "false"
+                  dialectInsertCustomFieldsInHeader CDATA #IMPLIED
+                  dialectOrigSendingTimeInGapFill ( true | false ) "false"
+                  dialectProcessSkippedMessages ( true | false ) "false"
+                  dialectResendRequestEndSeqNoAlwaysInfinity ( true | false ) "false"
+                  dialectSequenceResetToLastSeqno ( true | false ) "false"
+                  dropLogonStateOnDisconnect ( true | false ) "false"
+                  logonPassThroughEnabled (true | false) "false"
+                  sendBufferSize CDATA "0"
+                  useDateMilliseconds ( true | false) "false"
+                  resendRequestInfinity CDATA #IMPLIED
+        >
+
+          <!ELEMENT Encryption (UNENCRYPTED | PGP-DES-MD5 | DES)? >
+            <!ELEMENT UNENCRYPTED EMPTY>
+            <!ATTLIST UNENCRYPTED
+                      encryptmethod CDATA #FIXED "0"
+            >
+
+            <!-- Encryption classes must implement IEncryptionEngine and have
+                 a null constructor-->
+            <!ELEMENT DES EMPTY>
+            <!ATTLIST DES
+                      class CDATA #REQUIRED
+                      encryptmethod CDATA #FIXED "2"
+            >
+
+            <!ELEMENT PGP-DES-MD5 EMPTY>
+            <!ATTLIST PGP-DES-MD5
+                      class CDATA #REQUIRED
+                      encryptmethod CDATA #FIXED "5"
+                      publickeyring CDATA #REQUIRED
+                      secretkeyring CDATA #REQUIRED
+                      passphrase CDATA #REQUIRED
+                      myprivatekeyname CDATA #REQUIRED
+                      otherspublickeyname CDATA #REQUIRED
+            >
+
+          <!ELEMENT MessageFactory ANY>
+
+            <!-- Message factory used for Chicago Mercantile Exchange connections -->
+            <!ELEMENT CmeMessageFactory EMPTY >
+            <!ATTLIST CmeMessageFactory
+                      class CDATA #FIXED "com.cameronsystems.fix.message.CmeMessageFactory"
+                      loginRouteID CDATA #REQUIRED
+            >
+
+          <!ELEMENT CMEiLink2MessageFactory EMPTY>
+            <!ATTLIST CMEiLink2MessageFactory
+                      class CDATA #FIXED "com.cameronsystems.fix.message.CMEiLink2MessageFactory"
+                      rawdata CDATA #REQUIRED
+            >
+
+            <!ELEMENT UsernameAndPasswordMessageFactory EMPTY>
+            <!ATTLIST UsernameAndPasswordMessageFactory
+                      class CDATA #FIXED "com.cameronsystems.fix.message.UsernameAndPasswordMessageFactory"
+                      username CDATA #REQUIRED
+                      password CDATA #REQUIRED
+            >
+
+            <!--Different types of Message Factory can be defined here -->
+
+          <!ELEMENT Persister ANY >
+
+            <!ELEMENT FilePersister EMPTY >
+            <!ATTLIST FilePersister
+                      class CDATA #FIXED "com.cameronsystems.fix.util.persistence.FilePersister"
+                      baselogfile CDATA #REQUIRED
+                      synchAfterWrite (true | false) "false"
+            >
+
+            <!ELEMENT LimitedMemoryFilePersister EMPTY >
+            <!ATTLIST LimitedMemoryFilePersister
+                      class CDATA #FIXED "com.cameronsystems.fix.util.persistence.LimitedMemoryFilePersister"
+                      baselogfile CDATA #REQUIRED
+                      cache CDATA "1000"
+                      synchAfterWrite (true | false) "false"
+            >
+
+            <!ELEMENT ReplicatedFilePersister EMPTY >
+            <!ATTLIST ReplicatedFilePersister
+                      class CDATA #FIXED "com.cameronsystems.fix.util.persistence.ReplicatedFilePersister"
+                      baselogfile CDATA #REQUIRED
+                      persistInputMessages (true | false) "false"
+                      synchAfterWrite (true | false) "false"
+                      haSmartSynchAfterWrite (true | false) "false"
+                      selectorRefID CDATA #IMPLIED
+            >
+
+            <!ELEMENT NullPersister EMPTY >
+            <!ATTLIST NullPersister
+                      class CDATA #FIXED "com.cameronsystems.fix.util.persistence.MemorySeqNoOnlyPersister"
+            >
+
+            <!--
+              This is deprecated - use ReplicatedFilePersister instead.
+            -->
+            <!ELEMENT CachedFilePersister EMPTY >
+            <!ATTLIST CachedFilePersister
+                      class CDATA #FIXED "com.cameronsystems.fix.util.persistence.CachedFilePersister"
+                      outdb CDATA #REQUIRED
+                      indb CDATA #REQUIRED
+            >
+
+            <!--Different types of Persister can be defined here -->
+
+        <!ELEMENT Connections ANY >
+
+          <!ELEMENT SocketConnection EMPTY >
+          <!ATTLIST SocketConnection
+                    class CDATA #FIXED "com.cameronsystems.fix.connection.SocketConnection"
+                    hostname CDATA #IMPLIED
+                    port CDATA #IMPLIED
+                    listenport CDATA #IMPLIED
+                    localport CDATA #IMPLIED
+                    localhost CDATA #IMPLIED
+                    receiveBufferSize CDATA #IMPLIED
+                    sendBufferSize CDATA #IMPLIED
+          >
+
+          <!ELEMENT SSLSocketConnection EMPTY >
+          <!ATTLIST SSLSocketConnection
+                    class CDATA #FIXED "com.cameronsystems.fix.connection.SSLSocketConnection"
+                    hostname CDATA #IMPLIED
+                    port CDATA #IMPLIED
+                    listenport CDATA #IMPLIED
+                    noSSLv2Hello CDATA "false"
+          >
+
+          <!--Different types of Connection can be defined here -->
+
+
+
+        <!--
+          The SessionManager element can contain either:
+
+          1. The chains of message processors used for processing FIX messages
+             to and from this session.
+
+          2. A "processingid" attribute referring to a MessageProcessing element
+             which defines the message processors.
+             It can optionally contain any number of Property elements which
+             define parameter values to be substituted into the attribute
+             values of message processors appearing in the MessageProcessing
+             element.
+             See comments above on the MessageProcessing element.
+        -->
+        <!ENTITY % sessionManagerContent "(Properties?, (SourceMessageProcessors, ListenerMessageProcessors)?)
+                                        | (MessageProcessors?) 
+                                        | (Property*)"> 
+        <!ELEMENT SessionManager (%sessionManagerContent;)>
+        <!ATTLIST SessionManager
+                  class CDATA "com.cameronsystems.fix.manager.SessionManager"
+                  acceptConnectionsOutsideSchedule (true | false) "true"
+                  checkInterval CDATA "10000"
+                  reconnectDelay CDATA "10000"
+                  maxLogonAttempts CDATA "0"
+                  clientConnectionManager CDATA "com.cameronsystems.fix.manager.DefaultClientConnectionManager"
+                  connectOnActivation ( true | false ) "true"
+                  generateSentEvents ( true | false ) "false"
+                  logAllConnectionAttempts ( true | false ) "false"
+                  processingid CDATA #IMPLIED
+                  resetOnLogon ( true | false ) "false"
+                  underConstruction ( true | false ) "false"
+                  updateMessageHistory ( true | false ) "false"
+                  passwordStoreServiceName CDATA #IMPLIED
+                  userName CDATA #IMPLIED
+                  passwordExpiryEmailDayFilter CDATA #IMPLIED
+        >
+
+          <!ELEMENT SourceMessageProcessors ANY>
+          <!ELEMENT ListenerMessageProcessors ANY>
+
+          <!-- This is deprecated. It should eventually be replaced everywhere
+               by SourceMessageProcessors and ListenerMessageProcessors -->
+          <!ELEMENT MessageProcessors ANY>
+
+            <!--
+              Interface to Microsoft COM.
+            -->
+            <!ELEMENT ComAdapter EMPTY>
+            <!ATTLIST ComAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.com.ComAdapter"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+            >
+
+            <!--
+              Interface to Corba.
+            -->
+            <!ELEMENT CorbaAdapter EMPTY>
+            <!ATTLIST CorbaAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.corba.CorbaAdapter"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      iorManagerClass CDATA "com.cameronsystems.util.corba.FileIorManager"
+                      iorName CDATA #IMPLIED
+                      corbaProperties CDATA #IMPLIED
+            >
+
+            <!--
+              Interface to RMI.
+            -->
+            <!ELEMENT RmiAdapter EMPTY>
+            <!ATTLIST RmiAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.rmiadapter.RmiAdapter"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      name CDATA #IMPLIED
+                      port CDATA #IMPLIED
+                      getSupportLog CDATA #IMPLIED
+                      newRegistry ( true | false ) "true"
+                      rmiClientTimeout CDATA #IMPLIED
+                      rmiFixedPort CDATA #IMPLIED
+                      maxMessages CDATA "0"
+            >
+
+            <!--
+              Socket Adapter
+            -->
+            <!ELEMENT SocketAdapter (Properties*)>
+            <!ATTLIST SocketAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.socketadapter.SocketAdapter"
+                      id CDATA #IMPLIED
+                      port CDATA "5005"
+                      ackTimeout CDATA "0"
+                      multiSession (true | false) "false"
+                      coppeliaCompatibility (true | false) "false"
+                      alwaysUseMsgId (true | false) "false"
+                      addDataToAckMsg (none | seqnum) "seqnum"
+                      transformer CDATA "com.cameronsystems.fix.message.ComplexRawTransformer"
+            >
+
+            <!--
+              Advanced Socket Adapter
+            -->
+            <!ELEMENT AdvancedSocketAdapter (Properties*)>
+            <!ATTLIST AdvancedSocketAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.socketadapter.advanced.SocketAdapterSourceListener"
+                      id CDATA #IMPLIED
+                      port CDATA "5005"
+                      ackTimeout CDATA "10000"
+                      transformer CDATA "com.cameronsystems.fix.message.RawTransformer"
+                      overridePreviousClient (true | false) "false"
+                      addDataToAckMsg (none | seqnum | fixmsg) "none"
+                      broadcastAckToClients (true | false) "false"
+                      baselogfile CDATA "SocketAdapter_"
+            >
+
+            <!ELEMENT NewAdvancedSocketAdapter (Properties*)>
+            <!ATTLIST NewAdvancedSocketAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.socketadapter.newadvanced.SocketAdapterSourceListener"
+                      id CDATA #IMPLIED
+                      port CDATA "5005"
+                      ackTimeout CDATA "10000"
+                      transformer CDATA "com.cameronsystems.fix.message.RawTransformer"
+                      overridePreviousClient (true | false) "false"
+                      rejectPolicy (ifAnyClientFails | ifAllClientsFail) "ifAnyClientFails"
+                      useBusinessReject (true | false) "true"
+            >
+
+
+            <!--
+              Interface to any JMS compliant messaging product.
+            -->
+
+            <!ELEMENT JmsProducer (Properties*)>
+            <!ATTLIST JmsProducer
+                      class CDATA #FIXED "com.cameronsystems.fix.jms.JmsProducer"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      type (topic | queue) #REQUIRED
+                      destination CDATA #REQUIRED
+                      factory CDATA #IMPLIED
+                      factory.parameters CDATA #IMPLIED
+                      use.jndi (true | false) "true"
+                      reconnectDelay CDATA "10000"
+                      transformer CDATA "com.cameronsystems.fix.transformer.DefaultJMSTransformer"
+            >
+
+            <!ELEMENT JmsConsumer (Properties*)>
+            <!ATTLIST JmsConsumer
+                      class CDATA #FIXED "com.cameronsystems.fix.jms.JmsConsumer"
+                      id CDATA #IMPLIED
+                      type (topic | queue) #REQUIRED
+                      durableName CDATA #IMPLIED
+                      msgSelector CDATA #IMPLIED
+                      destination CDATA #REQUIRED
+                      initialWait CDATA "5000"
+                      factory CDATA #IMPLIED
+                      factory.parameters CDATA #IMPLIED
+                      use.jndi (true | false) "true"
+                      reconnectDelay CDATA "10000"
+                      transformer CDATA "com.cameronsystems.fix.transformer.DefaultJMSTransformer"
+            >
+
+
+            <!ELEMENT ListenerMessageBuffer ANY>
+            <!ATTLIST ListenerMessageBuffer
+                      class CDATA #FIXED "com.cameronsystems.fix.processor.ListenerMessageBuffer"
+                      msgTypes CDATA #IMPLIED
+                      id CDATA #IMPLIED
+                      buffer CDATA #REQUIRED
+                      clearOnReset (true | false) "false"
+                      rejectIfNotSelected (true | false) "true"
+                      reportSizeAttribute CDATA #IMPLIED
+                      retryInterval CDATA "10000"
+                      selectorRefID CDATA #IMPLIED
+                      synchAfterWrite (true | false) "false"
+                      haSmartSynchAfterWrite (true | false) "false"
+            >
+
+            <!ELEMENT SourceMessageBuffer ANY>
+            <!ATTLIST SourceMessageBuffer
+                      class CDATA #FIXED "com.cameronsystems.fix.processor.SourceMessageBuffer"
+                      id CDATA #IMPLIED
+                      buffer CDATA #REQUIRED
+                      clearOnReset (true | false) "false"
+                      rejectIfNotSelected (true | false) "true"
+                      reportSizeAttribute CDATA #IMPLIED
+                      retryInterval CDATA "10000"
+                      selectorRefID CDATA #IMPLIED
+                      synchAfterWrite (true | false) "false"
+                      haSmartSynchAfterWrite (true | false) "false"
+            >
+
+            <!ELEMENT ListenerMessageThrottle ANY>
+            <!ATTLIST ListenerMessageThrottle
+                      class               CDATA #FIXED "com.cameronsystems.fix.processor.ListenerMessageThrottle"
+                      interval            CDATA "10"
+                      messagesPerInterval CDATA "1"
+                      buffer              CDATA #REQUIRED
+                      synchAfterWrite (true | false) "false"
+                      haSmartSynchAfterWrite (true | false) "false"
+            >
+
+            <!ELEMENT SourceMessageThrottle ANY>
+            <!ATTLIST SourceMessageThrottle
+                      class               CDATA #FIXED "com.cameronsystems.fix.processor.SourceMessageThrottle"
+                      interval            CDATA "10"
+                      messagesPerInterval CDATA "1"
+                      buffer              CDATA #REQUIRED
+                      synchAfterWrite (true | false) "false"
+            >
+
+
+            <!ELEMENT MarketMirrorPopulator ANY>
+            <!ATTLIST MarketMirrorPopulator
+                      class               CDATA #FIXED "com.cameronsystems.fix.processor.MarketMirrorPopulator"
+                      id CDATA #IMPLIED
+                      marketMirrorId CDATA #IMPLIED
+                      refid CDATA #IMPLIED
+                      currencies CDATA #IMPLIED
+                      exchanges CDATA #IMPLIED
+                      symbols CDATA #IMPLIED
+                      persistenceFileBaseName CDATA #IMPLIED
+                      passwords CDATA #IMPLIED
+                      messageFactoryList CDATA #IMPLIED
+                      viewSide ( buy | sell ) "buy"
+            >
+
+            <!--
+              SEATS Adapter (Australian Stock Exchange Equities Trading System)
+            -->
+            <!ELEMENT SeatsAdapter (SeatsGateway*) >
+            <!ATTLIST SeatsAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.seatsadapter.SeatsAdapter"
+                      id CDATA #IMPLIED
+
+                      crossReference CDATA #IMPLIED
+                      dynamicCrossReferenceTag CDATA #IMPLIED
+                      optionalTagsToPersist CDATA #IMPLIED
+
+                      transactionOriginID CDATA #IMPLIED
+
+                      orderRecoveryLog CDATA #IMPLIED
+                      tradeRecoveryLog CDATA #IMPLIED
+
+                      orderReferenceBase CDATA #IMPLIED
+                      orderReferenceRange CDATA #IMPLIED
+            >
+              <!ELEMENT SeatsGateway EMPTY >
+              <!ATTLIST SeatsGateway
+                      class CDATA #FIXED "com.cameronsystems.fix.seatsadapter.TradingGateway"
+                      id CDATA #IMPLIED
+
+                      protocolVersion (0301 | 0311) #IMPLIED
+
+                      mode (test | production) "test"
+
+                      hostname CDATA "localhost"
+                      port CDATA "5002"
+
+                      username CDATA #IMPLIED
+                      password CDATA #IMPLIED
+                      newPassword CDATA #IMPLIED
+                      passwordStoreServiceName CDATA #IMPLIED
+
+                      serviceID CDATA "SEATS"
+                      serviceQualifier CDATA #IMPLIED
+
+                      heartbeatInterval CDATA "60"
+              >
+
+            <!--
+              ASX CLICK Adapter (New Australian Stock Exchange Trading System)
+            -->
+            <!ELEMENT AsxClickAdapter (AsxClickGateway*) >
+            <!ATTLIST AsxClickAdapter
+                      class CDATA #FIXED "au.com.asx.fix.omadapter.ClickAdapterProcessor"
+                      id CDATA #IMPLIED
+                      hostname CDATA #IMPLIED
+                      port CDATA #IMPLIED
+                      username CDATA #IMPLIED
+                      password CDATA #IMPLIED
+                      pollInterval CDATA #IMPLIED
+                      serviceID CDATA #IMPLIED
+                      autoOMLogon CDATA #IMPLIED
+                      brokerProxy CDATA #IMPLIED
+                      qualityOfService CDATA #IMPLIED
+                      orderRecoveryLog CDATA #IMPLIED
+            >
+              <!ELEMENT AsxClickGateway EMPTY >
+              <!ATTLIST AsxClickGateway
+                      class CDATA #FIXED "com.cameronsystems.fix.asxclickadapter.LogicalClickSession"
+                      id CDATA #IMPLIED
+                      username CDATA #IMPLIED
+                      passwordStoreServiceName CDATA #IMPLIED
+                      pollInterval CDATA #IMPLIED
+                      serviceID CDATA #IMPLIED
+                      addresses CDATA #IMPLIED
+                      qualityOfService CDATA #IMPLIED
+              >
+
+            <!--
+            Singapore Stock Exchange CCL Adapter for SGXAccess and LMP Order Routing
+            -->
+
+            <!ELEMENT SgxOrderRoutingAdapter EMPTY>
+            <!ATTLIST SgxOrderRoutingAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.sgxadapter.SgxOrderRoutingAdapter"
+                      id CDATA #IMPLIED
+                      instanceType (SGX | LMP) #IMPLIED
+                      ordRejectInterval CDATA #IMPLIED
+                      subscriptionRecoveryLog CDATA #IMPLIED
+                      orderRecoveryLog CDATA #IMPLIED
+                      cclUsername CDATA #IMPLIED
+                      cclPassword CDATA #IMPLIED
+                      eodListenPort CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+            >
+
+            <!--
+            Singapore Stock Exchange CCL Adapter for LMP Market Data
+            -->
+
+            <!ELEMENT SgxMarketDataAdapter EMPTY>
+            <!ATTLIST SgxMarketDataAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.sgxadapter.SgxMarketDataAdapter"
+                      id CDATA #IMPLIED
+                      cclUsername CDATA #IMPLIED
+                      cclPassword CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+            >
+
+            <!--
+              Compliance Processor
+            -->
+            <!ELEMENT ComplianceProcessor ANY >
+            <!ATTLIST ComplianceProcessor
+                      class CDATA #FIXED "com.cameronsystems.fix.compliance.ComplianceProcessor"
+                      id CDATA #IMPLIED
+
+                      rulesFile CDATA #IMPLIED
+                      filterSet CDATA #IMPLIED
+
+                      marketDataServiceId CDATA #IMPLIED
+                      priceStepTableDefinitions CDATA #IMPLIED
+                      exposureFile CDATA #IMPLIED
+
+                      servletPort CDATA "3336"
+                      servletStylesheet CDATA #IMPLIED
+
+                      breakOutBoxId CDATA #IMPLIED
+                      marketMirrorId CDATA #IMPLIED
+            >
+
+            <!--
+              Interface to Talarian's SmartSockets messaging product.
+            -->
+            <!ELEMENT TalarianProducer (Properties*)>
+            <!ATTLIST TalarianProducer
+                      class CDATA #FIXED "com.cameronsystems.fix.smartsockets.Producer"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      sendSubject CDATA #REQUIRED
+                      optionsFile CDATA #IMPLIED
+                      useGmd ( true | false ) "false"
+                      transformer CDATA "com.cameronsystems.fix.message.SSTransformer"
+            >
+            <!ELEMENT TalarianConsumer (Properties*)>
+            <!ATTLIST TalarianConsumer
+                      class CDATA #FIXED "com.cameronsystems.fix.smartsockets.Consumer"
+                      id CDATA #IMPLIED
+                      receiveSubject CDATA #REQUIRED
+                      errorSubject CDATA #REQUIRED
+                      optionsFile CDATA #IMPLIED
+                      useGmd ( true | false ) "false"
+                      transformer CDATA "com.cameronsystems.fix.message.SSTransformer"
+            >
+
+            <!--
+              Interface to IBM's MQSeries messaging product.
+
+              Message processor for processing fix messages from Cameron fix engine
+              to an IBM MQSeries message queue. For the format of MQ messages sent see Javadoc
+              for com.cameronsystems.fix.mq.MQProducer or com.cameronsystems.fix.mq.MQConsumer.
+
+              Note that all the server.XXXX attributes are used for client connections only.
+
+              If no hostname is provided it is assumed that a bindings connection is to be
+              used and all other server.XXXX attributes are ignored.
+
+              If a hostname is provided then all other necessary attributes must be specified
+              correctly. As a minimum the channel name must be specified. If no others are
+              specified MQ will assume a port number of 1414 (default) and that no userid
+              or password have been set up.
+            -->
+            <!ELEMENT IBMMQMessageListener (Properties*)>
+            <!ATTLIST IBMMQMessageListener
+                      class CDATA #FIXED "com.cameronsystems.fix.mq.MQProducer"
+                      id CDATA #IMPLIED
+                      error.queue.name CDATA #IMPLIED
+                      message.format CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      open.options CDATA "MQOO_OUTPUT,MQOO_FAIL_IF_QUIESCING"
+                      queue.manager.name CDATA #IMPLIED
+                      queue.name CDATA #IMPLIED
+                      server.hostname CDATA #IMPLIED
+                      server.port.number CDATA #IMPLIED
+                      server.channel.name CDATA #IMPLIED
+                      server.userid CDATA #IMPLIED
+                      server.password CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.message.MQTransformer"
+            >
+
+            <!ELEMENT IBMMQMessageSource (Properties*)>
+            <!ATTLIST IBMMQMessageSource
+                      class CDATA #FIXED "com.cameronsystems.fix.mq.MQConsumer"
+                      id CDATA #IMPLIED
+                      error.queue.name CDATA #IMPLIED
+                      initial.wait CDATA "5000"
+                      open.options CDATA "MQOO_INPUT_AS_Q_DEF,MQOO_OUTPUT,MQOO_FAIL_IF_QUIESCING"
+                      queue.manager.name CDATA #IMPLIED
+                      queue.name CDATA #IMPLIED
+                      server.hostname CDATA #IMPLIED
+                      server.port.number CDATA #IMPLIED
+                      server.channel.name CDATA #IMPLIED
+                      server.userid CDATA #IMPLIED
+                      server.password CDATA #IMPLIED
+                      retry.messages (none | first | all) "none"
+                      transformer CDATA "com.cameronsystems.fix.message.MQTransformer"
+            >
+
+
+            <!--
+              In process adapter
+            -->
+            <!ELEMENT InProcessAdapter ANY>
+            <!ATTLIST InProcessAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.inprocess.InProcessAdapterProcessor"
+                      msgTypes CDATA #IMPLIED
+                      id CDATA #REQUIRED
+                      active.notification (true | false) "true"
+                      file.base CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.message.InProcessTransformer"
+            >
+
+            <!--
+              JdbcAdapter acts as a listener message processor and/or a source.
+            -->
+            <!ELEMENT JdbcAdapter ANY>
+            <!ATTLIST JdbcAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.jdbc.JdbcAdapter"
+                      id CDATA #IMPLIED
+                      driver CDATA "net.sourceforge.jtds.jdbc.Driver"
+                      url CDATA #IMPLIED
+                      user CDATA #IMPLIED
+                      password CDATA #IMPLIED
+                      peerWriter CDATA "com.cameronsystems.fix.jdbc.DefaultJdbcApplicationWriter"
+                      peerReader CDATA "com.cameronsystems.fix.jdbc.DefaultJdbcApplicationReader"
+                      peerRecoveryInterval CDATA "10000"
+                      peerPollingInterval CDATA "0"
+                      fixToDbTags CDATA #IMPLIED
+                      fixToDbFile CDATA #IMPLIED
+                      fixToDbFileFormat CDATA  "desc,tag,type,req"
+                      fixToDbInsertStatement CDATA #IMPLIED
+                      fixToDbInsertWithStoredProc (true | false) "false"
+                      dbToFixTags CDATA #IMPLIED
+                      dbToFixPollStatement CDATA #IMPLIED
+                      dbToFixPollWithStoredProc (true | false) "false"
+                      dbToFixUpdateStatement CDATA #IMPLIED
+                      dbToFixUpdateWithStoredProc (true | false) "false"
+                      dbToFixUseStrictSequencing (true | false) "false"
+                      dbToFixMinMsgId CDATA "1"
+                      dbToFixInitStatement CDATA #IMPLIED
+                      dbToFixInitWithStoredProc (true | false) "false"
+                      transformer CDATA "com.cameronsystems.fix.jdbc.FlexibleTagTransformer"
+                      dataTypesFile CDATA "sybaseToJdbc.properties"
+             >
+
+            <!--
+            MSMQ
+            -->
+            <!ELEMENT MSMQMessageListener (Properties*)>
+            <!ATTLIST MSMQMessageListener
+                      class CDATA #FIXED "com.cameronsystems.fix.msmq.MSMQProducer"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      queue.path CDATA #IMPLIED
+                      server.host CDATA "localhost"
+                      server.domain CDATA #IMPLIED
+                      server.userid CDATA #IMPLIED
+                      server.password CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.message.RawTransformer"
+            >
+
+            <!ELEMENT MSMQMessageSource (Properties*)>
+            <!ATTLIST MSMQMessageSource
+                      class CDATA #FIXED "com.cameronsystems.fix.msmq.MSMQConsumer"
+                      id CDATA #IMPLIED
+                      queue.path CDATA #IMPLIED
+                      server.host CDATA "localhost"
+                      server.domain CDATA #IMPLIED
+                      server.userid CDATA #IMPLIED
+                      server.password CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.message.RawTransformer"
+            >
+
+            <!--
+              Interface to TIBCO's Rendezvous messaging product.
+
+              Message processor for processing fix messages from Cameron fix engine
+              to a TIBRV message subject. For the format of TIBRV messages sent see Javadoc
+              for com.cameronsystems.fix.tibrv.TIBRVProducer or com.cameronsystems.fix.tibrv.TIBRVSharedConsumer.
+
+              Note that a subject is required.  This is the subject to publish messages on or subscribe to.
+
+              If no TIBRV transport properties are specified, the local RVD transport will be used.
+              Note that if CM or CMQ is the transport type, RVD transport properties are used as well.
+           -->
+            <!ELEMENT TIBRVMessageListener (Properties*)>
+            <!ATTLIST TIBRVMessageListener
+                      class CDATA #FIXED "com.cameronsystems.fix.tibrv.TIBRVProducer"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      autoForwarding (true | false) "false" 
+                      subject CDATA #REQUIRED
+                      transport.type (RVD | RVA | CM | CMQ) "RVD"
+                      impl (NATIVE | JAVA | SELECT) "NATIVE"
+                      rvd.service CDATA #IMPLIED
+                      rvd.network CDATA #IMPLIED
+                      rvd.daemon CDATA #IMPLIED
+                      rva.host.name CDATA #IMPLIED
+                      rva.port CDATA #IMPLIED
+                      rva.tunnel.mode CDATA #IMPLIED
+                      cm.cm.name CDATA #IMPLIED
+                      cm.request.old (true | false) "false"
+                      cm.ledger.name CDATA #IMPLIED
+                      cm.sync.ledger (true | false) "false"
+                      cm.relay.agent CDATA #IMPLIED
+                      cm.time.limit CDATA #IMPLIED
+                      cmq.cm.name CDATA #IMPLIED
+                      cmq.worker.weight CDATA #IMPLIED
+                      cmq.worker.tasks CDATA #IMPLIED
+                      cmq.scheduler.weight CDATA #IMPLIED
+                      cmq.scheduler.heartbeat CDATA #IMPLIED
+                      cmq.scheduler.activation CDATA #IMPLIED
+                      cmq.complete.time CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.transformer.TIBRVTransformer"
+            >
+
+            <!ELEMENT TIBRVMessageSource (Properties*)>
+            <!ATTLIST TIBRVMessageSource
+                      class CDATA #FIXED "com.cameronsystems.fix.tibrv.TIBRVConsumer"
+                      id CDATA #IMPLIED
+                      subject CDATA #REQUIRED
+                      transport.type (RVD | RVA | CM | CMQ) "RVD"
+                      impl (NATIVE | JAVA | SELECT) "NATIVE"
+                      rvd.service CDATA #IMPLIED
+                      rvd.network CDATA #IMPLIED
+                      rvd.daemon CDATA #IMPLIED
+                      rva.host.name CDATA #IMPLIED
+                      rva.port CDATA #IMPLIED
+                      rva.tunnel.mode CDATA #IMPLIED
+                      cm.cm.name CDATA #IMPLIED
+                      cm.request.old (true | false) "false"
+                      cm.ledger.name CDATA #IMPLIED
+                      cm.sync.ledger (true | false) "false"
+                      cm.relay.agent CDATA #IMPLIED
+                      cm.time.limit CDATA #IMPLIED
+                      cmq.cm.name CDATA #IMPLIED
+                      cmq.worker.weight CDATA #IMPLIED
+                      cmq.worker.tasks CDATA #IMPLIED
+                      cmq.scheduler.weight CDATA #IMPLIED
+                      cmq.scheduler.heartbeat CDATA #IMPLIED
+                      cmq.scheduler.activation CDATA #IMPLIED
+                      cmq.complete.time CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.transformer.TIBRVTransformer"
+            >
+
+            <!--
+              EMX processors.
+            -->
+            <!ELEMENT EMXMessageUpCaster ANY>
+            <!ATTLIST EMXMessageUpCaster
+                      class CDATA #FIXED "com.cameronsystems.emx.processor.EMXMessageUpCaster"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+            >
+
+            <!ELEMENT EMXMessageVerifier ANY>
+            <!ATTLIST EMXMessageVerifier
+                      class CDATA #FIXED "com.cameronsystems.emx.processor.EMXMessageVerifier"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+                      verify ( NONE | PARTICIPANTS | ALL ) "NONE"
+                      failureProcessing ( NONE | SendMERR ) "NONE"
+            >
+
+            <!ELEMENT EMXMessageSigner ANY>
+            <!ATTLIST EMXMessageSigner
+                      class CDATA #FIXED "com.cameronsystems.emx.processor.EMXMessageSigner"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+            >
+
+            <!--
+              The EMXDelimitedFileAdapter. Note that some attributes must be
+              supplied, but they need only be specified once (hence they must
+              be IMPLIED).
+            -->
+            <!ELEMENT EMXDelimitedFileAdapter EMPTY>
+            <!ATTLIST EMXDelimitedFileAdapter
+                      class CDATA #FIXED "com.cameronsystems.emx.processor.EMXDelimitedFileAdapter"
+                      templateDirectory CDATA #IMPLIED
+                      outgoingDirectory CDATA #IMPLIED
+                      incomingDirectory CDATA #IMPLIED
+                      incomingSwitchTimer CDATA #IMPLIED
+            >
+
+            <!--
+              Can be used for any processor that does not require any special attributes.
+              Just specify the processor's class name.
+            -->
+            <!ELEMENT GenericProcessor ANY>
+            <!ATTLIST GenericProcessor
+                      class CDATA #REQUIRED
+                      msgTypes CDATA #IMPLIED
+                      id CDATA #IMPLIED
+                      refid CDATA #IMPLIED
+            >
+
+            <!-- Scripting message processor.  See README_fixScripting.html -->
+            <!ELEMENT ScriptingMessageProcessor ANY>
+            <!ATTLIST ScriptingMessageProcessor
+
+                      class CDATA #FIXED "com.cameronsystems.fix.scripting.ScriptingMessageProcessor"
+                      msgTypes CDATA #IMPLIED
+                      id CDATA #IMPLIED
+
+                      language CDATA #IMPLIED
+
+                      scriptFile CDATA #IMPLIED
+                      script CDATA #IMPLIED
+
+                      actionType (function|script) "function"
+
+                      onConnectionStatusAction CDATA #IMPLIED
+                      onExceptionAction CDATA #IMPLIED
+                      onMessageFromFixAction CDATA #IMPLIED
+                      onResetAction CDATA #IMPLIED
+                      onMessageToFixAction CDATA #IMPLIED
+
+                      varEvent CDATA "event"
+                      varConnected CDATA "connected"
+                      varException CDATA "exception"
+                      varMessage CDATA "message"
+
+                      globalScriptHost (true|false) "true"
+                      globalVarScriptHost CDATA "scriptHost"
+            >
+
+
+            <!ELEMENT ValidatorMessageProcessor ANY>
+            <!ATTLIST ValidatorMessageProcessor
+                      class              CDATA #FIXED "com.cameronsystems.fix.validator.processor.ValidatorMessageProcessor"
+                      id                 CDATA #IMPLIED
+                      rulesFile          CDATA #REQUIRED
+                      fromFixRuleSetName CDATA #IMPLIED
+                      toFixRuleSetName   CDATA #IMPLIED
+                      useBusinessReject  (true|false) "true"
+            >
+
+
+            <!ELEMENT OrderStatusHandler ANY>
+            <!ATTLIST OrderStatusHandler
+                      class CDATA #FIXED "com.cameronsystems.fix.processor.orderstatus.OrderStatusHandler"
+                      id CDATA #IMPLIED
+                      persistenceFileBaseName CDATA #IMPLIED
+                      execIdGeneratorClass CDATA #IMPLIED
+                      execIdPrefix CDATA #IMPLIED
+            >
+
+            <!--
+              FlatFileAdapter acts as both a listener and a source message
+              processor. It uses two file system persistent queues; one for
+              writing messages from FIX (the "fromFix" queue) and the other for
+              messages to be sent to FIX (the "toFix" queue). The other party is
+              expected to read from the "fromFix" queue and write to the "toFix"
+              queue.
+
+              By default, it is assumed that the queue files contain FIX
+              messages and that session status events (onConnection, onReset
+              and onException) are not passed through the adapter.
+            -->
+            <!ELEMENT FlatFileAdapter ANY>
+            <!ATTLIST FlatFileAdapter
+                      class CDATA #FIXED "com.cameronsystems.fix.flatfileadapter.processor.FlatFileAdapter"
+                      id CDATA #IMPLIED
+                      peerWriter CDATA "com.cameronsystems.fix.flatfileadapter.processor.DefaultFlatFileWriter"
+                      fromFixQueue CDATA #IMPLIED
+                      peerReader CDATA "com.cameronsystems.fix.flatfileadapter.processor.DefaultFlatFileReader"
+                      peerRecoveryInterval CDATA "10"
+                      peerPollingInterval CDATA "10"
+                      toFixQueue CDATA #IMPLIED
+                      toFixErrorQueue CDATA #IMPLIED
+                      transformer CDATA "com.cameronsystems.fix.message.RawTransformer"
+            >
+
+            <!--
+              Null message processor.  Can be a source or listener.  Does
+              nothing except forward the message in the correct direction.
+            -->
+            <!ELEMENT NullMessageProcessor ANY>
+            <!ATTLIST NullMessageProcessor
+                      class CDATA #FIXED "com.cameronsystems.fix.processor.NullMessageProcessor"
+                      id CDATA #IMPLIED
+                      msgTypes CDATA #IMPLIED
+            >
+
+<!--
+  Some useful standard message processors.
+-->
+
+  <!--
+    Message processor which sets FIX id routing fields on a mesaage.
+  -->
+  <!ELEMENT SetRoutingFields ANY>
+  <!ATTLIST SetRoutingFields
+            class CDATA #FIXED "com.cameronsystems.fix.processor.SetRoutingFields"
+            id CDATA #IMPLIED
+            msgTypes CDATA #IMPLIED
+            targetCompID CDATA #IMPLIED
+            targetSubID CDATA #IMPLIED
+            targetLocationID CDATA #IMPLIED
+            senderCompID CDATA #IMPLIED
+            senderSubID CDATA #IMPLIED
+            senderLocationID CDATA #IMPLIED
+  >
+
+  <!--
+    Message processor for mapping RefSeqNum fields for reject messages in hub enviroments.
+  -->
+  <!ELEMENT RejectMapper ANY>
+  <!ATTLIST RejectMapper
+            class CDATA #FIXED "com.cameronsystems.fix.processor.RejectMapper"
+            id CDATA #IMPLIED
+            fileName CDATA #IMPLIED
+            forwardOnRejectMappingFailure (true | false) "true"
+            hideUnmappedRefseqnums (true | false) "true"
+  >
+
+  <!--
+    Message processor for filtering fields from messages based on FIX version.
+  -->
+  <!ELEMENT FieldFilterByFixVersion ANY>
+  <!ATTLIST FieldFilterByFixVersion
+            class CDATA #FIXED "com.cameronsystems.fix.processor.FieldFilterByFixVersion"
+            id CDATA #IMPLIED
+            filterByMessageDefinition (true | false) "false"
+  >

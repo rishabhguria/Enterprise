@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[T_CompanyFunds] (
+    [CompanyFundID]         INT          IDENTITY (1, 1) NOT NULL,
+    [FundName]              VARCHAR (100) NOT NULL,
+    [FundShortName]         VARCHAR (100) NOT NULL,
+    [CompanyID]             INT          NOT NULL,
+    [FundTypeID]            INT          CONSTRAINT [DF_T_CompanyFunds_FundTypeID] DEFAULT ((1)) NULL,
+    [UIOrder]               INT          CONSTRAINT [DF_T_CompanyFunds_UIOrder] DEFAULT ((9999)) NULL,
+    [LocalCurrency]         INT          NULL,
+    [FundInceptionDate]     DATETIME     NULL,
+    [FundOnBoardDate]       DATETIME     NULL,
+    [ClosingMethodology]    INT          NULL,
+    [LockDate]              DATETIME     NULL,
+    [CompanyThirdPartyID]   INT          NULL,
+    [SecSortCriteriaID]     INT          NULL,
+    [PostingLockScheduleID] INT          NULL,
+    [FundReleaseID]         INT          NULL,
+    [IsActive]              BIT          DEFAULT ((1)) NOT NULL,
+    [DataSourceID]          INT          NULL,
+    [StartDate] DATETIME NULL, 
+	[IsSwapAccount]			BIT          DEFAULT ((0)) NOT NULL,
+    CONSTRAINT [PK_T_CompanyFunds] PRIMARY KEY CLUSTERED ([CompanyFundID] ASC),
+    CONSTRAINT [FK_T_CompanyFunds_T_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[T_Company] ([CompanyID]),
+    CONSTRAINT [C_U_FundName] UNIQUE NONCLUSTERED ([FundName] ASC),
+    CONSTRAINT [C_U_FundShortName] UNIQUE NONCLUSTERED ([FundShortName] ASC),
+    CONSTRAINT [IX_T_CompanyFunds] UNIQUE NONCLUSTERED ([FundName] ASC),
+    CONSTRAINT [IX_T_CompanyFunds1] UNIQUE NONCLUSTERED ([FundShortName] ASC)
+);
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DocumentElement" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+	<xs:element name="DocumentElement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+		<xs:complexType>
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="PositionMaster">
+					<xs:complexType>
+						<xs:all>		
+							<xs:element name="MasterFund" type="xs:string" minOccurs="0" />        		
+							<xs:element name="FundName" type="xs:string" minOccurs="1" />
+							<xs:element name="RowIndex" type="xs:string" minOccurs="1" />
+							<xs:element name="Symbol" type="xs:string" minOccurs="1" />
+                            <xs:element name="Symbology" type="xs:string" minOccurs="0" />
+	                        <xs:element name="SMRequest" type="xs:string" minOccurs="0" />
+							<xs:element name="Asset" type="xs:string" minOccurs="0" />
+							<xs:element name="Side" type="xs:string" minOccurs="0" />
+							<xs:element name="Quantity" type="xs:string" minOccurs="0" />
+							<xs:element name="AvgPX" type="xs:string" minOccurs="0" />
+							<xs:element name="GrossNotionalValueBase" type="xs:string" minOccurs="0" />
+							<xs:element name="GrossNotionalValue" type="xs:string" minOccurs="0" />
+							<xs:element name="TotalCommissionandFees" type="xs:string" minOccurs="0" />
+							<xs:element name="TotalCommissionandFeesBase" type="xs:string" minOccurs="0" />
+							<xs:element name="NetNotionalValueBase" type="xs:string" minOccurs="0" />
+							<xs:element name="NetNotionalValue" type="xs:string" minOccurs="0" />
+							<xs:element name="SettlementDate" type="xs:string" minOccurs="0" />
+							<xs:element name="TradeDate" type="xs:string" minOccurs="0" />
+							<xs:element name="MismatchType" type="xs:string" minOccurs="0" />       			
+							<xs:element name="MismatchDetails" type="xs:string" minOccurs="0" />
+							<xs:element name="CounterParty" type="xs:string" minOccurs="0" />
+							<xs:element name="UnderlyingSymbol" type="xs:string" minOccurs="0" />
+							<xs:element name="CompanyName" type="xs:string" minOccurs="0" />
+							<xs:element name="Commission" type="xs:string" minOccurs="0" />
+							<xs:element name="CommissionBase" type="xs:string" minOccurs="0" />
+							<xs:element name="Fees" type="xs:string" minOccurs="0" />
+							<xs:element name="FeesBase" type="xs:string" minOccurs="0" />
+							<xs:element name="MiscFees" type="xs:string" minOccurs="0" />
+							<xs:element name="MiscFeesBase" type="xs:string" minOccurs="0" />
+							<xs:element name="StampDuty" type="xs:string" minOccurs="0" />
+							<xs:element name="StampDutyBase" type="xs:string" minOccurs="0" />
+							<xs:element name="ClearingFee" type="xs:string" minOccurs="0" />
+							<xs:element name="ClearingFeeBase" type="xs:string" minOccurs="0" />
+							<xs:element name="FXRate" type="xs:string" minOccurs="0" />
+							<xs:element name="Bloomberg" type="xs:string" minOccurs="0" />
+							<xs:element name="SEDOL" type="xs:string" minOccurs="0" />
+							<xs:element name="CUSIP" type="xs:string" minOccurs="0" />
+							<xs:element name="OSI" type="xs:string" minOccurs="0" />
+							<xs:element name="IDCO" type="xs:string" minOccurs="0" />
+							<xs:element name="PutOrCall" type="xs:string" minOccurs="0" />
+							<xs:element name="ExpirationDate" type="xs:string" minOccurs="0" />
+							<xs:element name="ProcessDate" type="xs:string" minOccurs="0" />
+							<xs:element name="Coupon" type="xs:string" minOccurs="0" />
+							<xs:element name="PrimeBroker" type="xs:string" minOccurs="0" />
+							<xs:element name="PBSymbol" type="xs:string" minOccurs="0" />
+							<xs:element name="PBAssetName" type="xs:string" minOccurs="0" />
+							<xs:element name="LotID" type="xs:string" minOccurs="0" />
+							<xs:element name="ExternalTransID" type="xs:string" minOccurs="0" />
+							<xs:element name="CurrencySymbol" type="xs:string" minOccurs="0" />
+							<xs:element name="SoftCommission" type="xs:string" minOccurs="0" />
+							<xs:element name="ClearingBrokerFee" type="xs:string" minOccurs="0" />
+							<xs:element name="TransactionLevy" type="xs:string" minOccurs="0" />
+							<xs:element name="TaxOnCommissions" type="xs:string" minOccurs="0" />
+							<xs:element name="Multiplier" type="xs:string" minOccurs="0" />
+							<xs:element name="SideMultiplier" type="xs:string" minOccurs="0" />
+							<xs:element name="FXConversionMethodOperator" type="xs:string" minOccurs="0" />
+							<xs:element name="UnitCost" type="xs:string" minOccurs="0" />
+							<xs:element name="Matched" type="xs:string" minOccurs="0" />
+							<xs:element name="Comments" type="xs:string" minOccurs="0" />
+							<xs:element name="MarkPrice" type="xs:string" minOccurs="0" />
+							<xs:element name="MarkPriceBase" type="xs:string" minOccurs="0" />
+							<xs:element name="MarketValue" type="xs:string" minOccurs="0" />
+							<xs:element name="MarketValueBase" type="xs:string" minOccurs="0" />
+							<xs:element name="ISINSymbol" type="xs:string" minOccurs="0" />
+							<xs:element name="BBGID" type="xs:string" minOccurs="0" />
+							<xs:element name="StrikePrice" type="xs:string" minOccurs="0" />
+							<xs:element name="RunDate" type="xs:string" minOccurs="0" />
+							<xs:element name="StartDateFXRate" type="xs:string" minOccurs="0" />
+							<xs:element name="EndDateFXRate" type="xs:string" minOccurs="0" />
+							<xs:element name="TradeDateFXRate" type="xs:string" minOccurs="0" />
+							<xs:element name="StartDateMarkPrice" type="xs:string" minOccurs="0" />
+							<xs:element name="EndDateMarkPrice" type="xs:string" minOccurs="0" />
+							<xs:element name="UnRealizedPNLWithCommission_Local" type="xs:string" minOccurs="0" />
+							<xs:element name="UnRealizedPNLWithoutCommission_Local" type="xs:string" minOccurs="0" />
+							<xs:element name="UnRealizedPNLWithCommission_Base" type="xs:string" minOccurs="0" />
+							<xs:element name="UnRealizedPNLWithoutCommission_Base" type="xs:string" minOccurs="0" />
+							<xs:element name="ShortTermTotalRealizedPNLWithCommission" type="xs:string" minOccurs="0" />
+							<xs:element name="ShortTermTotalRealizedPNLWithoutCommission" type="xs:string" minOccurs="0" />
+							<xs:element name="LongTermTotalRealizedPNLWithCommission" type="xs:string" minOccurs="0" />
+							<xs:element name="LongTermTotalRealizedPNLWithoutCommission" type="xs:string" minOccurs="0" />
+							<xs:element name="SettlCurrency" type="xs:string" minOccurs="0" />
+							<xs:element name="SettlCurrFxRate" type="xs:string" minOccurs="0" />
+							<xs:element name="SettlCurrAmt" type="xs:string" minOccurs="0" />
+							<xs:element name="ISIN" type="xs:string" minOccurs="0" />
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

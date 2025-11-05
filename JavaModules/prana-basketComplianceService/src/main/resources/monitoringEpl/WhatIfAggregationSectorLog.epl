@@ -1,0 +1,80 @@
+module target.resources.monitoringEpl.WhatIfAggregationSectorLog;
+
+uses eplModules.whatIfAggregation.sector.WhatIfSectorWindowWithNav;
+
+@Priority(10)
+@Name('WhatIfSectorLog')
+@Description('')
+on BasketEOM as E
+insert into WhatIfAggregationSectorLog
+	select distinct
+	
+    T.basketId as basketId,
+	T.isEomSent as isEomSent,
+	T.taxlotId as taxlotId,
+	E.userId as userId,
+	T.sector as sector,
+    T.compressionLevel as compressionLevel,
+	T.taxlotType as taxlotType,	
+	T.equityHaircutBase as equityHaircutBase,
+	T.indexHaircutBase as indexHaircutBase,
+    T.liquidationPnlBase as liquidationPnlBase,
+	
+	
+	T.notionalBase as notionalBase,
+	T.cashImpactBase as cashImpactBase,
+	T.cashInflowBase as cashInflowBase,
+	T.cashOutflowBase as cashOutflowBase,
+	T.netMarketValueBase as netMarketValueBase,
+
+	T.grossMarketValueBase as grossMarketValueBase,
+	T.costBasisPnLBase as costBasisPnLBase,
+	T.dayPnLBase as dayPnLBase,
+	T.netExposureBase as netExposureBase,
+	T.grossExposureBase as grossExposureBase,
+	T.betaAdjustedExposureBase as betaAdjustedExposureBase,
+	T.underlyingValueForOptionsBase as underlyingValueForOptionsBase,
+	
+	T.dayInterestBase as dayInterestBase,
+	T.totalInterestBase as totalInterestBase,	
+			
+	T.globalNav as globalNav,	
+	T.startOfDayNavGlobal as startOfDayNavGlobal,
+	T.grossMarketValueBaseGlobal as grossMarketValueBaseGlobal,
+	T.grossExposureBaseGlobal as grossExposureBaseGlobal,
+	T.netExposureBaseGlobal as netExposureBaseGlobal,
+	
+	T.pnlContributionGlobal as pnlContributionGlobal,
+    T.percentShortExposureGlobal as percentShortExposureGlobal,
+	T.percentLongExposureGlobal as percentLongExposureGlobal,	
+	T.percentNetExposureGlobal as percentNetExposureGlobal,	
+	T.percentBetaAdjustedExposureGlobal as percentBetaAdjustedExposureGlobal,	
+	T.percentGrossExposureGlobal as percentGrossExposureGlobal,	
+	T.percentLongMarketValueGlobal as percentLongMarketValueGlobal,	
+    T.percentShortMarketValueGlobal as percentShortMarketValueGlobal,	
+	T.percentNetMarketValueGlobal as percentNetMarketValueGlobal,	
+	T.percentGrossMarketValueGlobal as percentGrossMarketValueGlobal,
+	T.percentLongNotionalGlobal as percentLongNotionalGlobal,
+	T.percentShortNotionalGlobal as percentShortNotionalGlobal,	
+	T.percentNetNotionalGlobal as percentNetNotionalGlobal,
+	T.percentCostBasisPnlGlobal as percentCostBasisPnlGlobal,
+	T.dayReturnGlobal as dayReturnGlobal,
+	
+	T.longNotionalBase as longNotionalBase,
+	T.shortNotionalBase as shortNotionalBase,
+	T.shortMarketValueBase as shortMarketValueBase,
+	T.longMarketValueBase as longMarketValueBase,
+	T.shortExposureBase as shortExposureBase,
+	T.longExposureBase as longExposureBase,	
+	
+    T.yesterdayMarketValueBase as yesterdayMarketValueBase,
+
+	T.todayAbsTradeQuantity as todayAbsTradeQuantity,
+	T.todayLongTradeQuantity as todayLongTradeQuantity,
+	T.todayShortTradeQuantity as todayShortTradeQuantity,
+	T.todayNetNotionalBase as todayNetNotionalBase,
+	T.todayLongNotionalBase as todayLongNotionalBase,
+	T.todayShortNotionalBase as todayShortNotionalBase
+
+from WhatIfSectorWithNav as T 
+where T.basketId = E.basketId and IsLoggingEnabled = true;

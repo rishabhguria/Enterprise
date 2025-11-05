@@ -1,0 +1,40 @@
+module detectionEpl.AccountLevelDetection;
+
+
+@Name('AccountSummation')
+@Description('This statement validates Account compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency sec)]
+insert into AccountSummation
+select
+	sum(coalesce(F.netMarketValueBase, 0)) as netMarketValueBase,
+	F.accountId as accountId
+from AccountSymbolWithNav as F
+group by F.accountId;
+
+
+@Name('AccountLevelDetection')
+@Description('This statement validates Account compliance level with margin 1%')
+on pattern[every D = AccountSummation]
+insert into AccountLevelDetection
+select distinct
+	'netMarketValueBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'Account' as compressionLevel,
+	G.accountShortName as accountShortName,	
+	D.netMarketValueBase as actualNetMarketValueBase,
+	G.netMarketValueBase as accountnetMarketValueBase,
+	D.netMarketValueBase - G.netMarketValueBase as difference, 
+	case 
+		when 
+			Math.abs(D.netMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.netMarketValueBase) 
+			or Math.abs(D.netMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.netMarketValueBase)
+			then true
+		else false
+	end as detectionResult 
+from AccountWithNav as G
+where G.accountId = D.accountId
+having
+(
+	Math.abs(D.netMarketValueBase) < (1 - ErrorTolerance)*Math.abs(G.netMarketValueBase) 
+	or Math.abs(D.netMarketValueBase) > (1 + ErrorTolerance)*Math.abs(G.netMarketValueBase)
+);

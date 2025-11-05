@@ -1,0 +1,478 @@
+module eplModules.divisorCalculators.BaseFieldsCalculator;
+
+uses eplModules.rowCalculation.RowCalculationPostUpsert;
+uses eplModules.rowCalculation.RowCalculationWindow;
+uses eplModules.rowCalculation.CustomRowCalculationUpdateEvents;
+
+@Priority(10)
+@Name('AccountSymbolDivisorWindow')
+@Description('Named Window which holds details for AccountSymbolDivisorWindow.')
+create window AccountSymbolDivisorWindow.std:unique(accountId,symbol)
+(		
+	accountId int,
+	masterFundId int,
+	symbol String,
+	netMarketValueBase double,
+	cashImpactBase double,
+	yesterdayMarketValueBase double,
+	grossMarketValueBase double,
+	grossExposureBase double,
+	netExposureBase double,
+	parentWindowStream string
+);
+
+@Priority(10)
+@Name('AccountSymbolDivisorInsert')
+@Description('This inserts data into AccountSymbolDivisorInsert from RowCalculationBaseWindow whenever StartNavCalculationsForPreTrade event occurs.')
+on pattern [every (P = StartNavCalculationsForPreTrade)]
+insert into AccountSymbolDivisorInsert
+Select distinct
+	R.accountId as accountId,
+	R.masterFundId as masterFundId,
+	R.symbol as symbol,
+	sum(coalesce(R.netMarketValueBase,0)) as netMarketValueBase,
+	sum(coalesce(R.cashImpactBase,0)) as cashImpactBase,
+	sum(coalesce(R.yesterdayMarketValueBase,0)) as yesterdayMarketValueBase,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	"RowCalculationBaseWindow-1" as parentWindowStream
+from RowCalculationBaseWindow as R 
+where DataLoaded=true and P.accountId=R.accountId and P.symbol=R.symbol and P.taxlotState <> 'Deleted'
+and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+group by R.accountId, R.symbol;
+
+@Priority(10)
+@Name('AccountSymbolDivisorDelete')
+@Description('This inserts data into AccountSymbolDivisorInsert from RowCalculationBaseWindowModified')
+insert into AccountSymbolDivisorInsert
+Select distinct
+	R.accountId as accountId,
+	R.masterFundId as masterFundId,
+	R.symbol as symbol,
+	sum(coalesce(R.netMarketValueBase,0)) as netMarketValueBase,
+	sum(coalesce(R.cashImpactBase,0)) as cashImpactBase,
+	sum(coalesce(R.yesterdayMarketValueBase,0)) as yesterdayMarketValueBase,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	"RowCalculationBaseWindow-2" as parentWindowStream
+from RowCalculationBaseWindowModified as P unidirectional left outer join
+	RowCalculationBaseWindow as R
+where DataLoaded=true and P.accountId=R.accountId and P.symbol=R.symbol and P.taxlotState = 'Deleted' 
+and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+and exists
+	(
+		select *
+		from RowCalculationBaseWindow as T 
+		where T.symbol = P.symbol and P.accountId=T.accountId	and (case 
+when PostWithInMarketInStage = 2 then (T.taxlotType in ('Post', 'InTradeMarket'))
+when PostWithInMarketInStage = 3 then T.taxlotType <> 'WhatIf'
+else T.taxlotType = 'Post' end)	
+	)
+group by R.accountId,R.symbol;
+
+@Priority(10)
+@Name('AccountSymbolDivisorDeleteLast')
+@Description('This inserts data into AccountSymbolDivisorInsert from RowCalculationBaseWindowModified')
+insert into AccountSymbolDivisorInsert
+Select distinct
+	P.accountId as accountId,
+	P.masterFundId as masterFundId,
+	P.symbol as symbol,
+	0.0 as netMarketValueBase,
+	0.0 as cashImpactBase,
+	0.0 as yesterdayMarketValueBase,
+	0.0 as grossMarketValueBase,
+	0.0 as grossExposureBase,
+	0.0 as netExposureBase,
+	"RowCalculationBaseWindow-3" as parentWindowStream
+from RowCalculationBaseWindowModified as P unidirectional
+where DataLoaded=true and P.taxlotState = 'Deleted'
+and not exists
+	(
+		select *
+		from RowCalculationBaseWindow as T 
+		where T.symbol = P.symbol and P.accountId=T.accountId	and (case 
+	when PostWithInMarketInStage = 2 then (T.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then T.taxlotType <> 'WhatIf'
+	else T.taxlotType = 'Post' end)	
+);
+
+@Priority(10)
+@Name('AccountSymbolDivisorInitialInsert')
+@Description('This inserts data into AccountSymbolDivisorInsert from RowCalculationBaseWindow')
+on pattern[every InitComplete(initComplete=true,action='StartNavCalculation')]
+insert into AccountSymbolDivisorInsert
+Select distinct
+	R.accountId as accountId,
+	R.masterFundId as masterFundId,
+	R.symbol as symbol,
+	sum(coalesce(R.netMarketValueBase,0)) as netMarketValueBase,
+	sum(coalesce(R.cashImpactBase,0)) as cashImpactBase,
+	sum(coalesce(R.yesterdayMarketValueBase,0)) as yesterdayMarketValueBase,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	"RowCalculationBaseWindow-5" as parentWindowStream
+from RowCalculationBaseWindow as R
+where (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+group by R.accountId,R.symbol;
+
+@Priority(10)
+@Name('AccountSymbolDivisorUpsert')
+@Description('This updates AccountSymbolDivisorWindow whenever AccountSymbolDivisorInsert event occurs.')
+on AccountSymbolDivisorInsert as s
+merge AccountSymbolDivisorWindow as W where s.accountId=W.accountId and s.symbol=W.symbol
+when matched and
+		(
+			W.netMarketValueBase <> s.netMarketValueBase or
+			W.cashImpactBase <> s.cashImpactBase or
+			W.yesterdayMarketValueBase <> s.yesterdayMarketValueBase or
+			W.grossMarketValueBase <> s.grossMarketValueBase or
+			W.grossExposureBase <> s.grossExposureBase or
+			W.netExposureBase <> s.netExposureBase
+		)
+		then update
+			set 
+			W.netMarketValueBase = s.netMarketValueBase,
+			W.cashImpactBase = s.cashImpactBase,
+			W.yesterdayMarketValueBase = s.yesterdayMarketValueBase,
+			W.grossMarketValueBase = s.grossMarketValueBase,
+			W.grossExposureBase = s.grossExposureBase,
+			W.netExposureBase = s.netExposureBase,
+			W.parentWindowStream = "AccountSymbolDivisorInsert1"
+				
+				then insert into AccountSymbolDivisorUpdate
+				select
+					s.accountId as accountId,
+					s.masterFundId as masterFundId,
+		   			"AccountSymbolDivisorInsert" as parentWindowStream
+
+when not matched 
+	then insert 
+		select 
+			s.accountId as accountId,
+			s.masterFundId as masterFundId,
+			s.symbol as symbol,
+			s.netMarketValueBase as netMarketValueBase,
+			s.cashImpactBase as cashImpactBase,
+			s.yesterdayMarketValueBase as yesterdayMarketValueBase,
+			s.grossMarketValueBase as grossMarketValueBase,
+			s.grossExposureBase as grossExposureBase,
+			s.netExposureBase as netExposureBase,
+		   	"AccountSymbolDivisorInsert2" as parentWindowStream
+				
+				then insert into AccountSymbolDivisorUpdate
+				select
+					s.accountId as accountId,
+					s.masterFundId as masterFundId,
+		   			"AccountSymbolDivisorInsert" as parentWindowStream;
+
+@Priority(10)
+@Name('MasterFundSymbolDivisorWindow')
+@Description('Named window which stores MasterFund Symbol Divisor data.')
+create window MasterFundSymbolDivisorWindow.std:unique(masterFundId,symbol)
+(		
+	masterFundId int,
+	symbol String,
+	grossMarketValueBase double,
+	grossExposureBase double,
+	netExposureBase double,
+	parentWindowStream string
+);
+
+@Priority(10)
+@Name('MasterFundSymbolDivisorInsert')
+@Description('This inserts data into MasterFundSymbolDivisorInsert from RowCalculationBaseWindow whenever StartNavCalculationsForPreTrade event occurs.')
+on pattern [every (P = StartNavCalculationsForPreTrade)]
+insert into MasterFundSymbolDivisorInsert
+Select distinct
+	R.symbol as symbol,
+	R.masterFundId as masterFundId,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where DataLoaded=true and P.masterFundId=R.masterFundId and P.symbol=R.symbol and P.taxlotState <> 'Deleted'
+and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+group by R.masterFundId,R.symbol;
+
+@Priority(10)
+@Name('MasterFundSymbolDivisorDelete')
+@Description('This inserts data into MasterFundSymbolDisvisorInsert from RowCalculationBaseWindowModified.')
+insert into MasterFundSymbolDivisorInsert
+Select distinct
+	R.symbol as symbol,
+	R.masterFundId as masterFundId,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindowModified as P unidirectional left outer join
+RowCalculationBaseWindow as R
+where DataLoaded=true and P.masterFundId=R.masterFundId and P.symbol=R.symbol and P.taxlotState = 'Deleted'
+and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+and exists
+	(
+		select *
+		from RowCalculationBaseWindow as T 
+		where T.symbol = P.symbol and P.masterFundId=T.masterFundId	and (case 
+	when PostWithInMarketInStage = 2 then (T.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then T.taxlotType <> 'WhatIf'
+	else T.taxlotType = 'Post' end)	
+	)
+group by R.masterFundId,R.symbol;
+
+@Priority(10)
+@Name('MasterFundSymbolDivisorDeleteLast')
+@Description('This inserts data into MasterFundSymbolDivisorInsert from RowCalculationBaseWindowModified.')
+insert into MasterFundSymbolDivisorInsert
+Select distinct
+	P.symbol as symbol,
+	P.masterFundId as masterFundId,
+	0.0 as grossMarketValueBase,
+	0.0 as grossExposureBase,
+	0.0 as netExposureBase,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindowModified as P unidirectional 
+where DataLoaded=true and P.taxlotState = 'Deleted'
+and not exists
+	(
+		select *
+		from RowCalculationBaseWindow as T 
+		where T.symbol = P.symbol and P.masterFundId=T.masterFundId	and (case 
+when PostWithInMarketInStage = 2 then (T.taxlotType in ('Post', 'InTradeMarket'))
+when PostWithInMarketInStage = 3 then T.taxlotType <> 'WhatIf'
+else T.taxlotType = 'Post' end)		
+);
+
+@Priority(10)
+@Name('MasterFundSymbolDivisorInitialInsert')
+@Description('This inserts data into MasterFundSymbolDivisorInsert from RowCalculationBaseWindowModified.')
+on pattern [every InitComplete(initComplete=true,action='StartNavCalculation')]
+insert into MasterFundSymbolDivisorInsert
+Select distinct
+	R.symbol as symbol,
+	R.masterFundId as masterFundId,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	"RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindow as R
+where  (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)	
+group by R.masterFundId,R.symbol;
+
+@Priority(10)
+@Name('MasterFundSymbolDivisorUpsert')
+@Description('This updates the MasterFundSymbolDivisorWindow whenever MasterFundSymbolDivisorInsert event occurs and on the basis of masterFundId and symbol.')
+on MasterFundSymbolDivisorInsert as s
+merge MasterFundSymbolDivisorWindow as W where s.masterFundId=W.masterFundId and s.symbol=W.symbol
+when matched and
+		(		
+			W.grossMarketValueBase <> s.grossMarketValueBase or
+			W.grossExposureBase <> s.grossExposureBase or
+			W.netExposureBase <> s.netExposureBase
+		)
+		then update
+			set 
+			
+			W.grossMarketValueBase = s.grossMarketValueBase,
+			W.grossExposureBase = s.grossExposureBase,
+			W.netExposureBase = s.netExposureBase,
+			W.parentWindowStream = "RowCalculationBaseWindow"
+				
+				then insert into MasterFundSymbolDivisorUpdate
+				select
+					s.symbol as symbol,
+					s.masterFundId as masterFundId,
+					s.grossMarketValueBase as grossMarketValueBase,
+					s.grossExposureBase as grossExposureBase,
+					s.netExposureBase as netExposureBase,
+					"RowCalculationBaseWindow" as parentWindowStream
+
+when not matched 
+	then insert 
+		select 
+			s.symbol as symbol,
+			s.masterFundId as masterFundId,
+			s.grossMarketValueBase as grossMarketValueBase,
+			s.grossExposureBase as grossExposureBase,
+			s.netExposureBase as netExposureBase,
+			"RowCalculationBaseWindow" as parentWindowStream
+				
+				then insert into MasterFundSymbolDivisorUpdate
+				select
+					s.symbol as symbol,
+					s.masterFundId as masterFundId,
+					s.grossMarketValueBase as grossMarketValueBase,
+					s.grossExposureBase as grossExposureBase,
+					s.netExposureBase as netExposureBase,
+					"RowCalculationBaseWindow" as parentWindowStream;
+
+@Priority(10)
+@Name('SymbolDivisorWindow')
+@Description('Named window which stores data for Symbol Divisor window.')
+create window SymbolDivisorWindow.std:unique(symbol)
+(			
+	symbol String,
+	grossMarketValueBase double,
+	grossExposureBase double,
+	netExposureBase double,
+	parentWindowStream string
+);
+
+@Priority(10)
+@Name('SymbolDivisorInsert')
+@Description('This inserts data into SymbolDivisorInsert from StartNavCalculationsForPreTrade,and RowCalculationBaseWindow.')
+insert into SymbolDivisorInsert
+Select distinct
+	R.symbol as symbol,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	'insert' as type,
+	"StartNavCalculationsForPreTrade,RowCalculationBaseWindow" as parentWindowStream
+from 
+	StartNavCalculationsForPreTrade as P unidirectional left outer join
+	RowCalculationBaseWindow as R on P.symbol = R.symbol
+where DataLoaded = true and P.taxlotState <> 'Deleted' and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)	
+group by R.symbol;
+
+@Priority(10)
+@Name('SymbolDivisorDelete')
+@Description('This inserts data into SymbolDivisorInsert from RowCalculationBaseWindowModified,and RowCalculationBaseWindow.')
+insert into SymbolDivisorInsert
+Select distinct
+	R.symbol as symbol,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	'delte' as type, //delte or delete??
+	"RowCalculationBaseWindowModified,RowCalculationBaseWindow" as parentWindowStream
+from RowCalculationBaseWindowModified as P unidirectional left outer join
+		RowCalculationBaseWindow as R on P.symbol=R.symbol 
+where DataLoaded=true and P.taxlotState = 'Deleted'  and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+and exists
+	(
+		select *
+		from RowCalculationBaseWindow as T 
+		where T.symbol = P.symbol and (case 
+when PostWithInMarketInStage = 2 then (T.taxlotType in ('Post', 'InTradeMarket'))
+when PostWithInMarketInStage = 3 then T.taxlotType <> 'WhatIf'
+else T.taxlotType = 'Post' end)		
+	)
+group by R.symbol;
+
+@Priority(10)
+@Name('SymbolDivisorDeleteLast')
+@Description('This inserts data into SymbolDivisorInsert from RowCalculationBaseWindowModified.')
+insert into SymbolDivisorInsert
+Select distinct
+	P.symbol as symbol,
+	0.0 as grossMarketValueBase,
+	0.0 as grossExposureBase,
+	0.0 as netExposureBase,
+	'delete last' as type,
+	"RowCalculationBaseWindowModified" as parentWindowStream
+from RowCalculationBaseWindowModified as P unidirectional 
+where DataLoaded=true and P.taxlotState = 'Deleted'
+and not exists
+	(
+		select *
+		from RowCalculationBaseWindow as T 
+		where T.symbol = P.symbol and (case 
+when PostWithInMarketInStage = 2 then (T.taxlotType in ('Post', 'InTradeMarket'))
+when PostWithInMarketInStage = 3 then T.taxlotType <> 'WhatIf'
+else T.taxlotType = 'Post' end)
+	);
+	
+@Priority(10)
+@Name('SymbolDivisorInitialInsert')
+@Description('This inserts data into SymbolDivisorInsert from InitComplete and RowCalculationBaseWindow.')
+insert into SymbolDivisorInsert
+Select distinct
+	R.symbol as symbol,
+	Math.abs(sum(coalesce(R.grossMarketValueBase,0))) as grossMarketValueBase,
+	Math.abs(sum(coalesce(R.grossExposureBase,0))) as grossExposureBase,
+	sum(coalesce(R.netExposureBase,0)) as netExposureBase,
+	'ini' as type,
+	"InitComplete,RowCalculationBaseWindow" as parentWindowStream
+from
+	InitComplete as I unidirectional left outer join
+	RowCalculationBaseWindow as R 
+where
+	initComplete=true and action='StartNavCalculation' and (case 
+	when PostWithInMarketInStage = 2 then (R.taxlotType in ('Post', 'InTradeMarket'))
+	when PostWithInMarketInStage = 3 then R.taxlotType <> 'WhatIf'
+	else R.taxlotType = 'Post' end)
+group by R.symbol;
+
+@Priority(10)
+@Name('SymbolDivisorUpsert')
+@Description('This updates the SymbolDivisorWindow when SymbolDivisorInsert event occurs.')
+on SymbolDivisorInsert as s
+merge SymbolDivisorWindow as W where s.symbol=W.symbol
+when matched and
+		(
+			W.grossMarketValueBase <> s.grossMarketValueBase or
+			W.grossExposureBase <> s.grossExposureBase or
+			W.netExposureBase <> s.netExposureBase 
+		)
+		then update
+			set 
+			W.grossMarketValueBase = s.grossMarketValueBase,
+			W.grossExposureBase = s.grossExposureBase,
+			W.netExposureBase = s.netExposureBase,
+			W.parentWindowStream = "SymbolDivisorInsert"
+				
+				then insert into SymbolDivisorUpdate
+				select
+					s.symbol as symbol,
+					s.grossMarketValueBase as grossMarketValueBase,
+					s.grossExposureBase as grossExposureBase,
+					s.netExposureBase as netExposureBase,
+		   			"SymbolDivisorInsert" as parentWindowStream
+
+when not matched 
+	then insert 
+		select 
+			s.symbol as symbol,
+			s.grossMarketValueBase as grossMarketValueBase,
+			s.grossExposureBase as grossExposureBase,
+			s.netExposureBase as netExposureBase,
+		   	"SymbolDivisorInsert" as parentWindowStream		
+				
+				then insert into SymbolDivisorUpdate
+				select
+					s.symbol as symbol,
+					s.grossMarketValueBase as grossMarketValueBase,
+					s.grossExposureBase as grossExposureBase,
+					s.netExposureBase as netExposureBase,
+		   			"SymbolDivisorInsert" as parentWindowStream;
+

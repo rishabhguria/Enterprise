@@ -1,0 +1,26 @@
+Input,Output ,FunctionName,Individual_File,File_Function,havetoappend,createsubfolder,scriptname,callscript,extension,rename,renameconfig,arguments
+Report_Folder,Intermediate_Files,,TRUE,Reconciliation:copyfile,,,,,,,,
+Input_Files,Intermediate_Files,,TRUE,Wedbush Trade FTP:converttonumber,,,,,,,,6#7#8#9#10#11#12#13#14#15#16#17#18#19#20
+Intermediate_Files,Intermediate_Files,,TRUE,Wedbush Trade FTP:FormatColumnsWithThousandSeparator,,,,,,,,6#7#8#9#10#11#12#13#14#15#16#17#18#19#20
+Input_Files,Intermediate_Files,,TRUE,Wedbush Position FTP:converttonumber,,,,,,,,5#6#7#8#9#10#11#12#13#14#15#16
+Intermediate_Files,Intermediate_Files,,TRUE,Wedbush Position FTP:ConvertColValueToTwoDecimals,,,,,,,,5#6#7#8#9#10#11#12#13#14#15#16
+Intermediate_Files,Intermediate_Files,,TRUE,Wedbush Position FTP:FormatColumnsWithThousandSeparator,,,,,,,,5#6#7#8#9#10#11#12#13#14#15#16
+Input_Files,Intermediate_Files,,TRUE,Wedbush Cash FTP:converttonumber,,,,,,,,3#4#5
+Intermediate_Files,Intermediate_Files,,TRUE,Wedbush Cash FTP:ConvertColValueToTwoDecimals,,,,,,,,3#4#5
+Intermediate_Files,Intermediate_Files,,TRUE,Wedbush Cash FTP:FormatColumnsWithThousandSeparator,,,,,,,,3#4#5
+Input_Files,Intermediate_Files,,TRUE,Cowen Trade Recon:converttonumber,,,,,,,,7#8#9#10#11#12#13#14#15
+Intermediate_Files,Intermediate_Files,,TRUE,Cowen Trade Recon:ConvertColValueToTwoDecimals,,,,,,,,7#8#9#10#11#12#13#14#15
+Intermediate_Files,Intermediate_Files,,TRUE,Cowen Trade Recon:FormatColumnsWithThousandSeparator,,,,,,,,7#8#9#10#11#12#13#14#15
+Input_Files,Intermediate_Files,,TRUE,Cowen Positions Recon:converttonumber,,,,,,,,6#7#8#9#10#11#12#13#14
+Intermediate_Files,Intermediate_Files,,TRUE,Cowen Positions Recon:ConvertColValueToTwoDecimals,,,,,,,,6#7#8#9#10#11#12#13#14
+Intermediate_Files,Intermediate_Files,,TRUE,Cowen Positions Recon:FormatColumnsWithThousandSeparator,,,,,,,,6#7#8#9#10#11#12#13#14
+Input_Files,Intermediate_Files,,TRUE,Cowen Cash Recon:converttonumber,,,,,,,,3#4#5#6#7#8
+Intermediate_Files,Intermediate_Files,,TRUE,Cowen Cash Recon:ConvertColValueToTwoDecimals,,,,,,,,3#4#5#6#7#8
+Intermediate_Files,Intermediate_Files,,TRUE,Cowen Cash Recon:FormatColumnsWithThousandSeparator,,,,,,,,3#4#5#6#7#8
+Intermediate_Files,Intermediate_Files,,TRUE,Reconciliation:MergeCsvFilesToExcel,,,,,,,,Eleven@20|Trade Wedbush#Wedbush Trade FTP
+Intermediate_Files,Intermediate_Files,,TRUE,Reconciliation:MergeCsvFilesToExcel,,,,,,,,Eleven@20|Position Wedbush#Wedbush Position FTP
+Intermediate_Files,Intermediate_Files,,TRUE,Reconciliation:MergeCsvFilesToExcel,,,,,,,,Eleven@20|Cash Wedbush#Wedbush Cash FTP
+Intermediate_Files,Intermediate_Files,,TRUE,Reconciliation:MergeCsvFilesToExcel,,,,,,,,Eleven@20|Trade Cowen#Cowen Trade Recon
+Intermediate_Files,Intermediate_Files,,TRUE,Reconciliation:MergeCsvFilesToExcel,,,,,,,,Eleven@20|Position Cowen#Cowen Positions Recon
+Intermediate_Files,Intermediate_Files,,TRUE,Reconciliation:MergeCsvFilesToExcel,,,,,,,,Eleven@20|Cash Cowen#Cowen Cash Recon
+Intermediate_Files,Output_Files,,TRUE,Reconciliation:copyfile,,,,,,TRUE,Reconciliation:Reconciliation (MM-dd-yyyy),

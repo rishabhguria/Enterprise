@@ -1,0 +1,202 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="a3df2ea2-5f8c-483f-b3a7-a983308eb987" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>PM Tax Lot Closing Temp</ID>
+  <Name>PM Tax Lot Closing Temp</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+      <Value>
+        <dds xmlns="">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-761" scrolltop="-3532" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="5345" y="12065" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="0" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+            <font>
+              <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
+            </font>
+            <mouseicon>
+              <ddsxmlobjectstreamwrapper binary="6c74000000000000" />
+            </mouseicon>
+          </diagram>
+          <layoutmanager>
+            <ddsxmlobj />
+          </layoutmanager>
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.1" tooltip="PM_TaxLotClosing_temp (dbo.PM_TaxLotClosing_temp)" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="4101" height="5000" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+            <control>
+              <ddsxmlobjectstreaminitwrapper binary="000800000510000088130000" />
+            </control>
+            <layoutobject>
+              <ddsxmlobj>
+                <property name="LogicalObject" value="dbo_PM_TaxLotClosing_temp" vartype="8" />
+              </ddsxmlobj>
+            </layoutobject>
+            <shape groupshapeid="0" groupnode="0" />
+          </ddscontrol>
+        </dds>
+      </Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>-761</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>-3532</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>20</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="5380a53a-a46f-49fb-bbc3-c5955ee8a719">
+    <DataSourceViewID>Nirvana Client DW</DataSourceViewID>
+  </Source>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="726d6bb3-7329-4b7d-b8ad-6d1581ac5029">
+      <ID>PM Tax Lot Closing Temp</ID>
+      <Name>PM Tax Lot Closing Temp</Name>
+      <Usage>Key</Usage>
+      <EstimatedCount>906</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="f18ac1d3-c985-4375-b0c4-9dc5a79ef81e">
+          <DataType>WChar</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5762333e-17ee-4ae4-b042-d2b5b79632c5">
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+            <ColumnID>TaxLotClosingID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="3febf175-95ee-4829-91c6-aa70752b3394">
+          <AttributeID>Sub Account ID</AttributeID>
+          <Name>Sub Account ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="db6177ea-0a72-47ac-8e98-369d52966ac2">
+          <AttributeID>Fund ID</AttributeID>
+          <Name>Fund ID</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="d574d5f4-7342-45d2-84cd-e3dd4caccdb1">
+          <AttributeID>Positional Taxlot Id</AttributeID>
+          <Name>Positional Taxlot Id</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="6c614012-e644-4739-9ba3-95a3f0f4ac90">
+          <AttributeID>Closing Taxlot Id</AttributeID>
+          <Name>Closing Taxlot Id</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="ee09a016-e0ec-4555-ab95-e06c4aa23d96">
+          <AttributeID>Symbol</AttributeID>
+          <Name>Symbol</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>FilteredList</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="88d5c605-28fc-4b64-8963-c8c994afea33">
+      <ID>Sub Account ID</ID>
+      <Name>Sub Account ID</Name>
+      <EstimatedCount>2</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="63771b3c-dbdb-42e7-b252-0fba0a739643">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="96d294c7-db6d-4534-a003-4f412289c124">
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+            <ColumnID>SubAccountID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="cab63d45-94f6-4394-8176-7808efdcea4a">
+      <ID>Fund ID</ID>
+      <Name>Fund ID</Name>
+      <EstimatedCount>7</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="235fdc10-c510-4874-8337-ca5b264e7aa4">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="585cb637-18f1-40c0-b49d-e7b92bf98545">
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+            <ColumnID>FundID</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="9c36cf69-37bb-4771-81f8-47d510438e3f">
+      <ID>Positional Taxlot Id</ID>
+      <Name>Positional Taxlot Id</Name>
+      <EstimatedCount>516</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="27d9baf2-5dd2-4de8-973c-4554a6b22009">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2d71532b-9a11-49ac-aa3d-e1ed7dc182db">
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+            <ColumnID>PositionalTaxlotId</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>FilteredList</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="0613021c-477a-45c8-a627-d7c498388c9e">
+      <ID>Closing Taxlot Id</ID>
+      <Name>Closing Taxlot Id</Name>
+      <EstimatedCount>561</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="66acc99a-09d2-4ee0-a04b-7fd6fee47b5c">
+          <DataType>WChar</DataType>
+          <DataSize>50</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="65555bed-cbe8-4c79-81e2-a8fc5aff593c">
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+            <ColumnID>ClosingTaxlotId</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <AttributeHierarchyVisible>false</AttributeHierarchyVisible>
+      <InstanceSelection>FilteredList</InstanceSelection>
+    </Attribute>
+    <Attribute dwd:design-time-name="c223f95c-a960-4ad6-a516-f9a83dee180b">
+      <ID>Symbol</ID>
+      <Name>Symbol</Name>
+      <EstimatedCount>35</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="091bbf4a-02cb-48c1-8f2e-74fbe621df1f">
+          <DataType>WChar</DataType>
+          <DataSize>100</DataSize>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="efd73587-d98b-4ec3-b4d4-934617dde0d5">
+            <TableID>dbo_PM_TaxLotClosing_temp</TableID>
+            <ColumnID>Symbol</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <InstanceSelection>DropDown</InstanceSelection>
+    </Attribute>
+  </Attributes>
+</Dimension>

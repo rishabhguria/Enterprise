@@ -1,0 +1,189 @@
+﻿<UserControl x:Class="Prana.Rebalancer.RebalancerNew.Views.ComplianceAlertsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter ="clr-namespace:Prana.Rebalancer.Converters"
+             xmlns:dt="clr-namespace:Prana.Rebalancer.Classes"
+             xmlns:viewModels="clr-namespace:Prana.Rebalancer.RebalancerNew.ViewModels" 
+             xmlns:dataPresenster="http://infragistics.com/DataPresenter" 
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:Prana.Rebalancer.RebalancerNew.Behaviours"
+             mc:Ignorable="d" 
+             Background="#cccccc"
+             x:Name="ComplianceAlertsViewName"
+             Width="Auto"
+             Height="Auto">
+    <UserControl.DataContext>
+        <viewModels:ComplianceAlertsViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/NirvanaSkin.xaml" />
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/RebalancerTheme.xaml" />
+                <igWPF:ResourceWasher WashMode="HueSaturationReplacement">
+                    <igWPF:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/DataPresenterIGTheme_Express.xaml" />
+                    </igWPF:ResourceWasher.SourceDictionary>
+                </igWPF:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="Tahoma"/>
+            </Style>
+            <Style x:Key="{x:Type ToolTip}" TargetType="ToolTip">
+                <Setter Property="Background" Value="#ffffe1" />
+                <Setter Property="Foreground" Value="Black" />
+            </Style>
+            <converter:EnumToEnumerationDescriptionConverter x:Key="EnumToEnumerationDescriptionConverter"/>
+            <converter:ValueToMultipleConverter x:Key="ValueToMultipleConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" x:Name="PreTradeLabel" Content="{Binding Path=Label, UpdateSourceTrigger=PropertyChanged}" Width="Auto" RenderTransformOrigin="0.5,0.5"/>
+        <dataPresenster:XamDataGrid Grid.Row="1" x:Name="AlertsList" GroupByAreaLocation="None" AutoFit="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                BorderThickness="1" DataSource="{Binding AlertsList}" Margin="0,0,0,0" ScrollingMode="Immediate" HorizontalAlignment="Stretch" 
+                                                SelectedDataItem="RecordsOnly" Background="WhiteSmoke" >
+            <dataPresenster:XamDataGrid.Resources>
+                <dt:ValueToLinkDisplayTemplate x:Key="valueTemplateSelector"/>
+                <Style x:Key="HyperlinkStyle" TargetType="Hyperlink">
+                    <Setter Property="Foreground" Value="#0000FF"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type dataPresenster:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                            <Setter Property="Foreground" Value="White"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <DataTemplate x:Key="MultipleValueTemplate">
+                    <TextBlock Padding="5,0,5,0">
+                        <Hyperlink Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type dataPresenster:XamDataGrid}}, Path=DataContext.ThresholdActualResultCommand}" CommandParameter="{Binding Path=ActiveDataItem, RelativeSource={RelativeSource AncestorType={x:Type dataPresenster:XamDataGrid}}}" Style="{StaticResource HyperlinkStyle}">
+                            <Run Text="Multiple" />
+                        </Hyperlink>
+                    </TextBlock>
+                </DataTemplate>
+                <Style TargetType="{x:Type dataPresenster:CellValuePresenter}" BasedOn="{StaticResource CellValuePresenterStyleForGrid}">
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="BorderBrush" Value="#535353"/>
+                    <Setter Property="BorderHoverBrush" Value="#535353"/>
+                    <Setter Property="BorderSelectedBrush" Value="#535353"/>
+                    <Setter Property="BorderBrush" Value="#535353"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type dataPresenster:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                            <Setter Property="BorderBrush" Value="White"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                
+                <Style TargetType="{x:Type dataPresenster:DataRecordCellArea}"  x:Key="DataRecordCellAreaStyleForGrid">
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                    <Setter Property="BackgroundActive" Value="#535353"/>
+                    <Setter Property="BackgroundAlternate" Value="Transparent" />
+                    <Setter Property="BorderAlternateBrush" Value="#535353" />
+                    <Setter Property="BackgroundHover" Value="Transparent"/>
+                    <Setter Property="BackgroundSelected" Value="Transparent"/>
+                    <Setter Property="BorderActiveBrush" Value="Transparent"/>
+                    <Setter Property="BorderHoverBrush" Value="Transparent"/>
+                    <Setter Property="BorderSelectedBrush" Value="#535353"/>
+                    <Setter Property="BorderBrush" Value="#535353"/>
+                </Style>
+                <Style TargetType="{x:Type dataPresenster:LabelPresenter}" BasedOn="{StaticResource LabelPresenterStyle}" >
+                    <Setter Property="OuterBorderBrush" Value="#535353"/>
+                    <Setter Property="InnerBorderBrush" Value="#535353"/>
+                    <Setter Property="LabelHighlight" Value="LightGray"/>
+                    <Setter Property="FontFamily" Value="Tahoma" />
+                </Style>
+                <DataTemplate x:Key="CellBackColorChange">
+                    <TextBlock x:Name="_AlertTypeBlock" Text="{igWPF:TemplateEditorValueBinding Mode=OneWay}" Height="24" HorizontalAlignment="Stretch" Padding="5,5,5,5" TextAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="TextBlock.Foreground" Value="White"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding}" Value="Soft">
+                                        <Setter Property="TextBlock.Background" Value="#689C2E" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding}" Value="Hard">
+                                        <Setter Property="TextBlock.Background" Value="#702121 " />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding}" Value="Requires Approval">
+                                        <Setter Property="TextBlock.Background" Value="#FFA500"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding}" Value="Soft with Notes">
+                                        <Setter Property="TextBlock.Background" Value="#4863a0" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type dataPresenster:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Background" Value="#3f3f40"/>
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+                <DataTemplate x:Key="StringFieldDisplayTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+                               ToolTip="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Left" Padding="5,0,5,0">
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="TextBlock.Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type dataPresenster:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+            </dataPresenster:XamDataGrid.Resources>
+
+            <i:Interaction.Behaviors>
+                <behaviors:ComplianceAlertsTabBehavior RemoveFilters="{Binding Path=RemoveFilters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </i:Interaction.Behaviors>
+
+            <dataPresenster:XamDataGrid.FieldLayoutSettings>
+                <dataPresenster:FieldLayoutSettings RecordSelectorLocation="None" HighlightAlternateRecords="True" AutoFitMode="ExtendLastField" FilterUIType="LabelIcons" HeaderPlacement="OnTopOnly"  AutoGenerateFields="False" HeaderPrefixAreaDisplayMode="FieldChooserButton" AllowClipboardOperations="Copy" />
+            </dataPresenster:XamDataGrid.FieldLayoutSettings>
+
+            <dataPresenster:XamDataGrid.FieldSettings>
+                <dataPresenster:FieldSettings AutoSizeScope="AllRecords" CellWidth="20" LabelClickAction="Nothing" CellClickAction="SelectCell" Width="Auto" AllowResize="True"  AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Never" CellHeight="25" />
+            </dataPresenster:XamDataGrid.FieldSettings>
+
+            <dataPresenster:XamDataGrid.FieldLayouts>
+                <dataPresenster:FieldLayout>
+                    <dataPresenster:FieldLayout.Settings>
+                        <dataPresenster:FieldLayoutSettings>
+                            <dataPresenster:FieldLayoutSettings.DataRecordCellAreaStyle>
+                                <Style TargetType="{x:Type dataPresenster:DataRecordCellArea}" BasedOn="{StaticResource DataRecordCellAreaStyleForGrid}"/>
+                            </dataPresenster:FieldLayoutSettings.DataRecordCellAreaStyle>
+                        </dataPresenster:FieldLayoutSettings>
+                    </dataPresenster:FieldLayout.Settings>
+                    <dataPresenster:FieldLayout.SortedFields>
+                        <dataPresenster:FieldSortDescription Direction="Ascending" FieldName="AlertType" />
+                    </dataPresenster:FieldLayout.SortedFields>
+
+                    <dataPresenster:TemplateField Label="AlertType" Name="AlertType" Visibility="Collapsed" IsReadOnly="True" LabelTextAlignment="Center" AllowResize="True" AllowRecordFiltering="True" Width="Auto"/>
+                    <dataPresenster:TemplateField BindingType="UseAlternateBinding" Label="Alert Type" AlternateBinding="{Binding RelativeSource={RelativeSource Self}, Path=DataContext.AlertType}" Converter="{StaticResource EnumToEnumerationDescriptionConverter}" DisplayTemplate="{StaticResource CellBackColorChange}"/>
+                    <dataPresenster:TemplateField Label="Rule Name" ToolTip="" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}" IsReadOnly="True" AllowRecordFiltering="True" Name="RuleName" AllowResize="True" Width="Auto" LabelTextAlignment="Center" />
+                    <dataPresenster:TemplateField Label="Description of Rule" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}" Name="Description" IsReadOnly="True" Width="150" AllowResize="True" LabelTextAlignment="Center" />
+                    <dataPresenster:TemplateField Label="Dimensions" Name="Dimension" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}" IsReadOnly="True" Width="Auto" AllowResize="True" LabelTextAlignment="Center"/>
+                    <dataPresenster:TemplateField Name= "ConstraintFields" Visibility="Collapsed"/>
+                    <dataPresenster:TemplateField Label="Threshold" Name="Threshold" AllowGroupBy="False" Width="Auto" AllowResize="True" LabelTextAlignment="Center" AllowEdit="False"
+                     DisplayTemplateSelector="{StaticResource valueTemplateSelector}" Converter="{StaticResource ValueToMultipleConverter}"/>
+                    <dataPresenster:TemplateField Label="Actual Result" Name="ActualResult"  AllowGroupBy="False" Width="Auto" AllowResize="True" LabelTextAlignment="Center" AllowEdit="False"
+                     DisplayTemplateSelector="{StaticResource valueTemplateSelector}" Converter="{StaticResource ValueToMultipleConverter}"/>
+                    <dataPresenster:TemplateField Label="Comments" Name="Parameters" LabelTextAlignment="Center" Width="150" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}" AllowResize="True"/>
+                </dataPresenster:FieldLayout>
+            </dataPresenster:XamDataGrid.FieldLayouts>
+        </dataPresenster:XamDataGrid>
+    </Grid>
+</UserControl>

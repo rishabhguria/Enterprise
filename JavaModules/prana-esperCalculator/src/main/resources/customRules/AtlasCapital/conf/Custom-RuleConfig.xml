@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><ruleConfig>
+     <rules name="AtlasCapital">
+	 <!-- <rule id="custom-ruleAtlasCapital"> -->
+				<!-- <name>Order Side Check</name> -->
+				<!-- <enabled>false</enabled> -->
+				<!-- <isDeleted>false</isDeleted> -->
+				<!-- <ruleType>PreTrade</ruleType> -->
+				<!-- <eplPath>/preTradeCheckSideAccountSymbol/</eplPath> -->
+				<!-- <description>Trade would sell more than the current position</description> -->
+				<!-- <compressionLevel>Custom</compressionLevel> -->
+				<!-- <validationCompletedEventName>PreTradeCheckSideAccountSymbol</validationCompletedEventName> -->
+				<!-- <outputStatementList> -->
+					<!-- <outputStatementName name="PreTradeCheckSideAccountSymbol"/> -->
+				<!-- </outputStatementList> -->
+				<!-- <windowFillerStatementList> -->
+					<!-- <windowFillerStatementName name="PreTradeCheckSideAccountSymbol"/> -->
+				<!-- </windowFillerStatementList> -->
+				<!-- <blocked>true</blocked> -->
+				<!-- <constantList>  -->
+				<!-- </constantList>	 -->
+		<!-- </rule> -->
+          <!-- <rule id="custom-rule-Atlas1"> -->
+			<!-- <name>Max 10% in Non Benchmark Countries.</name> -->
+			<!-- <enabled>false</enabled> -->
+			<!-- <isDeleted>false</isDeleted> -->
+			<!-- <ruleType>PreTrade</ruleType> -->
+			<!-- <eplPath>/nonBenchmarkCountries/</eplPath> -->
+			<!-- <description> -->
+				 <!-- Sum of MarketValue of all the securities with Country not equal to benchmark countries should not be greater than 10% of account NAV. -->
+			<!-- </description> -->
+			<!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+			<!-- <validationCompletedEventName>PreTradeNonBenchMarkCountries</validationCompletedEventName> -->
+			<!-- <outputStatementList> -->
+				<!-- <outputStatementName name="PreTradeNonBenchMarkCountries"/> -->
+			<!-- </outputStatementList> -->
+			<!-- <windowFillerStatementList> -->
+				<!-- <windowFillerStatementName name="PreTradeNonBenchMarkCountries"/> -->
+			<!-- </windowFillerStatementList> -->
+			<!-- <blocked>true</blocked> -->
+			<!-- <constantList> -->
+				<!-- <constantValue displayName="BenchMark countries (not in) :" name="BenchMarkCountry_Name" type="String" value="AR, AT, AU, BA, BD, BE, BF, BG, BH, BJ, BR, BW, CA, CH, CI, CL, CN, CO, CZ, DE, DK, EE, EG, ES, FI, FR, GB, GR, GW, HK, HR, HU, ID, IE, IL, IN, IS, IT, JM, JO, JP, KE, KR, KW, KZ, LB, LK, LT, MC, ML, MT, MU, MX, MY, NE, NG, NL, NO, NZ, OM, PA, PE, PH, PK, PL, PS, PT, QA, RO, RS, RU, SA, SE, SG, SI, SN, TG, TH, TN, TRAE, TT, TW, UA, US, VN, ZA, ZW"/> -->
+				<!-- <constantValue displayName="Max % of total account NAV :" name="Nav_Percentage" type="double" value="10"/> -->
+				<!-- <constantValue displayName="Account name :" name="Account_Name" type="string" value="ABC"/> -->
+				<!-- <constantValue displayName="Security class (not in) :" name="Asset_Name" type="string" value="Cash"/> -->
+			<!-- </constantList> -->
+		<!-- </rule>  -->
+		<rule id="custom-rule-Atlas2">
+               <name>Atlas Max 2% of total voting shares</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/votingRights/</eplPath>
+               <description>Quantity should be less than 2% of total voting shares of that symbol</description>
+               <compressionLevel>Account-Symbol</compressionLevel>
+               <validationCompletedEventName>PreTradeVotingRightCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeVotingRightCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeVotingRightCheck"/>
+               </windowFillerStatementList>
+               <constantList>
+					<constantValue displayName="Account(s) name" name="Account_Name_To_Check" type="String" value="USAF"/>
+					<constantValue displayName="Max % of total voting rights" name="VotingPercentage" type="double" value="2"/>
+				</constantList>
+               <blocked>true</blocked>
+          </rule>
+          <!-- <rule id="custom-rule-Atlas3"> -->
+               <!-- <name>Max 10% PNotes India</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/pNotesIndia/</eplPath> -->
+               <!-- <description>Sum of MarketValue of all the Warrant securities where Country of Issue is INDIA, should not be greater than 10% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradePNotesIndiaCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradePNotesIndiaCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradePNotesIndiaCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Names" type="String" value="USAF"/> -->
+					<!-- <constantValue displayName="Country of Issue" name="CountryIssue" type="String" value="INDIA"/> -->
+					<!-- <constantValue displayName="Security Class" name="SecurityClass" type="String" value="Warrant"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentage" type="double" value="10"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+             <!-- <rule id="custom-rule-Atlas4"> -->
+               <!-- <name>Max 10% of Free Float Adjusted Shares.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/freeFloatAdjustedShares/</eplPath> -->
+               <!-- <description>Quantity should be less than 10% of free floating shares of that symbol</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeFreeFloatingSharesCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeFreeFloatingSharesCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeFreeFloatingSharesCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Name_Floating_Shares" type="String" value="USAF"/> -->
+					<!-- <constantValue displayName="Max % of free floating shares" name="FloatingSharesPercentage" type="double" value="10"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+		<!-- </rule>  -->
+        <rule id="custom-rule-Atlas5">
+               <name>Atlas Min 82% US</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/kenya/</eplPath>
+               <description>Sum of MarketValue of all the securities where Country of Issue is US, should not be lesser than 82% of account NAV</description>
+               <compressionLevel>Account-Symbol</compressionLevel> 
+               <validationCompletedEventName>PreTradeMaxFivePercentKenya</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeMaxFivePercentKenya"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeMaxFivePercentKenya"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+					<constantValue displayName="Country of Issue" name="Country_Of_Issue_To_Check" type="String" value="US"/>
+					<constantValue displayName="Account(s) Name" name="AccountName" type="String" value="USAF"/>
+					<constantValue displayName="Min % of total account NAV" name="MaxNavPercentage" type="double" value="82"/>
+				</constantList>
+          </rule>
+          <!-- <rule id="custom-rule-Atlas6"> -->
+          	<!-- <name>Max 5% Nigeria</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/nigeria/</eplPath> -->
+               <!-- <description>Sum of MarketValue of all the securities where Country of Issue is Nigeria, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PreTradeMaxFivePercentNigeria</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxFivePercentNigeria"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxFivePercentNigeria"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Country of Issue" name="Country_to_check" type="String" value="NG"/> -->
+					<!-- <constantValue displayName="Account(s) Name" name="Account_Name_Check" type="String" value="USAF"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Maximum_Nav_Percentage" type="double" value="5"/> -->
+				<!-- </constantList> -->
+          <!-- </rule> -->
+          <rule id="custom-rule-Atlas7">
+          <name>Atlas Max 4% own in fund</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/singleOpenEndFunds/</eplPath>
+               <description>Market value of fund for the fund type listed should be less than 4% of Account NAV </description>
+               <compressionLevel>Account-Symbol</compressionLevel> 
+               <validationCompletedEventName>PreTradeMaxFundCheck</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeMaxFundCheck"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeMaxFundCheck"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+               		<constantValue displayName="Account(s) Name" name="AccountNameToVerify" type="String" value="USAF"/>
+					<constantValue displayName="Fund Type" name="Fund_to_check" type="String" value="Y"/>
+					<constantValue displayName="Max % of total account NAV" name="Maximum_Percentage" type="double" value="4"/>
+				</constantList>
+          </rule>
+          <!-- <rule id="custom-rule-Atlas8"> -->
+               <!-- <name>Max 30% of NAV in Open End Funds/ETFS.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/openEndFundsETFs/</eplPath> -->
+               <!-- <description>Sum of MarketValue of all the securities where Fund Type is either SICAV or UCIT or Open-End Fund or Fund of Funds or ETF, should not be greater than 30% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeOpenEndFundsCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeOpenEndFundsCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeOpenEndFundsCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="AccountNameOpenEndFunds" type="String" value="USAF"/> -->
+					<!-- <constantValue displayName="Fund Type" name="FundTypeOpenEndFunds" type="String" value="SICAV, UCIT, Open-End Fund, Fund of Funds, ETF"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentOpenEndFunds" type="double" value="30"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+		<!-- </rule> -->
+		<rule id="custom-rule-Atlas9">
+			<name>Atlas Max 12% Non-Voting Shares</name>
+			<enabled>false</enabled>
+			<isDeleted>false</isDeleted>
+			<ruleType>PreTrade</ruleType>
+			<eplPath>/nonVotingShares/</eplPath>
+			<description>
+				Sum of market value of all the securities where Voting Right is Y, should not be greater than 12% of account NAV.  
+			</description>
+			<compressionLevel>Account-Symbol</compressionLevel>
+			<validationCompletedEventName>PreTradeNonVotingShares</validationCompletedEventName>
+			<outputStatementList>
+				<outputStatementName name="PreTradeNonVotingShares"/>
+			</outputStatementList>
+			<windowFillerStatementList>
+				<windowFillerStatementName name="PreTradeNonVotingShares"/>
+			</windowFillerStatementList>
+			<blocked>true</blocked>
+			<constantList>
+			<constantValue displayName="Account(s) name :" name="AccountNameNonVotingShares" type="string" value="USAF"/>
+			<constantValue displayName="Max % of total account NAV" name="NavPercentageVotingRights" type="double" value="12"/>
+			<constantValue displayName="Voting rights" name="VotingRightsValue" type="string" value="Illiquid"/>
+			</constantList>
+		</rule>
+		<!-- <rule id="custom-rule-Atlas10"> -->
+          	   <!-- <name>No GICS Level 1 Sector to exceed 50%</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/gicsLevelOneSector/</eplPath> -->
+               <!-- <description>Sum of Market Value of all the securities in any of the GICS sectors should be less than 50% of Account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel>  -->
+               <!-- <validationCompletedEventName>PreTradeMaxFiftyPercentGICS</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxFiftyPercentGICS"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxFiftyPercentGICS"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) Name" name="AccountCheck" type="String" value="USAF"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="Max_Account_NAV" type="double" value="50"/> -->
+				<!-- </constantList> -->
+         <!-- </rule> -->
+         <!-- <rule id="custom-rule-Atlas11"> -->
+               <!-- <name>Max 30% Emerging Market Exposure</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/emergingMarketCountries/</eplPath> -->
+               <!-- <description> -->
+                     <!-- Sum of Exposure of all the securities with Country in Emerging Market countries should not be greater than 30% of account NAV. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeEmergingMarketCountries</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeEmergingMarketCountries"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeEmergingMarketCountries"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Emerging Countries: " name="emergingMarketCountries" type="String" value="AE, AR, BR, CL, CN, CO, CZ, EG, GR, HU, ID, KR, MX, MY, PE, PH, PK, PL, QA, RU, SA, TH, TR, TW, ZA, IN"/>                     -->
+                    <!-- <constantValue displayName="Max % of total account NAV :" name="Percentage_EmergingMarket" type="double" value="30"/> -->
+                    <!-- <constantValue displayName="Account name :" name="Account_EmergingMarket" type="string" value="USAF"/> -->
+               <!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-Atlas12"> -->
+               <!-- <name>Max 10% with Market Cap less than $5B.</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/marketCapFiveBillion/</eplPath> -->
+               <!-- <description> Aggregated market value of the securities having market capital less than $5 Billion should be less than 10% of Account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeMaxTenPercentWithMarketCapCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxTenPercentWithMarketCapCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxTenPercentWithMarketCapCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) name" name="Account_Check" type="String" value="USAF"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV" name="AccountNav_Percentage" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Market cap" name="MarketCap_Range" type="double" value="5000000000"/> -->
+               <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+                 
+          <rule id="custom-rule-Atlas27">
+               <name>Atlas Max 20% Issuer</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/issuer/</eplPath>
+               <description>Sum of market value of securities of a single issuer should not be greater than 20% of Account NAV. </description>
+               <compressionLevel>Account-Symbol</compressionLevel>
+               <validationCompletedEventName>PreTradeIssuer</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeIssuer"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeIssuer"/>
+               </windowFillerStatementList>
+               <constantList>
+               		<constantValue displayName="Account(s) name: " name="AccountIssuer" type="String" value="USAF"/>
+  					<constantValue displayName="Max % of account NAV: " name="PercentageIssuer" type="double" value="20"/>
+					<constantValue displayName="Empty ultimate list: " name="EmptyUltimateListIssuer" type="string" value="None"/>
+ 					<constantValue displayName="Asset class (not in): " name="AssetIssuer" type="string" value="Cash"/>
+                </constantList>
+               <blocked>true</blocked>
+          </rule>  
+          <!-- <rule id="custom-rule-Atlas28"> -->
+              <!-- <name>Max 15% Single Emerging Market Exposure</name> -->
+              <!-- <enabled>false</enabled> -->
+              <!-- <isDeleted>false</isDeleted> -->
+              <!-- <ruleType>PreTrade</ruleType> -->
+              <!-- <eplPath>/singleEmergingMarketExposure/</eplPath> -->
+               <!-- <description> -->
+                     <!-- Sum of Exposure of all the securities with country in Emerging Market countries should not be greater than 15% of account NAV. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeSingleEmergingMarketCountries</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeSingleEmergingMarketCountries"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeSingleEmergingMarketCountries"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Emerging Countries: " name="emergingMarketCountriesSingle" type="String" value="AE, AR, BR, CL, CN, CO, CZ, EG, GR, HU, ID, KR, MX, MY, PE, PH, PK, PL, QA, RU, SA, TH, TR, TW, ZA, IN"/>                     -->
+                    <!-- <constantValue displayName="Max % of total account NAV :" name="Percentage_SingleEmergingMarket" type="double" value="15"/> -->
+                    <!-- <constantValue displayName="Account name :" name="Account_SingleEmergingMarket" type="string" value="USAF"/> -->
+                    <!-- <constantValue displayName="Security class (not in) :" name="Asset_SingleEmergingMarket" type="string" value="Cash"/> -->
+               <!-- </constantList> -->
+         <!-- </rule> -->
+		 <!-- <rule id="custom-rule-Atlas29"> -->
+              <!-- <name>Alert No SecMaster Entry.</name> -->
+              <!-- <enabled>false</enabled> -->
+              <!-- <isDeleted>false</isDeleted> -->
+              <!-- <ruleType>PreTrade</ruleType> -->
+              <!-- <eplPath>/alertNoSecMaster/</eplPath> -->
+               <!-- <description> -->
+                     <!-- All traded Securities must have a security master entry. -->
+               <!-- </description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeAlertNoSecMaster</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeAlertNoSecMaster"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeAlertNoSecMaster"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <blocked>true</blocked> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Security class :" name="Asset_SecMaster" type="string" value="Equity, Option, Future, Future_Otion, FXFWD, FXUSD"/> -->
+               <!-- </constantList> -->
+          <!-- </rule> -->
+          <!-- <rule id="custom-rule-Atlas30"> -->
+               <!-- <name>Max 10% Trans Sec/MM .</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/sameParentTickerExchange/</eplPath> -->
+               <!-- <description>Sum of market value of securities with same parent ticker exchange not in the empty ultimate list should not be greater than 10% of Account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeParentTickerExchange</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeParentTickerExchange"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeParentTickerExchange"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+               		<!-- <constantValue displayName="Account(s) name: " name="Account_ParentTickerExchange" type="String" value="USAF"/> -->
+  					<!-- <constantValue displayName="Max % of account NAV: " name="Percentage_ParentTickerExchange" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Empty ultimate list: " name="List_ParentTickerExchange" type="string" value="None"/> -->
+ 					<!-- <constantValue displayName="Security class (not in): " name="Asset_ParentTickerExchange" type="string" value="Cash"/> -->
+                <!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+         <!-- </rule> -->
+         <!-- <rule id="custom-rule-Atlas31"> -->
+               <!-- <name>Max 5% of PNotes Issuer</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/pNotesIssuer/</eplPath> -->
+               <!-- <description>Sum of market value of all the Warrant securities where Country of Issue is INDIA, should not be greater than 5% of account NAV</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradePNotesIssuerCheck</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradePNotesIssuerCheck"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradePNotesIssuerCheck"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name" name="Account_Issuer" type="String" value="USAF"/> -->
+					<!-- <constantValue displayName="Country of Issue" name="CountryIssue_Issuer" type="String" value="INDIA"/> -->
+					<!-- <constantValue displayName="Security Class" name="SecurityClass_Issuer" type="String" value="Warrant"/> -->
+					<!-- <constantValue displayName="Max % of total account NAV" name="NavPercentage_Issuer" type="double" value="5"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+        <!-- </rule> -->
+        <!-- <rule id="custom-rule-Atlas32"> -->
+               <!-- <name> 5-40 Rule</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/fiveFortyRule/</eplPath> -->
+               <!-- <description>Aggregated market value of the securities having market value more than 5% of Account NAV should be less than 40% of the account NAV.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeFiveFortyRule</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeFiveFortyRule"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeFiveFortyRule"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+                    <!-- <constantValue displayName="Account(s) name: " name="Account_FiveForty" type="String" value="USAF"/> -->
+                    <!-- <constantValue displayName="Max % of account NAV: " name="Percentage_FiveForty" type="double" value="40"/> -->
+                    <!-- <constantValue displayName="Market value % per security: " name="Percentage_Individual" type="double" value="5"/> -->
+                    <!-- <constantValue displayName="Security class : " name="Asset_FiveForty" type="string" value="Equity"/> -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+          <!-- </rule> -->
+          
+          <!-- <rule id="custom-rule-Atlas39"> -->
+				<!-- <name>No single trade exceeding.</name> -->
+				<!-- <enabled>false</enabled> -->
+				<!-- <isDeleted>false</isDeleted> -->
+				<!-- <ruleType>PreTrade</ruleType> -->
+				<!-- <eplPath>/noSingleTrade/</eplPath> -->
+				<!-- <description> -->
+				 	<!-- No single trade exceeding 10% of assets. -->
+				<!-- </description> -->
+				<!-- <compressionLevel>Account</compressionLevel> -->
+				<!-- <validationCompletedEventName>PreTradeNoSingleTradeExceeding</validationCompletedEventName> -->
+				<!-- <outputStatementList> -->
+					<!-- <outputStatementName name="PreTradeNoSingleTradeExceeding"/> -->
+				<!-- </outputStatementList> -->
+				<!-- <windowFillerStatementList> -->
+					<!-- <windowFillerStatementName name="PreTradeNoSingleTradeExceeding"/> -->
+				<!-- </windowFillerStatementList> -->
+				<!-- <blocked>true</blocked> -->
+				<!-- <constantList> -->
+					<!-- <constantValue displayName="Select Type - Absolute (0) / %of NAV (1) :" name="Threshold_Type" type="double" value="1"/> -->
+					<!-- <constantValue displayName="Threshold :" name="Threshold_Metric" type="double" value="10"/> -->
+					<!-- <constantValue displayName="Asset Class (exclusions)  :" name="Asset_SingleTrade" type="string" value="Cash"/> -->
+				<!-- </constantList> -->
+          <!-- </rule>  -->
+          <!-- <rule id="custom-rule-Atlas40"> -->
+               <!-- <name>Maximum portfolio holding ex cash of 80</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/maxPortfolioHolding/</eplPath> -->
+               <!-- <description>Maximum portfolio holding ex cash of 80.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeMaxPortfolioHolding</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMaxPortfolioHolding"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMaxPortfolioHolding"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name: " name="Account_Position" type="String" value="USAF"/> -->
+                    <!-- <constantValue displayName="MINIMUM or MAXIMUM : " name="MinOrMax" type="String" value="MAXIMUM"/> -->
+                    <!-- <constantValue displayName="Threshold:" name="Threshold_Position" type="double" value="80"/> -->
+					<!-- <constantValue displayName="Asset Classes (exclusions): " name="SecurityClass_Position" type="String" value="Cash, FXForward"/>					 -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+        <!-- </rule> -->
+        <!-- <rule id="custom-rule-Atlas41"> -->
+               <!-- <name>Minimum portfolio holding ex cash of 40</name> -->
+               <!-- <enabled>false</enabled> -->
+               <!-- <isDeleted>false</isDeleted> -->
+               <!-- <ruleType>PreTrade</ruleType> -->
+               <!-- <eplPath>/minPortfolioHolding/</eplPath> -->
+               <!-- <description>Minimum portfolio holding ex cash of 40.</description> -->
+               <!-- <compressionLevel>Account-Symbol</compressionLevel> -->
+               <!-- <validationCompletedEventName>PreTradeMinPortfolioHolding</validationCompletedEventName> -->
+               <!-- <outputStatementList> -->
+                    <!-- <outputStatementName name="PreTradeMinPortfolioHolding"/> -->
+               <!-- </outputStatementList> -->
+               <!-- <windowFillerStatementList> -->
+                    <!-- <windowFillerStatementName name="PreTradeMinPortfolioHolding"/> -->
+               <!-- </windowFillerStatementList> -->
+               <!-- <constantList> -->
+					<!-- <constantValue displayName="Account(s) name: " name="Account_Position_Min" type="String" value="USAF"/> -->
+                    <!-- <constantValue displayName="MINIMUM or MAXIMUM : " name="MinOrMax2" type="String" value="MINIMUM"/> -->
+                    <!-- <constantValue displayName="Threshold:" name="Threshold_Position_Min" type="double" value="40"/> -->
+					<!-- <constantValue displayName="Asset Classes (exclusions): " name="SecurityClass_Position_Min" type="String" value="Cash, FXForward"/>					 -->
+				<!-- </constantList> -->
+               <!-- <blocked>true</blocked> -->
+		<!-- </rule> -->
+		<rule id="custom-rule-Atlas42">
+          <name>Atlas Max 8% own in fund</name>
+               <enabled>false</enabled>
+               <isDeleted>false</isDeleted>
+               <ruleType>PreTrade</ruleType>
+               <eplPath>/singleOpenEndFunds_8Percent/</eplPath>
+               <description>Market value of fund for the fund type listed should be less than 8% of Account NAV </description>
+               <compressionLevel>Account-Symbol</compressionLevel> 
+               <validationCompletedEventName>PreTradeMaxFundCheck1</validationCompletedEventName>
+               <outputStatementList>
+                    <outputStatementName name="PreTradeMaxFundCheck1"/>
+               </outputStatementList>
+               <windowFillerStatementList>
+                    <windowFillerStatementName name="PreTradeMaxFundCheck1"/>
+               </windowFillerStatementList>
+               <blocked>true</blocked>
+               <constantList>
+               		<constantValue displayName="Account(s) Name" name="AccountsNameToVerify" type="String" value="USAF"/>
+					<constantValue displayName="Fund Type" name="Funds_to_check" type="String" value="Y"/>
+					<constantValue displayName="Max % of total account NAV" name="Maximum_Percentage_to_check" type="double" value="8"/>
+				</constantList>
+          </rule>
+	</rules>
+</ruleConfig>

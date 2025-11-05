@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="Prana.BusinessObjects" assembly="Prana.BusinessObjects">
+
+	<class name="CashPreferences" table="T_CashPreferences">
+
+		<id name="ID"  column="ID"></id>
+		<property name="CashMgmtStartDate"  column="CashMgmtStartDate" />
+		<property name="MarginPercentage"  column="MarginPercentage" />
+		<property name="IsCalculatePnL"  column="IsCalculatePnL" />
+		<property name="IsCalculateDividend"  column="IsCalulateDividend" />
+		<property name="IsCalculateBondAccurals"  column="IsCalculateBondAccural" />
+		<property name="IsCashSettlementEntriesVisible"  column="IsCashSettlementEntriesVisible" />
+		<property name="AccountID" column="FundID"/>
+
+		<property name="IsPublishRevaluationData"  column="IsPublishRevaluationData" />
+		<property name="IsAccruedTillSettlement"  column="IsAccruedTillSettlement" />
+		<property name="SymbolWiseRevaluationDate"  column="SymbolWiseRevaluationDate" />
+		<property name="IsBreakRealizedPnlSubaccount"  column="IsBreakRealizedPnlSubaccount" />
+		<property name="IsCreateManualJournals"  column="IsCreateManualJournals" />
+	</class>
+
+</hibernate-mapping>

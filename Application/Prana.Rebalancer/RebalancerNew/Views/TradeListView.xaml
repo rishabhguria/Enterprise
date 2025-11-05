@@ -1,0 +1,451 @@
+﻿<Window x:Class="Prana.Rebalancer.RebalancerNew.Views.TradeListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ig="http://infragistics.com/DataPresenter"
+             xmlns:ig1="http://schemas.infragistics.com/xaml"
+             xmlns:igEditors="http://infragistics.com/Editors"
+             xmlns:themes="http://infragistics.com/Themes"
+             xmlns:igDP="http://infragistics.com/DataPresenter"
+             xmlns:converters="clr-namespace:Prana.Rebalancer.Converters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:excelExporter="http://infragistics.com/ExcelExporter"
+             xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+             xmlns:customChromeLibrary="clr-namespace:Prana.CustomChromeLibrary;assembly=Prana.CustomChromeLibrary"
+             xmlns:igWPF="http://schemas.infragistics.com/xaml/wpf"
+             xmlns:constants="clr-namespace:Prana.BusinessObjects.AppConstants;assembly=Prana.BusinessObjects"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviours="clr-namespace:Prana.Rebalancer.RebalancerNew.Behaviours"
+             mc:Ignorable="d" 
+             Background="#E7E8E9"
+             BorderBrush="Transparent"
+             x:Name="TradeBuySellListView" 
+             WindowStyle="None"
+             Title="Trade List"
+             xmlns:Dialogs="clr-namespace:Prana.MvvmDialogs;assembly=Prana.MvvmDialogs"
+             Dialogs:DialogServiceViews.IsRegistered="True"
+             >
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="6"
+            CaptionHeight="22"
+            CornerRadius="5"
+            GlassFrameThickness="0"/>
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/NirvanaSkin.xaml" />
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/RebalancerTheme.xaml" />
+                <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/NirvanaErrorTemplate.xaml" />
+                <themes:ResourceWasher WashMode="HueSaturationReplacement" WashColor="#FF6D6D6D">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/IG.xamComboEditor.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+                <themes:ResourceWasher WashMode="HueSaturationReplacement">
+                    <themes:ResourceWasher.SourceDictionary>
+                        <ResourceDictionary Source="/Prana.Rebalancer;component/RebalancerNew/Themes/IG/DataPresenterIGTheme_Express.xaml" />
+                    </themes:ResourceWasher.SourceDictionary>
+                </themes:ResourceWasher>
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="Template" Value="{DynamicResource ButtonControlTemplate}"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10,0,10,0" />
+                <Setter Property="FontFamily" Value="Tahoma" />
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontStyle" Value="Normal"/>
+                <Setter Property="Content" Value="Normal"/>
+            </Style>
+            <Style x:Key="XamComboEditorStyle" TargetType="ig1:XamComboEditor" BasedOn="{StaticResource igXamComboEditorStyle}">
+                <Setter Property="AllowDropDownResizing" Value="False"/>
+                <Setter Property="Height" Value="22"/>
+                <Setter Property="Width" Value="Auto"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="Tahoma"/>
+            </Style>
+            <excelExporter:DataPresenterExcelExporter x:Key="Exporter1" ExportStarted="DataPresenterExcelExporter_ExportStarted"/>
+            <converters:AccountIDToAccountNameConverter x:Key="AccountIDToAccountNameConverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <ig1:XamBusyIndicator FontSize="12" FontFamily="Tahoma" IsBusy="{Binding InProgress}" BusyContent="{Binding InProgressMessage, Mode=TwoWay }" IsIndeterminate="False" Background="LightGray">
+        <ig1:XamBusyIndicator.Animation>
+            <ig1:SpinnerSegmentedBusyAnimation AnimationFill="#FF43A898"/>
+        </ig1:XamBusyIndicator.Animation>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.Resources>
+                <DataTemplate x:Key="StringFieldDisplayTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+                               HorizontalAlignment="Right" Padding="0,0,5,0" >
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="TextBlock.Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+                <DataTemplate x:Key="PriceFieldTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:#\,0.00}}"
+                           HorizontalAlignment="Right" Padding="0,0,5,0" >
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="igEditors:XamNumericEditor.IsEnabled" Value="True"/>
+                                <Setter Property="igEditors:XamNumericEditor.Mask" Value="{}{double:-16.16}" />
+                                <Setter Property="igEditors:XamNumericEditor.TrimFractionalZeros" Value="True" />
+                                <Setter Property="igEditors:XamNumericEditor.PromptChar" Value="" />
+                                <Setter Property="igEditors:XamNumericEditor.Background" Value="White"/>
+                                <Setter Property="igEditors:XamNumericEditor.VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="igEditors:XamNumericEditor.Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+                <DataTemplate x:Key="QuantityFieldTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged,StringFormat={StaticResource StringFormatForInteger}}"
+                           HorizontalAlignment="Right" Padding="0,0,5,0" >
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="igEditors:XamNumericEditor.IsEnabled" Value="True"/>
+                                <Setter Property="igEditors:XamNumericEditor.Mask" Value="{}{double:-16.16}" />
+                                <Setter Property="igEditors:XamNumericEditor.TrimFractionalZeros" Value="True" />
+                                <Setter Property="igEditors:XamNumericEditor.PromptChar" Value="" />
+                                <Setter Property="igEditors:XamNumericEditor.Background" Value="White"/>
+                                <Setter Property="igEditors:XamNumericEditor.VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="igEditors:XamNumericEditor.Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+
+                <DataTemplate x:Key="FXRateFieldTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Right" Padding="0,0,5,0" >
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="igEditors:XamNumericEditor.IsEnabled" Value="True"/>
+                                <Setter Property="igEditors:XamNumericEditor.Mask" Value="{}{double:-16.16}" />
+                                <Setter Property="igEditors:XamNumericEditor.TrimFractionalZeros" Value="True" />
+                                <Setter Property="igEditors:XamNumericEditor.PromptChar" Value="" />
+                                <Setter Property="igEditors:XamNumericEditor.Background" Value="White"/>
+                                <Setter Property="igEditors:XamNumericEditor.VerticalContentAlignment" Value="Center"/>
+                                <Setter Property="igEditors:XamNumericEditor.Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+                <DataTemplate x:Key="PercentageEditableFieldDisplayTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged,StringFormat={StaticResource StringFormatForPerecentage}}"
+             HorizontalAlignment="Right" Padding="0,0,5,0" Style="{StaticResource GridTextBlockStyle}" />
+                </DataTemplate>
+
+                <DataTemplate x:Key="BuySellValueDisplayTemplate">
+                    <TextBlock Text="{Binding Path=(igWPF:TemplateEditor.Editor).Value,Mode=OneWay, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:#\,0}}"
+                           HorizontalAlignment="Right" Padding="0,0,5,0" >
+                        <TextBlock.Style>
+                            <Style>
+                                <Setter Property="TextBlock.Foreground" Value="Black"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.IsActive}" Value="True">
+                                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.DataItem.Side}" Value="{x:Static constants:PTTOrderSide.Sell}">
+                                        <Setter Property="igEditors:XamNumericEditor.Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type igDP:DataRecordCellArea}},Path=Record.DataItem.Side}" Value="{x:Static constants:PTTOrderSide.SellShort}">
+                                        <Setter Property="igEditors:XamNumericEditor.Foreground" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </DataTemplate>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="FontFamily" Value="Tahoma" />
+                    <Setter Property="FontStyle" Value="Normal"/>
+                </Style>
+                <Style TargetType="{x:Type igDP:LabelPresenter}" x:Key="SelectAllLabelStyle">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type igDP:LabelPresenter}">
+                                <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        IsChecked="{Binding Path=DataContext.IsAllTradesChecked, RelativeSource={RelativeSource AncestorType=Window},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <Style x:Key="DataGridRowStyle" TargetType="{x:Type igDP:DataRecordPresenter}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self},Path=Record.DataItem.IsStaged,UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border CornerRadius="2" BorderThickness="5" BorderBrush="#FF212C39" Background="#FFD1D2D4" Grid.RowSpan="2"/>
+            <Border CornerRadius="2" Grid.Row="0" BorderThickness="1" BorderBrush="#FF212C39" Background="#FF212C39">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock x:Name="tbNirvana" Height="22" Margin="5,0,0,0" Foreground="#FFD1D2D4" VerticalAlignment="Center" >
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontSize" Value="15"/>
+                                <Setter Property="Text" Value="Nirvāna"/>
+                                <Setter Property="FontFamily" Value="Mulish"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=TradeBuySellListView, Path=WindowState}" Value="Minimized">
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Setter Property="Text" Value="Trade List"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock Text="Trade List" Height="22" FontSize="14" Foreground="#FF8ABB54" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                <customChromeLibrary:CaptionButtons  VerticalAlignment="Center" />
+            </StackPanel>
+            <DockPanel Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" LastChildFill="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Row="0">-->
+                    <DockPanel Grid.Row="0" LastChildFill="True"    >
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="25,10,0,0">
+                                <Label x:Name="lblDate" Content="Date" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                <igWPF:XamDateTimeEditor x:Name="SelectDate" VerticalAlignment="Center" Text="{Binding SelectedDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,0"/>
+                                <Label x:Name="lblBuyAndSellList" Content="Buy/Sell List" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                <ig1:XamComboEditor x:Name="CmbTradeListNames" Width="150" VerticalAlignment="Center" ItemsSource="{Binding TradeListNames}" SelectedItem="{Binding SelectedTradeListName}" Style="{StaticResource XamComboEditorStyle}" Margin="10,0,0,0"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,0,0">
+                                <GroupBox Height="60" BorderBrush="Black" BorderThickness="1" Margin="0,0,10,0" >
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Grid.Row="0" Margin="20,10,20,10" Orientation="Horizontal"  Grid.ColumnSpan="3" Height="25">
+                                            <Label x:Name="lblBuySellListName"  Content="Buy/Sell List Name" Width="auto"/>
+                                            <TextBox x:Name="tbBuySellListName" Width="200" Text="{Binding SmartName}" Margin="20,0,0,0" TextAlignment="Left" VerticalAlignment="Center"/>
+                                            <Button x:Name="btnSave" IsEnabled="{Binding EnableButtons}" Width="100" Content="Save" Margin="40,0,0,0" Command="{Binding SaveCommand}" Style="{StaticResource ButtonStyle}" VerticalAlignment="Bottom"/>
+                                            <Button x:Name="btnSendToStaging" IsEnabled="{Binding EnableButtons}" Content="Send to Staging" HorizontalAlignment="Center" Width="100" Margin="20,0,0,0" Command="{Binding SendToStagingCommand}" Style="{StaticResource ButtonStyle}" VerticalAlignment="Bottom"/>
+                                            <CheckBox x:Name ="custodianBrokerCheckbox" Content="Use Custodian Broker" VerticalAlignment="Bottom" Margin="17,8,20, 0" IsChecked="{Binding IsUseCustodianBroker, Mode=TwoWay}" Visibility="{Binding IsUseCustodianBrokerPreference, Converter= {StaticResource BooleanToVisibilityConverter}}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+
+                        </Grid>
+                    </DockPanel>
+                    <ig:XamDataGrid  Grid.Row="1"  x:Name="TradeListGrid"  GroupByAreaLocation="None" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"
+                                                BorderThickness="1" DataSource="{Binding TradeList}" Margin="10,10,10,10" ScrollBehaviorOnListChange="PreserveRecordsInView" IsEnabled="{Binding Path=EnableGrid}"
+                                        ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"  ScrollViewer.IsDeferredScrollingEnabled="True"  AutoFit="True" Width="Auto" >
+                        <i:Interaction.Behaviors>
+                            <behaviours:XamDataGridExporterForRebalancer ExportFilePath="{Binding ExportFilePathForAutomation}" ExportGridData="{Binding ExportTradeListGridForAutomation}" ExportGrid="{Binding ExportTradeList}" ExporterResource="{StaticResource Exporter1}"/>
+                        </i:Interaction.Behaviors>
+                        <ig:XamDataGrid.Resources>
+                            <ContextMenu x:Key="TradeListContextMenu">
+                                <MenuItem Header="Export To Excel" Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ig:XamDataGrid}}, Path=DataContext.ExportTradeListCommand}"/>
+                            </ContextMenu>
+                            <Style TargetType="{x:Type ig:CellValuePresenter}" BasedOn="{StaticResource CellValuePresenterStyleForGrid}">
+                                <Setter Property="ContextMenu" Value="{StaticResource TradeListContextMenu}"/>
+                            </Style>
+                            <Style TargetType="{x:Type igWPF:FieldChooser}" BasedOn="{StaticResource FieldChooserStyle}"/>
+                            <Style TargetType="{x:Type ig:SummaryResultPresenter}" BasedOn="{StaticResource SummaryResultPresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type ig:DataRecordCellArea}" x:Key="DataRecordCellAreaStyle" BasedOn="{StaticResource DataRecordCellAreaStyleForGrid}"/>
+                            <Style TargetType="{x:Type igWPF:GroupBySummariesPresenter}" BasedOn="{StaticResource GroupBySummariesPresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type igWPF:GroupByRecordPresenter}" BasedOn="{StaticResource GroupByRecordPresenterStyleForGrid}"/>
+                            <Style TargetType="{x:Type igWPF:RecordSelector}" BasedOn="{StaticResource RecordSelectorStyle}" />
+                            <Style TargetType="{x:Type igWPF:LabelPresenter}" BasedOn="{StaticResource LabelPresenterStyle}"/>
+                            <Style TargetType="{x:Type igDP:DataRecordPresenter}" BasedOn="{StaticResource DataGridRowStyle}"/>
+                        </ig:XamDataGrid.Resources>
+                        <ig:XamDataGrid.FieldLayoutSettings>
+                            <ig:FieldLayoutSettings RecordSelectorLocation="None" AutoFitMode="Default" FilterUIType="LabelIcons" HeaderPlacement="OnTopOnly"  HeaderPrefixAreaDisplayMode="FieldChooserButton" AllowClipboardOperations="Copy" HighlightAlternateRecords="True"/>
+                        </ig:XamDataGrid.FieldLayoutSettings>
+                        <ig:XamDataGrid.FieldSettings>
+                            <ig:FieldSettings AutoSizeOptions="Label, DataCells" AutoSizeScope="AllRecords" Width="Auto" AllowResize="True"  AllowEdit="False" AllowRecordFiltering="True" AllowSummaries="True" SummaryDisplayArea="Bottom,InGroupByRecords,TopLevelOnly" AllowHiding="Never" CellHeight="30" AllowFixing="No">
+
+                                <!--Formatting for labels-->
+                                <excelExporter:DataPresenterExcelExporter.ExcelLabelFormatSettings>
+                                    <excelExporter:FormatSettings
+                                                        FontWeight="Bold" />
+                                </excelExporter:DataPresenterExcelExporter.ExcelLabelFormatSettings>
+                            </ig:FieldSettings>
+                        </ig:XamDataGrid.FieldSettings>
+                        <ig:XamDataGrid.ViewSettings>
+                            <ig:GridViewSettings UseNestedPanels="True" Orientation="Vertical">
+                            </ig:GridViewSettings>
+                        </ig:XamDataGrid.ViewSettings>
+                        <ig:XamDataGrid.FieldLayouts>
+                            <ig:FieldLayout>
+                                <ig:FieldLayout.SortedFields>
+                                    <ig:FieldSortDescription Direction="Ascending" FieldName="Symbol"/>
+                                </ig:FieldLayout.SortedFields>
+                                <ig:FieldLayout.Settings >
+                                    <ig:FieldLayoutSettings GroupBySummaryDisplayMode="SummaryCellsAlwaysBelowDescription" RecordSelectorLocation="Default">
+                                        <ig:FieldLayoutSettings.DataRecordCellAreaStyle>
+                                            <Style TargetType="{x:Type ig:DataRecordCellArea}" BasedOn="{StaticResource DataRecordCellAreaStyle}"/>
+                                        </ig:FieldLayoutSettings.DataRecordCellAreaStyle>
+                                    </ig:FieldLayoutSettings>
+                                </ig:FieldLayout.Settings>
+                                <ig:FieldLayout.SummaryDefinitions>
+                                    <ig:SummaryDefinition SourceFieldName="Symbol" Calculator="StringSummaryCalculator" Key="Symbol" StringFormat="{}{0}"  />
+                                    <ig:SummaryDefinition SourceFieldName="AccountId" Calculator="StringSummaryCalculator" Key="Account" StringFormat="{}{0}" />
+                                    <ig:SummaryDefinition SourceFieldName="Side" Calculator="StringSummaryCalculator" Key="Side" StringFormat="{}{0}" />
+                                    <ig:SummaryDefinition SourceFieldName="Quantity" Calculator="Sum" Key="QuantitySum" StringFormat="{}{0:#,0}"/>
+                                    <ig:SummaryDefinition SourceFieldName="TradeValueBase" Calculator="Sum" Key="BuySellValueSum" StringFormat="{}{0:#,0}"/>
+                                </ig:FieldLayout.SummaryDefinitions>
+                                <ig:Field Name="IsChecked" Label="" AllowEdit="True" AllowGroupBy="False">
+                                    <igDP:Field.Settings>
+                                        <igDP:FieldSettings LabelPresenterStyle="{StaticResource SelectAllLabelStyle}"/>
+                                    </igDP:Field.Settings>
+                                </ig:Field>
+                                <ig:TemplateField Label="Account" IsReadOnly="True" Name="AccountId" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}"
+                                                                      ToolTip="Account" Converter="{StaticResource AccountIDToAccountNameConverter}" 
+                                                                      LabelTextAlignment="Center" ConverterParameter="{}{0:00}">
+                                    <ig:TemplateField.Settings>
+                                        <ig:FieldSettings EditAsType="sys:String"/>
+                                    </ig:TemplateField.Settings>
+                                </ig:TemplateField>
+                                <ig:TemplateField Label="Trading Group Name" Name="AccountOrGroupNameToRebalance" 
+                                                  Width="Auto"  ToolTip="Trading Group Name" IsReadOnly="True" LabelTextAlignment="Center" AllowRecordFiltering="True" AllowHiding="Always" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}"/>
+                                <ig:TemplateField Label="Symbol" Name="Symbol" Width="Auto"  ToolTip="Symbol" IsReadOnly="True"
+                                                  LabelTextAlignment="Center" AllowRecordFiltering="True" AllowHiding="Always" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}"/>
+                                <ig:TemplateField Label="Price (Local)" Name="Price" Width="Auto"  ToolTip="Price (Local)" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+   DisplayTemplate="{StaticResource PriceFieldTemplate}"/>
+                                <ig:TemplateField Label="Price (Base)" Width="Auto"  Name="PriceInBaseCurrency" ToolTip="Price (Base)" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource PriceFieldTemplate}"/>
+                                <ig:TemplateField Label="Previous Day Closing Price (Local)" Name="YesterdayMarkPrice" Width="Auto"  ToolTip="Previous Day Closing Price (Local)" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource PriceFieldTemplate}"/>
+                                <ig:TemplateField Label="% Change from Closing Price (Local)" Name="PercentageChangeFromClosingPrice" Width="Auto"  ToolTip="% Change from Closing Price (Local)" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource PercentageEditableFieldDisplayTemplate}"/>
+                                <ig:TemplateField Label="Side" Name="Side" Width="Auto" ToolTip="Side" IsReadOnly="True"
+                    LabelTextAlignment="Center" AllowRecordFiltering="True" AllowHiding="Always" DisplayTemplate="{StaticResource StringFieldDisplayTemplate}"/>
+                                <ig:TemplateField Label="Current Market Value" Name="CurrentMarketValueBase" Width="Auto"  ToolTip="Current Market Value" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource QuantityFieldTemplate}"/>
+                                <ig:TemplateField Label="Current %" Name="CurrentPercentage" Width="Auto"  ToolTip="Current %" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource PercentageEditableFieldDisplayTemplate}"/>
+                                <ig:TemplateField Label="Target Market Value" Name="TargetMarketValueBase" Width="Auto"  ToolTip="Target Market Value" LabelTextAlignment="Center" AllowRecordFiltering="True"
+      DisplayTemplate="{StaticResource QuantityFieldTemplate}" AllowHiding="Always"/>
+                                <ig:TemplateField Label="Target %" Name="TargetPercentage" Width="Auto"  ToolTip="Target %" LabelTextAlignment="Center" AllowRecordFiltering="True"
+DisplayTemplate="{StaticResource PercentageEditableFieldDisplayTemplate}" AllowHiding="Always"/>
+                                <ig:TemplateField Label="Current Position" Name="CurrentPosition" Width="Auto"  ToolTip="Current Position" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource QuantityFieldTemplate}"/>
+                                <ig:TemplateField Label="Target Position" Name="TargetPosition" Width="Auto"  ToolTip="Target Position" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource QuantityFieldTemplate}"/>
+                                <ig:TemplateField Label="Buy/Sell Qty" Name="Quantity" Width="Auto"  ToolTip="Buy/Sell Qty " AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource QuantityFieldTemplate}"/>
+                                <ig:TemplateField Label="Buy/Sell Value (Local)" Name="TradeValueLocal" Width="Auto"  ToolTip="Buy/Sell Value (Local)" LabelTextAlignment="Center" AllowRecordFiltering="True"
+      DisplayTemplate="{StaticResource QuantityFieldTemplate}" AllowHiding="Always"/>
+                                <ig:TemplateField Label="Buy/Sell Value" Name="TradeValueBase" Width="Auto"  ToolTip="Buy/Sell Value" LabelTextAlignment="Center" AllowRecordFiltering="True"
+DisplayTemplate="{StaticResource QuantityFieldTemplate}" AllowHiding="Always"/>
+                                <ig:TemplateField Label="Current FX Rate" Name="FXRate" Width="Auto"  ToolTip="Current FX Rate" AllowGroupBy="False" LabelTextAlignment="Center" AllowEdit="False" AllowRecordFiltering="True" AllowHiding="Always"
+DisplayTemplate="{StaticResource FXRateFieldTemplate}"/>
+                                <ig:Field Name="Comments" Label="Comments"  Width="Auto" ToolTip="Comments" AllowResize="False" LabelTextAlignment="Center" AllowGroupBy="False" AllowEdit="True" AllowHiding="Always"/>
+                            </ig:FieldLayout>
+                        </ig:XamDataGrid.FieldLayouts>
+                    </ig:XamDataGrid>
+                    <StackPanel Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="1" x:Name="btnCheckCompliance" Content="Check Compliance" Template="{DynamicResource GrayButtonSkinTemplate}" HorizontalAlignment="Center" Width="116" Height="27" Margin="10,10,10,10" Style="{StaticResource ButtonStyle}" Visibility="{Binding IsCheckComplianceAllowed, Converter={StaticResource BooleanToVisibilityConverter}}" IsEnabled="{Binding EnableButtons}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding CheckComplianceButtonClicked}" PassEventArgsToCommand="True" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button x:Name="btnSendToStage" Grid.Column="2" Content="Send to Staging" HorizontalAlignment="Center" Width="116" Height="27" Margin="10,10,10,10" Command="{Binding SendToStagingCommand}" Style="{StaticResource ButtonStyle}" IsEnabled="{Binding EnableButtons}" />
+                        </Grid>
+                    </StackPanel>
+                    <DockPanel x:Name="StatusAndErrorsDock" Grid.Row="3" Height="25" Width="Auto" Margin="5,0,5,10" LastChildFill="False" RenderTransformOrigin="0.5,0.5">
+                        <StatusBar Name="TradeListViewStatusBar" Background="{DynamicResource StatusBarBackground}" Foreground="{DynamicResource StatusBarForeground}" Margin="0" RenderTransformOrigin="0.502,0.909" DockPanel.Dock="Bottom" Height="26">
+                            <StatusBar.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="500" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                </ItemsPanelTemplate>
+                            </StatusBar.ItemsPanel>
+                            <StatusBarItem Grid.Column="0" Foreground="{DynamicResource StatusBarForeground}">
+                                <TextBlock x:Name="tbStatusMessage" Text="{Binding StatusMessage}" Margin="10,0,0,0"/>
+                            </StatusBarItem>
+                            <StatusBarItem Grid.Column="1" Foreground="{DynamicResource StatusBarForeground}" HorizontalAlignment="Right">
+                                <TextBlock x:Name="tbErrorMessage" Text="{Binding ErrorMessage}" DockPanel.Dock="Right" Foreground="Red" />
+                            </StatusBarItem>
+                        </StatusBar>
+                    </DockPanel>
+                </Grid>
+            </DockPanel>
+        </Grid>
+    </ig1:XamBusyIndicator>
+</Window>

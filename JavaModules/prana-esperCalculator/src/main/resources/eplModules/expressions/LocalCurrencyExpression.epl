@@ -1,0 +1,370 @@
+module eplModules.expressions.LocalCurrencyExpression;
+
+uses eplModules.expressions.BaseExpression;
+import java.lang.Math;
+
+@Name('ExpressionNotionalLocal')
+@Description('Expression to calculate NotionalLocal')
+create expression exprNotionalLocal{(SECU,TAX,AUE) => 
+                            case 
+         					when AUE.asset in ('Equity','EquityOption','Future','FutureOption', 'PrivateEquity','CreditDefaultSwap') 
+								then coalesce(TAX.quantity*TAX.avgPrice*SECU.multiplier*TAX.sideMultiplier,0)
+         					when AUE.asset in('FixedIncome','ConvertibleBond') then coalesce(TAX.quantity*TAX.avgPrice*SECU.multiplier*TAX.sideMultiplier,0)
+         					else 0.0
+      						end 
+      				};
+
+@Name('ExpressionEquityHaircutLocal')
+@Description('Expression to calculate EquityHaircutLocal')
+create expression exprEquityHaircutLocal{(SECU,TAX,SYM,UND,AUE) => 
+                            case 
+         					when AUE.asset in ('Equity','Future', 'PrivateEquity','CreditDefaultSwap','FXForward','FX') 
+								then coalesce(TAX.quantity*TAX.avgPrice*SECU.multiplier*TAX.sideMultiplier*0.15,0)
+							when AUE.asset in ('FixedIncome')
+								then coalesce(TAX.quantity*TAX.avgPrice*SECU.multiplier*TAX.sideMultiplier*0.15,0)
+							when AUE.asset in ('ConvertibleBond')
+								then coalesce(TAX.quantity*UND.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier*0.15,0)
+         					when AUE.asset in ('EquityOption','FutureOption')
+         						then coalesce(TAX.quantity*UND.selectedFeedPrice*TAX.sideMultiplier*SECU.multiplier*0.15,0)
+         					else 0.0
+      						end 
+      				};
+
+@Name('ExpressionIndexHaircutLocal')
+@Description('Expression to calculate IndexHaircutLocal')
+create expression exprIndexHaircutLocal{(SECU,TAX,SYM,UND,AUE) => 
+                            case 
+         					when AUE.asset in ('Equity','Future','PrivateEquity','CreditDefaultSwap','FXForward','FX') 
+								then coalesce(TAX.quantity*TAX.avgPrice*SECU.multiplier*TAX.sideMultiplier*0.08,0)
+							when AUE.asset in ('FixedIncome')
+								then coalesce(TAX.quantity*TAX.avgPrice*SECU.multiplier*TAX.sideMultiplier*0.08,0)
+							when AUE.asset in ('ConvertibleBond')
+								then coalesce(TAX.quantity*UND.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier*0.08,0)
+         					when AUE.asset in ('EquityOption','FutureOption')
+         						then coalesce(TAX.quantity*UND.selectedFeedPrice*TAX.sideMultiplier*SECU.multiplier*0.08,0)
+         					else 0.0
+      						end 
+      				};
+      				
+@Name('ExpressionCashImpactLocal')
+@Description('Expression to calculate CashImpactLocal')    
+create expression exprCashImpactLocal{(SECU,TAX,AUE) => 
+                            case 
+                            when AUE.asset in ('Equity', 'EquityOption','FixedIncome','ConvertibleBond','FutureOption', 'PrivateEquity','CreditDefaultSwap') then 
+                                    	 case (TAX.isSwapped = false) 
+										 	and (TAX.isTodayTrade = true or TAX.taxlotType in ('InTradeMarket','InTradeStage')) 
+                                    		when false then 0
+                                    		when true then 
+												coalesce(exprNotionalLocal(SECU,TAX,AUE)*(-1),0)
+                              			end
+                             when AUE.asset in ('Future' , 'FX','FXForward') then 0.0
+                             else 0.0
+                             end 
+                            };
+      				
+@Name('ExpressionCashInflowLocal')
+@Description('Expression to calculate CashInflowLocal')                            
+create expression exprCashInflowLocal{(SECU,TAX,AUE) => case coalesce(exprCashImpactLocal(SECU,TAX,AUE),0) > 0 when true then exprCashImpactLocal(SECU,TAX,AUE) when false  then 0.0 end};
+
+@Name('ExpressionCashOutflowLocal')
+@Description('Expression to calculate CashOutflowLocal')
+create expression exprCashOutflowLocal{(SECU,TAX,AUE)=> case coalesce(exprCashImpactLocal(SECU,TAX,AUE),0) < 0 when true then exprNotionalLocal(SECU,TAX,AUE) when false then 0.0 end};
+
+@Name('ExpressionDayInterestLocal')
+@Description('Day Interest in case of swap')
+create expression exprDayInterestLocal{ (TAX)=> coalesce((TAX.swapNotional*exprInterestRate(TAX)*1.0/100)/TAX.dayCount,0)};
+
+@Name('ExpressionTotalInterestLocal')
+@Description('Total Interest in case of swap')
+create expression exprTotalInterestLocal{ (TAX,AUE)=> coalesce(exprDayInterestLocal(TAX)*exprDayDiff(TAX,AUE),0)};
+
+@Name('ExpressionCostBasisPnLLocal')
+@Description('Expression to calculate CostBasisPnLLocal')    					
+create expression exprCostBasisPnLLocal{ (SECU,TAX,SYM,AUE)=> 
+    					case 
+         				when AUE.asset in ('FixedIncome','ConvertibleBond') then coalesce(TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier,0)
+         				when AUE.asset in ('Equity', 'PrivateEquity','CreditDefaultSwap') then
+         					case when TAX.sideMultiplier = -1 then 
+         						coalesce(((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier) + TAX.totalInterestLocal),0) 
+         					else
+         						coalesce(((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier) - TAX.totalInterestLocal),0)
+         					end
+         				when AUE.asset in('FXForward','FX') then coalesce(TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier,0)
+         				else coalesce(TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier,0)
+     					end 
+    };
+    
+@Name('ExpressionDayPnLLocal')
+@Description('Expression to calculate ExpressionDayPnL')   
+create expression exprDayPnLLocal {(SECU,TAX,SYM,AUE) => 
+							case 
+         					when AUE.asset in ('EquityOption' , 'Future','FutureOption') then 
+										 case  TAX.isTodayTrade or TAX.taxlotType in ('InTradeMarket','InTradeStage')
+                        				 when false
+                             			 then coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-SYM.markPrice)*SECU.multiplier*TAX.sideMultiplier),0)
+                                         when true
+                                         then coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier),0)
+                                         end
+         					
+         					when AUE.asset in ('Equity', 'PrivateEquity','CreditDefaultSwap') then 
+										 case  TAX.isTodayTrade or TAX.taxlotType in ('InTradeMarket','InTradeStage')
+                        				 when false then
+                        				 	case when TAX.sideMultiplier = -1 then 
+                             			  		coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-SYM.markPrice)*SECU.multiplier*TAX.sideMultiplier) + TAX.dayInterestLocal,0)
+                                         	else
+                                         		coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-SYM.markPrice)*SECU.multiplier*TAX.sideMultiplier) - TAX.dayInterestLocal,0)
+                                         	end
+                                         when true
+                                         then coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier),0)
+                                         end
+                                         
+         					when AUE.asset in ('FixedIncome','ConvertibleBond') then 
+         					case  TAX.isTodayTrade or TAX.taxlotType in ('InTradeMarket','InTradeStage')
+                        	when false then
+         						coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-SYM.markPrice)*SECU.multiplier*TAX.sideMultiplier),0)
+         					when true then
+         						coalesce((TAX.quantity*(coalesce(SYM.selectedFeedPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier),0)
+         					end	
+         					when AUE.asset in ('FXForward','FX') then 
+								case  TAX.isTodayTrade or TAX.taxlotType in ('InTradeMarket','InTradeStage')
+								when false then
+									coalesce(((SECU.multiplier*TAX.sideMultiplier*(((TAX.quantity*TAX.avgPrice)/coalesce(SYM.selectedFeedPrice,0)) - ((TAX.quantity*TAX.avgPrice)/coalesce(SYM.markPrice,0))))*coalesce(SYM.selectedFeedPrice,0)*-1),0)
+								when true then
+									coalesce(((SECU.multiplier*TAX.sideMultiplier*(((TAX.quantity*TAX.avgPrice)/coalesce(SYM.selectedFeedPrice,0)) - ((TAX.quantity*TAX.avgPrice)/TAX.avgPrice)))*coalesce(SYM.selectedFeedPrice,0)*-1),0) 
+								end
+         					else 0.0
+      						end 
+    						};
+    						
+@Name('ExpressionNetMarketValueLocal')
+@Description('Expression to calculate NetMarketValueLocal')
+create expression exprNetMarketValueLocal{(TAX,SECU,SYM,AUE) => 
+    						  case 
+                              when AUE.asset in ('EquityOption' ,'FutureOption') then coalesce(TAX.quantity*SYM.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier,0)
+                              when AUE.asset in ('FixedIncome','ConvertibleBond') then coalesce(TAX.quantity*SYM.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier,0)
+                              when AUE.asset in ('Equity', 'PrivateEquity','CreditDefaultSwap') then
+                              	case
+                              	when TAX.isSwapped= true and EquitySwapsMarketValueAsEquity = false then
+                              		coalesce(exprCostBasisPnLLocal(SECU,TAX,SYM,AUE),0)
+                              	else 
+                              		coalesce(TAX.quantity*SYM.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier,0)
+                              	end	
+                              when AUE.asset='Future' then
+                                     case IsM2MIncludedInCash
+         					         when true then coalesce(exprDayPnLLocal(SECU,TAX,SYM,AUE),0)
+         					         else  coalesce(exprCostBasisPnLLocal(SECU,TAX,SYM,AUE),0)
+         					         end
+         					  when AUE.asset in('FX','FXForward') then coalesce(exprCostBasisPnLLocal(SECU,TAX,SYM,AUE),0)
+                              else 0.0
+                              end 
+  					};
+				
+@Name('ExpressionYesterdayCostBasisPnlLocal')
+@Description('Expression to calculate YesterdayCostBasisPnlLocal')    					
+create expression exprYesterdayCostBasisPnLLocal{ (SECU,TAX,SYM,AUE,FX)=> 
+    					case 
+    					when AUE.asset in ('FixedIncome','ConvertibleBond') then coalesce(TAX.quantity*(coalesce(SYM.markPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier,0)
+         				when AUE.asset in ('Equity', 'PrivateEquity','CreditDefaultSwap') then
+         					case when TAX.sideMultiplier = -1 then 
+         						coalesce(((TAX.quantity*(coalesce(SYM.markPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier) + (TAX.totalInterestLocal-TAX.dayInterestLocal)),0) 
+         					else
+         						coalesce(((TAX.quantity*(coalesce(SYM.markPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier) - (TAX.totalInterestLocal-TAX.dayInterestLocal)),0)
+         					end
+         					when AUE.asset in ('FX','FXForward') then TAX.quantity*(coalesce(SYM.markPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier
+         				else coalesce(TAX.quantity*(coalesce(SYM.markPrice,0)-TAX.avgPrice)*SECU.multiplier*TAX.sideMultiplier,0)
+     					end 
+    					};
+				
+				
+@Name('ExpressionYesterdayMarketValueLocal')
+@Description('Expression to calculate YesterdayMarketValueLocal')
+create expression exprYesterdayMarketValueLocal{(TAX,SECU,SYM,AUE,FX) => 
+ 							case TAX.isTodayTrade 
+ 							when false
+                        	then case 
+                            	 when AUE.asset in ('EquityOption' , 'FutureOption') then coalesce((TAX.quantity*SYM.markPrice*SECU.multiplier*TAX.sideMultiplier),0)
+                            	 when AUE.asset in ('FixedIncome','ConvertibleBond') then coalesce((TAX.quantity*SYM.markPrice*SECU.multiplier*TAX.sideMultiplier),0)
+                             	 when AUE.asset in ('Equity', 'PrivateEquity','CreditDefaultSwap') then
+                              		case
+                              		when TAX.isSwapped= true and EquitySwapsMarketValueAsEquity = false then
+                              			coalesce(exprYesterdayCostBasisPnLLocal(SECU,TAX,SYM,AUE,FX),0)
+                              		else 
+                              			coalesce((TAX.quantity*SYM.markPrice*SECU.multiplier*TAX.sideMultiplier),0)
+                              		end	
+                             	 when AUE.asset='Future' then
+                                     case IsM2MIncludedInCash
+         					         	when true then 
+         					         		0.0
+         					         	else  
+         					         		coalesce(exprYesterdayCostBasisPnLLocal(SECU,TAX,SYM,AUE,FX),0)
+         					        	end
+         					 	 when AUE.asset in ('FX','FXForward') then exprYesterdayCostBasisPnLLocal(SECU,TAX,SYM,AUE,FX)
+                              	 else 0.0
+                           		 end 
+                            else 0.0
+                            end	 
+                     };   
+                             
+ 					
+/* At RowCalculation Net Market value is gross market value, so that it can be netted at Symbol level */  					
+@Name('ExpressionGrossMarketValueLocal')
+@Description('Expression to calculate GrossMarketValueLocal')    					    
+create expression exprgrossMarketValueLocal{(TAX,SECU,SYM,ORD,AUE) => case     								
+    								when exprNetMarketValueLocal(TAX,SECU,SYM,AUE)>0 then coalesce(exprNetMarketValueLocal(TAX,SECU,SYM,AUE),0)
+    								when exprNetMarketValueLocal(TAX,SECU,SYM,AUE)<0 then coalesce((exprNetMarketValueLocal(TAX,SECU,SYM,AUE)),0)*(-1)
+    								else 0.0 
+    								end
+    								};
+
+@Name('ExpressionNetExposureLocal')
+@Description('Expression to calculate NetExposureLocal')    
+create expression exprNetExposureLocal{ (TAX,SYM,SECU,UND,AUE,USECR,FX) => 
+				case when SECU.isCurrencyFuture then
+						TAX.quantity * SECU.multiplier * TAX.sideMultiplier * coalesce(FX.selectedFeedPrice,1)
+					else
+						case
+						when AUE.asset in ('Equity','PrivateEquity','CreditDefaultSwap','Future','FixedIncome')
+         						then coalesce(TAX.quantity*SYM.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier*exprGetLeveragedFactor(USECR,AUE,SECU),0) 
+         				when AUE.asset in ('EquityOption','FutureOption')
+         						then coalesce(TAX.quantity*UND.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier*SYM.delta*exprGetLeveragedFactor(USECR,AUE,SECU),0)
+         				when AUE.asset in ('ConvertibleBond')
+         						then coalesce(TAX.quantity*UND.selectedFeedPrice*(SECU.multiplier)*TAX.sideMultiplier*SYM.delta*exprGetLeveragedFactor(USECR,AUE,SECU),0)		
+         				when AUE.asset in ('FX','FXForward')
+         						then
+         						case SetFxToZero
+         						when true	
+         							then 0.0
+         						when false
+         							then coalesce(exprCostBasisPnLLocal(SECU,TAX,SYM,AUE),0)
+      					end 
+         				else 0.0
+         			end
+         			end
+    					};
+      				
+@Name('ExpressionBetaAdjustedExposureLocal')
+@Description('Expression to calculate BetaAdjustedExposureLocal')  
+create expression exprBetaAdjustedExposureLocal{ (TAX,SYM,SECU,UND,AUE,USECR,FX) =>
+					/*
+					* Changed the formula for Beta Adjusted Exposure Local. Removed Leverage Factor. JIRA: PRANA-11452
+					*/
+					case when SECU.isCurrencyFuture then
+						TAX.quantity * SECU.multiplier * coalesce(FX.selectedFeedPrice,1) * exprGetBeta(AUE,SYM,UND)
+					else
+						case
+						when AUE.asset in ('Equity','PrivateEquity','CreditDefaultSwap','Future','FixedIncome')
+         						then coalesce(TAX.quantity*SYM.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier*exprGetBeta(AUE,SYM,UND),0) 
+         				when AUE.asset in ('EquityOption','FutureOption')
+         						then coalesce(TAX.quantity*UND.selectedFeedPrice*SECU.multiplier*TAX.sideMultiplier*SYM.delta*exprGetBeta(AUE,SYM,UND),0)
+         				when AUE.asset in ('ConvertibleBond')
+         						then coalesce(TAX.quantity*UND.selectedFeedPrice*(SECU.multiplier)*TAX.sideMultiplier*SYM.delta*exprGetBeta(AUE,SYM,UND),0)		
+         				when AUE.asset in ('FX','FXForward')
+         						then
+         						case SetFxToZero
+         						when true	
+         							then 0.0
+         						when false
+         							then coalesce(exprCostBasisPnLLocal(SECU,TAX,SYM,AUE)*exprGetBeta(AUE,SYM,UND),0)
+         						end	
+         				else 0.0
+         				end
+         			end
+					};
+								
+
+@Name('ExpressionDeltaAdjPosition')
+@Description('Expression to calculate DeltaAdjPosition')    
+create expression exprDeltaAdjPosition{(SECU,TAX,SYM,AUE) =>                      
+    				    case 
+         				when AUE.asset in ('EquityOption','FixedIncome','ConvertibleBond','Equity', 'PrivateEquity','CreditDefaultSwap','FX','FXForward') 
+         					then coalesce(TAX.quantity*TAX.sideMultiplier,0)*SECU.multiplier *SYM.delta                                         
+         				when AUE.asset in ('FutureOption', 'Future') 
+         					then coalesce(TAX.quantity*TAX.sideMultiplier,0)*SYM.delta
+         				else 0.0
+     					end
+    					};
+
+@Name('ExpressionUnderlyingValueForOptionsLocal')
+@Description('Expression to calculate UnderlyingValueForOptionsLocal')
+create expression exprUnderlyingValueForOptionsLocal{ (SECU,TAX,UND,AUE) =>
+    								case AUE.asset    								
+    								when  'EquityOption'  then coalesce(TAX.quantity * SECU.multiplier * UND.selectedFeedPrice,0)
+    								when 'FutureOption' then coalesce(TAX.quantity * SECU.multiplier * UND.selectedFeedPrice,0)
+    								else  0.0
+    								end
+ };
+
+@Name('ExpressionDefaultPositionSide')
+@Description('Expression to calculate DefaultPositionSide')
+create expression exprGetDefaultPositionSide{ (S) => case 	
+													when sum(S.quantity) is not null
+													then 
+														case														
+													when sum(S.quantity) > 0 then 'long'
+													when sum(S.quantity) < 0 then 'short'
+													when sum(S.quantity) = 0 
+														then 
+															case
+															when sum(S.quantity) - S.quantity > 0 then 'long'
+															when sum(S.quantity) - S.quantity < 0 then 'short'
+															end
+												end
+													else 
+														case when S.quantity > 0 then 'long'
+															when S.quantity < 0 then 'short'
+															else 'long'
+														end
+													end
+							};
+
+@Name('ExpressionExposurePositionSide')
+@Description('Expression to calculate ExposurePositionSide')
+create expression exprGetExposurePositionSide{ (S) => case 	
+													when sum(S.netExposureLocal) is not null
+													then 
+														case
+													when sum(S.netExposureLocal) > 0 then 'long'
+													when sum(S.netExposureLocal) < 0 then 'short'
+													when sum(S.netExposureLocal) = 0 
+														then 
+															case
+															when sum(S.netExposureLocal) - S.netExposureLocal > 0 then 'long'
+															when sum(S.netExposureLocal) - S.netExposureLocal < 0 then 'short'
+															else 'long'
+															end
+												end
+													else 
+														case when S.netExposureLocal > 0 then 'long'
+															when S.netExposureLocal < 0 then 'short'
+															else 'long'
+														end
+													end
+							};
+							
+							
+@Name('ExpressionLiquidationPNLPortfolioLocal')
+@Description('Expression to calculate LiquidationPNLPortfolioLocal')    
+create expression exprLiquidationPNLPortfolioLocal{ (SECU,SYM,TAX,AUE) =>
+    								case 
+    								when AUE.asset in ('FixedIncome','ConvertibleBond') then
+    								         case TAX.sideMultiplier
+    								         when -1 then  coalesce((SYM.askPrice * TAX.quantity * TAX.sideMultiplier * (SECU.multiplier) ) - (exprNetMarketValueLocal(TAX,SECU,SYM,AUE) - exprDayPnLLocal(SECU,TAX,SYM,AUE)),0)
+    										 when  1 then coalesce((SYM.bidPrice * TAX.quantity * TAX.sideMultiplier * (SECU.multiplier) ) - (exprNetMarketValueLocal(TAX,SECU,SYM,AUE) - exprDayPnLLocal(SECU,TAX,SYM,AUE)),0)
+    										 end
+    								else  
+    								         case TAX.sideMultiplier
+    								         when -1 then  coalesce((SYM.askPrice * TAX.quantity * TAX.sideMultiplier * (SECU.multiplier)) - (exprNetMarketValueLocal(TAX,SECU,SYM,AUE) - exprDayPnLLocal(SECU,TAX,SYM,AUE)),0)
+    										 when  1 then coalesce((SYM.bidPrice * TAX.quantity * TAX.sideMultiplier * (SECU.multiplier)) - (exprNetMarketValueLocal(TAX,SECU,SYM,AUE) - exprDayPnLLocal(SECU,TAX,SYM,AUE)),0)
+    										 end
+    								end
+    };
+
+@Name('ExpressionPercentageAvgVolume')
+@Description('Expression to calculate PercentageAvgVolume')
+create expression exprPercentAvgVolume{ (TAX,SYM)=> 
+										case SYM.avgVolume20Days
+										when 0 then 0.0
+										else
+											coalesce(((TAX.quantity * TAX.sideMultiplier * 100)/ SYM.avgVolume20Days),0)
+										end
+};

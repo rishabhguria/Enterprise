@@ -1,0 +1,42 @@
+module detectionEpl.SubSectorLevelDetection;
+
+
+@Name('SubSectorSummation')
+@Description('This statement validates fund compliance level after each DetectionFrequency sec default')
+on pattern[every timer:interval(DetectionFrequency*2 sec)]
+insert into SubSectorSummation
+select
+	sum(coalesce(F.shortExposureBase, 0)) as shortExposureBase,
+	F.subSector as subSector
+	
+from SymbolWithNav as F
+group by F.subSector;
+
+
+@Name('SubSectorLevelDetection')
+@Description('This statement validates fund compliance level with margin 1%')
+on pattern[every D = SubSectorSummation]
+insert into SubSectorLevelDetection
+select distinct
+	'shortExposureBase' as fieldsTested,
+	ErrorTolerance*100 as tolerancePercentage,
+	'SubSector' as compressionLevel,
+	
+	G.subSector as subSector, 	
+	D.shortExposureBase as actualshortExposureBase,
+	G.shortExposureBase as fundUnderlyingSymbolshortExposureBase,
+	D.shortExposureBase - G.shortExposureBase as difference, 
+	case 
+		when 
+			Math.abs(D.shortExposureBase) < (1 - ErrorTolerance)*Math.abs(G.shortExposureBase) 
+			or Math.abs(D.shortExposureBase) > (1 + ErrorTolerance)*Math.abs(G.shortExposureBase)
+			then true
+		else false
+	end as detectionResult 
+from SubSectorWithNav as G
+where G.subSector = D.subSector
+having
+(
+	Math.abs(D.shortExposureBase) < (1 - ErrorTolerance)*Math.abs(G.shortExposureBase) 
+	or Math.abs(D.shortExposureBase) > (1 + ErrorTolerance)*Math.abs(G.shortExposureBase)
+);

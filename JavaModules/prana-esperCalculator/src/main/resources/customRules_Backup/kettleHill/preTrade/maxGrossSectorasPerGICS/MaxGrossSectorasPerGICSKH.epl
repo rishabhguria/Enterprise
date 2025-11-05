@@ -1,0 +1,36 @@
+module customRules.kettleHill.preTrade.maxGrossSectorasPerGICS.maxGrossSectorasPerGICSKH;
+
+@Name('WhatIfAggregationGrossExposureMFSectorKH')
+@Description('Contains current Exposure for master-fund sector compression')
+on BasketEOM as B
+insert into WhatIfAggregationGrossExposureMFSectorKH
+select distinct
+    B.basketId as basketId,
+	T.userId as userId,
+	sum(coalesce(T.grossExposureBase, 0)) as grossExposureBase,
+	T.sector as sector,
+	T.masterFundName as masterFundName,
+	coalesce(T.masterFundNav, 0) as masterFundNav,
+	"WhatIfMasterFundSymbolWithNav" as parentWindowStream
+from
+WhatIfMasterFundSymbolWithNav as T where T.basketId = B.basketId
+group by T.masterFundId,T.sector;
+
+
+@Name('MFSectorConcentrationKH')
+@Description('Checks if limit is breached')
+insert into MFSectorConcentrationKH
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(Percentage_GrossExposure_KH2) || ValueSeparator || MasterFund_Name_KH2 as threshold,
+	doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ValueSeparator || A.masterFundName as actualResult,
+	'% Gross Exposure' || ValueSeparator || 'MasterFund' as constraintField,
+	coalesce(A.grossExposureBase / A.masterFundNav, 0) > ((Percentage_GrossExposure_KH2)/100) and valueExistsInCSV(A.masterFundName, MasterFund_Name_KH2) as isViolated,
+	'Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0)) || ', Gross Exposure: '||doubleFormat(A.grossExposureBase) || ', Master Fund: '||A.masterFundName || ', Sector: '||A.sector || ', Sector Concentration: '||doubleFormat(coalesce(A.grossExposureBase / A.masterFundNav, 0) * 100 ) || ' %' as parameters,
+	current_timestamp as validationTime,
+	'The Master-Fund Sector concentration is above 40%' as summary,
+	A.masterFundName || '-' || A.sector as dimension
+from WhatIfAggregationGrossExposureMFSectorKH as A
+where A.userId is not null;

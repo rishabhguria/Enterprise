@@ -1,0 +1,45 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>--%>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <title><%=Settings[sModule]["Report_PageTitle"]%></title>
+    <link href="./images/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="./images/jquery.min.js"></script>
+    <script type="text/javascript" src="./images/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="./images/jquery.blockUI.js"></script>
+    <link href="StyleSheet.css" rel="stylesheet" />
+    <style type="text/css">
+        .LoginWelcomeMessage {font-family: times new roman; font-weight: bold; font-size: <%=Settings[sModule]["Report_LoginMessageFont"]%>px; vertical-align:text-top}
+    </style>
+
+    <script type="text/javascript" language="JavaScript">
+        window.status = '';
+        objProcessingImage = new Image();
+        function downloadimages() {
+            objProcessingImage.src = 'images/Processing.jpg';
+        }
+    </script>
+</head>
+
+<body onload="downloadimages()">
+    <div style="width: 950px; margin: 0 auto; padding: 0px;">
+        <div id="divBanner" class="tableBannerbg"></div>
+        <div id="divTopBorder" class="tableTopBorder"></div>
+        <div style="background-color: white;">
+            <form runat="server" id="Customer">
+                <asp:ContentPlaceHolder ID="Main" runat="server">
+                </asp:ContentPlaceHolder>
+            </form>
+            <div id="divBottomBorder" class="tableBottomBorder">
+            </div>
+        </div>
+        <div id="divCopyRight" class="footerText">
+            <%=Settings[sModule]["Report_FooterCopyRightMessage"]%>
+        </div>
+    </div>
+</body>
+</html>

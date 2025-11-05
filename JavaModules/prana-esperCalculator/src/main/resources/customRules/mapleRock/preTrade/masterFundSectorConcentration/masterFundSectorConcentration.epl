@@ -1,0 +1,44 @@
+module customRules.mapleRock.preTrade.masterFundSectorConcentration.masterFundSectorConcentration;
+
+
+
+
+@Name('MasterFundSectorMapleRockWhatIfAggregator')
+@Description('Contains current Exposure for master-fund sector compression.')
+on BasketEOM as B
+insert into MasterFundSectorMapleRockWhatIfAggregator
+select distinct
+	B.basketId as basketId,
+	W.userId as userId,
+	W.netExposureBase as netExposureBase,
+	W.masterFundNav  as masterFundNav,
+	W.masterFundName as masterFundName,
+	W.sector as sector,
+	"WhatIfMasterFundSymbolWithNav" as parentWindowStream
+from WhatIfMasterFundSymbolWithNav as W where W.basketId = B.basketId
+group by W.masterFundId, W.sector;
+
+
+@Name('MasterFundSectorConcentrationPreTrade')
+@Description('Checks if limit is breached.')
+insert into MasterFundSectorConcentrationPreTrade
+select distinct
+	A.basketId as basketId,
+	A.userId as userId,
+	A.basketId as taxlotId,
+	doubleFormat(MasterFundSectorConcentrationMapleRockPreTradeLimit) || ValueSeparator || MasterFund_Name_MRLP || ValueSeparator || 'N/A'  as threshold,
+	doubleFormat(coalesce((100 * A.netExposureBase / A.masterFundNav),0)) || ValueSeparator || A.masterFundName || ValueSeparator || A.sector  as actualResult,
+	'Master Account-Sector Concentration Limit (%)' || ValueSeparator || 'MasterFund' || ValueSeparator || 'Sector' as constraintField,
+	(coalesce((A.netExposureBase / A.masterFundNav),0)) >= (MasterFundSectorConcentrationMapleRockPreTradeLimit / 100) and valueExistsInCSV(A.masterFundName, MasterFund_Name_MRLP) as isViolated,
+	'Master Fund: ' || A.masterFundName
+		|| ', Master Fund NAV: ' || doubleFormat(coalesce(A.masterFundNav, 0))
+		|| ', Sector : ' || A.sector
+		|| ', %age contribution: ' || doubleFormat(coalesce((100 * A.netExposureBase / A.masterFundNav),0)) as parameters,
+	current_timestamp as validationTime,
+	'The Master Fund sector concentration is above ' || doubleFormat(MasterFundSectorConcentrationMapleRockPreTradeLimit) || ' %' as summary,
+	A.masterFundName as dimension
+from
+MasterFundSectorMapleRockWhatIfAggregator as A
+where A.userId is not null;
+
+

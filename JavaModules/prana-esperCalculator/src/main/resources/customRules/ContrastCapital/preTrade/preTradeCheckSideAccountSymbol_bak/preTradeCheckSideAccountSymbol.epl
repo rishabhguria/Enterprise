@@ -1,0 +1,66 @@
+module customRules.nirvana.preTrade.preTradeCheckSideAccountSymbol.preTradeCheckSideAccountSymbol;
+
+
+@Name('PreTradeDetailsAccountSymbol')
+@Description('Contains new trade details with their previous state')
+on pattern [every (T = RowCalculationBaseWindowWhatIfModified)]
+insert into PreTradeDetailsAccountSymbol
+select distinct
+	S.symbol as symbol,
+	S.quantity as preQuantity,
+	T.quantity as tradeQuantity,
+	T.quantity + S.quantity as postQuantity,
+	T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	S.accountShortName as accountShortName,
+	"RowCalculationBaseWindowWhatIfModified,AccountSymbolWithNav" as parentWindowStream
+from
+	AccountSymbolWithNav as S
+where
+	S.symbol = T.symbol and S.accountId = T.accountId; 
+	
+
+@Name('PreTradeDetailsAccountSymbolNot')
+@Description('Contains new trade details with their previous state')
+insert into PreTradeDetailsAccountSymbol
+select distinct
+	T.symbol as symbol,
+	0.0 as preQuantity,
+	T.quantity as tradeQuantity,
+	T.quantity as postQuantity,
+	T.orderSide as orderSide,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	T.userId as userId,
+	T.accountShortName as accountShortName,
+	"RowCalculationBaseWindowWhatIfModified" as parentWindowStream
+from
+	RowCalculationBaseWindowWhatIfModified as T
+where
+	not exists (select * from RowCalculationBaseWindow as S where S.taxlotType <> 'WhatIf' and S.symbol = T.symbol and S.accountId = T.accountId);
+
+
+@Name('PreTradeCheckSideAccountSymbol')
+@Description('Checks if order side is violated.')
+insert into PreTradeCheckSideAccountSymbol
+select
+	cast(T.userId, int) as userId,
+	T.taxlotId as taxlotId,
+	T.basketId as basketId,
+	'N/A' || ValueSeparator || 'N/A' || ValueSeparator || doubleFormat(coalesce(T.preQuantity, 0)) || ValueSeparator || 'N/A' as threshold,
+	T.symbol || ValueSeparator || T.accountShortName || ValueSeparator || doubleFormat(coalesce(T.postQuantity, 0)) || ValueSeparator || T.orderSide as actualResult,
+	'Symbol' || ValueSeparator || 'Account' || ValueSeparator || 'Quantity' || ValueSeparator || 'OrderSide' as constraintField,
+	exprIsInvalidSide(T) as isViolated,
+	'Order Side: '|| T.orderSide || 
+	', Symbol: '|| T.symbol ||
+	', Account: '|| T.accountShortName ||
+	', Quantity before trade: '|| doubleFormat(coalesce(T.preQuantity, 0)) ||
+	', Order quantity: '|| doubleFormat(coalesce(T.tradeQuantity, 0)) ||
+	', Quantity if trade is executed: '|| doubleFormat(coalesce(T.postQuantity, 0)) as parameters,
+	current_timestamp as validationTime,
+	'The Order Side ' || T.orderSide || ' is invalid for this trade' as summary,
+	T.accountShortName|| '-' || T.symbol as dimension
+from
+	PreTradeDetailsAccountSymbol as T;
